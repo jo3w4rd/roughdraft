@@ -4,11 +4,18 @@ Controller controller = new Controller();
 PImage leftCamera;
 HandPoseLibrary library = new HandPoseLibrary();
 HandPoseRecognizer recognizer = new HandPoseRecognizer();
+Hand currentHand = Hand.invalid();
 
 void setup(){
    size(500, 500); 
-   recognizer.library = library;
    controller.setPolicy(Controller.PolicyFlag.POLICY_IMAGES);
+   println("CurrentHand: " + currentHand.fingers().count());
+   Finger finger = new Finger();
+       println("Finger " + finger.type());
+       for(Bone.Type boneType : Bone.Type.values()) {
+         Bone bone = Bone.invalid(); //finger.bone(boneType);
+         println("Is bone valid? " + (bone.isValid() ? " no" : " yes"));
+       }
 }
 
 void draw(){
@@ -17,6 +24,7 @@ void draw(){
   pushMatrix();
   //translate(width/2, height * 3/2, 1);
   Hand hand = frame.hands().get(0);
+  currentHand = hand;
   Matrix handTransform = hand.basis();
   handTransform.setOrigin(hand.palmPosition());
   handTransform = handTransform.rigidInverse();
@@ -33,7 +41,7 @@ void draw(){
             //translate(width * normalized.getX(), height - ( 1 * normalized.getY()));
             ellipse(normalizedN.getX(), normalizedN.getZ(),5,5);
             if(finger.type() == Finger.Type.TYPE_INDEX){
-                println("x: " + normalizedN.getX() + " y: " + normalizedN.getZ() );
+                //println("x: " + normalizedN.getX() + " y: " + normalizedN.getZ() );
             }            
          }
      }        
@@ -74,11 +82,30 @@ void mouseReleased(){
 
 void keyPressed(){
   if(key == 'a'){
-     //Add pose to library 
+     //Add pose to library
+    if(currentHand.isValid()){
+        HandPose pose = new HandPose("Pose_" + library.poses.size(), leftCamera, currentHand);
+        library.add(pose); 
+    } 
   }
   
   if(key == 'c'){
     //Check pose against library
+    if(currentHand.isValid()){
+        HandPose pose = new HandPose(currentHand.toString(), leftCamera, currentHand);
+        PoseCheckResult check = recognizer.recognize(pose, library);
+        println(check.toString());
+    } 
+  }
+  
+    if(key == 't'){
+    //Test library poses against themselves
+    if(library.poses.size() > 0){
+        for(HandPose pose : library.poses){
+          PoseCheckResult check = recognizer.recognize(pose, library);
+          println(check.toString());
+        }
+    } 
   }
 }
 
