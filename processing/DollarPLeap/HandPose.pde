@@ -4,8 +4,14 @@ import java.util.ArrayList;
 public class HandPose{
    public String name;
    public PImage referenceImage;
-   public ArrayList<Vector> jointPositions; 
-  
+   public ArrayList<Vector> jointPositions = new ArrayList<Vector>(); 
+
+   public float displaySize = 5;
+   float top = 600;
+   float bottom = 0;
+   float left = 600;
+   float right = 0;
+   
    public HandPose(String name, PImage img, Hand hand){
       this.name = name;
       this.referenceImage = img;
@@ -25,5 +31,16 @@ public class HandPose{
       }
    }
    public HandPose(){}
-    
+   
+   public void drawPose(){
+      for(Vector joint : jointPositions){
+         ellipse(joint.getX(), joint.getZ(), displaySize, displaySize);
+         //bounding box
+         if(joint.getX() < left) left = joint.getX(); 
+         if(joint.getX() > right) right = joint.getX(); 
+         if(joint.getZ() < top) top = joint.getZ(); 
+         if(joint.getZ() < bottom) bottom = joint.getZ(); 
+         image(referenceImage, left, bottom);
+      } 
+   }
 }
