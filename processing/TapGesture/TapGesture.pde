@@ -13,9 +13,9 @@ void setup(){
    drawGrid();
 
    controller.enableGesture(Gesture.Type.TYPE_KEY_TAP); 
-   controller.config().setFloat("Gesture.KeyTap.MinDownVelocity", 10.0);
-   controller.config().setFloat("Gesture.KeyTap.HistorySeconds", .6);
-   controller.config().setFloat("Gesture.KeyTap.MinDistance", 1.0);
+   controller.config().setFloat("Gesture.KeyTap.MinDownVelocity", 20.0);
+   controller.config().setFloat("Gesture.KeyTap.HistorySeconds", .5);
+   controller.config().setFloat("Gesture.KeyTap.MinDistance", 6.0);
    controller.config().save();
 }
 

@@ -25,9 +25,18 @@ void draw(){
 }
 
 float fingerCurl(Finger finger){
-  Vector metacarpalDirection = finger.jointPosition(Finger.Joint.JOINT_MCP).minus(finger.jointPosition(Finger.Joint.JOINT_PIP));
-  Vector distalPhalangeDirection = finger.jointPosition(Finger.Joint.JOINT_DIP).minus(finger.jointPosition(Finger.Joint.JOINT_TIP));
-  float angle = metacarpalDirection.angleTo(distalPhalangeDirection) * 180/PI;
-  return angle;  
+  Vector metacarpalDirection;
+  if(finger.type() == Finger.Type.TYPE_THUMB) { //Thumb is special
+      metacarpalDirection = finger.bone(Bone.Type.TYPE_INTERMEDIATE).basis().getZBasis().opposite();
+  } else {
+      metacarpalDirection = finger.bone(Bone.Type.TYPE_METACARPAL).basis().getZBasis().opposite();    
+  }
+  Vector distalPhalangeDirection = finger.bone(Bone.Type.TYPE_DISTAL).basis().getZBasis().opposite(); 
+  float rawangle = metacarpalDirection.angleTo(distalPhalangeDirection) * 180/PI;
+  Vector crossBones = metacarpalDirection.cross(distalPhalangeDirection);
+  Vector boneXBasis = finger.bone(Bone.Type.TYPE_METACARPAL).basis().getXBasis(); //lateral basis vector
+  if(finger.hand().isLeft()) boneXBasis = boneXBasis.opposite(); //Left hand uses a left-hand basis
+  int sign = (crossBones.dot(boneXBasis) >= 0) ? 1 : -1;
+  return sign * rawangle;  
 }
 

@@ -27,8 +27,9 @@ public class HandPoseRecognizer{
   {
     float error = 0;
     for(int p = 0; p < joints1.size(); p++){
-        error += joints1.get(p).distanceTo(joints2.get(p));
+        error += Math.pow(joints1.get(p).distanceTo(joints2.get(p)), 2);
     }
+    error = (float)Math.sqrt(error/joints1.size());
     return error;
   }   
 }

@@ -16,8 +16,6 @@ public class CamSwitcher : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.C)) {
 			cam1.enabled = !cam1.enabled;
 			cam2.enabled = !cam2.enabled;
-			Bone bone = Bone.Invalid;
-			Debug.Log (bone.IsValid);
 		}
 	}
 }
