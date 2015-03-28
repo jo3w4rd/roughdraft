@@ -5,16 +5,16 @@ using System.Collections;
 using  System.Collections.Generic;
 using Leap;
 
-public class LeapMotionHandInputModule : BaseInputModule {
+public class LeapMotionHandInputModule : StandaloneInputModule {
 	public HandController handController;
 	public Canvas parentCanvas;
 
 	protected Dictionary<int, PointerEventData> m_PointerData = new Dictionary<int, PointerEventData> ();
 	
 	
-	public override void UpdateModule()
-	{
-	}
+	//public override void UpdateModule()
+	//{
+	//}
 	
 	public override bool IsModuleSupported()
 	{
@@ -22,11 +22,11 @@ public class LeapMotionHandInputModule : BaseInputModule {
 	}
 	
 	public override bool ShouldActivateModule()
-	{		
+	{	
 		if (handController.GetLeapController().Frame().Pointables.Count > 0 ) return true;
 		
 		//else
-		return false;
+		return base.ShouldActivateModule();
 	}
 	
 	protected void UpdatePointerEventData(FingerModel finger){
@@ -39,7 +39,6 @@ public class LeapMotionHandInputModule : BaseInputModule {
 			data.position = Vector2.zero;
 			data.delta = Vector2.zero;
 			m_PointerData.Add (finger.GetLeapFinger().Id, data);
-			Debug.Log ("Adding " + finger.GetLeapFinger().Id);
 		} else {
 			Vector3 tip = finger.GetTipPosition();
 			Vector2 screenTipPos = parentCanvas.worldCamera.WorldToScreenPoint(tip);
@@ -67,7 +66,6 @@ public class LeapMotionHandInputModule : BaseInputModule {
 			}
 		}
 		for(;f >= 0;){
-			Debug.Log ("Removing " + f + " = " + toRemove[f]);
 			m_PointerData.Remove (toRemove[f--]);
 			
 		}
@@ -97,6 +95,6 @@ public class LeapMotionHandInputModule : BaseInputModule {
 			PointerEventData pointerData = kvp.Value;
 			HandlePointerExitAndEnter(pointerData, pointerData.pointerCurrentRaycast.gameObject);
 		}
-
+		base.Process();
 	}   
 }

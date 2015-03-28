@@ -21,8 +21,7 @@ void setup(){
 void draw(){
   background(255, 255, 255);
   Frame frame = controller.frame();
-  pushMatrix();
-  //translate(width/2, height * 3/2, 1);
+  //pushMatrix();
   Hand hand = frame.hands().get(0);
   currentHand = hand;
   Matrix handTransform = hand.basis();
@@ -33,20 +32,15 @@ void draw(){
          Bone bone = finger.bone(boneType);
          Vector transformed = handTransform.transformPoint(bone.prevJoint());
          Vector normalized = normalize(transformed);
-         //translate(width * normalized.getX(), height - ( 1 * normalized.getY()));
          ellipse(normalized.getX(), normalized.getZ(),5,5);
          if(boneType == Bone.Type.TYPE_DISTAL){ //get tip of distal phalanx
             Vector transformedN = handTransform.transformPoint(bone.nextJoint());
             Vector normalizedN = normalize(transformedN);
-            //translate(width * normalized.getX(), height - ( 1 * normalized.getY()));
             ellipse(normalizedN.getX(), normalizedN.getZ(),5,5);
-            if(finger.type() == Finger.Type.TYPE_INDEX){
-                //println("x: " + normalizedN.getX() + " y: " + normalizedN.getZ() );
-            }            
          }
      }        
   }
-  popMatrix();
+  //popMatrix();
   
   ImageList images = frame.images();
   Image leftImage = images.get(0);
