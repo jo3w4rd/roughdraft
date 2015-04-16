@@ -33,7 +33,7 @@ public abstract class HandModel : MonoBehaviour {
   }
 
   // Returns the palm position of the hand in relation to the controller.
-  public Vector3 GetPalmPosition() {
+  public virtual Vector3 GetPalmPosition() {
     return controller_.transform.TransformPoint(hand_.PalmPosition.ToUnityScaled(mirror_z_axis_)) +
            GetHandOffset();
   }
