@@ -41,7 +41,9 @@ public class GameState : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		state = State.INFLATE_BCD_ENTIRELY;
+		// TODO use this when BCD inflate is ready
+		//state = State.INFLATE_BCD_ENTIRELY;
+		state = State.HOLD_DURING_GIANT_STRIDE;
 	}
 	
 	// Update is called once per frame

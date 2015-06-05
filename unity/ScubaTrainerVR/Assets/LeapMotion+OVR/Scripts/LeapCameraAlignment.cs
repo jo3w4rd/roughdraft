@@ -40,12 +40,22 @@ public class LeapCameraAlignment : MonoBehaviour {
 
     Vector3 addIPD = 0.5f * oculusIPD.normalized * (device.baseline - oculusIPD.magnitude) * tween;
     Vector3 toDevice = centerEye.forward * device.focalPlaneOffset * tween;
+		if (HasNaN (leftEye.position) ||
+		    HasNaN (centerEye.position) ||
+		    HasNaN (rightEye.position))
+			// Uninitialized transforms
+			return;
     leftEye.position = leftEye.position - addIPD + toDevice;
     rightEye.position = rightEye.position + addIPD + toDevice;
     centerEye.position = 0.5f * (leftEye.position + rightEye.position);
   }
 
+  bool isOutOfRange(float l) {
+	return l < -1E+20 || l > 1E+20;
+  }
   bool HasNaN(Vector3 v) {
-    return float.IsNaN (v.x) || float.IsNaN (v.y) || float.IsNaN (v.z);
+		var t = float.IsNaN (v.x) || float.IsNaN (v.y) || float.IsNaN (v.z) ||
+			isOutOfRange (v.x) || isOutOfRange (v.y) || isOutOfRange (v.z);
+	return t;
   }
 }

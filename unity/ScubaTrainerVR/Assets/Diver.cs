@@ -33,7 +33,7 @@ public class Diver : MonoBehaviour {
     public float currentBouyancy = 0;
     public float atm = 1;
     public float currentVolume = 0;
-
+	public GameState gameState;
 	// Use this for initialization
 	void Start () {
         bouyancy = gameObject.GetComponent<ConstantForce> ();
@@ -84,7 +84,9 @@ public class Diver : MonoBehaviour {
             scale.y = 1;
             waterPlane.transform.localScale = scale;
         }
-
+		if (gameState.state == GameState.State.VENT_AIR_FREQUENTLY_DURING_ASCENT) {
+			gameState.AdvanceState (GameState.State.YOURE_AT_THE_SURFACE);
+		}
     }
 
     void SetUnderwater () 
@@ -99,6 +101,9 @@ public class Diver : MonoBehaviour {
             scale.y = -1;
             waterPlane.transform.localScale = scale;
         }
+		if (gameState.state == GameState.State.SIGNAL_DESCENT) {
+			gameState.AdvanceState (GameState.State.VENT_BCD_A_BIT_TO_START_DESCENT);
+		}
     }
 
 }
