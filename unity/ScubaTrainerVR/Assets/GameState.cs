@@ -51,19 +51,10 @@ public class GameState : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		showCurrentMessage ();
-		if (Input.GetKeyDown (KeyCode.A)) {
-			AdvanceState ();
-		}
 	}
 
-	public void AdvanceState (State nextState = State.NO_STATE) {
-		if (state != State.FAILURE && state != State.COMPLETE) {
-			if (nextState == State.NO_STATE) {
-				state += 1;
-			} else {
-				state = nextState;
-			}
-		}
+	public void AdvanceState (State nextState) {
+		state = nextState;
 	}
 
 	public void showCurrentMessage () {
