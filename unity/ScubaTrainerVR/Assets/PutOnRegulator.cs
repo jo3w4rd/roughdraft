@@ -7,6 +7,7 @@ public class PutOnRegulator : MonoBehaviour {
 	public GameState gameState;
 	private bool regulatorMoving = false;
 	private Vector3 regulatorPosition;
+	private float secondsBehind = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -15,8 +16,9 @@ public class PutOnRegulator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (regulatorMoving) {
-			if (regulator.transform.position.z > -0.28) {
-				regulator.transform.Translate (0, 0, -Time.deltaTime*0.08f, Space.World);
+			if (secondsBehind < 9) {
+				regulator.transform.Translate (0, Time.deltaTime*0.08f, -Time.deltaTime*0.02f);
+				secondsBehind += Time.deltaTime;
 			} else {
 				regulatorMoving = false;
 				if (gameState.state == GameState.State.SIGNAL_DESCENT) {
@@ -31,6 +33,7 @@ public class PutOnRegulator : MonoBehaviour {
 			gameState.AdvanceState (GameState.State.SIGNAL_DESCENT);
 			regulatorPosition = regulator.transform.position;
 			regulatorMoving = true;
+			secondsBehind = 0;
 		}
 	}
 }
