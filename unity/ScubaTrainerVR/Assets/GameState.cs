@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameState : MonoBehaviour {
+
+	// All the game states:
+
 	public enum State {
-		NO_STATE,
-		INFLATE_BCD_ENTIRELY,
-		HOLD_DURING_GIANT_STRIDE,
-		SIGNAL_DESCENT,
-		VENT_BCD_A_BIT_TO_START_DESCENT,
-		YOURE_AT_THE_BOTTOM,
-		SWIM_AROUND_FOR_A_BIT,
-		VENT_AIR_FREQUENTLY_DURING_ASCENT,
-		YOURE_AT_THE_SURFACE,
-		COMPLETE,
-		FAILURE
+		NO_STATE, // USED IN PLACE OF NULL
+		INFLATE_BCD_ENTIRELY, // TODO activate this at start when we get the player to stay on top of the dock, and hook HOLD_DURING_GIANT_STRIDE when BCD is full. 
+		HOLD_DURING_GIANT_STRIDE, // activated at start
+		SIGNAL_DESCENT, // activated in PutOnRegulator.cs
+		VENT_BCD_A_BIT_TO_START_DESCENT, // activated in Diver.cs & PutOnRegulator.cs, whichever happens first
+		YOURE_AT_THE_BOTTOM, // TODO
+		SWIM_AROUND_FOR_A_BIT, // TODO
+		VENT_AIR_FREQUENTLY_DURING_ASCENT, // activated in Diver.cs
+		YOURE_AT_THE_SURFACE, // activated in Diver.cs
+		FAILURE // NOT USED SINCE THIS IS A SAFETY TRAINER
 	};
 
 	private Dictionary<State, string> stateMessages = new Dictionary<State, string>	{
