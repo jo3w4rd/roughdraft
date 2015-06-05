@@ -27,6 +27,7 @@ public class Diver : MonoBehaviour {
 
     private ConstantForce bouyancy = null;
     private Rigidbody physicsBody = null;
+    //private CharacterController characterController = null;
 
     //inspection variables
     public float currentBouyancy = 0;
@@ -37,6 +38,8 @@ public class Diver : MonoBehaviour {
 	void Start () {
         bouyancy = gameObject.GetComponent<ConstantForce> ();
         physicsBody = gameObject.GetComponent<Rigidbody> ();
+        //characterController = gameObject.GetComponent<CharacterController> ();
+
         CurrentLungVolume = MaxLungVolume;
         CurrentBCDVolume = MaxBCDVolume/3;
         CurrentWetsuitAirVolume = MaxWetsuitAirVolume;
@@ -56,14 +59,17 @@ public class Diver : MonoBehaviour {
             SetNormal ();
         }
         if (isUnderwater) {
-            atm = Mathf.Abs (transform.position.y / 10);
+            atm = 1 + Mathf.Abs (transform.position.y / 10);
             currentVolume = StaticBodyVolume + (CurrentLungVolume + CurrentBCDVolume + CurrentWetsuitAirVolume) / atm;
             currentBouyancy = currentVolume * WaterWeight - (EquipmentWeight + WeightBelt + BodyWeight);
             bouyancy.relativeForce = new Vector3 (0, currentBouyancy, 0);
+            //characterController.Move (new Vector3 (0, currentBouyancy * Time.deltaTime, 0));
+           
         } else {
             bouyancy.relativeForce = new Vector3 (0, 0, 0);
             atm = 1;
         }
+
 	}
 
     void SetNormal () 
@@ -71,7 +77,7 @@ public class Diver : MonoBehaviour {
         Debug.Log("Normal");
         RenderSettings.fogColor = normalFogColor;
         RenderSettings.fogDensity = 0.05f;
-        physicsBody.useGravity = true;
+        //physicsBody.useGravity = true;
         bouyancy.enabled = false;
         if (waterPlane) {
             Vector3 scale = waterPlane.transform.localScale;
@@ -86,7 +92,7 @@ public class Diver : MonoBehaviour {
         Debug.Log("Underwater");
         RenderSettings.fogColor = underwaterFogColor;
         RenderSettings.fogDensity = 0.03f;
-        physicsBody.useGravity = false;
+        //physicsBody.useGravity = false;
         bouyancy.enabled = true;
         if (waterPlane) {
             Vector3 scale = waterPlane.transform.localScale;
