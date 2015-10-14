@@ -35,8 +35,8 @@ void draw(){
     float x = tip.getX() * width;
     float y = height - tip.getY() * height;
     float brushSize = maxBrushSize - maxBrushSize * tip.getZ();
-    float xBrushSize = maxBrushSize - (float)Math.sin(pointer.direction().pitch()) * brushSize;
-    float yBrushSize = maxBrushSize - (float)Math.sin(pointer.direction().yaw()) * brushSize;
+    float xBrushSize = maxBrushSize - (float)Math.sin(pointer.direction().yaw()) * brushSize;
+    float yBrushSize = maxBrushSize - (float)Math.sin(pointer.direction().pitch()) * brushSize;
 
     if(isDrawing){
       canvas.beginDraw();

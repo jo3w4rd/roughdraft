@@ -7,7 +7,7 @@ public class ButtonDebugger : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("Click");
+		Debug.Log ("Button Enabled");
 	}
 	
 	// Update is called once per frame
@@ -16,12 +16,18 @@ public class ButtonDebugger : MonoBehaviour {
 
 	public void OnPointerClick(){
 
-		Debug.Log ("Click");
+		Debug.Log ("Pointer Click");
 	}
 
 	public void OnClick(float number){
 		
-		Debug.Log ("Click");
+		Debug.Log ("Normal Click");
 	}
 	
+	public void OnCollisionEnter(Collision collision){
+		Debug.Log ("Button collision");
+	}
+	void OnTriggerEnter(Collider other) {
+		Debug.Log ("Button trigger");
+	}
 }
