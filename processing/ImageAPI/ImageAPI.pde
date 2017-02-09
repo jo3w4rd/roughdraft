@@ -9,7 +9,6 @@ int b = 0;
 
 void setup(){
 controller.setPolicy(Controller.PolicyFlag.POLICY_IMAGES);
-controller.setPolicyFlag(1 << 15);
 size(1280,480);
 }
 

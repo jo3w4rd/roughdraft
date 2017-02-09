@@ -10,9 +10,12 @@ int lineHeight = 20;
 void setup(){
   size(displayWidth, displayHeight);
   Config config = controller.config();
-  config.setString("screen_calibration0", "{\"screen_calibration0\" : [10.0, 10.0, 10.0, 20.0, 50.0, 20.0, 200.0, 30.0, 30.0]}");
+  //config.setString("screen_calibration0", "[10.0, 10.0, 10.0, 20.0, 50.0, 20.0, 200.0, 30.0, 30.0]");
   config.setBool("screen_detected",true);
   System.out.println(config.save());
+  
+  String screendef = config.getString("screen_calibration0");
+  System.out.println(screendef);
 }
 
 void draw(){
@@ -35,7 +38,7 @@ void draw(){
     fill(color(0,255,0));
     ellipse(normPosition.getX() * displayWidth, displayHeight * (1 - normPosition.getY()), 20, 20);
     
-    System.out.println("Screens: " + controller.locatedScreens().count());
+    //System.out.println("Screens: " + controller.locatedScreens().count());
     Screen screen = controller.locatedScreens().get(0);
     Vector intersection = screen.intersect(frame.pointables().frontmost(), true);
     fill(color(255,0,0));

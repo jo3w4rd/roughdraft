@@ -12,13 +12,13 @@ public class BoneObject{
     this.relativeTransform = relative;
     this.parent = parent;
     this.fingerIdx = fingerIdx;
-    this.boneIdx = boneIdx
+    this.boneIdx = boneIdx;
   }
 
    public BoneObject(int parentIdx, int fingerIdx, Bone parent, Bone bone){
      this.parent = parentIdx;
     this.fingerIdx = fingerIdx;
-    this.boneIdx = bone.type().value();
+    this.boneIdx = bone.type().ordinal();
      this.absoluteTransform = bone.basis();
      this.absoluteTransform.setOrigin(bone.prevJoint());
      //Matrix temp = Matrix.identity();
@@ -29,13 +29,13 @@ public class BoneObject{
    
       public BoneObject(int parentIdx, int fingerIdx, Matrix parentBasis, Vector parentPosition, Bone bone){
          this.fingerIdx = fingerIdx;
-         this.boneIdx = bone.type().value();
+         this.boneIdx = bone.type().ordinal();
        
       }
       public BoneObject(int parentIdx, Matrix parentBasis, Vector parentPosition, Matrix boneBasis, Vector bonePosition){
-          this.parent = parenIdx;
+          this.parent = parentIdx;
           this.fingerIdx = fingerIdx;
-          this.boneIdx = bone.type().value();
+          //this.boneIdx = bone.type().ordinal();
           Matrix parentTransform = new Matrix(parentBasis);
           parentTransform.setOrigin(parentPosition);
           Matrix boneTransform = boneBasis;

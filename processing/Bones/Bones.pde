@@ -98,7 +98,7 @@ void setBindPose(Frame frame){
       Finger finger = hand.fingers().get(f);
       Bone prevBone = finger.bone(Bone.Type.TYPE_METACARPAL);
       skeleton.add(new BoneObject(0, hand.basis(), hand.palmPosition(), prevBone.basis(), prevBone.prevJoint()));
-      int parentIndex = skeleton.length();
+      int parentIndex = skeleton.size();
       for( int b = 1; b < 4; b++){
         Bone bone = finger.bone(intToBoneType(b));
         skeleton.add(new BoneObject(parentIndex + b - 1, prevBone.basis(), prevBone.prevJoint(), bone.basis(), bone.prevJoint()));

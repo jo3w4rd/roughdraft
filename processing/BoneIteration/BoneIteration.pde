@@ -20,7 +20,7 @@ void draw(){
         for(Bone.Type bones : Bone.Type.values())
         {
            Bone bone = finger.bone(bones);
-           System.out.println("        " + bonenames[bone.type().ordinal()] + " " + bone.nextJoint());
+           System.out.println("        " + bonenames[bone.type().ordinal()] + " " + bone.basis().getOrigin());
         } 
      }
   }
