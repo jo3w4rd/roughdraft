@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Designing Tutorials for Adaptability </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Designing Tutorials for Adaptability ">
+    <meta name="generator" content="docfx 2.34.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                <ul class="nav level1 navbar-nav">
+                  <li class="active">
+                    <a href="../articles/GettingStarted.html" title="Manual" class="active">Manual</a>
+                  </li>
+                  <li class="">
+                    <a href="../api/UnityEngine.Analytics.html" title="Script Reference" class="">Script Reference</a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <a href="GettingStarted.html" title="Getting Started" class="">Getting Started</a>
+                    </li>
+                    <li class="active">
+                      <a href="DesigningTutorials.html" title="Designing Adaptable Tutorials" class="active">Designing Adaptable Tutorials</a>
+                    </li>
+                    <li class="">
+                      <a href="ImplementingTutorials.html" title="Implementing Tutorials" class="">Implementing Tutorials</a>
+                    </li>
+                    <li class="">
+                      <a href="PlayingTutorials.html" title="Playing Tutorials" class="">Playing Tutorials</a>
+                    </li>
+                    <li class="">
+                      <a href="ManagingTutorials.html" title="Managing Your Tutorials" class="">Managing Your Tutorials</a>
+                    </li>
+                    <li class="">
+                      <a href="TutorialReports.html" title="Tutorial Reports" class="">Tutorial Reports</a>
+                    </li>
+                    <li class="">
+                      <a href="Components.html" title="Tutorial Manager Components" class="">Tutorial Manager Components</a>
+                    </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="designing-tutorials-for-adaptability">Designing Tutorials for Adaptability</h1>
+
+<p>Consider the following when planning your tutorial code:</p>
+<ul>
+<li><p>Adaptive components work by turning game objects on (<code>gameObject.SetActive(true)</code>) when a tutorial step starts and turning them off when that step is complete. </p>
+</li>
+<li><p>You can initiate any dynamic sequences within a step using MonoBehaviour events. For example, Unity invokes <code>OnEnable</code> when a GameObject is turned on.</p>
+</li>
+<li><p>You can bind adaptive components to more than one tutorial step to share GameObjects across multiple steps and multiple tutorials.</p>
+</li>
+<li><p>Child GameObjects are only enabled when their parent GameObject is enabled, so be careful when nesting adaptive content. </p>
+</li>
+<li><p>The Tutorial Manager automatically creates a remote text field for <a href="Components.html#adaptive-text-component">AdaptiveText</a> components, which you can use to revise the text even after your game is live.</p>
+</li>
+<li><p>Only one AdaptiveText component is supported per tutorial step. You can use <a href="Components.html#adaptive-content-component">AdaptiveContent</a> components for additional tutorial text elements, but remote fields are not created for such elements.</p>
+</li>
+<li><p>AdaptiveContent components have an option, <strong>Respect ‘off’ decision</strong>, which you can use to show portions of a tutorial even when the Tutorial Manager decision engine determines that a tutorial should not be shown to the current player. If you play a tutorial step associated with a component that respects the off decision, that component only turns on when the Tutorial Manager has decided the tutorial should be shown. If a component does not respect the off decision, then that component turns on whenever the associated tutorial step is played, no matter which decision has been made about showing the tutorial. </p>
+</li>
+<li><p>Each tutorial has a limit of 50 steps.</p>
+</li>
+<li><p>It is your responsibility to keep track of which tutorials have been completed if your game has more than one tutorial. The Tutorial Manager only keeps track of the most recent tutorial you started.</p>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
