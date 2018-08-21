@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Tutorial Reports </title>
+    <title>Adaptive Text Component </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Tutorial Reports ">
+    <meta name="title" content="Adaptive Text Component ">
     <meta name="generator" content="docfx 2.34.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -91,8 +91,8 @@
                     <li class="">
                       <a href="ManagingTutorials.html" title="Managing Your Tutorials" class="">Managing Your Tutorials</a>
                     </li>
-                    <li class="active">
-                      <a href="TutorialReports.html" title="Tutorial Reports" class="active">Tutorial Reports</a>
+                    <li class="">
+                      <a href="TutorialReports.html" title="Tutorial Reports" class="">Tutorial Reports</a>
                     </li>
                     <li class="">
                       <a href="TutorialEditorWindow.html" title="Tutorial Editor Window" class="">Tutorial Editor Window</a>
@@ -100,8 +100,8 @@
                     <li class="">
                       <a href="AdaptiveContentComponent.html" title="Adaptive Content Components" class="">Adaptive Content Components</a>
                     </li>
-                    <li class="">
-                      <a href="AdaptiveTextComponent.html" title="Adaptive Text Components" class="">Adaptive Text Components</a>
+                    <li class="active">
+                      <a href="AdaptiveTextComponent.html" title="Adaptive Text Components" class="active">Adaptive Text Components</a>
                     </li>
                   </ul>        </div>
               </div>
@@ -111,18 +111,69 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="tutorial-reports">Tutorial Reports</h1>
+<h1 id="adaptive-text-component">Adaptive Text Component</h1>
 
-<p>The Tutorial Manager dashboard provides two reports, the <strong>Retention report</strong> and the <strong>Tutorial funnel</strong>.</p>
-<h2 id="retention-report">Retention Report</h2>
-<p>The Retention report compares retention results between a control group and test group (the Tutorial Manager group). Players in the control group always see the default tutorial (essentially, <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_">GetDecision()</a> always returns true). Players in the test group receive a decision made by the Tutorial Manager machine learning algorithm. Some players will see the default tutorial (<code>GetDecision()</code> returns true); other players will see no tutorial — or your alternate tutorial, depending on your implementation (<code>GetDecision()</code> returns false). </p>
-<p><img src="../images/tm_5.png" alt=""></p>
-<p><em>The Retention report</em></p>
-<h2 id="tutorial-funnel">Tutorial Funnel</h2>
-<p>For each tutorial that you create using the Tutorial Editor window, the Tutorial Manager dashboard automatically creates a funnel report. A funnel displays the percentage of player progress from one step to the next. The Tutorial Manager funnel report compares the conversion of players in the control group to that of players in the test (Tutorial Manager) group.</p>
-<p><img src="../images/tm_6.png" alt=""></p>
-<p><em>The Tutorial funnel</em></p>
-<p><strong>Note:</strong> If you set up a tutorial so that it is only played when <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_">TutorialManager.GetDecision()</a> returns false, then players in the control group will never see that tutorial. Thus the funnel reports will show zero players from the control group for such tutorials. </p>
+<p>The AdaptiveText component extends the AdaptiveContent class. In addition to controlling whether its GameObject is active, the AdaptiveText component also controls the text of a Text, Text Mesh, or Text Mesh Pro component attached to the same GameObject. </p>
+<p><strong>Important:</strong> To use Tutorial Manager with TextMeshPro, you must add the TEXTMESHPRO_PRESENT scripting define symbol:</p>
+<ol>
+<li><p>Open the Player Settings window (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong> &gt; <strong>Player</strong>).</p>
+</li>
+<li><p>Click to open the <strong>Other Settings</strong> section, if necessary.</p>
+</li>
+<li><p>Under Configuration, enter <code>TEXTMESHPRO_PRESENT</code> into the Scripting Define Symbols text box.</p>
+<p> <img src="../images/tm_10.png" alt=""></p>
+</li>
+</ol>
+<p>When you push your tutorial configuration to the Tutorial Manager service, the Tutorial Manager creates a remote text field on the Tutorial Manager dashboard for each AdaptiveText component. At runtime, the value of the remote field takes precedence over the value entered in the Unity Editor. Use the <strong>Push</strong> and <strong>Pull Data</strong> buttons on the Tutorial Editor window to keep the text in your Unity project in sync with the text in the dashboard.</p>
+<p>Only bind a single AdaptiveText component to any individual tutorial step. (If you bind multiple AdaptiveText components to a step, the text of all of these components is updated to the value of the same remote text field.) If you need more than one text component for a step, you can use AdaptiveContent components instead. However, only the text associated with the (single) AdaptiveText component can be updated remotely from the Tutorial Manager dashboard. </p>
+<p>See <a href="ManagingTutorials.html#managing-your-adaptive-text">Managing your Adaptive Text</a> for information about controlling the text associated with an AdaptiveText component using the Tutorial Manager dashboard.</p>
+<h2 id="adaptivetext-properties">AdaptiveText properties</h2>
+<p>The AdaptiveText component is a subclass of AdaptiveContent.</p>
+<p><img src="../images/tm_9.png" alt=""></p>
+<p><em>A GameObject with an AdaptiveContent component</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Element</th>
+<th style="text-align:left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Binding Keys</td>
+<td style="text-align:left">Each key binds the AdaptiveComponent to a tutorial and step. (Enter the keys for your tutorials and steps on the Tutorial Editor window.)</td>
+</tr>
+<tr>
+<td style="text-align:left">Binding +, - buttons</td>
+<td style="text-align:left">Click + to add bind the component to an additional tutorial step. Click - to remove a binding. Each component must have a minimum of one binding.</td>
+</tr>
+<tr>
+<td style="text-align:left">Respect ‘off’ decision</td>
+<td style="text-align:left">When checked (true), the associated text objects are only enabled when the Tutorial Manager has decided the default tutorial should be shown (TutorialManager.GetDecision() returns true). When unchecked (false), the associated text objects are enabled whenever the tutorial step is started by the Tutorial Manager.</td>
+</tr>
+<tr>
+<td style="text-align:left">Ignore if remote is empty</td>
+<td style="text-align:left">When checked, the Tutorial Manager does not update the associated text component if the remote field contains an empty string. <br><br>When unchecked, entering an empty string into the remote field removes the text from the text component.<br><br>The Ignore if remote is empty setting applies both at runtime and when you pull data from the service.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="add-adaptivetext-components-to-your-tutorials">Add AdaptiveText Components to Your Tutorials</h2>
+<p>Once you have defined your tutorial outline, you can optionally add adaptive components to your tutorial. Put an AdaptiveText component on any tutorial GameObjects that contain a Text, TextMesh, or TextMeshPro object; use an AdaptiveContent component for other GameObjects.</p>
+<p><strong>To add an AdaptiveText component:</strong></p>
+<ol>
+<li><p>Select the GameObject in your scene <strong>Hierarchy</strong>.</p>
+</li>
+<li><p>In the <strong>Inspector</strong> window, click <strong>Add Component</strong>.</p>
+</li>
+<li><p>Click <strong>Analytics</strong> in the <strong>Add Component</strong> menu.</p>
+</li>
+<li><p>If the GameObject contains a Text, TextMesh, or TextMeshPro component, select the <strong>AdaptiveText</strong> component; (otherwise, use an <a href="AdaptiveContentComponent.html">AdaptiveContent</a> component).</p>
+</li>
+<li><p>Bind the component to a tutorial and step using the <strong>Binding Keys</strong> list. </p>
+</li>
+<li><p>To bind a GameObject to more than one tutorial step, click the <strong>+</strong> button next to the <strong>Binding Keys</strong> property.</p>
+</li>
+</ol>
 </article>
           </div>
           

@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Tutorial Reports </title>
+    <title>Adaptive Content Component </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Tutorial Reports ">
+    <meta name="title" content="Adaptive Content Component ">
     <meta name="generator" content="docfx 2.34.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -91,14 +91,14 @@
                     <li class="">
                       <a href="ManagingTutorials.html" title="Managing Your Tutorials" class="">Managing Your Tutorials</a>
                     </li>
-                    <li class="active">
-                      <a href="TutorialReports.html" title="Tutorial Reports" class="active">Tutorial Reports</a>
+                    <li class="">
+                      <a href="TutorialReports.html" title="Tutorial Reports" class="">Tutorial Reports</a>
                     </li>
                     <li class="">
                       <a href="TutorialEditorWindow.html" title="Tutorial Editor Window" class="">Tutorial Editor Window</a>
                     </li>
-                    <li class="">
-                      <a href="AdaptiveContentComponent.html" title="Adaptive Content Components" class="">Adaptive Content Components</a>
+                    <li class="active">
+                      <a href="AdaptiveContentComponent.html" title="Adaptive Content Components" class="active">Adaptive Content Components</a>
                     </li>
                     <li class="">
                       <a href="AdaptiveTextComponent.html" title="Adaptive Text Components" class="">Adaptive Text Components</a>
@@ -111,18 +111,61 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="tutorial-reports">Tutorial Reports</h1>
+<h1 id="adaptive-content-component">Adaptive Content Component</h1>
 
-<p>The Tutorial Manager dashboard provides two reports, the <strong>Retention report</strong> and the <strong>Tutorial funnel</strong>.</p>
-<h2 id="retention-report">Retention Report</h2>
-<p>The Retention report compares retention results between a control group and test group (the Tutorial Manager group). Players in the control group always see the default tutorial (essentially, <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_">GetDecision()</a> always returns true). Players in the test group receive a decision made by the Tutorial Manager machine learning algorithm. Some players will see the default tutorial (<code>GetDecision()</code> returns true); other players will see no tutorial — or your alternate tutorial, depending on your implementation (<code>GetDecision()</code> returns false). </p>
-<p><img src="../images/tm_5.png" alt=""></p>
-<p><em>The Retention report</em></p>
-<h2 id="tutorial-funnel">Tutorial Funnel</h2>
-<p>For each tutorial that you create using the Tutorial Editor window, the Tutorial Manager dashboard automatically creates a funnel report. A funnel displays the percentage of player progress from one step to the next. The Tutorial Manager funnel report compares the conversion of players in the control group to that of players in the test (Tutorial Manager) group.</p>
-<p><img src="../images/tm_6.png" alt=""></p>
-<p><em>The Tutorial funnel</em></p>
-<p><strong>Note:</strong> If you set up a tutorial so that it is only played when <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_">TutorialManager.GetDecision()</a> returns false, then players in the control group will never see that tutorial. Thus the funnel reports will show zero players from the control group for such tutorials. </p>
+<p>Add AdaptiveContent components to allow the Tutorial Manager to control your tutorial GameObjects. Each component has a <strong>Binding Keys</strong> property that you use to bind its parent GameObject to one or more tutorial steps. As the player advances through a tutorial, the Tutorial Manager turns the bound GameObjects on and off (<code>gameObject.SetActive(true)</code> or <code>gameObject.SetActive(false)</code>). </p>
+<p>You can initiate any dynamic sequences within a step using MonoBehaviour events. For example, Unity invokes <code>OnEnable</code> when a GameObject is turned on. Remember that child GameObjects are only enabled when their parent GameObject is enabled, so be careful when nesting adaptive content. </p>
+<p>You can bind adaptive components to more than one tutorial step to share GameObjects across multiple steps and multiple tutorials. </p>
+<p>By default, adaptive components are never turned on when the decision returned by <code>GetDecision()</code> is false. You can use the <strong>Respect ‘off’ decision</strong> property to control this behavior:</p>
+<ul>
+<li>If you set a component&#39;s <strong>Respect ‘off’ decision</strong> property to true, that component only turns on when the Tutorial Manager has decided the tutorial should be shown (<code>GetDecision()</code> returns true). </li>
+<li>If you set the property to false, then that component turns on whenever the associated tutorial step is played, no matter which decision has been made about showing the tutorial. </li>
+</ul>
+<p><strong>Note:</strong> Using AdaptiveContent components is optional. </p>
+<h2 id="adaptivecontent-properties">AdaptiveContent properties</h2>
+<p>The AdaptiveContent component turns on its parent GameObject when the Tutorial Manager starts one of the tutorial steps to which it is bound and turns it off when the step is complete. </p>
+<p><img src="../images/tm_8.png" alt=""></p>
+<p><em>A GameObject with an AdaptiveContent component</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Element</th>
+<th style="text-align:left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Binding Keys</td>
+<td style="text-align:left">Each key binds the AdaptiveComponent to a tutorial and step. (Enter the keys for your tutorials and steps on the Tutorial Editor window.)</td>
+</tr>
+<tr>
+<td style="text-align:left">Binding +, - buttons</td>
+<td style="text-align:left">Click + to add bind the component to an additional tutorial step. Click - to remove a binding. Each component must have a minimum of one binding.</td>
+</tr>
+<tr>
+<td style="text-align:left">Respect ‘off’ decision</td>
+<td style="text-align:left">When checked (true), the associated GameObjects are only enabled when the Tutorial Manager has decided the default  tutorial should be shown (TutorialManager.GetDecision() returns true). When unchecked (false), the associated GameObjects are enabled whenever the tutorial step is started by the Tutorial Manager.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="add-an-adaptivecontent-component">Add an AdaptiveContent Component</h2>
+<p>Once you have defined the steps of your tutorial configuration, you can add adaptive components and bind them to one or more steps. The Tutorial Manager turns the adaptive components in your tutorial on and off as players advance through your tutorial. </p>
+<p><strong>Note:</strong> The Tutorial Manager turns off any GameObjects containing adaptive components when the scene loads (using <code>GameObject.SetActive(false)</code>) and turns them back on when the bound tutorial steps are played. Since Unity automatically disables child objects with their parents, avoid nesting adaptive components. (Nesting components can lead to the wrong behavior when you bind them to multiple tutorial steps.)</p>
+<p><strong>To add an AdaptiveContent component:</strong></p>
+<ol>
+<li><p>Select the GameObject in your scene <strong>Hierarchy</strong>.</p>
+</li>
+<li><p>In the <strong>Inspector</strong> window, click <strong>Add Component</strong>.</p>
+</li>
+<li><p>Click <strong>Analytics</strong> in the <strong>Add Component</strong> menu.</p>
+</li>
+<li><p>Pick the <strong>AdaptiveContent</strong> component.</p>
+</li>
+<li><p>Bind the component to a tutorial and step using the <strong>Binding Keys</strong> list. </p>
+</li>
+<li><p>To bind a GameObject to more than one tutorial step, click the <strong>+</strong> button next to the <strong>Binding Keys</strong> property.</p>
+</li>
+</ol>
 </article>
           </div>
           

@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Unity Analytics Tutorial Manager </title>
+    <title>Test for permalinks </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Unity Analytics Tutorial Manager ">
+    <meta name="title" content="Test for permalinks ">
     <meta name="generator" content="docfx 2.34.0.0">
     
     <link rel="shortcut icon" href="favicon.ico">
@@ -71,35 +71,31 @@
         <div class="article row grid">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="test-for-permalinks">Test for permalinks</h1>
 
-<script>
-var permalink = {
-    getdecision : "api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision",
-    tutorialmanager: "api/UnityEngine.Analytics.TutorialManager.html"
-};
-var url_hash = window.location.hash.substr(1);
-
-if(permalink.hasOwnProperty(url_hash)){
-    window.location = permalink[url_hash];
-}
-</script>
-
-<p><a name="tutorialmanager" id="tutorialmanager" class='anchor'></a>
-<a name="getdecision" id="getdecision" class='anchor'></a></p>
-<h1 id="unity-analytics-tutorial-manager">Unity Analytics Tutorial Manager</h1>
-<p>The onboarding process is the most critical part of your game. Players who churn won’t be around to experience all your great content, let alone monetize. The traditional approach – for those who even get this far – has been to optimize the tutorial for the majority of players, yielding at best a one-size-fits-all onboarding flow. At the same time, tutorials themselves tend to be developed at the last minute in a project, becoming a brittle pile of spaghetti code.</p>
-<p>We can do better:</p>
 <ul>
-<li><p>Leveraging our vast pool of game data, Unity can differentiate a player who needs a little more help from the player who wants to charge straight into the action. Unity Analytics collects data as players play your game and trains a machine learning model to predict whether individuals like your game better with more help or less help.</p>
-</li>
-<li><p>To help you avoid writing last minute, spaghetti code, the Tutorial Manager provides a state-machine-based API. This state machine lets you define the high-level structure of your tutorials and then advance the state as the player completes a tutorial using a few, simple API calls.</p>
-</li>
-<li><p>The Tutorial Manager dashboard helps you manage your live tutorials, update tutorial text remotely, and view reports on tutorial effectiveness.</p>
-</li>
+<li><a href="index.html#tutorialmanager">TutorialManager</a></li>
+<li><a href="index.html#getdecision">TutorialManager.GetDecision()</a></li>
 </ul>
-<p>With just a quick integration, the Tutorial Manager can put you on the road to optimizing your game one player at time!</p>
-<p><br><br>
-<p style="text-align:right; font-size:130%;"><a href="articles/QuickStart.html">—&gt; Get Started!</a></p></p>
+<h2 id="what">What?</h2>
+<p>A permalink uses an anchor on index.md to redirect to a location elsewhere in the document.</p>
+<h2 id="why">Why?</h2>
+<p>This decouples external links on the dashboard from the internal structure of the documentation files and folders.</p>
+<h2 id="how">How?</h2>
+<p>To add a permanent link to an anchor inside the docs:</p>
+<ol>
+<li>Define the anchor in that doc.</li>
+<li><p>Add a mapping element to the <code>permalink</code> object defined at the top of index.md. Such as:</p>
+<pre><code> defaultql : &quot;articles/DashboardConfigurations.html#defaultql&quot;,
+</code></pre><p> a. The key is the permanent anchor.
+ b. the value is the URL relative to index.md.</p>
+</li>
+<li><p>Add the key as an anchor to index.md. (This is just to prevent doc build errors complaining about missing links in the file.)</p>
+<pre><code> &lt;a name=&quot;defaultql&quot; id=&quot;#defaultql&quot; class=&#39;anchor&#39;&gt;&lt;/a&gt;
+</code></pre></li>
+<li><p>Add a test link to the list above so we can easily make sure all the links work after making a build.</p>
+</li>
+</ol>
 </article>
           </div>
           

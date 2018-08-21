@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Implementing Adaptive Tutorials </title>
+    <title>Tutorial Editor Window </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Implementing Adaptive Tutorials ">
+    <meta name="title" content="Tutorial Editor Window ">
     <meta name="generator" content="docfx 2.34.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -85,12 +85,6 @@
                     <li class="">
                       <a href="QuickStart.html" title="Quick Start" class="">Quick Start</a>
                     </li>
-                    <li class="active">
-                      <a href="ImplementingTutorials.html" title="Implementing Tutorials" class="active">Implementing Tutorials</a>
-                    </li>
-                    <li class="">
-                      <a href="DesigningTutorials.html" title="Designing Adaptable Tutorials" class="">Designing Adaptable Tutorials</a>
-                    </li>
                     <li class="">
                       <a href="PlayingTutorials.html" title="Playing Tutorials" class="">Playing Tutorials</a>
                     </li>
@@ -100,8 +94,14 @@
                     <li class="">
                       <a href="TutorialReports.html" title="Tutorial Reports" class="">Tutorial Reports</a>
                     </li>
+                    <li class="active">
+                      <a href="TutorialEditorWindow.html" title="Tutorial Editor Window" class="active">Tutorial Editor Window</a>
+                    </li>
                     <li class="">
-                      <a href="Components.html" title="Tutorial Manager Components" class="">Tutorial Manager Components</a>
+                      <a href="AdaptiveContentComponent.html" title="Adaptive Content Components" class="">Adaptive Content Components</a>
+                    </li>
+                    <li class="">
+                      <a href="AdaptiveTextComponent.html" title="Adaptive Text Components" class="">Adaptive Text Components</a>
                     </li>
                   </ul>        </div>
               </div>
@@ -111,39 +111,85 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="implementing-adaptive-tutorials">Implementing Adaptive Tutorials</h1>
+<h1 id="tutorial-editor-window">Tutorial Editor Window</h1>
 
-<p>There are two approaches to integrating the Tutorial Manager into your game. The first approach is to develop your tutorial as you always have and add the Tutorial Manager API calls to take advantage of the Tutorial Manager decision engine and reporting events. This approach works well if you already have existing tutorials.</p>
-<p>The second approach relies on the state machine built into the Tutorial Manager plugin to reduce the amount of &quot;spaghetti&quot; code required to create a tutorial. Under this second approach, you build the steps of your tutorial independently and attach adaptive components to the steps. The Tutorial Manager, then, takes care of turning the correct GameObjects on and off as the player makes their way through the tutorial.</p>
-<h2 id="overview">Overview</h2>
-<p>The Tutorial Manager is supported for PC, iOS and Android projects. You can use Unity 5.5 or newer. You must enable Unity Analytics.</p>
-<ol>
-<li><p>Import the Tutorial Manager Asset Package into your project (menu: <strong>Assets</strong> &gt; <strong>Import Package</strong> &gt; <strong>Custom Package</strong>).</p>
-</li>
-<li><p>If not already enabled, turn on Unity Analytics from the Services window (menu: <strong>Window</strong> &gt; <strong>Services</strong>). </p>
-</li>
-<li><p>Create your tutorial GameObjects… For tips on designing tutorials that work with the Tutorial Manager, see <a href="DesigningTutorials.html">Designing Tutorials for Adaptability</a>.</p>
-</li>
-<li><p>Open the <strong>Tutorial Editor</strong> window (menu: <strong>Window</strong> &gt; <strong>Unity Analytics</strong> &gt; <strong>Tutorial Editor</strong>).</p>
-</li>
-<li><p>Enter the Tutorial structure into the window. See <a href="ImplementingTutorials.html#creating-the-tutorial-state-model">Creating the Tutorial State Model</a>.</p>
-</li>
-<li><p>Click the <strong>Push Data</strong> button on the <strong>Tutorial Editor</strong> window to send your tutorial data to the Analytics service.</p>
-</li>
-<li><p>Add code to play your tutorials at appropriate points in your game. See <a href="PlayingTutorials.html">Playing Tutorials</a>.</p>
-</li>
-<li><p>If you are using the Tutorial Manager state machine:</p>
-<ol>
-<li><p>Add <a href="Components.html#adaptive-content-component">AdaptiveContent</a> components to any GameObjects that should be turned on when you play a tutorial step and off when the step completes. </p>
-</li>
-<li><p>Add <a href="Components.html#adaptive-text-component">AdaptiveText</a> components to any tutorial GameObjects with Text, Text Mesh or Text Mesh Pro components. (Note that you should only use one AdaptiveText component per tutorial step.)</p>
-<p>See <a href="ImplementingTutorials.html#add-adaptive-components-to-your-tutorials">Add Adaptive Components to Your Tutorials</a> for more information.</p>
-</li>
-</ol>
-</li>
-</ol>
-<h2 id="creating-the-tutorial-state-model">Creating the Tutorial State Model</h2>
-<p>Use the <a href="Components.html#tutorial-editor-window">Tutorial Editor window</a> to create a state model that outlines the steps of each of your adaptive tutorials:</p>
+<p>Use the <strong>Tutorial Editor</strong> window to create and edit the tutorial configuration that describes the steps of your tutorials.</p>
+<p>When the configuration is finished, the <strong>Tutorial Editor</strong> allows you to upload the configuration to the Tutorial Manager service. You can also pull any remote changes made to the configuration back to the editor.</p>
+<p>Open the Tutorial Editor window with the menu: <strong>Window</strong> &gt; <strong>Unity Analytics</strong> &gt; <strong>Tutorial Editor</strong>.</p>
+<h2 id="tutorial-editor-properties">Tutorial Editor properties</h2>
+<p><img src="../images/tm_7.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Element</th>
+<th style="text-align:left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Game Genre</td>
+<td style="text-align:left">The genre of your game. Choose the genre that best describes your game.</td>
+</tr>
+<tr>
+<td style="text-align:left">Display content</td>
+<td style="text-align:left">When checked, the editor window displays the text of AdaptiveText components beneath the associated tutorial step.</td>
+</tr>
+<tr>
+<td style="text-align:left">Force decision</td>
+<td style="text-align:left">Simulates a specific decision from the Tutorial Manager decision engine while testing in play mode in the Unity Editor. Set the decision to simulate with the To True option.</td>
+</tr>
+<tr>
+<td style="text-align:left">To True</td>
+<td style="text-align:left">Check the To True option to simulate a decision to show the tutorial; uncheck the box to simulate a decision to not show the tutorial.</td>
+</tr>
+<tr>
+<td style="text-align:left">Clear progress</td>
+<td style="text-align:left">Clears the Tutorial Manager state.</td>
+</tr>
+<tr>
+<td style="text-align:left">Tutorial Section</td>
+<td style="text-align:left">Each tutorial has its own section in the window.</td>
+</tr>
+<tr>
+<td style="text-align:left">Tutorial Key</td>
+<td style="text-align:left">A unique identifier for the tutorial.</td>
+</tr>
+<tr>
+<td style="text-align:left">Delete Tutorial Button</td>
+<td style="text-align:left">Click - to delete the tutorial. (You cannot delete the first tutorial in the window.)</td>
+</tr>
+<tr>
+<td style="text-align:left">Step Keys</td>
+<td style="text-align:left">A unique identifier for each step in the tutorial.</td>
+</tr>
+<tr>
+<td style="text-align:left">Step Text</td>
+<td style="text-align:left">(Read only) The text associated with the tutorial step. Shown when Display content is checked.</td>
+</tr>
+<tr>
+<td style="text-align:left">Add, Remove Step Buttons</td>
+<td style="text-align:left">Click the + or - buttons next to the last step to add or remove steps at the end of the tutorial. Each tutorial must have a minimum of one step and a maximum of fifty steps.</td>
+</tr>
+<tr>
+<td style="text-align:left">Add Tutorial</td>
+<td style="text-align:left">Add a new tutorial section to the game.</td>
+</tr>
+<tr>
+<td style="text-align:left">Pull Data</td>
+<td style="text-align:left">Pulls data from the Development environment of the Tutorial Manager service.<br><br>Caution: Pulling data overwrites all changes you have made to the tutorial structure and adaptive text since the last time you pushed your data to the service.</td>
+</tr>
+<tr>
+<td style="text-align:left">Push Data</td>
+<td style="text-align:left">Pushes data to the Development environment of the Tutorial Manager service.<br><br>Caution: Pushing data overwrites the tutorial structure and adaptive text currently in the Development environment.</td>
+</tr>
+<tr>
+<td style="text-align:left">Go to Dashboard</td>
+<td style="text-align:left">Opens the Tutorial Manager dashboard.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="entering-the-tutorial-configuration">Entering the Tutorial Configuration</h2>
+<p>Use the <strong>Tutorial Editor</strong> window to create a configuration that describes the steps of your adaptive tutorials:</p>
 <ol>
 <li><p>Open the Tutorial Editor window (menu: <strong>Window</strong> &gt; <strong>Unity Analytics</strong> &gt; <strong>Tutorial Editor</strong>).</p>
 <p> <img src="../images/tm_0.png" alt=""></p>
@@ -160,30 +206,10 @@
 <p> <img src="../images/tm_1.png" alt=""></p>
 <p> <em>A game with three tutorials, each with 3-4 steps</em></p>
 </li>
-<li><p>Click <strong>Push Data</strong>. Pushing uploads the structure of your tutorials to the Analytics service and creates or updates the remote text for any <a href="Components.html#adaptive-text-component">AdaptiveText</a> components.</p>
+<li><p>Click <strong>Push Data</strong>. Pushing uploads the structure of your tutorials to the Analytics service and creates or updates the remote text for any <a href="AdaptiveTextComponent.html">AdaptiveText</a> components.</p>
 </li>
 </ol>
 <p><strong>Note:</strong> Key names must start with a letter and may contain only letters or numbers. </p>
-<h2 id="add-adaptive-components-to-your-tutorials">Add Adaptive Components to Your Tutorials</h2>
-<p>Once you have defined your tutorial outline, you can add the adaptive components that the Tutorial Manager uses to turn the elements of your tutorial on and off as players advance through your tutorial. The Tutorial Manager SDK provides two adaptive components. The <a href="Components.html#adaptive-content-component">AdaptiveContent</a> component turns GameObjects on when a tutorial step begins and turns them off again when the tutorial step finishes. The <a href="Components.html#adaptive-text-component">AdaptiveText</a> component adds the ability to control the text displayed for a tutorial step from the Tutorial Manager dashboard. Put an AdaptiveText component on any tutorial GameObjects that contain a Text, TextMesh, or TextMeshPro object; use AdaptiveContent for other GameObjects.</p>
-<p><strong>Note:</strong> The Tutorial Manager turns off any GameObjects containing adaptive components when the scene loads (using <code>GameObject.SetActive(false)</code>) and turns them back on when the bound tutorial steps are played. Since Unity automatically disables child objects with their parents, avoid nesting adaptive components. (Nesting components can lead to the wrong behavior when you bind them to multiple tutorial steps.)</p>
-<p><strong>To add an adaptive component:</strong></p>
-<ol>
-<li><p>Select the GameObject in your scene <strong>Hierarchy</strong>.</p>
-</li>
-<li><p>In the <strong>Inspector</strong> window, click <strong>Add Component</strong>.</p>
-</li>
-<li><p>Click <strong>Analytics</strong> in the <strong>Add Component</strong> menu.</p>
-</li>
-<li><p>If the GameObject contains a Text, TextMesh, or TextMeshPro component, select the <a href="Components.html#adaptive-text-component">AdaptiveText</a> component; otherwise, pick the <a href="Components.html#adaptive-content-component">AdaptiveContent</a> component.</p>
-</li>
-<li><p>Bind the component to a tutorial and step using the <strong>Binding Keys</strong> list. </p>
-</li>
-<li><p>To bind a GameObject to more than one tutorial step, click the <strong>+</strong> button next to the list of steps.</p>
-<p> <img src="../images/tm_2.png" alt=""></p>
-<p> <em>A GameObject with an AdaptiveContent component</em></p>
-</li>
-</ol>
 </article>
           </div>
           

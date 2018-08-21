@@ -38,7 +38,7 @@
               
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../images/logo.png" alt="">
-              </a>
+              </a> &nbsp;&nbsp;&nbsp; 
             </div>
             <div class="collapse navbar-collapse" id="navbar">
               <form class="navbar-form navbar-right" role="search" id="search">
@@ -48,10 +48,13 @@
               </form>
                 <ul class="nav level1 navbar-nav">
                   <li class="">
-                    <a href="../articles/GettingStarted.html" title="Manual" class="">Manual</a>
+                    <a href="../articles/QuickStart.html" title="Manual" class="">Manual</a>
                   </li>
                   <li class="active">
                     <a href="../api/UnityEngine.Analytics.html" title="Script Reference" class="active">Script Reference</a>
+                  </li>
+                  <li class="">
+                    <a href="../restapi/overview.html" title="REST API" class="">REST API</a>
                   </li>
                 </ul>
             </div>
@@ -102,7 +105,7 @@
   
   <h1 id="UnityEngine_Analytics_TutorialManager" data-uid="UnityEngine.Analytics.TutorialManager" class="text-break">Class TutorialManager
   </h1>
-  <div class="markdown level0 summary"><p>A set of methods for managing your game&apos;s tutorial</p>
+  <div class="markdown level0 summary"><p>A set of methods for managing your game&apos;s tutorials.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -145,13 +148,16 @@ onboarding experience. The ultimate objective is to help you create best-in-clas
 optimizing the entire flow. For certain aspects of your tutorial, this means picking the singular best experience.
 In some cases, the tool can actually deliver different experiences to different players, such that the tutorial
 is optimized differently based on the different needs of each.</p>
+<p>The TutorialManager class provides the interface for accessing and controlling the Tutorial Manager state machine. 
+All the properties and methods are static, so you do not need to construct an instance of the TutorialManager class.</p>
 </div>
   <h3 id="fields">Fields
   </h3>
   
   
   <h4 id="UnityEngine_Analytics_TutorialManager_k_PluginVersion" data-uid="UnityEngine.Analytics.TutorialManager.k_PluginVersion">k_PluginVersion</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>[Internal Use Only]</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -168,14 +174,16 @@ is optimized differently based on the different needs of each.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><p>The plugin version as a string.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
   <h4 id="UnityEngine_Analytics_TutorialManager_k_VersionNumber" data-uid="UnityEngine.Analytics.TutorialManager.k_VersionNumber">k_VersionNumber</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>[Internal Use Only]</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -192,7 +200,8 @@ is optimized differently based on the different needs of each.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td></td>
+        <td><p>The pugin version as an ordinal number.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -202,7 +211,7 @@ is optimized differently based on the different needs of each.</p>
   
   <a id="UnityEngine_Analytics_TutorialManager_autoAdvance_" data-uid="UnityEngine.Analytics.TutorialManager.autoAdvance*"></a>
   <h4 id="UnityEngine_Analytics_TutorialManager_autoAdvance" data-uid="UnityEngine.Analytics.TutorialManager.autoAdvance">autoAdvance</h4>
-  <div class="markdown level1 summary"><p>[Read Only] A flag indicating whether the tutorial should automatically progress from one step to the next.</p>
+  <div class="markdown level1 summary"><p>[Read Only] A flag indicating whether the tutorial automatically progresses from one step to the next.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -220,18 +229,24 @@ is optimized differently based on the different needs of each.</p>
     <tbody>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
-        <td><p><code>true</code> if auto advance; otherwise, <code>false</code>.</p>
+        <td><p><code>true</code> if the tutorial automatically advances from one step to the next; otherwise, <code>false</code>.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <h5 id="UnityEngine_Analytics_TutorialManager_autoAdvance_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>By default, the Tutorial Manager will progress from one step to the next automatically. This is often
-desirable, but not every tutorial works this way. If your game&apos;s tutorial has steps interspersed with
-gameplay, you might want more precise control. By calling <code>Start(tutorialId, false)</code>, this flag
-will be set to <code>false</code>. The result is that calling <code>StepComplete()</code> will complete a step,
-but not automatically start the next one. This allows gameplay to proceed with the tutorial &quot;paused&quot; between
-states. You will need to call <code>StepStart()</code> to start the next step.</p>
+  <div class="markdown level1 remarks"><p>This flag is set to the value of the <code>autoAdvance</code> parameter passed to <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_Start_System_String_System_Boolean_">Start(String, Boolean)</a> 
+when you started the tutorial.</p>
+
+<p>By default, <code>autoAdvance</code> is true and the Tutorial Manager progresses from one step to the next automatically. 
+This automatic progression is often desirable, but not every tutorial works this way. If your game&apos;s tutorial 
+has steps interspersed with gameplay, you might want more precise control. </p>
+
+<p>When you start a tutorial by calling <code>Start(tutorialId, false)</code>, the Tutorial Manager turns off automatic 
+progression. In this case, calling <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepComplete">StepComplete()</a> completes the current step but does not automatically start the next one. 
+This allows gameplay to proceed with the tutorial &quot;paused&quot; between states.</p>
+
+<p>When <code>autoAdvance</code> is <code>false</code> you must call <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepStart_System_String_">StepStart(String)</a> to start the next step in a tutorial.</p>
 </div>
   
   
@@ -291,7 +306,7 @@ states. You will need to call <code>StepStart()</code> to start the next step.</
   
   <a id="UnityEngine_Analytics_TutorialManager_state_" data-uid="UnityEngine.Analytics.TutorialManager.state*"></a>
   <h4 id="UnityEngine_Analytics_TutorialManager_state" data-uid="UnityEngine.Analytics.TutorialManager.state">state</h4>
-  <div class="markdown level1 summary"><p>The current state of the Tutorial Manager.</p>
+  <div class="markdown level1 summary"><p>[Internal Use Only] The current state of the Tutorial Manager.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -318,7 +333,7 @@ states. You will need to call <code>StepStart()</code> to start the next step.</
   
   <a id="UnityEngine_Analytics_TutorialManager_stepId_" data-uid="UnityEngine.Analytics.TutorialManager.stepId*"></a>
   <h4 id="UnityEngine_Analytics_TutorialManager_stepId" data-uid="UnityEngine.Analytics.TutorialManager.stepId">stepId</h4>
-  <div class="markdown level1 summary"><p>[Read Only] The binding ID of the current tutorial step.</p>
+  <div class="markdown level1 summary"><p>[Read Only] The ID of the current tutorial step.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -336,11 +351,17 @@ states. You will need to call <code>StepStart()</code> to start the next step.</
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><p>A string representing the binding ID of the current step.</p>
+        <td><p>A string representing the ID of the current step.</p>
 </td>
       </tr>
     </tbody>
   </table>
+  <h5 id="UnityEngine_Analytics_TutorialManager_stepId_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Use the ID with the <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_Start_System_String_System_Boolean_">Start(String, Boolean)</a>, <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepStart_System_String_">StepStart(String)</a>,
+and <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepStart_System_String_System_String_System_Boolean_">StepStart(String, String, Boolean)</a> methods.</p>
+<p>If you have the <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_stepIndex">stepIndex</a>, you can get the <code>stepId</code>
+using <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetStepIdAtIndex_System_Int32_">GetStepIdAtIndex(Int32)</a>.</p>
+</div>
   
   
   <a id="UnityEngine_Analytics_TutorialManager_stepIndex_" data-uid="UnityEngine.Analytics.TutorialManager.stepIndex*"></a>
@@ -368,11 +389,16 @@ states. You will need to call <code>StepStart()</code> to start the next step.</
       </tr>
     </tbody>
   </table>
+  <h5 id="UnityEngine_Analytics_TutorialManager_stepIndex_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>You can use <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetStepIdAtIndex_System_Int32_">GetStepIdAtIndex(Int32)</a> to get the 
+<a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_stepId">stepId</a> from the <code>stepIndex</code>.</p>
+</div>
   
   
   <a id="UnityEngine_Analytics_TutorialManager_tutorialId_" data-uid="UnityEngine.Analytics.TutorialManager.tutorialId*"></a>
   <h4 id="UnityEngine_Analytics_TutorialManager_tutorialId" data-uid="UnityEngine.Analytics.TutorialManager.tutorialId">tutorialId</h4>
-  <div class="markdown level1 summary"><p>[ReadOnly] The ID of the current tutorial, as set by <code>TutorialManager.Start(tutorialId)</code></p>
+  <div class="markdown level1 summary"><p>[ReadOnly] The ID of the current tutorial, as set by <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_Start_System_String_System_Boolean_">Start(String, Boolean)</a> or 
+<a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepStart_System_String_System_String_System_Boolean_">StepStart(String, String, Boolean)</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -452,11 +478,12 @@ states. You will need to call <code>StepStart()</code> to start the next step.</
     </tbody>
   </table>
   <h5 id="UnityEngine_Analytics_TutorialManager_GetDecision_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>This method is the lynchpin of the TutorialManager system. It should be called when the player arrives
+  <div class="markdown level1 remarks"><p>This method is the lynchpin of the Tutorial Manager system. It should be called when the player arrives
 at the first tutorial. Calling it lets you know what recommendation the server has for this player,
 and informs the server that this recommendation has been acted upon.</p>
-<p>If you need to know the decision at any point other than the moment that the player arrives at the
-decision point, use <code>showTutorial</code>.</p>
+
+<p><p>If you need to know the decision at any point other than the moment that the player arrives at the
+decision point, use <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_showTutorial">showTutorial</a>.</p></p>
 <pre><code>if (TutorialManager.GetDecision()) {
     TutorialManager.Start(&quot;Tutorial1&quot;);
     // Any other code required by your tutorial
@@ -468,7 +495,7 @@ decision point, use <code>showTutorial</code>.</p>
   
   <a id="UnityEngine_Analytics_TutorialManager_GetDecision_" data-uid="UnityEngine.Analytics.TutorialManager.GetDecision*"></a>
   <h4 id="UnityEngine_Analytics_TutorialManager_GetDecision_System_Boolean_" data-uid="UnityEngine.Analytics.TutorialManager.GetDecision(System.Boolean)">GetDecision(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Mimics the show/no show recommendation from the Tutorial Manager Server, but overrides with a specific decision.</p>
+  <div class="markdown level1 summary"><p>Mimics the show/no show recommendation from the Tutorial Manager service, but overrides with a specific decision.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -488,7 +515,7 @@ decision point, use <code>showTutorial</code>.</p>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">forceDecision</span></td>
-        <td><p><code>true</code> to force the decision to <code>true</code>, <code>false</code> otherwise</p>
+        <td><p>Set <code>true</code> to force the decision to <code>true</code>; set <code>false</code> otherwise.</p>
 </td>
       </tr>
     </tbody>
@@ -510,9 +537,9 @@ decision point, use <code>showTutorial</code>.</p>
     </tbody>
   </table>
   <h5 id="UnityEngine_Analytics_TutorialManager_GetDecision_System_Boolean__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>This version takes a boolean <code>forceDecision</code> parameter, which forces either true or false.
+  <div class="markdown level1 remarks"><p><p>This version takes a boolean <code data-dev-comment-type="paramref" class="paramref">forceDecision</code> parameter, which forces either true or false.
 This is useful for testing and QA, when you want to ensure a specific outcome. To use the server
-recommendation, call <code>GetDecision()</code></p>
+recommendation, call <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision">GetDecision()</a>.</p></p>
 <pre><code>if (TutorialManager.GetDecision(true)) {
     TutorialManager.Start(&quot;Tutorial1&quot;, true);
 } else {
@@ -523,7 +550,7 @@ recommendation, call <code>GetDecision()</code></p>
   
   <a id="UnityEngine_Analytics_TutorialManager_GetStepIdAtIndex_" data-uid="UnityEngine.Analytics.TutorialManager.GetStepIdAtIndex*"></a>
   <h4 id="UnityEngine_Analytics_TutorialManager_GetStepIdAtIndex_System_Int32_" data-uid="UnityEngine.Analytics.TutorialManager.GetStepIdAtIndex(System.Int32)">GetStepIdAtIndex(Int32)</h4>
-  <div class="markdown level1 summary"><p>Returns the id of a step at the specified index</p>
+  <div class="markdown level1 summary"><p>Returns the ID of the step at the specified index in the current tutorial.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -543,7 +570,8 @@ recommendation, call <code>GetDecision()</code></p>
       <tr>
         <td><span class="xref">System.Int32</span></td>
         <td><span class="parametername">index</span></td>
-        <td></td>
+        <td><p>The ordinal step index of a step in the current tutorial.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -558,7 +586,8 @@ recommendation, call <code>GetDecision()</code></p>
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td></td>
+        <td><p>A string representing the step ID.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -581,7 +610,7 @@ runtime progress on the current device.</p>
   
   <a id="UnityEngine_Analytics_TutorialManager_Skip_" data-uid="UnityEngine.Analytics.TutorialManager.Skip*"></a>
   <h4 id="UnityEngine_Analytics_TutorialManager_Skip" data-uid="UnityEngine.Analytics.TutorialManager.Skip">Skip()</h4>
-  <div class="markdown level1 summary"><p>Call this if the player opts to skip the tutorial (in the case you have a skip option in your game).</p>
+  <div class="markdown level1 summary"><p>Skips the current tutorial.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -589,7 +618,9 @@ runtime progress on the current device.</p>
     <pre><code class="lang-csharp hljs">public static void Skip()</code></pre>
   </div>
   <h5 id="UnityEngine_Analytics_TutorialManager_Skip_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>This will clear the current tutorial state</p>
+  <div class="markdown level1 remarks"><p>Call <code>Skip()</code> if the player opts to skip the tutorial (in the case you have a skip option in your game).
+This method clears the current tutorial state. <code>Skip()</code> should only be called after a tutorial
+has been started.</p>
 </div>
   
   
@@ -615,13 +646,14 @@ runtime progress on the current device.</p>
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">tutorialId</span></td>
-        <td><p>The binding id representing the current tutorial.</p>
+        <td><p>The ID string of the tutorial to start.</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">autoAdvance</span></td>
-        <td><p>If &apos;true&apos; (default) ending one tutorial step will automatically advance to the next step.</p>
+        <td><p>Set <code>true</code> (default) to 
+advance the tutorial from one step to the next step automatically.</p>
 </td>
       </tr>
     </tbody>
@@ -632,23 +664,40 @@ runtime progress on the current device.</p>
 } else {
     // skip the tutorial
 }</code></pre>
+<p>Starting a tutorial initializes the Tutorial Manager state, sends an event to the Unity Analytics Service,
+and starts the first step in the specified tutorial.</p>
+
+<p>When you set <code data-dev-comment-type="paramref" class="paramref">autoAdvance</code> to <code>true</code> (the default), the Tutorial Manager automatically 
+advances a tutorial to the next step when you call <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepComplete">StepComplete()</a>. Otherwise, when you set 
+<code data-dev-comment-type="paramref" class="paramref">autoAdvance</code> to <code>false</code>, you must call <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepStart_System_String_">StepStart(String)</a> to advance 
+the tutorial.</p>
 </div>
   
   
   <a id="UnityEngine_Analytics_TutorialManager_StepComplete_" data-uid="UnityEngine.Analytics.TutorialManager.StepComplete*"></a>
   <h4 id="UnityEngine_Analytics_TutorialManager_StepComplete" data-uid="UnityEngine.Analytics.TutorialManager.StepComplete">StepComplete()</h4>
-  <div class="markdown level1 summary"><p>Call this each time the player completes a step in the tutorial.</p>
+  <div class="markdown level1 summary"><p>Completes the current tutorial step.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void StepComplete()</code></pre>
   </div>
+  <h5 id="UnityEngine_Analytics_TutorialManager_StepComplete_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Call <code>StepComplete()</code> each time the player finishes a step in the tutorial.</p>
+
+<p>Completing a tutorial step sends an event to the Unity Analytics Service and turns off any 
+<code>AdaptiveContent</code> and <code>AdaptiveText</code> components associated with the step.</p>
+
+<p>If you started the tutorial with <code>autoAdvance</code> set to <code>true</code>, then this function also
+starts the next step in the tutorial. Otherwise, you must call <a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepStart_System_String_">StepStart(String)</a>
+to continue the tutorial.</p>
+</div>
   
   
   <a id="UnityEngine_Analytics_TutorialManager_StepStart_" data-uid="UnityEngine.Analytics.TutorialManager.StepStart*"></a>
   <h4 id="UnityEngine_Analytics_TutorialManager_StepStart_System_String_" data-uid="UnityEngine.Analytics.TutorialManager.StepStart(System.String)">StepStart(String)</h4>
-  <div class="markdown level1 summary"><p>Call this each time the player begins a step in the tutorial.</p>
+  <div class="markdown level1 summary"><p>Start a step in the current tutorial.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -668,21 +717,27 @@ runtime progress on the current device.</p>
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">stepId</span></td>
-        <td><p>(optional) The step of the current tutorial to start.</p>
+        <td><p>(optional) The step of the current tutorial to start. If left <code>null</code>, the Tutorial Manager
+starts the next step in the tutorial.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <h5 id="UnityEngine_Analytics_TutorialManager_StepStart_System_String__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>It is unnecessary to call this method when <code>autoAdvance</code> is set to <code>true</code>. Under that condition,
-<code>StepComplete()</code> will start the next step automatically. If you provide a specific <code>stepId</code>, the
-named step will start.</p>
+  <div class="markdown level1 remarks"><p>Call <code>StepStart()</code> each time the player begins a step in the tutorial.</p>
+
+<p>Starting a tutorial step sends an event to the Unity Analytics Service,
+and enables any <code>AdaptiveContent</code> and <code>AdaptiveText</code> components associated with the step.</p>
+
+<p>It is unnecessary to call this method when the tutorial <code>autoAdvance</code> property is <code>true</code>. Under that condition,
+<a class="xref" href="UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepComplete">StepComplete()</a> starts the next step automatically.</p>
+<p>If you provide a specific <code data-dev-comment-type="paramref" class="paramref">stepId</code>, that step starts instead of the next step in the tutorial.</p>
 </div>
   
   
   <a id="UnityEngine_Analytics_TutorialManager_StepStart_" data-uid="UnityEngine.Analytics.TutorialManager.StepStart*"></a>
   <h4 id="UnityEngine_Analytics_TutorialManager_StepStart_System_String_System_String_System_Boolean_" data-uid="UnityEngine.Analytics.TutorialManager.StepStart(System.String,System.String,System.Boolean)">StepStart(String, String, Boolean)</h4>
-  <div class="markdown level1 summary"><p>Call this to start a step in some tutorial other than the current one.</p>
+  <div class="markdown level1 summary"><p>Starts the specified step in the specified tutorial.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -719,6 +774,14 @@ named step will start.</p>
       </tr>
     </tbody>
   </table>
+  <h5 id="UnityEngine_Analytics_TutorialManager_StepStart_System_String_System_String_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Call this to start a step in some tutorial other than the current one.</p>
+
+<p>Starting the tutorial step resets the Tutorial Manager state based on the specified tutorial, 
+sends the related tutorial and step events to the Unity Analytics Service,
+and enables any <code>AdaptiveContent</code> and <code>AdaptiveText</code> components associated with the step.</p>
+
+</div>
 </article>
           </div>
           

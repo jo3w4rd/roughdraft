@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tutorial Manager REST API </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Tutorial Manager REST API ">
+    <meta name="generator" content="docfx 2.34.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="">
+              </a> &nbsp;&nbsp;&nbsp; 
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                <ul class="nav level1 navbar-nav">
+                  <li class="">
+                    <a href="../articles/QuickStart.html" title="Manual" class="">Manual</a>
+                  </li>
+                  <li class="">
+                    <a href="../api/UnityEngine.Analytics.html" title="Script Reference" class="">Script Reference</a>
+                  </li>
+                  <li class="active">
+                    <a href="../restapi/overview.html" title="REST API" class="active">REST API</a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="active">
+                      <a href="overview.html" title="Overview" class="active">Overview</a>
+                    </li>
+                    <li class="">
+                      <a href="tutorials.html" title="tutorials" class="">tutorials</a>
+                    </li>
+                    <li class="">
+                      <a href="login.html" title="login" class="">login</a>
+                    </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tutorial-manager-rest-api">Tutorial Manager REST API</h1>
+
+<p>Use the Tutorial Manager REST API to manage your remote tutorial configuration. The REST API duplicates most of the functions of the Tutorial Manager dashboard. Use the REST API to integrate with build processes or other external systems.</p>
+<p>The operations you can take using the REST API include:</p>
+<ul>
+<li><a href="tutorials.html#get"><strong>get_tutorials</strong></a> — Get a JSON string containing the tutorial configuration from either the development or release environment.</li>
+<li><a href="tutorials.html#put"><strong>put_tutorials</strong></a> — Replace the current tutorial configuration with a new one. You can only replace the configuration in the development environment. To replace the release configuration, you must first put the new configuration to the development environment and then move the configuration to the release environement with a copy operation.</li>
+<li><a href="tutorials.html#post"><strong>copy</strong></a> — Copy the configuration from one environment to the other, overwriting all information in the destination.</li>
+</ul>
+<p>To perform any of these operations, you must include an authorization header that includes an access token obtained using the <a href="login.html">login operation</a>. Logging in requires the username and password of a Unity account with access to the project.</p>
+<p><strong>Note:</strong> You must push the initial configuration for a project from the Unity Editor before you can use this REST API. </p>
+<p>See <a href="../articles/ManagingTutorials.html">Managing Tutorials</a> for more information about manual  dashboard operations and features.</p>
+<h2 id="configuration-structure">Configuration structure</h2>
+<p>A Tutorial Manager configuration contains all tutorials, tutorial steps, and step text and enabled flags for a project.</p>
+<p>The configuration is transmitted as an array of JSON objects, with each item in the array representing a specific tutorial element or list of elements:</p>
+<pre><code>{
+    &quot;remoteSettings&quot;: [{
+        &quot;key&quot;: &quot;name&quot;,
+        &quot;type&quot;: &quot;data type&quot;,
+        &quot;value&quot;: &quot;stringified list or value&quot;
+    }]
+}
+</code></pre><p> Objects in the array have the following properties:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">key</td>
+<td style="text-align:left">A string constructed to uniquely identify each part of the configuration. For example, the key, &quot;tutorials&quot;, identifies the list of tutorials in the configuration, a key set to the tutorial name identifies the list of steps in that tutorial, etc. Some keys are concatenated from the tutrial and step key names.</td>
+</tr>
+<tr>
+<td style="text-align:left">type</td>
+<td style="text-align:left">The data type stored in the value field. Either string or bool.</td>
+</tr>
+<tr>
+<td style="text-align:left">value</td>
+<td style="text-align:left">The value of the element. The value is either a list of associated keys, text, or a Boolean (<em>true</em> or <em>false</em>).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="keys">Keys</h3>
+<p>A key in the configuration JSON references a specific element of your tutorial setup. The allowed keys include:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key Type</th>
+<th style="text-align:left">Purpose</th>
+<th style="text-align:left">Format</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Tutorial list</td>
+<td style="text-align:left">Lists all tutorials.</td>
+<td style="text-align:left">tutorials</td>
+<td style="text-align:left">&quot;tutorials&quot;</td>
+</tr>
+<tr>
+<td style="text-align:left">Tutorial</td>
+<td style="text-align:left">Lists the steps of a specific tutorial.</td>
+<td style="text-align:left">{TutorialKey}</td>
+<td style="text-align:left">&quot;Tutorial1&quot;</td>
+</tr>
+<tr>
+<td style="text-align:left">Step text</td>
+<td style="text-align:left">The text associated with a tutorial step</td>
+<td style="text-align:left">{TutorialKey}-{StepKey}-text</td>
+<td style="text-align:left">&quot;Tutorial1-Step2-text&quot;</td>
+</tr>
+<tr>
+<td style="text-align:left">Step enabled flag</td>
+<td style="text-align:left">Flag indicating whether a tutorial step is enabled.</td>
+<td style="text-align:left">{TutorialKey}-{StepKey}-isEnabled</td>
+<td style="text-align:left">&quot;Tutorial3-Step4-isEnabled&quot;</td>
+</tr>
+</tbody>
+</table>
+<p>Tutorial Manager constructs the configuration keys from the key names of the tutorials and steps you enter in the Unity Editor — with the exception of the special key, &quot;tutorials&quot;, which is always included in the configuration. </p>
+<p>The &quot;tutorials&quot; key element contains a list of all the tutorials in the configuration. Each tutorial, in turn, has an element listing all the steps in that tutorial. The order of the keys in a list determines the order of the tutorials in the configuration and the order of steps within a given tutorial.</p>
+<p>The value of elements containing lists are constructed from the associated keys using the format:</p>
+<pre><code>&quot;[\&quot;{key_1}\&quot;,\&quot;{key_2}\&quot;,...,\&quot;{key_n}\&quot;]&quot;
+</code></pre><p>For example, the JSON element with the key, &quot;tutorials&quot; might have the following value for a configuration containing two tutorials: </p>
+<pre><code>&quot;[\&quot;Tutorial1\&quot;,\&quot;Tutorial2\&quot;]&quot;
+</code></pre><p>where &quot;Tutorial1&quot; and &quot;Tutorial2&quot; are the names assigned to your tutorials in the Tutorial Editor window. </p>
+<p><strong>Note:</strong> The format of these stringified lists is designed to be deserialized as an array using a JSON convertor.</p>
+<h3 id="example-configuration-json">Example configuration JSON</h3>
+<pre><code>{
+    &quot;remoteSettings&quot;: [{
+        &quot;key&quot;: &quot;tutorials&quot;,
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;value&quot;: &quot;[\&quot;Tutorial1\&quot;,\&quot;Tutorial2\&quot;]&quot;
+    }, {
+        &quot;key&quot;: &quot;Tutorial1&quot;,
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;value&quot;: &quot;[\&quot;Tutorial1-Step1\&quot;,\&quot;Tutorial1-Step2\&quot;,\&quot;Tutorial1-Step3\&quot;]&quot;
+    }, {
+        &quot;key&quot;: &quot;Tutorial2&quot;,
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;value&quot;: &quot;[\&quot;Tutorial2-Step1\&quot;,\&quot;Tutorial2-Step2\&quot;,\&quot;Tutorial2-Step3\&quot;]&quot;
+    }, {
+        &quot;key&quot;: &quot;Tutorial1-Step1-text&quot;,
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;value&quot;: &quot;Welcome to my game&quot;
+    }, {
+        &quot;key&quot;: &quot;Tutorial1-Step2-text&quot;,
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;value&quot;: &quot;Here is text for tutorial one, step two&quot;
+    }, {
+        &quot;key&quot;: &quot;Tutorial1-Step1-isEnabled&quot;,
+        &quot;type&quot;: &quot;bool&quot;,
+        &quot;value&quot;: true
+    }, {
+        &quot;key&quot;: &quot;Tutorial1-Step3-isEnabled&quot;,
+        &quot;type&quot;: &quot;bool&quot;,
+        &quot;value&quot;: false
+    }]
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

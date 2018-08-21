@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Tutorial Reports </title>
+    <title>Authorization </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Tutorial Reports ">
+    <meta name="title" content="Authorization ">
     <meta name="generator" content="docfx 2.34.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -45,14 +45,14 @@
                 </div>
               </form>
                 <ul class="nav level1 navbar-nav">
-                  <li class="active">
-                    <a href="../articles/QuickStart.html" title="Manual" class="active">Manual</a>
+                  <li class="">
+                    <a href="../articles/QuickStart.html" title="Manual" class="">Manual</a>
                   </li>
                   <li class="">
                     <a href="../api/UnityEngine.Analytics.html" title="Script Reference" class="">Script Reference</a>
                   </li>
-                  <li class="">
-                    <a href="../restapi/overview.html" title="REST API" class="">REST API</a>
+                  <li class="active">
+                    <a href="../restapi/overview.html" title="REST API" class="active">REST API</a>
                   </li>
                 </ul>
             </div>
@@ -83,25 +83,13 @@
                   
                   <ul class="nav level1">
                     <li class="">
-                      <a href="QuickStart.html" title="Quick Start" class="">Quick Start</a>
+                      <a href="overview.html" title="Overview" class="">Overview</a>
                     </li>
                     <li class="">
-                      <a href="PlayingTutorials.html" title="Playing Tutorials" class="">Playing Tutorials</a>
-                    </li>
-                    <li class="">
-                      <a href="ManagingTutorials.html" title="Managing Your Tutorials" class="">Managing Your Tutorials</a>
+                      <a href="tutorials.html" title="tutorials" class="">tutorials</a>
                     </li>
                     <li class="active">
-                      <a href="TutorialReports.html" title="Tutorial Reports" class="active">Tutorial Reports</a>
-                    </li>
-                    <li class="">
-                      <a href="TutorialEditorWindow.html" title="Tutorial Editor Window" class="">Tutorial Editor Window</a>
-                    </li>
-                    <li class="">
-                      <a href="AdaptiveContentComponent.html" title="Adaptive Content Components" class="">Adaptive Content Components</a>
-                    </li>
-                    <li class="">
-                      <a href="AdaptiveTextComponent.html" title="Adaptive Text Components" class="">Adaptive Text Components</a>
+                      <a href="login.html" title="login" class="active">login</a>
                     </li>
                   </ul>        </div>
               </div>
@@ -111,18 +99,124 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="tutorial-reports">Tutorial Reports</h1>
+<h1 id="authorization">Authorization</h1>
 
-<p>The Tutorial Manager dashboard provides two reports, the <strong>Retention report</strong> and the <strong>Tutorial funnel</strong>.</p>
-<h2 id="retention-report">Retention Report</h2>
-<p>The Retention report compares retention results between a control group and test group (the Tutorial Manager group). Players in the control group always see the default tutorial (essentially, <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_">GetDecision()</a> always returns true). Players in the test group receive a decision made by the Tutorial Manager machine learning algorithm. Some players will see the default tutorial (<code>GetDecision()</code> returns true); other players will see no tutorial — or your alternate tutorial, depending on your implementation (<code>GetDecision()</code> returns false). </p>
-<p><img src="../images/tm_5.png" alt=""></p>
-<p><em>The Retention report</em></p>
-<h2 id="tutorial-funnel">Tutorial Funnel</h2>
-<p>For each tutorial that you create using the Tutorial Editor window, the Tutorial Manager dashboard automatically creates a funnel report. A funnel displays the percentage of player progress from one step to the next. The Tutorial Manager funnel report compares the conversion of players in the control group to that of players in the test (Tutorial Manager) group.</p>
-<p><img src="../images/tm_6.png" alt=""></p>
-<p><em>The Tutorial funnel</em></p>
-<p><strong>Note:</strong> If you set up a tutorial so that it is only played when <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_">TutorialManager.GetDecision()</a> returns false, then players in the control group will never see that tutorial. Thus the funnel reports will show zero players from the control group for such tutorials. </p>
+<p>Obtain OAuth 2.0-style access tokens.</p>
+<p><strong>Version:</strong> 2.0.0</p>
+<h3 id="login">/login</h3>
+<hr>
+<h5 id="post"><strong><em>POST</em></strong></h5>
+<p><strong>Summary:</strong> Requests the login tokens authorizing API operations.</p>
+<p><strong>Description:</strong> Use your Unity account username and password.</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>credentials</td>
+<td>body</td>
+<td>Login credentials for a Unity account with access to the project.</td>
+<td>Yes</td>
+<td><a href="#credentials">credentials</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Responses</strong></p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>Login successful. Access tokens are returned in the response body.</td>
+<td><a href="#authorizationtokens">authorizationTokens</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized. Check that your credentials object is well formed and contains valid credentials.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="models">Models</h3>
+<hr>
+<h3 id="credentials">credentials</h3>
+<p>Unity account login credentials.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>A Unity developer account username.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>The account password.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>grant_type</td>
+<td>string</td>
+<td>Always: &#39;PASSWORD&#39;</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="authorizationtokens">authorizationTokens</h3>
+<p>Tokens obtained by a successful login operation.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>string</td>
+<td>The token authorizing access to the Tutorial Manager service. Expires after expires_in seconds. Use this token in the Authorization header for all Tutorial Manager API operations.</td>
+<td>No</td>
+</tr>
+<tr>
+<td>refresh_token</td>
+<td>string</td>
+<td>Use this token to refresh an expired access token without requiring the user&#39;s credentials. (Otherwise, login again with the username and password.)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>expires_in</td>
+<td>integer</td>
+<td>The time, in seconds, until the access token expires.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
 </article>
           </div>
           

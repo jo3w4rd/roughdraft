@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Tutorial Reports </title>
+    <title>Quick Start Guide </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Tutorial Reports ">
+    <meta name="title" content="Quick Start Guide ">
     <meta name="generator" content="docfx 2.34.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -82,8 +82,8 @@
                 <div class="toc" id="toc">
                   
                   <ul class="nav level1">
-                    <li class="">
-                      <a href="QuickStart.html" title="Quick Start" class="">Quick Start</a>
+                    <li class="active">
+                      <a href="QuickStart.html" title="Quick Start" class="active">Quick Start</a>
                     </li>
                     <li class="">
                       <a href="PlayingTutorials.html" title="Playing Tutorials" class="">Playing Tutorials</a>
@@ -91,8 +91,8 @@
                     <li class="">
                       <a href="ManagingTutorials.html" title="Managing Your Tutorials" class="">Managing Your Tutorials</a>
                     </li>
-                    <li class="active">
-                      <a href="TutorialReports.html" title="Tutorial Reports" class="active">Tutorial Reports</a>
+                    <li class="">
+                      <a href="TutorialReports.html" title="Tutorial Reports" class="">Tutorial Reports</a>
                     </li>
                     <li class="">
                       <a href="TutorialEditorWindow.html" title="Tutorial Editor Window" class="">Tutorial Editor Window</a>
@@ -111,18 +111,85 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="tutorial-reports">Tutorial Reports</h1>
+<h1 id="quick-start-guide">Quick Start Guide</h1>
 
-<p>The Tutorial Manager dashboard provides two reports, the <strong>Retention report</strong> and the <strong>Tutorial funnel</strong>.</p>
-<h2 id="retention-report">Retention Report</h2>
-<p>The Retention report compares retention results between a control group and test group (the Tutorial Manager group). Players in the control group always see the default tutorial (essentially, <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_">GetDecision()</a> always returns true). Players in the test group receive a decision made by the Tutorial Manager machine learning algorithm. Some players will see the default tutorial (<code>GetDecision()</code> returns true); other players will see no tutorial — or your alternate tutorial, depending on your implementation (<code>GetDecision()</code> returns false). </p>
-<p><img src="../images/tm_5.png" alt=""></p>
-<p><em>The Retention report</em></p>
-<h2 id="tutorial-funnel">Tutorial Funnel</h2>
-<p>For each tutorial that you create using the Tutorial Editor window, the Tutorial Manager dashboard automatically creates a funnel report. A funnel displays the percentage of player progress from one step to the next. The Tutorial Manager funnel report compares the conversion of players in the control group to that of players in the test (Tutorial Manager) group.</p>
-<p><img src="../images/tm_6.png" alt=""></p>
-<p><em>The Tutorial funnel</em></p>
-<p><strong>Note:</strong> If you set up a tutorial so that it is only played when <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_">TutorialManager.GetDecision()</a> returns false, then players in the control group will never see that tutorial. Thus the funnel reports will show zero players from the control group for such tutorials. </p>
+<p>The Tutorial Manager plugin is responsible for returning a recommendation on whether or not to show your regular, long tutorial or your short tutorial and for sending the correct Analytics events. You are still in charge of making your game do the correct thing, such as showing the tutorial and advancing to the next step.</p>
+<p>The package supports Unity 5.5+.</p>
+<h2 id="install-tutorial-manager">Install Tutorial Manager</h2>
+<ol>
+<li><p>If you haven’t already, turn on Analytics for your project.</p>
+</li>
+<li><p>With your project open, double-click the TutorialManager.unitypackage.</p>
+</li>
+<li><p>When prompted, click ‘Import’.</p>
+</li>
+</ol>
+<h2 id="enter-your-tutorial-configuration">Enter your tutorial configuration</h2>
+<ol>
+<li><p>Open the <strong>Tutorial Editor</strong> window (menu: <strong>Window</strong> &gt; <strong>Unity Analytics</strong> &gt; <strong>Tutorial Editor</strong>).</p>
+<p> <img src="../images/tm_0.png" alt="image alt text"></p>
+</li>
+<li><p>Set the <strong>Game Genre</strong>.</p>
+</li>
+<li><p>Assign a meaningful name as the <strong>Tutorial Key</strong>, replacing &quot;Tutorial1&quot;. You will use this key string to start the tutorial.</p>
+</li>
+<li><p>Add steps to the tutorial by clicking the <strong>+</strong> button next to the last existing step. (A single tutorial can contain up to 50 steps.)</p>
+</li>
+<li><p>Assign each step a name (names must be unique within the same tutorial). The step names are shown in your Tutorial Manager reports.</p>
+</li>
+<li><p>If you have more than one tutorial, click <strong>Add Tutorial</strong> and create its steps.</p>
+</li>
+<li><p>Click <strong>Push Data</strong> to send this configuration to your Tutorial Manager dashboard.</p>
+<p> Note: whenever you make changes on the Tutorial Editor window, always click <strong>Push Data</strong> to update the dashboard. These changes are stored in the Tutorial Manager Development environment, which is used by development builds of your game (as well as when you test in the Unity Editor).</p>
+</li>
+</ol>
+<h2 id="integrate-the-tutorial-manager-api">Integrate the Tutorial Manager API</h2>
+<ol>
+<li><p>Find the place in your game where the tutorial starts, and add the UnityEngine.Analytics namespace:</p>
+<pre><code> using UnityEngine.Analytics;
+</code></pre></li>
+<li><p>Add the following code where you start your tutorial:</p>
+<pre><code>if (TutorialManager.GetDecision())
+{
+    TutorialManager.Start(&quot;LongTutorialID&quot;);
+    //Put your game code here to play the long tutorial
+} else {
+    TutorialManager.Start(&quot;ShortTutorialID&quot;);
+    //Put your game code here to play the short tutorial
+}
+</code></pre><p>Pass the tutorial key names you created in the Tutorial Editor window to the Start() method to identify which tutorials you are starting (replacing the FullTutorialID and ShortTutorialID strings in the example above).</p>
+</li>
+<li><p>Whenever the player successfully completes a tutorial step, call the following method:</p>
+<pre><code> TutorialManager.StepComplete();
+</code></pre></li>
+<li><p>If your tutorial has a ‘skip’ button to bypass the tutorial, call the following function when the player has clicked a button to intentionally skip the tutorial:</p>
+<pre><code> TutorialManager.Skip();
+</code></pre><p> <strong>Note:</strong> only call the Skip() method after the tutorial has begun.</p>
+</li>
+<li><p>If, for QA purposes, you want to force the GetDecision() one way or the other, place a boolean into the GetDecision() method like so:</p>
+<pre><code> //This forces the tutorial to play
+ if (TutorialManager.GetDecision(true))
+ {
+     TutorialManager.Start(&quot;GameTutorialID&quot;);
+     //Put your game code here to play the tutorial
+ } else {
+     TutorialManager.Start(&quot;ShortTutorialID&quot;);
+     //Put your game code here to play the short tutorial
+ } 
+</code></pre></li>
+</ol>
+<h2 id="go-live">Go live!</h2>
+<p>In order to start an experiment and collect tutorial data from your live game, you must copy your tutorial configuration to the Release environment on the Tutorial Manager dashboard.</p>
+<ol>
+<li><p>Open your Tutorial Manager dashboard in a web browser. (You can click the <strong>Go to Dashboard</strong> button on the Tutorial Editor window.)</p>
+</li>
+<li><p>Click <strong>Tutorial Settings</strong> near the top of the Tutorial Manager page.</p>
+</li>
+<li><p>Click <strong>Copy to Release</strong> to copy your tutorial configuration into the Release environment.</p>
+<p> <strong>Copy to Release</strong> overwrites the existing configuration in the release environment and restarts the Tutorial Manager data collection process. Your reports are also reset.</p>
+</li>
+</ol>
+<p><strong>Important:</strong> the Tutorial Manager only resets your reports and data collection if you change the names or numbers of tutorials or tutorial steps when copying your tutorial configuration to release. If you have made significant changes to your game, but haven’t changed the structure of your tutorials, contact <a href="mailto:laurenf@unity3d.com">laurenf@unity3d.com</a> and we will restart the experiment process that collects data and generates reports for you. Restarting the experiment prevents data collected before your changes from skewing the report results. The amount of time needed to collect enough data to draw valid conclusions depends on the number of new players who play your game per day.</p>
 </article>
           </div>
           

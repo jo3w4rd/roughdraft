@@ -59,7 +59,7 @@ public class TicTacToeAgent : Agent {
                 break;
         }
         if(!gameController.TakeTurn((int)vectorAction[0])){
-            AddReward(-0.33f);
+            //AddReward(-0.33f);
         }
     }
 }

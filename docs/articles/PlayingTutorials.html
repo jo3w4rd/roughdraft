@@ -36,7 +36,7 @@
               
               <a class="navbar-brand" href="../index.html">
                 <img id="logo" class="svg" src="../images/logo.png" alt="">
-              </a>
+              </a> &nbsp;&nbsp;&nbsp; 
             </div>
             <div class="collapse navbar-collapse" id="navbar">
               <form class="navbar-form navbar-right" role="search" id="search">
@@ -46,10 +46,13 @@
               </form>
                 <ul class="nav level1 navbar-nav">
                   <li class="active">
-                    <a href="../articles/GettingStarted.html" title="Manual" class="active">Manual</a>
+                    <a href="../articles/QuickStart.html" title="Manual" class="active">Manual</a>
                   </li>
                   <li class="">
                     <a href="../api/UnityEngine.Analytics.html" title="Script Reference" class="">Script Reference</a>
+                  </li>
+                  <li class="">
+                    <a href="../restapi/overview.html" title="REST API" class="">REST API</a>
                   </li>
                 </ul>
             </div>
@@ -80,13 +83,7 @@
                   
                   <ul class="nav level1">
                     <li class="">
-                      <a href="GettingStarted.html" title="Getting Started" class="">Getting Started</a>
-                    </li>
-                    <li class="">
-                      <a href="DesigningTutorials.html" title="Designing Adaptable Tutorials" class="">Designing Adaptable Tutorials</a>
-                    </li>
-                    <li class="">
-                      <a href="ImplementingTutorials.html" title="Implementing Tutorials" class="">Implementing Tutorials</a>
+                      <a href="QuickStart.html" title="Quick Start" class="">Quick Start</a>
                     </li>
                     <li class="active">
                       <a href="PlayingTutorials.html" title="Playing Tutorials" class="active">Playing Tutorials</a>
@@ -98,7 +95,13 @@
                       <a href="TutorialReports.html" title="Tutorial Reports" class="">Tutorial Reports</a>
                     </li>
                     <li class="">
-                      <a href="Components.html" title="Tutorial Manager Components" class="">Tutorial Manager Components</a>
+                      <a href="TutorialEditorWindow.html" title="Tutorial Editor Window" class="">Tutorial Editor Window</a>
+                    </li>
+                    <li class="">
+                      <a href="AdaptiveContentComponent.html" title="Adaptive Content Components" class="">Adaptive Content Components</a>
+                    </li>
+                    <li class="">
+                      <a href="AdaptiveTextComponent.html" title="Adaptive Text Components" class="">Adaptive Text Components</a>
                     </li>
                   </ul>        </div>
               </div>
@@ -110,53 +113,49 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="playing-tutorials">Playing Tutorials</h1>
 
-<p>To play a tutorial, first check whether the Tutorial Manager decision engine recommends that the current player should see a tutorial. If so, then you can start the tutorial using the key name you defined with the Tutorial Editor. </p>
+<p>Use the Tutorial Manager plugin API to start and advance your tutorial.</p>
+<p>Before playing a tutorial, check whether the Tutorial Manager decision engine recommends that the current player should see the longer or the shorter tutorial. You can then indicate which tutorial you are playing using the key names you defined with the Tutorial Editor. </p>
 <p><strong>Note</strong>: All code that references the Tutorial Manager API needs to import the namespace by calling:</p>
 <pre><code>using UnityEngine.Analytics;
-
-if (TutorialManager.GetDecision()) {
-
-    TutorialManager.Start(&quot;Tutorial1&quot;, true);
-
-} else {
-
-    // skip the tutorial
-
-}
-</code></pre><p>If you want to present an alternate tutorial instead of skipping a tutorial completely, you can start the alternate tutorial in the else clause:</p>
+</code></pre><h2 id="start-a-tutorial">Start a tutorial</h2>
+<p>Use the <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_">TutorialManager.GetDecision()</a> function to determine whether the Tutorial Manager decision engine recommends that you show your longer or your shorter tutorial to the current player:</p>
 <pre><code>if (TutorialManager.GetDecision()) {
-
     TutorialManager.Start(&quot;FullTutorial&quot;, true);
-
 } else {
-
     TutorialManager.Start(&quot;ShortTutorial&quot;, true);
-
 }
-</code></pre><p>When you call <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_Start_">TutorialManager.Start()</a>, the Tutorial Manager automatically enables any GameObjects containing adaptive components bound to the first step in the tutorial. To advance the tutorial when a player completes a step, call the <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepComplete_">TutorialManager.StepComplete()</a> function. The Tutorial Manager then turns off the adaptive GameObjects associated with the completed step.</p>
-<p>What happens next depends on whether you set the autoAdvance parameter (the true in the examples above) of the TutorialManager.Start() to true or false:</p>
+</code></pre><p><strong>Note:</strong> If the Tutorial Manager cannot contact the Unity Analytics service for any reason and the decision about which tutorial to show has not been previously recorded, the Tutorial Manager shows the default, long version of the tutorial. (When this occurs, <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_">TutorialManager.GetDecision()</a> returns true.)</p>
+<h2 id="advance-a-step">Advance a step</h2>
+<p>To advance the tutorial when a player completes a step, call the <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepComplete_">TutorialManager.StepComplete()</a> function. </p>
+<pre><code>TutorialManager.StepComplete();  
+</code></pre><p>What happens next depends on whether you set the autoAdvance parameter (the true in the examples above) of the <strong>TutorialManager.Start()</strong> to true or false:</p>
 <ul>
-<li><p>When you set the autoAdvance parameter to <strong>true</strong>, the Tutorial Manager advances to the next step in the tutorial by disabling the adaptive components of the previous step and enabling those of the next step. </p>
+<li><p>When you set the autoAdvance parameter to <strong>true</strong>, the Tutorial Manager advances to the next step in the tutorial. </p>
 </li>
-<li><p>When you start a tutorial with autoAdvance set to <strong>false</strong>, then the Tutorial Manager does not advance to the next step when you call the TutorialManager.StepComplete() function. Instead, the Tutorial Manager disables the adaptive components bound to the previous step and waits for you to call <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepStart_">TutorialManager.StepStart()</a>. </p>
-</li>
+<li><p>When you start a tutorial with autoAdvance set to <strong>false</strong>, then the Tutorial Manager does not advance to the next step when you call the <strong>TutorialManager.StepComplete()</strong> function. Instead, the Tutorial Manager waits for you to call <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepStart_">TutorialManager.StepStart()</a>. </p>
+<pre><code>  TutorialManager.StepStart();
+</code></pre></li>
 </ul>
-<p><strong>Note:</strong> If the Tutorial Manager cannot contact the Unity Analytics service for any reason and the decision whether or not to show the tutorial has not been previously recorded, the Tutorial Manager shows the default version of the tutorial. (When this occurs, <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_">TutorialManager.GetDecision()</a> returns true.)</p>
-<h2 id="resuming-a-tutorial">Resuming a Tutorial</h2>
+<h2 id="end-a-tutorial">End a tutorial</h2>
+<p>There is no specific function to call when a player completes all the steps in a tutorial — just call <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_StepComplete_">TutorialManager.StepComplete()</a> for the final step.</p>
+<pre><code>TutorialManager.StepComplete();  
+</code></pre><p>If you allow players to skip a tutorial after it has started, call the  <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_Skip_">TutorialManager.Skip()</a> function if they choose to do so.</p>
+<pre><code>TutorialManager.Skip();  
+</code></pre><h2 id="resume-a-tutorial">Resume a Tutorial</h2>
 <p>If a tutorial is &quot;paused&quot; or otherwise interrupted before the player completes all the steps, then you can resume the current step of the current tutorial with:</p>
 <pre><code>TutorialManager.StartStep(TutorialManager.stepId);  
 </code></pre><p><strong>Note:</strong> The Tutorial Manager only keeps track of the current tutorial. If you allow your players to switch between multiple tutorials, then it is your responsibility to keep track of the completion status and step position of each tutorial.</p>
-<h2 id="testing-your-adaptive-tutorials">Testing your Adaptive Tutorials</h2>
-<p>To help you test your tutorials, the <a href="Components.html#tutorial-editor-window">Tutorial Editor window</a> includes a <strong>Force decision</strong> option. When you enable this option, Tutorial Manager simulates receiving a decision from the Tutorial Manager service based on the <strong>To True</strong> option. </p>
+<h2 id="test-an-adaptive-tutorial">Test an Adaptive Tutorial</h2>
+<p>To help you test your tutorials, the <a href="TutorialEditorWindow.html">Tutorial Editor window</a> includes a <strong>Force decision</strong> option. When you enable this option, Tutorial Manager simulates receiving a decision from the Tutorial Manager service based on the <strong>To True</strong> option. </p>
 <p><img src="../images/tm_3.png" alt=""></p>
 <p><em>Tutorial Editor testing options</em></p>
 <ul>
-<li><p>When <strong>To True</strong> is checked, then the Tutorial Manager simulates the decision to show the default tutorial and sets its own state accordingly.</p>
+<li><p>When <strong>To True</strong> is checked, then the Tutorial Manager simulates the decision to show your long tutorial and sets its own state accordingly.</p>
 </li>
-<li><p>When <strong>To True</strong> is unchecked, Tutorial Manager simulates the decision to not show the default tutorial.</p>
+<li><p>When <strong>To True</strong> is unchecked, Tutorial Manager simulates the decision to show your short tutorial.</p>
 </li>
 </ul>
-<p>The Tutorial Editor window options only control the Tutorial Manager when you play your game in the Unity Editor. To simulate a decision outside the Unity Editor, the <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_System_Boolean_">TutorialManager.GetDecision()</a> function provides an override that takes a boolean forceDecision parameter. When you use this version of <em>GetDecision()</em>, you can set the state of the Tutorial Manager state machine to simulate a positive or negative decision from the machine learning algorithm.  </p>
+<p>The Tutorial Editor window options only control the Tutorial Manager when you play your game in the Unity Editor. To simulate a decision outside the Unity Editor, the <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision_System_Boolean_">TutorialManager.GetDecision()</a> function provides an override that takes a boolean forceDecision parameter. When you use this version of <em>GetDecision()</em>, you can set the state of the Tutorial Manager to simulate a true or false decision from the machine learning algorithm.  </p>
 <p>The Tutorial Editor window also provides a Clear Progress button. Click this button to reset the Tutorial Manager state. You can also use the <a class="xref" href="../api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_Reset_">TutorialManager.Reset()</a> function from code. </p>
 </article>
           </div>

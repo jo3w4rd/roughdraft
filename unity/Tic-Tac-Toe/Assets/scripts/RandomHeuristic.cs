@@ -23,6 +23,6 @@ public class RandomHeuristic : MonoBehaviour, Decision {
             float reward,
             bool done,
         List<float> memory){
-        return null;
+        return new List<float>();
     }
 }
