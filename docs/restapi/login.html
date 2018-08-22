@@ -101,7 +101,7 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="authorization">Authorization</h1>
 
-<p>Obtain OAuth 2.0-style access tokens.</p>
+<p>Obtain or refresh OAuth 2.0-style access tokens.</p>
 <p><strong>Version:</strong> 2.0.0</p>
 <h3 id="login">/login</h3>
 <hr>
@@ -123,7 +123,7 @@
 <tr>
 <td>credentials</td>
 <td>body</td>
-<td>Login credentials for a Unity account with access to the project.</td>
+<td>Login credentials for a Unity account with access to the project. Note, to refresh a login, use the <a href="#refreshcredentials">refresh token as the credential</a> rather than the username and password.</td>
 <td>Yes</td>
 <td><a href="#credentials">credentials</a></td>
 </tr>
@@ -154,7 +154,7 @@
 <h3 id="models">Models</h3>
 <hr>
 <h3 id="credentials">credentials</h3>
-<p>Unity account login credentials.</p>
+<p>Unity account login credentials. (To refresh a login, you can send <a href="#refreshcredentials">refreshCredentials</a> instead of user credentials in the request body.)</p>
 <table>
 <thead>
 <tr>
@@ -181,6 +181,32 @@
 <td>grant_type</td>
 <td>string</td>
 <td>Always: &#39;PASSWORD&#39;</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="refreshcredentials">refreshCredentials</h3>
+<p>Request body for obtaining a new access token using a refresh token.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>refresh_token</td>
+<td>string</td>
+<td>A refresh_token obtained from a user-level login request.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>grant_type</td>
+<td>string</td>
+<td>Always: &#39;refresh_token&#39;</td>
 <td>Yes</td>
 </tr>
 </tbody>
