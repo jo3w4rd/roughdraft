@@ -1442,6 +1442,4 @@ These can be mapped to transform components as follows:
 | SH                         | --- Unused ---            |
 | S                          | Scale                     |
 
-<p>
-<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js" charset="utf-8"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js" charset="utf-8"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
-</p>
+
