@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ECS concepts </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="ECS concepts ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc">
+    <meta property="docfx:tocrel" content="../toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../images/logo.png" alt="">
+              </a>
+
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="../../manual/ecs_principles_and_vision.html" title="Manual">Manual</a>
+                      </li>
+                      <li>
+                          <a href="../../api/Unity.Collections.html" title="Script Reference">Script Reference</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <a href="../ecs_principles_and_vision.html" title="The Unity Data-Oriented Tech Stack project" class="">The Unity Data-Oriented Tech Stack project</a>
+                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="../getting_started/getting_started.html" title="Getting started" class="">Getting started</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../getting_started/ecs_introduction.html" title="Entity Component Systems" class="">Entity Component Systems</a>
+                          </li>
+                          <li class="">
+                            <a href="../getting_started/hello_ecs.html" title="Hello (ECS) World" class="">Hello (ECS) World</a>
+                          </li>
+                          <li class="">
+                            <a href="../getting_started/samples_overview.html" title="Samples" class="">Samples</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="../com.unity.entities/index.html" title="Unity Entity Component System" class="">Unity Entity Component System</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../com.unity.entities/index.html" title="Overview" class="">Overview</a>
+                          </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="../com.unity.entities/index.html" title="Core ECS" class="">Core ECS</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a href="../com.unity.entities/ecs_entities.html" title="Entities" class="">Entities</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../com.unity.entities/world.html" title="Worlds" class="">Worlds</a>
+                                      </li>
+                                    </ul>  </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a href="../com.unity.entities/ecs_components.html" title="Components" class="">Components</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../com.unity.entities/component_data.html" title="General Purpose Components" class="">General Purpose Components</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/shared_component_data.html" title="Shared Components" class="">Shared Components</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/system_state_components.html" title="System State Components" class="">System State Components</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/dynamic_buffers.html" title="Dynamic Buffer Components" class="">Dynamic Buffer Components</a>
+                                      </li>
+                                    </ul>  </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a href="../com.unity.entities/ecs_systems.html" title="System" class="">System</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../com.unity.entities/component_system.html" title="Component Systems" class="">Component Systems</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/job_component_system.html" title="Job Component Systems" class="">Job Component Systems</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/entity_command_buffer.html" title="Entity Command Buffers" class="">Entity Command Buffers</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/system_update_order.html" title="System Update Order" class="">System Update Order</a>
+                                      </li>
+                                    </ul>  </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a href="../com.unity.entities/chunk_iteration.html" title="Accessing Entity Data" class="">Accessing Entity Data</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../com.unity.entities/entity_iteration_job.html" title="Using IJobProcessComponentData" class="">Using IJobProcessComponentData</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/chunk_iteration_job.html" title="Using IJobChunk" class="">Using IJobChunk</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/entity_iteration_foreach.html" title="Using ComponentSystem and ForEach" class="">Using ComponentSystem and ForEach</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/manual_iteration.html" title="Manual iteration" class="">Manual iteration</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/component_group.html" title="Component Groups" class="">Component Groups</a>
+                                      </li>
+                                    </ul>  </li>
+                                <li class="">
+                                  <a href="../com.unity.entities/version_numbers.html" title="Versions and Generations" class="">Versions and Generations</a>
+                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a href="../com.unity.entities/ecs_job_overview.html" title="Jobs in ECS" class="">Jobs in ECS</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../com.unity.entities/ecs_job_extensions.html" title="ECS Job System extensions" class="">ECS Job System extensions</a>
+                                      </li>
+                                    </ul>  </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="../com.unity.entities/index.html" title="Creating Gameplay" class="">Creating Gameplay</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../com.unity.entities/transform_system.html" title="Transforms" class="">Transforms</a>
+                                </li>
+                                <li class="">
+                                  <a href="../com.unity.entities/gp_rendering.html" title="Rendering" class="">Rendering</a>
+                                </li>
+                              </ul>  </li>
+                        </ul>  </li>
+                    <li class="">
+                      <a href="../cheatsheet.html" title="Quick Reference" class="">Quick Reference</a>
+                    </li>
+                    <li class="">
+                      <a href="../glossary.html" title="Glossary" class="">Glossary</a>
+                    </li>
+                    <li class="">
+                      <a href="../resources.html" title="Learning Resources" class="">Learning Resources</a>
+                    </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ecs-concepts">
+<h1 id="ecs-concepts">ECS concepts</h1>
+
+<p>If you are familiar with <a href="https://en.wikipedia.org/wiki/Entity%E2%80%93component%E2%80%93system">Entity-component-system</a> (ECS) concepts, you might see the potential for naming conflicts with Unity&#39;s existing <strong>GameObject</strong>/<strong>Component</strong> setup. </p>
+<p>The purpose of this page is:</p>
+<ol>
+<li>Clarify and disambiguate the concepts as used in the ECS.</li>
+<li>Provide a brief introduction to each concept as an entry point to a new user.</li>
+</ol>
+<h3 id="entitymanager">EntityManager</h3>
+<p>Manages memory and structural changes.</p>
+<h3 id="componentdata">ComponentData</h3>
+<p>Parallel streams of concrete, <a href="https://docs.microsoft.com/en-us/dotnet/framework/interop/blittable-and-non-blittable-types">blittable</a> data. </p>
+<p>e.g.</p>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>HitPoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>64,30</td>
+<td>69</td>
+</tr>
+<tr>
+<td>58,55</td>
+<td>70</td>
+</tr>
+<tr>
+<td>95,81</td>
+<td>81</td>
+</tr>
+</tbody>
+</table>
+<p>See: <a href="component_data.html">General purpose components</a></p>
+<h3 id="entity">Entity</h3>
+<p>An ID which can be used for indirect component lookups for the purposes of graph traversal.</p>
+<p>e.g.</p>
+<table>
+<thead>
+<tr>
+<th>Entity</th>
+<th>Position</th>
+<th>HitPoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>64,30</td>
+<td>69</td>
+</tr>
+<tr>
+<td>1</td>
+<td>58,55</td>
+<td>70</td>
+</tr>
+<tr>
+<td>2</td>
+<td>95,81</td>
+<td>81</td>
+</tr>
+</tbody>
+</table>
+<p>See: <a href="ecs_entities.html">Entities</a></p>
+<h3 id="sharedcomponentdata">SharedComponentData</h3>
+<p>Type of ComponentData where each unique value is only stored once. ComponentData streams are divided into subsets by each value of all SharedComponentData.</p>
+<p>e.g. (Mesh SharedComponentData)</p>
+<p><strong>Mesh = RocketShip</strong></p>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>HitPoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>64,30</td>
+<td>69</td>
+</tr>
+<tr>
+<td>58,55</td>
+<td>70</td>
+</tr>
+<tr>
+<td>95,81</td>
+<td>81</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Mesh = Bullet</strong></p>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>HitPoints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10,50</td>
+<td>19</td>
+</tr>
+<tr>
+<td>36,24</td>
+<td>38</td>
+</tr>
+<tr>
+<td>67,33</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p>See: <a href="shared_component_data.html">Shared components</a></p>
+<h3 id="dynamic-buffers">Dynamic Buffers</h3>
+<p>This is a type of component data that allows a variable-sized, &quot;stretchy&quot;
+buffer to be associated with an entity. Behaves as a component type that
+carries an internal capacity of a certain number of elements, but can allocate
+a heap memory block if the internal capacity is exhausted.</p>
+<p>See: <a href="dynamic_buffers.html">Dynamic Buffers</a></p>
+<h3 id="entityarchetype">EntityArchetype</h3>
+<p>Specific set of ComponentData types and SharedComponentData values which define the subsets of ComponentData streams stored in the EntityManager.</p>
+<p>e.g. In the above, there are two EntityArchetypes:</p>
+<ol>
+<li>Position, HitPoints, Mesh = RocketShip</li>
+<li>Position, HitPoints, Mesh = Bullet</li>
+</ol>
+<p>See: <a href="../api/Unity.Entities.EntityArchetype.html">EntityArchetype in detail</a></p>
+<h3 id="componentsystem">ComponentSystem</h3>
+<p>Where gameplay/system logic/behavior occurs.</p>
+<p>See: <a href="ecs_in_detail.html#componentsystem">ComponentSystem in detail</a></p>
+<h3 id="world">World</h3>
+<p>A unique EntityManager with specific instances of defined ComponentSystems. Multiple Worlds may exist and work on independent data sets.</p>
+<p>See: <a href="ecs_in_detail.html#world">World in detail</a></p>
+<h3 id="systemstatecomponentdata">SystemStateComponentData</h3>
+<p>A specific type of ComponentData which is not serialized or removed by default when an entity ID is deleted. Used for internal state and resource management inside a system. Allows you to manage construction and destruction of resources.</p>
+<p>See: <a href="ecs_in_detail.html#systemstatecomponentdata">SystemStateComponentData in detail</a></p>
+<h3 id="jobcomponentsystem">JobComponentSystem</h3>
+<p>A type of ComponentSystem where jobs are queued independently of the JobComponentSystem&#39;s update, in the background. Those jobs are guaranteed to be completed in the same order as the systems. </p>
+<p>See: <a href="ecs_in_detail.html#jobcomponentsystem">JobComponentSystem in detail</a></p>
+<h3 id="entitycommandbuffer">EntityCommandBuffer</h3>
+<p>A list of structural changes to the data in an EntityManager for later completion. Structural changes are:</p>
+<ol>
+<li>Adding Component</li>
+<li>Removing Component</li>
+<li>Changing SharedComponent value</li>
+</ol>
+<p>See: <a href="ecs_in_detail.html#entitycommandbuffer">EntityCommandBuffer in detail</a></p>
+<h3 id="entitycommandbuffersystem">EntityCommandBufferSystem</h3>
+<p>A type of ComponentSystem, which provides an EntityCommandBuffer. i.e. A specific (synchronization) point in the frame where that EntityCommandBuffer will be resolved.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Unity-Technologies/dots/blob/organize-docs/doc-src/manual/com.unity.entities/ecs_core.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            &nbsp;
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

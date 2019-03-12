@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Hello (ECS) World </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Hello (ECS) World ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc">
+    <meta property="docfx:tocrel" content="../toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../images/logo.png" alt="">
+              </a>
+
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="../../manual/ecs_principles_and_vision.html" title="Manual">Manual</a>
+                      </li>
+                      <li>
+                          <a href="../../api/Unity.Collections.html" title="Script Reference">Script Reference</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <a href="../ecs_principles_and_vision.html" title="The Unity Data-Oriented Tech Stack project" class="">The Unity Data-Oriented Tech Stack project</a>
+                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="../getting_started/getting_started.html" title="Getting started" class="">Getting started</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../getting_started/ecs_introduction.html" title="Entity Component Systems" class="">Entity Component Systems</a>
+                          </li>
+                          <li class="active">
+                            <a href="../getting_started/hello_ecs.html" title="Hello (ECS) World" class="active">Hello (ECS) World</a>
+                          </li>
+                          <li class="">
+                            <a href="../getting_started/samples_overview.html" title="Samples" class="">Samples</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="../com.unity.entities/index.html" title="Unity Entity Component System" class="">Unity Entity Component System</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../com.unity.entities/index.html" title="Overview" class="">Overview</a>
+                          </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="../com.unity.entities/index.html" title="Core ECS" class="">Core ECS</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a href="../com.unity.entities/ecs_entities.html" title="Entities" class="">Entities</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../com.unity.entities/world.html" title="Worlds" class="">Worlds</a>
+                                      </li>
+                                    </ul>  </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a href="../com.unity.entities/ecs_components.html" title="Components" class="">Components</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../com.unity.entities/component_data.html" title="General Purpose Components" class="">General Purpose Components</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/shared_component_data.html" title="Shared Components" class="">Shared Components</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/system_state_components.html" title="System State Components" class="">System State Components</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/dynamic_buffers.html" title="Dynamic Buffer Components" class="">Dynamic Buffer Components</a>
+                                      </li>
+                                    </ul>  </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a href="../com.unity.entities/ecs_systems.html" title="System" class="">System</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../com.unity.entities/component_system.html" title="Component Systems" class="">Component Systems</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/job_component_system.html" title="Job Component Systems" class="">Job Component Systems</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/entity_command_buffer.html" title="Entity Command Buffers" class="">Entity Command Buffers</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/system_update_order.html" title="System Update Order" class="">System Update Order</a>
+                                      </li>
+                                    </ul>  </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a href="../com.unity.entities/chunk_iteration.html" title="Accessing Entity Data" class="">Accessing Entity Data</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../com.unity.entities/entity_iteration_job.html" title="Using IJobProcessComponentData" class="">Using IJobProcessComponentData</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/chunk_iteration_job.html" title="Using IJobChunk" class="">Using IJobChunk</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/entity_iteration_foreach.html" title="Using ComponentSystem and ForEach" class="">Using ComponentSystem and ForEach</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/manual_iteration.html" title="Manual iteration" class="">Manual iteration</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../com.unity.entities/component_group.html" title="Component Groups" class="">Component Groups</a>
+                                      </li>
+                                    </ul>  </li>
+                                <li class="">
+                                  <a href="../com.unity.entities/version_numbers.html" title="Versions and Generations" class="">Versions and Generations</a>
+                                </li>
+                                <li class="">
+                                  <a href="../com.unity.entities/ecs_burst.html" title="Using Burst" class="">Using Burst</a>
+                                </li>
+                                <li class="">
+                                  <a href="../com.unity.entities/ecs_data_structures.html" title="Data Structures" class="">Data Structures</a>
+                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a href="../com.unity.entities/ecs_job_overview.html" title="Jobs in ECS" class="">Jobs in ECS</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../com.unity.entities/ecs_job_extensions.html" title="ECS Job System extensions" class="">ECS Job System extensions</a>
+                                      </li>
+                                    </ul>  </li>
+                              </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a href="../com.unity.entities/index.html" title="Creating Gameplay" class="">Creating Gameplay</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../com.unity.entities/transform_system.html" title="Transforms" class="">Transforms</a>
+                                </li>
+                                <li class="">
+                                  <a href="../com.unity.entities/gp_rendering.html" title="Rendering" class="">Rendering</a>
+                                </li>
+                              </ul>  </li>
+                        </ul>  </li>
+                    <li class="">
+                      <a href="../cheatsheet.html" title="Quick Reference" class="">Quick Reference</a>
+                    </li>
+                    <li class="">
+                      <a href="../glossary.html" title="Glossary" class="">Glossary</a>
+                    </li>
+                    <li class="">
+                      <a href="../resources.html" title="Learning Resources" class="">Learning Resources</a>
+                    </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="hello-ecs-world">Hello (ECS) World</h1>
+
+<p>The HelloECS examples in the <a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples">Unity ECS Samples project</a> demonstrate the basics of using ECS in a Unity project. These basic examples include:</p>
+<ul>
+<li>HelloCube — creates a single rotating cube. This example demonstrates how to use some of the Transform components provided by the ECS API as well as how to create your own components and systems.</li>
+<li>HelloCubes — builds on HelloCube, adding a second, moving cube to the scene. </li>
+<li>HelloSpawnACube — demonstrates how to spawn a cube Entity at runtime based on a Prefab &quot;archetype&quot; object.</li>
+</ul>
+<p>While the above examples are very basic, the Samples project also contains the Boids example, a more complex scenario with thousands of Entities. Boids simulates an underwater scene with a shark and schools containing thousands of fish. (It uses the classic Boids flocking algorithm for the schooling fish behavior.)</p>
+<p>This article walks through the process of recreating the HelloCube example. You can use the code in the existing sample as reference during a quick read-though, but we recommend putting together a fresh project in Unity to get the most out of this discussion.     </p>
+<h2 id="preliminaries">Preliminaries:</h2>
+<p>To begin set up a Project to use ECS:</p>
+<ol>
+<li>Open the Unity Editor (2018.3 or later)</li>
+<li>Create a new Project.</li>
+<li>Open the <strong>Package Manager</strong> (menu: <strong>Window</strong> &gt; <strong>Package Manager</strong>).</li>
+<li>Click the <strong>Advanced</strong> button at the top of the window and turn on the <strong>Show preview packages</strong> option.</li>
+<li><p>Add the following packages to the project:</p>
+<ul>
+<li>Entities</li>
+<li>Hybrid.Renderer</li>
+</ul>
+</li>
+</ol>
+<p>Adding the Entities package to your Project also adds the following packages:</p>
+<ul>
+<li>Burst</li>
+<li>Collections</li>
+<li>Jobs</li>
+<li>Mathematics </li>
+</ul>
+<p>For complete requirements, see System Requirements.</p>
+<h2 id="rotating-cube">Rotating cube</h2>
+<p>The Hello Cube example rotates a single cube.</p>
+<p><img src="../images/dots_helloworld_scene.png" alt="A simple scene"></p>
+<p>To create this example, you can use the default, Sample scene that Unity provides for a new Project or you can create a new scene in the Editor. </p>
+<p>To get started, add an empty GameObject to the scene, naming it &quot;RotatingCube&quot;.</p>
+<p>Next, add the following ECS Components to your RotatingCube: </p>
+<ul>
+<li>GameObjectEntity</li>
+<li>CopyInitialTransformFromGameObjectComponent</li>
+<li>PositionComponent</li>
+<li>RotationComponent</li>
+</ul>
+<p>These Components are included in the ECS packages. They extend the ComponentDataProxy, which allows you to use the normal <strong>Add Component</strong> button in the Inspector window:</p>
+<p><img src="../images/ECS_hello_AddComponent.png" alt="Add Components to a GameObject the normal way"></p>
+<p>The GameObjectEntity component converts a normal GameObject to an Entity. When the scene loads, the ECS system creates an Entity for each GameObject containing this type of Component and copies all of the ECS-type Components on that GameObject to the Entity.  </p>
+<p>The CopyInitialTransformFromGameObjectComponent is a &quot;marker&quot; or “tag” component. It contains no data, but it allows the CopyTransformFromGameObject System to find Entities that need to copy their initial data from the UnityEngine.Transform object. This system is primarily a convenience to make it easy to place Entities in the Unity Editor. </p>
+<p>The PositionComponent and RotationComponent components contain simple data types defined in the Unity.Mathematics package (a float3 vector for position and a quaternion for rotation). To let you add these components to a GameObject, these hybrid Component classes act as wrappers for the underlying data structs that are used by ECS. For example, the PositionComponent class is defined as:</p>
+<pre><code>using System;
+using Unity.Entities;
+using Unity.Mathematics;
+
+namespace Unity.Transforms
+{
+    [Serializable]
+    public struct Position : IComponentData
+    {
+        public float3 Value;
+    }
+
+    [UnityEngine.DisallowMultipleComponent]
+    public class PositionComponent : ComponentDataProxy&lt;Position&gt; {}
+}
+</code></pre><p>The ComponentDataProxy class is a normal Unity Component, which is why you can add these objects to a GameObject. See ComponentDataProxy for more information.</p>
+<p>When Unity initializes a GameObject containing a GameObjectEntity Component,  GameObjectEntity looks for ComponentDataProxy classes on the same GameObject and adds the IComponentData structs for those classes to the Entity. </p>
+<p>Next, add a RenderMeshComponent to the Cube. The current Hybrid Render system uses the data from this component to render the Entity. Set the <strong>Mesh</strong> to <em>Cube</em> and the <strong>Material</strong> to <em>Default-Material</em> (or you can create a more interesting <a href="https://docs.unity3d.com/Manual/Materials.html">Material Asset</a>).</p>
+<p>If you press <strong>Play</strong>, you should see a static rendered cube. The scene still uses the normal Unity Camera and Lights. Notice that the cube moves to the initial position and orientation you entered using the Transform properties in the inspector, but that changing the Transform values in play mode has no effect — these values are copied at startup because of the CopyInitialTransformFromGameObjectComponent.</p>
+<h3 id="aside-the-entity-debugger">Aside: The Entity Debugger</h3>
+<p>Before we talk about how to create a custom Component and System to rotate our cube, let’s take a moment to look at the Entity Debugger window. This window gives you insight into how the ECS system has organized your data and which systems are actually running.</p>
+<p>While still in Play mode, open the Entity Debugger window (menu: <strong>Window</strong> &gt; <strong>Analysis</strong> &gt; <strong>Entity Debugger</strong>). The list of Systems on the left shows all the active Systems and the amount of execution time each System uses on the main thread.</p>
+<p>Under <strong>Systems</strong>, click on the EntityManager. In the middle, System details area of the window, you can see our solitary Entity listed. When you select an Entity in the Entity Debugger window, the Unity Inspector also updates to show the data associated with the selected Entity.</p>
+<p><img src="../images/ECS_hello_entity_debugger_basic.png" alt="The Entity Debugger with the EntityManager selected"></p>
+<p>On the right side of the Entity Debugger, the Chunk Info section shows the ECS Components for an Entity. (A Chunk is a block of memory that is managed by the ECS system and which contains the data components of that Entity.) Notice that all the components we added to our cube are shown, along with a few others. These other Components, like RenderBounds and VisibleLocalToWorld are added by one system to store the data needed by a subsequent system (for example, the bounds are needed by the rendering system). Since we only have one Entity, ECS only allocates one Chunk of memory. If we spawned more Entities with the same Components, the EntityManager fills up the existing Chunks before it allocates another. A Chunk only contains data for Entites that have the exact same Components. If we created a second Entity in this Project and added a ScaleComponent, that Entity would go into a different Chunk even when all the other Components are the same. The <strong>Matching chunks</strong> display shows how many Chunks are currently allocated.  </p>
+<p>Next, select the EndFrameTransformSystem under Systems. EndFrameTransformSystem is the default system that updates the transform data of Entities based on their current Position, Rotation, and Scale Components. </p>
+<p><img src="../images/ECS_hello_entity_debugger_transform.png" alt="The Entity Debugger with the EndFrameTransformSystem selected"></p>
+<p>The System detail area now shows the sets of components the selected system works with. The number of Entities matching each set is listed to the right. </p>
+<p>As an experiment, add a Frozen component to the cube (still in playmode). Notice how the EndFrameTransformSystem stops running. If a system does not find Entities with the correct set of components, the system does not run. To continue, remove (or disable) the Frozen component so that the EndFrameTransformSystem resumes.</p>
+<p>The Entity Debugger provides a useful view into your ECS data and Systems. Use it to help determine why things happen, or don’t happen, when they should, as well as to just help understand the how your program is working.</p>
+<h3 id="rotating-the-cube">Rotating the Cube</h3>
+<p>So far, we have used pre-made Components, now let’s create a custom ECS component and system to animate the cube rotation. </p>
+<p>In a MonoBehaviour, we would rotate a 3D object with something like this:</p>
+<pre><code>using UnityEngine;
+
+public class Rotator : MonoBehaviour
+{
+    public float Speed = 50.0f;
+
+    void Update()
+    {
+        // Speed degrees per second
+        this.transform.Rotate(Vector3.up, Speed * Time.deltaTime);
+    }
+}
+</code></pre><p>In ECS, we separate the data, which is the rotation speed in this case, into a Component and the behavior into a System. This way, we can update every Entity that changes its rotation in one efficient loop instead of calling a different Update() function on each object, which has to fetch data from scattered memory locations, making very inefficient use of modern CPU architecture.</p>
+<p>In order to put the rotation speed data component on a GameObject, we use the same technique as the Position and Rotation components we already looked at. Namely, we define a struct implementing IComponentData and a class extending ComponentDataProxy:</p>
+<pre><code>using System;
+using Unity.Entities;
+
+[Serializable]
+public struct RotationSpeed: IComponentData
+{
+    public float Value;
+}
+
+[UnityEngine.DisallowMultipleComponent]
+public class HelloRotationSpeedComponent : ComponentDataProxy&lt;RotationSpeed&gt;{}
+</code></pre><p><strong>Note:</strong> The DisallowMultipleComponent attribute is optional, but it prevents you from accidentally putting the same component on the GameObject more than once. The ECS system only allows one instance of a data component to be assigned to the same Entity, so there is no reason to allow someone to add two of the same component to a GameObject in the Editor.</p>
+<p>For the system that reads this data and updates the transform, we need to implement a JobComponentSystem class. This class has two main sections, a struct implementing IJobProcessComponentData, which defines the system’s job, and an OnUpdate() method that schedules that job to be run. OnUpdate() is very similar to the MonoBehaviour.Update() method — the ECS system calls this function every frame which means that this job is scheduled every frame. </p>
+<p>Let’s look at the IJobProcessComponentData struct:</p>
+<pre><code>[BurstCompile]
+struct HelloRotationSpeedJob : IJobProcessComponentData&lt;Rotation, HelloRotationSpeed&gt;
+{
+    public float dT;
+
+    public void Execute(ref Rotation rotation, [ReadOnly] ref HelloRotationSpeed rotSpeed)
+    {
+        rotation.Value = math.mul(math.normalize(rotation.Value), 
+                                  quaternion.AxisAngle(math.up(), rotSpeed.Value * dT));
+    }
+}
+</code></pre><p>The [BurstCompile] attribute tells Unity that this job is compatible with the Burst compiler. The Burst compiler produces much faster machine code than the general purpose C# compiler, but it can only do so if the code conforms to a strict (though easy to follow) set of rules. See Burst Compiler for more information.</p>
+<p>In the struct signature, IJobProcessComponentData&lt;Rotation, HelloRotationSpeed&gt;, means that the system operates on the Rotation and HelloRotationSpeed components. Rotation is the Entity data we need to update and HelloRotationSpeed is the data that tells us how fast to rotate. The struct also defines a field, dT, which holds the amount of time that has elapsed since the previous frame. The dT value is set when the job is scheduled. </p>
+<p>Finally, the struct’s Execute() method defines the actual work to be done. The Execute() method can only take parameters matching the generic parameters used to define the struct in the first place, namely a Rotation and a HelloRotationSpeed component. The [ReadOnly] attribute is assigned to the HelloRotationSpeed parameter. This helps the job scheduler since it knows that it can schedule multiple jobs that read HelloRotationSpeed in parallel, if possible. If we forgot to assign this attribute, any systems accessing HelloRotationSpeed would have to run in sequence. Of course, we ARE updating Rotation, so that parameter is read-write (by default). </p>
+<p><strong>Note:</strong> The ref modifier indicates that the parameters are passed to the function by reference. Since structs are value types in C#, we would get a copy of our components if we didn’t specify pass-by-reference. That would result in the Execute() function updating the copy, which is then thrown away when the function exits, instead of the data stored in our entity arrays. </p>
+<p>To rotate the cube, Execute() uses the AxisAngle() function from the Unity.Mathematics package, which provides common math routines implemented so that they are compatible with Burst. This part of the IJobProcessComponentData will, of course, be different for each system. The function creates a rotation quaternion based on the HelloRotationSpeed Component value and the dT field. It then multiplies the current value of the Rotation Component with this rotation quaternion and then assigns the result back to the Rotation Component. </p>
+<p>The second part of the System is the OnUpdate() function. The ECS system calls this function once per frame. Your custom systems must override OnUpdate() to create and schedule a Job:</p>
+<pre><code>protected override JobHandle OnUpdate(JobHandle inputDependencies)
+{
+    var job = new HelloRotationSpeedJob()
+    {
+        dT = Time.deltaTime
+    };
+    return job.Schedule(this, inputDependencies);
+}
+</code></pre><p>In this example, the function creates an instance of the HelloRotationSpeedJob struct, setting its dT field to the current delta time from the Unity Time class. The JobHandle parameter passed to the OnUpdate() function contains any Job dependencies determined by the ECS system. You must pass this value on when you schedule the job for the system.</p>
+<p>Put together, the HelloRotationSpeedSystem looks like this:</p>
+<pre><code>using Unity.Burst;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Jobs;
+using Unity.Mathematics;
+using Unity.Transforms;
+using UnityEngine;
+
+public class HelloRotationSpeedSystem : JobComponentSystem
+{
+    [BurstCompile]
+    struct HelloRotationSpeedJob : IJobProcessComponentData&lt;Rotation, HelloRotationSpeed&gt;
+    {
+        [ReadOnly] public float dT;
+        public void Execute(ref Rotation rotation, [ReadOnly] ref HelloRotationSpeed rotSpeed)
+        {
+            rotation.Value = math.mul(math.normalize(rotation.Value), 
+                                      quaternion.AxisAngle(math.up(), rotSpeed.Value * dT));
+        }
+    }
+    protected override JobHandle OnUpdate(JobHandle inputDependencies)
+    {
+        var job = new HelloRotationSpeedJob()
+        {
+            dT = Time.deltaTime
+        };
+        return job.Schedule(this, inputDependencies);
+    }
+}
+</code></pre><p>Press the <strong>Play</strong> button to see the cube rotate. Open the Entity Debugger to see that it now lists our HelloRotationSpeedSystem that operates on Entities with a HelloRotationSpeed and a Rotation Component.</p>
+<p><img src="../images/ECS_hello_entity_debugger_rotation.png" alt="The HelloRotationSpeedSystem in the Entity Debugger window"></p>
+<p>Notice that we did not have to include any code to turn on the system. By default, the ECS system automatically runs any systems for which there are Entities with the requisite groups of Component.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this article, we examined how to add ECS Components to GameObjects so that we could convert them into Entities. At a minimum, you add a GameObjectEntity Component, which performs the conversion. For most GameObjects, you would also add transform-related Components like Position, Rotation, and Scale and rendering-related components, like RenderMesh. </p>
+<p>We also examined how to create custom data Components and behavior Systems. This involved:</p>
+<ul>
+<li><p>Implementing a ComponentDataProxy class that wraps an IComponentData struct to create a Component.</p>
+</li>
+<li><p>Implementing an JobComponentSystem struct whose Execute() function defines the work to be done by the System and whose OnUpdate() function schedules that work with the Unity Job system.</p>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Unity-Technologies/dots/blob/organize-docs/doc-src/manual/getting_started/hello_ecs.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            &nbsp;
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

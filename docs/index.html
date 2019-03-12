@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Unity Analytics Tutorial Manager </title>
+    <title>Welcome </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Unity Analytics Tutorial Manager ">
-    <meta name="generator" content="docfx 2.34.0.0">
+    <meta name="title" content="Welcome ">
+    <meta name="generator" content="docfx 2.40.7.0">
     
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="styles/docfx.vendor.css">
@@ -20,7 +20,7 @@
     
     
   </head>
-  <body data-spy="scroll" data-target="#affix">
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
         
@@ -36,7 +36,8 @@
               
               <a class="navbar-brand" href="index.html">
                 <img id="logo" class="svg" src="images/logo.png" alt="">
-              </a> &nbsp;&nbsp;&nbsp; 
+              </a>
+
             </div>
             <div class="collapse navbar-collapse" id="navbar">
               <form class="navbar-form navbar-right" role="search" id="search">
@@ -44,18 +45,15 @@
                   <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
                 </div>
               </form>
+                
                 <ul class="nav level1 navbar-nav">
-                  <li class="">
-                    <a href="articles/QuickStart.html" title="Manual" class="">Manual</a>
-                  </li>
-                  <li class="">
-                    <a href="api/UnityEngine.Analytics.html" title="Script Reference" class="">Script Reference</a>
-                  </li>
-                  <li class="">
-                    <a href="restapi/overview.html" title="REST API" class="">REST API</a>
-                  </li>
-                </ul>
-            </div>
+                      <li>
+                          <a href="manual/ecs_principles_and_vision.html" title="Manual">Manual</a>
+                      </li>
+                      <li>
+                          <a href="api/Unity.Collections.html" title="Script Reference">Script Reference</a>
+                      </li>
+                </ul>    </div>
           </div>
         </nav>
         
@@ -71,36 +69,69 @@
         <div class="article row grid">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="welcome">Welcome</h1>
 
-<!-- This content is included in index.md during the doc build. -->    
-<script>
-var permalink = {
-    getdecision : "api/UnityEngine.Analytics.TutorialManager.html#UnityEngine_Analytics_TutorialManager_GetDecision",
-    tutorialmanager: "api/UnityEngine.Analytics.TutorialManager.html"
-};
-var url_hash = window.location.hash.substr(1);
-
-if(permalink.hasOwnProperty(url_hash)){
-    window.location = permalink[url_hash];
-}
-</script>
-
-<p><a name="tutorialmanager" id="tutorialmanager" class='anchor'></a>
-<a name="getdecision" id="getdecision" class='anchor'></a></p>
-<h1 id="unity-analytics-tutorial-manager">Unity Analytics Tutorial Manager</h1>
-<p>The onboarding process is the most critical part of your game. Players who churn won’t be around to experience all your great content, let alone monetize. The traditional approach – for those who even get this far – has been to optimize the tutorial for the majority of players, yielding at best a one-size-fits-all onboarding flow. At the same time, tutorials themselves tend to be developed at the last minute in a project, becoming a brittle pile of spaghetti code.</p>
-<p>We can do better:</p>
+<p>Welcome to the DOTS Samples repository!</p>
+<p>Here you can find the resources required to start building with these new systems today.</p>
+<p>We have also provided a forum where you can find more information and share your experiences with these new systems.</p>
+<p><a href="https://unity3d.com/performance-by-default">Click here to visit the forum</a></p>
+<h2 id="what-is-the-unity-data-oriented-tech-stack">What is the Unity Data Oriented Tech Stack?</h2>
+<p>We have been working on a new high performance multithreaded system, that will make it possible for games to fully utilise the multicore processors available today without heavy programming headache. The Data Oriented Tech Stack includes the following major systems:</p>
 <ul>
-<li><p>Leveraging our vast pool of game data, Unity can differentiate a player who needs a little more help from the player who wants to charge straight into the action. Unity Analytics collects data as players play your game and trains a machine learning model to predict whether individuals like your game better with more help or less help.</p>
-</li>
-<li><p>To help you avoid writing last minute, spaghetti code, the Tutorial Manager provides a state-machine-based API. This state machine lets you define the high-level structure of your tutorials and then advance the state as the player completes a tutorial using a few, simple API calls.</p>
-</li>
-<li><p>The Tutorial Manager dashboard helps you manage your live tutorials, update tutorial text remotely, and view reports on tutorial effectiveness.</p>
-</li>
+<li>The <strong>Entity Component System</strong> provides a way to write performant code by default. </li>
+<li>The <strong>C# Job System</strong> provides a way to run your game code in parallel on multiple CPU cores</li>
+<li>The <strong>Burst compiler</strong> a new math-aware, backend compiler tuned to produce highly optimized machine code.</li>
 </ul>
-<p>With just a quick integration, the Tutorial Manager can put you on the road to optimizing your game one player at time!</p>
-<p><br><br>
-<p style="text-align:right; font-size:130%;"><a href="articles/QuickStart.html">—&gt; Get Started!</a></p></p>
+<p>With these systems, Unity can produce highly optimised code for the particular capabilities of the platform you’re compiling for. </p>
+<h2 id="entity-component-system">Entity Component System</h2>
+<p>The Entity Component System offers a better approach to game design that allows you to concentrate on the actual problems you are solving: the data and behavior that make up your game. It leverages the C# Job System and Burst Compiler enabling you to take full advantage of today&#39;s multicore processors. Moving from object-oriented to data-oriented design makes it easier for you to reuse the code and easier for others to understand and work on it.</p>
+<p>The Entity Component System ships as an experimental package that currently supports Unity 2018.3 and later. It is important to stress that the Entity Component System is not production ready.</p>
+<h2 id="c-job-system">C# Job System</h2>
+<p>The new C# Job System takes advantage of multiple cores in a safe and easy way. Easy, as it’s designed to open this approach up to user scripts and allows you to write safe, fast, jobified code while providing protection from some of the pitfalls of multi-threading such as race conditions.</p>
+<p>The C# Job System is a built-in module included in Unity 2018.1+.</p>
+<p><a href="https://github.com/stella3d/job-system-cookbook">Further sample projects on the C# Job System can be found here</a></p>
+<h2 id="burst">Burst</h2>
+<p>Burst is a new LLVM-based, math-aware backend compiler. It compiles C# jobs into highly-optimized machine code that takes advantage of the particular capabilities of the platform you’re compiling for.</p>
+<p>Burst is an experimental package that currently supports Unity 2018.3 and later. It is important to stress that Burst is not production ready.</p>
+<p><a href="https://youtu.be/tGmnZdY5Y-E">Watch Joachim Ante present these new systems at Unite Austin</a></p>
+<h2 id="samples">Samples</h2>
+<p>To help you get started, we have provided this repository of examples for learning how to to write systems at scale. </p>
+<h3 id="helloecs">HelloECS</h3>
+<p>This is a set of projects demonstrate the absolute basics of the Unity ECS architecture:</p>
+<ul>
+<li><strong>HelloCube_01_ForEach</strong> — creates a pair of rotating cubes. This example demonstrates the separation of data and behavior with System and Components.</li>
+<li><strong>HelloCube_02_IJobProcessComponentData</strong> — builds on HelloCube_01_ForEach, using a Job-based system. Systems based on IJobProcessComponentData are the recommended approach and can take advantage of available CPU cores.</li>
+<li><strong>HelloCube_03_IJobChunk</strong> — shows how to write a System using IJobChunk. IJobChunk is the recommended method for processing Components for cases more complex than a simple IJobProcessComponentData can describe.  </li>
+<li><strong>HelloCube_04_SubScene</strong> — demonstrates how to create and modify Entities using SubScenes in the Unity editor.</li>
+<li><strong>HelloCube_05_SpawFromMonoBehaviour</strong> — demonstrates how to spawn multiple Entities from a MonoBehaviour function based on a Prefab GameObject.</li>
+<li><strong>HelloCube_06_SpawnFromEntity</strong> — demonstrates how to spawn multiple Entities at runtime using a spawning Job in a system.</li>
+</ul>
+<h3 id="boids">Boids</h3>
+<p>The Boids example provides a more complex scenario with thousands of Entities. Boids simulates an underwater scene with a shark and schools containing thousands of fish. (It uses the classic Boids flocking algorithm for the schooling fish behavior.)</p>
+<h2 id="installation-guide-for-blank-ecs-project">Installation guide for blank ECS project</h2>
+<ol>
+<li>Open the Unity Editor (2019.1b4 or later)</li>
+<li>Create a new Project.</li>
+<li>Open the Package Manager (menu: <strong>Window</strong> &gt; <strong>Package Manager</strong>).</li>
+<li>Click the <strong>Advanced</strong> button at the top of the window and turn on the <strong>Show preview packages</strong> option.</li>
+<li><p>Add the following packages to the project:</p>
+<ul>
+<li>Entities</li>
+<li>Hybrid.Renderer</li>
+</ul>
+<p>Adding the Entities package to your Project also adds the following packages:</p>
+<ul>
+<li>Burst</li>
+<li>Collections</li>
+<li>Jobs</li>
+<li>Mathematics </li>
+</ul>
+</li>
+</ol>
+<p><strong>Note:</strong> You can use the <a href="https://unity3d.com/get-unity/download">Unity Hub</a> to install multiple versions of Unity on the same computer.</p>
+<h2 id="documentation">Documentation</h2>
+<p>Looking for information on how to get started or have specific questions? Visit our ECS &amp; Job system documentation.</p>
+<p><a href="../Documentation~/index.md">Go to documentation</a></p>
 </article>
           </div>
           
@@ -108,6 +139,9 @@ if(permalink.hasOwnProperty(url_hash)){
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Unity-Technologies/dots/blob/organize-docs/doc-src/index.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -117,7 +151,6 @@ if(permalink.hasOwnProperty(url_hash)){
           </div>
         </div>
       </div>
-      
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -125,8 +158,8 @@ if(permalink.hasOwnProperty(url_hash)){
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
+            &nbsp;
             
-            <span>Generated by <strong>DocFX</strong></span>
           </div>
         </div>
       </footer>
