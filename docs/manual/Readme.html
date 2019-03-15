@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Unity Data-Oriented Tech Stack Cheat Sheet </title>
+    <title>Unity Data-Oriented Tech Stack </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Unity Data-Oriented Tech Stack Cheat Sheet ">
+    <meta name="title" content="Unity Data-Oriented Tech Stack ">
     <meta name="generator" content="docfx 2.40.7.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -191,8 +191,8 @@
                                 </li>
                               </ul>  </li>
                         </ul>  </li>
-                    <li class="active">
-                      <a href="cheatsheet.html" title="Quick Reference" class="active">Quick Reference</a>
+                    <li class="">
+                      <a href="cheatsheet.html" title="Quick Reference" class="">Quick Reference</a>
                     </li>
                     <li class="">
                       <a href="glossary.html" title="Glossary" class="">Glossary</a>
@@ -208,234 +208,36 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="unity-data-oriented-tech-stack-cheat-sheet">Unity Data-Oriented Tech Stack Cheat Sheet</h1>
+<h1 id="unity-data-oriented-tech-stack">Unity Data-Oriented Tech Stack</h1>
 
-<p>Here is a quick reference of the most useful classes, interfaces, structs, and attributes that have been introduced in this documentation by <a href="#ecs-related">ECS</a>, the <a href="#c-job-system-related">C# Job System</a>, and the <a href="#burst-compiler-related">Burst compiler</a>. </p>
-<blockquote><p><strong>Note</strong>: This is not an exhaustive list and can be added to over time as the Unity Data-Oriented Tech Stack, and its related documentation, expands. Check the <a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples">repository code</a> and the <a href="https://docs.unity3d.com/ScriptReference/">Scripting API</a> under the namespaces mentioned below for more examples. Be aware that links can break as the code evolves, so if you notice a problem let us know in the <a href="http://www.unity3d.com/performance-by-default">forums</a> or as an <a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/issues/new">issue</a> in the repository.</p>
-</blockquote>
-<h2 id="ecs-related">ECS related</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Name</th>
-<th style="text-align:left">Path</th>
-<th style="text-align:center">Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">CopyInitialTransformFromGameObjectComponent</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Transforms.Hybrid/CopyInitialTransformFromGameObjectComponent.cs</td>
-<td style="text-align:center">Class</td>
-</tr>
-<tr>
-<td style="text-align:center">Chunk</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/ArchetypeManager.cs</td>
-<td style="text-align:center">Unsafe Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">ComponentDataArray</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/Iterators/ComponentDataArray.cs</td>
-<td style="text-align:center">Unsafe Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">ComponentDataFromEntity</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/Iterators/ComponentDataFromEntity.cs</td>
-<td style="text-align:center">Unsafe Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">ComponentGroup</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/Iterators/ComponentGroup.cs</td>
-<td style="text-align:center">Unsafe Class</td>
-</tr>
-<tr>
-<td style="text-align:center">ComponentSystem</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/ComponentSystem.cs</td>
-<td style="text-align:center">Abstract Class</td>
-</tr>
-<tr>
-<td style="text-align:center">ComponentType</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/Types/ComponentType.cs</td>
-<td style="text-align:center">Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">DynamicBuffer</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/Iterators/DynamicBuffer.cs</td>
-<td style="text-align:center">Unsafe Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">Entity</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/EntityManager.cs</td>
-<td style="text-align:center">Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">EntityArchetype</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/EntityManager.cs</td>
-<td style="text-align:center">Unsafe Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">EntityCommandBuffer</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/EntityCommandBuffer.cs</td>
-<td style="text-align:center">Unsafe Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">EntityManager</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/EntityManager.cs</td>
-<td style="text-align:center">Unsafe Class</td>
-</tr>
-<tr>
-<td style="text-align:center">ExclusiveEntityTransaction</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/ExclusiveEntityTransaction.cs</td>
-<td style="text-align:center">Unsafe Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">GameObjectEntity</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities.Hybrid/GameObjectEntity.cs</td>
-<td style="text-align:center">Class</td>
-</tr>
-<tr>
-<td style="text-align:center">IComponentData</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/IComponentData.cs</td>
-<td style="text-align:center">Interface</td>
-</tr>
-<tr>
-<td style="text-align:center">IJobParallelForBatch</td>
-<td style="text-align:left">/Packages/com.unity.jobs/Unity.Jobs/IJobParallelForBatch.cs)</td>
-<td style="text-align:center">Interface</td>
-</tr>
-<tr>
-<td style="text-align:center">IJobParallelForFilter</td>
-<td style="text-align:left">/Packages/com.unity.jobs/Unity.Jobs/IJobParallelForFilter.cs</td>
-<td style="text-align:center">Interface</td>
-</tr>
-<tr>
-<td style="text-align:center">IJobProcessComponentData</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/IJobProcessComponentData.cs</td>
-<td style="text-align:center">Interface</td>
-</tr>
-<tr>
-<td style="text-align:center">ISharedComponentData</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/IComponentData.cs</td>
-<td style="text-align:center">Interface</td>
-</tr>
-<tr>
-<td style="text-align:center">JobComponentSystem</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/ComponentSystem.cs</td>
-<td style="text-align:center">Abstract Class</td>
-</tr>
-<tr>
-<td style="text-align:center">MeshInstanceRendererComponent</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Rendering.Hybrid/MeshInstanceRendererComponent.cs</td>
-<td style="text-align:center">Class</td>
-</tr>
-<tr>
-<td style="text-align:center">NativeHashMap</td>
-<td style="text-align:left">/Packages/com.unity.collections/Unity.Collections/NativeHashMap.cs</td>
-<td style="text-align:center">Unsafe Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">NativeList</td>
-<td style="text-align:left">/Packages/com.unity.collections/Unity.Collections/NativeList.cs</td>
-<td style="text-align:center">Unsafe Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">NativeQueue</td>
-<td style="text-align:left">/Packages/com.unity.collections/Unity.Collections/NativeQueue.cs</td>
-<td style="text-align:center">Unsafe Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">PositionComponent</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Transforms/PositionComponent.cs</td>
-<td style="text-align:center">Class</td>
-</tr>
-<tr>
-<td style="text-align:center">TransformSystem</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Transforms/TransformSystem.cs</td>
-<td style="text-align:center">Class</td>
-</tr>
-<tr>
-<td style="text-align:center">World</td>
-<td style="text-align:left">/Packages/com.unity.entities/Unity.Entities/Injection/World.cs</td>
-<td style="text-align:center">Class</td>
-</tr>
-</tbody>
-</table>
-<h3 id="attributes">Attributes</h3>
+<p>The Unity Data-Oriented Tech Stack has three main pieces: the Unity Entity-Component-System (ECS), the Unity C# Job System, and the Unity Burst compiler.</p>
+<h2 id="entity-component-system-overview">Entity-Component-System overview</h2>
+<p>ECS offers an approach to game design that allows you to concentrate on the actual problems you are solving: the data and behavior that make up your game. ECS takes advantage of the C# Job System and the Burst compiler to fully utilize today&#39;s multicore processors. </p>
+<p>In addition to better utilizing modern CPUs, the <a href="https://en.wikipedia.org/wiki/Data-oriented_design">data-oriented</a> design underlying ECS avoids the pitfalls of <a href="https://simple.wikipedia.org/wiki/Object-oriented_programming">object-oriented</a> that can plague complex projects like games, especially when trying to eek out the last few FPS to reach your release target. Data-oriented design can also make it easier for you to reuse and evolve your code and for others to understand and work on it. For more information, see:</p>
 <ul>
-<li>[Inject]</li>
+<li><a href="getting_started.html">What is ECS?</a></li>
+<li><a href="ecs_principles_and_vision.html">ECS principles</a></li>
+<li><a href="is_ecs_for_you.html">Is ECS for you?</a></li>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/index.html">ECS Manual and Script Reference</a></li>
 </ul>
-<h4 id="unsafe-attributes">Unsafe attributes</h4>
+<h2 id="c-job-system-overview">C# Job System overview</h2>
+<p>The C# Job System takes advantage of the multiple cores in today&#39;s computers. It’s designed to open this approach up to C# user scripts and allows users to write safe, fast, jobified code while protecting against some of the pitfalls of multithreading such as race conditions.</p>
 <ul>
-<li><a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute.html">[NativeContainer]</a></li>
-<li><a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerIsAtomicWriteOnlyAttribute.html">[NativeContainerIsAtomicWriteOnly]</a> </li>
-<li><a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerSupportsMinMaxWriteRestrictionAttribute.html">[NativeContainerSupportsMinMaxWriteRestriction]</a> </li>
-<li><a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerSupportsDeallocateOnJobCompletionAttribute.html">[NativeContainerSupportsDeallocateOnJobCompletion]</a></li>
-<li><a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeDisableUnsafePtrRestrictionAttribute.html">[NativeDisableUnsafePtrRestriction]</a></li>
-<li><a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeSetClassTypeToNullOnScheduleAttribute.html">[NativeSetClassTypeToNullOnSchedule]</a></li>
+<li><a href="https://docs.unity3d.com/Manual/JobSystem.html">C# Job System manual</a></li>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.jobs@0.0/manual/index.html">Low-level overview - creating containers &amp; custom job types</a></li>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.jobs@0.0/manual/index.html">Scheduling a job from a job - why not?</a></li>
 </ul>
-<h3 id="other">Other</h3>
+<h2 id="burst-overview">Burst overview</h2>
+<p>Burst is a new <a href="https://en.wikipedia.org/wiki/LLVM">LLVM</a> based backend compiler technology that makes things easier for you. It takes C# jobs and produces highly-optimized machine code taking advantage of the particular capabilities of your platform. So you get a lot of the benefits of hand tuned assembler code, across multiple platforms, without all the hard work. The Burst compiler can be used to increase performance of jobs written for the C# Job System. </p>
 <ul>
-<li>#if ENABLE_UNITY_COLLECTIONS_CHECKS ... #endif</li>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.burst@0.0/manual/index.html">Burst documentation</a></li>
+<li><a href="burst_optimization.html">How to optimize for the Burst compiler</a></li>
 </ul>
-<h2 id="c-job-system-related">C# Job System related</h2>
-<blockquote><p><strong>Note</strong>: ECS code can also use the following objects, but they are part of the  Unity codebase since 2018.1 and not part of any related packages. For more information, see the <a href="https://docs.unity3d.com/Manual/JobSystem.html">C# Job System manual</a>.</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Namespace</th>
-<th style="text-align:center">Name</th>
-<th style="text-align:center">Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Unity.Collections</td>
-<td style="text-align:center"><a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html">NativeArray</a></td>
-<td style="text-align:center">Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">Unity.Collections</td>
-<td style="text-align:center"><a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute.html">NativeContainer</a></td>
-<td style="text-align:center">Unsafe Class</td>
-</tr>
-<tr>
-<td style="text-align:center">Unity.Collections</td>
-<td style="text-align:center"><a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeSlice_1.html">NativeSlice</a></td>
-<td style="text-align:center">Struct</td>
-</tr>
-<tr>
-<td style="text-align:center">Unity.Jobs</td>
-<td style="text-align:center"><a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.html">IJob</a></td>
-<td style="text-align:center">Interface</td>
-</tr>
-<tr>
-<td style="text-align:center">Unity.Jobs</td>
-<td style="text-align:center"><a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobParallelFor.html">IJobParallelFor</a></td>
-<td style="text-align:center">Interface</td>
-</tr>
-<tr>
-<td style="text-align:center">Unity.Jobs</td>
-<td style="text-align:center"><a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a></td>
-<td style="text-align:center">Interface</td>
-</tr>
-<tr>
-<td style="text-align:center">Unity.Jobs</td>
-<td style="text-align:center"><a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.LowLevel.Unsafe.JobsUtility.html">JobsUtility</a></td>
-<td style="text-align:center">Unsafe Class</td>
-</tr>
-</tbody>
-</table>
-<h3 id="attributes-1">Attributes</h3>
+<h2 id="further-information">Further information</h2>
 <ul>
-<li><a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.ReadOnlyAttribute.html">[ReadOnly]</a></li>
-<li><a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.WriteOnlyAttribute.html">[WriteOnly]</a></li>
-</ul>
-<h2 id="burst-compiler-related">Burst compiler related</h2>
-<h3 id="attributes-2">Attributes</h3>
-<ul>
-<li><a href="https://docs.unity3d.com/ScriptReference/Unity.Burst.BurstDiscardAttribute.html">[BurstDiscard]</a></li>
-<li>[BurstCompile]</li>
+<li><a href="cheatsheet.html">Unity Data-Oriented cheat sheet</a></li>
+<li><a href="resources.html">Unity Data-Oriented learning resources</a></li>
+<li><a href="http://unity3d.com/performance-by-default">Performance by default</a></li>
 </ul>
 </article>
           </div>
@@ -445,7 +247,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/organize-docs/doc-src/manual/cheatsheet.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Unity-Technologies/dots/blob/organize-docs/doc-src/manual/Readme.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
