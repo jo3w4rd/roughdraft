@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Unity Test Runner | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Unity Test Runner | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="unity-test-runner">Unity Test Runner</h1>
+
+<p>The Unity Test Runner is a tool that tests your code in both <strong>Edit</strong> mode and <strong>Play</strong> mode, and also on target platforms such as <a href="Standalone.html">Standalone</a>, Android, or iOS.</p>
+<p>To access the Unity Test Runner, go to <strong>Window</strong> &gt; <strong>General</strong> &gt; <strong>Test Runner</strong>.</p>
+<p><img src="../uploads/Main/UnityTestRunner-0.png" alt=""></p>
+<p>The Unity Test Runner uses a Unity integration of the NUnit library, which is an open-source unit testing library for .Net languages. For more information about NUnit, see the <a href="http://www.nunit.org/">official NUnit website</a> and the <a href="https://github.com/nunit/docs/wiki/NUnit-Documentation">NUnit documentation on GitHub</a>.</p>
+<p><a href="ScriptRef:TestTools.UnityTestAttribute.html">UnityTestAttribute</a> is the main addition to the standard NUnit library for the Unity Test Runner. This is a type of unit test that allows you to skip a frame from within a test (which allows background tasks to finish). To use <code>UnityTestAttribute</code>:</p>
+<ul>
+<li><p>In <strong>Play</strong> mode: Execute <code>UnityTestAttribute</code> as a <a href="ScriptRef:Coroutine.html">coroutine</a>.</p>
+</li>
+<li><p>In <strong>Edit</strong> mode: Execute <code>UnityTestAttribute</code> in the <a href="ScriptRef:EditorApplication-update.html">EditorApplication.update</a> callback loop.</p>
+</li>
+</ul>
+<h2 id="known-issues-and-limitations">Known issues and limitations</h2>
+<p>There are some known issues and limitations of the Unity Test Runner:</p>
+<ul>
+<li><p>The WebGL and WSA platforms do not support <code>UnityTestAttribute</code>.</p>
+</li>
+<li><p><code>UnityTest</code> does not support <a href="https://www.nunit.org/index.php?p=parameterizedTests&amp;r=2.5">Parameterized tests</a> (except for <code>ValueSource</code>).</p>
+</li>
+</ul>
+<h2 id="how-to-use-unity-test-runner">How to use Unity Test Runner</h2>
+<p>This page assumes you already have an understanding of unit testing and NUnit. If you are new to NUnit or would like more information, see to the <a href="https://github.com/nunit/docs/wiki/NUnit-Documentation">NUnit documentation on GitHub</a>.</p>
+<p>To open the Unity Test Runner, open Unity and go to <strong>Window</strong> &gt; <strong>General</strong> &gt; <strong>Test Runner</strong>. If there are no tests in your Project, click the <strong>Create Test Script in current folder</strong> button to create a basic test script. This button is greyed out if adding a test script would result in a compilation error. The conditions for adding a test script are in the <a href="SpecialFolders.html">Editor</a> folder, or any folders using Assembly Definition files that reference test assemblies (NUnit, Unity Test Runner, and user script assemblies).</p>
+<p><img src="../uploads/Main/UnityTestRunner-1.png" alt=""></p>
+<p>You can also create test scripts by navigating to <strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>C# Test Script</strong>. This option is disabled if adding a test script would result in a compilation error.</p>
+<p><strong>Note:</strong> Unity does not include test assemblies (NUnit, Unity TestRunner, and user script assemblies) when using the normal build pipeline, but does include them when using &quot;Run on &lt;Platform&gt;&quot; in the Test Runner Window.</p>
+<h3 id="testing-in-edit-mode">Testing in Edit mode</h3>
+<p>In <strong>Edit</strong> mode, Unity runs tests from the Test Runner window.</p>
+<p>Edit mode test scripts are defined by the file location you place them in. Valid locations:</p>
+<ul>
+<li><p>Project <a href="SpecialFolders.html">Editor</a> folder</p>
+</li>
+<li><p>Assembly Definition file that references test assemblies that are Editor-only</p>
+</li>
+<li><p>Precompiled assemblies that are in the Project’s <a href="SpecialFolders.html">Editor</a> folder</p>
+</li>
+</ul>
+<p>Click the <strong>EditMode</strong> button, then click <strong>Create Test Script in current folder</strong> to create a basic test script. Open and edit this in your preferred script editing software as required.</p>
+<p>Note: When running in <strong>Edit</strong> mode, execute <a href="ScriptRef:TestTools.UnityTestAttribute.html">UnityTestAttribute</a> in the <a href="ScriptRef:EditorApplication-update.html">EditorApplication.update</a> callback loop.</p>
+<h3 id="testing-in-play-mode">Testing in Play mode</h3>
+<p>You need to place Play mode test scripts in a folder that an Assembly Definition file includes. The Assembly Definition file needs to reference test assemblies (Nunit and Unity TestRunner). Pre-defined Unity assemblies (such as <em>Assembly-CSharp.dll</em>) do not reference the defined assembly. This Assembly Definition file also needs to reference the assembly you want to test. This means that it’s only possible to test code defined by other Assembly Definition files.</p>
+<p>Unity does not include test assemblies in normal player builds; only when running through the Test Runner. If you need to test code in pre-defined assemblies, you can reference test assemblies from all the assemblies. However, you must manually remove these tests afterwards, so that Unity does not add them to the final player build.</p>
+<p>To do this:</p>
+<ol>
+<li><p>Save your project.</p>
+</li>
+<li><p>Go to <strong>Window</strong> &gt; <strong>General</strong> &gt; <strong>Test Runner.</strong></p>
+</li>
+<li><p>Click the small drop-down menu in the top-right of the window.</p>
+</li>
+<li><p>Click <strong>Enable playmode tests for all assemblies</strong>.</p>
+</li>
+<li><p>In the dialog box appears, click <strong>OK</strong> to manually restart the Editor.</p>
+</li>
+</ol>
+<p><img src="../uploads/Main/UnityTestRunner-2.png" alt=""></p>
+<p><strong>Note:</strong> Enabling <strong>PlayMode</strong> tests for all assemblies includes additional assemblies in your Project’s build, which can increase your Project’s size as well as build time.</p>
+<p>To create <strong>PlayMode</strong> test scripts, select <strong>PlayMode</strong> in the Test Runner window and click <strong>Create Test Script in current folder</strong>. This button is greyed out if adding the script would result in a compilation error. </p>
+<p><strong>Note</strong>: Execute <a href="ScriptRef:TestTools.UnityTestAttribute.html">UnityTestAttribute</a> as a <a href="ScriptRef:Coroutine.html">coroutine</a> when running in <strong>Play</strong> mode.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

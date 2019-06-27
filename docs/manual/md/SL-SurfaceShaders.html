@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Writing Surface Shaders | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Writing Surface Shaders | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="writing-surface-shaders">Writing Surface Shaders</h1>
+
+<p>Writing shaders that interact with lighting is complex. There are different light types, different shadow options, different rendering paths (forward and deferred rendering), and the shader should somehow handle all that complexity.</p>
+<p><strong>Surface Shaders</strong> in Unity is a code generation approach that makes it much easier to write lit shaders than using low level <a href="SL-ShaderPrograms.html">vertex/pixel shader programs</a>. Note that there are no custom languages, magic or ninjas involved in Surface Shaders; it just generates all the repetitive code that would have to be written by hand. You still write shader code in HLSL.</p>
+<p>For some examples, take a look at <a href="SL-SurfaceShaderExamples.html">Surface Shader Examples</a> and <a href="SL-SurfaceShaderLightingExamples.html">Surface Shader Custom Lighting Examples</a>.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>You define a &quot;surface function&quot; that takes any UVs or data you need as input, and fills in output structure <code>SurfaceOutput</code>. SurfaceOutput basically describes <em>properties of the surface</em> (it&#39;s albedo color, normal, emission, specularity etc.). You write this code in HLSL.</p>
+<p>Surface Shader compiler then figures out what inputs are needed, what outputs are filled and so on, and generates actual <a href="SL-ShaderPrograms.html">vertex&amp;pixel shaders</a>, as well as rendering passes to handle forward and deferred rendering.</p>
+<p>Standard output structure of surface shaders is this:</p>
+<pre><code>struct SurfaceOutput
+{
+    fixed3 Albedo;  // diffuse color
+    fixed3 Normal;  // tangent space normal, if written
+    fixed3 Emission;
+    half Specular;  // specular power in 0..1 range
+    fixed Gloss;    // specular intensity
+    fixed Alpha;    // alpha for transparencies
+};
+</code></pre><p>In Unity 5, surface shaders can also use physically based lighting models. Built-in Standard and StandardSpecular lighting models (see below) use these output structures respectively:</p>
+<pre><code>struct SurfaceOutputStandard
+{
+    fixed3 Albedo;      // base (diffuse or specular) color
+    fixed3 Normal;      // tangent space normal, if written
+    half3 Emission;
+    half Metallic;      // 0=non-metal, 1=metal
+    half Smoothness;    // 0=rough, 1=smooth
+    half Occlusion;     // occlusion (default 1)
+    fixed Alpha;        // alpha for transparencies
+};
+struct SurfaceOutputStandardSpecular
+{
+    fixed3 Albedo;      // diffuse color
+    fixed3 Specular;    // specular color
+    fixed3 Normal;      // tangent space normal, if written
+    half3 Emission;
+    half Smoothness;    // 0=rough, 1=smooth
+    half Occlusion;     // occlusion (default 1)
+    fixed Alpha;        // alpha for transparencies
+};
+</code></pre><h2 id="samples">Samples</h2>
+<p>See <a href="SL-SurfaceShaderExamples.html">Surface Shader Examples</a>, <a href="SL-SurfaceShaderLightingExamples.html">Surface Shader Custom Lighting Examples</a> and <a href="SL-SurfaceShaderTessellation.html">Surface Shader Tessellation</a> pages.</p>
+<h2 id="surface-shader-compile-directives">Surface Shader compile directives</h2>
+<p>Surface shader is placed inside <code>CGPROGRAM..ENDCG</code> block, just like any other shader. The differences are:</p>
+<ul>
+<li>It must be placed inside <a href="SL-SubShader.html">SubShader</a> block, not inside <a href="SL-Pass.html">Pass</a>. Surface shader will compile into multiple passes itself.</li>
+<li>It uses <code>#pragma surface ...</code> directive to indicate it&#39;s a surface shader.</li>
+</ul>
+<p>The <code>#pragma surface</code> directive is:</p>
+<pre><code>#pragma surface surfaceFunction lightModel [optionalparams]
+</code></pre><h3 id="required-parameters">Required parameters</h3>
+<ul>
+<li><code>surfaceFunction</code> - which Cg function has surface shader code. The function should have the form of <code>void surf (Input IN, inout SurfaceOutput o)</code>, where Input is a structure you have defined. Input should contain any texture coordinates and extra automatic variables needed by surface function.</li>
+<li><code>lightModel</code> - lighting model to use. Built-in ones are physically based <code>Standard</code> and <code>StandardSpecular</code>, as well as simple non-physically based <code>Lambert</code> (diffuse) and <code>BlinnPhong</code> (specular). See <a href="SL-SurfaceShaderLighting.html">Custom Lighting Models</a> page for how to write your own.<ul>
+<li><code>Standard</code> lighting model uses <code>SurfaceOutputStandard</code> output struct, and matches the Standard (metallic workflow) shader in Unity.</li>
+<li><code>StandardSpecular</code> lighting model uses <code>SurfaceOutputStandardSpecular</code> output struct, and matches the Standard (specular setup) shader in Unity.</li>
+<li><code>Lambert</code> and <code>BlinnPhong</code> lighting models are not physically based (coming from Unity 4.x), but the shaders using them can be faster to render on low-end hardware.</li>
+</ul>
+</li>
+</ul>
+<h3 id="optional-parameters">Optional parameters</h3>
+<p><strong>Transparency and alpha testing</strong> is controlled by <code>alpha</code> and <code>alphatest</code> directives. Transparency can typically be of two kinds: traditional alpha blending (used for fading objects out) or more physically plausible &quot;premultiplied blending&quot; (which allows semitransparent surfaces to retain proper specular reflections). Enabling semitransparency makes the generated surface shader code contain <a href="SL-Blend.html">blending</a> commands; whereas enabling alpha cutout will do a fragment discard in the generated pixel shader, based on the given variable.</p>
+<ul>
+<li><code>alpha</code> or <code>alpha:auto</code> - Will pick fade-transparency (same as <code>alpha:fade</code>) for simple lighting functions, and premultiplied transparency (same as <code>alpha:premul</code>) for physically based lighting functions.</li>
+<li><code>alpha:blend</code> - Enable alpha blending.</li>
+<li><code>alpha:fade</code> - Enable traditional fade-transparency.</li>
+<li><code>alpha:premul</code> - Enable premultiplied alpha transparency.</li>
+<li><code>alphatest:VariableName</code> - Enable alpha cutout transparency. Cutoff value is in a float variable with VariableName. You&#39;ll likely also want to use <code>addshadow</code> directive to generate proper shadow caster pass.</li>
+<li><code>keepalpha</code> - By default opaque surface shaders write 1.0 (white) into alpha channel, no matter what&#39;s output in the Alpha of output struct or what&#39;s returned by the lighting function. Using this option allows keeping lighting function&#39;s alpha value even for opaque surface shaders.</li>
+<li><code>decal:add</code> - Additive decal shader (e.g. terrain AddPass). This is meant for objects that lie atop of other surfaces, and use additive blending. See <a href="SL-SurfaceShaderExamples.html">Surface Shader Examples</a></li>
+<li><code>decal:blend</code> - Semitransparent decal shader. This is meant for objects that lie atop of other surfaces, and use alpha blending. See <a href="SL-SurfaceShaderExamples.html">Surface Shader Examples</a></li>
+</ul>
+<p><strong>Custom modifier functions</strong> can be used to alter or compute incoming vertex data, or to alter final computed fragment color.</p>
+<ul>
+<li><code>vertex:VertexFunction</code> - Custom vertex modification function. This function is invoked at start of generated vertex shader, and can modify or compute per-vertex data. See <a href="SL-SurfaceShaderExamples.html">Surface Shader Examples</a>.</li>
+<li><code>finalcolor:ColorFunction</code> - Custom final color modification function. See <a href="SL-SurfaceShaderExamples.html">Surface Shader Examples</a>.</li>
+<li><code>finalgbuffer:ColorFunction</code> - Custom deferred path for altering gbuffer content.</li>
+<li><code>finalprepass:ColorFunction</code> - Custom prepass base path.</li>
+</ul>
+<p><strong>Shadows and Tessellation</strong> - additional directives can be given to control how shadows and tessellation is handled.</p>
+<ul>
+<li><code>addshadow</code> - Generate a shadow caster pass. Commonly used with custom vertex modification, so that shadow casting also gets any procedural vertex animation. Often shaders don&#39;t need any special shadows handling, as they can just use shadow caster pass from their fallback.</li>
+<li><code>fullforwardshadows</code> - Support all light shadow types in <a href="RenderTech-ForwardRendering.html">Forward</a> rendering path. By default shaders only support shadows from one directional light in forward rendering (to save on internal shader variant count). If you need point or spot light shadows in forward rendering, use this directive.</li>
+<li><code>tessellate:TessFunction</code> - use DX11 GPU tessellation; the function computes tessellation factors. See <a href="SL-SurfaceShaderTessellation.html">Surface Shader Tessellation</a> for details.</li>
+</ul>
+<p><strong>Code generation options</strong> - by default generated surface shader code tries to handle all possible lighting/shadowing/lightmap scenarios. However in some cases you know you won&#39;t need some of them, and it is possible to adjust generated code to skip them. This can result in smaller shaders that are faster to load.</p>
+<ul>
+<li><code>exclude_path:deferred</code>, <code>exclude_path:forward</code>, <code>exclude_path:prepass</code>  - Do not generate passes for given rendering path (<a href="RenderTech-DeferredShading.html">Deferred Shading</a>, <a href="RenderTech-ForwardRendering.html">Forward</a> and <a href="RenderTech-DeferredLighting.html">Legacy Deferred</a> respectively).</li>
+<li><code>noshadow</code> - Disables all shadow receiving support in this shader.</li>
+<li><code>noambient</code> - Do not apply any ambient lighting or light probes.</li>
+<li><code>novertexlights</code> - Do not apply any light probes or per-vertex lights in Forward rendering.</li>
+<li><code>nolightmap</code> - Disables all lightmapping support in this shader.</li>
+<li><code>nodynlightmap</code> - Disables runtime dynamic global illumination support in this shader.</li>
+<li><code>nodirlightmap</code> - Disables directional lightmaps support in this shader.</li>
+<li><code>nofog</code> - Disables all built-in Fog support.</li>
+<li><code>nometa</code> - Does not generate a &quot;meta&quot; pass (that&#39;s used by lightmapping &amp; dynamic global illumination to extract surface information).</li>
+<li><code>noforwardadd</code> - Disables <a href="RenderTech-ForwardRendering.html">Forward</a> rendering additive pass. This makes the shader support one full directional light, with all other lights computed per-vertex/SH. Makes shaders smaller as well.</li>
+<li><code>nolppv</code> - Disables Light Probe Proxy Volume support in this shader.</li>
+<li><code>noshadowmask</code> - Disables Shadowmask support for this shader (both <a href="LightMode-Mixed-Shadowmask.html">Shadowmask</a> and <a href="LightMode-Mixed-DistanceShadowmask.html">Distance Shadowmask</a>).</li>
+</ul>
+<p><strong>Miscellaneous options</strong></p>
+<ul>
+<li><code>softvegetation</code> - Makes the surface shader only be rendered when Soft Vegetation is on.</li>
+<li><code>interpolateview</code> - Compute view direction in the vertex shader and interpolate it; instead of computing it in the pixel shader. This can make the pixel shader faster, but uses up one more texture interpolator.</li>
+<li><code>halfasview</code> - Pass half-direction vector into the lighting function instead of view-direction. Half-direction will be computed and normalized per vertex. This is faster, but not entirely correct.</li>
+<li><code>approxview</code> - Removed in Unity 5.0. Use <code>interpolateview</code> instead.</li>
+<li><code>dualforward</code> - Use <a href="GIIntro.html">dual lightmaps</a> in <a href="RenderTech-ForwardRendering.html">forward</a> rendering path.</li>
+<li><code>dithercrossfade</code> - Makes the surface shader support dithering effects. You can then apply this shader to GameObjects that use an <a href="class-LODGroup.html">LOD Group</a> component configured for cross-fade transition mode.</li>
+</ul>
+<p>To see what exactly is different from using different options above, it can be helpful to use &quot;Show Generated Code&quot; button in the <a href="class-Shader.html">Shader Inspector</a>.</p>
+<h2 id="surface-shader-input-structure">Surface Shader input structure</h2>
+<p>The input structure <code>Input</code> generally has any texture coordinates needed by the shader. Texture coordinates must be named &quot;<code>uv</code>&quot; followed by texture name (or start it with &quot;<code>uv2</code>&quot; to use second texture coordinate set).</p>
+<p>Additional values that can be put into Input structure:</p>
+<ul>
+<li><code>float3 viewDir</code> - contains view direction, for computing Parallax effects, rim lighting etc.</li>
+<li><code>float4</code> with <code>COLOR</code> semantic - contains interpolated per-vertex color.</li>
+<li><code>float4 screenPos</code> - contains screen space position for reflection or screenspace effects. Note that this is not suitable for <a href="SL-GrabPass.html">GrabPass</a>; you need to compute custom UV yourself using <code>ComputeGrabScreenPos</code> function.</li>
+<li><code>float3 worldPos</code> - contains world space position.</li>
+<li><code>float3 worldRefl</code> - contains world reflection vector <em>if surface shader does not write to o.Normal</em>. See Reflect-Diffuse shader for example.</li>
+<li><code>float3 worldNormal</code> - contains world normal vector <em>if surface shader does not write to o.Normal</em>.</li>
+<li><code>float3 worldRefl; INTERNAL_DATA</code> - contains world reflection vector <em>if surface shader writes to o.Normal</em>. To get the reflection vector based on per-pixel normal map, use <code>WorldReflectionVector (IN, o.Normal)</code>. See Reflect-Bumped shader for example.</li>
+<li><code>float3 worldNormal; INTERNAL_DATA</code> - contains world normal vector <em>if surface shader writes to o.Normal</em>. To get the normal vector based on per-pixel normal map, use <code>WorldNormalVector (IN, o.Normal)</code>.</li>
+</ul>
+<h2 id="surface-shaders-and-directx-11-hlsl-syntax">Surface Shaders and DirectX 11 HLSL syntax</h2>
+<p>Currently some parts of surface shader compilation pipeline do not understand <a href="UsingDX11GL3Features.html">DirectX 11</a>-specific HLSL syntax, so if you&#39;re using HLSL features like StructuredBuffers, RWTextures and other non-DX9 syntax, you have to wrap it into a DX11-only preprocessor macro.</p>
+<p>See <a href="SL-PlatformDifferences.html">Platform Specific Differences</a> and <a href="SL-ShadingLanguage.html">Shading Language</a> pages for details.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

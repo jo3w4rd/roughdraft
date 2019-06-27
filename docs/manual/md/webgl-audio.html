@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Using Audio In WebGL | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Audio In WebGL | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-audio-in-webgl">Using Audio In WebGL</h1>
+
+<p>Audio in WebGL is done differently then on all other platforms. On other platforms we use FMOD internally to supply audio playback and mixing. Since the WebGL platform does not support threads, we need to use a different implementation, which is internally based on the Web Audio API, which lets the browser handle audio playback and mixing for us.</p>
+<p>Unfortunately, this limits audio functionality in Unity WebGL to supporting only the most basic features. This page will document what is expected to work. Anything not listed here is not currently supported on WebGL.</p>
+<h2 id="audiosource">AudioSource</h2>
+<p>Audio sources support basic positional audio playback with pausing and resuming, panning, rolloff, pitch setting, and doppler effect support. </p>
+<p>The following <a href="ScriptRef:AudioSource.html"><code>AudioSource</code></a> APIs are supported:</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><a href="ScriptRef:AudioSource-clip.html"><code>clip</code></a></li>
+<li><a href="ScriptRef:AudioSource-dopplerLevel.html"><code>dopplerLevel</code></a></li>
+<li><a href="ScriptRef:AudioSource-ignoreListenerPause.html"><code>ignoreListenerPause</code></a></li>
+<li><a href="ScriptRef:AudioSource-ignoreListenerVolume.html"><code>ignoreListenerVolume</code></a></li>
+<li><a href="ScriptRef:AudioSource-isPlaying.html"><code>isPlaying</code></a></li>
+<li><a href="ScriptRef:AudioSource-loop.html"><code>loop</code></a></li>
+<li><a href="ScriptRef:AudioSource-maxDistance.html"><code>maxDistance</code></a></li>
+<li><a href="ScriptRef:AudioSource-minDistance.html"><code>minDistance</code></a></li>
+<li><a href="ScriptRef:AudioSource-mute.html"><code>mute</code></a></li>
+<li><a href="ScriptRef:AudioSource-pitch.html"><code>pitch</code></a> (Note that only positive values for pitch are supported.)</li>
+<li><a href="ScriptRef:AudioSource-playOnAwake.html"><code>playOnAwake</code></a></li>
+<li><a href="ScriptRef:AudioSource-rolloffMode.html"><code>rolloffMode</code></a></li>
+<li><a href="ScriptRef:AudioSource-time.html"><code>time</code></a></li>
+<li><a href="ScriptRef:AudioSource-timeSamples.html"><code>timeSamples</code></a></li>
+<li><a href="ScriptRef:AudioSource-velocityUpdateMode.html"><code>velocityUpdateMode</code></a></li>
+<li><a href="ScriptRef:AudioSource-volume.html"><code>volume</code></a></li>
+</ul>
+<p><strong>Methods</strong></p>
+<ul>
+<li><a href="ScriptRef:AudioSource.Pause.html"><code>Pause</code></a></li>
+<li><a href="ScriptRef:AudioSource.Play.html"><code>Play</code></a></li>
+<li><a href="ScriptRef:AudioSource.PlayDelayed.html"><code>PlayDelayed</code></a></li>
+<li><a href="ScriptRef:AudioSource.PlayOneShot.html"><code>PlayOneShot</code></a></li>
+<li><a href="ScriptRef:AudioSource.PlayScheduled.html"><code>PlayScheduled</code></a></li>
+<li><a href="ScriptRef:AudioSource.SetScheduledEndTime.html"><code>SetScheduledEndTime</code></a></li>
+<li><a href="ScriptRef:AudioSource.SetScheduledStartTime.html"><code>SetScheduledStartTime</code></a></li>
+<li><a href="ScriptRef:AudioSource.Stop.html"><code>Stop</code></a></li>
+<li><a href="ScriptRef:AudioSource.UnPause.html"><code>UnPause</code></a></li>
+<li><a href="ScriptRef:AudioSource.PlayClipAtPoint.html"><code>PlayClipAtPoint</code></a></li>
+</ul>
+<h2 id="audiolistener">AudioListener</h2>
+<p>All <a href="ScriptRef:AudioListener.html"><code>AudioListener</code></a> APIs are supported.</p>
+<h2 id="audioclip">AudioClip</h2>
+<p>Audio clips in WebGL will always be imported in the AAC format, as that is widely supported by different browsers.</p>
+<p>The following <a href="ScriptRef:AudioClip.html"><code>AudioClip</code></a> APIs are supported:</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><a href="ScriptRef:AudioClip-length.html"><code>length</code></a></li>
+<li><a href="ScriptRef:AudioClip-loadState.html"><code>loadState</code></a></li>
+<li><a href="ScriptRef:AudioClip-samples.html"><code>samples</code></a></li>
+</ul>
+<p><strong>Methods</strong></p>
+<ul>
+<li><a href="ScriptRef:AudioClip.Create.html"><code>AudioClip.Create</code></a> is supported partially: it only works if the streaming parameter is set to false and the complete audio samples can be loaded at the time <code>AudioClip.Create</code> is called. It then creates the clip and loads all samples before returning control.</li>
+<li><a href="ScriptRef:AudioClip.SetData.html"><code>AudioClip.SetData</code></a> is supported partially: it only works for replacing the entire contents of the AudioClip. The <code>offsetSamples</code> parameter is ignored.</li>
+</ul>
+<h2 id="systeminfosupportsaudio">SystemInfo.supportsAudio</h2>
+<p><a href="ScriptRef:SystemInfo-supportsAudio.html"><code>SystemInfo.supportsAudio</code></a> is not implemented on WebGL and always returns true.</p>
+<h2 id="wwwaudioclip">WWW.audioClip</h2>
+<p><a href="ScriptRef:WWW-audioClip.html"><code>WWW.audioClip</code></a> should work in WebGL, if the audio clip is in a format which is natively supported by the browser. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats">Mozilla&#39;s documentation on supported media formats</a> for a list of supported formats in different browsers.</p>
+<h2 id="microphone">Microphone</h2>
+<p>The <a href="ScriptRef:Microphone.html"><code>Microphone</code></a> class is not supported in WebGL.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Rays from the Camera | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Rays from the Camera | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="rays-from-the-camera">Rays from the Camera</h1>
+
+<p>In the section <a href="UnderstandingFrustum.html">Understanding the View Frustum</a>, it was explained that any point in the camera&#39;s view corresponds to a line in world space. It is sometimes useful to have a mathematical representation of that line and Unity can provide this in the form of a <a href="ScriptRef:Ray.html">Ray</a> object. The Ray always corresponds to a point in the view, so the Camera class provides the <a href="ScriptRef:Camera.ScreenPointToRay.html">ScreenPointToRay</a> and <a href="ScriptRef:Camera.ViewportPointToRay.html">ViewportPointToRay</a> functions. The difference between the two is that ScreenPointToRay expects the point to be provided as a pixel coordinate, while ViewportPointToRay takes normalized coordinates in the range 0..1 (where 0 represents the bottom or left and 1 represents the top or right of the view). Each of these functions returns a Ray which consists of a point of origin and a vector which shows the direction of the line from that origin. The Ray originates from the near clipping plane rather than the Camera&#39;s transform.position point.</p>
+<h2 id="raycasting">Raycasting</h2>
+<p>The most common use of a Ray from the camera is to perform a <a href="ScriptRef:Physics.Raycast.html">raycast</a> out into the scene. A raycast sends an imaginary &quot;laser beam&quot; along the ray from its origin until it hits a collider in the scene. Information is then returned about the object and the point that was hit in a <a href="ScriptRef:RaycastHit.html">RaycastHit</a> object. This is a very useful way to locate an object based on its onscreen image. For example, the object at the mouse position can be determined with the following code:</p>
+<p><em>C# script example:</em></p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class ExampleScript : MonoBehaviour {
+    public Camera camera;
+
+    void Start(){
+        RaycastHit hit;
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit)) {
+            Transform objectHit = hit.transform;
+
+            // Do something with the object that was hit by the raycast.
+        }
+    }
+}
+</code></pre><p><em>JS script example:</em></p>
+<pre><code>var hit: RaycastHit;
+var ray: Ray = camera.ScreenPointToRay(Input.mousePosition);
+
+if (Physics.Raycast(ray, hit)) {
+    var objectHit: Transform = hit.transform;
+
+    // Do something with the object that was hit by the raycast.
+}
+</code></pre><h2 id="moving-the-camera-along-a-ray">Moving the Camera Along a Ray</h2>
+<p>It is sometimes useful to get a ray corresponding to a screen position and then move the camera along that ray. For example, you may want to allow the user to select an object with the mouse and then zoom in on it while keeping it &quot;pinned&quot; to the same screen position under the mouse (this might be useful when the camera is looking at a tactical map, for example). The code to do this is fairly straightforward:</p>
+<p><em>C# script example:</em></p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class ExampleScript : MonoBehaviour {
+    public bool zooming;
+    public float zoomSpeed;
+    public Camera camera;
+
+    void Update() {
+        if (zooming) {
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            float zoomDistance = zoomSpeed * Input.GetAxis(&quot;Vertical&quot;) * Time.deltaTime;
+            camera.transform.Translate(ray.direction * zoomDistance, Space.World);
+        }
+    }
+}
+</code></pre><p><em>JS script example:</em></p>
+<pre><code>var zooming: boolean;
+var zoomSpeed: float;
+
+if (zooming) {
+    var ray: Ray = camera.ScreenPointToRay(Input.mousePosition);
+    zoomDistance = zoomSpeed * Input.GetAxis(&quot;Vertical&quot;) * Time.deltaTime;
+    camera.transform.Translate(ray.direction * zoomDistance, Space.World);
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

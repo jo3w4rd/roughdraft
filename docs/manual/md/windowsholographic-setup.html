@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Set-up | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Set-up | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="set-up">Set-up</h1>
+
+<h2 id="project-set-up">Project set-up</h2>
+<p>A Unity Project for Microsoft Holographic platform isn&#39;t very different to a Unity Project for other platforms, with a few notable exceptions:</p>
+<ul>
+<li>Ensure that the Camera you intend to track the HoloLens device&#39;s position is tagged as <strong>Main Camera</strong> in the Inspector window. The default Camera in the Scene should already be tagged appropriately.  </li>
+<li>Set the <strong>Main Camera</strong>&#39;s <strong>Background</strong> property to <strong>Solid Color</strong> rather than the defaulted <strong>Skybox</strong>. Set the background color to (0, 0, 0, 0).</li>
+<li>Use the <strong>Fastest Quality Settings</strong> in <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Quality</strong> category.  This maximizes performance and reduces power consumption. In particular, soft shadows and shadow cascades are too expensive to use on the HoloLens, and should be avoided.</li>
+<li>Enable the appropriate publishing flags based on which subsystems your application uses.</li>
+</ul>
+<p>To learn more, see Microsoft&#39;s documentation on <a href="https://dev.windows.com/en-us/holographic/Performance_recommendations_for_Unity">Performance recommendations for Unity</a>.</p>
+<h2 id="publishing-settings">Publishing settings</h2>
+<p>The following capability flags are provided on the <strong>Player</strong> settings under the <strong>Publishing Settings</strong> panel. System features fail if you don&#39;t enable the appropriate capability flags. </p>
+<p>Not all of the publishing settings below are specific to Windows Holographic. For more information, see Unity&#39;s documentation on <a href="class-PlayerSettingsWSA.html">Player settings for the Universal Windows platform</a>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>PicturesLibrary</strong></td>
+<td style="text-align:left">Required for <strong>PhotoCapture</strong> capture camera frame functionality.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>MusicLibrary</strong></td>
+<td style="text-align:left">Required for <strong>VideoCapture</strong> audio recording functionality.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>VideosLibrary</strong></td>
+<td style="text-align:left">Required for <strong>VideoCapture</strong> video recording functionality.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>WebCam</strong></td>
+<td style="text-align:left">Required for <strong>PhotoCapture</strong> and <strong>VideoCapture</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Microphone</strong></td>
+<td style="text-align:left">Required for voice recognition.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SpatialPerception</strong></td>
+<td style="text-align:left">Required for Spatial Mapping.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exporting-a-visual-studio-solution">Exporting a Visual Studio solution</h2>
+<p>Once you&#39;ve built your project and are ready to test, export the project to a Visual Studio solution. To build for <strong>Windows Holographic</strong>, choose the following options under <strong>File</strong> &gt; <strong>Build Setting</strong>:</p>
+<ul>
+<li><strong>Platform: Universal Windows Platform</strong></li>
+<li><strong>UWP Build Type: D3D or XAML</strong></li>
+<li><strong>Unity C# Projects</strong> (check this box)</li>
+</ul>
+<p>Under the <strong>Other Settings</strong> panel of the <strong>Player</strong> settings:</p>
+<ul>
+<li>Enable <strong>Virtual Reality Supported</strong>.</li>
+<li>Click the <strong>+</strong> button on the <strong>Virtual Reality Devices</strong> list and select <strong>Windows Holographic</strong>.</li>
+</ul>
+<p>Checking the <strong>Unity C# Projects</strong> checkbox includes your scripting files in their own Project in the generated solution. This allows you to conveniently edit and debug your scripts without needing to re-export from Unity. A re-export is only required if your Project settings or content change. </p>
+<p>See Microsoft&#39;s documentation on <a href="https://dev.windows.com/en-us/holographic/Exporting_and_building_a_Unity_Visual_Studio_solution">Exporting and building a Unity Visual Studio solution</a>  for more details.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

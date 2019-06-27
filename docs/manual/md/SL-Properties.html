@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>ShaderLab: Properties | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="ShaderLab: Properties | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="shaderlab-properties">ShaderLab: Properties</h1>
+
+<p>Shaders can define a list of parameters to be set by artists in Unity&#39;s <a href="Materials.html">material inspector</a>. The Properties block in the <a href="SL-Shader.html">shader file</a> defines them.</p>
+<h2 id="syntax">Syntax</h2>
+<h4 id="properties">Properties</h4>
+<pre><code>Properties { Property [Property ...] }
+</code></pre><p>Defines the property block. Inside braces multiple properties are defined as follows.</p>
+<h4 id="numbers-and-sliders">Numbers and Sliders</h4>
+<pre><code>name (&quot;display name&quot;, Range (min, max)) = number
+name (&quot;display name&quot;, Float) = number
+name (&quot;display name&quot;, Int) = number
+</code></pre><p>These all defines a number (scalar) property with a default value. The <code>Range</code> form makes it be displayed as a slider between <em>min</em> and <em>max</em> ranges.</p>
+<h4 id="colors-and-vectors">Colors and Vectors</h4>
+<pre><code>name (&quot;display name&quot;, Color) = (number,number,number,number)
+name (&quot;display name&quot;, Vector) = (number,number,number,number)
+</code></pre><p>Defines a color property with default value of given RGBA components, or a 4D vector property with a default value. Color properties have a color picker shown for them, and are adjusted as needed depending on the color space (see <a href="SL-PropertiesInPrograms.html">Properties in Shader Programs</a>). Vector properties are displayed as four number fields.</p>
+<h4 id="textures">Textures</h4>
+<pre><code>name (&quot;display name&quot;, 2D) = &quot;defaulttexture&quot; {}
+name (&quot;display name&quot;, Cube) = &quot;defaulttexture&quot; {}
+name (&quot;display name&quot;, 3D) = &quot;defaulttexture&quot; {}
+</code></pre><p>Defines a <a href="class-TextureImporter.html">2D texture</a>, <a href="class-Cubemap.html">cubemap</a> or <a href="class-Texture3D.html">3D (volume)</a> property respectively.</p>
+<h2 id="details">Details</h2>
+<p>Each property inside the shader is referenced by <strong>name</strong> (in Unity, it&#39;s common to start shader property names with underscore). The property will show up in material inspector as <strong>display name</strong>. For each property a default value is given after equals sign:</p>
+<ul>
+<li>For <em>Range</em> and <em>Float</em> properties it&#39;s just a single number, for example &quot;13.37&quot;.</li>
+<li>For <em>Color</em> and <em>Vector</em> properties it&#39;s four numbers in parentheses, for example &quot;(1,0.5,0.2,1)&quot;.</li>
+<li>For 2D Textures, the default value is either an empty string, or one of the built-in default Textures: &quot;white&quot; (RGBA: 1,1,1,1), &quot;black&quot; (RGBA: 0,0,0,0), &quot;gray&quot; (RGBA: 0.5,0.5,0.5,0.5), &quot;bump&quot; (RGBA: 0.5,0.5,1,0.5) or &quot;red&quot; (RGBA: 1,0,0,0).</li>
+<li>For non-2D Textures (Cube, 3D, 2DArray) the default value is an empty string. When a Material does not have a Cubemap/3D/Array Texture assigned, a gray one (RGBA: 0.5,0.5,0.5,0.5) is used.</li>
+</ul>
+<p>Later on in the shader&#39;s fixed function parts, property values can be accessed using property name in square brackets: <strong>[name]</strong>. For example, you could make blending mode be driven by a material property by declaring two integer properties (say &quot;_SrcBlend&quot; and &quot;_DstBlend&quot;), and later on make <a href="SL-Blend.html">Blend Command</a> use them: <code>Blend [_SrcBlend] [_DstBlend]</code>.</p>
+<p>Shader parameters that are in the <code>Properties</code> block are serialized as <a href="Materials.html">Material</a> data. <a href="SL-ShaderPrograms.html">Shader programs</a> can actually have more parameters (like matrices, vectors and floats) that are set on the material from code at runtime, but if they are not part of the Properties block then their values will not be saved. This is mostly useful for values that are completely script code-driven (using <a href="ScriptRef:Material.SetFloat.html">Material.SetFloat</a> and similar functions).</p>
+<h3 id="property-attributes-and-drawers">Property attributes and drawers</h3>
+<p>In front of any property, optional attributes in square brackets can be specified. These are either attributes recognized by Unity, or they can indicate your own <a href="ScriptRef:MaterialPropertyDrawer.html">MaterialPropertyDrawer classes</a> to control how they should be rendered in the <a href="class-Material.html">material inspector</a>. Attributes recognized by Unity:</p>
+<ul>
+<li><code>[HideInInspector]</code> - does not show the property value in the material inspector.</li>
+<li><code>[NoScaleOffset]</code> - material inspector will not show texture tiling/offset fields for texture properties with this attribute.</li>
+<li><code>[Normal]</code> - indicates that a texture property expects a normal-map.</li>
+<li><code>[HDR]</code> - indicates that a texture property expects a high-dynamic range (HDR) texture.</li>
+<li><code>[Gamma]</code> - indicates that a float/vector property is specified as sRGB value in the UI (just like colors are), and possibly needs conversion according to color space used. See <a href="SL-PropertiesInPrograms.html">Properties in Shader Programs</a>.</li>
+<li><code>[PerRendererData]</code> - indicates that a texture property will be coming from per-renderer data in the form of a <a href="ScriptRef:MaterialPropertyBlock.html">MaterialPropertyBlock</a>. Material inspector changes the texture slot UI for these properties.</li>
+</ul>
+<h2 id="example">Example</h2>
+<pre><code>// properties for a water shader
+Properties
+{
+    _WaveScale (&quot;Wave scale&quot;, Range (0.02,0.15)) = 0.07 // sliders
+    _ReflDistort (&quot;Reflection distort&quot;, Range (0,1.5)) = 0.5
+    _RefrDistort (&quot;Refraction distort&quot;, Range (0,1.5)) = 0.4
+    _RefrColor (&quot;Refraction color&quot;, Color) = (.34, .85, .92, 1) // color
+    _ReflectionTex (&quot;Environment Reflection&quot;, 2D) = &quot;&quot; {} // textures
+    _RefractionTex (&quot;Environment Refraction&quot;, 2D) = &quot;&quot; {}
+    _Fresnel (&quot;Fresnel (A) &quot;, 2D) = &quot;&quot; {}
+    _BumpMap (&quot;Bumpmap (RGB) &quot;, 2D) = &quot;&quot; {}
+}
+</code></pre><h2 id="texture-property-options-removed-in-50">Texture property options (removed in 5.0)</h2>
+<p>Before Unity 5, texture properties could have options inside the curly brace block, e.g. <code>TexGen CubeReflect</code>. These were controlling fixed function texture coordinate generation. This functionality was removed in 5.0; if you need texgen you should write a <a href="SL-ShaderPrograms.html">vertex shader</a> instead. See <a href="SL-ImplementingTexGen.html">Implementing Fixed Function TexGen page</a> page for examples.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="SL-PropertiesInPrograms.html">Accessing Shader Properties in HLSL/Cg</a>.</li>
+<li><a href="ScriptRef:MaterialPropertyDrawer.html">Material Property Drawers</a>.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

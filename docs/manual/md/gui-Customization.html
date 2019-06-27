@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Customization | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Customization | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="customization">Customization</h1>
+
+<h2 id="customizing-your-imgui-controls">Customizing your IMGUI Controls</h2>
+<p>Although Unity&#39;s IMGUI system is mainly intended for creating developer tools and debugging interfaces, you can still customize and style them in many ways. In Unity&#39;s IMGUI system, you can fine-tune the appearance of your Controls with many details. Control appearances are dictated with <strong>GUIStyles</strong>. By default, when you create a Control without defining a GUIStyle, Unity&#39;s default GUIStyle is applied. This style is internal in Unity and can be used in published games for quick prototyping, or if you choose not to stylize your Controls.</p>
+<p>When you have a large number of different GUIStyles to work with, you can define them all within a single <strong>GUISkin</strong>. A GUISkin is no more than a collection of GUIStyles.</p>
+<h3 id="how-styles-change-the-look-of-your-gui-controls">How Styles change the look of your GUI Controls</h3>
+<p>GUIStyles are designed to mimic Cascading Style Sheets (CSS) for web browsers. Many different CSS methodologies have been adapted, including differentiation of individual state properties for styling, and separation between the content and the appearance.</p>
+<p>Where the Control defines the content, the Style defines the appearance. This allows you to create combinations like a functional <strong>Toggle</strong> which looks like a normal <strong>Button</strong>.</p>
+<p><img src="../uploads/Main/gsg-ToggleStyles.png" alt="Two Toggle Controls styled differently"> </p>
+<h3 id="the-difference-between-skins-and-styles">The difference between Skins and Styles</h3>
+<p>As stated earlier, GUISkins are a collection of GUIStyles. Styles define the appearance of a GUI Control. You do not have to use a Skin if you want to use a Style.</p>
+<p><img src="../uploads/Main/GuiStyleInspector.png" alt="A single GUIStyle shown in the Inspector"> </p>
+<p><img src="../uploads/Main/Inspector-GUISkin.png" alt=""> 
+<em>A single GUISkin shown in the Inspector - observe that it contains multiple GUIStyles</em> </p>
+<h2 id="working-with-styles">Working with Styles</h2>
+<p>All GUI Control functions have an optional last parameter: the GUIStyle to use for displaying the Control. If this is omitted, Unity&#39;s default GUIStyle will be used. This works internally by applying the name of the control type as a string, so <strong>GUI.Button()</strong> uses the &quot;button&quot; style, <strong>GUI.Toggle()</strong> uses the &quot;toggle&quot; style, etc. You can override the default GUIStyle for a control by specifying it as the last parameter.</p>
+<pre><code>/* Override the default Control Style with a different style in the UnityGUI default Styles */
+
+
+// JavaScript
+function OnGUI () {
+    // Make a label that uses the &quot;box&quot; GUIStyle.
+    GUI.Label (Rect (0,0,200,100), &quot;Hi - I&#39;m a label looking like a box&quot;, &quot;box&quot;);
+
+    // Make a button that uses the &quot;toggle&quot; GUIStyle
+    GUI.Button (Rect (10,140,180,20), &quot;This is a button&quot;, &quot;toggle&quot;);
+}
+
+
+// C#
+using UnityEngine;
+using System.Collections;
+
+public class GUITest : MonoBehaviour {
+
+    void OnGUI () {
+        // Make a label that uses the &quot;box&quot; GUIStyle.
+        GUI.Label (new Rect (0,0,200,100), &quot;Hi - I&#39;m a label looking like a box&quot;, &quot;box&quot;);
+
+        // Make a button that uses the &quot;toggle&quot; GUIStyle
+        GUI.Button (new Rect (10,140,180,20), &quot;This is a button&quot;, &quot;toggle&quot;);
+    }
+
+}
+
+</code></pre><p><img src="../uploads/Main/gsg-DifferentDefaultStyles.png" alt="The controls created by the code example above"> </p>
+<h3 id="making-a-public-variable-guistyle">Making a public variable GUIStyle</h3>
+<p>When you declare a public GUIStyle variable, all elements of the Style will show up in the <strong>Inspector</strong>. You can edit all of the different values there.</p>
+<pre><code>/* Overriding the default Control Style with one you&#39;ve defined yourself */
+
+
+// JavaScript
+var customButton : GUIStyle;
+
+function OnGUI () {
+    // Make a button. We pass in the GUIStyle defined above as the style to use
+    GUI.Button (Rect (10,10,150,20), &quot;I am a Custom Button&quot;, customButton);
+}
+
+
+// C#
+using UnityEngine;
+using System.Collections;
+
+public class GUITest : MonoBehaviour {
+
+    public GUIStyle customButton;
+
+    void OnGUI () {
+        // Make a button. We pass in the GUIStyle defined above as the style to use
+        GUI.Button (new Rect (10,10,150,20), &quot;I am a Custom Button&quot;, customButton);
+    }
+
+}
+
+</code></pre><h3 id="changing-the-different-style-elements">Changing the different style elements</h3>
+<p>When you have declared a GUIStyle, you can modify that style in the Inspector. There are a great number of States you can define, and apply to any type of Control.</p>
+<p><img src="../uploads/Main/ModifyingStyleInInspector.png" alt="Styles are modified on a per-script, per-GameObject basis"> </p>
+<p>Any Control State must be assigned a <strong>Background</strong> Color before the specified <strong>Text Color</strong> will be applied.</p>
+<p>For more information about individual GUIStyles, please read the <a href="class-GUIStyle.html">GUIStyle Component Reference page</a>.</p>
+<h2 id="working-with-skins">Working with Skins</h2>
+<p>For more complicated GUI systems, it makes sense to keep a collection of styles in one place. This is what a GUISkin does. A GUISkin contains multiple different Styles, essentially providing a complete face-lift to all GUI Controls. </p>
+<h3 id="creating-a-new-guiskin">Creating a new GUISkin</h3>
+<p>To create a GUISkin, select <strong>Assets-&gt;Create-&gt;GUI Skin</strong> from the menu bar. This will create a GUI Skin in your Project Folder. Select it to see all GUIStyles defined by the Skin in the Inspector.</p>
+<h3 id="applying-the-skin-to-a-gui">Applying the skin to a GUI</h3>
+<p>To use a skin you&#39;ve created, assign it to <strong>GUI.skin</strong> in your <strong>OnGUI()</strong> function.</p>
+<pre><code>/* Make a property containing a reference to the skin you want to use */
+
+
+// JavaScript
+var mySkin : GUISkin;
+
+function OnGUI () {
+    // Assign the skin to be the one currently used.
+    GUI.skin = mySkin;
+
+    // Make a button. This will get the default &quot;button&quot; style from the skin assigned to mySkin.
+    GUI.Button (Rect (10,10,150,20), &quot;Skinned Button&quot;);
+}
+
+
+// C#
+using UnityEngine;
+using System.Collections;
+
+public class GUITest : MonoBehaviour {
+
+    public GUISkin mySkin;
+
+    void OnGUI () {
+        // Assign the skin to be the one currently used.
+        GUI.skin = mySkin;
+
+        // Make a button. This will get the default &quot;button&quot; style from the skin assigned to mySkin.
+        GUI.Button (new Rect (10,10,150,20), &quot;Skinned Button&quot;);
+    }
+
+}
+
+</code></pre><p>You can switch skins as much as you like throughout a single <strong>OnGUI()</strong> call.</p>
+<pre><code>/* Example of switching skins in the same OnGUI() call */
+
+
+// JavaScript
+var mySkin : GUISkin;
+
+var toggle = true;
+
+function OnGUI () {
+    // Assign the skin to be the one currently used.
+    GUI.skin = mySkin;
+
+    // Make a toggle. This will get the &quot;button&quot; style from the skin assigned to mySkin.
+    toggle = GUI.Toggle (Rect (10,10,150,20), toggle, &quot;Skinned Button&quot;, &quot;button&quot;);
+
+    // Assign the currently skin to be Unity&#39;s default.
+    GUI.skin = null;
+
+    // Make a button. This will get the default &quot;button&quot; style from the built-in skin.
+    GUI.Button (Rect (10,35,150,20), &quot;Built-in Button&quot;);
+}
+
+
+// C#
+using UnityEngine;
+using System.Collections;
+
+public class GUITest : MonoBehaviour {
+
+    public GUISkin mySkin;
+    private bool toggle = true;
+
+    void OnGUI () {
+        // Assign the skin to be the one currently used.
+        GUI.skin = mySkin;
+
+        // Make a toggle. This will get the &quot;button&quot; style from the skin assigned to mySkin.
+        toggle = GUI.Toggle (new Rect (10,10,150,20), toggle, &quot;Skinned Button&quot;, &quot;button&quot;);
+
+        // Assign the currently skin to be Unity&#39;s default.
+        GUI.skin = null;
+
+        // Make a button. This will get the default &quot;button&quot; style from the built-in skin.
+        GUI.Button (new Rect (10,35,150,20), &quot;Built-in Button&quot;);
+    }
+
+}
+
+</code></pre><h3 id="changing-gui-font-size">Changing GUI Font Size</h3>
+<p>This example will show you how to dynamically change the font size through code. </p>
+<p>First create a new project in Unity. Then make a C# script called Fontsize.cs and paste the following code in:</p>
+<pre><code>// C# example
+using UnityEngine;
+
+using System.Collections;
+
+public class Fontsize : MonoBehaviour
+{
+    void OnGUI ()
+    {
+        //Set the GUIStyle style to be label
+        GUIStyle style = GUI.skin.GetStyle (&quot;label&quot;);
+
+        //Set the style font size to increase and decrease over time
+        style.fontSize = (int)(20.0f + 10.0f * Mathf.Sin (Time.time));
+
+        //Create a label and display with the current settings
+        GUI.Label (new Rect (10, 10, 200, 80), &quot;Hello World!&quot;);
+    }
+
+}
+</code></pre><p>Save the script and attach it to an empty GameObject, click play to see the font loop through increasing and decreasing in size over time. You may notice that the font does not smoothly change size, this is becauses there is not an infinite number of font sizes.</p>
+<p>This specific example requires that the default font (Arial) is loaded and marked as dynamic. You cannot change the size of any font that is not marked as dynamic.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

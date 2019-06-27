@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Universal Windows Platform: Plugins on IL2CPP Scripting Backend | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Universal Windows Platform: Plugins on IL2CPP Scripting Backend | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="universal-windows-platform-plugins-on-il2cpp-scripting-backend">Universal Windows Platform: Plugins on IL2CPP Scripting Backend</h1>
+
+<p>The plugin model for Universal Windows Platform is similar to other Unity platforms (such as Windows standalone).</p>
+<h2 id="managed-plugins">Managed plugins</h2>
+<p>By default, IL2CPP targets .NET 2.0 API compatiblity level. That means it does not support managed plugins targeting .NET 4.5 or consuming any of Windows Runtime APIs. All managed plugins must be targeting .NET 4.5 or equivalent API when using this compatiblity level. You can switch to .NET 4.6 API compatibilty level in <strong>Player</strong> settings if you wish to lift these restrictions.</p>
+<p><strong>Note</strong> The .Net 3.5 scripting runtime is deprecated, but it will be available for Unity 2018.3 and 2018.4 LTS. Please migrate or start new Projects with the .NET 4.x runtime.</p>
+<p>IL2CPP scripting backend exposes the exact same .NET API surface as Unity editor or standalone player, so it&#39;s possible to use the same plugins without the need to compile separate versions targetting different .NET API for Universal Windows Platform.</p>
+<h2 id="native-plugins">Native plugins</h2>
+<p>IL2CPP scripting backend supports using native plugins through P/Invoke mechanism. It means that you can call into native plugins directly from your C# code by specifying the native function prototype and then calling it. For example:</p>
+<pre><code>[DllImport(&quot;MyPlugin.dll&quot;)]
+private static extern int CountLettersInString([MarshalAs(UnmanagedType.LPWSTR)]string str);
+
+private void Start()
+{
+    Debug.Log(CountLettersInString(&quot;Hello, native plugin!&quot;));
+}
+</code></pre><p>The implementation of such function inside MyPlugin.dll would look like this:</p>
+<pre><code>extern &quot;C&quot; __declspec(dllexport)
+int __stdcall CountLettersInString(wchar_t* str)
+{
+    int length = 0;
+    while (*str++ != nullptr)
+        length++;
+    return length;
+}
+</code></pre><p>P/Invoke marshaling rules match that of official .NET marshaling, with exception of few unsupported types:</p>
+<ul>
+<li>AnsiBStr</li>
+<li>Currency</li>
+<li>SAFEARRAY</li>
+<li>IDispatch</li>
+<li>TBStr</li>
+<li>VBByRefStr</li>
+</ul>
+<p>The default calling convention for P/Invoke functions on x86 is <code>__stdcall</code>.</p>
+<p>Native plugins can be authored in two ways: precompiled DLL or C++ source code.</p>
+<h3 id="precompiled-native-plugins">Precompiled native plugins</h3>
+<p>P/Invoking into precompiled native plugins works by loading the DLL at runtime, finding the function entry point and then calling it. These DLLs must be compiled against appropriate Windows SDK for the target CPU architecture. The DLLs must also be configured in Plugin Inspector when added to Unity project.</p>
+<h3 id="c-source-code-native-plugins">C++ source code native plugins</h3>
+<p>It is possible to add C++ (.cpp) code files directly into Unity project, which will act as a plugin in Plugin Inspector. If configured to be compatible with Universal Windows Platform and IL2CPP scriping backend, these C++ files will be compiled together with C++ code that gets generated from managed assemblies:</p>
+<p><img src="../uploads/Main/NativeFunctions.png" alt=""></p>
+<p>Since the functions are linked together with generated C++ code, there is no separate DLL to P/Invoke into. Due to this, it&#39;s possible to use &quot;__Internal&quot; keyword in place of DLL name, which will make it C++ Linker responsibility to resolve the functions, rather than loading them at runtime:</p>
+<pre><code>[DllImport(&quot;__Internal&quot;)]
+private static extern int CountLettersInString([MarshalAs(UnmanagedType.LPWSTR)]string str);
+</code></pre><p>Since the call is resolved by the linker, making an error in function declaration on managed side will produce a linker error, rather an error at runtime. This also means that no dynamic loading needs to take place at runtime, and function is called directly. This significantly decreases the overhead of a P/Invoke call.</p>
+<h3 id="pinvoke-limitations">P/Invoke limitations</h3>
+<p>On Universal Windows Platform you cannot P/Invoke into specific system libraries by specifying the dll name (like &quot;kernelbase.dll&quot;) when using IL2CPP scripting backend. Attempting to P/Invoke into any DLL that exists outside of the project will result in DllNotFoundException at runtime.</p>
+<p>However, it&#39;s still possible to P/Invoke into these system functions by specifying &quot;**Internal&quot; keyword instead of the DLL name, which results in linker resolving the functions at build time.</p>
+<h2 id="see-also">See also</h2>
+<p><a href="PluginInspector.html" title="Plugin Inspector">Plugin Inspector</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

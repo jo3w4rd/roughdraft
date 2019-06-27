@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Wii Remote on PC | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Wii Remote on PC | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="wii-remote-on-pc">Wii Remote on PC</h1>
+
+<h3 id="what-will-you-need-">What will you need ?</h3>
+<ul>
+<li>bluetooth adapter (if your PC doesn&#39;t have one)</li>
+<li>software for connecting bluetooth to PC:<ul>
+<li>Bluesoleil (<a href="http://www.bluesoleil.com/">http://www.bluesoleil.com/</a>), the latest version costs money, but I think earlier versions are still free if you can find them on the internet</li>
+</ul>
+</li>
+<li>plugin source (you can find the download link at the bottom of this page)</li>
+<li>WiiRemote</li>
+<li>Unity2011-03-14 build or later.</li>
+</ul>
+<h3 id="supported-controllers">Supported controllers:</h3>
+<ul>
+<li>WiiRemote<ul>
+<li>Buttons</li>
+<li>IR</li>
+<li>Acceleration</li>
+</ul>
+</li>
+<li>Nunchuk<ul>
+<li>Buttons</li>
+<li>Stick</li>
+</ul>
+</li>
+<li>ClassicController<ul>
+<li>Buttons</li>
+<li>Sticks</li>
+</ul>
+</li>
+<li>WiiBalanceBoard</li>
+<li>MotionPlus<ul>
+<li>Raw data</li>
+<li>Nunchuk (Not supported)</li>
+<li>ClassicController (Not supported)</li>
+</ul>
+</li>
+</ul>
+<h3 id="usage">Usage:</h3>
+<ul>
+<li><p>Connecting WiiRemote to PC (presuming that you&#39;ve installed Bluesoleil software)</p>
+<ul>
+<li>Press Sync button on the WiiRemote, the leds should begin to flash.</li>
+</ul>
+</li>
+</ul>
+<p>--&gt; <img src="../uploads/Main/wiiRemoteBatteryCover.gif" alt=""></p>
+<pre><code>* Click &#39;Search Devices&#39; in the BlueSoleil window
+</code></pre><p>--&gt; <img src="../uploads/Main/blue.jpg" alt=""></p>
+<pre><code>* A joystick shaped icon should appear named &#39;Nintendo RVL-CNT-01&#39;
+* Right-click on it and select &#39;Search Services&#39; (if the leds on the WiiRemote stopped flashing, press Sync button again)
+* After few seconds right-click on the icon again, a new menu item should appear - &#39;Connect Bluetooth Human Interface Device), click on it
+* WiiRemote is now connected to PC and we can start using it
+</code></pre><ul>
+<li><p>Compiling the plugin</p>
+<ul>
+<li>Before you can use the plugin in Unity, you must compile it, go to WiiPadEmu-&gt;PluginSource-&gt;WiiPadEmu, open Win32WPad.sln</li>
+<li>There are four configurations:<ul>
+<li>DebugWinForms, ReleaseWinforms - can be used for plugin testing without launching the Unity.</li>
+<li>DebugUnity, ReleaseUnity - compiles the plugin and copies necessary files to WiiPadEmu\Assets\Plugins directory.</li>
+</ul>
+</li>
+<li>Just the suitable one and compile it</li>
+</ul>
+</li>
+<li><p>Testing the plugin without Unity</p>
+<ul>
+<li>If you&#39;ve chosen DebugWinForms or ReleaseWinForms and were succesful in compiling the project, you should be able to launch application Win32WPadTest</li>
+</ul>
+</li>
+</ul>
+<p>--&gt;<img src="../uploads/Main/ui.jpg" alt=""></p>
+<h3 id="download-links">Download Links:</h3>
+<p><a href="http://files.unity3d.com/tomas/WiiPadEmu2011-07-28_12-30.zip">http://files.unity3d.com/tomas/WiiPadEmu2011-07-28_12-30.zip</a></p>
+<p>That&#39;s it for basic usage !</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

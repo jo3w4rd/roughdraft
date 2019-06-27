@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>CloudMoolah MOO store | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="CloudMoolah MOO store | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cloudmoolah-moo-store">CloudMoolah MOO store</h1>
+
+<p>The CloudMoolah MOO Store is a commercial service that enables people to buy and sell mobile apps. It also provides In-App Purchasing (IAP) services for apps distributed through the store. This guide describes the end-to-end process for a developer adding IAP services to a game that they publish to the CloudMoolah MOO Store.</p>
+<p>The MOO Store serves Asian markets including the Philippines, Malaysia, Vietnam, Singapore, and Thailand. Users maintain a digital wallet, which they can fund using a variety of payment providers, such as mobile-pay, banks, and convenience store prepaid cards.</p>
+<p>Although compatible with Unity, the CloudMoolah MOO Store is not a Unity product. For more information, see the CloudMoolah Developer Portal website at <a href="https://dev.cloudmoolah.com/">dev.cloudmoolah.com</a>.</p>
+<p>The general workflow for publishing your game to the store and adding IAP to your game is as follows:</p>
+<ul>
+<li>Register your game as an app in the CloudMoolah store</li>
+<li>Add items in the store that you can add to your game for purchase</li>
+<li>Add the CloudMoolah store initialization code to your game</li>
+<li>Test the integration</li>
+<li>Publish the game to the CloudMoolah store</li>
+</ul>
+<h2 id="getting-started">Getting started</h2>
+<p>Your game must be built as an Android app. For information on building as an Android app, see <a href="android-GettingStarted.html">Getting started with Android development</a>.</p>
+<p>To register your game as an available app in the CloudMoolah store:</p>
+<ol>
+<li><p>Sign in to the <a href="https://dev.cloudmoolah.com/">CloudMoolah Developer Portal</a>.</p>
+</li>
+<li><p>Click <strong>App Listing</strong>.</p>
+</li>
+</ol>
+<p><img src="../uploads/Main/cloudmoolahdashboard.png" alt="CloudMoolah Store dashboard menu"></p>
+<ol>
+<li>On the App Listing page, click the <strong>CREATE NEW APP</strong> button.</li>
+</ol>
+<p><img src="../uploads/Main/cloudmoolahapplisting.png" alt="CloudMoolah create new app button"></p>
+<ol>
+<li><p>On the <strong>App Detail</strong> page, enter the following information:</p>
+<ol>
+<li><p>In <strong>App Name</strong>, enter a name that will identify your game in the CloudMoolah store.</p>
+</li>
+<li><p>In <strong>BundelID</strong>, enter the Package name you used for your game in the Unity Editor.</p>
+</li>
+<li><p>In <strong>Currency Name</strong>, enter a name for the currency that players will use to complete the in-app purchase.</p>
+</li>
+<li><p>To create a HashKey that you will use in the initialization code for your app, click <strong>GENERATE</strong> next to the <strong>HMAC/HashKey</strong> field.</p>
+</li>
+<li><p>In the <strong>Notification HMAC</strong> field, enter the App ID. This value is used during initialization. </p>
+</li>
+<li><p>Click <strong>Save</strong>.</p>
+</li>
+</ol>
+</li>
+</ol>
+<p><img src="../uploads/Main/cloudmoolahapplisting2.png" alt="CloudMoolah create new app result"></p>
+<h3 id="add-items-that-your-users-can-purchase">Add items that your users can purchase</h3>
+<p>An in-app purchase is the transaction of exchanging money for digital goods inside an application. A platform’s store allows users to purchase products, which are digital goods. These products have an identifier, which is typically a string data type.</p>
+<p>To add a purchasable item in the CloudMoolah Developer portal:</p>
+<ol>
+<li>On the <strong>App Listing</strong> page, click <strong>View IAP</strong>.</li>
+</ol>
+<p><img src="../uploads/Main/cloudmoolahapplisting3.png" alt="CloudMoolah view IAP button"></p>
+<ol>
+<li>On the__ IAP Listing__ page, click the <strong>CREATE NEW IAP</strong> button.</li>
+</ol>
+<p><img src="../uploads/Main/cloudmoolahiaplist.png" alt="CloudMoolah create new IAP button"></p>
+<ol>
+<li><p>On the <strong>IAP Detail</strong> page, enter the following information:</p>
+<ol>
+<li><p>In the <strong>ProductID</strong> field, enter a string identifier that you will use in your code to enable purchase of the item in your game.</p>
+</li>
+<li><p>In the <strong>Amount</strong> field, enter the number cost of the item in the default currency you specified when you registered your game.</p>
+</li>
+<li><p>In the <strong>Product Name</strong> field, enter a name for the product.</p>
+</li>
+<li><p>In the <strong>Product Description</strong>, enter a description for the product.</p>
+</li>
+</ol>
+</li>
+</ol>
+<p><img src="../uploads/Main/cloudmoolahiaplist2.png" alt="CloudMoolah create new IAP result"></p>
+<ol>
+<li>Click <strong>SAVE</strong>.</li>
+</ol>
+<p>The  item now appears on the <strong>IAP Listing</strong> page and you can reference it from your game to offer it to your users.</p>
+<h3 id="add-iap-to-your-game">Add IAP to your game</h3>
+<p>To configure IAP in your game:</p>
+<ol>
+<li>Retrieve the appKey and hashKey for your app&#39;s product from the MOO Store Developer Portal and store them for later use.</li>
+</ol>
+<p>An app targeting the CloudMoolah MOO Store must configure the CloudMoolah appKey and hashKey using the IMoolahConfiguration via the scripting API before initializing Unity IAP. Collect these variables’ values from the app’s CloudMoolah developer dashboard.</p>
+<p>The following example configures and starts initialization of Unity IAP:</p>
+<pre><code>using UnityEngine.Purchasing;
+public class MyStore : IStoreListener
+{
+    public void InitializeStore()
+    {
+        var module = StandardPurchasingModule.Instance();
+        var builder = ConfigurationBuilder.Instance(module);
+
+        // Configure CloudMoolah
+        builder.Configure&lt;IMoolahConfiguration&gt;().appKey = &quot;d93f4564c41d463ed3d3cd207594ee1b&quot;;
+        builder.Configure&lt;IMoolahConfiguration&gt;().hashKey = &quot;cc&quot;;
+        // For server-to-server (also called &quot;online&quot; games) transaction
+        // logging, set IMoolahConfiguration.notificationURL.
+        builder.Configure&lt;IMoolahConfiguration&gt;().notificationURL = &quot;https://gameserver.example.com/callback&quot;;
+        builder.Configure&lt;IMoolahConfiguration&gt;().SetMode(CloudMoolahMode.Production);
+        // Add purchasable products. The product must be defined in the store.
+        // Unity IAP provides the *ProductType* enumeration to specify the durability 
+        // of a purchasable product. CloudMoolah limits the product type to Consumable. 
+        builder.AddProduct(&quot;100.gold.coins&quot;, ProductType.Consumable);
+
+        // Start asynchronous IAP initialization.
+        UnityPurchasing.Initialize(this, builder);
+    }
+}
+</code></pre><ol>
+<li>In the Unity Editor, set the Unity IAP Android target to CloudMoolah by selecting <strong>Window &gt; Unity IAP &gt; Android &gt; Target CloudMoolah</strong>. This sets CloudMoolah as the Android store that the game uses to fulfill IAP requests.</li>
+</ol>
+<p><img src="../uploads/Main/unityeditorenablecloudmoolat.jpg" alt="Enable CloudMoolah in the Editor"></p>
+<p>To set the target store in your initialization code, call the UnityPurchasingEditor.TargetAndroidStore function:</p>
+<p>UnityPurchasingEditor.TargetAndroidStore(AndroidStore.CloudMoolah);</p>
+<ol>
+<li>Build a signed non-Development Build Android APK from your game. For more information, see <a href="android-GettingStarted.html">Getting started with Android development</a>.</li>
+</ol>
+<p><strong>Note</strong>: Take special precautions to safely store your keystore file. The original keystore is always required to update a published app.</p>
+<p>For more information on setting up and configuring IAP, see <a href="UnityIAPSettingUp.html">Setting Up Unity IAP</a>, <a href="UnityIAPInitialization.html">Unity In-App Purchasing Initialization</a>, and <a href="https://unity3d.com/learn/tutorials/topics/analytics/integrating-unity-iap-your-game-beta">Integrating Unity In-App Purchasing with your game</a>.</p>
+<h3 id="test-iap">Test IAP</h3>
+<p>The CloudMoolah MOO Store supports testing. To test your game in the CloudMoolah MOO Store, you must enable developer mode in the app before making purchases by calling the <code>IMoolahConfiguration.SetMode</code> function.</p>
+<p>When you set the test mode in a build of your game, transactions are processed against a dummy offline store. This allows you to test the app’s purchasing logic without incurring real-world monetary costs related to the product.</p>
+<p>To modify the game’s MOO Store test mode, create the ConfigurationBuilder instance and add the following line, then build and run the app to test its IAP logic:</p>
+<pre><code>// TESTING: auto-approves all transactions
+builder.Configure&lt;IMoolahConfiguration&gt;().SetMode(CloudMoolahMode.AlwaysSucceed);
+</code></pre><p>To test error handling, configure the test mode to fail all transactions. To do this, use the CloudMoolahMode.AlwaysFailed enumeration:</p>
+<pre><code>builder.Configure&lt;IMoolahConfiguration&gt;().SetMode(CloudMoolahMode.AlwaysFailed); // TESTING: always fails all transactions
+</code></pre><p>Note: When you finish testing, remove the SetMode statement that configures developer mode, or change the parameter to use the CloudMoolahMode.Production enumeration value. This ensures users pay real-world money when the app is in use.</p>
+<h3 id="example-implementation">Example implementation</h3>
+<p>Unity IAP&#39;s default integration includes an implementation script example that demonstrates how to use the required, and some of the optional, CloudMoolah scripting APIs.</p>
+<p>To view the CloudMoolah-specific example:</p>
+<ol>
+<li><p>On your development machine, open the folder for the app in which you have enabled IAP.</p>
+</li>
+<li><p>Open the <em>Assets/Plugins/UnityPurchasing/script</em> folder.</p>
+</li>
+<li><p>In the script folder, open <em>IAPDemo.cs</em>.</p>
+</li>
+</ol>
+<p>The example implements the <code>Awake</code> function, which calls the <code>IMoolahConfiguration</code> API to set <code>appKey</code> and <code>hashKey</code>. This connects your app to the CloudMoolah store server.</p>
+<p>The <em>IAPDemo.cs</em> file also shows how to use optional API calls to configure test mode, and for extending functionality to include transaction restoration. For more information on the optional APIs, sign in to the CloudMoolah Developer Portal website at <a href="https://dev.cloudmoolah.com/">dev.cloudmoolah.com</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

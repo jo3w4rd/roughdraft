@@ -1,0 +1,542 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Unity Channel SDK and API extensions | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Unity Channel SDK and API extensions | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="unity-channel-sdk-and-api-extensions">Unity Channel SDK and API extensions</h1>
+
+<h2 id="unity-channel-api">Unity Channel API</h2>
+<h3 id="unityenginestore-namespace">UnityEngine.Store namespace</h3>
+<h4 id="appinfo-class">AppInfo class</h4>
+<p>The <code>AppInfo</code> class stores client and Xiaomi credentials needed for client-to-server communication and authentication.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>appID</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Xiaomi app ID</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>appKey</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Xiaomi app key</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>clientID</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Unity client ID</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>clientKey</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Unity client key</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>debug</strong></td>
+<td style="text-align:left">bool</td>
+<td style="text-align:left">Toggle debug mode</td>
+</tr>
+</tbody>
+</table>
+<h4 id="iloginlistener-interface">ILoginListener interface</h4>
+<p>Xiaomi requires login through the <code>ILoginListener</code> for all apps publishing to the Mi Game Center.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>OnInitialized ()</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Called when initialization succeeds</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OnInitializedFailed (string message)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Called when initialization fails</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OnLogin ()</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Called when login succeeds</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OnLoginFailed (string message)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Called when login fails</td>
+</tr>
+</tbody>
+</table>
+<h4 id="storeservice-class">StoreService class</h4>
+<p>Unity IAP uses the <code>StoreService</code> class internally to initialize the Unity Channel SDK.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>static Initialize (AppInfo appInfo, ILoginListener loginListener)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Initialize the Unity Channel SDK</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>static Login (AppInfo appInfo, ILoginListener loginListener)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Login to the Xiaomi account</td>
+</tr>
+</tbody>
+</table>
+<h4 id="userinfo-class">UserInfo class</h4>
+<p>A successful login to Unity Channel returns the <code>UserInfo</code> class. The data returned is for informational purposes.  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>channel</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Indicates which channel you are using (currently, it is only “XIAOMI”)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>userID</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Channel’s unique user ID</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>userLoginToken</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Validate the user login (see Server-side initialization section of Xiaomi IAP integration guide)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="unityenginechannelpurchase-namespace">UnityEngine.ChannelPurchase namespace</h3>
+<h4 id="ipurchaselistener-interface">IPurchaseListener interface</h4>
+<p>Unity IAP uses the <code>IPurchaseListener</code> interface internally to handle purchasing activities.</p>
+<p>Implement the <code>IPurchaseListener</code> class to handle states of the purchase flow:</p>
+<pre><code>using UnityEngine.ChannelPurchase;
+......
+private class ExamplePurchaseListener : IPurchaseListener{
+    public void OnPurchase (PurchaseInfo purchaseInfo){
+        Debug.Log (&quot;Purchase Succeed: &quot; + purchaseInfo.gameOrderId);
+    }
+    public void OnPurchaseFailed (string message, PurchaseInfo purchaseInfo){
+        Debug.Log (&quot;Purchase Failed: &quot; + message);
+    }
+    public void OnPurchaseRepeated(string productCode){
+        Debug.Log (&quot;Purchase Repeated&quot;);
+    }
+    public void OnReceiptValidate (ReceiptInfo receiptInfo){
+        Debug.Log (&quot;Validate Succeed&quot;);
+    }
+    public void OnReceiptValidateFailed (string gameOrderId, string message){
+        Debug.Log (&quot;Validate Failed&quot;);
+    }
+    public void OnPurchaseConfirm (string gameOrderId){
+        Debug.Log (&quot;Confirm Succeed&quot;);
+    }
+    public void OnPurchaseConfirmFailed (string gameOrderId, string message){
+        Debug.Log (&quot;Confirm Failed&quot;);
+    }
+}
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>OnPurchase ()</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Called when purchase succeeds</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OnPurchaseFailed (string message, PurchaseInfo purchaseInfo)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Called when purchase fails</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OnPurchaseRepeated (string productCode)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Called when non-consumable Products are re-purchased</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OnReceiptValidation (ReceiptInfo receiptInfo)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Called when <code>PurchaseService.ValidateReceipt (...)</code> succeeds</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OnReceiptValidationFailed (string gameOrderID, string message)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Called when <code>PurchaseService.ValidateReceipt (...)</code> fails</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OnPurchaseConfirm (string gameOrderId)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Deprecated</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OnPurchaseConfirm (string gameOrderId, string message)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Deprecated</td>
+</tr>
+</tbody>
+</table>
+<h4 id="purchaseservice-class">PurchaseService class</h4>
+<p>Unity IAP uses the <code>PurchaseService</code> class internally to initiate purchasing activities.</p>
+<p>With the purchase listener implemented, call the <code>PurchaseService.Purchase</code> method to execute a purchase transaction:</p>
+<pre><code>using UnityEngine.ChannelPurchase;
+......
+    var myPurchaseListener = new ExamplePurchaseListener ();    
+    PurchaseService.Purchase (&quot;Product ID&quot;, &quot;Game Order ID&quot;, myPurchaseListener);
+</code></pre><p>Product IDs are listed in the Xiaomi developer portal. If your app runs in debug mode, Product IDs also export to the <em>MiGameProductCatalog.prop</em> file. Game Order ID can be null; the Unity Channel SDK will generate its UUID.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>static Purchase (string productCode, string gameOrderId, IPurchaseListener productListener)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Purchase Products</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>static ValidateReceipt (string gameOrderId, IPurchaseListener purchaseListener)</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Validate purchase</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>static ConfirmPurchase ()</strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Deprecated (use <code>ValidateReceipt (...)</code> instead)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="purchaseinfo-class">PurchaseInfo class</h4>
+<p>After a purchase, validate it by calling the <code>PurchaseService.ValidateReceipt</code> method:</p>
+<pre><code>    PurchaseService.ValidateReceipt(gameOrderId, myPurchaseListener);
+</code></pre><p>If <code>gameOrderId</code> is valid, <code>myPurchaseListener</code> receives <code>ReceiptInfo</code> containing <code>signData</code> and <code>signature</code>, which Unity Channel uses to validate the purchase.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>productCode</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">A Product’s unique ID (you can also configure this directly in the Xiaomi dev portal)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>gameOrderId</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">The order’s purchase ID</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>orderQueryToken</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Used to validate purchases</td>
+</tr>
+</tbody>
+</table>
+<p><a name="ReceiptInfo"></a></p>
+<h4 id="receiptinfo-class">ReceiptInfo class</h4>
+<p>Validation usually occurs on the game server, however you can also validate the <code>signData</code> client-side.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>gameOrderId</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">The order’s purchase ID</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>signData</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">A JSON string containing details of the purchase</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>signature</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">signData’s signature</td>
+</tr>
+</tbody>
+</table>
+<h2 id="receipt-validation-and-extensions-api">Receipt validation and extensions API</h2>
+<p>Before continuing, please review documentation on <a href="https://docs.unity3d.com/Manual/UnityIAPValidatingReceipts.html">Unity IAP receipt validation</a>. Also see the <a href="https://docs.unity3d.com/ScriptReference/index.html">UnityEngine.Purchasing Scripting API</a>.</p>
+<h3 id="unityenginepurchasing-namespace">UnityEngine.Purchasing namespace</h3>
+<p>The <code>IUnityChannelConfiguration</code> and <code>IUnityChannelExtensions</code> interfaces offer extended functionality for unpacking app store receipts.</p>
+<p>Perform local receipt validation by using the Unity IAP <code>CrossPlatformValidator</code> class (detailed in the <a href="https://docs.unity3d.com/Manual/UnityIAPValidatingReceipts.html">Receipt validation</a> documentation) and the <code>IUnityChannelExtensions.ValidateReceipt</code> method (detailed below) at the time of purchase.</p>
+<p>Before implementing validation, enable receipt obfuscation for Xiaomi:</p>
+<ol>
+<li>Obtain your app’s <strong>Client RSA Public Key</strong> from your App Store Settings (see the <strong>App Store Settings</strong> section of the <a href="https://docs.unity3d.com/Manual/UnityIAPXiaomi.html">Xiaomi IAP integration guide</a>), or from the <a href="https://id.unity.com/en/user_clients/settings">Unity Client Settings dashboard</a>.</li>
+<li>In the Unity Editor, enter the Unity Channel key into the Unity IAP Receipt Validation Obfuscator window (<strong>Window</strong> &gt; <strong>Unity IAP</strong> &gt; <strong>Receipt Validation Obfuscator</strong>). This window collects, obfuscates, and stores public keys in the Project for receipt validation purposes.</li>
+<li>In the Receipt Validation Obfuscator window, select <strong>Obfuscate Unity Channel Public Key</strong> to save the resulting <em>UnityChannelTangle</em> datafile to the Project.</li>
+</ol>
+<p><img src="../uploads/Main/ReceiptObfuscation.jpg" alt="The Unity IAP Receipt Validation Obfuscator window. Generates data classes in the project for use with the CrossPlatformValidator."></p>
+<h4 id="iunitychannelconfiguration-interface">IUnityChannelConfiguration interface</h4>
+<p>To automatically fetch the required receipt data from Unity Channel during purchase, set <code>IUnityChannelConfiguration.fetchReceiptPayloadOnPurchase</code> to <code>true</code> when initializing Unity IAP. This calls <code>IUnityChannelExtensions.ValidateReceipt</code> internally after a successful purchase (ideally when the <a href="https://docs.unity3d.com/ScriptReference/Purchasing.PurchaseEventArgs.html"><code>PurchaseEventArgs</code></a>’ <code>purchasedProduct.receipt</code> field triggers the <code>IStoreListener.ProcessPurchase</code> success callback).  </p>
+<p><strong>Note</strong>: Setting the <code>fetchReceiptPayloadOnPurchase</code> flag to true incurs a network request to fetch the cryptographic receipt data after a successful purchase. If this second network request fails for any reason, the <code>ProcessPurchase</code> success callback receives a Product with an invalid receipt.</p>
+<p>Passing <code>purchasedProduct.receipt</code> data through the <code>CrossPlatformValidator.Validate</code> API returns an <code>IPurchaseReceipt</code>, which is the fully validated receipt. If the result is empty, the validation failed. See the example below: </p>
+<pre><code>CrossPlatformValidator validator = new CrossPlatformValidator (GooglePlayTangle.Data(), AppleTangle.Data(), UnityChannelTangle.Data(), Application.identifier);
+
+var result = validator.Validate(purchasedProduct.receipt);
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>fetchReceiptPayloadOnPurchase</strong></td>
+<td style="text-align:left">bool</td>
+<td style="text-align:left">Automates Unity Channel receipt data collection during purchase</td>
+</tr>
+</tbody>
+</table>
+<h4 id="iunitychannelextensions-interface">IUnityChannelExtensions interface</h4>
+<p>Use the <code>IUnityChannelExtensions</code> interface to confirm purchases and validate receipts. The callbacks for the above methods return a bool indicating success, a ‘signData’ string, and a ‘signature’ string (see section on <a href="#ReceiptInfo">ChannelPurchase.ReceiptInfo</a>).</p>
+<p><strong>Note</strong>: <code>ValidateReceipt ()</code> is vulnerable to <a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack">man-in-the-middle attacks</a>; use the Client RSA Public Key for added security (see the <strong>App Store Settings</strong> section of the <a href="https://docs.unity3d.com/Manual/UnityIAPXiaomi.html">Xiaomi IAP integration guide</a>).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>ConfirmPurchase (string transactionID, Action&lt;bool, string, string&gt;, callback)</code></strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Collects purchase status for a prior purchase (used to review purchase history, especially for game interruption or network timeouts)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ValidateReceipt (string transactionID, Action&lt;bool, string, string&gt;, callback)</code></strong></td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Validates the receipt for a given transactionID</td>
+</tr>
+</tbody>
+</table>
+<h4 id="unifiedreceipt-class">UnifiedReceipt class</h4>
+<p>The <code>UnifiedReceipt</code> class contains store-specific transaction data that Unity IAP can interpret. See the example below on how to unpack a unified receipt string:</p>
+<pre><code>var unifiedReceipt = JsonUtility.FromJson&lt;UnifiedReceipt&gt;(purchEvtArg.purchasedProduct.receipt)
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Payload</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">Unity IAP’s wrapper for receipts that come back in different formats for different stores</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Store</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">The store on which the purchase occurred</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>TransactionID</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">The unique transaction ID</td>
+</tr>
+</tbody>
+</table>
+<h4 id="unitychannelpurchasereceipt-interface">UnityChannelPurchaseReceipt interface</h4>
+<p>Use the <code>UnityChannelPurchaseReceipt</code> to further unpack a unified receipt into a Unity Channel receipt. See the example below:</p>
+<pre><code>var ucReceipt = JsonUtility.FromJson&lt;UnityChannelPurchaseReceipt&gt;(unifiedReceipt.Payload)
+</code></pre><p>Use this additional Unity Channel receipt data for informational purposes.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Key:</strong></th>
+<th style="text-align:left"><strong>Type:</strong></th>
+<th style="text-align:left"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>productID</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">The unique ID of the purchased Product</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>transactionID</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">The unique transaction ID</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>orderQueryToken</strong></td>
+<td style="text-align:left">string</td>
+<td style="text-align:left">The order query token</td>
+</tr>
+</tbody>
+</table>
+<h3 id="store-identification-at-runtime">Store identification at runtime</h3>
+<p>To check if the Xiaomi app store is the active store in your game at runtime, use the boolean value provided by the following code snippet:</p>
+<pre><code>var module = StandardPurchasingModule.Instance();
+bool m_IsUnityChannelSelected = 
+    Application.platform == RuntimePlatform.Android &amp;&amp; 
+    module.androidStore == AndroidStore.XiaomiMiPay;
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

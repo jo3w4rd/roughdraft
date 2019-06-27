@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Accessing and Modifying Material parameters via script | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Accessing and Modifying Material parameters via script | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="accessing-and-modifying-material-parameters-via-script">Accessing and Modifying Material parameters via script</h1>
+
+<p>All the parameters of a Material that you see in the inspector when viewing a material are accessible via script, giving you the power to change or animate how a material works at runtime.</p>
+<p>This allows you to modify numeric values on the Material, change colours, and swap textures dynamically during gameplay. Some of the most commonly used functions to do this are:</p>
+<table>
+<thead>
+<tr>
+<th>Function Name</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="ScriptRef:Material.SetColor">SetColor</a></td>
+<td>Change the color of a material (Eg. the albedo tint color)</td>
+</tr>
+<tr>
+<td><a href="ScriptRef:Material.SetFloat">SetFloat</a></td>
+<td>Set a floating point value (Eg. the normal map multiplier)</td>
+</tr>
+<tr>
+<td><a href="ScriptRef:Material.SetInt">SetInt</a></td>
+<td>Set an integer value in the material</td>
+</tr>
+<tr>
+<td><a href="ScriptRef:Material.SetTexture">SetTexture</a></td>
+<td>Assign a new texture to the material</td>
+</tr>
+</tbody>
+</table>
+<p>The full set of functions available for manipulating materials via script can be found on the <a href="ScriptRef:Material.md">Material class scripting reference</a>.</p>
+<p>One important note is that these functions <strong>only set properties that are available for the current shader</strong> on the material. This means that if you have a shader that doesn&#39;t use any textures, or if you have no shader bound at all, calling <a href="ScriptRef:Material.SetTexture">SetTexture</a> will have no effect. This is true even if you later set a shader that needs the texture. For this reason it is recommended to set the shader you want before setting any properties, however once you&#39;ve done that you can switch from one shader to another that use the same textures or properties and values will be preserved.</p>
+<p>These functions work as you would expect for all <em>simple</em> shaders such as the legacy shaders, and the built-in shaders <em>other than the Standard Shader</em> (for example, the particle, sprite, UI and unlit shaders). For a material using the <em>Standard Shader</em> however, there are some further requirements which you must be aware of before being able to fully modify the Material.</p>
+<h2 id="special-requirements-for-scripting-with-the-standard-shader">Special requirements for Scripting with the Standard Shader</h2>
+<p>The Standard Shader has some extra requirements if you want to modify Materials at runtime, because - behind the scenes - it is actually many different shaders rolled into one.</p>
+<p>These different types of shader are called <a href="SL-MultipleProgramVariants.html">Shader Variants</a> and can be thought of as all the different possible combinations of the shader&#39;s features, when activated or not activated.</p>
+<p>For example, if you choose to assign a <a href="StandardShaderMaterialParameterNormalMap.html">Normal Map</a> to your material, you activate that <em>variant</em> of the shader which supports Normal Mapping. If you subsequently also assign a <a href="StandardShaderMaterialParameterHeightMap.html">Height Map</a> then you activate the variant of the shader which supports Normal Mapping and Height Mapping.</p>
+<p>This is a good system, because it means that if you use the Standard Shader, but do not use a Normal Map in a certain Material, you are not incurring the performance cost of running the Normal Map shader code - because you are running a variant of the shader with that code omitted. It also means that if you never use a certain feature combination (such as HeightMap &amp; Emissive together), that variant is completely omitted from your build - and in practice you will typically only use a very small number of the possible variants of the Standard Shader.</p>
+<p>Unity avoids simply including every possible shader variant in your build, because this would be a very large number, some tens of thousands! This high number is a result not only of each possible combination of features available in the material inspector, but also there are variants of each feature combination for differing rendering scenarios such as whether or not HDR is being used, lightmaps, GI, fog, etc. Including all of these would cause slow loading, high memory consumption, and increase your build size and build time.</p>
+<p>Instead, Unity tracks which variants you&#39;ve used by examining the material assets used in your project. Whichever variants of the Standard Shader you have included in your project, those are the variants which are included in the build.</p>
+<p>This presents two separate problems when accessing materials via script that use the Standard Shader.</p>
+<h3 id="1-you-must-enable-the-correct-keywords-for-your-required-standard-shader-variant">1. You must enable the correct Keywords for your required Standard Shader variant</h3>
+<p>If you use scripting to change a Material that would cause it to use a different variant of the Standard Shader, you must <strong>enable that variant by using the <a href="ScriptRef:Material.EnableKeyword">EnableKeyword</a> function</strong>. A different variant would be required if you start using a shader feature that was not initially in use by the material. For example assigning a Normal Map to a Material that did not have one, or setting the Emissive level to a value greater than zero, when it was previously zero.</p>
+<p>The specific Keywords required to enable the Standard Shader features are as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Keyword</th>
+<th>Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_NORMALMAP</td>
+<td><a href="StandardShaderMaterialParameterNormalMap.html">Normal Mapping</a></td>
+</tr>
+<tr>
+<td>_ALPHATEST_ON</td>
+<td><a href="StandardShaderMaterialParameterRenderingMode.html">&quot;Cut out&quot; Transparency</a> Rendering Mode</td>
+</tr>
+<tr>
+<td>_ALPHABLEND_ON</td>
+<td><a href="StandardShaderMaterialParameterRenderingMode.html">&quot;Fade&quot; Transparency</a> Rendering Mode</td>
+</tr>
+<tr>
+<td>_ALPHAPREMULTIPLY_ON</td>
+<td><a href="StandardShaderMaterialParameterRenderingMode.html">&quot;Transparent&quot; Transparency</a> Rendering Mode</td>
+</tr>
+<tr>
+<td>_EMISSION</td>
+<td><a href="StandardShaderMaterialParameterEmission.html">Emission Colour</a> or <a href="StandardShaderMaterialParameterEmission.html">Emission Mapping</a></td>
+</tr>
+<tr>
+<td>_PARALLAXMAP</td>
+<td><a href="StandardShaderMaterialParameterHeightMap.html">Height Mapping</a></td>
+</tr>
+<tr>
+<td>_DETAIL_MULX2</td>
+<td><a href="StandardShaderMaterialParameterDetail.html">Secondary &quot;Detail&quot; Maps</a> (Albedo &amp; Normal Map)</td>
+</tr>
+<tr>
+<td>_METALLICGLOSSMAP</td>
+<td><a href="StandardShaderMaterialParameterMetallic.html">Metallic/Smoothness Mapping</a> in Metallic Workflow</td>
+</tr>
+<tr>
+<td>_SPECGLOSSMAP</td>
+<td><a href="StandardShaderMaterialParameterSpecular.html">Specular/Smoothness Mapping</a> in Specular Workflow</td>
+</tr>
+</tbody>
+</table>
+<p>Using the keywords above is enough to get your scripted Material modifications working while running in the editor.</p>
+<p>However, because Unity only checks for Materials used in your project to determine which variants to include in your build, it will not include variants that are <em>only</em> encountered via script at runtime.</p>
+<p>This means if you enable the _PARALLAXMAP keyword for a Material in your script, but you do not have a Material used in your project matching that same feature combination, the parallax mapping will not work in your final build - even though it appears to work in the editor. This is because that variant will have been omitted from the build because it seemed to not be required.</p>
+<h3 id="2-you-must-make-sure-unity-includes-your-required-shader-variants-in-the-build">2. You must make sure Unity includes your required shader variants in the build</h3>
+<p>To do this, you need to make sure Unity knows that you want to use that shader variant by including at least one Material of that type in your Assets. The material <strong>must be used in a scene</strong> or alternatively be placed in your <a href="LoadingResourcesatRuntime.html">Resources Folder</a> - otherwise Unity will still omit it from your build, because it appeared unused.</p>
+<p>By completing both of the above steps, you have the full ability to modify your Materials using the Standard Shader at runtime.</p>
+<p>If you are interested in learning more about the details of shader variants, and how to write your own, read about <a href="SL-MultipleProgramVariants.html">Making multiple shader program variants here</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

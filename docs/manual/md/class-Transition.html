@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Animation transitions | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Animation transitions | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="animation-transitions">Animation transitions</h1>
+
+<p>Animation transitions allow the <a href="StateMachineBasics.html">state machine</a> to switch or blend from one animation state to another. Transitions define not only how long the blend between states should take, but also under what conditions they should activate. You can set up a transition to occur only when certain conditions are true. To set up these conditions, specify values of parameters in the Animator Controller.</p>
+<p>For example, your character might have a &quot;patrolling&quot; state and a &quot;sleeping&quot; state. You could set the transition between patrolling and sleeping to occur only when an &quot;alertness&quot; parameter value drops below a certain level.</p>
+<p><img src="../uploads/Main/classTransitionAnimatorPreview.jpg" alt="An example of a transition as viewed in the inspector."></p>
+<p>To give transitions a name, type it into the field as shown below:</p>
+<p><img src="../uploads/Main/AnimatorTransitionName.png" alt=""></p>
+<p>The Inspector window of a state shows the transitions the state uses as shown below:</p>
+<p><img src="../uploads/Main/AnimatorTransitionNameInState.png" alt=""></p>
+<p>There can be only one transition active at any given time. However, the currently active transition can be interrupted by another transition if you have configured the settings to allow it (see <a href="#TransitionInterruption">Transition Interruption</a> below).</p>
+<h3 id="transition-properties">Transition properties</h3>
+<p>To view properties for a transition, click on the transition line connecting two states in the Animator window. The properties appear in the Inspector window.</p>
+<p><img src="../uploads/Main/class-Transition-Properties.png" alt=""></p>
+<p>Use the following properties to adjust the transition and how it blends between the current and next state.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Has Exit Time</strong></td>
+<td style="text-align:left"><strong>Exit Time</strong> is a special transition that doesn’t rely on a parameter. Instead, it relies on the normalized time of the state. Check to make the transition happen at the specific time specified in <strong>Exit Time</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Settings</strong></td>
+<td style="text-align:left">Fold-out menu containing detailed transition settings as below.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Exit Time</strong></td>
+<td style="text-align:left">If <strong>Has Exit Time</strong> is checked, this value represents the exact time at which the transition can take effect. This is represented in normalized time (for example, an exit time of 0.75 means that on the first frame where 75% of the animation has played, the <strong>Exit Time</strong> condition is true). On the next frame, the condition is false.<br><br>For looped animations, transitions with exit times smaller than 1 are evaluated every loop, so you can use this to time your transition with the proper timing in the animation every loop. <br><br>Transitions with an <strong>Exit Time</strong> greater than 1 are evaluated only once, so they can be used to exit at a specific time after a fixed number of loops. For example, a transition with an exit time of 3.5 are evaluated once, after three and a half loops.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fixed Duration</strong></td>
+<td style="text-align:left">If the <strong>Fixed Duration</strong> box is checked, the transition time is interpreted in seconds. If the <strong>Fixed Duration</strong> box is not checked, the transition time is interpreted as a fraction of the normalized time of the source state.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Transition Duration</strong></td>
+<td style="text-align:left">The duration of the transition, in normalized time or seconds depending on the <strong>Fixed Duration</strong> mode, relative to the current state’s duration. This is visualized in the transition graph as the portion between the two blue markers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Transition Offset</strong></td>
+<td style="text-align:left">The offset of the time to begin playing in the destination state which is transitioned to. For example, a value of 0.5 means the target state begins playing at 50% of the way through its own timeline.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Interruption Source</strong></td>
+<td style="text-align:left">Use this to control the circumstances under which this transition may be interrupted (see <a href="#TransitionInterruption">Transition interruption</a> below).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ordered Interruption</strong></td>
+<td style="text-align:left">Determines whether the current transition can be interrupted by other transitions independently of their order (see <a href="#TransitionInterruption">Transition interruption</a> below).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Conditions</strong></td>
+<td style="text-align:left">A transition can have a single condition, multiple conditions, or no conditions at all. If your transition has no conditions, the Unity Editor only considers the <strong>Exit Time</strong>, and the transition occurs when the exit time is reached. If your transition has one or more conditions, the conditions must all be met before the transition is triggered.<br><br>A condition consists of: <br><br>- An event parameter (the value considered in the condition). <br>- A conditional predicate (if needed,for example, ‘less than’ or ‘greater than’ for floats). <br>- A parameter value (if needed). <br><br>If you have <strong>Has Exit Time</strong> selected for the transition and have one or more conditions, note that the Unity Editor considers whether the conditions are true after the <strong>Exit Time</strong>. This allows you to ensure that your transition occurs during a certain portion of the animation.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="TransitionInterruption"></a></p>
+<h3 id="transition-interruption">Transition interruption</h3>
+<p>Use the  <strong>Interruption Source</strong> and <strong>Ordered Interruption</strong> properties  to control how your transition can be interrupted.</p>
+<p>The interruption order works, conceptually, as if transitions are queued and then parsed for a valid transition from the first transition inserted to the last.</p>
+<h4 id="interruption-source-property">Interruption Source property</h4>
+<p>The transitions in <a href="class-State.html">AnyState</a> are always added first in the queue, then other transitions are queued depending on the value of <strong>Interruption Source</strong>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Value</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>None</strong></td>
+<td style="text-align:left">Don’t add any more transitions.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Current State</strong></td>
+<td style="text-align:left">Queue the transitions from the current state.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Next State</strong></td>
+<td style="text-align:left">Queue the transitions from the next state.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Current State then Next State</strong></td>
+<td style="text-align:left">Queue the transitions from the current state, then queue the ones from the next state.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Next State then Current State</strong></td>
+<td style="text-align:left">Queue the transitions from the next state, then queue the ones from the current state.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: This means that even with the <strong>Interruption Source</strong> set to <strong>None</strong>, transitions can be interrupted by one of the  <a href="class-State.html">AnyState</a> transitions.</p>
+<h4 id="ordered-interruption-property">Ordered Interruption property</h4>
+<p>The property <strong>Ordered Interruption</strong> changes how the queue is parsed.</p>
+<p>Depending on its value, parsing the queue ends at a different moment as listed below.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Value</strong></th>
+<th style="text-align:left"><strong>Ends when</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Checked</strong></td>
+<td style="text-align:left">A valid transition or the current transition has been found.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Unchecked</strong></td>
+<td style="text-align:left">A valid transition has been found.</td>
+</tr>
+</tbody>
+</table>
+<p>Only an <a href="class-State.html">AnyState</a> transition can be interrupted by itself.</p>
+<p>To learn more about transition interruptions, see the Unity blog post <a href="https://blogs.unity3d.com/2016/07/13/wait-ive-changed-my-mind-state-machine-transition-interruptions/">State Machine Transition Interruptions</a>.</p>
+<h3 id="transition-graph">Transition graph</h3>
+<p>To manually adjust the settings listed above, you can either enter numbers directly into the fields or use the transition graph. The transition graph modifies the values above when the visual elements are manipulated.</p>
+<p><img src="../uploads/Main/AnimatorTransitionSettingsAndGraph.svg" alt="The Transition settings and graph as shown in the Inspector"></p>
+<p>Change the transition properties in the graph view using the following directions::</p>
+<ul>
+<li>Drag the <strong>Duration &quot;out&quot;</strong> marker to change the <strong>Duration</strong> of the transition.</li>
+<li>Drag the <strong>Duration &quot;in&quot;</strong> marker to change the duration of the transition and the <strong>Exit Time</strong>.</li>
+<li>Drag the target state to adjust the <strong>Transition Offset</strong>.</li>
+<li>Drag the preview playback marker to scrub through the animation blend in the preview window at the bottom of the Inspector.</li>
+</ul>
+<h3 id="transitions-between-blend-tree-states">Transitions between Blend Tree states</h3>
+<p>If either the current or next state belonging to this transition is a <a href="class-BlendTree.html">Blend Tree</a> state, the Blend Tree parameters appear in the Inspector. Adjust these values to preview how your transition would look with the Blend Tree values set to different configurations. 
+If your Blend Tree contains clips of differing lengths, you should test what your transition looks like when showing both the short clip and the long clip. Adjusting these values does not affect how the transition behaves at runtime; they are solely for helping you preview how the transition could look in different situations.</p>
+<p><img src="../uploads/Main/AnimatorTransitionInspectorShowingBlendtreeParams.png" alt="The Blend Tree parameter preview controls, visible when either your current or next state is a Blend Tree state."></p>
+<p><a name="Conditions"></a></p>
+<h3 id="conditions">Conditions</h3>
+<p>A transition can have a single condition, multiple conditions, or no conditions at all. If your transition has no conditions, the Unity Editor only considers the <strong>Exit Time</strong>, and the transition occurs when the exit time is reached. If your transition has one or more conditions, the conditions must all be met before the transition is triggered.</p>
+<p>A condition consists of:</p>
+<ul>
+<li>An event parameter, the value of which is considered in the condition.</li>
+<li>A conditional predicate, if needed (for example, less or greater for floats).</li>
+<li>A parameter value, if needed.</li>
+</ul>
+<p>If <strong>Has Exit Time</strong> is enabled for the transition and has one or more conditions, these conditions are only checked after the exit time of the state. This allows you to ensure that your transition only occurs during a certain portion of the animation.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

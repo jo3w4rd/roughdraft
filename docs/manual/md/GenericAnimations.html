@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Importing non-humanoid animations | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Importing non-humanoid animations | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="importing-non-humanoid-animations">Importing non-humanoid animations</h1>
+
+<p>A <em>Humanoid</em> model is a very specific structure, containing at least <a href="ConfiguringtheAvatar.html">15 bones organized in a way</a> that loosely conforms to an actual human skeleton. Everything else that uses the <a href="AnimationOverview.html">Unity Animation System</a> falls under the <em>non-Humanoid</em>, or <strong>Generic</strong> category. This means that a Generic Model might be anything from a teakettle to a dragon, so non-Humanoid skeletons could have a huge range of possible bone structures. </p>
+<p>The solution to dealing with this complexity is that Unity only needs to know which bone is the <strong>Root node</strong>. In terms of the Generic character, this is the best approximation to the Humanoid character&#39;s center of mass. It helps Unity determine how to render animation in the most faithful way possible. Since there is only one bone to map, Generic setups do not use the <a href="class-Avatar.html">Humanoid Avatar window</a>. As a result, preparing to import your non-Humanoid Model file into Unity requires fewer steps than for Humanoid models.</p>
+<ol>
+<li><a href="#RigSetup">Set up your Rig</a> as <strong>Generic</strong>.</li>
+<li>You can optionally limit the animation that gets imported on certain bones by <a href="#AvatarMask">defining an Avatar Mask</a>.</li>
+<li>From the <strong>Animation</strong> tab, enable the <strong>Import Animation</strong> option and then set the other Asset-specific properties, .</li>
+<li>If the file consists of multiple animations or actions, you can <a href="Splittinganimations.html">define specific frame ranges as Animation Clips</a>.</li>
+<li>For each Animation Clip defined in the file, you can:<ul>
+<li><a href="class-AnimationClip#ClipProperties">Set the pose and root transform</a></li>
+<li><a href="LoopingAnimationClips.html">Optimize looping</a></li>
+<li><a href="AnimationCurvesOnImportedClips.html">Add curves to the clip</a> in order to animate the timings of other items</li>
+<li><a href="AnimationEventsOnImportedClips.html">Add events to the clip</a> in order to trigger certain actions in time with the animation</li>
+<li><a href="AnimationMaskOnImportedClips.html">Discard part of the animation</a> similar to using a runtime <a href="class-AvatarMask.html">Avatar Mask</a> but applied at import time</li>
+<li><a href="AnimationRootMotionNodeOnImportedClips.html">Select a different Root Motion Node</a> to drive the action from</li>
+<li><a href="class-AnimationClip#ImportMessages">Read any messages from Unity about importing the clip</a></li>
+<li><a href="class-AnimationClip#AnimationPreview">Watch a preview of the animation clip</a></li>
+</ul>
+</li>
+<li>To save your changes, click the <strong>Apply</strong> button at the bottom of the <strong>Import Settings</strong> window or <strong>Revert</strong> to discard your changes.</li>
+</ol>
+<p><a name="RigSetup"></a></p>
+<h2 id="setting-up-the-rig">Setting up the Rig</h2>
+<p>From the <a href="FBXImporter-Rig.html">Rig tab of the Inspector window</a>, set the <strong>Avatar</strong> (animation) type to <strong>Generic</strong>. By default, the <strong>Avatar Definition</strong> property is set to <strong>Create From This Model</strong> and the <strong>Root node</strong> option is set to <strong>None</strong>. </p>
+<p>In some cases, you can change the <strong>Avatar Definition</strong> option to <strong>Copy From Other Avatar</strong> to use an Avatar you already defined for another Model file. For example, if you create a Mesh (skin) in your 3D modeling application with several distinct animations, you can export the Mesh to one FBX file, and each animation to its own FBX file. When you import these files into Unity, you only need to create a single Avatar for the first file you import (usually the Mesh). As long as all the files use the same bone structure, you can re-use that Avatar for the rest of the files (for example, all the animations).</p>
+<p><img src="../uploads/Main/Rig-1.png" alt="Generic Rig"></p>
+<p>If you keep the <strong>Create From This Model</strong> option, you must then choose a bone from the <strong>Root node</strong> property. </p>
+<p>If you decide to change the <strong>Avatar Definition</strong> option to <strong>Copy From Other Avatar</strong>, you need to specify which Avatar you want to use by setting the <strong>Source</strong> property.</p>
+<p>Click the <strong>Apply</strong> button. Unity creates a <strong>Generic</strong> <strong>Avatar</strong> and adds an an Avatar sub-asset under the Model Asset, which you can find in the Project view. </p>
+<p><img src="../uploads/Main/MecanimFBXNoAvatar2.png" alt="Avatar appears as a sub-asset of the imported Model"> </p>
+<p><strong>Note:</strong> The Generic Avatar is not the same thing as the Humanoid Avatar, but it does appear in the Project view, and it does hold the Root node mapping. However, if you click on the Avatar icon in the Project view to display its properties in the <strong>Inspector</strong>, only its name appears and there is no <strong>Configure Avatar</strong> button.</p>
+<p><a name="AvatarMask"></a></p>
+<h2 id="creating-an-avatar-mask">Creating an Avatar Mask</h2>
+<p>You can apply masking to animation clips either during import time, or at runtime. Masking during import time is preferable, because it allows the discarded animation data to be omitted from your build, making the files smaller and therefore using less memory. It also makes for faster processing because there is less animation data to be blended at runtime. In some cases, import masking may not be suitable for your purposes. In that case, you can apply a mask at runtime by creating an <strong>Avatar Mask</strong> Asset, and <a href="AnimationLayers.html">using it in the layer settings</a> of your <strong>Animator Controller</strong>. </p>
+<p>To create an empty Avatar Mask Asset, you can either:</p>
+<ul>
+<li>Choose <strong>Create</strong> &gt; <strong>Avatar Mask</strong> from the <strong>Assets</strong> menu.</li>
+<li>Click the Model object you want to define the mask on in the <strong>Project</strong> view, and then right-click and choose <strong>Create</strong> &gt; <strong>Avatar Mask</strong>.</li>
+</ul>
+<p>The new Asset appears in the <strong>Project</strong> view:</p>
+<p><img src="../uploads/Main/ConfiguringtheAvatar-Mask.png" alt="The Avatar Mask window"></p>
+<p>You can now choose which bones to include or exclude from a <a href="class-AvatarMask#Transform">Transform hierarchy</a> and then add the mask to either an <a href="AnimationLayers.html">Animation Layer</a> or add a reference to it under the <a href="AnimationMaskOnImportedClips.html">Mask</a> section of the <a href="class-AnimationClip.html">Animation tab</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

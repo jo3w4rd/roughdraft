@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Hinge Joint | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Hinge Joint | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="hinge-joint">Hinge Joint</h1>
+
+<p>The <strong>Hinge Joint</strong> groups together two <a href="class-Rigidbody.html">Rigidbodies</a>, constraining them to move like they are connected by a hinge. It is perfect for doors, but can also be used to model chains, pendulums, etc.</p>
+<p><img src="../uploads/Main/Inspector-HingeJoint.png" alt=""> </p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Connected Body</strong></td>
+<td style="text-align:left">Optional reference to the Rigidbody that the joint is dependent upon. If not set, the joint connects to the world.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Anchor</strong></td>
+<td style="text-align:left">The position of the axis around which the body swings. The position is defined in local space.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Axis</strong></td>
+<td style="text-align:left">The direction of the axis around which the body swings. The direction is defined in local space.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Auto Configure Connected Anchor</strong></td>
+<td style="text-align:left">If this is enabled, then the Connected Anchor position will be calculated automatically to match the global position of the anchor property. This is the default behavior. If this is disabled, you can configure the position of the connected anchor manually.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Connected Anchor</strong></td>
+<td style="text-align:left">Manual configuration of the connected anchor position.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Use Spring</strong></td>
+<td style="text-align:left">Spring makes the Rigidbody reach for a specific angle compared to its connected body.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Spring</strong></td>
+<td style="text-align:left">Properties of the Spring that are used if <strong>Use Spring</strong> is enabled.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Spring</strong></td>
+<td style="text-align:left">The force the object asserts to move into the position.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Damper</strong></td>
+<td style="text-align:left">The higher this value, the more the object will slow down.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Target Position</strong></td>
+<td style="text-align:left">Target angle of the spring. The spring pulls towards this angle measured in degrees.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Use Motor</strong></td>
+<td style="text-align:left">The motor makes the object spin around.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Motor</strong></td>
+<td style="text-align:left">Properties of the Motor that are used if <strong>Use Motor</strong> is enabled.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Target Velocity</strong></td>
+<td style="text-align:left">The speed the object tries to attain.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Force</strong></td>
+<td style="text-align:left">The force applied in order to attain the speed.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Free Spin</strong></td>
+<td style="text-align:left">If enabled, the motor is never used to brake the spinning, only accelerate it.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Use Limits</strong></td>
+<td style="text-align:left">If enabled, the angle of the hinge will be restricted within the <strong>Min</strong> &amp; <strong>Max</strong> values.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Limits </strong></td>
+<td style="text-align:left">Properties of the Limits that are used if <strong>Use Limits</strong> is enabled.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Min</strong></td>
+<td style="text-align:left">The lowest angle the rotation can go.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Max</strong></td>
+<td style="text-align:left">The highest angle the rotation can go.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Bounciness</strong></td>
+<td style="text-align:left">How much the object bounces when it hits the minimum or maximum stop limit.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Contact Distance</strong></td>
+<td style="text-align:left">Within the contact distance from the limit contacts will persist in order to avoid jitter.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Break Force</strong></td>
+<td style="text-align:left">The force that needs to be applied for this joint to break.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Break Torque</strong></td>
+<td style="text-align:left">The torque that needs to be applied for this joint to break.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Collision</strong></td>
+<td style="text-align:left">When checked, this enables collisions between bodies connected with a joint.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Preprocessing</strong></td>
+<td style="text-align:left">Disabling preprocessing helps to stabilize impossible-to-fulfil configurations.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details</h2>
+<p>A single Hinge Joint should be applied to a <strong>GameObject</strong>. The hinge will rotate at the point specified by the <strong>Anchor</strong> property, moving around the specified <strong>Axis</strong> property. You <strong>do not</strong> need to assign a GameObject to the joint&#39;s <strong>Connected Body</strong> property. You should only assign a GameObject to the <strong>Connected Body</strong> property if you want the joint&#39;s <strong>Transform</strong> to be dependent on the attached object&#39;s Transform.</p>
+<p>Think about how the hinge of a door works. The <strong>Axis</strong> in this case is up, positive along the Y axis. The <strong>Anchor</strong> is placed somewhere at the intersection between door and wall. You would not need to assign the wall to the <strong>Connected Body</strong>, because the joint will be connected to the world by default.</p>
+<p>Now think about a doggy door hinge. The doggy door&#39;s <strong>Axis</strong> would be sideways, positive along the relative X axis. The main door should be assigned as the <strong>Connected Body</strong>, so the doggy door&#39;s hinge is dependent on the main door&#39;s Rigidbody.</p>
+<h3 id="chains">Chains</h3>
+<p>Multiple Hinge Joints can also be strung together to create a chain. Add a joint to each link in the chain, and attach the next link as the <strong>Connected Body</strong>.</p>
+<h2 id="hints">Hints</h2>
+<ul>
+<li>You do not need to assign a <strong>Connected Body</strong> to your joint for it to work.</li>
+<li>Use <strong>Break Force</strong> in order to make dynamic damage systems. You can use this to allow the player to damage the environment (for example, break a door off its hinges by blasting it with a rocket launcher or running into it with a car).</li>
+<li>The <strong>Spring</strong>, <strong>Motor</strong>, and <strong>Limits</strong> properties allow you to fine-tune your joint&#39;s behaviors.</li>
+<li>Use of <strong>Spring</strong>, <strong>Motor</strong> are intended to be mutually exclusive.  Using both at the same time leads to unpredictable results.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

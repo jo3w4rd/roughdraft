@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Referencing additional class library assemblies | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Referencing additional class library assemblies | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="referencing-additional-class-library-assemblies">Referencing additional class library assemblies</h1>
+
+<p>If a Unity Project needs access to a part of the .NET class library API that is not compiled by default, the Project can inform the C# compiler in Unity. The behavior depends which .NET profile the Project uses.</p>
+<h2 id="net-standard-20-profile">.NET Standard 2.0 profile</h2>
+<p>If your Projects use the .NET Standard 2.0 <strong>Api Compatibility Level</strong>, you shouldn’t need to take any additional steps to use part of the .NET class library API. If part of the API seems to be missing, it might not be included with .NET Standard 2.0. The Project may need to use the .NET 4.x <strong>Api Compatibility Level</strong> instead.</p>
+<h2 id="net-4x-profile">.NET 4.x profile</h2>
+<p>By default, Unity references the following assemblies when using the .NET 4.x <strong>Api Compatibility Level</strong>:</p>
+<ul>
+<li>mscorlib.dll</li>
+<li>System.dll</li>
+<li>System.Core.dll</li>
+<li>System.Runtime.Serialization.dll</li>
+<li>System.Xml.dll</li>
+<li>System.Xml.Linq.dll</li>
+</ul>
+<p>You should reference any other class library assemblies using an <em>mcs.rsp</em> file. You can add this file to the Assets directory of a Unity Project, and use it to pass additional command line arguments to the C# compiler. For example, if a Project uses the <code>HttpClient</code> class, which is defined in the <em>System.Net.Http.dll</em> assembly, the C# compiler might produce this initial error message:</p>
+<pre><code>The type `HttpClient` is defined in an assembly that is not referenced. You must add a reference to assembly &#39;System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a&#39;.
+</code></pre><p>You can resolve this error by adding the following mcs.rsp file to the Project:</p>
+<pre><code>-r:System.Net.Http.dll
+</code></pre><p>You should reference class library assemblies as described in the example above. Don’t copy them into the Project directory.</p>
+<h2 id="switching-between-profiles">Switching between profiles</h2>
+<p>Exercise caution when using an <em>mcs.rsp</em> file to reference class library assemblies. If you change the <strong>Api Compatibility Level</strong> from .NET 4.x to .NET Standard 2.0, and an <em>mcs.rsp</em> like the one in the example above exists in the Project, then C# compilation fails. The <em>System.Net.Http.dll</em> assembly does not exist in the .NET Standard 2.0 profile, so the C# compiler is unable to locate it.</p>
+<p>The <em>mcs.rsp</em> file can have parts that are specific to the current .NET profile. If you make changes to the profile, you need to modify the <em>mcs.rsp</em> file.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Renderer module | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Renderer module | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="renderer-module">Renderer module</h1>
+
+<p>The Renderer module’s settings determine how a particle’s image or <a href="class-Mesh.html">Mesh</a> is transformed, shaded and overdrawn by other particles.</p>
+<p><img src="../uploads/Main/PartSysRendererModule-0.png" alt=""></p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Render Mode</strong></td>
+<td style="text-align:left">How the rendered image is produced from the graphic image (or Mesh). See <a href="#Details">Details</a>, below, for more information.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Billboard</td>
+<td style="text-align:left">The particle always faces the Camera.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Stretched Billboard</td>
+<td style="text-align:left">The particle faces the Camera but with various scaling applied (see below).</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Camera Scale</td>
+<td style="text-align:left">Stretches particles according to Camera movement. Set this to 0 to disable Camera movement stretching.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Velocity Scale</td>
+<td style="text-align:left">Stretches particles proportionally to their speed. Set this to 0 to disable stretching based on speed.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Length Scale</td>
+<td style="text-align:left">Stretches particles proportionally to their current size along the direction of their velocity. Setting this to 0 makes the particles disappear, having effectively 0 length.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Horizontal Billboard</td>
+<td style="text-align:left">The particle plane is parallel to the XZ &quot;floor&quot; plane.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Vertical Billboard</td>
+<td style="text-align:left">The particle is upright on the world Y-axis, but turns to face the Camera.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Mesh</td>
+<td style="text-align:left">The particle is rendered from a 3D Mesh instead of a Texture.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;None</td>
+<td style="text-align:left">This can be useful when using the <a href="PartSysTrailsModule.html">Trails</a> module, if you want to only render the trails and hide the default rendering.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Normal Direction</strong></td>
+<td style="text-align:left">Bias of lighting normals used for the particle graphics. A value of 1.0 points the normals at the Camera, while a value of 0.0 points them towards the center of the screen (Billboard modes only).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Material</strong></td>
+<td style="text-align:left">Material used to render the particles.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Trail Material</strong></td>
+<td style="text-align:left">Material used to render particle trails. This option is only available when the <strong>Trails</strong> module is enabled.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Sort Mode</strong></td>
+<td style="text-align:left">The order in which particles are drawn (and therefore overlaid). The possible values are <strong>By Distance (from the Camera</strong>), <strong>Oldest in Front</strong>, and <strong>Youngest in Front</strong>. Each particle within a system will be sorted according to this setting.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Sorting Fudge</strong></td>
+<td style="text-align:left">Bias of particle system sort ordering. Lower values increase the relative chance that particle systems are drawn over other transparent GameObjects, including other particle systems. This setting only affects where an entire system appears in the scene - it does not perform sorting on individual particles within a system.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Min Particle Size</strong></td>
+<td style="text-align:left">The smallest particle size (regardless of other settings), expressed as a fraction of viewport size. Note that this setting is only applied when the <strong>Rendering Mode</strong> is set to <strong>Billboard</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Max Particle Size</strong></td>
+<td style="text-align:left">The largest particle size (regardless of other settings), expressed as a fraction of viewport size. Note that this setting is only applied when the <strong>Rendering Mode</strong> is set to <strong>Billboard</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Render Alignment</strong></td>
+<td style="text-align:left">Use the drop-down to choose which direction particle billboards face.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;View</td>
+<td style="text-align:left">Particles face the Camera plane.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;World</td>
+<td style="text-align:left">Particles are aligned with the world axes.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Local</td>
+<td style="text-align:left">Particles are aligned to the Transform component of their GameObject.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Facing</td>
+<td style="text-align:left">Particles face the direct position of the Camera GameObject.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable GPU Instancing</strong></td>
+<td style="text-align:left">Control whether the Particle System will be rendered using GPU Instancing. Requires using the Mesh Render Mode, and using a compatible shader. See <a href="PartSysInstancing.html">Particle Mesh GPU Instancing</a> for more details.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Flip</strong></td>
+<td style="text-align:left">Mirror a proportion of the particles across the specified axes. A higher value flips more particles.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Allow Roll</strong></td>
+<td style="text-align:left">Control whether camera-facing particles can rotate around the Z-axis of the camera. Disabling this can be particularly useful for VR applications, where HMD roll can give undesirable results for Particle Systems.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Pivot</strong></td>
+<td style="text-align:left">Modify the central pivot point for rotating particles. The value is a multiplier of the particle size.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Visualize Pivot</strong></td>
+<td style="text-align:left">Preview the particle pivot points in the Scene View.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Masking</strong></td>
+<td style="text-align:left">Set how the particles rendered by the Particle System behave when interacting with a Sprite Mask.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;No Masking</td>
+<td style="text-align:left">The Particle System does not interact with any Sprite Masks in the Scene. This is the default option.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Visible Inside Mask</td>
+<td style="text-align:left">The particles are visible where the Sprite Mask overlays them, but not outside of it.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Visible Outside Mask</td>
+<td style="text-align:left">The particles are visible outside of the Sprite Mask, but not inside it. The Sprite Mask hides the sections of the particles it overlays.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Apply Active Color Space</strong></td>
+<td style="text-align:left">When rendering in Linear Color Space, the system converts particle colors from Gamma Space before uploading them to the GPU.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Custom Vertex Streams</strong></td>
+<td style="text-align:left">Configure which particle properties are available in the Vertex Shader of your Material. See <a href="PartSysVertexStreams.html">Particle Vertex Streams</a> for more details.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cast Shadows</strong></td>
+<td style="text-align:left">If enabled, the particle system creates shadows when a shadow-casting Light shines on it.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;On</td>
+<td style="text-align:left">Select <strong>On</strong> to enable shadows.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Off</td>
+<td style="text-align:left">Select <strong>Off</strong> to disable shadows.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Two-Sided</td>
+<td style="text-align:left">Select <strong>Two Sided</strong> to allow shadows to be cast from either side of the Mesh (meaning backface culling is not taken into account).</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Shadows Only</td>
+<td style="text-align:left">Select <strong>Shadows Only</strong> to make it so that the shadows are visible, but the Mesh itself is not.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shadow Bias</strong></td>
+<td style="text-align:left">Move the shadows along the direction of the light, in order to remove shadowing artifacts caused by approximating volumes with billboards.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Receive Shadows</strong></td>
+<td style="text-align:left">Dictates whether shadows can be cast onto particles. Only opaque materials can receive shadows.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Sorting Layer</strong></td>
+<td style="text-align:left">Name of the Renderer’s sorting layer.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Order in Layer</strong></td>
+<td style="text-align:left">This Renderer’s order within a sorting layer.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Light Probes</strong></td>
+<td style="text-align:left">Probe-based lighting interpolation mode.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Reflection Probes</strong></td>
+<td style="text-align:left">If enabled and reflection probes are present in the Scene, a reflection texture is picked for this GameObject and set as a built-in Shader uniform variable.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Anchor Override</strong></td>
+<td style="text-align:left">A Transform used to determine the interpolation position when the <a href="LightProbes.html">Light Probe</a> or <a href="ReflectionProbes.html">Reflection Probe</a> systems are used.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Details"> </a></p>
+<h2 id="details">Details</h2>
+<p>The <strong>Render Mode</strong> lets you choose between several 2D Billboard graphic modes and Mesh mode. Using 3D Meshes gives particles extra authenticity when they represent solid GameObjects, such as rocks, and can also improve the sense of volume for clouds, fireballs and liquids. Meshes must be read/write enabled to work on the Particle System. If you assign them in the editor Unity handles this for you but if you want to assign different meshes at runtime you need to handle this setting yourself.</p>
+<p>When 2D billboard graphics are used, the different options can be used for a variety of effects:</p>
+<ol>
+<li><p><strong>Billboard mode</strong> is good for particles representing volumes that look much the same from any direction (such as clouds).</p>
+</li>
+<li><p><strong>Horizontal Billboard</strong> mode can be used when the particles cover the ground (such as target indicators and magic spell effects) or when they are flat objects that fly or float parallel to the ground (for example, shurikens).</p>
+</li>
+<li><p><strong>Vertical Billboard</strong> mode keeps each particle upright and perpendicular to the XZ plane, but allows it to rotate around its y-axis. This can be helpful when you are using an orthographic Camera and want particle sizes to stay consistent.</p>
+</li>
+<li><p><strong>Stretched Billboard</strong> mode accentuates the apparent speed of particles in a similar way to the &quot;stretch and squash&quot; techniques used by traditional animators. Note that in Stretched Billboard mode, particles are aligned to face the Camera and also aligned to their velocity. This alignment occurs regardless of the Velocity Scale value - even if Velocity Scale is set to 0, particles in this mode still align to the velocity.</p>
+</li>
+</ol>
+<p>The Normal Direction can be used to create spherical shading on the flat rectangular billboards. This can help create the illusion of 3D particles if you are using a Material that applies lighting to your particles. This setting is only used with the Billboard render modes.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

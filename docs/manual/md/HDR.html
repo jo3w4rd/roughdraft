@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>High Dynamic Range Rendering | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="High Dynamic Range Rendering | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="high-dynamic-range-rendering">High Dynamic Range Rendering</h1>
+
+<p>In standard rendering, the red, green and blue values for a pixel are each represented by a fraction in the range 0..1, where 0 represents zero intensity and 1 represents the maximum intensity for the display device. While this is straightforward to use, it doesn&#39;t accurately reflect the way that lighting works in a real life scene. The human eye tends to adjust to local lighting conditions, so an object that looks white in a dimly lit room may in fact be less bright than an object that looks grey in full daylight. Additionally, the eye is more sensitive to brightness differences at the low end of the range than at the high end.</p>
+<p>More convincing visual effects can be achieved if the rendering is adapted to let the ranges of pixel values more accurately reflect the light levels that would be present in a real scene. Although these values will ultimately need to be mapped back to the range available on the display device, any intermediate calculations (such as Unity&#39;s image effects) will give more authentic results. Allowing the internal representation of the graphics to use values outside the 0..1 range is the essence of <strong>High Dynamic Range (HDR)</strong> rendering. </p>
+<h2 id="working-with-hdr">Working with HDR</h2>
+<p>HDR is enabled separately for each camera using a setting on the Camera component:</p>
+<p><img src="../uploads/Main/Camera-HDR.svg" alt=""> </p>
+<p>When HDR is active, the scene is rendered into an HDR image buffer which can accommodate pixel values outside the 0..1 range. This buffer is then used by post-processing effects such as the <a href="PostProcessing-Bloom.html">Bloom</a> effect in the <a href="PostProcessing-Stack.html">Post-processing stack</a>. The HDR image is then converted into the standard low dynamic range (LDR) image to be sent for display. This is usually done via Tonemapping, part of the <a href="PostProcessing-ColorGrading.html">Color Grading</a> pipeline. The conversion to LDR must be applied at some point in the post-process pipeline but it need not be the final step if LDR-only post-processing effects are to be applied afterwards. For convenience, some post-processing effects can automatically convert to LDR after applying an HDR effect (see Scripting below).</p>
+<h3 id="tonemapping">Tonemapping</h3>
+<p>Tonemapping is the process of mapping HDR values back into the LDR range. There are many different techniques, and what is good for one project may not be the best for another. A variety of tonemapping techniques have been included in the <a href="PostProcessing-Stack.html">Post-processing stack</a>. To use them you can download the <strong>Post-processing stack</strong> from the <a href="https://www.assetstore.unity3d.com/en/#!/content/83912">Asset Store</a>. A detailed description of the tonemapping types can be found in the <a href="PostProcessing-ColorGrading.html">Color Grading</a> documentation.</p>
+<p><img src="../uploads/Main/WithoutTonemap.jpg" alt="An exceptionally bright scene rendered in HDR. Without tonemapping, most pixels seem out of range."> </p>
+<p><img src="../uploads/Main/WithTonemap.jpg" alt="The same scene as above. But this time, tonemapping is bringing most intensities into a more plausible range. Note that adaptive tonemapping can even blend between above and this image thus simulating the adaptive nature of capturing media (e.g. eyes, cameras)."> </p>
+<h2 id="advantages-of-hdr">Advantages of HDR</h2>
+<ul>
+<li>Colors not being lost in high intensity areas</li>
+<li>Better bloom and glow support</li>
+<li>Reduction of banding in low frequency lighting areas</li>
+</ul>
+<h2 id="disadvantages-of-hdr">Disadvantages of HDR</h2>
+<ul>
+<li>Uses floating point render textures (rendering is slower and requires more VRAM)</li>
+<li>No hardware anti-aliasing support (but you can use an <a href="PostProcessing-Antialiasing.html">Anti-Aliasing post-processing effect</a> to smooth out the edges)</li>
+<li>Not supported on all hardware</li>
+</ul>
+<h2 id="usage-notes">Usage notes</h2>
+<h3 id="forward-rendering">Forward Rendering</h3>
+<p>In forward rendering mode HDR is only supported if you have a post-processing effect present. This is due to performance considerations. If you have no post-processing effect present then no tonemapping will exist and intensity truncation will occur. In this situation the scene will be rendered directly to the backbuffer where HDR is not supported.</p>
+<h3 id="deferred-rendering">Deferred Rendering</h3>
+<p>In HDR mode the lighting buffer is also allocated as a floating point buffer. This reduces banding in the lighting buffer. HDR is supported in deferred rendering even if no post-processing effects are present.</p>
+<h3 id="scripting">Scripting</h3>
+<p>The <strong>ImageEffectTransformsToLDR</strong> attribute can be added to a post-processing effect script to indicate that the target buffer should be in LDR instead of HDR. Essentially, this means that a script can automatically convert to LDR after applying its HDR post-processing effect. See <a href="PostProcessingWritingEffects.html">Writing Post-processing Effects</a> for more details.</p>
+<h2 id="see-also">See also</h2>
+<p><a href="HDRColorPicker.html">HDR Color Picker</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

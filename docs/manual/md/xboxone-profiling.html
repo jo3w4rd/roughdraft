@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Profiling | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Profiling | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="profiling">Profiling</h1>
+
+<h2 id="unity-profiler-network-connection">Unity Profiler Network Connection</h2>
+<p>The console uses broadcast messages on ports 34997, and communication on ports 4600 and 4601 to communicate with the profiler. Your network or firewalls must allow communication using the ports and broadcast messages.  (Make sure your firewall excludes the UnityEditor executable, particularly if using Windows Firewall).</p>
+<h2 id="pix">PIX</h2>
+<p>Over and above the usual set of Unity tools, Xbox One offers a rich set of platform specific profiling tools. The most obvious is PIX. To understand what you are seeing in PIX it helps to have a quick overview of Unitys architecture on XBox One.
+The following diagram attempts to show Unitys internal structure.</p>
+<ul>
+<li>A dedicate render dispatch thread is running on CPU 0</li>
+<li>You main thread is running on CPU 1</li>
+<li>Everything else is sharing CPUs 2..5</li>
+</ul>
+<p><img src="../uploads/Main/XboxOne_ThreadToCoreMappings.png" alt="">  </p>
+<p>Note that CPU 4 and 5 are shared with the system. 
+This means that anything that runs on those hardware threads will be sharing cache space with the OS systems. 
+The result is that systems running on those threads tend to run slower on average.</p>
+<p>When looking at a frame in PIX understanding the previous layout should help you interpret the timeline view. 
+Here is a screenshot of a PIX timeline capture. 
+The cursor is currently hovering over CPU 0. </p>
+<ul>
+<li>The large blue section in the diagram is the gfx present 
+as the tooltip is indicating. </li>
+<li>White hashed areas are parts of our frame that have not 
+yet been wrapped in pix markers but include time dedicated to Unity.</li>
+<li>CPU 1 currently has a behaviour update highlighted. The 
+behaviour update is time spent in the Update function of your scripts. PIX markers can represent a hierarchy, the leaf nodes of the marker heirarchy are what show by default in the timeline view. Many physics calls are instrumented and in this case you can see that the behaviour call &lt;spans a yellow section which happens to be a move operation on a static collider. You can see that we have highlighted this as an expensive operation as part of the name of the pix marker.</li>
+</ul>
+<p><img src="../uploads/Main/XboxOne_PIX1.jpg" alt=""></p>
+<p>In addition to the implicit pix markers that are built in to the engine you can insert your own markers from C#. 
+C# markers have a higher cost so it is recommended that you avoid adding an excessive amount especially in performance sensitive areas of your game.</p>
+<ul>
+<li>You must turn on support for profile markers in C# by 
+calling Profiler.enable = true.</li>
+<li>Once you have enabled support you should be able to call 
+Profiler.BeginSample and Profiler.EndSample to wrap chunks of code as the following image demonstrates.</li>
+</ul>
+<p><img src="../uploads/Main/XboxOne_PIXCustomMarkers.jpg" alt=""></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Real-time lighting | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Real-time lighting | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="real-time-lighting">Real-time lighting</h1>
+
+<p>Real-time Lights are <a href="class-Light.html">Light components</a> which have their <strong>Mode</strong> property set to <strong>Realtime</strong>.  </p>
+<p>Use <strong>Realtime</strong> mode for Lights that need to change their properties or which are spawned via scripts during gameplay. Unity calculates and updates the lighting of these Lights every frame at run time. They can change in response to actions taken by the player, or events which take place in the Scene. For example, you can set them to switch on and off (like a flickering light), change their Transforms (like a torch being carried through a dark room), or change their visual properties, like their color and intensity. </p>
+<p>Real-time Lights illuminate and cast realistic shadows on both static and dynamic GameObjects. They cast shadows up to the <strong>Shadow Distance</strong> (defined in <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Quality</strong> category). </p>
+<p>You can also combine real-time Lights with <strong>Realtime Global Illumination</strong> (<strong>Realtime GI</strong>), so that they contribute indirect lighting to static and dynamic GameObjects.</p>
+<h2 id="using-real-time-lighting-with-realtime-gi">Using real-time lighting with Realtime GI</h2>
+<p>The combination of real-time lighting with <strong>Realtime GI</strong> is the most flexible and realistic lighting option in Unity. To enable Realtime GI, open the <a href="GlobalIllumination.html">Lighting window</a> (menu: <strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Lighting Settings</strong>) and tick <strong>Realtime Global Illumination</strong>.</p>
+<p>When <strong>Realtime GI</strong> is enabled, real-time Lights contribute indirect lighting into the Scene, as well as direct lighting. Use this combination for light sources which change slowly and have a high visual impact on your Scene, such as the sun moving across the sky, or a slowly pulsating light in a closed corridor. You don’t need to use <strong>Realtime GI</strong> for Lights that change quickly, or for special effects, because the latency of the system does not make it worth the overhead. </p>
+<p>Note that <strong>Realtime GI</strong> uses significant system resources compared to the less complex <strong>Baked GI</strong>. Global Illumination is managed in Unity by a piece of middleware called Enlighten, which has its own overheads (system memory and CPU cycles). See documentation on <a href="GlobalIllumination.html">Global Illumination</a> for more information.</p>
+<p><strong>Realtime GI</strong> is suitable for games targeting mid-level to high-end PC systems, and games targeting current-gen consoles such as the PS4 and Xbox One. Some high-end mobile devices might also be powerful enough to make use of this feature, but you should keep Scenes small and the resolution for real-time light maps low to conserve system resources.</p>
+<p>To disable the effect of <strong>Realtime GI</strong> on a specific light, select the Light GameObject and, in the Light component, set the <strong>Indirect Multiplier</strong> to 0. This means that the Light does not contribute any indirect light. To disable <strong>Realtime GI</strong> altogether, open the Lighting window (menu: <strong>Window</strong> &gt; <strong>Lighting</strong> &gt; <strong>Settings</strong>) and untick <strong>Realtime Global Illumination</strong>.</p>
+<h3 id="disadvantages-of-using-real-time-lighting-with-realtime-gi">Disadvantages of using real-time lighting with Realtime GI</h3>
+<ul>
+<li><p>Increased memory requirements, due to the additional set of low resolution real-time light maps used to store the real-time indirect bounces computed by the Enlighten lighting system.</p>
+</li>
+<li><p>Increased shader calculation requirements, due to sampling of the additional set of real-time light maps and probes used to store the real-time indirect bounces computed by the Enlighten lighting system.</p>
+</li>
+<li><p>Indirect lighting converges over time, so property changes cannot be too abrupt. Adaptive HDR tone mapping might help you hide this; to learn more, see the Unity Post Processing Stack (<a href="https://www.assetstore.unity3d.com/en/#!/content/83912">Asset Store</a>).</p>
+</li>
+</ul>
+<h2 id="technical-details">Technical details</h2>
+<p>In the case of real-time Lights (that is, Light components with their <strong>Mode</strong> set to <strong>Realtime</strong>), the last emission (or path segment) from the surface to the Light is not precomputed. This means that Lights can move around the Scene, and change visual properties like color and intensity. See documentation on <a href="../uploads/ExpertGuides/Using_Enlighten_with_Unity.pdf">Using Enlighten in Unity</a> for more information on path segments.</p>
+<p>If the Light also casts shadows, both dynamic and static GameObjects in the Scene are rendered into the Light’s <a href="Shadows.html">shadow map</a>. This shadow map is sampled by the <a href="Shaders.html">Material Shaders</a> of both static and dynamic GameObjects, so that they cast real-time shadows on each other. The <strong>Shadow Distance</strong> (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Quality</strong> category, and navigate to the <strong>Shadows</strong> section) controls the maximum distance at which shadows start to fade out and disappear entirely, which in turn affects performance and image quality. </p>
+<p>If <strong>Realtime GI</strong> is not enabled, real-time Lights only calculate direct lighting on dynamic and static GameObjects. If <strong>Realtime GI</strong> is enabled, Unity uses Enlighten to precompute the surface-to-surface light paths for static GameObjects.</p>
+<p><img src="../uploads/Main/LightMode-Realtime-0.png" alt=""></p>
+<p>Precomputed <strong>Realtime GI</strong> mode: Unity only precomputes surface-to-surface information </p>
+<p>The last path segment (that is, the segment from the surface to the Light emitter) is not part of the precomputation. The only information stored is that if the surface is illuminated, then the following surfaces and probes are also illuminated, and the intensities of the various illuminations. There is a separate set of low-resolution real-time light maps, which Enlighten iteratively updates on the CPU at run time with the information of real-time Lights. Because this iterative process is computationally intensive, it is split across several frames. In other words, it takes a couple of frames until the light has fully bounced across the static elements in the Scene, and the real-time light maps and <a href="LightProbes.html">Light Probes</a> have converged to the final result. </p>
+<p>For Lights with properties that change slowly (such as a light-emitting sun moving across the sky), this does not pose a problem. However, for Lights with properties that change quickly (such as a flickering lightbulb), the iterative nature of <strong>Realtime GI</strong> may prove unsuitable. Fast property changes do not register significantly with the bounced light system, so there is no point in including them in the calculations.</p>
+<p>There are several ways to address this problem. One way is to reduce the real-time light map resolution. Because this results in less calculation at run time, the lighting converges faster. Another option is to increase the <a href="https://docs.google.com/document/d/1SEkozSX298iM6N1MONyss8IA2B5rtrfTStE72Tul2Y0/edit">CPU Usage</a> setting for the <strong>Realtime GI</strong> runtime. By dedicating more CPU time, the runtime converges faster. The tradeoff is of course that other systems receive less CPU time to do their work. Whether this is acceptable depends on each individual project. Note that as this is a per-Scene setting, you can dedicate more or less CPU time based on the complexity of each individual Scene in the project. </p>
+<p>Even though <strong>Realtime GI</strong> is enabled on a per-Scene basis for all real-time Lights, it is still possible to prevent individual real-time Lights from being considered by <strong>Realtime GI</strong>. To achieve this, set the Light component&#39;s <strong>Mode</strong> to <strong>Realtime</strong> and its <a href="https://docs.google.com/document/d/1vmBiK2Ez-A7Z1OpJjWB1IJ4_OSDIVwPgmq8xNhMUMfk/edit">indirect multiplier</a> to 0, removing all indirect light contributions.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,418 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>PS4 input | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="PS4 input | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ps4-input">PS4 input</h1>
+
+<p>To handle input for PlayStation 4 in Unity:</p>
+<ul>
+<li>Read axes and buttons in the same way as on other platforms.<ul>
+<li>To read an axis, use <a href="ScriptRef:Input.GetAxis.html">Input.GetAxis</a>. See <a href="#axis">Getting axis input</a>.</li>
+<li>To read a button, use <a href="ScriptRef:Input.GetButton.html">Input.GetButton</a> or the lower-level <a href="ScriptRef:Input.GetKey.html">Input.GetKey</a>. See <a href="#button">Getting button input</a>.</li>
+</ul>
+</li>
+<li>Read PS4-specific functionality via functions in the <code>UnityEngine.PS4</code> namespace, mostly in <a href="ScriptRef:PS4.PS4Input.html">UnityEngine.PS4.PS4Input</a>.</li>
+</ul>
+<p>Sample projects are available for download from DevNet, alongside the release notes.</p>
+<h2 id="dualshock-4">Dualshock 4</h2>
+<p>The button and axis controls on the DUALSHOCK 4 have the following names:</p>
+<p><img src="../uploads/Main/Dualshock4InputMap.jpg" alt=""> </p>
+<p><a name="button"></a></p>
+<h3 id="getting-button-input">Getting button input</h3>
+<p>When calling <code>Input.GetButton()</code>, use with the name of a logical button that you have defined in the <a href="class-InputManager.html">Input</a> settings (for example, <code>&quot;Player 1 Jump&quot;</code>).  To identify the button names to place in the <strong>Input</strong> settings&#39;s <code>Positive Button</code> and <code>Negative Button</code> fields, see the following table:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Button</th>
+<th style="text-align:left">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Cross</td>
+<td style="text-align:left">joystick <em>n</em> button 0</td>
+</tr>
+<tr>
+<td style="text-align:left">Circle</td>
+<td style="text-align:left">joystick <em>n</em> button 1</td>
+</tr>
+<tr>
+<td style="text-align:left">Square</td>
+<td style="text-align:left">joystick <em>n</em> button 2</td>
+</tr>
+<tr>
+<td style="text-align:left">Triangle</td>
+<td style="text-align:left">joystick <em>n</em> button 3</td>
+</tr>
+<tr>
+<td style="text-align:left">L1</td>
+<td style="text-align:left">joystick <em>n</em> button 4</td>
+</tr>
+<tr>
+<td style="text-align:left">R1</td>
+<td style="text-align:left">joystick <em>n</em> button 5</td>
+</tr>
+<tr>
+<td style="text-align:left">Touch Pad</td>
+<td style="text-align:left">joystick <em>n</em> button 6</td>
+</tr>
+<tr>
+<td style="text-align:left">OPTIONS</td>
+<td style="text-align:left">joystick <em>n</em> button 7</td>
+</tr>
+<tr>
+<td style="text-align:left">L3 (Click left stick)</td>
+<td style="text-align:left">joystick <em>n</em> button 8</td>
+</tr>
+<tr>
+<td style="text-align:left">R3 (Click right stick)</td>
+<td style="text-align:left">joystick <em>n</em> button 9</td>
+</tr>
+</tbody>
+</table>
+<p>For the value of <em>n</em>, use the numbers 1-4 to read from the first, second, third and fourth DualShock 4 controllers. For example, to specify the triangle button of the second DualShock 4 controller, use <code>joystick 2 button 3</code>. The string is case sensitive and must appear in lower case.</p>
+<h4 id="combined-input">Combined input</h4>
+<p>On any platform, you can specify <code>joystick 0</code> to read a combined value from all attached joysticks, or omit the number entirely to achieve the same effect (for example, <code>joystick button 3</code>). This might be useful to combine, say, steering wheel and mouse input on Windows or macOS but this is less useful on PS4 DualShock 4 controllers because they are assigned to different users.</p>
+<h4 id="button-states-example">Button states example</h4>
+<p>Here is an example of a button named <code>Player 1 Jump</code> that is mapped to the cross button of the first DualShock 4:</p>
+<p><img src="../uploads/Main/PS4Input_Button_InputManager.png" alt=""></p>
+<p>To read this button in code, call <code>Input.GetButton(&quot;Player 1 Jump&quot;);</code>.</p>
+<p>The <a href="class-InputManager.html">Input</a> settings ignores the <code>Joy Num</code> field when the input type is <code>Key or Mouse Button</code>.</p>
+<h3 id="getting-buttons-using-a-key-code">Getting buttons using a key code</h3>
+<p>As an alternative to <code>Input.GetButton</code>, you can read buttons using <code>Input.GetKey</code> with a <a href="ScriptRef:KeyCode.html">KeyCode</a> value. You can also use the <code>Input.GetKeyDown</code> and <code>Input.GetKeyUp</code> variants in the same way. Use values as shown in the table above.  For example, to read the circle button on the third DualShock 4 controller, use <code>KeyCode.Joystick3Button1</code>.</p>
+<p>In a similar way to <code>Input.GetButton</code>, you can specify <code>Joystick0Button2</code> to read button two (square) on all connected controllers, for example. Again, on PS4 it is difficult to imagine a use case where this would be a suitable approach.</p>
+<p><a name="axis"></a></p>
+<h3 id="getting-axes-input">Getting axes input</h3>
+<p>To read an axis, call <code>Input.GetAxis()</code> and pass in a logical axis name that you have previously set in the <a href="class-InputManager.html">Input</a> settings.  To identify the correct value for the <code>Axis</code> field in the <strong>Input</strong> settings, see the following table:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Axis</th>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Left Stick X</td>
+<td style="text-align:left">X Axis</td>
+<td style="text-align:left">[-1.0, 1.0]</td>
+</tr>
+<tr>
+<td style="text-align:left">Left Stick Y</td>
+<td style="text-align:left">Y Axis</td>
+<td style="text-align:left">[-1.0, 1.0]</td>
+</tr>
+<tr>
+<td style="text-align:left">(see note)</td>
+<td style="text-align:left">Axis 3</td>
+<td style="text-align:left">(see note)</td>
+</tr>
+<tr>
+<td style="text-align:left">Right Stick X</td>
+<td style="text-align:left">Axis 4</td>
+<td style="text-align:left">[-1.0, 1.0]</td>
+</tr>
+<tr>
+<td style="text-align:left">Right Stick Y</td>
+<td style="text-align:left">Axis 5</td>
+<td style="text-align:left">[-1.0, 1.0]</td>
+</tr>
+<tr>
+<td style="text-align:left">Left / Right buttons</td>
+<td style="text-align:left">Axis 6</td>
+<td style="text-align:left">[-1.0, 1.0]</td>
+</tr>
+<tr>
+<td style="text-align:left">Up / Down buttons</td>
+<td style="text-align:left">Axis 7</td>
+<td style="text-align:left">[-1.0, 1.0]</td>
+</tr>
+<tr>
+<td style="text-align:left">(see note)</td>
+<td style="text-align:left">Axis 8</td>
+<td style="text-align:left">(see note)</td>
+</tr>
+<tr>
+<td style="text-align:left">L2</td>
+<td style="text-align:left">Axis 9</td>
+<td style="text-align:left">[0, 1.0]</td>
+</tr>
+<tr>
+<td style="text-align:left">R2</td>
+<td style="text-align:left">Axis 10</td>
+<td style="text-align:left">[0, 1.0]</td>
+</tr>
+</tbody>
+</table>
+<h4 id="note-3rd-and-8th-axes">Note: 3rd and 8th axes</h4>
+<p>For backwards compatibility with previous Unity versions, in addition to the axes shown above, L2 is mapped to the 8th axis and R2 is mapped to the 3rd axis. For the 3rd axis <em>only</em> the input is inverted; the returned value will be -1.0 when the trigger is fully held. For the 8th, 9th, and 10th axes the returned value will be 1.0 when the trigger is fully held.</p>
+<h4 id="axis-states-example">Axis states example</h4>
+<p>Here is an example of an axis named <code>Player 2 Walk</code> that is mapped to the horizontal axis on the left stick of the second DualShock 4.  To read this axis in code, call <code>Input.GetAxis (&quot;Player 2 Walk&quot;);</code>.</p>
+<p><img src="../uploads/Main/PS4Input_Axis_InputManager.png" alt=""></p>
+<h2 id="move-controller">Move Controller</h2>
+<p><img src="../uploads/Main/PS4_Move_Input_Map.png" alt=""></p>
+<p>The cross, circle, square, and triangle buttons on the Move controller have the same button numbers as on DualShock 4 and you can read them in the same way, by using either <code>Input.GetButton</code> or <code>Input.GetKey</code>.  For the joystick number to use, refer to the table below.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Move Controller</th>
+<th style="text-align:center">Joystick Number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Player 1 Primary Move</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:left">Player 1 Secondary Move</td>
+<td style="text-align:center">6</td>
+</tr>
+<tr>
+<td style="text-align:left">Player 2 Primary Move</td>
+<td style="text-align:center">7</td>
+</tr>
+<tr>
+<td style="text-align:left">Player 2 Secondary Move</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:left">Player 3 Primary Move</td>
+<td style="text-align:center">9</td>
+</tr>
+<tr>
+<td style="text-align:left">Player 3 Secondary Move</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:left">Player 4 Primary Move</td>
+<td style="text-align:center">11</td>
+</tr>
+<tr>
+<td style="text-align:left">Player 4 Secondary Move</td>
+<td style="text-align:center">12</td>
+</tr>
+</tbody>
+</table>
+<h3 id="notes">Notes</h3>
+<ul>
+<li>The SELECT button behaves like the SHARE button on the Dualshock 4. It is only used by the system software, not the game, so it’s unavailable to application developers.</li>
+</ul>
+<h2 id="aim-controller">Aim controller</h2>
+<p>The buttons and axes on the Aim controller correspond exactly to a DualShock 4.</p>
+<p><img src="../uploads/Main/PS4_Aim_Input_Map.png" alt=""></p>
+<p>To specify the joystick number for Aim controllers, see the table below:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Player</th>
+<th style="text-align:center">Joystick Number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Player 1</td>
+<td style="text-align:center">13</td>
+</tr>
+<tr>
+<td style="text-align:left">Player 2</td>
+<td style="text-align:center">14</td>
+</tr>
+<tr>
+<td style="text-align:left">Player 3</td>
+<td style="text-align:center">15</td>
+</tr>
+<tr>
+<td style="text-align:left">Player 4</td>
+<td style="text-align:center">16</td>
+</tr>
+</tbody>
+</table>
+<h2 id="extra-features">Extra Features</h2>
+<h3 id="pad-user-details">Pad User Details</h3>
+<p>Information about the user/pad is available via <code>PS4Input.PadGetUsersDetails(padIndex)</code>.</p>
+<h3 id="touch-pad">Touch Pad</h3>
+<p>The touch pad is implemented through the PS4Input class with <code>PS4Input.GetLastTouchData()</code>. Two simultaneous touches are supported.</p>
+<h3 id="last-gyro">Last Gyro</h3>
+<p>Use <code>PS4Input.GetLastGyro(padIndex)</code> to get Gyro information about a given controller.</p>
+<h3 id="last-orientation">Last Orientation</h3>
+<p>Use <code>PS4Input.GetLastOrientation(padIndex)</code> to get the controller orientation. To reset the currently read orientation use <code>PS4Input.PadResetOrientation(padIndex)</code>.</p>
+<h3 id="accelerometer">Accelerometer</h3>
+<p>Use <a href="ScriptRef:PS4.PS4Input.GetLastAcceleration">PS4Input.GetLastAcceleration(padIndex)</a> to get the controller accelerometer information.</p>
+<h3 id="lightbar--light-sphere">Lightbar / Light Sphere</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Controller Type</th>
+<th style="text-align:left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">DualShock 4</td>
+<td style="text-align:left"><a href="ScriptRef:PS4.PS4Input.PadSetLightBar.html">PS4Input.PadSetLightBar</a></td>
+</tr>
+<tr>
+<td style="text-align:right">Move</td>
+<td style="text-align:left"><a href="ScriptRef:PS4.PS4Input.MoveSetLightSphere.html">PS4Input.MoveSetLightSphere</a></td>
+</tr>
+<tr>
+<td style="text-align:right">Aim</td>
+<td style="text-align:left"><a href="ScriptRef:PS4.PS4Input.AimSetLightSphere.html">PS4Input.AimSetLightSphere</a></td>
+</tr>
+</tbody>
+</table>
+<p>Pass in the ID of the controller (0-3) to change along with Red, Green and Blue values ranging from 0-255. Note that the lights cannot be turned off and have a 5% lower limit of illumination (13/255).</p>
+<p>Camera tracking of the controllers is also not guaranteed if you vary from the default colours assigned to each controller, to reset the lightbar to its default color use <a href="ScriptRef:PS4.PS4Input.PadResetLightBar">PS4Input.PadResetLightBar</a> and <a href="ScriptRef:PS4.PS4Input.AimResetLightSphere">PS4Input.AimResetLightSphere</a>.</p>
+<h3 id="dualshock-4-speaker">DualShock 4 Speaker</h3>
+<p>To play an <a href="ScriptRef:AudioSource.html">AudioSource</a> through the speaker on a user&#39;s controller, use either of the following functions:</p>
+<ul>
+<li><code>AudioSource.PlayOnDualShock4PadIndex(padIndex)</code> to play audio on a specific controller</li>
+<li><code>AudioSource.PlayOnDualShock4(userId)</code> to play audio for a specific logged-in user</li>
+</ul>
+<p>To find the user ID of the player currently using a controller, use <code>PS4Input.PadGetUsersDetails(padIndex)</code> to return a <code>PS4Input.LoggedInUser</code> and retrieve the user ID from within that.</p>
+<p>The setting on the audio source adjusts the audio output, including filters and effects, but the audio source cannot play through both the world and the controller simultaneously.</p>
+<h3 id="vibration">Vibration</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Controller Type</th>
+<th style="text-align:left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DualShock 4</td>
+<td style="text-align:left"><a href="ScriptRef:PS4.PS4Input.PadSetVibration.html"><code>PS4Input.PadSetVibration</code></a></td>
+</tr>
+<tr>
+<td style="text-align:left">Move</td>
+<td style="text-align:left"><a href="ScriptRef:PS4.PS4Input.MoveSetVibration.html"><code>PS4Input.MoveSetVibration</code></a></td>
+</tr>
+<tr>
+<td style="text-align:left">Aim</td>
+<td style="text-align:left"><a href="ScriptRef:PS4.PS4Input.AimSetVibration.html"><code>PS4Input.AimSetVibration</code></a></td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

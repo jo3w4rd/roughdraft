@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>IAP Promo integration | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="IAP Promo integration | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="iap-promo-integration">IAP Promo integration</h1>
+
+<h2 id="overview">Overview</h2>
+<p><strong>Important note</strong>: Your game must initialize Unity IAP before initializing Unity Ads for IAP Promo to work. </p>
+<p>This integration guide covers four major steps: </p>
+<ul>
+<li><a href="#Preparation">Preparing your Project in the Unity Editor</a></li>
+<li><a href="#Implementation">Implementation</a><ul>
+<li><a href="#ImplementingIAP">IAP</a></li>
+<li><a href="#ImplementingAds">Ads</a></li>
+</ul>
+</li>
+<li><a href="#ConfiguringPromotions">Configuring Promotions</a></li>
+<li><a href="#Testing">Testing your integration</a></li>
+</ul>
+<p><a name="Preparation"></a></p>
+<h2 id="preparing-your-project-in-the-unity-editor">Preparing your Project in the Unity Editor</h2>
+<h3 id="setting-up-unity-services">Setting up Unity Services</h3>
+<p>To use IAP Promo, you need to:</p>
+<ol>
+<li><a href="https://docs.unity3d.com/Manual/SettingUpProjectServices.html">Configure your project for Unity Services</a>. </li>
+<li>Enable the <a href="https://assetstore.unity.com/packages/add-ons/services/billing/unity-iap-68207">Unity IAP SDK</a> (1.2+) and <a href="https://assetstore.unity.com/packages/add-ons/services/unity-ads-66123">Unity Ads SDK</a> (2.3+) in your Project.</li>
+</ol>
+<h4 id="setting-up-unity-iap">Setting up Unity IAP</h4>
+<p>IAP Promo requires a supported version of the Unity IAP SDK (1.17+). To acquire the latest IAP SDK, either enable <strong>In-App Purchasing</strong> in the Services window (<strong>Window &gt; Services</strong>), or import it from the <a href="https://assetstore.unity.com/packages/add-ons/services/billing/unity-iap-68207">Asset store</a>. If you&#39;re enabling it from the Services window, be sure to <strong>Import</strong> the Asset package when prompted.</p>
+<p><img src="../uploads/Main/Enable_IAP.jpg" alt="Enabling Unity IAP in the Editor’s Services window"></p>
+<p>See documentation on <a href="https://docs.unity3d.com/Manual/UnityIAPSettingUp.html">Setting up IAP</a> for additional information.</p>
+<h4 id="setting-up-unity-ads">Setting up Unity Ads</h4>
+<p>IAP Promo requires a supported version of the Unity Ads SDK. Unity recommends acquiring the latest Ads SDK (3.0+) by importing it from the <a href="https://assetstore.unity.com/packages/add-ons/services/unity-ads-66123">Asset store</a>.</p>
+<p>See <a href="https://docs.unity3d.com/Manual/UnityAdsUnityIntegration.html">Setting up Ads for Unity</a> for additional information. </p>
+<p><a name="Implementation"></a></p>
+<h2 id="implementation">Implementation</h2>
+<p>With the required services set up, you can implement them in your game. </p>
+<p><a name="ImplementingIAP"></a></p>
+<h3 id="implementing-iap">Implementing IAP</h3>
+<p>There are two options for initialization: codeless or scripting. </p>
+<h4 id="using-codeless-iap">Using Codeless IAP</h4>
+<p><a href="https://docs.unity3d.com/Manual/UnityIAPCodelessIAP.html">Codeless IAP</a> handles initialization for you. If you use Codeless IAP initialization, you must call the Unity Ads initialization method elsewhere in your code.</p>
+<p>To use Codeless IAP, populate a <strong>Product Catalog</strong>, then create an <strong>IAP Listener</strong> to fetch that catalog:</p>
+<ol>
+<li><p>In the Editor, select <strong>Window &gt; UnityIAP &gt; IAP Catalog</strong> to open the <strong>IAP Catalog</strong> window. This window lists all of your previously configured Products. You must have at least one <strong>Product</strong> configured in your <strong>Product Catalog</strong>. For a complete walkthrough on setting up <strong>Products</strong>, see <a href="https://docs.unity3d.com/Manual/UnityIAPCodelessIAP.html">Codeless IAP</a>.</p>
+</li>
+<li><p>In the <strong>IAP Catalog</strong> window, select <strong>App Store Export &gt; Cloud JSON</strong> to export a local copy of the <strong>Product Catalog</strong>.<br><img src="../uploads/Main/IAP_Catalog_Window.png" alt="Exporting an IAP Product Catalog to JSON"></p>
+</li>
+<li><p>Create an <strong>IAP Listener</strong>. Select <strong>Window &gt; Unity IAP &gt; Create IAP Listener</strong>, and add it to the first scene of your game. The listener fetches your <strong>Product Catalog</strong> as soon as the game boots. This avoids errors where the game requests <strong>Promotions</strong> but a <strong>Product</strong> isn&#39;t ready because the codeless button hasn&#39;t appeared in the scene yet.</p>
+</li>
+</ol>
+<h4 id="using-scripting">Using scripting</h4>
+<p>If you do not use Codeless IAP, you must <a href="https://docs.unity3d.com/Manual/UnityIAPInitialization.html">initialize Unity IAP manually</a> through a script. See the following code example: </p>
+<pre><code>using UnityEngine;
+using UnityEngine.Purchasing;
+
+public class IAPManager : MonoBehaviour, IStoreListener {
+  private IStoreController controller;
+
+  //The following products must be added to the Product Catalog in the Editor:
+  private const string coins100 = &quot;100.gold.coins&quot;;
+  private const string coins500 = &quot;500.gold.coins&quot;;
+
+  public int coin_count = 0;
+
+  void Awake () { 
+    StandardPurchasingModule module = StandardPurchasingModule.Instance (); 
+    ProductCatalog catalog = ProductCatalog.LoadDefaultCatalog (); 
+    ConfigurationBuilder builder = ConfigurationBuilder.Instance (module);
+    IAPConfigurationHelper.PopulateConfigurationBuilder (ref builder, catalog); 
+    UnityPurchasing.Initialize (this, builder); 
+  }
+
+  public void OnInitialized (IStoreController controller, IExtensionProvider extensions) { 
+    this.controller = controller; Debug.Log (&quot;Initialization Successful&quot;); 
+  }
+
+  public void OnInitializeFailed(InitializationFailureReason error) { 
+    Debug.Log (&quot;UnityIAP.OnInitializeFailed (&quot; + error + &quot;)&quot;)
+  }
+
+  public void OnPurchaseFailed (Product item, PurchaseFailureReason reason) { 
+    Debug.Log(&quot;UnityIAP.OnPurchaseFailed (&quot; + item + &quot;, &quot; + reason + &quot;)&quot;); 
+  }
+
+  public PurchaseProcessingResult ProcessPurchase (PurchaseEventArgs e) {
+    string purchasedItem = e.purchasedProduct.definition.id;
+
+    switch (purchasedItem) { 
+      case coins100: Debug.Log (&quot;IAPLog: Congratualtions you are richer!&quot;); 
+      coin_count += 100; 
+      Debug.Log (&quot;IAPLog: Coin count: &quot; + coin_count); 
+      break; 
+
+      case coins500: Debug.Log (&quot;IAPLog: Congratualtions you are richer!&quot;); 
+      coin_count += 500; 
+      Debug.Log (&quot;IAPLog: Coin count: &quot; + coin_count);
+      break;
+    }
+    return PurchaseProcessingResult.Complete;
+  }
+
+  public void Buy(string productId) { 
+    Debug.Log (&quot;UnityIAP.BuyClicked (&quot; + productId + &quot;)&quot;);
+    controller.InitiatePurchase (productId);
+  }
+}
+</code></pre><p><a name="ImplementingAds"></a></p>
+<h3 id="implementing-unity-ads">Implementing Unity Ads</h3>
+<p>You must also <a href="https://unityads.unity3d.com/help/monetization/integration-guide-unity">initialize Unity Ads</a>, whether or not you use the Codeless or manual IAP initialization method. The following code sample illustrates an initialization method to invoke:</p>
+<pre><code>using UnityEngine;
+using UnityEngine.Monetization;
+
+public class AdManager : MonoBehaviour {
+
+  public bool testMode = true;
+  private const string adPlacement = &quot;video&quot;;
+  private const string promoPlacement = &quot;promo&quot;;
+
+  #if UNITY_IOS
+    private string gameId = &quot;0000000&quot;; // Your iOS game ID here
+  #elif UNITY_ANDROID
+    private string gameId = &quot;9999999&quot;; // Your Android game ID here
+  #else
+    private string gameId = &quot;0123456&quot;; // Prevents Editor Errors
+  #endif
+
+  private void Awake () {
+    if (Monetization.isSupported &amp;&amp; !Monetization.isInitialized) {
+      Monetization.Initialize (gameId, testMode); 
+    }
+  }
+
+  public void ShowVideoAd () { 
+    ShowAdPlacementContent ad = Monetization.GetPlacementContent (adPlacement) as ShowAdPlacementContent; ad.Show (); 
+  }
+
+  public void ShowPromo () { 
+    PromoAdPlacementContent promo = Monetization.GetPlacementContent (promoPlacement) as PromoAdPlacementContent; promo.Show (); 
+  }
+}
+</code></pre><p><a name="ConfiguringPromotions"></a></p>
+<h2 id="configuring-promotions-on-the-developer-dashboard">Configuring Promotions on the Developer Dashboard</h2>
+<p>Navigate to the <a href="https://operate.dashboard.unity3d.com/"><strong>Monetization</strong> section of the Operate Dashboard</a> to configure your IAP Promo offers: </p>
+<ul>
+<li>Use <a href="https://docs.unity3d.com/Manual/IAPPromoPlacements">Placements</a> to control when and how your <strong>Promotions</strong> display in-game.</li>
+<li>Use the <a href="https://docs.unity3d.com/Manual/IAPPromoProducts">Products</a> interface to import your <strong>Product Catalog</strong> and manage each Product&#39;s creative assets. </li>
+<li>Define the parameters of your <a href="https://docs.unity3d.com/Manual/IAPPromoPromotions">Promotions</a>, such as when to run them, which <strong>Placements</strong> and <strong>Products</strong> they include, and which users they target.</li>
+</ul>
+<p><a name="Testing"></a></p>
+<h2 id="testing-your-integration">Testing your integration</h2>
+<p>Call your IAP Promo content by implementing the following example code:</p>
+<pre><code>public void ShowPromo()
+{
+    Advertisement.Show (placementID);
+}
+</code></pre><p>Press <strong>Play</strong> in the Editor to check that a test ad appears when the <strong>Placement</strong> makes its request. To see real promotional creative assets, you must build the game to a device in production mode.</p>
+<p><br>
+<br></p>
+<hr>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

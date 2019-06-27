@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>PlayStation VR post-reprojection | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="PlayStation VR post-reprojection | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="playstation-vr-post-reprojection">PlayStation VR post-reprojection</h1>
+
+<p>Sometimes you have graphic elements in your VR game that are totally fixed to the camera. A good example is a reticle or crosshair in a shooter game, which you might want to be always fixed exactly at the center of the screen. If you render those elements to the eye textures, the PlayStation VR reprojection causes an undesired judder effect. Instead, you need to use a special rendering overlay in Unity called post-reprojection. </p>
+<p>After reprojection, post-reprojection creates additional render textures that combine with the main eye textures. Unity does this with standard <a href="https://en.wikipedia.org/wiki/Alpha_compositing">alpha blending</a>, using the post-reprojection textures as sources (with color in the RGB channels and blending factor in the alpha channel) and the eye textures as the destination.</p>
+<p>To use post-reprojection in your project:</p>
+<ol>
+<li><p>Set <code>PlayStationVRSettings.postReprojectionType</code> to the desired type to enable post-reprojection, or <code>None</code> to disable it. You need to set it before loading the XR device with <a href="ScriptRef:XR.XRSettings.LoadDeviceByName.html">UnityEngine.XR.XRSettings.LoadDeviceByName</a>.</p>
+</li>
+<li><p>Call <code>PlayStationVR.GetCurrentFramePostReprojectionEyeTexture</code> every frame to get the corresponding post-reprojection render texture for the frame, and draw to it.</p>
+</li>
+</ol>
+<p>Unity allocates the required additional post-reprojection render textures when the XR device loads. The textures remain allocated until the device shuts down. Internally, Unity allocates several render textures for buffering. This is why you need to call <code>GetCurrentFramePostReprojectionEyeTexture</code> frame-by-frame, so that you get the correct buffered texture for each frame. </p>
+<p>Unity does not automatically clear post-reprojection textures. If you stop drawing to the textures frame-by-frame, the last content drawn to the textures remains on screen until you update it again. However, you can use this to your advantage: for example, if you have static content that doesn’t need to be updated every frame, you can draw to the post-reprojection textures only for enough frames to update all buffered textures, and skip the updates from then on.</p>
+<p>You can’t enable or disable post-reprojection after the XR device has loaded with <a href="ScriptRef:XR.XRSettings.LoadDeviceByName.html">UnityEngine.XR.XRSettings.LoadDeviceByName</a>. If you need to do so, then shut down and re-load the device.</p>
+<p>Likewise, there is no way to temporarily pause or stop the post-reprojection alpha blending operation that happens every frame. If you have a specific section in your game that does not need post-reprojection, the only way to hide the post-reprojection overlay is to make the post-reprojection render textures fully transparent (for example, by copying a Texture.blackTexture to them using a Graphics.Blit), so that it doesn’t affect the alpha blending. Note that when you do this, your game still pays the GPU cost of the alpha blend every frame.</p>
+<h2 id="post-reprojection-types">Post-reprojection types</h2>
+<p>You can set the <code>PlayStationVRSettings.postReprojectionType</code> property to one of two types of post-reprojection: <code>Shared</code> and <code>PerEye</code>. The effect of each of these types depends on which <a href="https://blogs.unity3d.com/2017/11/21/how-to-maximize-ar-and-vr-performance-with-advanced-stereo-rendering/">Stereo Rendering Method</a> you use (<strong>Single-Pass</strong> or <strong>Multi-Pass</strong>).</p>
+<h3 id="shared">Shared</h3>
+<p>Use <code>Shared</code> to blend the same post-reprojection image on both eyes. Unity creates a single texture, and blends it with each eye. Call <code>PlayStationVR.GetCurrentFramePostReprojectionEyeTexture</code> with <code>LeftEye</code> as the parameter to share this texture. <strong>Single-Pass</strong> and <strong>Single-Pass Instanced</strong> rendering always use a shared texture, regardless of the type you set in <code>PlayStationVRSettings.postReprojectionType</code>. This type also works with <strong>Multi-Pass</strong> rendering.</p>
+<h3 id="pereye">PerEye</h3>
+<p>Use <code>PerEye</code> to use an individual post-reprojection texture for each eye. For this, your script code needs to get multiple textures and draw to them individually. To get those textures, call <code>PlayStationVR.GetCurrentFramePostReprojectionEyeTexture</code> twice (one call for each eye). This is more resource-heavy than <code>Shared</code>, and only works with <strong>Multi-Pass</strong> rendering.</p>
+<h2 id="example-code">Example code</h2>
+<p>The following are minimal example scripts for drawing to the post-reprojection textures. These code samples work with a multi-camera Scene set-up.</p>
+<pre><code>using UnityEngine;
+using UnityEngine.PS4.VR;
+public class VRPostReprojection : MonoBehaviour
+{
+    private int currentEye = 0;
+    void Update()
+    {
+        // Reset which eye we&#39;re adjusting at the start of every frame
+        currentEye = 0;
+    }
+    void OnPostRender()
+    {
+        UnityEngine.XR.XRNode eye = (currentEye == 0) ? UnityEngine.XR.XRNode.LeftEye : UnityEngine.XR.XRNode.RightEye;
+        RenderTexture postReprojectionTexture = PlayStationVR.GetCurrentFramePostReprojectionEyeTexture(eye);
+        if (RenderTexture.active.antiAliasing &gt; 1)
+        {
+            // The same scale value needs to be assigned to UnityEngine.XR.XRSettings.eyeTextureResolutionScale and 
+            // PlayStationVRSettings.postReprojectionRenderScale for this to work.
+            RenderTexture.active.ResolveAntiAliasedSurface(postReprojectionTexture);
+        }
+        else
+        {
+            Graphics.Blit(RenderTexture.active, postReprojectionTexture);
+        }
+        currentEye++;
+    }
+}
+</code></pre><p>Alternatively, if you want to keep different scale values for <code>UnityEngine.XR.XRSettings.eyeTextureResolutionScale</code> and <code>PlayStationVRSettings.postReprojectionRenderScale</code>, you can try a script similar to the following:</p>
+<pre><code>using UnityEngine;
+using UnityEngine.PS4.VR;
+public class VRPostReprojection : MonoBehaviour
+{
+    private int currentEye = 0;
+    void Update()
+    {
+        // Reset which eye we&#39;re adjusting at the start of every frame
+        currentEye = 0;
+    }
+    void OnRenderImage(RenderTexture source, RenderTexture destination)
+    {
+        UnityEngine.XR.XRNode eye = (currentEye == 0) ? UnityEngine.XR.XRNode.LeftEye : UnityEngine.XR.XRNode.RightEye;
+        RenderTexture postReprojectionTexture = PlayStationVR.GetCurrentFramePostReprojectionEyeTexture(eye);
+        Graphics.Blit(source, postReprojectionTexture);
+        currentEye++;
+        // We don&#39;t care about filling out ‘destination’ as we are not going to
+        // use the results for anything. 
+        Graphics.SetRenderTarget(destination);
+    }
+}
+</code></pre><p>Add either of the above code snippets to a VR camera that is set up to render the content of the post-reprojection textures. That way, <a href="ScriptRef:RenderTexture-active.html">RenderTexture.active</a> contains the required content, and the script copies it to the textures (using <code>Resolve</code> or <code>Blit</code>). In addition, make sure the Scene has a normal VR camera that draws the Scene.</p>
+<p>The code samples work for both Multi-Pass and Single-Pass rendering:</p>
+<ul>
+<li><p>With <strong>Multi-Pass</strong> rendering, the script calls <a href="ScriptRef:MonoBehaviour.OnPostRender.html">OnPostRender</a> twice per frame (once for each eye), first for the left eye and then for the right one. The code draws to the corresponding post-reprojection texture each time. You must set <code>PlayStationVRSettings.postReprojectionType</code> to <code>PerEye</code> for this code to work.</p>
+</li>
+<li><p>With <strong>Single-Pass</strong> rendering, the script calls <a href="ScriptRef:MonoBehaviour.OnPostRender.html">OnPostRender</a> once per frame, because it shares a single post-reprojection texture between both eyes. The post-reprojection camera in the Scene renders to a single target texture for both eyes (like any VR camera in Single-Pass), meaning you can copy it to the post-reprojection texture.</p>
+</li>
+</ul>
+<p>These code examples are only two of many possible approaches for rendering to the post-reprojection textures. You can find a complete example of post-reprojection usage in our <a href="https://ps4.siedev.net/forums/thread/118216/">PlayStation VR Unity Example Project (Devnet)</a>. It uses the same multi-camera approach described above.</p>
+<p><strong>Note</strong>: when using <a href="ScriptRef:Graphics.Blit.html">Graphics.Blit</a> for <strong>Single-Pass Instanced</strong> rendering, the active render texture (<a href="ScriptRef:RenderTexture-active.html">RenderTexture.active</a>) is actually a render target array, which requires different code to copy the image. The above example code doesn’t support this rendering method; see the <a href="https://ps4.siedev.net/forums/thread/118216/">PlayStation VR Unity Example Project (Devnet)</a> for a complete example.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li><p>Use <code>PlayStationVRSettings.postReprojectionAntiAliasing</code> and <code>PlayStationVRSettings.postReprojectionRenderScale</code> to set up the properties of the post-reprojection render textures. You can get better performance or less memory usage with these properties.</p>
+</li>
+<li><p>You can use post-reprojection to prevent the &quot;Hall-Of-Mirrors&quot; effect, where artifacts appear at the edges of the display during Scene loading, due to reprojection with low frame rates. You need to set a fully opaque image (set alpha to 1) in the post-reprojection render textures, so that it fully covers the eye textures when compositing.</p>
+</li>
+<li><p>Use the Razor GPU profiling tool to make sure everything is working as expected. In particular, look at the Render Targets view and confirm that all of them make sense.</p>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Shadows | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Shadows | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="shadows">Shadows</h1>
+
+<p>Unity&#39;s lights can cast <strong>Shadows</strong> from a GameObject onto other parts of itself or onto other nearby GameObjects. Shadows add a degree of depth and realism to a Scene, because they bring out the scale and position of GameObjects that can otherwise look flat.</p>
+<p><img src="../uploads/Main/ShadowIntro.png" alt="Scene with GameObjects casting shadows"></p>
+<h2 id="how-do-shadows-work">How do Shadows work?</h2>
+<p>Consider a simple Scene with a single light source. Light rays travel in straight lines from that source, and may eventually hit GameObjects in the Scene. Once a ray has hit a GameObject, it can&#39;t travel any further to illuminate anything else (that is, it &quot;bounces&quot; off the first GameObject and doesn&#39;t pass through). The shadows cast by the GameObject are simply the areas that are not illuminated because the light couldn&#39;t reach them.</p>
+<p><img src="../uploads/Main/ShadowMapIntro.svg" alt=""></p>
+<p>Another way to look at this is to imagine a Camera at the same position as the light. The areas of the Scene that are in shadow are precisely those areas that the Camera can&#39;t see.</p>
+<p><img src="../uploads/Main/ShadowLightsEyeView.svg" alt="A &quot;light&#39;s eye view&quot; of the same Scene"></p>
+<p>In fact, this is exactly how Unity determines the positions of shadows from a light. The light uses the same principle as a Camera to &quot;render&quot; the Scene internally from its point of view. A depth buffer system, as used by Scene Cameras, keeps track of the surfaces that are closest to the light; surfaces in a direct line of sight receive illumination but all the others are in shadow. The depth map in this case is known as a <strong>Shadow Map</strong> (you may find the <a href="http://en.wikipedia.org/wiki/Shadow_mapping">Wikipedia Page</a> on shadow mapping useful for further information).</p>
+<h2 id="enabling-shadows">Enabling Shadows</h2>
+<p>Use the <strong>Shadow Type</strong> property in the Inspector to enable and define shadows for an individual light.</p>
+<p><img src="../uploads/Main/ShadowTypeInspector.svg" alt=""></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Shadow Type</strong></td>
+<td style="text-align:left">The <strong>Hard Shadows</strong> setting produces shadows with a sharp edge. Hard shadows are not particularly realistic compared to <strong>Soft Shadows</strong> but they involve less processing, and are acceptable for many purposes. Soft shadows also tend to reduce the &quot;blocky&quot; aliasing effect from the shadow map.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Strength</strong></td>
+<td style="text-align:left">This determines how dark the shadows are. In general, some light is scattered by the atmosphere and reflected off other GameObjects, so you usually don&#39;t want shadows to be set to maximum strength.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Resolution</strong></td>
+<td style="text-align:left">This sets the rendering resolution for the shadow map&#39;s &quot;Camera&quot; mentioned above. If your shadows have very visible edges, then you might want to increase this value.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Bias</strong></td>
+<td style="text-align:left">Use this to fine-tune the position and definition of your shadow. See <a href="#LightBias">Shadow mapping and the Bias property</a>, below, for more information.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Normal Bias</strong></td>
+<td style="text-align:left">Use this to fine-tune the position and definition of your shadow. See <a href="#LightBias">Shadow mapping and the Bias property</a>, below, for more information.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shadow Near Plane</strong></td>
+<td style="text-align:left">This allows you to choose the value for the near plane when rendering shadows. GameObjects closer than this distance to the light do not cast any shadows.</td>
+</tr>
+</tbody>
+</table>
+<p>Each <a href="class-MeshRenderer.html">Mesh Renderer</a> in the Scene also has a <strong>Cast Shadows</strong> and a <strong>Receive Shadows</strong> property, which must be enabled as appropriate.</p>
+<p><img src="../uploads/Main/ShadowCastMeshInspector.svg" alt=""></p>
+<p>Enable <strong>Cast Shadows</strong> by selecting <strong>On</strong> from the drop-down menu to enable or disable shadow casting for the mesh. Alternatively, select <strong>Two Sided</strong> to allow shadows to be cast by either side of the surface (so backface culling is ignored for shadow casting purposes), or <strong>Shadows Only</strong> to allow shadows to be cast by an invisible GameObject.</p>
+<p><a name="LightBias"></a></p>
+<h2 id="shadow-mapping-and-the-bias-property">Shadow mapping and the Bias property</h2>
+<p>The shadows for a given Light are determined during the final Scene rendering. When the Scene is rendered to the main Camera view, each pixel position in the view is transformed into the coordinate system of the Light. The distance of a pixel from the Light is then compared to the corresponding pixel in the shadow map. If the pixel is more distant than the shadow map pixel, then it is presumably obscured from the Light by another GameObject and it obtains no illumination.</p>
+<p><img src="../uploads/Main/ShadowBiasGood.jpg" alt="Correct shadowing"></p>
+<p>A surface directly illuminated by a Light sometimes appears to be partly in shadow. This is because pixels that should be exactly at the distance specified in the shadow map are sometimes calculated as being further away (this is a consequence of using shadow filtering, or a low-resolution image for the shadow map). The result is arbitrary patterns of pixels in shadow when they should really be lit, giving a visual effect known as &quot;shadow acne&quot;.</p>
+<p><img src="../uploads/Main/ShadowBiasAcne.jpg" alt="Shadow acne in the form of false self-shadowing artifacts"></p>
+<p>To prevent shadow acne, a <strong>Bias</strong> value can be added to the distance in the shadow map to ensure that pixels on the borderline definitely pass the comparison as they should, or to ensure that while rendering into the shadow map, GameObjects can be inset a little bit along their normals. These values are set by the <strong>Bias</strong> and <strong>Normal Bias</strong> properties in the <a href="class-Light.html">Light</a> Inspector window when shadows are enabled.</p>
+<p>Do not set the <strong>Bias</strong> value too high, because areas around a shadow near the GameObject casting it are sometimes falsely illuminated. This results in a disconnected shadow, making the GameObject look as if it is flying above the ground.</p>
+<p><img src="../uploads/Main/ShadowBiasPeterPanning.jpg" alt="A high __Bias__ value makes the shadow appear &quot;disconnected&quot; from the GameObject"></p>
+<p>Likewise, setting the <strong>Normal Bias</strong> value too high makes the shadow appear too narrow for the GameObject:</p>
+<p><img src="../uploads/Main/ShadowBiasTooThin.jpg" alt="A high __Normal Bias__ value makes the shadow shape too narrow"></p>
+<p>In some situations, <strong>Normal Bias</strong> can cause an unwanted effect called &quot;light bleeding&quot;, where light bleeds through from nearby geometry into areas that should be shadowed. A potential solution is to open the GameObject&#39;s <a href="class-MeshRenderer.html">Mesh Renderer</a> and change the <strong>Cast Shadows</strong> property  to <strong>Two Sided</strong>. This can sometimes help, although it can be more resource-instensive and increase performance overhead when rendering the Scene.</p>
+<p>The bias values for a Light may need tweaking to make sure that unwanted effects occur. It is generally easier to gauge the right value by eye rather than attempting to calculate it.</p>
+<p>To further prevent shadow acne we are using a technique known as <strong>Shadow pancaking</strong> (see <a href="DirLightShadows.html">Directional light shadows: Shadow pancaking</a>). This generally works well, but can create visual artifacts for very large triangles.</p>
+<p><img src="../uploads/Main/ShadowNearOffsetTooLow.jpg" alt="A low __Shadow near plane offset__ value create the appearance of holes in shadows"></p>
+<p>Tweak the <strong>Shadow Near Plane Offset</strong> property to troubleshoot this problem. Setting this value too high introduces shadow acne.</p>
+<p><img src="../uploads/Main/ShadowNearOffsetOk.jpg" alt="Correct shadowing"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

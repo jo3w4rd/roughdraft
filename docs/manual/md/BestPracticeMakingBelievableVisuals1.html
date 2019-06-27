@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Preparing Assets for Unity | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Preparing Assets for Unity | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="preparing-assets-for-unity">Preparing Assets for Unity</h1>
+
+<p>The first step is to get your Assets into a format suitable for what you want to do. It’s very important to set up a proper workflow from your 3D modeling application, such as Autodesk® 3ds Max®, Autodesk® Maya®, Blender, and Houdini, into Unity. When <a href="HOWTO-importObject.html">exporting assets from 3D modeling applications for import into Unity</a>, you need to consider:</p>
+<ul>
+<li><a href="#scale">Scale and units</a></li>
+<li><a href="#scaleModel">Point of reference scale model</a></li>
+<li><a href="#textures">Texture output and channels</a></li>
+<li><a href="#normalMap">Normal map direction</a></li>
+</ul>
+<p><a name="scale"></a></p>
+<h2 id="scale-and-units">Scale and units</h2>
+<p>Your project scale, and your preferred unit of measurement, play a very important role in a believable Scene. In many “real world” setups, we recommend you assume 1 Unity unit = 1 meter (100cm), because many physics systems assume this unit size. For more advice, see the <a href="HOWTO-ArtAssetBestPracticeGuide.html">Art Asset best practice guide</a>.</p>
+<p>To maintain consistency between your 3D modeling application and Unity, always validate the imported GameObject scale and size. 3D modeling applications have units and scale settings in the FBX export configuration (see the documentation for your 3D modelling software for configuration advice). Generally, the best way to match the scale when importing to Unity is to set these tools to work in centimeters, and export FBX at automatic scale. However, you should always check that the unit and scale settings match when starting a new project.</p>
+<p>To quickly validate your export settings, 
+In your 3D modeling application, create a simple 1x1x1m cube and import it into Unity.
+In Unity, create a default Cube (<strong>GameObject</strong> &gt; <strong>3D Object</strong> &gt; <strong>Cube</strong>). This is 1x1x1m. Use this as a scale reference to compare with your imported model. 
+These cubes should look identical when the Transform component’s <strong>Scale</strong> property is set to 1,1,1 in the Inspector:</p>
+<p><img src="../uploads/Main/BelievableVisuals1MeterCubeSample.jpg" alt="Scale comparison using cubes imported from Autodesk® Maya® and Autodesk® 3ds Max®, and a cube created in Unity"></p>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>Autodesk® Maya® and Autodesk® 3ds Max® can override your default unit, depending on the last opened file.</li>
+<li>3D modeling applications can display different units in the workspace to their internal unit settings, which might cause some confusion.</li>
+</ul>
+<p><img src="../uploads/Main/BelievableVisualsFBXExport.jpg" alt="Differing display and internal units in Autodesk® 3ds Max®"></p>
+<p><a name="scaleModel"></a></p>
+<h2 id="point-of-reference-scale-model">Point of reference scale model</h2>
+<p>When blocking out a Scene with placeholders or sketching geometry, having a point of reference scale model can be helpful. Choose a point of reference scale model that is appropriate for the Scene you’re making. In the Spotlight Tunnel Sample Scene case, we use a park bench:</p>
+<p><img src="../uploads/Main/BelievableVisualsBlockingOutScale.png" alt="Bench acting as a point of reference scale model"></p>
+<p>Your Scene doesn’t have to use exactly the same proportions as real life. Using a point of reference scale model simply allows consistencies of scale to be relative between GameObjects, even if the Scene is intended to have exaggerated proportions.</p>
+<p><a name="textures"></a></p>
+<h2 id="texture-output-and-channels">Texture output and channels</h2>
+<p>The information inside a texture needs to contain the correct information to give a proper result when added to a Material. Texture authoring software, such as Photoshop and Substance Painter, outputs consistent and predictable textures when you configure them correctly. </p>
+<p>Here’s an example of a pre-set configuration for Substance Painter to output textures for use with a Unity Standard Opaque material:</p>
+<p><img src="../uploads/Main/BelievableVisualsSubstancePainter_OutputTexture.png" alt=""></p>
+<p>The texture assignment in the Unity Standard Material is:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Output maps for export</strong></th>
+<th style="text-align:left"><strong>Assignment in Unity Standard Shader Material</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">$textureSet_Albedo</td>
+<td style="text-align:left">Assigned to Albedo.</td>
+</tr>
+<tr>
+<td style="text-align:left">$textureSet_MetallicAOGloss</td>
+<td style="text-align:left">Assigned to Metallic and Occlusion.Smoothness Source set to Metallic Alpha.</td>
+</tr>
+<tr>
+<td style="text-align:left">$textureSet_Normal</td>
+<td style="text-align:left">Assigned to Normal Map Slot.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: Packing multiple channels to a single texture, such as the MetallicAOGloss, saves texture memory compared to exporting Ambient Occlusion (AO) as a separate texture. This is the best way of working with a Unity Standard Material.</p>
+<p>When creating textures, it’s important not to mix up the alpha channel. The example below shows how transparency in a PNG file can be confusing to author in Photoshop because of the way Photoshop deals with a PNG alpha channel (without using an external plugin). In this case, an uncompressed 32-bit TGA with a dedicated alpha channel might be a better option, assuming the source texture file size is not an issue:</p>
+<p><img src="../uploads/Main/BelievableVisualsTransparentPNG.jpg" alt=""></p>
+<p>The transparent PNG file shown above was created in Photoshop with its alpha channel coming through as a black value. The TGA with a dedicated alpha channel shows the expected value. As you can see above, when each texture assigned to the Standard Shader material reads smoothness data from the alpha channel, the smoothness of the material with PNG textures is unexpectedly inverted, while the smoothness of the material with TGA textures is normal.</p>
+<p><a name="normalMap"></a></p>
+<h2 id="normal-map-direction">Normal map direction</h2>
+<p>Unity reads tangent space normal maps with the following interpretation:</p>
+<ul>
+<li>Red channel X+ as <strong>Right</strong></li>
+<li>Green channel Y+ as <strong>Up</strong></li>
+</ul>
+<p>For example, a Autodesk® 3ds Max® <strong>Render to Texture</strong> normal map outputs the Green Channel Y+ as <strong>Down</strong> by default. This causes an inverted surface direction along the Y axis and creates invalid results when lit. To validate the normal map direction, create a simple plane with concave bevel (middle picture on the example below) and bake it to a flat plane. Then assign the baked normal map into a plane in Unity with identifiable light direction and see if any of the axes are inverted.</p>
+<p><img src="../uploads/Main/BelievableVisualsNormalMaps.jpg" alt="Invalid and valid normal map comparison based on Red and Green channel output"></p>
+<p>For advice on axis settings, refer to your 3D modelling application’s documentation.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

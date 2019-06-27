@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Universal Windows Platform: Debugging on .NET Scripting Backend | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Universal Windows Platform: Debugging on .NET Scripting Backend | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="universal-windows-platform-debugging-on-net-scripting-backend">Universal Windows Platform: Debugging on .NET Scripting Backend</h1>
+
+<p>When you have a crash, or a weird behavior, always check the player log which is located here - <strong>&lt;user&gt;\AppData\Local\Packages&lt;productname&gt;\TempState\UnityPlayer.log</strong>. When submitting a bug, please include the player log as well, it can give invaluable information.</p>
+<p>Currently it&#39;s only possible to debug C# scripts.</p>
+<p><strong>Note</strong>: Universal Windows Platform are running with Microsoft .NET, that&#39;s why it&#39;s not possible to debug scripts with MonoDevelop, instead you have to use Visual Studio 2013.</p>
+<p>Here are simple steps how to do it:</p>
+<ul>
+<li>When building to Universal Windows Platform, check <strong>Unity C# projects</strong></li>
+<li><img src="../uploads/Main/WSADebugging1.png" alt=""> </li>
+<li>This will create Assembly-CSharp-* projects compatible with Universal Windows Apps</li>
+<li><strong>Note</strong>: if previously <strong>Unity C# projects</strong> was unchecked, build to empty folder or delete *.sln and *.csproj, because Unity needs to add references to those files, but if they&#39;ll be present - Unity won&#39;t overwrite them</li>
+<li>Open the solution, you should see Assembly-CSharp-* projects included</li>
+<li>Place breakpoints in places of interest, and simply start application with the debugger</li>
+<li><img src="../uploads/Main/WSADebugging2.png" alt=""> </li>
+</ul>
+<h3 id="exceptions">Exceptions</h3>
+<p>When you run the application, you can tell Visual Studio to stop during exception. Go to <strong>Debug</strong> -&gt; <strong>Exceptions</strong>:</p>
+<ul>
+<li>Enable Common Language Runtime Exceptions and Managed Debugging Assistants - for managed exceptions</li>
+<li>Enable all exceptions if you&#39;re getting exception in some unknown place</li>
+</ul>
+<p><strong>Note</strong>: enabling all exceptions will make Visual Studio to stop even at the harmless exceptions like <strong>WinRT originate error</strong>, <strong>WinRT transform error</strong>, ignore those and simply continue</p>
+<h3 id="resolving-callstack-from-unityplayerdll">Resolving callstack from UnityPlayer.dll</h3>
+<p>There will be cases when you&#39;ll have a crash in Unity engine itself, you can get useful information if you&#39;re able to resolve the callstack, and provide it in the bug report if needed.</p>
+<p><strong>Note</strong>: Callstacks from Unity engine can be resolved if *.pdb files are available, Unity provides *.pdb files for Debug configuration.</p>
+<p>Suppose you&#39;ve encountered a crash in Unity engine and hit the breakpoint (<strong>Note</strong>: Visual Studio can stop at the crash if you enable all exceptions via <strong>Debug</strong> -&gt; <strong>Exceptions</strong> menu), go to <strong>Debug</strong> -&gt; <strong>Windows</strong> -&gt; <strong>Call Stack</strong>, Call Stack window should open up, if you don&#39;t see function names from UnityPlayer.dll, that means the symbols weren&#39;t loaded, to fix that, right click on that function and Load Symbols, UnityPlayer.pdb file will be located in [PathToYourProject]&gt;\Players\[Windows80 or Windows81]\[X86 or ARM or X64]\debug.</p>
+<p><img src="../uploads/Main/WSADebugging3.png" alt=""> </p>
+<h3 id="microsoft-windows-twinui">Microsoft-Windows-TWinUI</h3>
+<p>This is a log which might provide information why your application didn&#39;t launch without debugger, it can be found in:</p>
+<p><strong>Control Panel</strong> -&gt; <strong>Administrative Tools</strong> -&gt; <strong>Event Viewer</strong> -&gt; <strong>Applications And Services Log</strong> -&gt; <strong>Microsoft</strong> -&gt; <strong>Windows</strong> -&gt; <strong>Apps</strong> -&gt; <strong>Microsoft-Windows-TWinUI/Operational</strong></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

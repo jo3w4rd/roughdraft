@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Windows Debugging | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Windows Debugging | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="windows-debugging">Windows Debugging</h1>
+
+<p>Unity provides some facilities to ease the debugging on Windows for forensic or live debugging of game or editor processes.</p>
+<h3 id="native-vs-managed-debugging">Native vs. Managed Debugging</h3>
+<p>First, clarity regarding debugging. There are two types of debugging that need addressing within Unity. There is the native C++ debugging as well as the C# managed debugging. For platforms supporting IL2CPP, there will be only native debugging, but managed debugging will stay for the editor for fast iteration purposes.</p>
+<h4 id="native-debugging">Native Debugging</h4>
+<p>Native Debugging is facilitated by having symbols (pdb files) for the associated binary files (exe or dll).</p>
+<h4 id="managed-debugging">Managed Debugging</h4>
+<p>On Windows, the standard .NET managed symbols are stored in pdb files as well, however when using mono, there are mdb files.</p>
+<h3 id="symbols">Symbols</h3>
+<p>Unity provides a symbol store at <a href="http://symbolserver.unity3d.com/">http://symbolserver.unity3d.com/</a> . This server URL can be utilized in windbg or VS2012 and later for automatic symbol resolution and downloading (much like Microsoft&#39;s symbol store). </p>
+<h4 id="windbg-setup">Windbg Setup</h4>
+<p>The easy way to add a symbol store on windbg is the .sympath command.  </p>
+<blockquote><p><code>.sympath+ SRV*c:\symbols-cache*http://symbolserver.unity3d.com/</code>  </p>
+</blockquote>
+<p>Let&#39;s break that down:</p>
+<blockquote><p><code>.sympath+</code><br>The + addition, leaves the existing symbol path alone, and appends this symbol store lookup</p>
+<p><code>SRV*c:\symbols-cache</code><br>The SRV indicates a remote server to fetch from, while the c:\symbols is a local path to cache the downloaded symbols and to look there first before downloading again.</p>
+<p><code>*http://symbolserver.unity3d.com/</code><br>The path to the symbol store to fetch from</p>
+</blockquote>
+<h4 id="visual-studio-setup">Visual Studio Setup</h4>
+<p><strong>Note:</strong> VS2010 and earlier do not function with http server symbol stores.  </p>
+<ol>
+<li>Go to Tools -&gt; Options  </li>
+<li>Expand the Debugging Section, select Symbols  </li>
+<li>Specify a cache directory (if not already specified)  </li>
+<li>Add a &quot;Symbol file (.pdb) location&quot; of <a href="http://symbolserver.unity3d.com/">http://symbolserver.unity3d.com/</a></li>
+</ol>
+<h3 id="live-debugging">Live Debugging</h3>
+<p>Live Debugging is the scenario of attaching a debugger to a process that is running normally, or to a process where an exception that has been caught. In order for the debugger to know what&#39;s going on, the symbols need to be included in the build. That&#39;s what the steps above should address. The one additional thing to know is that the game executable is named according to your game name, so the debugger may have issues finding the correct pdb if it doesn&#39;t have access to your renamed executable.</p>
+<h4 id="setting-up-automatic-exception-debugging">Setting up automatic exception debugging</h4>
+<p>On Windows, Microsoft sets up automatically on application crashes to go to Dr Watson/Error Reporting to Microsoft. However, if you have Visual Studio or windbg installed, Microsoft provides a facility to savvy developers to instead opt to <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb204634(v=vs.85).aspx">debug the crashes</a>.<br>For ease of installing, here&#39;s a registry file contents to install:  </p>
+<pre><code>Windows Registry Editor Version 5.00
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug]
+&quot;Auto&quot;=&quot;1&quot;
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\AeDebug]
+ &quot;Auto&quot;=&quot;1&quot;
+</code></pre><p>A little extra for editor debugging:</p>
+<blockquote><p><code>Unity.exe -dbgbreak</code><br>Will launch Unity and immediately offer a debugger to connect if the automatic crash handling is set up</p>
+</blockquote>
+<h3 id="post-mortemforensic-debugging">Post-Mortem/Forensic Debugging</h3>
+<p>Windows provides facilities to investigate crash dump files (.dmp or .mdmp). Depending on the type of crash dump, there may simply be stack information or perhaps the entire process memory. Depending on the contents, various possibilities exist in seeing what may have happened to cause a crash. In the usual case, you often at least have a stack to investigate (if it&#39;s a valid stack...)</p>
+<p>To investigate a dump file, your options are to load up via Visual Studio or windbg. While Visual Studio is a more friendly tool to use, its power is a bit more limited than windbg.</p>
+<h3 id="debugging-hints-and-tricks">Debugging Hints and Tricks</h3>
+<h4 id="managed-exceptions-in-native-land">Managed exceptions in native land</h4>
+<p>A NullReferenceException will often look like this:</p>
+<pre><code>    1b45558c()  
+&gt;   mono.dll!malloc(unsigned int size=12)  Line 163 + 0x5f bytes    C  
+    mono.dll!g_hash_table_insert_replace(_GHashTable * hash=0x065c3960, void * key=0x0018cba4, void * value=0x0018cb8c, int replace=457528232)  Line 204 + 0x7 bytes    C  
+    mono.dll!mono_jit_runtime_invoke(_MonoMethod * method=0x242bf8b0, void * obj=0x065c3960, void ** params=0x0018cba4, MonoObject * * exc=0x0018cb8c)  Line 4889 + 0xc bytes   C  
+</code></pre><p>This is not a crash in malloc, nor in mono - it&#39;s a NullReferenceException that&#39;s either:  </p>
+<ul>
+<li>Caught by the VS debugger</li>
+<li>Unhandled in a user&#39;s player, causing the player to exit</li>
+</ul>
+<h4 id="viewing-managed-stack-frames">Viewing managed stack frames</h4>
+<p>With the previous example again:  </p>
+<pre><code>    1b45558c()  
+&gt;   mono.dll!malloc(unsigned int size=12)  Line 163 + 0x5f bytes    C  
+    mono.dll!g_hash_table_insert_replace(_GHashTable * hash=0x065c3960, void * key=0x0018cba4, void * value=0x0018cb8c, int replace=457528232)  Line 204 + 0x7 bytes    C  
+    mono.dll!mono_jit_runtime_invoke(_MonoMethod * method=0x242bf8b0, void * obj=0x065c3960, void ** params=0x0018cba4, MonoObject * * exc=0x0018cb8c)  Line 4889 + 0xc bytes   C  
+</code></pre><p>The lines without any information are managed frames. There is, however, a way to get the managed stack information: mono has a builtin function called mono_pmip, which accepts the address of a stack frame and returns a char* with information. You can invoke mono_pmip in the Visual Studio immediate window:</p>
+<blockquote><p><code>?(char*)mono.dll!mono_pmip((void*)0x1b45558c)</code><br>0x26a296c0 &quot; Tiles:OnPostRender () + 0x1e4 (1B4553A8 1B4555DC) [065C6BD0 - Unity Child Domain]&quot;`</p>
+</blockquote>
+<p><strong>Note:</strong> This only works where mono.dll symbols are properly loaded.</p>
+<h4 id="force-applications-to-create-dumps">Force Applications to Create Dumps</h4>
+<p>Sometimes there are cases where the application doesn&#39;t crash with the debugger attached, or an application crashes on a remote device where the debugger is not available. However, you can still get useful information if you can get the dump file - follow the below steps in order to do so.</p>
+<p><strong>Note:</strong> These instructions are for Windows Standalone and Universal Windows Platform (when running on desktop).</p>
+<ul>
+<li>Open the registry.</li>
+<li>Navigate to HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting</li>
+<li>Create LocalDumps folder if it&#39;s not there.</li>
+<li>Add following keys:<ul>
+<li>&quot;DumpFolder&quot;=&lt;FolderPath goes here&gt; , for example, C:\Temp</li>
+<li>&quot;DumpCount&quot;=dword:00000010</li>
+<li>&quot;DumpType&quot;=dword:00000002</li>
+</ul>
+</li>
+<li>Launch the application (it can be anything that runs on Windows - Universal Windows Platform or Windows Standalone Executable)</li>
+<li>Reproduce the crash, the dump file should be created in your specified folder. You can either open the dump file with Visual Studio or WinDbg.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

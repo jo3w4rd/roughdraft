@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Humanoid Asset preparation | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Humanoid Asset preparation | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="humanoid-asset-preparation">Humanoid Asset preparation</h1>
+
+<p>In order to take full advantage of Unity&#39;s humanoid animation system and retargeting, you need to have a <strong>rigged</strong> and <strong>skinned</strong> humanoid type mesh.</p>
+<ol>
+<li><p>A character <strong>Model</strong> generally consists of polygons in 3D modeling software or converted to polygon or triangulated mesh, from a more complex mesh type before export.</p>
+</li>
+<li><p>In order to control the movement of a character, you must create a <strong>joint hierarchy</strong> or <strong>skeleton</strong> which defines the bones inside the Mesh and their movement in relation to one another. The process for creating such a joint hierarchy is known as <strong>rigging</strong>.</p>
+</li>
+<li><p>You must then connect the mesh or <em>skin</em> to the joint hierarchy. This defines which parts of the character mesh move when a given joint is animated. The process of connecting the skeleton to the mesh is known as <strong>skinning</strong>.</p>
+</li>
+</ol>
+<p><img src="../uploads/Main/Char200.png" alt="Stages for preparing a character (modeling, rigging, and skinning)"> </p>
+<h2 id="how-to-obtain-humanoid-models">How to obtain humanoid models</h2>
+<p>There are three main ways to obtain humanoid models to use in the Unity Animation system:</p>
+<ul>
+<li><p>Use a procedural character system or character generator such as <em>Poser</em>, <em>Makehuman</em> or <a href="http://www.mixamo.com/"><em>Mixamo</em></a>. Some of these systems can rig and skin your mesh (like Mixamo) while others cannot. Furthermore, if you use these methods, you may need to reduce the number of polygons in your original mesh to make it suitable for use in Unity.</p>
+</li>
+<li><p>Purchase demo examples and character content from the <a href="http://unity3d.com/unity/asset-store/">Unity Asset Store</a>.</p>
+</li>
+<li><p>You can also prepare your own character from scratch by following three steps: <a href="#Modeling">modeling</a>, <a href="#Rigging">rigging</a> and <a href="#Skinning">skinning</a>.</p>
+</li>
+</ul>
+<p><a name="Modeling"></a></p>
+<h3 id="modeling">Modeling</h3>
+<p>This is the process of creating your own humanoid <a href="class-Mesh.html">Mesh</a> in 3D modeling software (such as Autodesk® 3ds Max®, Autodesk® Maya®, or Blender). Although this is a whole subject in its own right, there are a few guidelines you can follow to ensure a Model works well with animation in a Unity Project:</p>
+<ul>
+<li><p>Use a topology with a <strong>well-formed structure</strong>. The exact nature of a &quot;well-formed&quot; structure for your Mesh is rather subtle but generally, you should bear in mind how the vertices and triangles of the model are distorted as it is animated. A poor topology does not allow the Model to move without distorting the Mesh. Study existing 3D character Meshes to see how the topology is arranged and why.</p>
+</li>
+<li><p>Check the <strong>scale</strong> of your mesh. Do a test import and compare the size of your imported Model with a &quot;meter cube&quot;. The standard Unity cube primitive has a side length of one unit, so it can be taken as a 1m cube for most purposes. Check the units your 3D modeling software uses and adjust the export settings so that the size of the Model is in correct proportion to the cube. It is easy to create models without any notion of their scale and consequently end up with a set of objects that are disproportionate in size when you imported them into Unity.</p>
+</li>
+<li><p>Arrange the mesh so that the character&#39;s feet are standing on the local origin or &quot;anchor point&quot; of the model. Since a character typically walks upright on a floor, it is much easier to handle if its anchor point (that is, its transform position) is directly on that floor.</p>
+</li>
+<li><p>Model in a <strong>T-pose</strong> if possible. This gives you space to refine polygon detail where you need it (such as the underarms). This also makes it easier to position your rig inside the Mesh.</p>
+</li>
+<li><p>While you are building, <strong>clean up your Model</strong>. Where possible, cap holes, weld verts, and remove hidden faces. This helps with skinning, especially automated skinning processes.</p>
+</li>
+</ul>
+<p><img src="../uploads/Main/SkinMesh256.png" alt="Skin Mesh, textured and triangulated"> </p>
+<p><a name="Rigging"></a></p>
+<h3 id="rigging">Rigging</h3>
+<p>This is the process of creating a skeleton of joints to control the movements of your Model.</p>
+<p>3D modeling software provides a number of ways to create joints for your humanoid rig. These range from ready-made biped skeletons that you can scale to fit your Mesh, right through to tools for individual bone creation and parenting to create your own bone structure. To work with animation in Unity, make sure they are the root element of the bone hierarchy. A minimum of fifteen bones are required in the skeleton.</p>
+<p>Your skeleton needs to have at least the required bones in place for Unity to <a href="class-Avatar.html">produce a valid match</a>. In order to improve your chances for finding a match to the Avatar, name your bones in a way that reflects the body parts they represent. For example, &quot;LeftArm&quot; and &quot;RightForearm&quot; make it clear what these bones control. </p>
+<p>The joint/bone hierachy should follow a natural structure for the character you are creating. Given that arms and legs come in pairs, you should use a consistent convention for naming them (for example, &quot;arm_L&quot; for the left arm, &quot;arm_R&quot; for the right arm). Possible structures for the hierarchy include:</p>
+<pre><code>* HIPS - spine - chest - shoulders - arm - forearm - hand
+* HIPS - spine - chest - neck - head
+* HIPS - UpLeg - Leg - foot - toe - toe_end
+</code></pre><p><img src="../uploads/Main/Skeleton256.png" alt="Biped Skeleton, positioned in T-pose"> </p>
+<p><a name="Skinning"></a></p>
+<h3 id="skinning">Skinning</h3>
+<p>This is the process of attaching the Mesh to the skeleton.</p>
+<p>Skinning involves binding vertices in your Mesh to bones, either directly (rigid bind) or with blended influence to a number of bones (soft bind). Different 3D modeling software uses different methods. for example, you can assign individual vertices and paint the weighting of influence per bone onto the Mesh. The initial setup is typically automated, say by finding the nearest influence or using &quot;heatmaps&quot;. Skinning usually requires a fair amount of work and testing with animations in order to ensure satisfactory results for the skin deformation. Some general guidelines for this process include:</p>
+<ul>
+<li><p>Use an automated process initially to set up some of the skinning (see the skinning tutorials available for your 3D modeling software).</p>
+</li>
+<li><p>Create a simple animation for your rig or import some animation data to act as a test for the skinning. This should give you a quick way to evaluate whether or not the skinning looks good in motion.</p>
+</li>
+<li><p>Incrementally edit and refine your skinning solution.</p>
+</li>
+<li><p>Limit the number of influences when using a soft bind to a maximum of four, since this is the maximum number that Unity supports. If your Mesh uses more than four influences, then you lose some information when playing the animation in Unity.</p>
+</li>
+</ul>
+<p><img src="../uploads/Main/Skinning256.png" alt="Interactive Skin Bind, one of many skinning methods"> </p>
+<h2 id="export-and-verify">Export and verify</h2>
+<p>Unity imports a number of different generic and native 3D file formats. FBX is the recommended format for exporting and verifying your Model since you can use it to:</p>
+<ul>
+<li>Export the Mesh with the skeleton hierarchy, normals, textures and animation.</li>
+<li>Re-import the Mesh into your 3D modeling software to verify your animated Model looks as expected.</li>
+<li>Export animations without the Mesh.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

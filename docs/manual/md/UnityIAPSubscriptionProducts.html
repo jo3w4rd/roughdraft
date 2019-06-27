@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Subscription Product support | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Subscription Product support | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="subscription-product-support">Subscription Product support</h1>
+
+<p>Unity IAP supports Product subscription information queries through the <code>SubscriptionManager</code> class. For example code, please review the <em>IAPDemo.cs</em> script included in the Unity IAP SDK 1.19+.</p>
+<h3 id="subscriptionmanager-class-methods">SubscriptionManager class methods</h3>
+<p>This class supports the Apple store and Google Play store. For Google Play, this class only supports Products purchased using IAP SDK 1.19+.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Method</strong></th>
+<th style="text-align:left"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>public SubscriptionInfo getSubscriptionInfo()</code></td>
+<td style="text-align:left">Returns a <code>SubscriptionInfo</code> object (see below)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="subscriptioninfo-class-methods">SubscriptionInfo class methods</h3>
+<p>The <code>SubscriptionInfo</code> class is a container for a Product’s subscription-related information.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Method</strong></th>
+<th style="text-align:left"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>public string getProductId()</code></td>
+<td style="text-align:left">Returns a Product’s store ID.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public DateTime getPurchaseDate()</code></td>
+<td style="text-align:left">Returns the Product’s purchase date.<br> For Apple, the purchase date is the date when the subscription was either purchased or renewed. For Google, the purchase date is the date when the subscription was originally purchased.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public Result isSubscribed()</code></td>
+<td style="text-align:left">Returns a <code>Result</code> enum to indicate whether this Product is currently subscribed or not. <br> Non-renewable Products in the Apple store return a <code>Result.Unsupported</code> value. Auto-renewable Products in the Apple store and subscription products in the Google Play store return a <code>Result.True</code> or <code>Result.False</code> value.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public Result isExpired()</code></td>
+<td style="text-align:left">Returns a Result enum to indicate whether this Product has expired or not.<br> * Non-renewable Products in the Apple store return a <code>Result.Unsupported</code> value.<br> * Auto-renewable Products in the Apple store and subscription products in the Google Play store return a <code>Result.True</code> or <code>Result.False</code> value.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public Result isCancelled()</code></td>
+<td style="text-align:left">Returns a <code>Result</code> enum to indicate whether this Product has been cancelled. A cancelled subscription means the Product is currently subscribed, but will not renew on the next billing date.<br> Non-renewable Products in the Apple store return a <code>Result.Unsupported</code> value. Auto-renewable Products in the Apple store and subscription products in the Google Play store return a <code>Result.True</code> or <code>Result.False</code> value.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public Result isFreeTrial()</code></td>
+<td style="text-align:left">Returns a <code>Result</code> enum to indicate whether this Product is a free trial. <br> * Products in the Google Play store return Result.Unsupported if the application does not support version 6+ of the Android in-app billing API. <br> Non-renewable Products in the Apple store return a <code>Result.Unsupported</code> value. Auto-renewable Products in the Apple store and subscription products in the Google Play store return a <code>Result.True</code> or <code>Result.False</code> value.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public Result isAutoRenewing()</code></td>
+<td style="text-align:left">Returns a <code>Result</code> enum to indicate whether this Product is auto-renewable.<br> Non-renewable Products in the Apple store return a <code>Result.Unsupported</code> value. Auto-renewable Products in the Apple store and subscription products in the Google Play store return a <code>Result.True</code> or <code>Result.False</code> value.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public TimeSpan getRemainingTime()</code></td>
+<td style="text-align:left">Returns a <code>TimeSpan</code> to indicate how much time remains until the next billing date. <br> Products in the Google Play store return <code>TimeSpan.MaxValue</code> if the application does not support version 6+ of the Android in-app billing API.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public Result isIntroductoryPricePeriod()</code></td>
+<td style="text-align:left">Returns a <code>Result</code> enum to indicate whether this Product is within an introductory price period.<br> On-renewable Products in the Apple store return a <code>Result.Unsupported</code> value. Auto-renewable Products in the Apple store and subscription products in the Google Play store return a <code>Result.True</code> or <code>Result.False</code> value. Products in the Google Play store return Result. Unsupported if the application does not support version 6+ of the Android in-app billing API.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public TimeSpan getIntroductoryPricePeriod()</code></td>
+<td style="text-align:left">Returns a <code>TimeSpan</code> to indicate how much time remains for the introductory price period.<br> Subscription products with no introductory price period return <code>TimeSpan.Zero</code>. Products in the Apple store return TimeSpan.Zero if the application does not support iOS version 11.2+, macOS 10.13.2+, or tvOS 11.2+.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public long getIntroductoryPricePeriodCycles()</code></td>
+<td style="text-align:left">Returns the number of introductory price periods that can be applied to this Product.<br>Products in the Apple store return 0 if the application does not support iOS version 11.2+, macOS 10.13.2+, or tvOS 11.2+.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public string getIntroductoryPrice()</code></td>
+<td style="text-align:left">Returns a string to indicate the introductory price of the Product.<br>Products with no introductory price return a <code>&quot;not available&quot;</code> value. Apple store Products with an introductory price return a value formatted as <code>“0.99USD”</code>. Google Play Products with an introductory price return a value formatted as <code>“$0.99”</code>. Products in the Apple store return <code>“not available”</code> if the application does not support iOS version 11.2+, macOS 10.13.2+, or tvOS 11.2+.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>public DateTime getExpireDate()</code></td>
+<td style="text-align:left">Returns the date of the Product’s next auto-renew or expiration (for a cancelled auto-renewing subscription).<br>Products in the Google Play store return TimeSpan.MaxValue if the application does not support version 6+ of the Android in-app billing API.</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

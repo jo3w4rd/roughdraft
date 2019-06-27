@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>WebGL: Interacting with browser scripting | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="WebGL: Interacting with browser scripting | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="webgl-interacting-with-browser-scripting">WebGL: Interacting with browser scripting</h1>
+
+<p>When building content for the web, you might need to communicate with other elements on your web page. Or you might want to implement functionality using Web APIs which Unity does not currently expose by default. In both cases, you need to directly interface with the browser’s JavaScript engine. Unity WebGL provides different methods to do this.</p>
+<h2 id="calling-javascript-functions-from-unity-scripts">Calling JavaScript functions from Unity scripts</h2>
+<p>The recommended way of using browser JavaScript in your project is to add your JavaScript sources to your project, and then call those functions directly from your script code. To do so, place files with JavaScript code using the .jslib extension under a &quot;Plugins&quot; subfolder in your Assets folder. The plugin file needs to have a syntax like this:</p>
+<pre><code>mergeInto(LibraryManager.library, {
+
+  Hello: function () {
+    window.alert(&quot;Hello, world!&quot;);
+  },
+
+  HelloString: function (str) {
+    window.alert(Pointer_stringify(str));
+  },
+
+  PrintFloatArray: function (array, size) {
+    for(var i = 0; i &lt; size; i++)
+    console.log(HEAPF32[(array &gt;&gt; 2) + i]);
+  },
+
+  AddNumbers: function (x, y) {
+    return x + y;
+  },
+
+  StringReturnValueFunction: function () {
+    var returnStr = &quot;bla&quot;;
+    var bufferSize = lengthBytesUTF8(returnStr) + 1;
+    var buffer = _malloc(bufferSize);
+    stringToUTF8(returnStr, buffer, bufferSize);
+    return buffer;
+  },
+
+  BindWebGLTexture: function (texture) {
+    GLctx.bindTexture(GLctx.TEXTURE_2D, GL.textures[texture]);
+  },
+
+});
+</code></pre><p>Then you can call these functions from your C# scripts like this:</p>
+<pre><code>using UnityEngine;
+using System.Runtime.InteropServices;
+
+public class NewBehaviourScript : MonoBehaviour {
+
+    [DllImport(&quot;__Internal&quot;)]
+    private static extern void Hello();
+
+    [DllImport(&quot;__Internal&quot;)]
+    private static extern void HelloString(string str);
+
+    [DllImport(&quot;__Internal&quot;)]
+    private static extern void PrintFloatArray(float[] array, int size);
+
+    [DllImport(&quot;__Internal&quot;)]
+    private static extern int AddNumbers(int x, int y);
+
+    [DllImport(&quot;__Internal&quot;)]
+    private static extern string StringReturnValueFunction();
+
+    [DllImport(&quot;__Internal&quot;)]
+    private static extern void BindWebGLTexture(int texture);
+
+    void Start() {
+        Hello();
+
+        HelloString(&quot;This is a string.&quot;);
+
+        float[] myArray = new float[10];
+        PrintFloatArray(myArray, myArray.Length);
+
+        int result = AddNumbers(5, 7);
+        Debug.Log(result);
+
+        Debug.Log(StringReturnValueFunction());
+
+        var texture = new Texture2D(0, 0, TextureFormat.ARGB32, false);
+        BindWebGLTexture(texture.GetNativeTextureID());
+    }
+}
+</code></pre><p>Simple numeric types can be passed to JavaScript in function parameters without requiring any conversion. Other data types will be passed as a pointer in the emscripten heap (which is really just a big array in JavaScript). For strings, you can use the <code>Pointer_stringify</code> helper function to convert to a JavaScript string. To return a string value you need to call <code>_malloc</code> to allocate some memory and the  <code>stringToUTF8</code> helper function to write a JavaScript string to it. If the string is a return value, then the il2cpp runtime will take care of freeing the memory for you. For arrays of primitive types, <code>emscripten</code> provides different <code>ArrayBufferViews</code> into it’s heap for different sizes of integer, unsigned integer or floating point representations of memory: <strong>HEAP8, HEAPU8, HEAP16, HEAPU16, HEAP32, HEAPU32, HEAPF32, HEAPF64</strong>. To access a texture in WebGL, emscripten provides the <code>GL.textures</code> array which maps native texture IDs from Unity to WebGL texture objects. WebGL functions can be called on emscripten’s WebGL context, <code>GLctx</code>.</p>
+<p>For more information on how to interact with JavaScript, refer to the <a href="https://kripken.github.io/emscripten-site/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html">emscripten documentation</a>.</p>
+<p>In addition, note that in the Unity installation folder there are several plugins that you can use as reference, in <code>PlaybackEngines/WebGLSupport/BuildTools/lib</code> and <code>PlaybackEngines/WebGLSupport/BuildTools/Emscripten/src/library*</code>.</p>
+<h3 id="legacy-ways-of-calling-javascript-code-from-unity">Legacy ways of calling JavaScript code from Unity</h3>
+<p><em>Note: Starting from Unity 5.6 the recommended way of calling JavaScript code from Unity is through a .jslib plugin. The method described below is only supported for compatibility reasons and might become deprecated in the future versions of Unity.</em></p>
+<p>You can use the <a href="ScriptRef:Application.ExternalCall.html">Application.ExternalCall()</a> and <a href="ScriptRef:Application.ExternalEval.html">Application.ExternalEval()</a> functions to invoke JavaScript code on the embedding web page. Note that expressions are evaluated in the local scope of the build. If you would like to execute JavaScript code in the global scope, see the <em>Code Visibility</em> section below.</p>
+<h2 id="calling-unity-scripts-functions-from-javascript">Calling Unity scripts functions from JavaScript</h2>
+<p>Sometimes you need to send some data or notification to the Unity script from the browser’s JavaScript. The recommended way of doing it is to call methods on GameObjects in your content. If you are making the call from a JavaScript plugin, embedded in your project, you can use the following code:</p>
+<p>  <code>SendMessage(objectName, methodName, value);</code></p>
+<p>Where __objectName __is the name of an object in your scene; __methodName __is the name of a method in the script, currently attached to that object; __value __can be a string, a number, or can be empty. For example:</p>
+<pre><code>SendMessage(&#39;MyGameObject&#39;, &#39;MyFunction&#39;);
+SendMessage(&#39;MyGameObject&#39;, &#39;MyFunction&#39;, 5);
+
+SendMessage(&#39;MyGameObject&#39;, &#39;MyFunction&#39;, &#39;MyString&#39;);
+</code></pre><p>If you would like to make a call from the global scope of the embedding page, see the <em>Code Visibility</em> section below.</p>
+<h2 id="calling-c-functions-from-unity-scripts">Calling C functions from Unity scripts</h2>
+<p>Unity compiles your sources into JavaScript from C/C++ code using emscripten, so you can also write plugins in C/C++ code, and call these functions from C#. So, instead of the jslib file in the example above, you could have a C/C++ file in your project - it will automatically get compiled with your scripts, and you can call functions from it, just like in the JavaScript example above.</p>
+<p>If you are using C++ (.cpp) to implement the plugin then you must ensure the functions are declared with C linkage to avoid name mangling issues:</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+extern &quot;C&quot; void Hello ()
+{
+    printf(&quot;Hello, world!\n&quot;);
+}
+
+extern &quot;C&quot; int AddNumbers (int x, int y)
+{
+    return x + y;
+}
+</code></pre><h3 id="code-visibility">Code visibility</h3>
+<p>Starting from Unity 5.6 all the build code is executed in its own scope. This approach makes it possible to embed your content on an arbitrary page without causing conflicts with the embedding page code, as well as makes it possible to embed more than one build on the same page.</p>
+<p>If you have all your JavaScript code in the form of <em>.jslib</em> plugins inside your project, then this JavaScript code will run inside the same scope as the compiled build and your code should work pretty much the same way as in previous versions of Unity (for example, the following objects and functions should be directly visible from the JavaScript plugin code: <em>Module, SendMessage, HEAP8, ccall etc.</em>).</p>
+<p>However, if you are planning to call the internal JavaScript functions from the global scope of the embedding page, you should always assume that there are multiple builds embedded on the page, so you should explicitly specify which build you are referencing to. For example, if the content has been instantiated as:</p>
+<p><code>var unityInstance = UnityLoader.instantiate(&quot;unityContainer&quot;, &quot;Build/build.json&quot;, {onProgress: UnityProgress});</code></p>
+<p>Then you can send a message to the build using <em>unityInstance.SendMessage()</em>, or access the build Module object using <em>unityInstance.Module</em>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Shadowmask | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Shadowmask | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="shadowmask">Shadowmask</h1>
+
+<p><strong>Shadowmask</strong> is a version of the <strong>Shadowmask</strong> lighting mode shared by all Mixed Lights in a Scene. To set Mixed lighting to <strong>Shadowmask</strong>:</p>
+<ul>
+<li>Open the Lighting window (menu: <strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Lighting Settings</strong>), click the <strong>Scene</strong> tab, navigate to <strong>Mixed Lighting</strong> and set the <strong>Lighting Mode</strong> to <strong>Shadowmask</strong>.</li>
+<li>Next, open the <strong>Quality</strong> settings (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Quality</strong> category), navigate to <strong>Shadowmask Mode</strong> and set it to <strong>Shadowmask</strong>.</li>
+</ul>
+<p>See documentation on <a href="LightMode-Mixed.html">Mixed lighting</a> to learn more about this lighting mode, and see documentation on <a href="LightModes.html">Light modes</a> to learn more about the other modes available.</p>
+<p>A shadow mask is a Texture that shares the same UV layout and resolution with its corresponding lightmap. It stores occlusion information for up to 4 lights per texel, because Textures are limited to up to 4 channels on current GPUs.</p>
+<p>Unity precomputes shadows cast from static GameObjects onto other static GameObjects, and stores them in a separate Shadowmask Texture for up to 4 overlapping lights. If more than 4 lights overlap, any additional lights fall back to <a href="LightMode-Baked.html">Baked Lighting</a>. Which of the lights fall back to <a href="LightMode-Baked.html">Baked Lighting</a> is determined by the baking system and stays consistent across bakes, unless one of the lights overlapping is modified. <a href="LightProbes.html">Light Probes</a> also receive the same information for up to 4 lights.</p>
+<p>Light overlapping is computed independently of shadow receiving objects. So, an object can get the influence of 10 different mixed lights all from the same Shadowmask/Probe channel, as long as those light bounding volumes don&#39;t overlap at any point in space. If some lights overlap then more channels are used. And, if a light does overlap while all 4 channels have already been assigned, that light will fallback to fully baked.</p>
+<p>In <strong>Shadowmask</strong> mode:</p>
+<ul>
+<li><p>Static GameObjects receive shadows from other static GameObjects via the shadow mask, regardless of the <strong>Shadow Distance</strong> (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Quality</strong> category, and navigate to the <strong>Shadows</strong> section). They also receive shadows from dynamic GameObjects, but only those within the <strong>Shadow Distance</strong>.</p>
+</li>
+<li><p>Dynamic GameObjects receive shadows from other dynamic GameObjects within the <strong>Shadow Distance</strong> via shadow maps. They also receive shadows from static GameObjects, via Light Probes. The shadow fidelity depends on the density of Light Probes in the Scene, and the <strong>Light Probes</strong> mode selected on the Mesh Renderer.</p>
+</li>
+</ul>
+<p>Unity automatically composites overlapping shadows from static and dynamic GameObjects, because shadow masks (which hold static GameObject lighting and shadow information) and shadow maps (which hold dynamic GameObject lighting and shadow information) only encode occlusion information.</p>
+<p>A good example of when <strong>Shadowmask</strong> mode might be useful is if you are building an almost fully static Scene, using specular Materials, soft baked shadows and a dynamic shadow caster, not too close to the camera. Another good example is an open-world Scene with baked shadows up to the horizon, but without dynamic lighting such as a day/night cycle.</p>
+<h2 id="shadows">Shadows</h2>
+<p>The following table shows how static and dynamic GameObjects cast and receive shadows when using <strong>Shadowmask</strong> mode:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"><strong>Dynamic receiver</strong><br> A dynamic GameObject that is receiving a shadow from another static or dynamic GameObject</th>
+<th style="text-align:left"></th>
+<th style="text-align:left"><strong>Static receiver</strong><br> A static GameObject that is receiving a shadow from another static or dynamic GameObject</th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left">Within Shadow Distance</td>
+<td style="text-align:left">Beyond Shadow Distance</td>
+<td style="text-align:left">Within Shadow Distance</td>
+<td style="text-align:left">Beyond Shadow Distance</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Dynamic caster</strong><br> A dynamic GameObject that is casting a shadow</td>
+<td style="text-align:left">Shadow map</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">Shadow map</td>
+<td style="text-align:left">-</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Static caster</strong><br> A static GameObject that is casting a shadow</td>
+<td style="text-align:left">Light Probes</td>
+<td style="text-align:left">Light Probes</td>
+<td style="text-align:left">Shadowmask</td>
+<td style="text-align:left">Shadowmask</td>
+</tr>
+</tbody>
+</table>
+<h2 id="advantages-and-disadvantages-of-shadowmask-mode">Advantages and disadvantages of Shadowmask mode</h2>
+<p>The performance requirements of <strong>Shadowmask</strong> mode make it a good option for building to low and mid-range PCs, and mobile devices. These are the most significant advantages and disadvantages of using <strong>Shadowmask</strong> mode:</p>
+<h3 id="advantages">Advantages</h3>
+<ul>
+<li><p>It offers the same visual effect as <a href="LightMode-Realtime.html">Realtime Lighting</a>.</p>
+</li>
+<li><p>It provides real-time shadows from dynamic GameObjects onto static GameObjects.</p>
+</li>
+<li><p>One Texture operation in the Shader handles all lighting and shadows between static GameObjects.</p>
+</li>
+<li><p>It automatically composites overlapping shadows from static and dynamic GameObjects.</p>
+</li>
+<li><p>It has mid-to-low performance requirements, because it does not render static GameObjects into shadow maps.</p>
+</li>
+<li><p>It provides indirect lighting.</p>
+</li>
+</ul>
+<h3 id="disadvantages">Disadvantages</h3>
+<ul>
+<li><p>It only provides low-resolution shadows from static GameObjects onto dynamic GameObjects, via Light Probes.</p>
+</li>
+<li><p>It only allows up to 4 overlapping light volumes (see documentation under the ‘Technical details’ section of <a href="LightMode-Mixed.html">Mixed Lighting</a> for more information).</p>
+</li>
+<li><p>It has increased memory requirements for the light map Texture set.</p>
+</li>
+<li><p>It has increased memory requirements for the shadow mask Texture.</p>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

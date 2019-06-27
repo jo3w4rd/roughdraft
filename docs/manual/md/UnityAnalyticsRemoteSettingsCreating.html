@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Creating and changing Remote Settings | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Creating and changing Remote Settings | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="creating-and-changing-remote-settings">Creating and changing Remote Settings</h1>
+
+<p>Before using Remote Settings, you must first enable <a href="SettingUpProjectServices.html">Unity Services</a> and the <a href="UnityAnalyticsOverview.html">Unity Analytics Service</a> for your Unity project. Once you have enabled Analytics, open the Analytics dashboard and go to the <strong>Remote Settings</strong> page to create and change the Remote Settings values. See <a href="UnityAnalyticsRemoteSettingsUsing.html">Using Remote Settings in a Unity project</a> to learn how to access these Remote Settings values in your game or application.</p>
+<p>The Analytics Service provides two Remote Settings configurations:</p>
+<ol>
+<li><p>The Analytics Service sends Release configuration settings to computers and devices running regular, non-development builds of your application.</p>
+</li>
+<li><p>The Analytics Service sends Development configuration settings to computers and devices running development builds (that is, builds created with the Development Build flag checked on the <a href="BuildSettings.html">Build Settings window</a>). Play mode in the Unity Editor counts as a development build.</p>
+</li>
+</ol>
+<p><img src="../uploads/Main/AnalyticsRemoteSettingsTab.png" alt="The Remote Settings page on the Analytics dashboard for a game called Raging Bots"></p>
+<p>Each Remote Setting consists of a key, a default value, and, optionally, segmented values. When a setting contains segmented values, the segments that the current player is in determine which values are included in the configuration. If more than one segment applies, the configuration includes the value from the highest priority segment.</p>
+<p>You can create 200 values per configuration. A setting with one segment, uses one value; a setting with two segments uses two; and so on.</p>
+<h2 id="setting-names-and-value-rules">Setting names and value rules</h2>
+<p>An individual remote setting is a key-value pair. The rules for key names are:</p>
+<ul>
+<li><p>Key names must be unique within the same configuration.</p>
+</li>
+<li><p>Key names must start with a letter.</p>
+</li>
+<li><p>Key names may contain only letters, digits, and the characters: &quot;.&quot;, &quot;_&quot;, and &quot;-&quot;.</p>
+</li>
+</ul>
+<p>A setting value can be any of the following primitive types: <strong>Int</strong>, <strong>Float</strong>, <strong>String</strong>, or <strong>Bool</strong>. The rules for setting values are:</p>
+<ul>
+<li><p>Int values are 32-bit integers (-2147483648 to 2147483647).</p>
+</li>
+<li><p>Float values are single-precision, 32-bit floating-point numbers (about -3.4x10^38 to 3.4x10^38).</p>
+</li>
+<li><p>Strings are limited to 1024 characters.</p>
+</li>
+<li><p>You must specify boolean values with the strings &quot;true&quot; or “false”.</p>
+</li>
+</ul>
+<h2 id="adding-remote-settings">Adding Remote Settings</h2>
+<p>To add a Remote Setting:</p>
+<ol>
+<li><p>In your <a href="https://analytics.cloud.unity3d.com/">Analytics dashboard</a>, open the <strong>Remote Settings</strong> page.</p>
+</li>
+<li><p>Set <strong>Configuration</strong> to <strong>Release</strong> or <strong>Development</strong> for the setting.</p>
+</li>
+<li><p>Click <strong>ADD NEW KEY-VALUE</strong> (at the top of the settings list). </p>
+</li>
+<li><p>Enter a name for the key.</p>
+</li>
+<li><p>Set the type for the value.</p>
+</li>
+<li><p>Enter the default value.</p>
+</li>
+<li><p>Click the <strong>Save</strong> button.</p>
+</li>
+<li><p>Click the <strong>Sync</strong> button to publish your changes. (You do not need to click the <strong>Sync</strong> button after creating each individual setting; you can wait to synchronize your settings until you finish making all changes to the current configuration.)</p>
+</li>
+</ol>
+<p><strong>Note:</strong> To add values targeted to different segments, save the default key-value setting and then edit it. The segment options only appear when you edit a setting, not when you first create one.</p>
+<h2 id="editing-remote-settings">Editing Remote Settings</h2>
+<p>To edit a Remote Setting:</p>
+<ol>
+<li><p>Open the <strong>Remote Settings</strong> page in your Analytics dashboard.</p>
+</li>
+<li><p>Choose the <strong>Release</strong> or <strong>Development</strong> <strong>Configuration</strong>.</p>
+</li>
+<li><p>Click the edit icon next to the setting you want to change.</p>
+<p> <img src="../uploads/Main/RemoteSettingsEditSetting.png" alt=""></p>
+</li>
+<li><p>Make your changes. Note that changing a key name has the same effect as deleting the old key and creating a new one.</p>
+</li>
+<li><p>Click the <strong>Save</strong> button. </p>
+</li>
+<li><p>Click the <strong>Sync</strong> button to publish your changes. Unity reads the updated settings the next time players start a session.  </p>
+</li>
+</ol>
+<h2 id="resolving-simultaneous-edits">Resolving simultaneous edits</h2>
+<p>If two people on your team edit the Remote Settings on a project at the same time, you can get a conflict when trying to synchronize the modified settings with the service.</p>
+<p><img src="../uploads/Main/RemoteSettingsEditConflict.png" alt="Warning that someone else has changed the settings while you were editing the same project"></p>
+<p>When a conflict occurs, you have the following options:</p>
+<p><strong>OVERWRITE</strong></p>
+<p>Discards all changes on the service since you last synced and pushes your settings to the service. When you choose overwrite, the settings on the service will match your current settings exactly.</p>
+<p><strong>MERGE</strong></p>
+<p>Combines your current settings with the modified settings from the service and gives you the opportunity to make changes before completing the synchronization operation. </p>
+<p>If you edit the same setting value, your changes overwrite the version from the service. In addition, values and settings deleted on the service are restored (since they still exist in your version). Otherwise, changes from the service since you last synced are retained.</p>
+<p>After merging, your Remote Settings page is updated to reflect the merger, but the combined settings are not pushed to the server. You can review the updated changes and click the <strong>Sync</strong> button again when you are ready.</p>
+<p><strong>CANCEL</strong></p>
+<p>Cancels the synchronization operation and closes the conflict dialog without making any changes. Your settings are not saved to the service.</p>
+<h2 id="adding-different-values-for-different-segments">Adding different values for different segments</h2>
+<p>You can assign multiple segmented values to a single Remote Settings key. When a player is a member one of the segments for which a specific value exists, Unity sends that value to the player instead of the default, <strong>All Users</strong> value. (If a player qualifies for several segmented values, Unity sends the value from the highest priority segment.)</p>
+<p>To set a value specific to a given segment:</p>
+<ol>
+<li><p>Open the <strong>Remote Settings</strong> page in your Analytics dashboard.</p>
+</li>
+<li><p>Choose the <strong>Release</strong> or <strong>Development</strong> Configuration.</p>
+</li>
+<li><p>Add the Remote Setting if it does not already exist.</p>
+</li>
+<li><p>Click the edit icon at the far right of the setting.</p>
+</li>
+<li><p>Click <strong>ADD EXISTING SEGMENT</strong>.  </p>
+</li>
+<li><p>In the new row, choose the segment from the drop-down list and enter a value.</p>
+</li>
+<li><p>Click the <strong>Save</strong> button.</p>
+</li>
+</ol>
+<h2 id="deleting-remote-settings">Deleting Remote Settings</h2>
+<p>To delete a Remote Setting, first open the edit view for the setting:</p>
+<ol>
+<li><p>Open the <strong>Remote Settings</strong> page in your Analytics dashboard.</p>
+</li>
+<li><p>Set <strong>Configuration</strong> to <strong>Release</strong> or <strong>Development</strong> for the setting.</p>
+</li>
+<li><p>Click the edit icon next to the setting you want to delete to open the edit view:</p>
+<p> <img src="../uploads/Main/RemoteSettingsDelete.png" alt=""></p>
+</li>
+<li><p>To delete a value for a particular segment, click the <strong>minus</strong> button to the right of the edit view and then click <strong>Save</strong>. (You cannot delete the default <strong>All Users</strong> value.)</p>
+</li>
+<li><p>To delete the entire setting, click the delete icon at the bottom of the edit view and then confirm you want to delete the setting.</p>
+</li>
+<li><p>Click the <strong>Sync</strong> button to publish your changes.</p>
+</li>
+</ol>
+<h2 id="setting-segment-priority">Setting segment priority</h2>
+<p>When a player is a member of more than one segment, Unity sends the value assigned for highest priority segment. (If a setting doesn’t have any segmented values, or the player isn’t a member of the segments that do have different values for a key, then Unity sends the All Users value.) You can set the order of your segments to specify which segmented values should take precedence when there is an overlap. </p>
+<p>To set the segment priority:</p>
+<ol>
+<li><p>Open the <strong>Remote Settings</strong> page in your Analytics dashboard.</p>
+</li>
+<li><p>Choose the <strong>Release</strong> or <strong>Development</strong> Configuration.</p>
+</li>
+<li><p>Click the menu icon at the top, right corner of the settings list:</p>
+<p> <img src="../uploads/Main/RemoteSettingsMenuIcon.png" alt=""></p>
+</li>
+<li><p>Click the segment priority icon.</p>
+<p> <img src="../uploads/Main/RemoteSettingsPriorityIcon.png" alt=""></p>
+</li>
+<li><p>The <strong>Segment Priority</strong> window opens, showing your current order. Only segments already assigned values for any Remote Settings appear in the window.</p>
+</li>
+<li><p>Reorder the segments by clicking and dragging the items into place.</p>
+</li>
+</ol>
+<pre><code>![](../uploads/Main/RemoteSettingsSegmentOrder.png)
+</code></pre><ol>
+<li><p>When the order is correct, click <strong>Save</strong>.  </p>
+</li>
+<li><p>Click the <strong>Sync</strong> button to publish your changes.</p>
+</li>
+</ol>
+<p>The segment priority applies to all settings within a configuration, but you can have a different priority for the Development and Release configurations.</p>
+<h2 id="importing-and-exporting-settings">Importing and Exporting Settings</h2>
+<p>You can import and export settings using  comma-separated-value (CSV) format files.</p>
+<p><strong>To export your current settings:</strong></p>
+<ol>
+<li>Navigate to the Remote Settings page on your Unity Analytics dashboard.</li>
+<li>Choose the configuration, either <strong>Release</strong> or <strong>Development</strong> that you want to export.</li>
+<li><p>Click the menu icon at the right side of the list header:</p>
+<p> <img src="../uploads/Main/AnalyticsRSMenuIcon.png" alt=""></p>
+</li>
+<li><p>Choose <strong>Download CSV</strong> to export the current settings to your computer.</p>
+<p>The Analytics Service downloads your current settings as a CSV file.</p>
+</li>
+</ol>
+<p>Note that if you download the CSV file before creating any setting, the file is completely empty. A valid file for uploading must contain the header row. See <a href="#csvformat">Remote Settings CSV Format</a>.</p>
+<p><strong>To import settings into your project:</strong></p>
+<ol>
+<li>Navigate to the Remote Settings page on your Unity Analytics dashboard.</li>
+<li>Choose the configuration, either <strong>Release</strong> or <strong>Development</strong> that you want to overwrite with the imported settings.</li>
+<li>Click the menu icon at the right side of the list header.</li>
+<li>Choose <strong>Upload CSV</strong> to import a new settings file to the project.</li>
+<li>Choose the CSV file containing the new settings. </li>
+<li><p>Click <strong>Open</strong>.</p>
+<p> The Analytics Service uploads the settings file and replaces all the current settings in the selected configuration, but does not commit the values yet.</p>
+<p> If a format or value error exists in the file, the service gives you an option to download a CSV file detailing the errors. No changes are made to the settings when an error occurs.</p>
+</li>
+<li><p>Click <strong>Sync</strong> to commit the setting changes and make them live. (Refresh the page or navigate away without synchronizing to discard any uploaded settings.)</p>
+</li>
+</ol>
+<p>When you import settings, <strong>ALL</strong> the keys and values are changed to match the uploaded file. If an existing setting or segment value does not appear in the file, that setting is deleted.</p>
+<h3 id="creating-and-deleting-settings-during-import">Creating and Deleting Settings during Import</h3>
+<p>In addition to editing setting values, you can create and delete settings when you upload a CSV file to for a configuration.</p>
+<p>First, download the current setting CSV file for the configuration. You can then edit this file to make your changes. (See <a href="#spreadsheets">Working with Spreadsheets</a>) if you use a Spreadsheet application to edit the file.)</p>
+<p><strong>To create a new setting:</strong></p>
+<ol>
+<li>Add a new row in the file. </li>
+<li>Specify a unique key name.</li>
+<li>Define the data type (int, float, string, or bool).</li>
+<li>Enter &quot;All Current Users&quot; as the segment.</li>
+<li>Leave the last field blank (for the default segment).</li>
+</ol>
+<p>A new setting will look like:</p>
+<pre><code>a_bool_value,bool,TRUE,All Current Users,
+</code></pre><p><strong>To add a new segmented value for a setting:</strong></p>
+<ol>
+<li>Add a row to the file.</li>
+<li>Repeat the key name and data type of the setting.</li>
+<li>Enter the value for the segment.</li>
+<li>Enter the segment name. The segment name must already be defined for the project before you import the settings. Use the <a href="UnityAnalyticsSegmentBuilder.html">Segment Builder</a> page to view the existing segments as well as define new ones.</li>
+<li><p>Set the segment priority. </p>
+<p> The priorities for all segments in the file must be consecutive integers starting with 1. For example, if you use five segments in your CSV file, the only priorities that are allowed are the numbers 1-5. The same priority must be assigned wherever in the file that a segment is used. For example, if you use the Japan segment for a dozen values in your CSV file, the same priority value must be used in each row.</p>
+</li>
+</ol>
+<p>A setting with segmented values will look like:</p>
+<pre><code>a_bool_value,bool,false,All Current Users,
+a_bool_value,bool,true,1-3 Days,1
+a_bool_value,bool,false,4-7 Days,2
+</code></pre><p><strong>To delete a setting:</strong></p>
+<p>Simple delete the row defining the setting from the file. If you delete the row containing the default, &quot;All Current Users&quot; segment, you must also delete any rows defining segmented values. Note that if you delete segmented values you might also need to renumber the segment priorities to maintain the consecutive integer sequence.</p>
+<p>Finally, uploaded the modified CSV file and press the <strong>Sync</strong> button on the Remote Settings page to save the changes and publish the changes.</p>
+<p><a name="csvformat"></a></p>
+<h3 id="remote-settings-csv-file-format">Remote Settings CSV File Format</h3>
+<p>The Remote Settings CSV format conforms to <a href="https://tools.ietf.org/html/rfc4180">ISO rfc4180</a>. The exported file is encoded as UTF-8.</p>
+<p>The settings file has five fields. You must include the header row as the first line in the file:</p>
+<pre><code>key,type,value,segment,priority
+</code></pre><p>The fields in the file are: </p>
+<ul>
+<li><strong>key</strong> -- The name of a Remote Settings key.</li>
+<li><strong>type</strong> -- the setting data type: int, float, string, or bool.</li>
+<li><strong>value</strong> -- the setting value.</li>
+<li><strong>segment</strong> -- the name of the segment for a setting value. </li>
+<li><strong>priority</strong> -- the priority of the segment for a setting value.</li>
+</ul>
+<p><strong>Rules for entries in the CSV file:</strong></p>
+<ul>
+<li>Each row must contain a unique combination of key and segment.</li>
+<li>All segments in the CSV file must already exist. New segments must be created using the <a href="UnityAnalyticsSegmentBuilder.html">Segment Builder</a> page of the Analytics dashboard.</li>
+<li>Use the string, &quot;All Current Users&quot; for the default segment.</li>
+<li>The default &quot;All Current Users&quot; segment must be associated with each key exactly once in the file.</li>
+<li>Do not assign a priority to the &quot;All Current Users&quot; segment (leave the field blank). </li>
+<li>Priorities for all other segments must be assigned.</li>
+<li>A segment priority must be the same for all keys that segment is used in. </li>
+<li>The segment priorities assigned across all segments must be consecutive integers (starting with 1).</li>
+<li>Use TRUE and FALSE for Boolean values.</li>
+<li>Strings containing commas, double quotes, and line breaks must be enclosed with double-quote characters.</li>
+<li><p>Double quote characters in a string must be escaped by repeating the double quote. For example:</p>
+<pre><code>&quot;Hello World!&quot;            -&gt; &quot;&quot;&quot;Hello World!&quot;&quot;&quot;
+He said, &quot;How do you do?&quot; -&gt; &quot;He said, &quot;&quot;How do you do?&quot;&quot;&quot;
+</code></pre></li>
+<li><p>The file can contain up to 201 rows (including header).</p>
+</li>
+</ul>
+<p><strong>Tip:</strong> Create sample Remote Settings values on the dashboard and download to generate a sample file. </p>
+<p><a name="spreadsheets"></a></p>
+<h3 id="working-with-spreadsheets">Working with Spreadsheets</h3>
+<p>The CSV file format is not rigorously standardized, so you may experience variations when opening or saving CSV files in different spreadsheet applications. Always test that the fields in your Remote Settings file are properly preserved after making the round trip from the Remote Settings page, to your editing application, and back. Especially check that Unicode characters (Emoji, symbols, characters outside the basic ASCII range, etc) are not altered and that floating point numbers are not truncated.</p>
+<p>Usually when importing a CSV file, spreadsheet applications interpret strings starting with <code>&#39;</code>, <code>+</code>, <code>-</code>, or <code>=</code> characters as expressions rather than plain strings. You can try enclosing such strings in double quotes and adjusting the import options of the spreadsheet you are using. For example, in Google Sheets you can turn off the &quot;Convert strings to numbers and dates&quot; option; while in LibreOffice you can turn on, &quot;Quoted Strings As Text&quot;.</p>
+<p>For settings of type float, make sure that all significant digits of the setting value are displayed in the spreadsheet cell. Otherwise, the spreadsheet application truncates the value and you lose precision when you export the spreadsheet to a CSV file. </p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

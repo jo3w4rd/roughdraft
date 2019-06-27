@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Upgrading to Unity 2017.2 | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Upgrading to Unity 2017.2 | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="upgrading-to-unity-20172">Upgrading to Unity 2017.2</h1>
+
+<!-- Change submissions: https://docs.google.com/document/d/19UVEduEfbR6gjxQrl3Ob-0Wo4gGTilKUBU10lLpMNzM/edit -->
+<p>This page lists any changes in 2017.2 which might affect existing projects when you upgrade from earlier versions of Unity.</p>
+<p>For example:</p>
+<ul>
+<li><p>Changes in data format which may require re-baking.</p>
+</li>
+<li><p>Changes to the meaning or behavior of any existing functions, parameters or component values.</p>
+</li>
+<li><p>Deprecation of any function or feature. (Alternatives are suggested.)</p>
+</li>
+</ul>
+<hr>
+<p><strong>MonoBehaviour.OnValidate is now called when MonoBehaviour is added to a GameObject in the Editor</strong></p>
+<p>MonoBehaviour.OnValidate is called when a Scene loads, when GameObjects are duplicated or when a value changes in the Inspector. It is now also called when adding a MonoBehaviour to a GameObject in the Editor.</p>
+<hr>
+<p><strong>Scripting: InitializeOnLoad callback now invoked after deserialization</strong></p>
+<p>The callback timing for InitializeOnLoad has changed. It was previously invoked at a point that could lead to invalid object states for existing serialized objects when calling Unity API. It is now invoked after deserialization and after all objects have been created. As part of the creation of objects, the default constructor must be invoked. This change means that objects constructors are now invoked before InitializeOnLoad static constructors, whereas InitializeOnLoad was previously called before some object constructors.</p>
+<p>Example:</p>
+<pre><code>[System.Serializable]
+public class SomeClass
+{
+    public SomeClass()
+    {
+        Debug.Log(&quot;SomeClass constructor&quot;);
+    }
+}
+
+public class SomeMonoBehaviour : MonoBehaviour
+{
+    public SomeClass SomeClass;
+}
+
+[InitializeOnLoad]
+public class SomeStaticClass
+{
+    static SomeStaticClass()
+    {
+        Debug.Log(&quot;SomeStaticClass static constructor&quot;);
+    }
+}
+</code></pre><p>This would previously result in:<br>
+<code>SomeStaticClass static constructor</code> (InitializeOnLoad)<br>
+<code>SomeClass constructor</code> (object constructor)</p>
+<p>After this change it will now be:<br>
+<code>SomeClass constructor</code> (object constructor)<br>
+<code>SomeStaticClass static constructor</code> (InitializeOnLoad)</p>
+<hr>
+<p><strong>New normal map type that support BC5 format.</strong></p>
+<p>Up to now Unity was supporting either RGB normal map or swizzled AG normal map (with x in alpha channel and y in green channel) with different compression format. There is now support for RG normal map (with x in red channel and y in green channel).
+UnpackNormal shader function have been upgraded to allow to use RGB, AG and RG normal map without adding shader variants. To be able to do this, the UnpackNormal function rely on having unused channel of the normal map set to 1. I.e a swizzled AG normal map must be encoded as (1, y, 1, x) and a RG (x, y, 0, 1). Unity normal map encoder enforce it.</p>
+<p>There is no upgrade to do if users were using unmodified Unity. However in case users have done their own normal map shaders or their own encoding, they may need to take into account the need for swizzled AG normal map to be encoded as (1, y, 1, x). In case users were mixing normal map in swizzled AG before unpacking normal map, they may require to use UnpackNormalDXT5nm instead of UnpackNormal.</p>
+<hr>
+<p><strong>Always precompiled managed assemblies (.dlls) and assembly definition file assemblies on startup in the Editor.</strong></p>
+<p>Load precompiled managed assemblies (.dlls) and assembly definition file assemblies on Editor startup even if there are compile errors in other scripts. This is useful for Editor extension assemblies that should always be loaded on startup, regardless of other script compile errors in the project.</p>
+<hr>
+<p><strong>HDR emission.</strong></p>
+<p>If you are using precomputed realtime GI or baked GI, intense emissive materials set up in earlier versions of Unity could look more intense now, because their range is not capped any more. The RGBM encoding used previously gave an effective range of 97 for gamma space and 8 for linear color space. The HDR color picker had a maximum range of 99 so some materials could be set to be more intense than they seemed.
+After the upgrade, emission color is passed to the GI systems as true HDR 16 bit floating point values (range is now 64K). Internally, the realtime GI system is using the rgb9e5 shared exponent format that can represent these intense values but the baked lightmaps are limited by their RGBM encoding. HDR for baked lightmaps will be added in a later release.</p>
+<hr>
+<p><strong>VR to XR rename.</strong></p>
+<p>The UnityEngine.VR.* namespaces have been renamed to UnityEngine.XR.*.  All types with VR in their name have also been renamed to their XR versions.  For example: UnityEngine.VR.VRSettings is now UnityEngine.XR.XRSettings, etc.</p>
+<p>The API updater has been configured to automatically update existing scripts and assemblies to the new type names and namespaces.  If don’t want to use the API updater, you can also manually update namespaces and types.</p>
+<p>Namespace changes:</p>
+<ul>
+<li>UnityEngine.VR -&gt; UnityEngine.XR</li>
+<li>UnityEngine.VR.WSA -&gt; UnityEngine.XR.WSA</li>
+<li>UnityEngine.VR.WSA.Input -&gt; UnityEngine.XR.WSA.Input</li>
+<li>UnityEngine.VR.WSA.Persistence -&gt; UnityEngine.XR.WSA.Persistence</li>
+<li>UnityEngine.VR.WSA.Sharing -&gt; UnityEngine.XR.WSA.Sharing</li>
+<li>UnityEngine.VR.WSA.WebCam -&gt; UnityEngine.XR.WSA.WebCam</li>
+</ul>
+<p>UnityEngine.VR type changes:</p>
+<ul>
+<li>VRDevice -&gt; XRDevice</li>
+<li>VRNodeState -&gt; XRNodeState</li>
+<li>VRSettings -&gt; XRSettings</li>
+<li>VRStats -&gt; XRStats</li>
+<li>VRNode -&gt; XRNode</li>
+</ul>
+<p>All <code>VR.*</code> profiler entries have also been changed to <code>XR.*</code>.</p>
+<hr>
+<p><strong>UnityEngine.dll is now split into separate dlls for each UnityEngine module.</strong></p>
+<p>The UnityEngine.dll (which contains all public scripting API) has been separated into modules of code covering different subsystems of the engine. This makes the Unity code base better organized with cleaner internal dependencies, better for internal tooling and makes the code base more strippable. The separated modules include UnityEngine.Collider which is now in UnityEngine.PhysicsModule.dll and UnityEngine.Font which is now in UnityEngine.TextRendering.dll.</p>
+<p>This change should typically not affect any of your existing projects and your scripts now automatically compiles against the correct assemblies. Unity now includes a UnityEngine.dll assembly file containing <a href="https://docs.microsoft.com/en-us/dotnet/framework/app-domains/type-forwarding-in-the-common-language-runtime">type forwarders</a> of all UnityEngine types for all pre-compiled assemblies referencing the DLL which ensures backwards compatibility by forwarding the files to their new locations.</p>
+<p>However, there is one case where existing code might break from this change. That is if your code uses reflection to get UnityEngine types, and assumes that all types live in the same assembly. This means such code would fail, because Collider and Font are now in different assemblies:</p>
+<pre><code>System.Type colliderType = typeof(Collider);
+System.Type fontType = colliderType.Assembly.GetType(&quot;Font&quot;);
+</code></pre><p>Getting either Collider or Font types from the &quot;UnityEngine&quot; assembly still works due to the use of type forwarders, like this: </p>
+<pre><code>System.Type.GetType(&quot;UnityEngine.Collider, UnityEngine&quot;)
+</code></pre><p>Unity does still bundle a fully monolithic UnityEngine.dll which contains all UnityEngine APIs in the Unity Editor&#39;s Managed/UnityEngine.dll folder. This makes sure that any existing Visual Studio/MonoDevelop solutions referencing UnityEngine.dll continues to build without needing to be updated to reference the new modular assemblies. You should continue to use this assembly to reference UnityEngine API in your custom solutions, as the internal split of modules is subject to change.</p>
+<hr>
+<p><strong>Material smoothness in Standard shader.</strong></p>
+<p>Purely smooth materials that use the GGX version of the standard shader now receive specular highlights which increases the realism of such materials. </p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

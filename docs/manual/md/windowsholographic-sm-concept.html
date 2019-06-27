@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Spatial mapping concepts | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Spatial mapping concepts | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="spatial-mapping-concepts">Spatial mapping concepts</h1>
+
+<p><strong>Spatial mapping</strong> is the process of mapping real-world objects into the virtual world. This is a great way to provide better real-world interaction to your Windows Holographic application.</p>
+<h2 id="mapping">Mapping</h2>
+<p>The <strong>HoloLens</strong> device constantly scans its surroundings and refines its understanding of the world based on new sensor data. Updates occur frequently, so that the device can pick up environmental changes such as people moving through the room or doors opening and closing. The world mapping data set is saved on the device and persists across multiple applications and device restarts. </p>
+<p>Transparent, black, and reflective surfaces are largely invisible to the device. If the device can&#39;t detect something, it usually leaves an empty patch within the spatial mapping data. The same is true for parts of the world that it hasn&#39;t been in or can&#39;t see. For example, no data exists for rooms that it hasn&#39;t observed.</p>
+<h2 id="data-organization">Data organization</h2>
+<p>The device&#39;s world mapping is chopped up into regularly-sized chunks called <strong>Surfaces</strong>. <strong>Surfaces</strong> are oriented in the world in a way convenient to the system. There&#39;s no guarantee that <strong>Surfaces</strong> are arranged in any particular orientation, and they may not intersect a given world space, such as a room, in a good way. Data generated for a <strong>Surface</strong> overlaps neighboring <strong>Surfaces</strong> slightly.</p>
+<p>Note that there is no semantic meaning or interpretation associated with any of the <strong>Surface</strong> data. The system does not know and cannot report on what&#39;s in a <strong>Surface</strong>. </p>
+<p>For example: the system cannot tell you that the blob on the desk is a mug, or what the vaguely chair-like object in the middle of the room is. It only reports on the configuration of the geometry in that area based on its understanding of the world, which is gleaned from its sensory input.</p>
+<h2 id="observers">Observers</h2>
+<p>You access spatial mapping data through a <a href="ScriptRef:XR.WSA.SurfaceObserver.html">SurfaceObserver</a>. This is a volume describing a view into the system&#39;s spatial mapping world. A <strong>SurfaceObserver</strong> can report on the set of <strong>Surfaces</strong> it intersects with that have been added, changed, or removed. This is the main API point for working with spatial mapping data.</p>
+<h2 id="points-to-note">Points to note</h2>
+<p>You need to be aware of the following issues. They are due to how the system works. </p>
+<ol>
+<li>The amount of spatial mapping data can be very large, which poses scalability challenges.</li>
+<li>Objects or people moving quickly within the room can make the data very irregular.</li>
+<li>Holes in the data can sometimes cause issues, particularly if you need continuous data for design reasons.</li>
+</ol>
+<p>See Microsoft&#39;s documentation on <a href="https://dev.windows.com/en-us/holographic/spatial_mapping">Spatial mapping</a> to learn more about spatial mapping concepts.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

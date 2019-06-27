@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>UI Profiler | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="UI Profiler | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ui-profiler">UI Profiler</h1>
+
+<p>The UI Profiler is a profiler module dedicated to in-game UI.</p>
+<p>Access it via the <a href="ProfilerWindow.html">Profiler Window&#39;s</a> menu: <strong>Add Profiler</strong> &gt; <strong>UI and UI Details</strong>.</p>
+<p><img src="../uploads/Main/UI_Profiler_Image_1.jpg" alt="The UI and UI Details Profiler window"></p>
+<p>Use this feature to help with understanding the ui batching, why and how objects are batched, which part of the UI is responsible for a slow down, preview the UI or part of it when scrubbing the timeline.</p>
+<p>Note that this Profiler is quite resource intensive, similar to other Profiler modules.</p>
+<h2 id="settings">Settings</h2>
+<p>The UI Details chart has a togglable <strong>Markers</strong> group, similarl to what the CPU chart offers.
+In the preview panel, there&#39;s a button <strong>Detach</strong> and two drop-down menus.</p>
+<ul>
+<li><p>The Markers toggle displays or hide event markers on the UI details chart.</p>
+</li>
+<li><p>Detach pops the preview out in a separate window.</p>
+</li>
+<li><p>The two drop-down menus allow you to choose the preview background (black, white, or checkerboard) and the preview type  (original render, overdraw, or omposite overdraw).</p>
+</li>
+</ul>
+<h2 id="helpful-notes">Helpful Notes</h2>
+<ul>
+<li><p>Markers can be overwhelming, depending on the usecase profiled. Hiding or showing them when needed helps the chart readability.</p>
+</li>
+<li><p>To make visibility clearer, you can select the preview background according to the UI you are previewing. A white-ish UI on a white background won&#39;t be readable, for example, so you can change it. </p>
+</li>
+<li><p>Detaching the preview allows better screen estate management.</p>
+</li>
+<li><p>Overdraw and composite overdraw are used to determine which parts of the UI are drawn for nothing.</p>
+</li>
+</ul>
+<h2 id="definitions">Definitions</h2>
+<p><strong>Marker</strong>: markers are recorded when the user interacts with the UI (button click, slider value change, ...) and then drawn, if enabled, as vertical lines and labels on the chart.</p>
+<p><strong>Batch</strong>:  the UI system tries to batch draw calls. There are many reasons two objects could not be batched together.
+<br></p>
+<p><strong>Batch Breaking Reasons</strong></p>
+<ul>
+<li><p>Not Coplanar With Canvas: <br>The batching needs the object&#39;s rect transform to be coplanar (unrotated) with the canvas.</p>
+</li>
+<li><p>CanvasInjectionIndex: <br>A CanvasGroup component is present and forces a new batch, ie. when displaying the drop down list of a combo box on top of the rest.</p>
+</li>
+<li><p>Different Material Instance, Rect clipping, Texture, A8TextureUsage: <br>Only objects with identical materials, masking, textures, texture alpha channel usage can be batched together.</p>
+</li>
+</ul>
+<h2 id="tips">Tips</h2>
+<p>Treeview rows have a context menu with a &quot;find matching object in scene&quot; entry, which is also triggerable by double clicking on a row.</p>
+<p><br></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

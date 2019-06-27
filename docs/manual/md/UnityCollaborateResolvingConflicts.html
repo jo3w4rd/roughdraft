@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Resolving file conflicts | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Resolving file conflicts | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="resolving-file-conflicts">Resolving file conflicts</h1>
+
+<p>A conflict occurs when another team member makes changes to an Asset that you have also changed, and you try to update your Project with those changes.  Collaborate automatically attempts to merge files and informs you if the attempt fails due to a conflict. For text files, Collaborate merges files using the currently configured merge tool. For Scenes and other files using the YAML format, Collaborate uses Unity&#39;s <a href="SmartMerge.html">Smart Merge</a> tool to perform the merge. </p>
+<p>You can reduce the occurrence of conflicts by publishing small changes often, and communicating with your teammates. The In-Progress feature can help you reduce conflicts on scenes and prefabs. For more information, see <a href="CollaborateInProgress.html">In-Progress edit notifications</a>.</p>
+<h2 id="configure-your-merge-tool">Configure your merge tool</h2>
+<p>You can set your external merge tool in the preference settings of the Unity Editor:</p>
+<ol>
+<li>On the Editor menu bar, select <strong>Edit</strong> &gt; <strong>Preferences</strong>.</li>
+<li>Click <strong>External Tools</strong> and, from the <strong>Revision Control Diff/Merge</strong> drop-down menu, select an external merge tool.</li>
+</ol>
+<p>The following merge tools work well with Collaborate:</p>
+<ul>
+<li>Apple File Merge</li>
+<li>WinMerge</li>
+<li>Beyond Compare 4</li>
+<li>SourceGear DiffMerge</li>
+<li>TkDiff</li>
+</ul>
+<p>You might experience issues using other external merge tools.</p>
+<h2 id="working-with-conflicts">Working with conflicts</h2>
+<p>After merging files, if there are any Assets with conflicts, Unity displays a red warning icon on the <strong>Collab</strong> button in the Editor toolbar. To view a list of Assets with conflicts, click the <strong>Collab</strong> button.</p>
+<p>When you hover over an Asset in the list, the conflicts dialog shows four actions for each Asset with a conflict. You can:</p>
+<ul>
+<li>See differences, to view the conflicting changes.</li>
+<li>Launch external tool, to open an external merge tool.</li>
+<li>Choose mine, to publish your changes, overwriting the currently saved version of the Asset .</li>
+<li>Choose theirs, to delete your changes and use the version of the Asset currently in the cloud.</li>
+</ul>
+<p>To view a conflict, hover over the conflicted file and click the eye icon.</p>
+<p><img src="../uploads/Main/UnityCollaborate15.png" alt="Eye icon"></p>
+<p><strong>Note</strong>: You can view changes of prefabs, scripts, and all binary files; however you cannot view changes to image files such as .pngs.</p>
+<p>You can use an external merge tool to resolve conflicts on prefabs, scripts, and other text-based files. To resolve the conflict using an external merge tool, click the double-up arrow.</p>
+<p><img src="../uploads/Main/UnityCollaborate16.png" alt="Double up arrow"></p>
+<p>To replace the version of the Asset in the cloud with your version of the Asset, click the single up arrow.</p>
+<p><img src="../uploads/Main/UnityCollaborate17.png" alt="Up arrow"></p>
+<p>To discard your version of the Asset and apply the version in the cloud to your local project, click the down arrow.</p>
+<p><img src="../uploads/Main/UnityCollaborate18.png" alt="Down arrow"></p>
+<hr>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

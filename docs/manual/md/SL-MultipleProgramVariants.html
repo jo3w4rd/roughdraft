@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Making multiple shader program variants | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Making multiple shader program variants | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="making-multiple-shader-program-variants">Making multiple shader program variants</h1>
+
+<p>Often it is convenient to keep most of a piece of shader code fixed but also allow slightly different shader &quot;variants&quot; to be produced. This is commonly called &quot;mega shaders&quot; or &quot;uber shaders&quot;, and is achieved by compiling the shader code multiple times with different preprocessor directives for each case.</p>
+<p>In Unity this can be achieved by adding a <code>#pragma multi_compile</code> or <code>#pragma shader_feature</code> directive to a <a href="SL-ShaderPrograms.html">shader snippet</a>. This works in <a href="SL-SurfaceShaders.html">surface shaders</a> too.</p>
+<p>At runtime, the appropriate shader variant is picked up from the Material keywords (Material.EnableKeyword and DisableKeyword) or global shader keywords (Shader.EnableKeyword and DisableKeyword).</p>
+<h2 id="how-multicompile-works">How multi_compile works</h2>
+<p>A directive like:</p>
+<pre><code>#pragma multi_compile FANCY_STUFF_OFF FANCY_STUFF_ON
+</code></pre><p>Will produce two shader variants, one with <code>FANCY_STUFF_OFF</code> defined, and another with <code>FANCY_STUFF_ON</code>. At runtime, one of them will be activated based on the Material or global shader keywords. If neither of these two keywords are enabled then the first one (&quot;off&quot;) will be used.</p>
+<p>There can be more than two keywords on a multi_compile line, for example this will produce four shader variants:</p>
+<pre><code>#pragma multi_compile SIMPLE_SHADING BETTER_SHADING GOOD_SHADING BEST_SHADING
+</code></pre><p>When any of the names are all underscores, then a shader variant will be produced, with no preprocessor macro defined. This is commonly used for shaders features, to avoid using up two keywords (see notes on keywork limit below). For example, the directive below will produce two shader variants; first one with nothing defined, and second one with <code>FOO_ON</code> defined:</p>
+<pre><code>#pragma multi_compile __ FOO_ON
+</code></pre><h2 id="difference-between-shaderfeature-and-multicompile">Difference between shader_feature and multi_compile</h2>
+<p><code>#pragma shader_feature</code> is very similar to <code>#pragma multi_compile</code>, the only difference is that unused variants of shader_feature shaders will not be included into game build. So shader_feature makes most sense for keywords that will be set on the materials, while multi_compile for keywords that will be set from code globally.</p>
+<p>Additionally, it has a shorthand notation with just one keyword:</p>
+<pre><code>#pragma shader_feature FANCY_STUFF
+</code></pre><p>Which is just a shortcut for <code>#pragma shader_feature _ FANCY_STUFF</code>, i.e. it expands into two shader variants (first one without the define; second one with it).</p>
+<h2 id="combining-several-multicompile-lines">Combining several multi_compile lines</h2>
+<p>Several multi_compile lines can be provided, and the resulting shader will be compiled for all possible combinations of the lines:</p>
+<pre><code>#pragma multi_compile A B C
+#pragma multi_compile D E
+</code></pre><p>This would produce three variants for first line, and two for the second line, or in total six shader variants (A+D, B+D, C+D, A+E, B+E, C+E).</p>
+<p>It&#39;s easiest to think of each multi_compile line as controlling a single shader &quot;feature&quot;. Keep in mind that the total number of shader variants grows really fast this way. For example, ten multi_compile &quot;features&quot; with two options each produces 1024 shader variants in total!</p>
+<h2 id="keyword-limit">Keyword limit</h2>
+<p>When using Shader variants, remember that there is a limit of 256 keywords in Unity, and around 60 of them are used internally (therefore lowering the available limit). Also, the keywords are enabled globally throughout a particular Unity project, so be careful not to exceed the limit when multiple keywords are defined in several different Shaders.</p>
+<h2 id="built-in-multicompile-shortcuts">Built-in multi_compile shortcuts</h2>
+<p>There are several &quot;shortcut&quot; notations for compiling multiple shader variants; they are mostly to deal with different light, shadow and lightmap types in Unity. See <a href="SL-RenderPipeline.html">rendering pipeline</a> for details.</p>
+<ul>
+<li><code>multi_compile_fwdbase</code> compiles all variants needed by <code>ForwardBase</code> (forward rendering base) pass type. The variants deal with different lightmap types and main directional light having shadows on or off.</li>
+<li><code>multi_compile_fwdadd</code> compiles variants for <code>ForwardAdd</code> (forward rendering additive) pass type. This compiles variants to handle directional, spot or point light types, and their variants with cookie textures.</li>
+<li><code>multi_compile_fwdadd_fullshadows</code> - same as above, but also includes ability for the lights to have realtime shadows.</li>
+<li><code>multi_compile_fog</code> expands to several variants to handle different fog types (off/linear/exp/exp2).</li>
+</ul>
+<p>Most of the built-in shortcuts result in many shader variants. It is possible to skip compiling some of them if you know they are not needed, by using <code>#pragma skip_variants</code>. For example:</p>
+<pre><code>#pragma multi_compile_fwdadd
+// will make all variants containing
+// &quot;POINT&quot; or &quot;POINT_COOKIE&quot; be skipped
+#pragma skip_variants POINT POINT_COOKIE
+</code></pre><h2 id="shader-hardware-variants">Shader Hardware Variants</h2>
+<p>One common reason for using shader variants is to create fallbacks or simplified shaders that can run efficiently on both high and low end hardware within a single target platform - such as OpenGL ES. To provide a specially optimised set of variants for different levels of hardware capability, you can use shader hardware variants.</p>
+<p>To enable the generation of shader hardware variants, add <code>#pragma hardware_tier_variants renderer</code>, where <code>renderer</code> is one of the available renderering platforms for <a href="SL-ShaderPrograms.html">shader program pragmas</a>. With this <code>#pragma</code> 3 shader variants will be generated for each shader, regardless of any other keywords. Each variant will have one of the following defined:</p>
+<pre><code>UNITY_HARDWARE_TIER1
+UNITY_HARDWARE_TIER2
+UNITY_HARDWARE_TIER3
+</code></pre><p>You can use these to write conditional fallbacks or extra features for lower or higher end. In the editor you can test any of the tiers by using the Graphics Emulation menu, which allows you to change between each of the tiers.</p>
+<p>To help keep the impact of these variants as small as possible, only one set of shaders is ever loaded in the player. In addition, any shaders which end up identical - for example if you only write a specialised version for TIER1 and all others are the same - will not take up any extra space on disk.</p>
+<p>At load time Unity will examine the GPU that it is using and auto-detect a tier value; it will default to the highest tier if the GPU is not auto-detected. You can override this tier value by setting <code>Shader.globalShaderHardwareTier</code>, but this must be done before any shaders you want to vary are loaded. Once the shaders are loaded they will have selected their set of variants and this value will have no effect. A good place to set this would be in a pre-load scene before you load your main scene.</p>
+<p>Note that these shader hardware tiers are not related to the <strong>Quality</strong> settings of the player, they are purely detected from the relative capability of the GPU the player is running on.</p>
+<h2 id="platform-shader-settings">Platform Shader Settings</h2>
+<p>Apart from tweaking your shader code for different hardware tiers, you might want to tweak unity internal defines (e.g. you might want to force cascaded shadowmaps on mobiles). You can find details on this in the  <a href="ScriptRef:Rendering.PlatformShaderSettings.html">UnityEditor.Rendering.PlatformShaderSettings</a> documentation, which provides a list of currently supported features for overriding per-tier.
+Use <a href="ScriptRef:Rendering.EditorGraphicsSettings.SetShaderSettingsForPlatform.html">UnityEditor.Rendering.EditorGraphicsSettings.SetShaderSettingsForPlatform</a> to tweak Platform Shader Settings per-platform per-tier.</p>
+<p>Please note that if <code>PlatformShaderSetting</code>s set to different tiers are not identical, then tier variants will be generated for the shader even if <code>#pragma hardware_tier_variants</code> is missing.</p>
+<h3 id="see-also">See Also</h3>
+<ul>
+<li><a href="OptimizingShaderLoadTime.html">Optimizing Shader Load Time</a>.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

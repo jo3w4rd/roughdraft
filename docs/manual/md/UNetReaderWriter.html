@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>NetworkReader and NetworkWriter serializers | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="NetworkReader and NetworkWriter serializers | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="networkreader-and-networkwriter-serializers">NetworkReader and NetworkWriter serializers</h1>
+
+<p>Use the <a href="ScriptRef:Networking.NetworkReader.html">NetworkReader</a> and <a href="ScriptRef:Networking.NetworkWriter.html">NetworkWriter</a> classes to write data to byte streams. </p>
+<p>The Multiplayer <a href="UNetUsingHLAPI.html">High Level API</a> is built using these classes, and uses them extensively. However, you can use them directly if you want to implement your own custom transport functionality. They have specific serialization functions for many Unity types (See <a href="ScriptRef:Networking.NetworkWriter.Write.html">NetworkWriter.Write</a> for the full list of types).</p>
+<p>To use the classes, create a writer instance, and write individual variables into it. These are serialized internally into a byte array, and this can be sent over the network. On the receiving side it’s important that the reader instance for the byte array reads back the variables in exactly the same order they were written in.</p>
+<p>This can be used with the <a href="ScriptRef:Networking.MessageBase.html">MessageBase</a> class to make byte arrays that contain serialized network messages.</p>
+<pre><code>void SendMessage(short msgType, MessageBase msg, int channelId)
+{
+    // write the message to a local buffer
+    NetworkWriter writer = new NetworkWriter();
+    writer.StartMessage(msgType);
+    msg.Serialize(writer);
+    writer.FinishMessage();
+
+    myClient.SendWriter(writer, channelId);
+}
+</code></pre><p>This message is correctly formatted so that a message handler function can be invoked for it.</p>
+<h2 id="using-the-networkreader-and-networkwriter-classes-with-the-networkserversimple-and-networkclient-classes">Using the NetworkReader and NetworkWriter classes with the NetworkServerSimple and NetworkClient classes</h2>
+<p>The following code sample is a rather low level demonstration, using the lowest level classes from the high-level API for setting up connectivity.</p>
+<p>This is the code for connecting the client and server together:</p>
+<pre><code>using UnityEngine;
+using UnityEngine.Networking;
+public class Serializer : MonoBehaviour {
+    NetworkServerSimple m_Server;
+    NetworkClient m_Client;
+    const short k_MyMessage = 100;
+
+    // When using a server instance like this it must be pumped manually
+    void Update() {
+        if (m_Server != null)
+            m_Server.Update();
+    }
+
+    void StartServer() {
+        m_Server = new NetworkServerSimple();
+        m_Server.RegisterHandler(k_MyMessage, OnMyMessage);
+        if (m_Server.Listen(5555))
+            Debug.Log(&quot;Started listening on 5555&quot;);
+    }
+
+    void StartClient() {
+        m_Client = new NetworkClient();
+        m_Client.RegisterHandler(MsgType.Connect, OnClientConnected);
+        m_Client.Connect(&quot;127.0.0.1&quot;, 5555);
+    }
+
+    void OnClientConnected(NetworkMessage netmsg) {
+        Debug.Log(&quot;Client connected to server&quot;);
+        SendMessage();
+    }
+}
+</code></pre><p>The next piece of code sends a message using the network reader and network writer, but uses the message handlers built into these classes:</p>
+<p>void SendMessage() {
+    NetworkWriter writer = new NetworkWriter();
+    writer.StartMessage(k_MyMessage);
+    writer.Write(42);
+    writer.Write(&quot;What is the answer&quot;);
+    writer.FinishMessage();
+    m_Client.SendWriter(writer, 0);
+}</p>
+<p>void OnMyMessage(NetworkMessage netmsg) {
+    Debug.Log(&quot;Got message, size=&quot; + netmsg.reader.Length);
+    var someValue = netmsg.reader.ReadInt32();
+    var someString = netmsg.reader.ReadString();
+    Debug.Log(&quot;Message value=&quot; + someValue + &quot; Message string=&#39;&quot; + someString + &quot;&#39;&quot;);
+}</p>
+<p>When setting up messages for the message handlers, you should always use <code>NetworkWriter.StartMessage()</code> (with the message type ID) and NetworkWriter.FinishMessage() calls. When not using the byte arrays, you can skip that step.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Line Renderer | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Line Renderer | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="line-renderer">Line Renderer</h1>
+
+<p>The <strong>Line Renderer</strong> component takes an array of two or more points in 3D space, and draws a straight line between each one. A single Line Renderer component can therefore be used to draw anything from a simple straight line to a complex spiral. The line is always continuous; if you need to draw two or more completely separate lines, you should use multiple GameObjects, each with its own Line Renderer.</p>
+<p>The Line Renderer does not render one-pixel-wide lines. It renders billboard lines (polygons that always face the camera) that have a width in world units and can be textured. It uses the same algorithm for line rendering as the <a href="class-TrailRenderer.html">Trail Renderer</a>.</p>
+<p><img src="../uploads/Main/Inspector-LineRenderer.png" alt=""> </p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property</em></strong></th>
+<th style="text-align:left"><strong><em>Function</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Cast Shadows</strong></td>
+<td style="text-align:left">Determines whether the line casts shadows, whether they should be cast from one or both sides of the line, or whether the line should only cast shadows and not otherwise be drawn. See <a href="ScriptRef:Renderer-shadowCastingMode.html">Renderer.shadowCastingMode</a> in the Scripting API reference documentation to learn more.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Receive Shadows</strong></td>
+<td style="text-align:left">If enabled, the line receives shadows.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Motion Vectors</strong></td>
+<td style="text-align:left">Select the Motion Vector type to use for this Line Renderer. See <a href="ScriptRef:Renderer-motionVectorGenerationMode.html">Renderer.motionVectorGenerationMode</a> in the Scripting API reference documentation to learn more.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Materials</strong></td>
+<td style="text-align:left">These properties describe an array of Materials used for rendering the line. The line will be drawn once for each material in the array.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Light Parameters</strong></td>
+<td style="text-align:left">Reference a <a href="class-LightmapParameters.html">Lightmap Parameters</a> Asset here to enable the line to interact with the global illumination system.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Positions</strong></td>
+<td style="text-align:left">These properties describe an array of Vector3 points to connect.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Use World Space</strong></td>
+<td style="text-align:left">If enabled, the points are considered as world space coordinates, instead of being subject to the transform of the GameObject to which this component is attached.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Loop</strong></td>
+<td style="text-align:left">Enable this to connect the first and last positions of the line. This forms a closed loop.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Width</strong></td>
+<td style="text-align:left">Define a width value and a curve to control the width of your line at various points between its start and end. The curve is only sampled at each vertex, so its accuracy is limited by the number of vertices present in your line. The overall width of the line is controlled by the width value.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Color</strong></td>
+<td style="text-align:left">Define a gradient to control the color of the line along its length.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Corner Vertices</strong></td>
+<td style="text-align:left">This property dictates how many extra vertices are used when drawing corners in a line. Increase this value to make the line corners appear rounder.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>End Cap Vertices</strong></td>
+<td style="text-align:left">This property dictates how many extra vertices are used to create end caps on the line. Increase this value to make the line caps appear rounder.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Alignment</strong></td>
+<td style="text-align:left">Set to <strong>View</strong> to make the line face the Camera, or <strong>Local</strong> to align it based on the orientation of its Transform component.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Texture Mode</strong></td>
+<td style="text-align:left">Control how the Texture is applied to the line. Use <strong>Stretch</strong> to apply the Texture Map along the entire length of the line, or use <strong>Wrap</strong> to make the Texture repeat along the length of the line. Use the Tiling parameters in the Material to control the repeat rate.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shadow Bias</strong></td>
+<td style="text-align:left">Move shadows along the direction of the light to remove shadowing artifacts cused by approximating a volume with billboarded geometry.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Generate Lighting Data</strong></td>
+<td style="text-align:left">If enabled (the box is checked), the Line geometry is built with Normals and Tangents included. This allows it to use Materials that use the scene lighting, for example via the Standard Shader, or by using a custom shader.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Sorting Layer</strong></td>
+<td style="text-align:left">Name of the Renderer’s sorting layer.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Order in Layer</strong></td>
+<td style="text-align:left">This Renderer’s order within a sorting layer.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Light Probes</strong></td>
+<td style="text-align:left">Probe-based lighting interpolation mode.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Reflection Probes</strong></td>
+<td style="text-align:left">If enabled and reflection probes are present in the Scene, a reflection Texture is picked for this Line Renderer and set as a built-in Shader uniform variable.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details</h2>
+<p>To create a Line Renderer:</p>
+<ol>
+<li>In the Unity menu bar, go to <strong>GameObject</strong> &gt; <strong>Create Empty</strong></li>
+<li>In the Unity menu bar, go to <strong>Component</strong> &gt; <strong>Effects</strong> &gt; <strong>Line Renderer</strong></li>
+<li>Drag a Texture or Material onto the Line Renderer. It looks best if you use a Particle Shader in the Material.</li>
+</ol>
+<h2 id="hints">Hints</h2>
+<ul>
+<li>Line Renderers are useful for effects where you need to lay out all the vertices in one frame.</li>
+<li>The lines might appear to rotate as you move the Camera. This is intentional when <strong>Alignment</strong> is set to <strong>View</strong>. Set <strong>Alignment</strong> to <strong>Local</strong> to disable this.</li>
+<li>The Line Renderer should be the only Renderer on a GameObject.</li>
+<li>Unity samples colors from the Color Gradient at each vertex. Between each vertex, Unity applies linear interpolation to colors. Adding more vertices to your Line Renderer might give a closer approximation of a detailed Color Gradient.</li>
+</ul>
+<h2 id="line-renderer-example-setup">Line Renderer example setup</h2>
+<p><img src="../uploads/Main/LineRenderer-example.jpg" alt=""></p>
+<p><br></p>
+<hr>
+<ul>
+<li></li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

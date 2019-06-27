@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Physics in Unity 5.0 | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Physics in Unity 5.0 | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="physics-in-unity-50">Physics in Unity 5.0</h2>
+
+<p>Unity 5.0 features an upgrade to PhysX3.3 SDK. Please give this blogpost a quick look before taking any action on your 4.x projects. It should give you a taste of what to expect from the new codebase: <a href="http://blogs.unity3d.com/2014/07/08/high-performance-physics-in-unity-5/">High Performance Physics in Unity 5</a>.
+Please be warned that PhysX3 is not 100% compatible with PhysX2 and requires some actions from the user when upgrading.</p>
+<h3 id="general-overview-of-updates">General overview of updates</h3>
+<p>Unity 5.0 physics could be expected to work up to 2x faster than in previous versions. Most of the components you were familiar with are still there, and you will find them working as before. Of course, some behaviours were impossible to get the same and some were just weird behaviours caused by limitations of the pre-existed codebase, so we had to take changes. The two areas that got the most significant change are Cloth component and WheelCollider component. We&#39;re including a section about each of them below. Then, there are smaller changes all over the physics code that cause incompatibility. </p>
+<h3 id="changes-that-are-likely-to-affect-projects">Changes that are likely to affect projects:</h3>
+<h4 id="adaptive-force-is-now-switched-off-by-default">Adaptive force is now switched off by default</h4>
+<p>Adaptive force was introduced to help with the simulation of large stacks, but it turned out to be great only for demos. In real games it happened to cause wrong behaviour. You can switch it on in the editor physics properties: Edit -&gt; Project settings -&gt; Physics -&gt; Enable adaptive force.</p>
+<h4 id="smooth-sphere-collisions-are-removed-both-from-terrain-and-meshes">Smooth sphere collisions are removed both from terrain and meshes.</h4>
+<p>PhysX3 has the feature that addresses the same issue and it&#39;s no longer switchable as it&#39;s considered to be a solution without major drawbacks.</p>
+<h4 id="springs-expose-larger-amplitudes-with-physx3">Springs expose larger amplitudes with PhysX3.</h4>
+<p>you may want to tune spring parameters after upgrading.</p>
+<h4 id="setting-terrain-physics-material-has-changed">Setting Terrain Physics Material has changed</h4>
+<p>Use TerrainCollider.sharedMaterial and TerrainCollider.material to specify physics material for terrain. The older way of setting physics material through the TerrainData will no longer work. As a bonus, you can now specify terrain physics materials on a per collider basis.</p>
+<h4 id="shape-casting-and-sweeping-has-changed">Shape casting and sweeping has changed:</h4>
+<ul>
+<li>Shape sweeps report all shapes they hit (i.e CapsuleCast and SphereCast would return all shapes they hit, even the ones that fully contain the primitive)</li>
+<li>Raycasts filter out shapes that contain the raycast origin</li>
+</ul>
+<h4 id="compound-collider-events">Compound Collider events:</h4>
+<p>When using compound colliders, OnCollisionEnter is now called once per each contact pair</p>
+<h4 id="triggers-must-be-convex">Triggers must be convex:</h4>
+<p>From now on, you can have triggers only on convex shapes (a PhysX restriction):</p>
+<ul>
+<li>TerrainCollider no longer supports IsTrigger flag</li>
+<li>MeshCollider can have IsTrigger only if it&#39;s convex</li>
+</ul>
+<h4 id="dynamic-bodies-must-be-convex">Dynamic bodies must be convex:</h4>
+<p>Dynamic bodies (i.e. those having Rigidbody attached with Kinematic = false) can no longer have concave mesh colliders (a PhysX limitation).</p>
+<p>If you want to have collisions with concave meshes, you can only have them on static colliders and kinematic bodies</p>
+<h4 id="ragdoll-joints">Ragdoll joints:</h4>
+<p>Joint setups for ragdolls will likely need tweaking. </p>
+<p>These suggestions apply to joints in general as well.</p>
+<p>See the <a href="RagdollStability.html">Joint And Ragdoll Stability</a> page for most recent version of this guide.</p>
+<ul>
+<li><p>Avoid small angles of &quot;Angular Y Limit&quot; and &quot;Angular Z Limit&quot;. Depending on your setup the minimum angles should be around 5 to 15 degrees in order to be stable. Instead of using a small angle try setting the angle to zero. This will lock the axis and provide a stable simulation.</p>
+</li>
+<li><p>Set &quot;Enable Preprocessing&quot; to false (unchecked). Disabling the preprocessing can help against joints &quot;blowing up&quot;. Joints can &quot;blow up&quot; if they are forced into situations where there is no possible way to satisfy the joint constraints. This can occur if jointed rigid bodies are pulled apart by static collision geometry, like spawning a ragdoll partially inside a wall.</p>
+</li>
+<li><p>Ragdoll stability or stretching: If ragdolls are given extreme circumstances, such as spawning partially inside a wall or pushed with a large force, the joint solver will be unable to keep the rigid bodies together. This can result in stretching or a &quot;cloud of body parts&quot;. Please enable projection on the joints, using either &quot;ConfigurableJoint.projectionMode&quot; or &quot;CharacterJoint.enableProjection&quot;.</p>
+</li>
+<li><p>If bodies connected with joints are jittering try increase Edit-&gt;Project Settings-&gt;Physics-&gt;&quot;Solver Iteration Count&quot;. Try between 10 or 20.</p>
+</li>
+<li><p>Never use direct transform access with kinematic bodies jointed to other bodies. Doing so skips the step where PhysX computes internal velocities of corresponding bodies and thus makes solver provide unpleasant results. We&#39;ve seen some 2D projects using direct transform access to flip characters via altering transform.direction on the root boon of the rig. This behaves much better if you use MovePosition / MoveRotation / Move instead.</p>
+</li>
+</ul>
+<h4 id="rigidbodys-constraints-are-applied-in-local-space">Rigidbody&#39;s constraints are applied in local space</h4>
+<p>The locking mechanism we used in Unity 4 was basically discarding changes to locked rotations &amp; was resetting the angular speeds as a post-solver step. This was working mostly fine except that there were issues with bodies failing to go asleep as the solver wanted to adjust the rotations every frame; and a few related cases were noticed over the years. When working on PhysX3 integration we utilised this new feature of PhysX 3.3 where we can set the infinite inertia tensor components for locked rotational degrees of freedom. This is now supported in the solver so the body would now go to sleep appropriately, but since this is inertia, it is applied in local coordinates.</p>
+<h4 id="wheelcollider">WheelCollider</h4>
+<p> The new WheelCollider is powered by the PhysX3 Vehicles SDK that is basically a completely new vehicle simulation library when compared to the code we had with PhysX2. </p>
+<p><a href="WheelColliderTutorial.html">Read more about the new WheelCollider here</a>.</p>
+<h4 id="cloth">Cloth</h4>
+<p>Unity 5 uses the completely rewritten cloth solver provided by the new PhysX SDK. This cloth solver has been designed with character clothing in mind, and is a great improvement compared to the old version in terms of performance and stability. Unity 5 replaces the SkinnedCloth and InteractiveCloth components in Unity 4 with a single Cloth component, which works in conjunction with a SkinnedMeshRenderer. The functionality is similar to the previous SkinnedCloth component, but it is now possible to assign arbitrary, non-skinned meshes to the SkinnedMeshRenderer, so you can still handle cloth simulation on any random mesh.</p>
+<p>However, some functionality which was available on the old InteractiveCloth is now no longer supported by the new version of PhysX as it is difficult to implement these with good performance. Specifically:</p>
+<ul>
+<li>you can no longer use cloth to collide with arbitrary world geometry</li>
+<li>tearing is no longer supported</li>
+<li>you can no longer apply pressure on cloth</li>
+<li>you can no longer attach cloth to colliders or have cloth apply forces to rigidbodies in the scene.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

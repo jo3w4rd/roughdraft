@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Google VR SDK Overview | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Google VR SDK Overview | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="google-vr-sdk-overview">Google VR SDK Overview</h1>
+
+<p><img src="../uploads/Main/Logo_cardboard_small.png" alt="">
+<img src="../uploads/Main/Logo_daydream.png" alt=""></p>
+<p><a href="vr-input.html">Virtual Reality Input</a>Google VR is the technology behind both <a href="https://developers.google.com/vr/daydream/overview">Google Daydream</a> and <a href="https://developers.google.com/vr/cardboard/overview">Google Cardboard</a> VR platforms. Google VR encompasses support for smartphones, head mounted viewers and controllers, standalone head mounted displays and applications. Google VR provides an SDK for Unity that allows you to build VR content for this rich ecosystem of devices.</p>
+<p>Google VR technologies includes Daydream, a platform for high quality mobile VR and Cardboard, built for bite-size VR experiences and 360 video. Daydream consists of Daydream-ready phones, headsets, controllers and experiences and supports high-end Android mobile devices through <a href="https://vr.google.com/daydream/smartphonevr/phones/">Daydream</a>. See the full list of Daydream devices on the <a href="https://vr.google.com/daydream/smartphonevr/phones/">Google VR</a>) website. <a href="https://vr.google.com/cardboard/developers/">Cardboard</a> works with almost any smartphone on both iOS and Android.</p>
+<p>Google Cardboard is the most accessible mobile VR solution, allowing anyone with an iOS or Android smartphone to experience VR apps. Cardboard does have minimum and recommended requirements for its usage, but these are much less hardware-bound than Daydream, focusing mainly on the operating system and basic control systems (such as the <a href="https://en.wikipedia.org/wiki/Gyroscope">gyroscope</a>). Users can view VR apps with an official Google Cardboard viewing device, or a third-party VR viewing device which supports Google VR content (See Hardware and Software Requirements section). Cardboard also supports a range of third-party handheld controllers, for apps which require more complex interactions.</p>
+<p>Daydream allows more feature-rich experiences than Cardboard, but only supports Daydream ready devices such as  Daydream-ready phones, built for VR with high-resolution displays, smooth graphics and high fidelity sensors for precise head tracking. Daydream phone apps are accessible with the Daydream View, Google’s headset and motion controller for experiencing high quality VR, using a Daydream-ready phone. Daydream will also support a Daydream Standalone HMD built by original design manufacturers. Daydream Standalone is an untethered head mounted display running on the Android OS including richer controller input and motion tracking.</p>
+<p>See <a href="https://developers.google.com/vr/">Google’s VR documentation</a> for more information about the requirements and functionality of Cardboard and Daydream.</p>
+<h2 id="hardware-and-software-requirements"><strong>Hardware and software requirements</strong></h2>
+<p>This section provides an overview of both the minimum and recommended hardware and software requirements for using the Google VR SDK.</p>
+<p>Below are the minimum platform requirements for devices to support the Google VR SDK, along with some important considerations:</p>
+<ul>
+<li><p>You must have Android API SDK version 21 (also known as &quot;Lollipop&quot;) installed. </p>
+</li>
+<li><p>To develop Google VR applications, you must have a Cardboard- or Daydream-supported phone. </p>
+</li>
+<li><p>See Google’s documentation on <a href="https://developers.google.com/vr/concepts/dev-kit-setup">Daydream hardware</a> to learn how to set your Android phone up for Daydream development.</p>
+</li>
+</ul>
+<h3 id="minimum-hardware-and-software-requirements"><strong>Minimum hardware and software requirements</strong></h3>
+<p>This section provides an overview of the minimum hardware and software requirements for developing with the Google VR SDK.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Device</th>
+<th style="text-align:left">Hardware</th>
+<th style="text-align:left">Software</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Cardboard</td>
+<td style="text-align:left">- Devices running Android 4.1 or later with a gyroscope.<br>- Devices running iOS 8 or later with a gyroscope.<br>- A viewing device compatible with Cardboard.</td>
+<td style="text-align:left">- Unity Cardboard integration requires Android Lollipop or greater.<br>- iOS devices with the Google Cardboard application installed.</td>
+</tr>
+<tr>
+<td style="text-align:left">Daydream</td>
+<td style="text-align:left">- Daydream compatible devices. See the <a href="https://developers.google.com/vr/daydream/hardware">Google Daydream Hardware</a> page for a list of devices compatible with Daydream.</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="recommended-hardware-and-software-requirements"><strong>Recommended hardware and software requirements</strong></h3>
+<p>This section provides an overview of the recommended hardware and software requirements for developing with the Google VR SDK.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Device</th>
+<th style="text-align:left">Hardware</th>
+<th style="text-align:left">Software</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Cardboard</td>
+<td style="text-align:left">- For Android, refer to the documentation provided with your Cardboard viewer for a full list of compatible devices.<br>- For iOS, any iPhone 5 series or later phone.<br>- A viewing device compatible with Cardboard.</td>
+<td style="text-align:left">- Android 5.0 or later.<br>- iOS 8 or later, with the Google Cardboard application installed.</td>
+</tr>
+<tr>
+<td style="text-align:left">Daydream</td>
+<td style="text-align:left">- Any device compatible with the Daydream specification. See the <a href="https://developers.google.com/vr/daydream/hardware">Google Daydream Hardware</a> page for a list of devices compatible with Daydream.</td>
+<td style="text-align:left">Android 7 or later.</td>
+</tr>
+</tbody>
+</table>
+<p>You can find detailed information relating to Google VR development on the main <a href="https://developers.google.com/vr/">Google developer site for VR</a>. This site includes links to SDKs, instructional materials, and documentation on APIs and store publishing.</p>
+<h2 id="quick-start-guide"><strong>Quick start guide</strong></h2>
+<p>This section helps you get started with developing Google VR applications using Unity. Many of the instructions for developing Google VR content are available on the <a href="https://developers.google.com/vr/">Google VR Developer website</a>.</p>
+<p>To install Unity and use the external links for platform-specific setup instructions for the Google VR SDK:</p>
+<ol>
+<li><p>Use the <a href="InstallingUnity.html">Installing Unity manual guide</a> to help install the Unity Editor.</p>
+<p> i ) When targeting Android make sure to install Unity Android Support through the <strong>Unity installer</strong>.</p>
+<p> ii ) When targeting iOS, make sure you install Unity iOS support through the      <strong>Unity Installer</strong> and that you have a macOS machine to compile and deploy to your device.</p>
+</li>
+<li><p>Follow the instructions laid out on the <a href="https://developers.google.com/vr/">Google developer site for VR</a> for your targeted platform(s).</p>
+</li>
+</ol>
+<p>Google provides starter guides for developing Google VR applications with Unity for both Android and iOS. Links to specific guides are given below:</p>
+<ul>
+<li><p>Getting started with <a href="https://developers.google.com/vr/unity/get-started">Google VR SDK for Unity for Android</a>.</p>
+</li>
+<li><p>Getting started with <a href="https://developers.google.com/vr/unity/get-started-ios">Google VR SDK for Unity for iOS</a>.</p>
+</li>
+</ul>
+<h2 id="platform-configuration-settings"><strong>Platform configuration settings</strong></h2>
+<p>This section provides a step-by-step guide for configuring your Unity Project to build Google VR applications.</p>
+<p>Follow the steps in the next sections to ensure your Unity project can successfully build for your target Google VR devices.</p>
+<h3 id="targeting-cardboard-android-and-ios"><strong>Targeting Cardboard (Android and iOS)</strong></h3>
+<p>Unity provides a number of platform-specific build options for building applications to Cardboard-supported devices. </p>
+<p>To access these settings, open the <strong>Player Settings</strong> (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong> &gt; <strong>Player</strong>) and navigate to either the Android or iOS section (click either on the iPhone or Android icon) depending on which device you want to build to. Navigate to <strong>XR Settings</strong> and make sure the <strong>Virtual Reality Supported</strong> checkbox is ticked. Next, navigate to the <strong>Virtual Reality SDKs</strong> list and click the plus <strong>(+)</strong> button. Select <strong>Cardboard</strong> to add it to the list.</p>
+<p><img src="../uploads/Main/cardboard_settings.jpg" alt="Finding Cardboard-specific settings for iOS/Android (Edit &gt; Project Settings &gt; Player &gt; XR Settings)"></p>
+<p>When you have added <strong>Cardboard</strong> to the <strong>Virtual Reality SDKs</strong> list, click the foldout arrow next to it to view additional <strong>Cardboard</strong> settings.</p>
+<p><img src="../uploads/Main/additional_cardboard_settings.png" alt="Cardboard-specific settings in VR SDK list"></p>
+<p>The table below provides a list of properties available in the <strong>Cardboard</strong> settings, along with a description of their functionality.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Description<br></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Depth Format</strong></td>
+<td style="text-align:left">Use this drop-down to set the Z buffer depth. Unity uses this to sort the visible data and determine what is actually rendered to the  screen.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Transition View</strong></td>
+<td style="text-align:left">The transition view is the view that Google VR provides to inform the user that they must put their device in a Cardboard compatible viewer. You can enable it to provide users some time to insert their device into a viewer. By default this is disabled but it can be enabled to provide some time for the user to insert their device into a viewer.</td>
+</tr>
+</tbody>
+</table>
+<p>The minimum platform requirement for Cardboard is Android 5.0 (Lollipop) (SDK API level 21). </p>
+<p>To ensure Unity uses the correct APK, and only runs on devices upgraded to the latest version of Android, you need to change the <strong>Minimum API Level</strong>.</p>
+<p>To do this, go to Player Settings and navigate to <strong>Other Settings</strong>. Under <strong>Identification,</strong> use the <strong>Minimum API Level</strong> drop-down to set it to the latest API in the list.</p>
+<p>Set the <strong>Target API Level</strong> to API level 21 or higher for Cardboard only. If you are targeting Daydream then this needs to be 24 or higher. By default, this property uses the highest level you have installed. For more information about API levels for Android, see documentation on <a href="class-PlayerSettingsAndroid.html">Android PlayerSettings</a>.</p>
+<p>You are now ready to create your Unity content for Cardboard. Follow the same workflow you would for normal Android or iOS development (see documentation on <a href="android.html">Android development</a> or <a href="iphone.html">iOS development</a> for more information). Make sure you build and run your game on a Cardboard-capable device (menu: <strong>File</strong> &gt; <strong>Build &amp; Run</strong>).</p>
+<h3 id="targeting-daydream-android-only"><strong>Targeting Daydream (Android only)</strong></h3>
+<p>Unity provides a number of platform-specific build options for building applications to Daydream-supported devices. </p>
+<p>To access these settings, open the <strong>Player Settings</strong> (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong> &gt; <strong>Player</strong>) and navigate to the Android section (click the Android icon marked in the figure below). Navigate to <strong>XR Settings</strong> and make sure the <strong>Virtual Reality Supported</strong> checkbox is ticked. Next, navigate to the <strong>Virtual Reality SDKs</strong> list and click the plus (+) button. Select <strong>Daydream</strong> to add it to the list.</p>
+<p><img src="../uploads/Main/Daydream_settings.jpg" alt="Finding the Daydream-specific settings for Android (Edit &gt; Project Settings &gt; Player &gt; XR Settings)"></p>
+<p>When you add <strong>Daydream</strong> to the <strong>Virtual Reality SDKs</strong> List, click the foldout arrow next to it to view additional Daydream settings.</p>
+<p><img src="../uploads/Main/Daydream_VR_list.png" alt="Daydream-specific settings in VR SDK list"></p>
+<p>The table below provides a list of properties available in the Daydream settings, along with a description of their functionality.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Description<br></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Depth Format</strong></td>
+<td style="text-align:left">Use this drop-down to set the Z buffer depth. This is used for sorting the visible data and determining what is actually rendered to the screen.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Foreground Icon</strong></td>
+<td style="text-align:left">Set the foreground icon for presentation in the Google VR Play store.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Background Icon</strong></td>
+<td style="text-align:left">Set the background icon for presentation in the Google VR Play store.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Use Sustained Performance Mode</strong></td>
+<td style="text-align:left">Enable <strong>Sustained Performance Mode</strong> for longer XR experiences. This reduces performance to improve battery life.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Video Surface</strong></td>
+<td style="text-align:left">Enable Asynchronous Video Reprojection. For more information,  see the documentation about <a href="VRDevices-GoogleVRVideoAsyncReprojection.html">Asynchronous Video Reprojection</a> for more information.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Protected Memory</strong></td>
+<td style="text-align:left">Enables memory protection for DRM protected content when using Asynchronous Video Reprojection. This option only appears if <strong>Enable Video Surface</strong> has been selected. For more information, see <a href="VRDevices-GoogleVRVideoAsyncReprojection.html">Asynchronous Video Reprojection</a></td>
+</tr>
+</tbody>
+</table>
+<p>Properties available for Daydream in Unity Player Settings</p>
+<p>The minimum platform requirement for targeting Daydream only is Android 7.0 (Nougat) (SDK API level 24). If you are targeting Cardboard as well as Daydream, then the minimum supported API level is 21.</p>
+<p>To ensure Unity uses the correct APK, and only runs on devices upgraded to the latest version of Android, you need to change the <strong>Minimum API Level</strong>.</p>
+<p>To do this in the Player Settings, navigate to <strong>Other Settings</strong>. Under <strong>Identification,</strong> use the <strong>Minimum API Level</strong> drop-down to set it to the latest API in the list. </p>
+<p>Set <strong>Target API Level</strong> should be set to API level 24 if you are Daydream. By default, this property uses the highest level you have installed. For more information about API levels for Android, see documentation on <a href="class-PlayerSettingsAndroid.html">Android PlayerSettings</a>.</p>
+<p>You are now ready to create your Unity content for Daydream. Follow the same workflow you would for normal Android development (see documentation on <a href="android.html">Android development</a> for more information). Make sure you build and run your game on a Daydream-capable device (menu: <strong>File</strong> &gt; <strong>Build &amp; Run</strong>).</p>
+<h2 id="working-with-google-vr-for-unity"><strong>Working with Google VR for Unity</strong></h2>
+<p>This section covers important considerations you should keep in mind when creating Google VR content in Unity. </p>
+<p>When working with Google VR for Unity, note the following:</p>
+<ul>
+<li><p>Use the device names daydream and cardboard to load a specific device when you want to enable XR for that device. To do this, call <a href="ScriptRef:XR.XRSettings.LoadDeviceByName.html">XRSettings.LoadDeviceByName</a> and pass in the string name of the device.</p>
+</li>
+<li><p>Integration of Daydream for Unity takes over the Unity activity’s view hierarchy. This means that any modification made to the view hierarchy before initializing Daydream for Unity, is removed while in XR mode.</p>
+</li>
+<li><p>The SkipPermissionsDialog manifest entry is set to true when an application targeting Cardboard or Daydream is built. This is per Google specification and is done so as to minimize the chance of the user experience being disrupted by dropping out of VR.</p>
+</li>
+</ul>
+<h3 id="daydream-and-cardboard"><strong>Daydream and Cardboard</strong></h3>
+<p><strong>Daydream</strong> and <strong>Cardboard</strong> have separate entries in the <strong>Virtual Reality SDKs</strong> list (<strong>File</strong> &gt; <strong>Project Settings</strong> &gt; <strong>Player</strong> &gt; <strong>XR Settings</strong>). Unity reads the list from top to bottom until it finds a device configuration that works. </p>
+<p>Removing or reordering the SDKs in the list affects the functionality of your final built application, as detailed below:</p>
+<ul>
+<li><p>If both <strong>Daydream</strong> and <strong>Cardboard</strong> are in the <strong>Virtual Reality SDKs</strong> list, asynchronous reprojection is enabled if running on hardware that supports it. <strong>Sustained Performance Mode</strong> is enabled if running on hardware that supports it, and if you have enabled it in the <strong>Player Settings</strong> (see previous section on targeting Daydream). The app appears in all Google Play Stores.</p>
+</li>
+<li><p>If <strong>Cardboard</strong> is above <strong>Daydream</strong> in the <strong>Virtual Reality SDKs</strong> list, the application might not run in Daydream mode, even on Daydream hardware.</p>
+</li>
+<li><p>If <strong>Daydream</strong> is the only item in the <strong>Virtual Reality SDKs</strong> list, Unity adds XR Android manifest entries so that the app appears in the XR-specific Google Play store. Daydream requires asynchronous reprojection, so all devices which support Daydream also support asynchronous reprojection.</p>
+</li>
+<li><p>If <strong>Cardboard</strong> is the only item in the <strong>Virtual Reality SDKs</strong> list, the app does not appear in the Google VR Play store. Asynchronous reprojection and <strong>Sustained Performance Mode</strong> are disabled, even on capable hardware.</p>
+</li>
+<li><p>If you plan to support GearVR as well as Daydream and Cardboard, place <strong>Oculus</strong> at the top of the list. Phones that support GearVR run through the GearVR SDK, and phones that don’t support it fall back to <strong>Daydream</strong> or <strong>Cardboard</strong>.</p>
+</li>
+<li><p>If you add <strong>None</strong> as the first device in the list, Unity starts as a normal application and you can toggle XR through script. See API documentation on <a href="ScriptRef:XR.XRSettings-enabled.html">XRSettings.enabled</a> and <a href="ScriptRef:XR.XRSettings.LoadDeviceByName.html">XRSettings.LoadDeviceByName</a> for more information.</p>
+</li>
+</ul>
+<h3 id="cardboard-for-ios"><strong>Cardboard for iOS</strong></h3>
+<p>Google distributes the <strong>Cardboard Native Development Kit</strong> (NDK) for iOS through the <a href="https://cocoapods.org">Cocoapods library management system</a>. The Unity integration of Google VR uses a specific version of the <strong>Cardboard NDK</strong> from the Cocoapods manager and this NDK is also used to create your XCode project.</p>
+<p>This means the resulting project is generated differently from a standard Unity project. Cocoapods creates a wrapping <strong>XCode</strong> workspace containing the Unity project as well as a project for the <strong>Cardboard</strong> <strong>NDK</strong> library and its dependencies. Always make sure that you open and/or use the workspace and not just the project to avoid linker errors due to the missing libraries in Cocoapods.</p>
+<h3 id="magic-window-mode"><strong>Magic Window mode</strong></h3>
+<p>During development, you may want to have a <strong>non-stereoscopic view</strong> which still utilizes headtracking. This is useful if you require the user to view a 2D image in <strong>XR</strong>, or to provide 2D previews of your <strong>XR application</strong>. This can also be useful for promotional materials. To achieve this, you can access <strong>head tracking data</strong> when the <a href="ScriptRef:XR.XRSettings-enabled.html"><strong>XRSettings.enabled</strong></a> property is false and the <a href="ScriptRef:XR.XRSettings-loadedDeviceName.html"><strong>XRSettings.loadedDeviceName</strong></a> is set to <strong>daydream</strong> or <strong>cardboard</strong>.</p>
+<p>The following example C# code rotates the main camera in a scene by using XR head tracking while disabling stereoscopic view using <strong>XRSettings</strong>:</p>
+<pre><code>UnityEngine.XR.XRSettings.enabled = false;
+Camera.main.GetComponent&lt;Transform&gt;().localRotation = UnityEngine.XR.InputTracking.GetLocalRotation(XRNode.CenterEye);
+</code></pre><p>For more information on the above, see the API documentation on <a href="ScriptRef:XR.XRSettings.LoadDeviceByName.html">XRSettings.LoadDeviceByName</a>.</p>
+<h3 id="hardware-volume-controls"><strong>Hardware volume controls</strong></h3>
+<p>The Daydream SDK for Unity prevents the native Operating System (OS) from accessing the device’s volume controls. This prevents the OS from displaying the volume user interface (UI) when in XR mode. To access the device’s volume controls manually, extend the standard <strong>UnityPlayerActivity </strong>(the primary Java class for the Unity Player on Android) and override the onKeyDown and onKeyLongPress key event functions yourself.</p>
+<p>For more information on this process, see the Unity documentation on <a href="AndroidUnityPlayerActivity.html">extending the UnityPlayerActivity class</a> through Java.</p>
+<p><strong>Note:</strong> Unity does not block the volume controls on <strong>Daydream</strong> controller, so if you only intend to use the controller in your game you may decide not to extend the <strong>UnityPlayerActivity</strong> at all.</p>
+<h3 id="overriding-daydream-android-libraries"><strong>Overriding Daydream Android libraries</strong></h3>
+<p>The <strong>Daydream SDK</strong> for Unity provides two libraries to support development for Daydream devices:</p>
+<ul>
+<li><p>Daydream native library: <em>gvr.aar</em></p>
+</li>
+<li><p><a href="https://developers.google.com/protocol-buffers/">Google Protobuf</a> Nano Java library: <em>libprotobuf-java-nano.jar</em></p>
+</li>
+</ul>
+<p>You can replace either of these libraries by placing different versions of the library files in the <strong><em>Assets/Plugins/Android</em></strong> folder in your project. Library file names must match exactly in order for them to be correctly overridden.</p>
+<h3 id="stereo-rendering-methods"><strong>Stereo Rendering methods</strong></h3>
+<p>Multi Pass rendering is supported on all Google VR platforms. <a href="Android-SinglePassStereoRendering.html">Single Pass rendering</a> is supported only by Daydream on platforms that support driver level instancing.</p>
+<h2 id="supported-apis-and-sdks"><strong>Supported APIs and SDKs</strong></h2>
+<p>This section gives an overview of the supported APIs and SDKs for developing Google VR applications with Unity.</p>
+<h3 id="unity-api-support"><strong>Unity API support</strong></h3>
+<p>The following APIs are <strong>not</strong> <strong>supported</strong> by Google VR for Unity:</p>
+<ul>
+<li><p><a href="ScriptRef:XR.XRDevice.html">XRSettings.showDeviceView</a></p>
+</li>
+<li><p><a href="ScriptRef:XR.XRSettings.html">XRDevice.isPresent</a></p>
+</li>
+<li><p><a href="ScriptRef:XR.XRStats.html">XRStats.gpuTimeLastFrame</a></p>
+</li>
+</ul>
+<h3 id="supported-graphics-apis"><strong>Supported graphics APIs</strong></h3>
+<p>The following <strong>graphics</strong> <strong>APIs</strong> are supported in Unity on both <strong>Android</strong> and <strong>iOS</strong> devices:</p>
+<p><strong>Android</strong></p>
+<ul>
+<li>OpenGL</li>
+</ul>
+<p><strong>iOS</strong></p>
+<ul>
+<li><p>Metal</p>
+</li>
+<li><p>OpenGL</p>
+</li>
+</ul>
+<h2 id="controllers-and-input-devices">Controllers and input devices</h2>
+<h3 id="daydream-controller"><strong>Daydream controller</strong></h3>
+<p>The Daydream controller allows 3 degrees of freedom, providing rotational and positional information, a dual axis touch/click controller along with 2 extra buttons. For information on how to take input from this device see the <a href="https://developers.google.com/vr/android/reference/com/google/vr/sdk/controller/package-summary">Google Daydream Controller documentation</a>.</p>
+<p><img src="../uploads/Main/Daydream_controller.jpg" alt="Daydream controller"></p>
+<h2 id="features-overview"><strong>Features overview</strong></h2>
+<p>For full details on specific features provided by Google VR, see Google’s <a href="https://developers.google.com/vr/daydream/overview">Daydream Developer documentation</a>. For an overview of features supported by the Google VR SDK for Unity, see Google’s documentation on <a href="https://developers.google.com/vr/unity/">Google VR for Unity</a>.</p>
+<p>The next section provides a short overview of Google VR supported features.</p>
+<h3 id="supported-feature-sets"><strong>Supported feature sets</strong></h3>
+<p>The table below gives an overview of supported features for each target mobile VR device when working with Google VR in Unity.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Device</strong></th>
+<th style="text-align:left"><strong>Platform</strong></th>
+<th style="text-align:left"><strong>Rendering</strong></th>
+<th style="text-align:left"><strong>Input</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Cardboard</td>
+<td style="text-align:left">Android Lollipop or later<br></td>
+<td style="text-align:left">- OpenGL<br>- Stereo Instanced Rendering <br>- Stereo Rendering</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Cardboard<br></td>
+<td style="text-align:left">iOS<br></td>
+<td style="text-align:left">- OpenGL<br>- Metal<br> -Stereo Instanced Rendering <br> -Stereo Rendering</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Daydream</td>
+<td style="text-align:left">Android Nougat or later using compatible hardware</td>
+<td style="text-align:left">- OpenGL<br>- Stereo Instanced Rendering <br>- Stereo Rendering</td>
+<td style="text-align:left">Daydream controller</td>
+</tr>
+</tbody>
+</table>
+<h2 id="resources"><strong>Resources</strong></h2>
+<h3 id="useful-links">Useful links</h3>
+<p>This section provides a number of useful external links for further reading into Google VR development topics.</p>
+<ul>
+<li><p><a href="https://developers.google.com/vr/">VR section on Google developer website</a></p>
+</li>
+<li><p><a href="http://cocoapods.org">Cocoapods</a></p>
+</li>
+</ul>
+<h3 id="troubleshooting-guide"><strong>Troubleshooting guide</strong></h3>
+<p>This section provides a list of the most common problems you may encounter when developing with the Google VR SDK.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Problem</th>
+<th style="text-align:left">Suggestion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">I have a problem with GvrController/GvrViewer/GvrXXXX/Instant Preview. What do I do to resolve this?<br></td>
+<td style="text-align:left">These types are part of the Google VR SDK for Unity and are owned and supported by Google. While the general Unity community may be able to answer your questions, for any technical issues you should visit the <a href="https://github.com/googlevr/gvr-unity-sdk">Google VR SDK for Unity</a> site on GitHUB.<br></td>
+</tr>
+<tr>
+<td style="text-align:left">When is the Daydream Keyboard going to be released?</td>
+<td style="text-align:left">The Daydream Keyboard for Google VR is a Google technology and will be released in some future version of the core Android system. Access and use of this technology is based solely on Google and the <a href="https://github.com/googlevr/gvr-unity-sdk">Google VR SDK for Unity</a>.<br></td>
+</tr>
+<tr>
+<td style="text-align:left">I am trying to build my Cardboard for iOS project, but Xcode is reporting linker errors.</td>
+<td style="text-align:left">Google distributes the Cardboard Native Development Kit (NDK) for iOS through the Cocoapods library management system. Unity is integrated with a specific version of that Cardboard NDK from the Cocoapods manager and uses the NDK to create your XCode project. The resulting project is generated differently from a standard Unity project. Cocoapods creates a wrapping XCode workspace containing the Unity project as well as a project for the Cardboard NDK library and its dependencies. Always make sure that you open and/or use the workspace and not just the project to avoid getting linker errors due to the missing libraries from Cocoapods.</td>
+</tr>
+</tbody>
+</table>
+<p>See the official Google VR developer website for more troubleshooting information for both <a href="https://support.google.com/cardboard/answer/6295070?hl=en&amp;ref_topic=6295055">Cardboard</a> and <a href="https://support.google.com/daydream/?hl=en-GB#topic=7184600">Daydream</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

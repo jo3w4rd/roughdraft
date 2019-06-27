@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Getting started with PS4 development | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting started with PS4 development | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started-with-ps4-development">Getting started with PS4 development</h1>
+
+<h2 id="developing-for-ps4">Developing for PS4</h2>
+<p>To develop for the PlayStation 4 (PS4), you must be a Registered PlayStation Developer and own the appropriate hardware. If you do not have a Unity license for PS4, contact your Sony Interactive Entertainment (SIE) account manager or producer via the siedev.net website. These licenses are provided to Registered PlayStation Developers completely free of charge.</p>
+<p>All Unity-built PlayStation titles must have the Made with Unity logo on the start-up screen, landing page or main menu. Find the Made with Unity logo on the <a href="http://unity3d.com/public-relations/brand">Unity Brand Usage Guidelines</a> page, along with simple guidelines and a design manual. Alternatively, you can use the built-in Made with Unity splash screen to meet this requirement.</p>
+<h2 id="requirements">Requirements</h2>
+<p>Each build of Unity for PS4 has a set of minimum or recommended requirements specified in their release notes. There are three different version numbers you need to adhere to:</p>
+<ul>
+<li><p>The firmware PUP (PlayStation Update Package) on your hardware PS4 Development Kit (&quot;devkit&quot;) or Test Kit (“testkit”).</p>
+</li>
+<li><p>The PS4 Software Development Kit (SDK) version on your development machine.</p>
+</li>
+<li><p>The version of SIE’s publishing tools.</p>
+</li>
+</ul>
+<p>PS4 Software Development Kits (SDKs) are only available for the 64-bit version of Windows, so you need to have a 64-bit version of the Unity Editor installed. There is no version of Unity for PS4 that uses either 32-bit or an alternative operating system (such as macOS or Linux).</p>
+<h2 id="how-unity-ps4-differs-from-desktop-unity">How Unity PS4 differs from desktop Unity</h2>
+<h3 id="ahead-of-time-aot-compilation">Ahead-Of-Time (AOT) compilation</h3>
+<p>Scripts are AOT-compiled into a static library, which is subsequently linked with the Unity runtime to produce the player. Due to platform limitations, just-in-time (JIT) compilation is not supported. This means that you cannot use <a href="https://msdn.microsoft.com/en-us/library/mt656691.aspx">C# </a><a href="https://msdn.microsoft.com/en-us/library/mt656691.aspx">Reflection</a>.</p>
+<h3 id="video-formats">Video formats</h3>
+<p><a href="class-MovieTexture.html">Movie Textures</a> are not available on PS4; instead, all video playback must use the functions contained within <a href="ScriptRef:PS4.PS4VideoPlayer.html">UnityEngine.PS4.PS4VideoPlayer</a>. An example of this is in the Editor after you have added the PS4 add-on installation, via <strong>Assets</strong> &gt; <strong>Import Package</strong> &gt; <strong>PS4 Samples</strong> &gt; <strong>Video</strong>. 
+See PS4 DevNet’s <a href="https://ps4.siedev.net/resources/documents/SDK/3.000/Video_Data_Encoding-Tutorial/0001.html">Video Data Encoding Tutorial</a> for more information on how to correctly encode your videos for playback on PS4.</p>
+<h3 id="shader-semantics">Shader semantics</h3>
+<p>If you have existing Unity projects that you wish to test on PS4, you need to apply a change to your Shaders. Without these changes, objects may be rendered in magenta, indicating a shader error.</p>
+<p>The details of what to change are below. Note that any Shaders updated in this way continue to work on all platforms:</p>
+<ul>
+<li><p>v2f structures (output from vertex Shader used as input to fragment Shader) must be changed from <code>POSITION</code> to <code>SV_POSITION</code>. Note that a2v (application to vertex) structures should continue to use <code>POSITION</code>.</p>
+</li>
+<li><p>Fragment Shader output that writes color must be changed from <code>COLOR</code> to <code>SV_Target</code>.</p>
+</li>
+<li><p>Fragment Shader output that writes depth must be changed from <code>DEPTH</code> to <code>SV_Depth</code>.</p>
+</li>
+<li><p>Do not use <code>sample</code> as a variable name in Shaders. This is a reserved word that causes Shaders to fail to compile if you use it incorrectly.</p>
+</li>
+</ul>
+<h3 id="limited-memory">Limited memory</h3>
+<p>The base console has a total of 8GB of unified memory. The Unity player and AOT-compiled script assemblies take away from the main memory. The PS4 system software also uses some of this memory, leaving you with approximately 4.5GB. </p>
+<p>Note that development consoles have 5.7GB of memory, so fitting in memory on a development console is no guarantee that your application works on a retail console.</p>
+<p>PS4 Pro consoles have an additional 512MB, which is added to graphics memory (sometimes known as &quot;the Garlic&quot;) when running in Pro mode.</p>
+<h2 id="access-ps4s-unique-functionality">Access PS4’s unique functionality</h2>
+<p>Unity PS4 provides a number of new scripting APIs to access PSN services, input, native video support and much more. See the UnityEngine.PS4 section in the scripting API. For example, PS4 specific input is handled by the <a href="ScriptRef:PS4.PS4Input.html">PS4Input class</a>.</p>
+<p>To access any PS4 SDK APIs that are not directly supported in the Unity API, write native C++ plug-in code and associated Unity script code to access the plug-in. For information on how to do this, see Unity’s <a href="PS4Samples.html">PS4 Samples</a> of plug-ins covering the most commonly required areas.</p>
+<h2 id="useful-links">Useful links</h2>
+<ul>
+<li><p>Getting Started Guide:
+<a href="https://ps4.siedev.net/docs/startup/1/">https://ps4.siedev.net/docs/startup/1/</a> </p>
+</li>
+<li><p>SDK Manager:
+<a href="https://ps4.siedev.net/docs/sdk_manager/1">https://ps4.siedev.net/docs/sdk_manager/1</a> </p>
+</li>
+<li><p>General Documentation:
+%SCE_ROOT_DIR%\ORBIS\documentation\pdf\en </p>
+</li>
+<li><p>Publishing Documentation:
+%SCE_ROOT_DIR%\ORBIS\Publishing\</p>
+</li>
+<li><p>SCE Samples:
+%SCE_ORBIS_SDK_DIR%\target\samples</p>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

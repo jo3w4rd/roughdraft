@@ -1,0 +1,840 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Class AssetImporterEditor
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AssetImporterEditor
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor">
+  
+  
+  <h1 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor">Class AssetImporterEditor
+  </h1>
+  <div class="markdown level0 summary"><p>Default editor for all asset importer settings.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">AssetImporterEditor</span></div>
+  </div>
+      <div class="level2"><a class="xref" href="UnityEditor.Experimental.AssetImporters.ScriptedImporterEditor.html">ScriptedImporterEditor</a></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEditor.Experimental.AssetImporters.html">UnityEditor.Experimental.AssetImporters</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class AssetImporterEditor : Editor</code></pre>
+  </div>
+  <h5 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Use the default editor to edit the import settings for assets. You can define a custom import settings editor for a specific asset type. To do this, create a new class that inherits from AssetImporterEditor and uses a <a href="xref:UnityEditor.Experimental.AssetImporters.CustomEditorAttribute">CustomEditorAttribute</a> that refers to a <a class="xref" href="UnityEditor.Experimental.AssetImporters.ScriptedImporter.html">ScriptedImporter</a>.</p>
+<p>The following example shows how to make a custom ScriptedImporterEditor for a ScriptedImporter with a custom layout.</p>
+</div>
+  <h5 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_examples"><strong>Examples</strong></h5>
+  <pre><code>
+</code></pre><pre><code>
+using System.IO;
+using UnityEditor;
+using UnityEditor.Experimental.AssetImporters;
+using UnityEngine;
+
+[CustomEditor(typeof(TransformImporter))]
+[CanEditMultipleObjects]
+public class TransformImporterEditor : ScriptedImporterEditor
+{
+    // Stored SerializedProperty to draw in OnInspectorGUI.
+    SerializedProperty m_GenerateChild;
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        // Once in OnEnable, retrieve the serializedObject property and store it.
+        m_GenerateChild = serializedObject.FindProperty(&quot;generateChild&quot;);
+    }
+
+    public override void OnInspectorGUI()
+    {
+        // Update the serializedObject in case it has been changed outside the Inspector.
+        serializedObject.Update();
+
+        // Draw the boolean property.
+        EditorGUILayout.PropertyField(m_GenerateChild);
+
+        // Apply the changes so Undo/Redo is working
+        serializedObject.ApplyModifiedProperties();
+
+        // Call ApplyRevertGUI to show Apply and Revert buttons.
+        ApplyRevertGUI();
+    }
+}
+
+[ScriptedImporter(0, &quot;.transform&quot;)]
+public class TransformImporter : ScriptedImporter
+{
+    public bool generateChild;
+
+    public override void OnImportAsset(AssetImportContext ctx)
+    {
+        GameObject root = ObjectFactory.CreateGameObject(Path.GetFileNameWithoutExtension(ctx.assetPath));
+        if (generateChild)
+        {
+            GameObject child = ObjectFactory.CreateGameObject(&quot;child&quot;);
+            child.transform.SetParent(root.transform);
+        }
+        ctx.AddObjectToAsset(&quot;main&quot;, root);
+        ctx.SetMainObject(root);
+    }
+}
+</code></pre><pre><code>
+</code></pre><pre><code>
+using System.IO;
+using UnityEditor;
+using UnityEditor.Experimental.AssetImporters;
+using UnityEngine;
+
+[CustomEditor(typeof(EmptinessImporter))]
+[CanEditMultipleObjects]
+public class EmptinessImporterEditor : ScriptedImporterEditor
+{
+    //Let the parent class know that the Apply/Revert mechanism is skipped.
+    protected override bool needsApplyRevert =&gt; false;
+
+    public override void OnInspectorGUI()
+    {
+        // Draw some information
+        EditorGUILayout.HelpBox(&quot;Because this Importer doesn&#39;t have any settings, the Apply/Revert buttons are hidden.&quot;, MessageType.None);
+    }
+}
+
+[ScriptedImporter(0, &quot;.emptiness&quot;)]
+public class EmptinessImporter : ScriptedImporter
+{
+    public override void OnImportAsset(AssetImportContext ctx)
+    {
+        GameObject root = ObjectFactory.CreateGameObject(Path.GetFileNameWithoutExtension(ctx.assetPath));
+        ctx.AddObjectToAsset(&quot;main&quot;, root);
+        ctx.SetMainObject(root);
+    }
+}
+</code></pre><pre><code>
+</code></pre><pre><code>
+using System;
+using System.IO;
+using UnityEditor;
+using UnityEditor.Experimental.AssetImporters;
+using UnityEngine;
+using Object = UnityEngine.Object;
+
+[CustomEditor(typeof(BooleanImporter))]
+[CanEditMultipleObjects]
+public class BooleanImporterEditor : ScriptedImporterEditor
+{
+    // Property to show in the custom OnInspectorGUI.
+    SerializedProperty m_BooleanProperty;
+
+    // override extraDataType to return the type that will be used in the Editor.
+    protected override Type extraDataType =&gt; typeof(BooleanClass);
+
+    // override InitializeExtraDataInstance to set up the data.
+    protected override void InitializeExtraDataInstance(Object extraTarget, int targetIndex)
+    {
+        var boolean = (BooleanClass)extraTarget;
+        // Read the boolean value from the text file and fill the extraTarget object with the data.
+        string fileContent = File.ReadAllText(((AssetImporter)targets[targetIndex]).assetPath);
+        if (!bool.TryParse(fileContent, out boolean.boolean))
+        {
+            boolean.boolean = false;
+        }
+    }
+
+    protected override void Apply()
+    {
+        base.Apply();
+        // After the Importer is applied, rewrite the file with the custom value.
+        for (int i = 0; i &lt; targets.Length; i++)
+        {
+            string path = ((AssetImporter)targets[i]).assetPath;
+            File.WriteAllText(path, ((BooleanClass)extraDataTargets[i]).boolean.ToString());
+        }
+    }
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        // In OnEnable, retrieve the importerUserSerializedObject property and store it.
+        m_BooleanProperty = extraDataSerializedObject.FindProperty(&quot;boolean&quot;);
+    }
+
+    public override void OnInspectorGUI()
+    {
+        // Note: you don&#39;t need to call serializedObject.Update or serializedObject.ApplyModifiedProperties
+        // because you are not changing the target (serializedObject) itself.
+
+        // Update the importerUserSerializedObject in case it has been changed outside the Inspector.
+        extraDataSerializedObject.Update();
+
+        // Draw the boolean property.
+        EditorGUILayout.PropertyField(m_BooleanProperty);
+
+        // Apply the changes so Undo/Redo is working.
+        extraDataSerializedObject.ApplyModifiedProperties();
+
+        // Call ApplyRevertGUI to show Apply and Revert buttons.
+        ApplyRevertGUI();
+    }
+}
+
+public class BooleanClass : ScriptableObject
+{
+    public bool boolean;
+}
+
+[ScriptedImporter(0, &quot;.boolean&quot;)]
+public class BooleanImporter : ScriptedImporter
+{
+    public override void OnImportAsset(AssetImportContext ctx)
+    {
+        string fileContent = File.ReadAllText(ctx.assetPath);
+        var booleanObj = ObjectFactory.CreateInstance&lt;BooleanClass&gt;();
+        if (!bool.TryParse(fileContent, out booleanObj.boolean))
+        {
+            booleanObj.boolean = false;
+        }
+        ctx.AddObjectToAsset(&quot;main&quot;, booleanObj);
+        ctx.SetMainObject(booleanObj);
+        Debug.Log(&quot;Imported Boolean value: &quot; + booleanObj.boolean);
+    }
+}
+</code></pre><pre><code>
+</code></pre><pre><code>
+using UnityEditor;
+using UnityEditor.Experimental.AssetImporters;
+
+[CustomEditor(typeof(SomeScriptedImporter))]
+[CanEditMultipleObjects]
+public class SomeImporterEditor : ScriptedImporterEditor
+{
+    // ...
+
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+        extraDataSerializedObject.Update();
+
+        // Use propertyDrawers and custom GUI for any property from both serializedObject and extraDataSerializedObject.
+
+        extraDataSerializedObject.ApplyModifiedProperties();
+        serializedObject.ApplyModifiedProperties();
+
+        ApplyRevertGUI();
+    }
+}
+
+[ScriptedImporter(0, &quot;.someFile&quot;)]
+public class SomeScriptedImporter : ScriptedImporter
+{
+    public override void OnImportAsset(AssetImportContext ctx)
+    {
+        // ...
+    }
+}
+</code></pre>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_assetSerializedObject_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.assetSerializedObject*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_assetSerializedObject" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.assetSerializedObject">assetSerializedObject</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected SerializedObject assetSerializedObject { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">SerializedObject</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_assetTarget_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.assetTarget*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_assetTarget" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.assetTarget">assetTarget</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Object assetTarget { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_assetTargets_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.assetTargets*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_assetTargets" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.assetTargets">assetTargets</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Object[] assetTargets { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataSerializedObject_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.extraDataSerializedObject*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataSerializedObject" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.extraDataSerializedObject">extraDataSerializedObject</h4>
+  <div class="markdown level1 summary"><p>A <a href="xref:UnityEditor.Experimental.AssetImporters.SerializedObject">SerializedObject</a> that represents the ::ref::extraDataTarget or the ::ref::extraDataTargets of the <a class="xref" href="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.html">AssetImporterEditor</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected AssetImporterEditor.ExtraDataSerializedObject extraDataSerializedObject { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.ExtraDataSerializedObject.html">AssetImporterEditor.ExtraDataSerializedObject</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataSerializedObject_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>See ::ref::extraDataType and the example in <a class="xref" href="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.html">AssetImporterEditor</a> class for more information.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataTarget_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.extraDataTarget*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataTarget" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.extraDataTarget">extraDataTarget</h4>
+  <div class="markdown level1 summary"><p>The extra data object associated with the <a href="xref:UnityEditor.Experimental.AssetImporters.Editor.target">Editor.target</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Object extraDataTarget { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataTarget_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This object is only created when ::ref::extraDataType is provided. This object has to be initialized inside ::ref::InitializeExtraDataInstance.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataTargets_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.extraDataTargets*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataTargets" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.extraDataTargets">extraDataTargets</h4>
+  <div class="markdown level1 summary"><p>An array of objects associated with each <a href="xref:UnityEditor.Experimental.AssetImporters.Editor.targets">Editor.targets</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Object[] extraDataTargets { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataTargets_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This array is only created when ::ref::extraDataType is provided and will always have the same size as <a href="xref:UnityEditor.Experimental.AssetImporters.Editor.targets">Editor.targets</a>. Each object has to be initialized inside ::ref::InitializeExtraDataInstance.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataType_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.extraDataType*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataType" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.extraDataType">extraDataType</h4>
+  <div class="markdown level1 summary"><p>Override this property to return a type that inherits from ScriptableObject. This makes the AssetImporterEditor aware of serialized data outside of the Importer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Type extraDataType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Type</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_extraDataType_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When returning a type that inherits from ScriptableObject, the AssetImporterEditor creates an instance of this type for each <a href="xref:UnityEditor.Experimental.AssetImporters.Editor.targets">Editor.targets</a> during Inspector initialization..
+This should only be used when you want to manage data outside the ScriptedImporter serialization. See the main <a class="xref" href="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.html">AssetImporterEditor</a> page for an example.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_needsApplyRevert_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.needsApplyRevert*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_needsApplyRevert" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.needsApplyRevert">needsApplyRevert</h4>
+  <div class="markdown level1 summary"><p>Whether the ApplyRevertGUI method is required to draw in the Inspector.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool needsApplyRevert { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_needsApplyRevert_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Most Importers expose settings that are changed by users and require the Apply/Revert button to be pressed to update settings changes.
+Some Importers, such as MonoScriptImporter, do not expose settings and do not require the use of the ApplyRevertGUI method to update changes.
+In the cases where ApplyRevertGUI is not required, you can override needApplyRevert to return false. This avoids unnecessary checks on assets that the Importer Inspector performs when it is closed.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_showImportedObject_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.showImportedObject*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_showImportedObject" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.showImportedObject">showImportedObject</h4>
+  <div class="markdown level1 summary"><p>Should imported object be shown as a separate editor?</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool showImportedObject { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_showImportedObject_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Let asset importers decide if the imported object should be shown as a separate editor or not.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_useAssetDrawPreview_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.useAssetDrawPreview*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_useAssetDrawPreview" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.useAssetDrawPreview">useAssetDrawPreview</h4>
+  <div class="markdown level1 summary"><p>Determines if the asset preview is handled by the AssetEditor or the Importer DrawPreview</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool useAssetDrawPreview { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_useAssetDrawPreview_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>We usually want to redirect the DrawPreview to the AssetEditor, but there are few cases we don&#39;t want that. If you want to use the Importer DrawPreview, then override useAssetDrawPreview to false.</p>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_Apply_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.Apply*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_Apply" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.Apply">Apply()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Apply()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_ApplyAndImport_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.ApplyAndImport*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_ApplyAndImport" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.ApplyAndImport">ApplyAndImport()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ApplyAndImport()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_ApplyButton_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.ApplyButton*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_ApplyButton" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.ApplyButton">ApplyButton()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ApplyButton()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_ApplyRevertGUI_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.ApplyRevertGUI*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_ApplyRevertGUI" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.ApplyRevertGUI">ApplyRevertGUI()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ApplyRevertGUI()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_Awake_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.Awake*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_Awake" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.Awake">Awake()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Awake()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_HasModified_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.HasModified*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_HasModified" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.HasModified">HasModified()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool HasModified()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_InitializeExtraDataInstance_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.InitializeExtraDataInstance*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_InitializeExtraDataInstance_Object_System_Int32_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.InitializeExtraDataInstance(Object,System.Int32)">InitializeExtraDataInstance(Object, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void InitializeExtraDataInstance(Object extraData, int targetIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Object</span></td>
+        <td><span class="parametername">extraData</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">targetIndex</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_OnApplyRevertGUI_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.OnApplyRevertGUI*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_OnApplyRevertGUI" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.OnApplyRevertGUI">OnApplyRevertGUI()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool OnApplyRevertGUI()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_OnDisable_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.OnDisable*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_OnDisable" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.OnDisable">OnDisable()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnDisable()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_OnEnable_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.OnEnable*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_OnEnable" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.OnEnable">OnEnable()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnEnable()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_OnInspectorGUI_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.OnInspectorGUI*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_OnInspectorGUI" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.OnInspectorGUI">OnInspectorGUI()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void OnInspectorGUI()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_ResetValues_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.ResetValues*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_ResetValues" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.ResetValues">ResetValues()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ResetValues()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_RevertButton_" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.RevertButton*"></a>
+  <h4 id="UnityEditor_Experimental_AssetImporters_AssetImporterEditor_RevertButton" data-uid="UnityEditor.Experimental.AssetImporters.AssetImporterEditor.RevertButton">RevertButton()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void RevertButton()</code></pre>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

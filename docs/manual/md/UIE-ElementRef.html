@@ -1,0 +1,909 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>UXML Elements Reference | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="UXML Elements Reference | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="uxml-elements-reference">UXML Elements Reference</h1>
+
+<p>This topic details the UXML elements available in the <code>UnityEngine.Experimental.UIElements</code> and <code>UnityEditor.Experimental.UIElements</code> namespaces.</p>
+<h2 id="base-elements">Base elements</h2>
+<h3 id="visualelement"><code>VisualElement</code></h3>
+<p>Base class for all visual elements.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: any number of <code>VisualElement</code></li>
+<li>Attributes:<ul>
+<li><code>class</code>: a list of space separated names</li>
+<li><code>style</code>: USS directives for styling the element</li>
+<li><code>name</code>: a unique string identifier for this element</li>
+<li><code>focus-index</code>: an integer used to determine the focus order when tabbing; default value is <code>-1</code> meaning that the element is not focusable</li>
+<li><code>picking-mode</code>: <code>Position</code> or <code>Ignore</code>; default value is <code>Position</code></li>
+<li><code>tooltip</code>: a string displayed when the mouse hovers the element</li>
+<li><code>slot-name</code>: defines this elements as a slot</li>
+<li><code>slot</code>: when the element is inside an <code>&lt;Instance&gt;</code>, move the element inside the slot referenced by this attribute</li>
+<li>also accept any other attribute</li>
+</ul>
+</li>
+</ul>
+<h3 id="bindableelement"><code>BindableElement</code></h3>
+<p>An element that can be bound to a <code>SerializedProperty</code>. The value of the property and the value displayed are synchronized.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: any number of <code>VisualElement</code></li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+<li><code>binding-path</code>: the path of the property this element is bound to</li>
+</ul>
+</li>
+</ul>
+<h2 id="utilities">Utilities</h2>
+<h3 id="box"><code>Box</code></h3>
+<p>Similar to <code>VisualElement</code> but draws a box around its content.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: any number of <code>VisualElement</code></li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="textelement"><code>TextElement</code></h3>
+<p>An element that displays text.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+<li><code>text</code>: the text displayed by the element</li>
+</ul>
+</li>
+</ul>
+<h3 id="label"><code>Label</code></h3>
+<p>A text label.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>TextElement</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="image"><code>Image</code></h3>
+<p>Displays an image.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="imguicontainer"><code>IMGUIContainer</code></h3>
+<p>Elements that draws IMGUI content.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="foldout"><code>Foldout</code></h3>
+<p>Element that has a toggle button to show or hide its content.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: any number of <code>VisualElement</code></li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="templates">Templates</h2>
+<h3 id="template"><code>Template</code></h3>
+<p>A reference to another UXML template that can be instantiated using the <code>Instance</code> element.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li><code>name</code>: a unique string identifier for this element</li>
+<li><code>path</code>: the path of the UXML file to load</li>
+</ul>
+</li>
+</ul>
+<h3 id="instance"><code>Instance</code></h3>
+<p>Instance of a <code>Template</code>.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li><code>template</code>: the <code>name</code> of the <code>Template</code> to instantiate</li>
+</ul>
+</li>
+</ul>
+<h2 id="controls">Controls</h2>
+<h3 id="button"><code>Button</code></h3>
+<p>A standard push button.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>TextElement</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="repeatbutton"><code>RepeatButton</code></h3>
+<p>A button that executes an action repeatedly while pressed.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>TextElement</code></li>
+<li><code>delay</code>: the initial delay in milliseconds before the action is executed;
+ default value is <code>0</code></li>
+<li><code>interval</code>: the interval in milliseconds between each action repetition;
+ default value is <code>0</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="toggle"><code>Toggle</code></h3>
+<p>A toggle button (checkbox).</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>label</code>: the text label for the toggle</li>
+<li><code>value</code>: a boolean indicating whether the toggle in on or off.</li>
+</ul>
+</li>
+</ul>
+<h3 id="scroller"><code>Scroller</code></h3>
+<p>A scroll bar.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+<li><code>low-value</code>: minimum value of the scroller</li>
+<li><code>high-value</code>: maximum value of the scroller</li>
+<li><code>direction</code>: <code>Horizontal</code> or <code>Vertical</code>; default is <code>Vertical</code></li>
+<li><code>value</code>: the position of the scroller cursor</li>
+</ul>
+</li>
+</ul>
+<h3 id="scrollerbutton"><code>ScrollerButton</code></h3>
+<p>A button at the end of a scroll bar.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+<li><code>delay</code>: the initial delay in milliseconds before the action is executed;
+ default value is <code>0</code></li>
+<li><code>interval</code>: the interval in milliseconds between each action repetition;
+ default value is <code>0</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="slider"><code>Slider</code></h3>
+<p>A slider.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code></li>
+<li><code>low-value</code>: minimum value of the slider</li>
+<li><code>high-value</code>: maximum value of the slider</li>
+<li><code>direction</code>: <code>Horizontal</code> or <code>Vertical</code>; default is <code>Vertical</code></li>
+<li><code>page-size</code>: page size of the slider</li>
+<li><code>value</code>: the position of the slider cursor</li>
+</ul>
+</li>
+</ul>
+<h3 id="sliderint"><code>SliderInt</code></h3>
+<p>A slider for integer values.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code></li>
+<li><code>low-value</code>: minimum value of the slider</li>
+<li><code>high-value</code>: maximum value of the slider</li>
+<li><code>direction</code>: <code>Horizontal</code> or <code>Vertical</code>; default is <code>Vertical</code></li>
+<li><code>page-size</code>: page size of the slider</li>
+<li><code>value</code>: the position of the slider cursor</li>
+</ul>
+</li>
+</ul>
+<h3 id="minmaxslider"><code>MinMaxSlider</code></h3>
+<p>A slider that let the user specify a minimum and a maximum value.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code></li>
+<li><code>low-limit</code>: minimum value of the scroller</li>
+<li><code>high-limit</code>: maximum value of the scroller</li>
+<li><code>min-value</code>: the minimum value of the slider cursor</li>
+<li><code>max-value</code>: the maximum value of the slider cursor</li>
+</ul>
+</li>
+</ul>
+<h3 id="enumfield"><code>EnumField</code></h3>
+<p>A field that can only take the string values of an underlying <code>Enum</code>.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>type</code>: required, a string representing the C# type of the underlying <code>Enum</code></li>
+<li><code>value</code>: a string representing the value of the field</li>
+</ul>
+</li>
+</ul>
+<h3 id="maskfield"><code>MaskField</code></h3>
+<p>A popup menu that enables the user to select a group of values.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>choices</code>: a comma separated list of up to 32 choices to display in the popup menu</li>
+<li><code>value</code>: an integer representing the value of the field as a 32 bits mask.</li>
+</ul>
+</li>
+</ul>
+<h3 id="layerfield"><code>LayerField</code></h3>
+<p>A popup menu that enables the user to select a <a href="Layers.html">layer</a>.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>value</code>: an integer representing the value of the field (the selected layer number).</li>
+</ul>
+</li>
+</ul>
+<h3 id="layermaskfield"><code>LayerMaskField</code></h3>
+<p>A popup menu that enables the user to select a group of <a href="Layers.html">layers</a>.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>MaskField</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="tagfield"><code>TagField</code></h3>
+<p>A popup menu that enables the user to select a <a href="Tags.html">tag</a>.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>value</code>: a string representing the value of the field (the selected tag name).</li>
+</ul>
+</li>
+</ul>
+<h2 id="text-input">Text input</h2>
+<h3 id="textfield"><code>TextField</code></h3>
+<p>An editable text field.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>text</code>: the text value of the field</li>
+<li><code>max-length</code>: the maximum number of characters that the field can contains. Default value of <code>-1</code> sets no limits on the text length.</li>
+<li><code>password</code>: a boolean indicating whether the field content should be
+shown (<code>false</code>, the default) or displayed using the <code>maskCharacter</code> character.</li>
+<li><code>mask-character</code>: character used to display the field content when <code>password</code> is <code>true</code>. Default is the character <code>*</code>.</li>
+<li><code>multiline</code>: a boolean indicating whether the text field displays its text on multiple lines (<code>true</code>) or on a single line, ignoring any line break in the text (<code>false</code>, the default).</li>
+</ul>
+</li>
+</ul>
+<h3 id="integerfield"><code>IntegerField</code></h3>
+<p>A text field accepting an integer (32 bits) value.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>value</code>: the value of the field</li>
+<li><code>text</code>: the text value of the field</li>
+<li><code>max-length</code>: the maximum number of characters that the field can contains.
+Default value of <code>-1</code> sets no limits on the text length.</li>
+<li><code>password</code>: a boolean indicating whether the field content should be
+shown (<code>false</code>, the default) or displayed using the <code>maskCharacter</code> character.</li>
+<li><code>mask-character</code>: character used to display the field content when <code>password</code> is  <code>true</code>. Default is the character <code>*</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="longfield"><code>LongField</code></h3>
+<p>A text field accepting a long integer (64 bits) value.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>value</code>: the value of the field</li>
+<li><code>text</code>: the text value of the field</li>
+<li><code>max-length</code>: the maximum number of characters that the field can contains.
+Default value of <code>-1</code> sets no limits on the text length.</li>
+<li><code>password</code>: a boolean indicating whether the field content should be
+shown (<code>false</code>, the default) or displayed using the <code>maskCharacter</code> character.</li>
+<li><code>mask-character</code>: character used to display the field content when <code>password</code> is
+<code>true</code>. Default is the character <code>*</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="floatfield"><code>FloatField</code></h3>
+<p>A text field accepting a single precision floating point value.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>value</code>: the value of the field</li>
+<li><code>text</code>: the text value of the field</li>
+<li><code>max-length</code>: the maximum number of characters that the field can contains.
+Default value of <code>-1</code> sets no limits on the text length.</li>
+<li><code>password</code>: a boolean indicating whether the field content should be
+shown (<code>false</code>, the default) or displayed using the <code>maskCharacter</code> character.</li>
+<li><code>mask-character</code>: character used to display the field content when <code>password</code> is
+<code>true</code>. Default is the character <code>*</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="doublefield"><code>DoubleField</code></h3>
+<p>A text field accepting a double precision floating point value.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>value</code>: the value of the field</li>
+<li><code>text</code>: the text value of the field</li>
+<li><code>max-length</code>: the maximum number of characters that the field can contains.
+Default value of <code>-1</code> sets no limits on the text length.</li>
+<li><code>password</code>: a boolean indicating whether the field content should be
+shown (<code>false</code>, the default) or displayed using the <code>maskCharacter</code> character.</li>
+<li><code>mask-character</code>: character used to display the field content when <code>password</code> is
+<code>true</code>. Default is the character <code>*</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="vector2field"><code>Vector2Field</code></h3>
+<p>A set of two text fields accepting floating point values to
+edit the value of a <code>Vector2</code>.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>x</code>: the value of the X coordinate</li>
+<li><code>y</code>: the value of the Y coordinate</li>
+</ul>
+</li>
+</ul>
+<h3 id="vector2intfield"><code>Vector2IntField</code></h3>
+<p>A set of two text fields accepting integer values to
+edit the value of a <code>Vector2Int</code>.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>x</code>: the value of the X coordinate</li>
+<li><code>y</code>: the value of the Y coordinate</li>
+</ul>
+</li>
+</ul>
+<h3 id="vector3field"><code>Vector3Field</code></h3>
+<p>A set of three text fields accepting floating point values to
+edit the value of a <code>Vector3</code>.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>x</code>: the value of the X coordinate</li>
+<li><code>y</code>: the value of the Y coordinate</li>
+<li><code>z</code>: the value of the Z coordinate</li>
+</ul>
+</li>
+</ul>
+<h3 id="vector3intfield"><code>Vector3IntField</code></h3>
+<p>A set of three text fields accepting integer values to
+edit the value of a <code>Vector3Int</code>.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>x</code>: the value of the X coordinate</li>
+<li><code>y</code>: the value of the Y coordinate</li>
+<li><code>z</code>: the value of the Z coordinate</li>
+</ul>
+</li>
+</ul>
+<h3 id="vector4field"><code>Vector4Field</code></h3>
+<p>A set of four text fields accepting floating point values to
+edit the value of a <code>Vector4</code>.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>x</code>: the value of the X coordinate</li>
+<li><code>y</code>: the value of the Y coordinate</li>
+<li><code>z</code>: the value of the Z coordinate</li>
+<li><code>w</code>: the value of the W coordinate</li>
+</ul>
+</li>
+</ul>
+<h3 id="rectfield"><code>RectField</code></h3>
+<p>A set of four text fields accepting floating point values to
+edit the value of a rectangle.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>x</code>: the value of the top left corner X coordinate</li>
+<li><code>y</code>: the value of the top left corner Y coordinate</li>
+<li><code>w</code>: the width of the rectangle</li>
+<li><code>h</code>: the height of the rectangle</li>
+</ul>
+</li>
+</ul>
+<h3 id="rectintfield"><code>RectIntField</code></h3>
+<p>A set of four text fields accepting integer values to
+edit the value of a rectangle.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>x</code>: the value of the top left corner X coordinate</li>
+<li><code>y</code>: the value of the top left corner Y coordinate</li>
+<li><code>w</code>: the width of the rectangle</li>
+<li><code>h</code>: the height of the rectangle</li>
+</ul>
+</li>
+</ul>
+<h3 id="boundsfield"><code>BoundsField</code></h3>
+<p>A set of six text fields accepting floating point values to
+edit the value of a bounding rectangle.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>cx</code>: the value of the center X coordinate</li>
+<li><code>cy</code>: the value of the center Y coordinate</li>
+<li><code>cz</code>: the value of the center Z coordinate</li>
+<li><code>ex</code>: the value of the extent X coordinate</li>
+<li><code>ey</code>: the value of the extent Y coordinate</li>
+<li><code>ez</code>: the value of the extent Z coordinate</li>
+</ul>
+</li>
+</ul>
+<h3 id="boundsintfield"><code>BoundsIntField</code></h3>
+<p>A set of six text fields accepting integer values to
+edit the value of a bounding rectangle.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>px</code>: the value of the center X coordinate</li>
+<li><code>py</code>: the value of the center Y coordinate</li>
+<li><code>pz</code>: the value of the center Z coordinate</li>
+<li><code>sx</code>: the value of the extent X coordinate</li>
+<li><code>sy</code>: the value of the extent Y coordinate</li>
+<li><code>sz</code>: the value of the extent Z coordinate</li>
+</ul>
+</li>
+</ul>
+<h2 id="complex-widgets">Complex widgets</h2>
+<h3 id="propertyfield"><code>PropertyField</code></h3>
+<p>A label and a field to edit a value.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>binding-path</code>: the path of the property this element is bound to</li>
+<li><code>label</code>: the label for the field</li>
+</ul>
+</li>
+</ul>
+<h3 id="colorfield"><code>ColorField</code></h3>
+<p>A color picker field.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>value</code>: the color value, as a <code>Color</code></li>
+<li><code>show-eye-dropper</code>: a boolean indicating whether to show (<code>true</code>, the default) the eye dropper or not (<code>false</code>).</li>
+<li><code>show-alpha</code>: a boolean indicating whether to show the alpha control (<code>true</code>, the default) or not (<code>false</code>)</li>
+<li><code>hdr</code>: a boolean indicating whether to use the high dynamic range color picker (<code>true</code>) or the normal one (<code>false</code>, the default)</li>
+</ul>
+</li>
+</ul>
+<h3 id="curvefield"><code>CurveField</code></h3>
+<p>A curve editor field.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="gradientfield"><code>GradientField</code></h3>
+<p>A gradient editor field.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="objectfield"><code>ObjectField</code></h3>
+<p>An object selector field.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code><ul>
+<li><code>focus-index</code> default value is <code>0</code></li>
+</ul>
+</li>
+<li><code>allow-scene-objects</code>: a boolean indicating whether objects from the scene can be selected (<code>true</code>, the default) or not (<code>false</code>)</li>
+</ul>
+</li>
+</ul>
+<h3 id="inspectorelement"><code>InspectorElement</code></h3>
+<p>An element that displays a property in an inspector window.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: any number of <code>VisualElement</code></li>
+<li>Attributes:<ul>
+<li>all attributes of <code>BindableElement</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="toolbar">Toolbar</h2>
+<h3 id="toolbar-1"><code>Toolbar</code></h3>
+<p>A container to hold toolbar items.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: any <code>VisualElement</code></li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="toolbarbutton"><code>ToolbarButton</code></h3>
+<p>A button for the toolbar.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>Button</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="toolbartoggle"><code>ToolbarToggle</code></h3>
+<p>A toggle for the toolbar.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>Toggle</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="toolbarmenu"><code>ToolbarMenu</code></h3>
+<p>A drop down menu for the toolbar. The menu has a single arrow pointing down.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>TextElement</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="toolbarpopup"><code>ToolbarPopup</code></h3>
+<p>A popup menu for the toolbar. The menu has a two arrows pointing up and down.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>TextElement</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="toolbarsearchfield"><code>ToolbarSearchField</code></h3>
+<p>A search field for the toolbar.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="toolbarpopupsearchfield"><code>ToolbarPopupSearchField</code></h3>
+<p>A search field with a popup menu of search options.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>ToolbarSearchField</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="toolbarspacer"><code>ToolbarSpacer</code></h3>
+<p>An element that insert a fixed amount of whitespace between toolbar buttons.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="toolbarflexspacer"><code>ToolbarFlexSpacer</code></h3>
+<p>Elements that insert a flexible whitespace between toolbar buttons.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="views-and-windows">Views and windows</h2>
+<h3 id="listview"><code>ListView</code></h3>
+<p>Displays a list of elements.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: none</li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+<li><code>item-height</code>: the height in pixel of each item in the list</li>
+</ul>
+</li>
+</ul>
+<h3 id="scrollview"><code>ScrollView</code></h3>
+<p>A scrollable view, with horizontal and vertical scrollers.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: any number of <code>VisualElement</code></li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+<li><code>show-horizontal-scroller</code>: a boolean indicating whether to show the
+ horizontal scroller; default <code>false</code></li>
+<li><code>show-vertical-scroller</code>: a boolean indicating whether to show the vertical scroller; default `false</li>
+<li><code>horizontal-page-size</code>: page size value of the horizontal scroller</li>
+<li><code>vertical-page-size</code>: page size of the vertical scroller</li>
+<li><code>stretch-content-width</code>: a boolean indicating whether the content should stretch to the width of the view</li>
+</ul>
+</li>
+</ul>
+<h3 id="popupwindow"><code>PopupWindow</code></h3>
+<p>A UIElements window, displayed on top of other content.</p>
+<ul>
+<li>In <code>UnityEngine.Experimental.UIElements</code></li>
+<li>Permitted child elements: any number of <code>VisualElement</code></li>
+<li>Attributes:<ul>
+<li>all attributes of <code>TextElement</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="visualsplitter"><code>VisualSplitter</code></h3>
+<p>A container that allow user to resize its children by dragging a split bar.</p>
+<ul>
+<li>In <code>UnityEditor.Experimental.UIElements</code></li>
+<li>Permitted child elements: any number of <code>VisualElement</code></li>
+<li>Attributes:<ul>
+<li>all attributes of <code>VisualElement</code></li>
+</ul>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

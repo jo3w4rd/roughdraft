@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Codeless IAP | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Codeless IAP | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="codeless-iap">Codeless IAP</h1>
+
+<p><strong>Codeless IAP</strong> is the easiest way to implement in-app purchases in your Unity app. The Unity Editor offers an interface for configuring basic IAP integration using minimal script writing.</p>
+<p>Codeless IAP handles the actual IAP transaction without requiring any code. Implementing Codeless IAP is a two-step process using the Editor: </p>
+<ol>
+<li><a href="#IAPButtons">Add <strong>IAP Buttons</strong> to your game</a>.</li>
+<li><a href="#PopulatingProducts">Define your <strong>Products</strong> in the <strong>IAP Catalog</strong></a>. </li>
+</ol>
+<p>The <strong>Unity Purchasing</strong> system configures the Products you populate in the catalog at run time. When players select an <strong>IAP Button</strong>, it initiates the purchase flow for the associated Product.</p>
+<p><strong>Note</strong>: You still need to use scripting to define how players access their newly purchased content. For more information, see the <a href="#PurchaseFulfillment"><strong>Purchase fulfillment</strong></a> section below. </p>
+<h2 id="implementing-codeless-iap">Implementing Codeless IAP</h2>
+<p>Before starting, install the latest <a href="https://assetstore.unity.com/packages/add-ons/services/billing/unity-iap-68207"><strong>Unity IAP</strong></a> SDK. See documentation on <a href="https://docs.unity3d.com/2018.1/Documentation/Manual/UnityIAPSettingUp.html"><strong>Setting up Unity IAP</strong></a> for more information.</p>
+<p><a name="IAPButtons"></a></p>
+<h3 id="adding-iap-buttons-to-your-scene">Adding IAP Buttons to your Scene</h3>
+<p>To add an <strong>IAP Button</strong> to your Scene, in the Unity Editor, select <strong>Window &gt; Unity IAP &gt; Create IAP Button</strong>.</p>
+<p><img src="../uploads/Main/CreateButton.png" alt="Creating a Codeless **IAP Button** in the Unity Editor"></p>
+<p><a name="PopulatingProducts"></a></p>
+<h3 id="populating-products-in-the-iap-catalog">Populating Products in the IAP Catalog</h3>
+<p>Open the <strong>IAP Catalog</strong> GUI one of two ways:</p>
+<ul>
+<li>Select  <strong>Window &gt; Unity IAP &gt; IAP Catalog</strong>.</li>
+<li>Or, with your <strong>IAP Button</strong> selected, locate its <strong>IAP Button (Script)</strong> component in the Inspector, then click <strong>IAP Catalog…</strong>. </li>
+</ul>
+<p><img src="../uploads/Main/OpenCatalogGUI.png" alt="Accessing the **IAP Catalog** GUI through an **IAP Button** script component"></p>
+<p>Next, use the GUI to define the following attributes for each Product in your catalog.</p>
+<ul>
+<li>A <strong>Product ID</strong> with which to communicate to app stores (note that you can override this ID with unique store-specific IDs through the <strong>Advanced</strong> option).</li>
+<li>A <strong>Product Type</strong> (<strong>Consumable</strong>, <strong>Non-Consumable</strong>, or <strong>Subscription</strong>).</li>
+</ul>
+<p><img src="../uploads/Main/IAPCatalogGUI.png" alt="Populating Product information in the **IAP Catalog** GUI"></p>
+<p><strong>Note</strong>: The <strong>IAP Catalog</strong> GUI provides additional tools for configuring your Products. Before <a href="#Exporting">exporting a catalog</a> for upload to its respective store, you must populate description and pricing information as well. For detailed information on these settings, see documentation on <a href="https://docs.unity3d.com/2018.1/Documentation/Manual/UnityIAPDefiningProducts.html"><strong>Defining Products</strong></a>.</p>
+<h3 id="automatically-initializing-unitypurchasing">Automatically initializing <code>UnityPurchasing</code></h3>
+<p>The IAP SDK must initialize in order for in-app purchasing to work. This occurs automatically when the first instance of a Codeless <strong>IAP Button</strong> or <a href="#IAPListeners"><strong>IAP Listener</strong></a> loads at run time. However, you may need to initialize the SDK before an IAP Button or IAP Listener appears in your game (for example, serving an <a href="https://docs.unity3d.com/2018.1/Documentation/Manual/IAPPromo.html"><strong>IAP Promo</strong></a> offer after application launch). In these cases, check <strong>Automatically initialize UnityPurchasing (recommended)</strong> at the bottom of the <strong>IAP Catalog</strong> window. This ensures that <a href="https://docs.unity3d.com/2018.1/Documentation/ScriptReference/Purchasing.UnityPurchasing.html"><code>UnityPurchasing</code></a> initializes immediately when the application starts, and eliminates dependencies on the codeless instances’ lifecycles. </p>
+<p><img src="../uploads/Main/AutoInitialize.png" alt="Enabling auto-initialization for the SDK through the **IAP Catalog** GUI"></p>
+<p>In order to work, your catalog must contain at least one Product. </p>
+<p><strong>Note</strong>: You can use auto-initialize together with IAP Buttons or Listeners. In this case, the SDK initializes when the game starts instead of when the first instance of an IAP Button or Listener loads in the Scene. However, you should not enable auto-initialize if you also initialize manually in a script, as this may cause errors. </p>
+<p><a name="PurchaseFulfillment"></a></p>
+<h3 id="purchase-fulfillment">Purchase fulfillment</h3>
+<p>When your catalog contains at least one Product, you can define <strong>IAP Button</strong> behavior when the purchase completes or fails. </p>
+<ol>
+<li>Select your <strong>IAP Button</strong> in the Scene view, then locate its <strong>IAP Button (Script)</strong> component in the Inspector.</li>
+<li>Select the Product to link to the <strong>IAP Button</strong> from the <strong>Product ID</strong> drop-down list.
+<img src="../uploads/Main/ProductDropdown.png" alt="Selecting a Product to associate with a Codeless **IAP Button**"></li>
+<li>Create your own function that provides purchase fulfillment, or import an Asset that does this (see code sample, below).</li>
+<li>Apply your purchase fulfilment script to a GameObject as a component.
+<img src="../uploads/Main/PurchaseFulfillScript.png" alt="Creating a GameObject with a purchase fulfillment script"></li>
+<li>Return to the  <strong>IAP Button (Script)</strong> component in the Inspector, and click the plus (<strong>+</strong>) button to add a function to the <strong>On Purchase Complete (Product)</strong> list.</li>
+<li>Drag the GameObject with the purchase fulfillment script onto the <strong>On Purchase Complete (Product)</strong> event field (illustrated below), then select your function from the dropdown menu.
+<img src="../uploads/Main/OnPurchaseComplete.png" alt="Assigning your purchase fulfillment script to an **IAP Button** event field"></li>
+</ol>
+<p><strong>Fulfillment script code sample</strong>:</p>
+<pre><code>public void GrantCredits (int credits){
+    userCredits = userCredits + credits;
+    Debug.Log(“You received “ + credits “ Credits!”);
+} 
+</code></pre><p>Run your game to test the <strong>IAP Button</strong>.</p>
+<h2 id="extended-functionality">Extended functionality</h2>
+<p><a name="Exporting"></a></p>
+<h3 id="exporting-to-an-app-store">Exporting to an app store</h3>
+<p>In order for purchases to function, you must configure your catalog on the corresponding app store. To do so, you can export your Product Catalog as a CSV file to Google Play, or as an XML file through Apple’s Application Loader to the iTunes Store. </p>
+<h4 id="google-play">Google Play</h4>
+<p>To export your Product Catalog for Google Play:</p>
+<ol>
+<li>In the <strong>IAP Catalog</strong> window (<strong>Window &gt; Unity IAP &gt; IAP Catalog</strong>), ensure that each Product has the following defined:<br>* <strong>ID</strong> <br>* <strong>Type</strong> <br>* <strong>Title</strong> and <strong>Description</strong> <br>* <strong>Price</strong> or <strong>Pricing Template</strong> ID</li>
+<li>Scroll down, and select <strong>App Store Export</strong>.</li>
+<li>Select <strong>Google Play CSV</strong>.</li>
+<li>Choose a location in which to save the CSV file.</li>
+</ol>
+<p>For complete guidance on uploading your exported catalog to Google Play, see the <a href="https://developer.android.com/google/play/billing/billing_admin.html#billing-list-setup">Google in-app billing</a> documentation on the <a href="https://developer.android.com">Android Developers website</a>.</p>
+<h4 id="apple-itunes">Apple iTunes</h4>
+<p>To export your Product Catalog for Apple iTunes:</p>
+<ol>
+<li>In the <strong>IAP Catalog</strong> window (<strong>Window</strong> &gt; <strong>Unity IAP</strong> &gt; <strong>IAP Catalog</strong>), ensure that each Product has the following defined:<br>* <strong>ID</strong> <br>* <strong>Type</strong> <br>* <strong>Title</strong> and <strong>Description</strong> <br>* <strong>Price Tier</strong> and <strong>Screenshot path</strong> <br>* 
+<strong>Apple SKU</strong> (found in <a href="https://itunesconnect.apple.com">iTunes Connect</a>) <br>* <strong>Apple Team ID</strong> (found on <a href="https://developer.apple.com">Apple’s developer website</a>)</li>
+<li>Scroll down, and select <strong>App Store Export</strong>.</li>
+<li>Select <strong>Apple XML Delivery</strong>.</li>
+<li>Choose a location in which to save the XML file.</li>
+</ol>
+<p>For complete guidance on importing through Apple’s Application Loader, see the <a href="https://itunesconnect.apple.com/docs/UsingApplicationLoader.pdf">Application Loader</a> documentation on the <a href="https://itunesconnect.apple.com">iTunes Connect website</a>.</p>
+<h3 id="restore-button">Restore Button</h3>
+<p>Some app stores, including iTunes, require apps to have a <strong>Restore</strong> button. Codeless IAP provides an easy way to implement a restore button in your app. </p>
+<p>To add a <strong>Restore</strong> button:</p>
+<ol>
+<li>Add an <strong>IAP Button</strong> to your Scene (<strong>Window</strong> &gt; <strong>Unity IAP</strong> &gt; <strong>Create IAP Button</strong>).</li>
+<li>With your <strong>IAP Button</strong> selected, locate its <strong>IAP Button (Script)</strong> component in the Inspector, then select <strong>Restore</strong> from the <strong>Button Type</strong> drop-down menu (most of the component&#39;s other fields will disappear from the Inspector view).
+<img src="../uploads/Main/RestoreButton.png" alt="Modifying an IAP Button to restore purchases"></li>
+</ol>
+<p>When a user selects this button at run time, the button calls the purchase restoration API for the current store. This functionality works on the iOS App Store, the Mac App Store, the Windows Store, Samsung Apps, and the Cloud Moolah app store. You may want to hide the <strong>Restore</strong> button on other platforms.</p>
+<p>If the restore succeeds, Unity IAP invokes the <strong>On Purchase Complete (Product)</strong> function on the <strong>IAP Button</strong> associated with that Product. </p>
+<p>For more information, see the documentation on <a href="https://docs.unity3d.com/2018.1/Documentation/Manual/UnityIAPRestoringTransactions.html"><strong>Restoring purchases</strong></a>.</p>
+<p><a name="IAPListeners"></a></p>
+<h3 id="iap-listeners">IAP Listeners</h3>
+<p>Codeless IAP dispatches successful and failed purchase events to an active <strong>IAP Button</strong> component in the hierarchy. However, there may be times when it is difficult or undesirable to have an active <strong>IAP Button</strong> when handling a successful purchase. For example, if a purchase is interrupted before completing, Unity IAP attempts to process the purchase again the next time it is initialized. You may want this to happen immediately after the app launches, in which case an <strong>IAP Button</strong> wouldn’t make sense. Codeless IAP includes the <strong>IAP Listener</strong> component precisely for these cases. An active <strong>IAP Listener</strong> in the Scene hierarchy receives any purchase events that cannot be dispatched to an <strong>IAP Button</strong>.</p>
+<p>To add an <strong>IAP Listener</strong>:</p>
+<ol>
+<li>In the Unity Editor, select <strong>Window &gt; Unity IAP &gt; Create IAP Listener</strong>.</li>
+<li>Follow the steps for <a href="#PurchaseFulfillment">writing a purchase fulfillment script as a GameObject component</a>.</li>
+<li>Select the <strong>IAP Listener</strong> in the Scene and locate its <strong>IAP Listener (Script)</strong> component in the Inspector, then click the plus (<strong>+</strong>) button to add a function to the <strong>On Purchase Complete (Product)</strong> list.</li>
+<li>Drag the GameObject with the purchase fulfillment script onto the event field in the component’s Inspector, then select your function from the dropdown menu.
+<img src="../uploads/Main/IAPListenerScript.png" alt="Configuring an __IAP Listener__ to handle processing exceptions"></li>
+</ol>
+<h3 id="accessing-unity-iaps-extended-functionality">Accessing Unity IAP’s extended functionality</h3>
+<p>The Codeless IAP feature does not expose most of Unity IAP’s <a href="https://docs.unity3d.com/2018.1/Documentation/Manual/UnityIAPStoreExtensions.html">extended functionality</a>. However, Codeless IAP is implemented on top of the existing scripting APIs, so you can modify much of its functionality in the <em>IAPButton.cs</em> script (<em>Assets/Plugins/UnityPurchasing/script/IAPButton.cs</em>) to suit your needs.</p>
+<p>To use Unity IAP’s extended functionality, access the Unity IAP <a href="https://docs.unity3d.com/2018.1/Documentation/ScriptReference/Purchasing.IStoreController.html"><code>IStoreController</code></a> and <a href="https://docs.unity3d.com/2018.1/Documentation/ScriptReference/Purchasing.IExtensionProvider.html"><code>IExtensionProvider</code></a> instances returned by <a href="https://docs.unity3d.com/2018.1/Documentation/ScriptReference/Purchasing.IStoreListener.OnInitialized.html"><code>IStoreListener.OnInitialize</code></a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

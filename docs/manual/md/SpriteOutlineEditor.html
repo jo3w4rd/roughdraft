@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Sprite Editor: Custom Outline | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Sprite Editor: Custom Outline | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="sprite-editor-custom-outline">Sprite Editor: Custom Outline</h1>
+
+<p>Use the <a href="SpriteEditor.html">Sprite Editor’s</a> <strong>Custom Outline</strong> option to edit the shape of the <a href="class-Mesh.html">Mesh</a> that Unity renders the <a href="Sprites.html">Sprite</a> texture on. The Custom Outline editor allows you to use control points to create and define the shape of the Sprite&#39;s Mesh outline. </p>
+<p>By default, Unity renders each Sprite on a rectangle Mesh. This Mesh might include transparent areas outside the Texture&#39;s border, and rendering these transparent areas can negatively affect performance. When you use the Custom Outline editor to define a Mesh outline that matches the outline of the Sprite Texture, you reduce the size of the transparent areas, which improves performance.</p>
+<p>To access the Custom Outline editor, select a Sprite, then select <a href="SpriteEditor.html">Sprite Editor</a> in its Inspector window. Click the <strong>Sprite Editor</strong> drop-down at the top left of the Sprite Editor window, and select <strong>Custom Outline</strong>. </p>
+<p><img src="../uploads/Main/2DCustomOutline_1.png" alt="Selecting Custom Outline"></p>
+<h2 id="automatically-generating-a-mesh-outline">Automatically generating a Mesh outline</h2>
+<p>Unity can automatically generate a Mesh outline for you. Custom Outline mode has settings to adjust how Unity does this.</p>
+<p><img src="../uploads/Main/2DCustomOutline_6.png" alt="The __Outline Tolerance__ slider and associated settings for automatically generating an Outline"></p>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Snap</strong></td>
+<td style="text-align:left">Snap control points to the nearest pixel. Enable this to use Outline Tolerance effectively.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Outline Tolerance</strong></td>
+<td style="text-align:left">Use the slider to control the complexity and accuracy of the generated Mesh outline. At the minimum value (0), the Sprite Editor generates a basic Mesh outline around the Sprite with the minimal number of control points. At the maximum value (1), the Sprite Editor generates a Mesh outline with many control points and a tight Mesh that follows the pixel outline of the Sprite as closely as possible.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Generate</strong></td>
+<td style="text-align:left">Click to automatically create a Mesh outline.</td>
+</tr>
+</tbody>
+</table>
+<p>To automatically generate a Mesh outline:</p>
+<ol>
+<li>Select a Sprite, navigate to the <strong>Sprite Editor</strong> &gt; <strong>Custom Outline</strong> window, and select <strong>Generate</strong>. The Editor automatically generates a Mesh outline that follows the transparent border of the Sprite. </li>
+<li>Enable <strong>Snap</strong> to make sure the generated Mesh outline follows the shape of the Sprite Texture.</li>
+<li>Use the <strong>Outline Tolerance</strong> slider to adjust how tightly the generated Mesh outline attempts to follow the outline of the Sprite Texture. This affects the overall complexity of the Mesh outline, and the number of control points generated.</li>
+<li>Select <strong>Generate</strong> to refresh the Mesh outline after each change.</li>
+</ol>
+<p><img src="../uploads/Main/2DCustomOutline_7.png" alt="Left: An automatically generated Mesh outline with a low __Outline Tolerance__.&lt;br/&gt; Right: An automatically generated Mesh outline with a high __Outline Tolerance__."></p>
+<h2 id="creating-a-custom-mesh-outline">Creating a custom Mesh outline</h2>
+<p>You can create your own custom Mesh outline. This is useful if you want the Mesh to be smaller, larger, or a different shape to your Sprite Texture. Follow this workflow to create a custom Mesh outline.</p>
+<p><strong>Create a Mesh outline</strong>: Click and drag over a Sprite to create a rectangle Mesh outline with four control points. Repeat this step to create multiple Mesh outlines within the Sprite. Unity only renders the areas enclosed within the Mesh outlines.</p>
+<p><img src="../uploads/Main/2DCustomOutline_2.png" alt="Creating Mesh outlines"></p>
+<p><strong>Change the shape of a Mesh outline</strong>: To adjust the shape of the Mesh outline, click and drag the control points. When you hover over a control point, it turns blue to indicate that you can select it. Click and drag the control point to different positions to adjust the shape of the Mesh outline.</p>
+<p><img src="../uploads/Main/2DCustomOutline_3.png" alt="Changing the shape of a Mesh outline"></p>
+<p><strong>Add a control point to a Mesh outline</strong>: To add a control point, hover over a section of the Mesh outline. A preview of the control point appears along the Mesh outline&#39;s edge. Click to add a new control point at that location.</p>
+<p><img src="../uploads/Main/2DCustomOutline_4.png" alt="Adding a control point to a Mesh outline"></p>
+<p><strong>Move a section of Mesh outline between control points</strong>: To move a section between two control points, hold <strong>Ctrl</strong> while hovering over the Mesh outline section. This section of the Mesh outline turns yellow. While holding <strong>Ctrl</strong>, click and drag the section to move it to a different position.</p>
+<p><img src="../uploads/Main/2DCustomOutline_5.png" alt="Moving a section of Mesh outline between two control points"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

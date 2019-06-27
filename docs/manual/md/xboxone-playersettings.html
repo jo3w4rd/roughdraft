@@ -1,0 +1,350 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Player settings for the Xbox One platform | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Player settings for the Xbox One platform | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="player-settings-for-the-xbox-one-platform">Player settings for the Xbox One platform</h1>
+
+<p>There are many <strong>Player</strong> settings that are unique to the Xbox One.  Others you may be familiar with and are described on the main <a href="class-PlayerSettings.html">Player</a> settings, but they are used a little differently on the Xbox One.  Most of the Player settings control the values that are used in your <code>appmanifest.xml</code> file.  The purpose and format of the  <code>appmanifext.xml</code> file itself is described in the XDK documentation:  <a href="https://developer.microsoft.com/en-us/games/xbox/docs/xdk/atoc-appxmanifest-schema">Application Manifest Schema</a>.</p>
+<h2 id="global-settings">Global settings</h2>
+<p><img src="../uploads/Main/xboxone-playersettings-globalsettings.png" alt="">  </p>
+<p>These are settings that apply to any Project you create.  You&#39;ve likely already set these if you&#39;re working with an existing project.  Here are some things to keep in mind about this properties for the Xbox One.</p>
+<h3 id="company-name-and-product-name"><strong>Company Name</strong> and <strong>Product Name</strong></h3>
+<p>These are used in the <em>appmanifest.xml</em> file as the <strong>DisplayName</strong> and <strong>PublisherDisplayName</strong> respectively.  These are also used to create the AUMID and PFN for your game which are useful for <a href="xboxone-debugging.html">debugging</a>.</p>
+<h2 id="per-platform-settings-gt-xbox-one">Per-Platform Settings &gt; Xbox One</h2>
+<p>The settings you will find in this section ony affect the Xbox One build unless otherwise noted in the UI. This section provides information about the settings that are unique to (or behave differently on) the Xbox One. See the main documentation on the <a href="class-PlayerSettings.html">Player settings</a> for settings not mentioned here.</p>
+<h3 id="icons">Icons</h3>
+<p><img src="../uploads/Main/xboxone-playersettings-icons.png" alt="">  </p>
+<p>Here, you can set the icons that are used for your game on the Xbox One</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Override for Xbox One</strong></td>
+<td style="text-align:left">Set this property to set the icons.  If this is not set, then the default Unity logos will be used.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>100x100</strong></td>
+<td style="text-align:left">Shown in notification and companion center.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>208x208</strong></td>
+<td style="text-align:left">Shown when your game is in the recently used or pinned item section.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>480x480</strong></td>
+<td style="text-align:left">Shown in collections and notification center.  For DLC, this is used to identify the content within the title.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="splash-images">Splash Images</h3>
+<p><img src="../uploads/Main/xboxone-playersettings-splash.png" alt="">  </p>
+<p>This is the image that is used as the initial splash screen which is shown while the Xbox One Title OS is loading and during the initial loading phase of your game.  If this is not set, the splash screen will be the Unity logo on a green background.</p>
+<h3 id="other-settings-gt-optimization-gt-aot-settings">Other Settings &gt; Optimization &gt; AOT Settings</h3>
+<p><img src="../uploads/Main/xboxone-playersettings-aotsettings.png" alt="">  </p>
+<p>Your game scripts are compiled to native code when you build your project for Xbox One rather than at runtime.  This process is called Ahead Of Time compilation.  These are settings you can use to control how that happens.</p>
+<ul>
+<li><strong>AOT Compilation Options</strong>:<ul>
+<li><strong>Debug/Development</strong>: -debug --optimize=-linears --aot=full,asmonly,write-symbols,soft-debug,print-skipped</li>
+<li><strong>Master</strong> --aot=full,asmonly,nodebug,print-skipped</li>
+</ul>
+</li>
+<li><strong>Stripping Level</strong>: Controls the level of bytecode stripping.  See the <a href="xboxone-aot.html">Xbox One: Ahead Of Time Compiler</a> page for more details. (This setting is only available with the Mono scripting backend.)</li>
+<li><strong>Strip Engine Code</strong> Enable code stripping. (This setting is only available with the IL2CPP scripting backend.)</li>
+</ul>
+<h3 id="publishing-settings">Publishing Settings</h3>
+<p>This section holds the settings that are required to create the package for your game.  These settings correspond to data that winds up in the Unity generated <a href="xboxone-appmanifest.md">appmanifest.xml</a> file.  The terms used are the same as used in the XDK, and you can reference the XDK documentation for more information on how these settings work.  Some of the fields here must be set with identifiers for different aspects of your game, which are identifiers you must receive from Microsoft.  There are also options to tell the Xbox One that you want to use certain features, such as the Kinect.  If you want to use these features, you must enable them in these <strong>Publishing Settings</strong> as well as write the code to leverage the feature.</p>
+<p><img src="../uploads/Main/xboxone-playersettings-publishingsettings-packagetoggle.png" alt="">  </p>
+<p>The <strong>Content Package</strong> checkbox tells unity that your project should be built as a standalone game or as a content package to an existing game.  The properties in the manifest file will be different between the two.  When you have this box checked, you will be building a content package and you&#39;ll see the <strong>Content Package</strong> checkbox is always visible.</p>
+<h4 id="application-manifest">Application Manifest</h4>
+<p><img src="../uploads/Main/xboxone-playersettings-appmanifest.png" alt="">  </p>
+<p>The properties here effect the way your game and the Xbox One interact with each other. </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Content Package</strong></td>
+<td style="text-align:left">Toggle between building an game/application or a content package.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>App Manifest override File</strong></td>
+<td style="text-align:left">Set this to a file to use as an appxmanifest.xml file for your game or content package.  If this is set, none of the <span class="inspector">Global Settings</span>, <span class="inspector">Application Manifest</span> or <span class="inspector">Content Manifest</span> properties will effect the appxmanifest.xml, and it is your responsibility to fill out the manifest file correctly.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Title ID</strong></td>
+<td style="text-align:left">A unique ID your game uses when interacting with Xbox Live Services.  You must get this ID from Microsoft.  You will not be able to use any of the Xbox Live Services if this isn&#39;t set properly.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Service Config ID</strong></td>
+<td style="text-align:left">This a unique ID for accessing certain data through Xbox Live Services.  You must get this ID from Microsoft.  You will not be able to use certain aspects of the Xbox Live Services if this is not set properly.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable GPU Variability</strong></td>
+<td style="text-align:left">Turns on notifications that you are gaining/losing GPU resources, such as when an snapped app is opened or closed.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Persistent Local Storage</strong></td>
+<td style="text-align:left">Sets the size of your game&#39;s Persistent Local Storage (PLS).  PLS is one type of local storage available to Xbox One titles.  Its purpose and characteristics are documented in the <a href="https://developer.microsoft.com/en-us/games/xbox/docs/xdk/local-storage">Local Storage</a> page of the XDK documentation.  From the context of C# code in Unity, the string path to the PLS area is available as <code>Application.persistentDataPath</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Capabilities</strong></td>
+<td style="text-align:left">Features that must be explicitly marked as used if your game uses them.  See the XDK documentation for more details</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Supported Languages</strong></td>
+<td style="text-align:left">The languages that your game supports.  You will have to facilitate the localization of assets within your game.  See the <a href="xboxone-manifestlocalization.html">Manifest Localization</a> page for more information.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Game Age Ratings</strong></td>
+<td style="text-align:left">The rating you&#39;ve been given from the various rating entities.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Configured Sockets</strong></td>
+<td style="text-align:left">You must specify which sockets you will use in your game.  Clicking the <span class="menu">Add</span> or <span class="menu">Edit</span> buttons will bring up the <span class="inspector">Secure Device Socket Description</span> window.  See the <a href="xboxone-networking.html">Networking</a> page for more information.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="span-classinspectorsecure-device-socket-descriptionspan"><span class="inspector">Secure Device Socket Description</span></h4>
+<p><img src="../uploads/Main/xboxone-playersettings-socketdesc.png" alt="">  </p>
+<p>Each socket that you use on the Xbox One must be described in the manifest.  Please see the <a href="xboxone-networking.html">Networking</a> page as well as the XDK for more information on the following properties and how networking works on the Xbox One.</p>
+<h5 id="secure-device-socket-descriptions">Secure Device Socket Descriptions</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Name</strong></td>
+<td style="text-align:left">A name for the socket.  This is only used to identify it in the Unity Editor and in the appxmanifest.xml file.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Port</strong></td>
+<td style="text-align:left">The port number this socket will use.  The XDK lists which port numbers you may use.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Protocol</strong></td>
+<td style="text-align:left">The protocol for packets sent or received with this socket.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Allowed Usage</strong></td>
+<td style="text-align:left">Specifies what you will do with this socket.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="secure-device-association-template">Secure Device Association Template</h5>
+<p>This sets up a template that can be used for multiple connections.  Not all games will need to use this, thus these properties are optional.  Please see the XDK for more information on these properties.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Template Name</strong></td>
+<td style="text-align:left">The name of the template.  This must be filled in to activate the other <strong>Secure Device Association Template</strong> properties.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Multiplayer Requirement</strong></td>
+<td style="text-align:left">Set the multiplayer requirements for this template.  The XDK uses the term <strong>Multiplayer Session Requirement</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Allowed Usage</strong></td>
+<td style="text-align:left">Settings for what you will be doing with this template.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="content-manifest">Content Manifest</h4>
+<p><img src="../uploads/Main/xboxone-playersettings-contentmanifest.png" alt="">  </p>
+<p>The <span class="inspector">Content Manifest</span> section shares the following properties with the <span class="inspector">Application Manifest</span>.  </p>
+<ul>
+<li><strong>App Manifest Override File</strong></li>
+<li><strong>Capabilities</strong></li>
+<li><strong>Supported Languages</strong></li>
+</ul>
+<p>The <strong>Allowed Products</strong> property is unique to the <strong>Product ID</strong> and sets which games are compatible and thus allowed to load this content package.  The text field at the bottom lets you enter <strong>Product IDs</strong>, and you add it to the list by pressing the <strong>Product IDs</strong> that you&#39;ve already added will have a <span class="menu">Remove</span> button next to them that you can use to remove them from the list.</p>
+<h4 id="package-settings">Package Settings</h4>
+<p><img src="../uploads/Main/xbxoone-playersettings-packagesettings.png" alt="">  </p>
+<p>These settings control how your game or content package is turned into a package.  The <strong>Build Package</strong> <a href="xboxone-buildsettings.html">Build Setting</a> must be enabled to build a package.  See the <a href="xboxone-packaging.html">Packaging</a> page and the XDK documentation for more details.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Package Manifest Override File</strong></td>
+<td style="text-align:left">Set this to a file to use as the manifest given to the XDK&#39;s makepkg.exe tool.  If this is set, none of the other <strong>Launch Scene Range</strong> <a href="xboxone-buildsettings.html">Build Setting</a> will have an effect.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Sandbox ID</strong></td>
+<td style="text-align:left">This is an ID for a private environment for your game&#39;s data.  This is an optional setting for security purposes and is not applicable for cert as your game will be locked to the RETAIL sandbox when shipping. This is only needed if you want to ensure that your game cannot connect to any other sandbox during development.  You must use one of the existing sandboxes described in the XDK documentation or get your own, unique ID from Microsoft.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Product ID</strong></td>
+<td style="text-align:left">An ID identifying your product.  This is an ID that is given to you by Microsoft.  Multiple titles can be identified as the same product.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Product Description</strong></td>
+<td style="text-align:left">A description of your product.  This text is used for the <em>Properties &gt; Description</em> section of your appxmanifest.xml file. If blank, the text will be the <strong>Product Name</strong> from the global <a href="class-PlayerSettings.html">Player</a> settings.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ContentID</strong></td>
+<td style="text-align:left">Another ID for your game and content packages.  This is an ID that is given to you by Microsoft, though a dummy ID can be used during development.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Update Key</strong></td>
+<td style="text-align:left">A file used for the /updateKey option of makepkg.exe.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>GameOs Override</strong></td>
+<td style="text-align:left">Specify which game OS file to embed into the package.  Leave blank to use the default game OS, which is a part of the XDK installation.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Package Encryption</strong></td>
+<td style="text-align:left">How to encrypt your package.  These correspond to command line options for makepkg.exe: None = /lu option, Devkit Compatible = no option, Retail Signing = /l option</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Update Granularity</strong></td>
+<td style="text-align:left">Corresponds to the /updcompat option for makepkg.exe.  File granularity is strongly recommended.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="debugging">Debugging</h4>
+<p><img src="../uploads/Main/xboxone-playersettings-debugging.png" alt="">  </p>
+<p>This section has a <span class="menu">Get Log</span> button that you can use to copy the <strong>debug.log</strong> file for your game to your PC.  See the <a href="xboxone-debugging.html">Debugging</a> page for details about this file.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

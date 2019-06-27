@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>PS4 Project structure | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="PS4 Project structure | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ps4-project-structure">PS4 Project structure</h1>
+
+<h2 id="mount-points">Mount points</h2>
+<h3 id="writing-access-directories">Writing access directories</h3>
+<p>Unlike PC or Standalone builds, the PlayStation 4 platform has restrictions on where you&#39;re allowed to write files to. Specifically, you do not have unrestricted access to the hard drive of the PS4; you only have access to write files to the mount points of <a href="ScriptRef:Application-persistentDataPath.html">Application.persistentDataPath</a> (<em>download0</em>) and <a href="ScriptRef:Application-temporaryCachePath.html">Application.temporaryCachePath</a> (<em>temp0</em>).</p>
+<p>By default, there is no space in the mount point download0 available to an application; if you require this mount point, you need to reserve space. To do this, set the size of download0 via the <strong>Persistent Data Size</strong> property in the <strong>Publishing Settings</strong> section of the <a href="PS4PlayerSettings#Publishing">Player</a> settings. Note that the size of download0 is limited to a maximum of 1024MB of data. If you plan to include over 1024MB of additional data, then you need to discuss this with Sony Interactive Entertainment (SIE, sometimes known as SCE), either via <a href="https://ps4.siedev.net/support/newissue">Private Support</a> or through the <a href="https://ps4.siedev.net/forums/forum/24/">Accounts and Content Delivery forum</a>.</p>
+<p>During development, when running a PC-hosted build, you can also write files to the <em>app0</em> mount point via <a href="ScriptRef:Application-dataPath.html">Application.dataPath</a> (<em>app0/Media</em>).</p>
+<h3 id="streaming-assets">Streaming Assets</h3>
+<p><a href="ScriptRef:Application-streamingAssetsPath.html">Application.streamingAssetsPath</a> is packaged to <em>app0/Media/StreamingAssets</em>. Use this for Assets that Unity should not process, like videos, AssetBundles and custom Assets.</p>
+<h3 id="plugins">Plugins</h3>
+<p>Assets which you select for the PS4 platform in the <a href="PluginInspector.html">Plugin Inspector</a> and have the file extensions <strong>.sprx</strong>, <strong>.prx</strong>, <strong>_suprx</strong> or <strong>_stub.a</strong> are packaged to <em>Media/Plugins/*</em>.</p>
+<p>For more information on PS4 mount points, see the SDK documentation on <a href="https://ps4.siedev.net/resources/documents/SDK/latest/Application_Requirements_File_Organization/0001.html">Application Requirements (File Organization)</a>.</p>
+<h2 id="the-resources-folder">The Resources folder</h2>
+<p>The <em>Resources</em> folder allows you to refer to Assets by their file path, rather than custom references. </p>
+<p>Note that the entire <em>Resources</em> folder is always included for your build and packaged into a single file, regardless of what’s actually used. On PlayStation 4, this can have two important side effects that you should be aware of early in development so that you can plan around them:</p>
+<ul>
+<li><p>If the files in your <em>Resources</em> folder add up to a significant size, then the generated <em>resources.asset</em> file is equally large. This is loaded during the transition into the first Scene in the project, so your game might spend a long time loading at the start. This first load is not performed asynchronously, so your game can’t enter a loading screen or show any animating or moving features as it loads. This can cause compliance issues with SIE’s Technical Requirements Checklist (TRC). See Sony’s <a href="https://ps4.siedev.net/resources/documents/TRC/1.5/TRC/R4018.html">documented example of a TRC failure</a> to learn more.</p>
+</li>
+<li><p>This <em>resources.asset</em> file is always one single file, and if you ever release a patch for your game, the size of this patch will always contain the entire file. This means that even if you make a single, minor change, your patch file could be many hundreds of megabytes in size, because all of your Assets are in this single location.</p>
+</li>
+</ul>
+<p>For more information on how to manage this, please see Unity’s <a href="https://unity3d.com/learn/tutorials/topics/best-practices/resources-folder">Best practice guide to the Resources folder</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

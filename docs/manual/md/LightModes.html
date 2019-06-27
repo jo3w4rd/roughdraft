@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Lighting Modes | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Lighting Modes | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="lighting-modes">Lighting Modes</h1>
+
+<p>This page assumes you have already read documentation on <a href="LightingInUnity.html">lighting in Unity</a>.</p>
+<p>To control lighting precomputation and composition in Unity, you need to assign a <strong>Light Mode</strong> to a Light. This <strong>Light Mode</strong> defines the Light’s intended use. To assign a Light Mode, select the Light in your Scene and, in the <a href="GlobalIllumination.html">Light Inspector window</a>, select <strong>Mode</strong>.  </p>
+<p><img src="../uploads/Main/LightModes-0.png" alt=""></p>
+<p>The Modes and their possible mappings are:</p>
+<ul>
+<li><a href="LightMode-Realtime.html">Realtime</a></li>
+<li><a href="LightMode-Mixed.html">Mixed</a> - Mixed Lights have their own sub-modes. Set these in the Lighting window:<ul>
+<li><a href="LightMode-Mixed-BakedIndirect.html">Baked Indirect</a></li>
+<li><a href="LightMode-Mixed-DistanceShadowmask.html">Shadowmask</a></li>
+<li><a href="LightMode-Mixed-Shadowmask.html">Distance Shadowmask</a></li>
+<li><a href="LightMode-Mixed-Subtractive.html">Subtractive</a></li>
+</ul>
+</li>
+<li>Baked(LightMode-Baked)</li>
+</ul>
+<p>For more information, see the <a href="https://drive.google.com/open?id=1v-LnDOJcsSsa0ViF7kBs6xgY9Q_z-1k6h95LE0lf46U">Reference card for Light Modes</a>.</p>
+<p>The Modes are listed above in the order of least to most light path precomputations required (See <em>How Modes work</em>, below). Note that this order does not necessarily correlate with the amount of time the actual precomputation requires.</p>
+<h2 id="how-modes-work">How Modes work</h2>
+<p>Each <strong>Mode</strong> in the Light Inspector window corresponds to a group of settings in the Lighting window (menu: <strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Lighting Settings</strong> &gt; <strong>Scene</strong>). </p>
+<p><img src="../uploads/Main/LightModes-1.jpg" alt="The available __Light Modes__ in the Light component (left), and the corresponding settings available for those modes in the Lighting Scene window (right)."></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Light Inspector</strong></th>
+<th style="text-align:left"><strong>Lighting window</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Realtime</strong></td>
+<td style="text-align:left"><strong>Realtime Lighting</strong></td>
+<td style="text-align:left">Unity calculates and updates the lighting of <strong>Realtime</strong> Lights every frame during run time. No Realtime Lights are precomputed.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Mixed</strong></td>
+<td style="text-align:left"><strong>Mixed Lighting</strong></td>
+<td style="text-align:left">Unity can calculate some properties of <strong>Mixed</strong> Lights during run time, but only within strong limitations. Some Mixed Lights are precomputed.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Baked</strong></td>
+<td style="text-align:left"><strong>Lightmapping Settings</strong></td>
+<td style="text-align:left">Unity pre-calculates the illumination from <strong>Baked</strong> Lights before run time, and does not include them in any run-time lighting calculations. All Baked Lights are precomputed.</td>
+</tr>
+</tbody>
+</table>
+<p>Use these settings to adjust each mode. The adjustments you make apply to all Lights with that Mode assigned to them. For example, if you open the Lighting window, navigate to the <strong>Realtime Lighting Settings</strong> and tick <strong>Realtime Global Illumination</strong>, all Lights that have their <strong>Mode</strong> set to <strong>Realtime</strong> mode use <strong>Realtime Global Illumination</strong>.</p>
+<p>Precomputation yields two sets of results:</p>
+<ul>
+<li><p>Unity stores results for static GameObjects as Texture atlases in UV Texture coordinate space. Unity provides several settings to <a href="GlobalIllumination.html">control this layouting</a>. </p>
+</li>
+<li><p><a href="LightProbes.html">Light Probes</a> store a representation of light in empty space as seen from their particular position. Dynamic GameObjects moving through this portion of empty space use this information to receive illumination from the precomputed lighting.</p>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

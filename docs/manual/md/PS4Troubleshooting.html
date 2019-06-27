@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>PS4 Troubleshooting | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="PS4 Troubleshooting | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ps4-troubleshooting">PS4 Troubleshooting</h1>
+
+<p>This page provides advice on:</p>
+<ul>
+<li><a href="#profiler">Resolving Unity Profiler and debugger connection issues</a></li>
+<li><a href="#log">Reading log files</a></li>
+<li><a href="#dumps">Examining core dumps</a></li>
+<li><a href="#memory">Handling out-of-memory crashes</a></li>
+<li><a href="#reporting">Reporting a crash issue to Unity</a></li>
+</ul>
+<p><a name="profiler"></a></p>
+<h2 id="resolving-unity-profiler-and-debugger-connection-issues">Resolving Unity Profiler and debugger connection issues</h2>
+<p>If you’re having problems connecting to a PlayStation 4 device from the Unity Profiler, or from an Integrated Development Environment (IDE) when script debugging, make sure your network is set up correctly. Use the advice below to check and resolve issues. </p>
+<p><strong>Note</strong>: For more details on the device settings and terminology used below, see <a href="https://ps4.siedev.net/resources/documents/SDK/latest/DevKit-Setup_Guide/__document_toc.html">Sony PS4 documentation on the development hardware</a>.</p>
+<h3 id="ensure-a-wired-connection">Ensure a wired connection</h3>
+<p>Although the services you need (such as the internet, PSN, Unity Profiler and Unity script debugging) are available over WiFi, the volume of information might be too much for your wireless connection. Make sure the PlayStation 4 development machine (either Development Kit or Testing Kit) is connected to the internet via a wired connection:</p>
+<ul>
+<li>Ensure an ethernet cable is connected to the LAN port.</li>
+<li>Verify the connection in your PS4 system settings. To do this, go to <strong>Settings</strong> &gt; <strong>Network</strong> &gt; <strong>View Connection Status</strong>. </li>
+</ul>
+<h3 id="use-the-same-subnetwork">Use the same subnetwork</h3>
+<p>Make sure the host PC and PS4 are on the same subnet. If you’re not familiar with subnets, see <a href="https://en.wikipedia.org/wiki/Subnetwork">Wikipedia: Subnetworks</a> to get started.</p>
+<p>For Development Kits, make sure the DEV LAN port is also connected to the internet, and on the subnet as the host PC. The Unity Profiler and your IDE for script debugging do not use this connection, but they might not work properly without it.</p>
+<h3 id="check-firewall-settings">Check firewall settings</h3>
+<p>The Unity Profiler runs in the Unity Editor, so check any firewall software on your computer to make sure it is not blocking internet access to the Editor. You also need to check your firewall software to make sure it is not blocking your IDE for script debugging. </p>
+<p>For example, in a typical set-up on Windows 10 using Visual Studio 2015, you might need to navigate to your computer’s <strong>Control Panel</strong>, go to <strong>System and Security</strong> &gt; <strong>Windows Defender Firewall</strong> &gt; <strong>Allowed applications</strong>, and add <em>[Program Files (x86)]\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe</em> to the list of allowed applications.</p>
+<p>Firewall configuration is not always straightforward. As a first step in troubleshooting, you might want to completely disable your firewall, and then, in case that solves the issue, re-enable it and proceed with a proper configuration.</p>
+<h3 id="check-unity-application-build-settings">Check Unity application build settings</h3>
+<p>Make sure you have a Unity application running on the PS4 device. This must be a development build, meaning that in <a href="PS4BuildSettings.html">Build Settings</a> you must tick the <strong>Development Build</strong> checkbox before building the application.</p>
+<h3 id="check-debug-settings">Check debug settings</h3>
+<p>Check that <strong>Network Emulation</strong> is not set in the PlayStation 4 system settings. To do this, go to <strong>Debug Settings</strong> &gt; <strong>Network</strong> and make sure <strong>Network Emulation</strong> is disabled (the box is not checked). If <strong>Network Emulation</strong> is enabled, disable it.</p>
+<h3 id="try-connecting-manually">Try connecting manually</h3>
+<p>If the PlayStation 4 you are trying to connect to is not in the list when trying to connect the Unity Profiler (<strong>Profiler Window</strong> &gt; <strong>Connected Player</strong>), use <strong>Enter IP</strong> to manually enter the PlayStation 4’s IP address.</p>
+<p>If the PlayStation 4 device you are trying to connect to is not in the list when trying to connect Visual Studio for debugging (<strong>Debug</strong> &gt; <strong>Attach Unity Debugger</strong>), use Input IP to manually enter the PlayStation 4’s IP address.</p>
+<p><strong>Note</strong>: When manually entering the IP address, you need to use the regular network connection IP address as shown in your PS4 system settings (<strong>Settings</strong> &gt; <strong>Network</strong> &gt; <strong>View Connection Status</strong>), rather than the DEV LAN. Try connecting without specifying a port, or add port 4601 if this does not work.</p>
+<h3 id="verify-a-connection">Verify a connection</h3>
+<p>Verify that the host PC can reach the IP address. For example, use <a href="https://technet.microsoft.com/en-us/library/bb490968.aspx">ping</a> in the command line to check the connection. </p>
+<h3 id="allow-multicast-packets">Allow multicast packets</h3>
+<p>Check your router or access point settings to ensure that your connection allows multicast packets between networked devices (no WiFi peer isolation enabled). If you don’t know how to do this, check the documentation for your router or access point.</p>
+<h3 id="check-console-output">Check console output</h3>
+<p>Run your build on the PS4 and check the <a href="https://ps4.scedev.net/resources/documents/SDK/latest/Console_Output-Users_Guide/0002.html">Console Output</a> for any output regarding the player connection.</p>
+<h3 id="analyze-your-network-protocol">Analyze your network protocol</h3>
+<p>If you still can’t make a connection, try installing and running <a href="https://www.wireshark.org/">Wireshark</a>, a third-party network protocol analyzer. To configure Wireshark to display the announcement packets being sent from the PS4, run it on your PC with a filter of <code>ip.addr eq 225.0.0.222</code>. See <a href="https://www.wireshark.org/docs/">Wireshark’s documentation</a> for more information on how to do this.</p>
+<p><a name="log"></a></p>
+<h2 id="reading-log-files">Reading log files</h2>
+<p>If your PS4 application is crashing, the first thing you need to do is to check your application log. You can read the log while your application is running using the Console Output application from the PS4 SDK. </p>
+<p>Running out of memory is one of the most common causes of crashes. To diagnose it, you can search the log for messages about failed memory allocations. Here’s an example of how it could look in your log:</p>
+<pre><code>fps 52.152 (19.175 ms), objects: 263, coroutines: 0
+sceKernelAllocateDirectMemory failed with 0x80020023
+sceKernelAllocateDirectMemory failed with 0x80020023
+DynamicHeapAllocator allocation probe 1 failed - Could not get memory for large allocation 4016779264.
+sceKernelAllocateDirectMemory failed with 0x80020023
+sceKernelAllocateDirectMemory failed with 0x80020023
+DynamicHeapAllocator allocation probe 2 failed - Could not get memory for large allocation 4016779264.
+sceKernelAllocateDirectMemory failed with 0x80020023
+sceKernelAllocateDirectMemory failed with 0x80020023
+DynamicHeapAllocator allocation probe 3 failed - Could not get memory for large allocation 4016779264.
+sceKernelAllocateDirectMemory failed with 0x80020023
+sceKernelAllocateDirectMemory failed with 0x80020023
+DynamicHeapAllocator allocation probe 4 failed - Could not get memory for large allocation 4016779264.
+sceKernelAllocateDirectMemory failed with 0x80020023
+sceKernelAllocateDirectMemory failed with 0x80020023
+DynamicHeapAllocator out of memory - Could not get memory for large allocation 4016779264!
+Could not allocate memory: System out of memory!
+Trying to allocate: 4016779264B with 4096 alignment. MemoryLabel: Mono
+Allocation happend at: Line:407 in C:/buildslave/unity/build/PlatformDependent/PS4/Source/Allocator/PS4Memory.cpp
+Memory overview
+
+[ ALLOC_DEFAULT ] used: 8100027132B | peak: 0B | reserved: 8108553212B 
+[ ALLOC_TEMP_JOB ] used: 0B | peak: 0B | reserved: 2097152B 
+[ ALLOC_PROFILER ] used: 628000B | peak: 628000B | reserved: 33554432B 
+[ ALLOC_GFX ] used: 0B | peak: 149626568B | reserved: 0B 
+[ ALLOC_TEMP_THREAD ] used: 32768B | peak: 0B | reserved: 3670016B 
+Could not allocate memory: System out of memory!
+Trying to allocate: 4016779264B with 4096 alignment. MemoryLabel: Mono
+Allocation happend at: Line:407 in C:/buildslave/unity/build/PlatformDependent/PS4/Source/Allocator/PS4Memory.cpp
+</code></pre><p>For more information on PS4 memory allocation, refer to <a href="PS4Memory.html">PlayStation 4 memory</a>.</p>
+<p><a name="dumps"></a></p>
+<h2 id="examing-core-dumps">Examing core dumps</h2>
+<p>If the log doesn’t give you enough clues, you can examine the PS4 core dump. Core dumps are a feature of the PS4 system that are available in DevKits and TestKits, even in Release Mode. They are used during development, but can also be retrieved from Sony’s servers after a title has been released. Make sure to read the <a href="https://ps4.siedev.net/resources/documents/SDK/4.500/Core_Dump_System-Overview/0003.html#__document_toc_00000002">Core Dump Documentation</a> for all the details.</p>
+<h3 id="generating-core-dumps">Generating core dumps</h3>
+<p>First, you need to set up your DevKit to generate a core dump in case of a crash. To do this, select Debug Settings &gt; Core Dump &gt; Core Dump Mode and set it to coredump. After setting this option, the system will automatically generate a core dump the next time your application crashes.</p>
+<h3 id="accessing-core-dump-files">Accessing core dump files</h3>
+<p>The generated files are stored in the DevKit HDD, in a folder for each generated dump. The folder will have the following naming convention:</p>
+<pre><code>/data/sce_coredumps/&lt;title ID&gt;_&lt;timestamp&gt;
+</code></pre><p>If you connect to the DevKit using the Neighborhood for PlayStation 4 application, you should be able to see the files in a file explorer, in a folder similar to:</p>
+<pre><code>O:\192.168.1.192\data\sce_coredumps\CUSA05885_1486154714
+</code></pre><h3 id="loading-the-core-dump">Loading the core dump</h3>
+<p>Within the core dump generated files, you should find one with the extension .orbisdmp. You can use Visual Studio to load this file and examine its contents. You will need to install the respective Visual Studio Integration provided by SIE, via the SDK Manager. </p>
+<p>If you are unable to load the dump file in Visual Studio, try the following:</p>
+<ul>
+<li>If you have multiple versions of Visual Studio installed, make sure the Integration tools are installed in the one you are using to open the dump file. </li>
+<li>Run your SDK Manager and check that <strong>SDK Development Tools</strong> &gt; <strong>Tools for Development</strong> &gt; <strong>Debugger X.XX and Visual Studio 20XX Integration</strong> are installed. </li>
+<li>You can also check <strong>Help</strong> &gt; <strong>About</strong> in Visual Studio to see which products are installed.</li>
+</ul>
+<p>After loading the file, use the <strong>Start debugging</strong> option in the <strong>Actions</strong> section of the loaded page to see the crashed Call Stack, Thread information, Kernel Objects, Output Window (log) and more.</p>
+<h3 id="adding-debug-symbols-to-the-call-stack">Adding debug symbols to the Call Stack</h3>
+<p>The Call Stack window in Visual Studio doesn’t have <a href="https://en.wikipedia.org/wiki/Debug_symbol">debug symbols</a> loaded by default. You’ll see memory addresses instead of function names, which makes it hard to find clues. To add symbols to your Call Stack and be able to see function names, you can use the <strong>Set Symbol Path</strong> option in Visual Studio, located in the <strong>Actions</strong> section of the loaded dump page.</p>
+<p>The following image shows an example of a Call Stack without symbols (left) and the same Call Stack after loading symbols (right). </p>
+<p><img src="../uploads/Main/PS4CallStack.jpg" alt=""></p>
+<p>The Call Stack also shows the names of the PS4 modules containing the called code. The following modules produced by Unity contain debug symbols in the .bin/.prx file itself. You need to add the folder containing the files to the symbol path list in Visual Studio:</p>
+<p>|:---|:---|:---|
+|Module Name| Used with scripting backend|Project specific|
+|eboot.bin|Both|No|
+|mono-ps4.prx|Mono2x|No|
+|MonoAssembliesPS4.prx|Mono2x|Yes|
+|PS4Util.prx|IL2CPP|No|
+|Il2CppUserAssemblies.prx|IL2CPP|Yes|</p>
+<p>Project-specific modules contain your script code. They change every time you build your project. For that reason, you need to get the exact version of the file that was included in the build that crashed, to be able to add symbols.</p>
+<p>Non-project specific modules are included in your Unity installation and don’t change between builds or between projects, they only change between Unity versions.</p>
+<h4 id="symbol-folders-for-a-pc-hosted-build">Symbol folders for a PC-hosted build</h4>
+<ul>
+<li>The <strong>eboot.bin</strong> module is placed in the selected build folder. </li>
+<li>Other modules are placed in (build folder)\Media\Modules.</li>
+</ul>
+<h4 id="symbol-folders-for-a-packageiso-build">Symbol folders for a package/ISO build</h4>
+<ul>
+<li>The <strong>eboot.bin</strong> module is placed in the (project folder)\Temp\StagingArea folder. </li>
+<li>Other modules are placed in (project folder)\Temp\StagingArea\Data\Modules.</li>
+</ul>
+<p>Be aware that the complete (project folder)\Temp\ folder is always deleted as soon as you close the Unity Editor.</p>
+<h4 id="alternative-symbol-folders-for-non-project-specific-modules">Alternative symbol folders for non-project specific modules</h4>
+<p>Alternatively, find non-project specific modules (eboot.bin, PS4Util.prx, mono-ps4.prx) in your Unity installation folder. This is handy when you’ve lost the files used in your crashed build (but note that your project-specific symbols will be still missing). You need to use the files from the correct version of Unity for this to work. </p>
+<p>The location of the modules depends on the PS4 SDK version that you are using:</p>
+<ul>
+<li>For PS4 SDK 5.0: 
+<code>(Unity Install Folder)\Editor\Data\PlaybackEngines\PS4Player\5_008</code></li>
+<li>For PS4 SDK 5.5: 
+<code>(Unity Install Folder)\Editor\Data\PlaybackEngines\PS4Player\5_50</code></li>
+</ul>
+<p>Note that there is no <strong>eboot.bin</strong> file in those folders. Instead, there are several .self files. Depending on your Project configuration, Unity chooses one of these .self files, copies it and renames it to <strong>eboot.bin</strong> during build time. This renaming does not affect symbol loading, so you can load symbols for <strong>eboot.bin</strong> directly from the .self files.</p>
+<h3 id="generating-a-core-dump-without-a-crash">Generating a core dump without a crash</h3>
+<p>Sometimes it is useful to generate a core dump even if the application has not crashed. A common case would be when the application hangs. </p>
+<p>You can generate a core dump while an application is running by using the “★Generate Core file” option in the <a href="https://ps4.siedev.net/resources/documents/SDK/4.500/System_Software-Overview/0005.html">Development Support Features by Application</a> menu. </p>
+<p>Alternatively, you can use the orbis-ctrl pdump command line tool in an elevated command prompt window with the following line:</p>
+<pre><code>orbis-ctrl pdump processname pathwherethefilewillbesaved mini
+</code></pre><p>You can get the process name via Neighborhood for PlayStation 4 in the process list displayed by selecting your DevKit and then right clicking and selecting <strong>Kill process</strong>. In test environments, the process name is usually project-specific symbols.</p>
+<p><a name="profiler"></a></p>
+<h2 id="handling-out-of-memory-crashes">Handling out-of-memory crashes</h2>
+<p>Running out of memory is a very common cause of crashes on PlayStation 4. Normally, when a crash occurs, you can see a message related to memory allocations in the <a href="https://ps4.siedev.net/resources/documents/SDK/latest/Console_Output-Users_Guide/__toc.html">Console Output</a>. For example you can find these types of log messages:</p>
+<pre><code>DynamicHeapAllocator out of memory - Could not get memory for large allocation 201677926!
+Could not allocate memory: System out of memory!
+Trying to allocate: 201677926B with 4096 alignment. MemoryLabel: Mono
+</code></pre><h3 id="onion-and-garlic">Onion and Garlic</h3>
+<p>PlayStation 4 uses two memory access paths called Onion and Garlic, each with a configurable size at build time. For more details, see the <a href="PS4Memory.html">PlayStation 4 memory</a> documentation. </p>
+<p>When you get an out-of-memory crash, it means you have run out of either Onion or Garlic memory. Therefore you must first discover which of the two memory access paths ran out. You can usually figure this out from the <code>MemoryLabel</code> printed in the log for the failed memory allocation. </p>
+<p>Graphics resource labels like <code>GPUMemory</code> and <code>Texture</code> signal Garlic memory problems. Other labels unrelated to graphics resources, like <code>Mono</code>, <code>File</code> and <code>Profiler</code>, signal Onion memory problems.</p>
+<p>Otherwise, if the label is not clear enough, or if you want more details about your Onion and Garlic usage:</p>
+<ol>
+<li><p>Get the size of your Garlic memory from the respective slider in the Unity Editor’s <a href="class-PlayerSettings.html">Player</a> window (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category). The size depends on the mode (Base or Pro) your application is running on.</p>
+<p> <img src="../uploads/Main/PS4PlayerSettingsHeapSize.png" alt=""></p>
+</li>
+<li><p>Looking at the same sliders, calculate the size of your Onion memory. See the <a href="PS4Memory.html">PlayStation 4 memory</a> documentation for an outline.</p>
+</li>
+<li><p>Check the <a href="ProfilerMemory.html">Unity Memory Profiler</a> (menu: <strong>Window</strong> &gt; <strong>Analysis</strong> &gt; <strong>Profiler</strong>) to see which of the two memories is closer to running out. When you switch target to PlayStation 4 in the Editor, Unity adds two additional rows to the <strong>Simple</strong> memory report, called GARLIC and ONION, which show the current load in each.</p>
+<p> <img src="../uploads/Main/PS4UnityProfilerMemory.png" alt=""></p>
+</li>
+</ol>
+<p>Alternatively, you can use Sony’s <a href="https://ps4.siedev.net/resources/documents/SDK/5.500/Memory_Analyzer-Users_Guide/__document_toc.html">Memory Analyzer for PS4</a>. In the timeline view, you can see the use of Garlic (ALLOC_GFX) and Onion (onion_sys_allocator) over time. </p>
+<p>   <img src="../uploads/Main/PS4MemoryAnalyzer.png" alt=""></p>
+<p>If you suspect that Garlic memory is the cause of the crash, you can confirm it easily by following these steps:</p>
+<ol>
+<li><p>Open the <a href="class-QualitySettings.html">Quality</a> window (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Quality</strong> category).</p>
+</li>
+<li><p>From the <strong>Texture Quality</strong> drop-down menu, select <strong>Eighth Res</strong>. This is only temporary to see if it stops the crash.</p>
+</li>
+</ol>
+<h3 id="fixing-out-of-memory-problems">Fixing out-of-memory problems</h3>
+<p>When you know whether the problem comes from Onion or Garlic, you can usually adjust the slider in the Player Settings to give more space to one or the other. If that is not an option (for example, if both Onion and Garlic are almost full), you’ll need to optimize the memory usage of your application. Below are some tips on how to do this. </p>
+<p>To reduce Garlic memory usage:</p>
+<ul>
+<li><p>Textures are usually more memory intensive than other graphics resources allocated in Garlic. You can use the <a href="BestPracticeUnderstandingPerformanceInUnity2.html">memory visualization tool</a> to get an idea of which textures are consuming more memory and reduce their sizes if possible. You can also identify other resource types that might be consuming more memory than expected.</p>
+</li>
+<li><p>Keep an eye on your <a href="SL-MultipleProgramVariants.html">shader variants</a> (go to menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Graphics</strong> category, and navigate to the <strong>Shader Stripping</strong> section). You can end up with thousands of variants for your shaders without noticing it. </p>
+</li>
+</ul>
+<p>To reduce Onion memory usage:</p>
+<ul>
+<li><p>Unload your AssetBundles (<a href="ScriptRef:AssetBundle.Unload.html">AssetBundle.Unload(false)</a>) as soon as you can. This also applies to any large file loaded from disk.</p>
+</li>
+<li><p><a href="MultiSceneEditing.html">Subdivide your scenes into smaller ones</a> and load/unload them on demand.</p>
+</li>
+<li><p>Remember to call <a href="ScriptRef:Resources.UnloadUnusedAssets.html">Resources.UnloadUnusedAssets</a> frequently.</p>
+</li>
+<li><p>Try not to keep very large data structures in memory. If you need them, try to use smaller data types (for example, bytes instead of integers).</p>
+</li>
+</ul>
+<p><a name="reporting"></a></p>
+<h2 id="reporting-a-crash-issue-to-unity">Reporting a crash issue to Unity</h2>
+<p>If you can’t get enough clues to fix the problem by yourself, you can send your core dump files to us. You can <a href="https://unity3d.com/unity/qa/bug-reporting">file a new bug report</a>, or ask for help on the <a href="https://ps4.siedev.net/forums/forum/29/">Unity forum for PS4 in Devnet</a>. Please attach the complete core dump folder and tell us what version of Unity you are using.</p>
+<p>Additionally, if the Call Stack touches your script code module (MonoAssembliesPS4.prx or Il2CppUserAssemblies.prx), please make sure to also attach that file too.</p>
+<p>To make sure we get as much information as possible from the core dump, you can set your DevKit to generate a <strong>Full Dump</strong> instead of the default <strong>Mini Dump</strong>. You can set it in <strong>Debug Settings</strong> &gt; <strong>Core Dump</strong> &gt; <strong>Dump Level</strong>.</p>
+<p>If you prefer to post just a Call Stack (not an entire core dump) on our support channels, please make sure you add debug symbols to it first. Attaching your entire log file is also a good idea.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

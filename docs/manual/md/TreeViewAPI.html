@@ -1,0 +1,449 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>TreeView | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="TreeView | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="treeview">TreeView</h1>
+
+<p>The information on this page assumes the reader has basic knowledge of IMGUI (Immediate Mode GUI) concepts. For information about IMGUI and customizing Editor windows, refer to <a href="ExtendingTheEditor.html">Extending the Editor</a> and the <a href="https://blogs.unity3d.com/2015/12/22/going-deep-with-imgui-and-editor-customization">IMGUI Unity blog</a>. </p>
+<p>TreeView is an IMGUI control used to display hierarchical data that you can expand and collapse. Use TreeView to create highly customizable list views and multi-column tables for Editor windows, which you can use alongside other IMGUI controls and components. </p>
+<p>See Unity Scripting API documentation on <a href="ScriptRef:IMGUI.Controls.TreeView.html">TreeView</a> for information about the available TreeView API functions.</p>
+<p><img src="../uploads/Main/TreeViewAPI-0.png" alt="Example of a TreeView with a MultiColumnHeader and a SearchField."></p>
+<p>Note that the TreeView is not a <a href="https://en.wikipedia.org/wiki/Tree_(data_structure)">tree data model</a>. You can construct TreeView using any tree data structure you prefer. This can be a C# tree model, or a Unity-based tree structure like the <a href="ScriptRef:Transform.html">Transform</a> hierarchy.</p>
+<p>The rendering of the TreeView is handled by determining a list of expanded items called rows. Each row represents one <code>TreeViewItem</code>. Each <code>TreeViewItem</code> contains parent and children information, which is used by the TreeView to handle navigation (key and mouse input).</p>
+<p>The TreeView has a single root <code>TreeViewItem</code> which is hidden and does not appear in the Editor. This item is the root of all other items.</p>
+<h2 id="important-classes-and-methods">Important classes and methods</h2>
+<p>The most important classes aside from the TreeView itself are <a href="ScriptRef:IMGUI.Controls.TreeViewItem.html">TreeViewItem</a> and <a href="ScriptRef:IMGUI.Controls.TreeViewState.html">TreeViewState</a>. </p>
+<p><strong>TreeViewState</strong> (<a href="ScriptRef:IMGUI.Controls.TreeViewState.html">TreeViewState</a>) contains state information that is changed when interacting with TreeView fields in the Editor, such as selection state, expanded state, navigation state, and scroll state. <code>TreeViewState</code> is the only state that is <a href="script-Serialization.html">serializable</a>. The TreeView itself is not serializable - it is reconstructed from the data that it represents when it is constructed or reloaded. Add the <code>TreeViewState</code> as a field in your <code>EditorWindow</code>-derived class to ensure that user-changed states are not lost when reloading scripts or entering Play mode (see documentation on <a href="ExtendingTheEditor.html">extending the Editor</a> for information on how to do this). For an example of a class containing a <code>TreeViewState</code> field, see <a href="#Example1"><em>Example 1: A simple TreeView</em></a>, below.</p>
+<p><strong>TreeViewItem</strong> (<a href="ScriptRef:IMGUI.Controls.TreeViewItem.html">TreeViewItem</a>) contains data about an individual TreeView item, and is used to build the representation of the tree structure in the Editor. Each <code>TreeViewItem</code> must be constructed with a unique integer ID (unique among all the items in the TreeView). The ID is used for finding items in the tree for the selection state, expanded state, and navigation. If the tree represents Unity objects, use <a href="ScriptRef:Object.GetInstanceID.html">GetInstanceID</a> for each object as the ID for the <code>TreeViewItem</code>. The IDs are used in the <code>TreeViewState</code> to persist user-changed states (such as expanded items) when reloading scripts or entering Play mode in the Editor.</p>
+<p>All <code>TreeViewItems</code> have a <code>depth</code> property, which indicates the visual indentation. See the <a href="#InitializingTreeView"><em>Initializing a TreeView</em></a> example below for more information.</p>
+<p><strong>BuildRoot</strong> (<a href="ScriptRef:IMGUI.Controls.TreeView.BuildRoot.html">BuildRoot</a>) is the single abstract method of the <code>TreeView</code> class that must be implemented to create a TreeView. Use this method to handle creating the root item of the tree. This is called every time <a href="ScriptRef:IMGUI.Controls.TreeView.Reload.html">Reload</a> is called on the tree. For simple trees that use small data sets, create the entire tree of <code>TreeViewItems</code> under the root item in <code>BuildRoot</code>. For very large trees, it is not optimal to create the entire tree on every reload. In this situation, create the root and then override the <code>BuildRows</code> method to only create items for the current rows. For an example of <code>BuildRoot</code> in use, see <a href="#Example1"><em>Example 1: A simple TreeView</em></a> below.</p>
+<p><strong>BuildRows</strong> (<a href="ScriptRef:IMGUI.Controls.TreeView.BuildRows.html">BuildRows</a>) is a virtual method where the default implementation handles building the rows list based on the full tree created in <code>BuildRoot</code>. If only the root was created in <code>BuildRoot</code>, this method should be overridden to handle the expanded rows. See <a href="#InitializingTreeView">Initializing a TreeView</a>, below, for more information.</p>
+<p><img src="../uploads/Main/TreeViewAPI-1.png" alt=""></p>
+<p>This diagram summarizes the ordering and repetition of <code>BuildRoot</code> and <code>BuildRows</code> event methods during a TreeView’s lifetime. Note that the <code>BuildRoot</code> method is called once every time <code>Reload</code> is called. <code>BuildRows</code> is called more often because it is called once on <code>Reload</code> (right after <code>BuildRoot</code>) and every time <code>TreeViewItem</code> is expanded or collapsed.</p>
+<p><a name="InitializingTreeView"> </a></p>
+<h2 id="initializing-a-treeview">Initializing a TreeView</h2>
+<p>The TreeView is initialized when the <code>Reload</code> method is called from a TreeView object. </p>
+<p>There are two ways to set up a TreeView:</p>
+<ol>
+<li><p><strong>Create the full tree</strong> - Create <code>TreeViewItem</code>s for all items in the tree model data. This is the default and requires less code to set up. The full tree is built when BuildRoot is called from a TreeView object.</p>
+</li>
+<li><p><strong>Create only the expanded items</strong> - This approach requires you to override <code>BuildRows</code> to manually control the rows being shown, and <code>BuildRoot</code> is only used to create the root <code>TreeViewItem</code>. This approach scales best with large data sets or data that changes often. </p>
+</li>
+</ol>
+<p>Use the first approach for small data sets, or for data that does not change often. Use the second approach for large data sets, or data that changes often, because it is faster to only create only expanded items rather than a full tree. </p>
+<p>There are three ways you can set up TreeViewItems:</p>
+<ul>
+<li><p>Create <code>TreeViewItem</code>s with children, parent, and depths initialized from the start.</p>
+</li>
+<li><p>Create <code>TreeViewItem</code>s with parent and children and then use <a href="ScriptRef:IMGUI.Controls.TreeView.SetupDepthsFromParentsAndChildren.html">SetupDepthsFromParentsAndChildren</a> to set the depths.</p>
+</li>
+<li><p>Create <code>TreeViewItem</code>s only with depth information and then use <a href="ScriptRef:IMGUI.Controls.TreeView.SetupDepthsFromParentsAndChildren.html">SetupDepthsFromParentsAndChildren</a> to set the the parent and children references. </p>
+</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<p>To view the Project and source code for the examples shown below, download <a href="http://files.unity3d.com/mads/TreeViewExamples.zip">TreeViewExamples.zip</a>.</p>
+<p><a name="Example1"> </a></p>
+<h3 id="example-1-a-simple-treeview">Example 1: A simple TreeView</h3>
+<p><img src="../uploads/Main/TreeViewAPI-2.png" alt=""></p>
+<p>To create a TreeView, create a class that extends the <code>TreeView</code> class and implement the abstract method <code>BuildRoot</code>. The following example creates a simple TreeView.</p>
+<pre><code>class SimpleTreeView : TreeView
+{
+    public SimpleTreeView(TreeViewState treeViewState)
+        : base(treeViewState)
+    {
+        Reload();
+    }
+
+    protected override TreeViewItem BuildRoot ()
+    {
+        // BuildRoot is called every time Reload is called to ensure that TreeViewItems 
+        // are created from data. Here we create a fixed set of items. In a real world example,
+        // a data model should be passed into the TreeView and the items created from the model.
+
+        // This section illustrates that IDs should be unique. The root item is required to 
+        // have a depth of -1, and the rest of the items increment from that.
+        var root = new TreeViewItem {id = 0, depth = -1, displayName = &quot;Root&quot;};
+        var allItems = new List&lt;TreeViewItem&gt; 
+        {
+            new TreeViewItem {id = 1, depth = 0, displayName = &quot;Animals&quot;},
+            new TreeViewItem {id = 2, depth = 1, displayName = &quot;Mammals&quot;},
+            new TreeViewItem {id = 3, depth = 2, displayName = &quot;Tiger&quot;},
+            new TreeViewItem {id = 4, depth = 2, displayName = &quot;Elephant&quot;},
+            new TreeViewItem {id = 5, depth = 2, displayName = &quot;Okapi&quot;},
+            new TreeViewItem {id = 6, depth = 2, displayName = &quot;Armadillo&quot;},
+            new TreeViewItem {id = 7, depth = 1, displayName = &quot;Reptiles&quot;},
+            new TreeViewItem {id = 8, depth = 2, displayName = &quot;Crocodile&quot;},
+            new TreeViewItem {id = 9, depth = 2, displayName = &quot;Lizard&quot;},
+        };
+
+        // Utility method that initializes the TreeViewItem.children and .parent for all items.
+        SetupParentsAndChildrenFromDepths (root, allItems);
+
+        // Return root of the tree
+        return root;
+    }
+}
+</code></pre><p>In this example, depth information is used to build the TreeView. Finally, a call to <code>SetupDepthsFromParentsAndChildren</code> sets the parent and children data of the <code>TreeViewItem</code>s.</p>
+<p>Note that there are two ways to set up the <code>TreeViewItem</code>: Set the parent and children directly, or use the <code>AddChild</code> method, as demonstrated in the following example:</p>
+<pre><code>protected override TreeViewItem BuildRoot()
+{
+    var root = new TreeViewItem      { id = 0, depth = -1, displayName = &quot;Root&quot; };
+    var animals = new TreeViewItem   { id = 1, displayName = &quot;Animals&quot; };
+    var mammals = new TreeViewItem   { id = 2, displayName = &quot;Mammals&quot; };
+    var tiger = new TreeViewItem     { id = 3, displayName = &quot;Tiger&quot; };
+    var elephant = new TreeViewItem  { id = 4, displayName = &quot;Elephant&quot; };
+    var okapi = new TreeViewItem     { id = 5, displayName = &quot;Okapi&quot; };
+    var armadillo = new TreeViewItem { id = 6, displayName = &quot;Armadillo&quot; };
+    var reptiles = new TreeViewItem  { id = 7, displayName = &quot;Reptiles&quot; };
+    var croco = new TreeViewItem     { id = 8, displayName = &quot;Crocodile&quot; };
+    var lizard = new TreeViewItem    { id = 9, displayName = &quot;Lizard&quot; };
+
+    root.AddChild(animals);
+    animals.AddChild(mammals);
+    animals.AddChild(reptiles);
+    mammals.AddChild(tiger);
+    mammals.AddChild(elephant);
+    mammals.AddChild(okapi);
+    mammals.AddChild(armadillo);
+    reptiles.AddChild(croco);
+    reptiles.AddChild(lizard);
+
+    SetupDepthsFromParentsAndChildren(root);
+
+    return root;
+}
+</code></pre><h4 id="alternative-buildroot-method-for-the-simpletreeview-class-above">Alternative <code>BuildRoot</code> method for the <code>SimpleTreeView</code> class above</h4>
+<p>The following example shows the <code>EditorWindow</code> that contains the <code>SimpleTreeView</code>. TreeViews are constructed with a <code>TreeViewState</code> instance. The implementer of the TreeView should determine how this view state should be handled: whether its state should persist until the next session of Unity, or whether it should only preserve its state after scripts are reloaded (either when entering Play mode or recompiling scripts). In this example, the <code>TreeViewState</code> is serialized in the <code>EditorWindow</code>, ensuring the TreeView preserves its state when the Editor is closed and reopened.</p>
+<pre><code>using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor.IMGUI.Controls;
+
+class SimpleTreeViewWindow : EditorWindow
+{
+    // SerializeField is used to ensure the view state is written to the window 
+    // layout file. This means that the state survives restarting Unity as long as the window
+    // is not closed. If the attribute is omitted then the state is still serialized/deserialized.
+    [SerializeField] TreeViewState m_TreeViewState;
+
+    //The TreeView is not serializable, so it should be reconstructed from the tree data.
+    SimpleTreeView m_SimpleTreeView;
+
+    void OnEnable ()
+    {
+        // Check whether there is already a serialized view state (state 
+        // that survived assembly reloading)
+        if (m_TreeViewState == null)
+            m_TreeViewState = new TreeViewState ();
+
+        m_SimpleTreeView = new SimpleTreeView(m_TreeViewState);
+    }
+
+    void OnGUI ()
+    {
+        m_SimpleTreeView.OnGUI(new Rect(0, 0, position.width, position.height));
+    }
+
+    // Add menu named &quot;My Window&quot; to the Window menu
+    [MenuItem (&quot;TreeView Examples/Simple Tree Window&quot;)]
+    static void ShowWindow ()
+    {
+        // Get existing open window or if none, make a new one:
+        var window = GetWindow&lt;SimpleTreeViewWindow&gt; ();
+        window.titleContent = new GUIContent (&quot;My Window&quot;);
+        window.Show ();
+    }
+}
+</code></pre><h3 id="example-2-a-multi-column-treeview">Example 2: A multi-column TreeView</h3>
+<p><img src="../uploads/Main/TreeViewAPI-3.png" alt=""></p>
+<p>This example illustrates a multi-column TreeView that uses the <a href="ScriptRef:IMGUI.Controls.MultiColumnHeader.html">MultiColumnHeader</a> class.</p>
+<p><code>MultiColumnHeader</code> supports the following functionality: renaming items, multi-selection, reordering items and custom row content using normal IMGUI controls (such as sliders and object fields), sorting of columns, and the filtering and searching of rows. </p>
+<p>This example creates a data model using the classes <code>TreeElement</code> and <code>TreeModel</code>. The TreeView fetches data from this &quot;TreeModel&quot;. In this example, the <code>TreeElement</code> and <code>TreeModel</code> classes have been built in to demonstrate the features of the TreeView class. These classes have been included in the TreeView Examples Project (<a href="http://files.unity3d.com/mads/TreeViewExamples.zip">TreeViewExamples.zip</a>). The example also shows how the tree model structure is serialized to a <a href="ScriptRef:ScriptableObject.html">ScriptableObject</a> and saved in an Asset.</p>
+<pre><code>[Serializable]
+//The TreeElement data class is extended to hold extra data, which you can show and edit in the front-end TreeView.
+internal class MyTreeElement : TreeElement
+{
+    public float floatValue1, floatValue2, floatValue3;
+    public Material material;
+    public string text = &quot;&quot;;
+    public bool enabled = true;
+
+    public MyTreeElement (string name, int depth, int id) : base (name, depth, id)
+    {
+        floatValue1 = Random.value;
+        floatValue2 = Random.value;
+        floatValue3 = Random.value;
+    }
+}
+</code></pre><p>The following ScriptableObject class ensures that data persists in an Asset when the tree is serialized.</p>
+<pre><code>[CreateAssetMenu (fileName = &quot;TreeDataAsset&quot;, menuName = &quot;Tree Asset&quot;, order = 1)]
+public class MyTreeAsset : ScriptableObject
+{
+    [SerializeField] List&lt;MyTreeElement&gt; m_TreeElements = new List&lt;MyTreeElement&gt; ();
+
+    internal List&lt;MyTreeElement&gt; treeElements
+    {
+        get { return m_TreeElements; }
+        set { m_TreeElements = value; }
+    }
+}
+</code></pre><h2 id="construction-of-the-multicolumntreeview-class">Construction of the MultiColumnTreeView class</h2>
+<p>The following example shows snippets of the class <code>MultiColumnTreeView</code>, which illustrates how the multi column GUI is achieved. Find full source code in the TreeView Examples Project (<a href="http://files.unity3d.com/mads/TreeViewExamples.zip">TreeViewExamples.zip</a>).</p>
+<pre><code>public MultiColumnTreeView (TreeViewState state, 
+                            MultiColumnHeader multicolumnHeader, 
+                            TreeModel&lt;MyTreeElement&gt; model) 
+                            : base (state, multicolumnHeader, model)
+{
+    // Custom setup
+    rowHeight = 20;
+    columnIndexForTreeFoldouts = 2;
+    showAlternatingRowBackgrounds = true;
+    showBorder = true;
+    customFoldoutYOffset = (kRowHeights - EditorGUIUtility.singleLineHeight) * 0.5f; 
+    extraSpaceBeforeIconAndLabel = kToggleWidth;
+    multicolumnHeader.sortingChanged += OnSortingChanged;
+
+    Reload();
+}
+</code></pre><p>The custom changes in the code sample above make the following adjustments:</p>
+<ul>
+<li><p><code>rowHeight = 20</code>: Change the default height (which is based on <a href="ScriptRef:EditorGUIUtility-singleLineHeight.html">EditorGUIUtility.singleLineHeight</a>’s 16 points) to 20, to add more room for GUI controls.</p>
+</li>
+<li><p><code>columnIndexForTreeFoldouts = 2</code>: In the example, the fold-out arrows are shown in the third column because this value is set to 2 (see image above). If this value is not changed, the fold-outs are rendered in the first column, because &quot;columnIndexForTreeFoldouts&quot; is 0 by default.</p>
+</li>
+<li><p><code>showAlternatingRowBackgrounds = true</code>:  Enable alternating row background colors, so that each row is distinct.</p>
+</li>
+<li><p><code>showBorder = true</code>: Render the TreeView with a margin around it, so that a thin border is shown to delimit it from the rest of the content</p>
+</li>
+<li><p><code>customFoldoutYOffset = (kRowHeights - EditorGUIUtility.singleLineHeight) * 0.5f</code>: Center fold-outs vertically in the row - see <a href="#CustomizingGUI">Customizing the GUI</a> below.</p>
+</li>
+<li><p><code>extraSpaceBeforeIconAndLabel = 20</code>: Make space before the tree labels so the toggle button is shown.</p>
+</li>
+<li><p><code>multicolumnHeader.sortingChanged += OnSortingChanged</code>: Assign a method to the event to detect when the sorting changes in the header component (when the header column is clicked), so that the rows of the TreeView change to reflect the sorting state.</p>
+</li>
+</ul>
+<p><a name="CustomizingGUI"> </a></p>
+<h2 id="customizing-the-gui">Customizing the GUI</h2>
+<p>If the default RowGUI handling is used, the TreeView looks like the <code>SimpleTreeView</code> example above, with only fold-outs and a label. When using multiple data values for each item, you must override the RowGUI method to visualize these values.</p>
+<pre><code>protected override void RowGUI (RowGUIArgs args)
+</code></pre><p>The following code sample is the argument structure of the <code>RowGUIArgs</code> struct.</p>
+<pre><code>protected struct RowGUIArgs
+{
+    public TreeViewItem item;
+    public string label;
+    public Rect rowRect;
+    public int row;
+    public bool selected;
+    public bool focused;
+    public bool isRenaming;
+
+    public int GetNumVisibleColumns ()
+    public int GetColumn (int visibleColumnIndex)
+    public Rect GetCellRect (int visibleColumnIndex)
+}
+</code></pre><p>You can extend the <code>TreeViewItem</code> and add additional user data (which creates a class that derives from <code>TreeViewItem</code>). You can then use this user data in the RowGUI callback. An example of this is provided below. See <code>override void RowGUI</code> - this example casts the input item to  <code>TreeViewItem&lt;MyTreeElement&gt;</code>.</p>
+<p>There are three methods which are related to column handling: <a href="ScriptRef:IMGUI.Controls.TreeView.RowGUIArgs.GetNumVisibleColumns.html">GetNumVisibleColumns</a>, <a href="ScriptRef:IMGUI.Controls.MultiColumnHeader.GetColumn.html">GetColumn</a>, and <a href="ScriptRef:IMGUI.Controls.MultiColumnHeader.GetCellRect.html">GetCellRect</a>. You can only call these when the TreeView is constructed with a <a href="ScriptRef:IMGUI.Controls.MultiColumnHeader.html">MultiColumnHeader</a>, otherwise an exception is thrown. </p>
+<pre><code>protected override void RowGUI (RowGUIArgs args)
+{
+    var item = (TreeViewItem&lt;MyTreeElement&gt;) args.item;
+
+    for (int i = 0; i &lt; args.GetNumVisibleColumns (); ++i)
+    {
+        CellGUI(args.GetCellRect(i), item, (MyColumns)args.GetColumn(i), ref args);
+    }
+}
+</code></pre><pre><code>void CellGUI (Rect cellRect, TreeViewItem&lt;MyTreeElement&gt; item, MyColumns column, ref RowGUIArgs args)
+{
+    // Center the cell rect vertically using EditorGUIUtility.singleLineHeight.
+// This makes it easier to place controls and icons in the cells.
+    CenterRectUsingSingleLineHeight(ref cellRect);
+
+    switch (column)
+    {
+
+        case MyColumns.Icon1:
+
+            // Draw custom texture
+GUI.DrawTexture(cellRect, s_TestIcons[GetIcon1Index(item)], ScaleMode.ScaleToFit);
+            break;
+
+        case MyColumns.Icon2:
+
+//Draw custom texture 
+            GUI.DrawTexture(cellRect, s_TestIcons[GetIcon2Index(item)], ScaleMode.ScaleToFit);
+            break;
+
+        case MyColumns.Name:
+
+            // Make a toggle button to the left of the label text
+            Rect toggleRect = cellRect;
+            toggleRect.x += GetContentIndent(item);
+            toggleRect.width = kToggleWidth;
+            if (toggleRect.xMax &lt; cellRect.xMax)
+                item.data.enabled = EditorGUI.Toggle(toggleRect, item.data.enabled); 
+
+            // Default icon and label
+            args.rowRect = cellRect;
+            base.RowGUI(args);
+            break;
+
+        case MyColumns.Value1:
+
+// Show a Slider control for value 1
+            item.data.floatValue1 = EditorGUI.Slider(cellRect, GUIContent.none, item.data.floatValue1, 0f, 1f);
+            break;
+
+        case MyColumns.Value2:
+
+// Show an ObjectField for materials
+            item.data.material = (Material)EditorGUI.ObjectField(cellRect, GUIContent.none, item.data.material, 
+                                          typeof(Material), false);
+            break;
+
+        case MyColumns.Value3:
+
+// Show a TextField for the data text string
+            item.data.text = GUI.TextField(cellRect, item.data.text);
+            break;
+    }
+}
+</code></pre><h2 id="treeview-faq">TreeView FAQ</h2>
+<p><strong>Q: In my TreeView subclass, I have the functions <a href="ScriptRef:IMGUI.Controls.TreeView.BuildRoot.html">BuildRoot</a> and <a href="http://treeview.rowgui">RowGUI</a>. Is <code>RowGUI</code> called for every <code>TreeViewItem</code> that got added in the build function, or only for items that are visible on screen in the scroll view?</strong></p>
+<p>A: <code>RowGUI</code> is only called for the items visible on screen. For example, if you have 10,000 items, only the 20 visible items on screen have their <code>RowGUI</code> called.</p>
+<p><strong>Q: Can I get the indices of the rows that are visible on the screen?</strong></p>
+<p>A: Yes. Use the method <a href="ScriptRef:IMGUI.Controls.TreeView.GetFirstAndLastVisibleRows.html">GetFirstAndLastVisibleRows</a>.</p>
+<p><strong>Q: Can I get the list of rows that are built in <a href="ScriptRef:IMGUI.Controls.TreeView.BuildRows.html">BuildRows</a>?</strong></p>
+<p>A: Yes. Use the method <a href="ScriptRef:IMGUI.Controls.TreeView.GetRows.html">GetRows</a>.</p>
+<p><strong>Q: Is it mandatory for any of the overridden functions to call <code>base.Method</code>?</strong></p>
+<p>A: Only if the method has a default behavior you want to extend. </p>
+<p><strong>Q: I just want to make list of items (not a tree). Do I have to create the root?</strong></p>
+<p>A: Yes, you should always have a root. You can create the root item and set <code>root.children = rows</code> for fast setup.</p>
+<p><strong>Q: I’ve added a Toggle to my row - why doesn’t the selection jump to that row when I click on it?</strong></p>
+<p>A: By default, the row is only selected if the mouse down is not consumed by the contents of the row. Here, your Toggle consumes the event. To fix this, use the method <a href="ScriptRef:IMGUI.Controls.TreeView.SelectionClick.html">SelectionClick</a> before your Toggle button is called.</p>
+<p><strong>Q: Are there methods I can use before or after all <code>RowGUI</code> methods are called?</strong></p>
+<p>A: Yes. See API documentation on <a href="ScriptRef:IMGUI.Controls.TreeView.BeforeRowsGUI.html">BeforeRowsGUI</a> and <a href="ScriptRef:IMGUI.Controls.TreeView.AfterRowsGUI.html">AfterRowsGUI</a>.</p>
+<p><strong>Q: Is there a simple way to return key focus to the TreeView from API? If I select a <a href="ScriptRef:EditorGUI.FloatField.html">FloatField</a> in my row, the row selection becomes gray. How do I make it blue again?</strong></p>
+<p>A: The blue color indicates which row currently has key focus. Because the FloatField has focus, the TreeView loses focus, so this is the intended behavior. Set <code>GUIUtility.keyboardControl = treeViewControlID</code> when needed.</p>
+<p><strong>Q: How do I convert from <code>id</code> to a <code>TreeViewItem</code>?</strong></p>
+<p>A: Use either FindItem or FindRows.</p>
+<p><strong>Q: How do I receive a callback when a user changes their selection in the TreeView?</strong></p>
+<p>A: Override the <a href="ScriptRef:IMGUI.Controls.TreeView.SelectionChanged.html">SelectionChanged</a> method (other useful callbacks: <a href="ScriptRef:IMGUI.Controls.TreeView.DoubleClickedItem.html">DoubleClickedItem</a>, and <a href="ScriptRef:IMGUI.Controls.TreeView.ContextClickedItem.html">ContextClickedItem</a>).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

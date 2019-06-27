@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Making believable visuals in Unity | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Making believable visuals in Unity | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="making-believable-visuals-in-unity">Making believable visuals in Unity</h1>
+
+<p><img src="../uploads/Main/BelievableVisualsScene.jpg" alt=""></p>
+<p>This Best Practice Guide looks at the fundamental steps for setting up a good baseline for believable visuals. The advice in this guide is provided by the Spotlight Team at Unity. The Spotlight Team help developers and content creators achieve the desired look and quality for their projects. They hear stories from across the industry, and can identify the common issues that customers face. Questions that often arise when making a Scene are “How do we build to a fairly realistic standard visual?” and &quot;How do we make a Scene in Unity that looks believable?&quot;. </p>
+<p>Light, texture, scale, and material all need to work together to make digital content look real. With massive amounts of features, functions, options, properties, systems and variables to tweak, you could ask “Where do I start?” and “In what order do I proceed?”. This guide aims to answer these questions.</p>
+<h2 id="contents">Contents</h2>
+<ol>
+<li><a href="BestPracticeMakingBelievableVisuals1.html">Preparing Assets for Unity</a></li>
+<li><a href="BestPracticeMakingBelievableVisuals2.html">Preparing render settings in Unity</a></li>
+<li><a href="BestPracticeMakingBelievableVisuals3.html">Lighting strategy</a></li>
+<li><a href="BestPracticeMakingBelievableVisuals4.html">Modelling</a></li>
+<li><a href="BestPracticeMakingBelievableVisuals5.html">Shading</a></li>
+<li><a href="BestPracticeMakingBelievableVisuals6.html">Outdoor lighting and Scene setup</a></li>
+<li><a href="BestPracticeMakingBelievableVisuals7.html">Indoor and local lighting</a></li>
+<li><a href="BestPracticeMakingBelievableVisuals8.html">Understanding post-processing</a></li>
+<li><a href="BestPracticeMakingBelievableVisuals9.html">Dynamic lighting</a></li>
+</ol>
+<h2 id="sample-scene">Sample scene</h2>
+<p>This guide is accompanied by the <a href="https://drive.google.com/file/d/1zo9BHEZg12LW8asMxNeIBw0jJ0gLY7jf/view">Spotlight Tunnel sample scene</a>:</p>
+<p><img src="../uploads/Main/BelievableVisualsInEditorView.jpg" alt=""></p>
+<p>To use the sample Scene, extract the Project to a folder and open the Project in Unity.</p>
+<p>All Assets provided in this sample project should only be used for projects developed with Unity.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

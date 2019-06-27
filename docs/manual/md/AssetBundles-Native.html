@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Using AssetBundles Natively | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using AssetBundles Natively | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-assetbundles-natively">Using AssetBundles Natively</h1>
+
+<p>There are four different APIs that you can use to load AssetBundles.  Their behavior varies based on the platform the bundle is being loaded and the compression method used when the AssetBundles were built (uncompressed, LZMA, LZ4).  </p>
+<p>The four APIs we have to work with are:</p>
+<ul>
+<li><a href="https://docs.unity3d.com/ScriptReference/AssetBundle.LoadFromMemoryAsync.html?_ga=1.226802969.563709772.1479226228">AssetBundle.LoadFromMemoryAsync</a></li>
+<li><a href="https://docs.unity3d.com/ScriptReference/AssetBundle.LoadFromFile.html?_ga=1.259297550.563709772.1479226228">AssetBundle.LoadFromFile</a></li>
+<li><a href="https://docs.unity3d.com/ScriptReference/WWW.LoadFromCacheOrDownload.html?_ga=1.226802969.563709772.1479226228">WWW.LoadfromCacheOrDownload</a></li>
+<li><a href="https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.html?_ga=1.259297550.563709772.1479226228">UnityWebRequest</a>’s <a href="https://docs.unity3d.com/ScriptReference/Networking.DownloadHandlerAssetBundle.html?_ga=1.264500235.563709772.1479226228">DownloadHandlerAssetBundle </a>(Unity 5.3 or newer)</li>
+</ul>
+<h2 id="assetbundleloadfrommemoryasync">AssetBundle.LoadFromMemoryAsync</h2>
+<p><a href="ScriptRef:AssetBundle.LoadFromMemoryAsync.html">AssetBundle.LoadFromMemoryAsync</a> </p>
+<p>This function takes an array of bytes that contains AssetBundle data.  Optionally you can also pass in a CRC value if you desire.  If the bundle is LZMA compressed it will decompress the AssetBundle while it’s loading.  LZ4 compressed bundles are loaded in their compressed state.</p>
+<p>Here’s one example of how to use this method:</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+using System.IO;
+
+public class Example : MonoBehaviour
+{
+    IEnumerator LoadFromMemoryAsync(string path)
+    {
+        AssetBundleCreateRequest createRequest = AssetBundle.LoadFromMemoryAsync(File.ReadAllBytes(path));
+        yield return createRequest;
+        AssetBundle bundle = createRequest.assetBundle;
+        var prefab = bundle.LoadAsset&lt;GameObject&gt;(&quot;MyObject&quot;);
+        Instantiate(prefab);
+    }
+}
+</code></pre><p>However, this is not the only strategy that makes using LoadFromMemoryAsync possible.  File.ReadAllBytes(path) could be replaced with any desired procedure of obtaining a byte array.</p>
+<h2 id="assetbundleloadfromfile">AssetBundle.LoadFromFile</h2>
+<p><a href="ScriptRef:AssetBundle.LoadFromFile.html">AssetBundle.LoadFromFile</a></p>
+<p>This API is highly-efficient when loading uncompressed bundles from local storage.  LoadFromFile will load the bundle directly from disk if the bundle is uncompressed or chunk (LZ4) compressed.  Loading a fully compressed (LZMA) bundle with this method will first decompress the bundle before loading it into memory.</p>
+<p>One example of how to use <code>LoadFromFile</code>:</p>
+<pre><code>public class LoadFromFileExample extends MonoBehaviour {
+    function Start() {
+        var myLoadedAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, &quot;myassetBundle&quot;));
+        if (myLoadedAssetBundle == null) {
+            Debug.Log(&quot;Failed to load AssetBundle!&quot;);
+            return;
+        }
+        var prefab = myLoadedAssetBundle.LoadAsset.&lt;GameObject&gt;(&quot;MyObject&quot;);
+        Instantiate(prefab);
+    }
+}
+</code></pre><p>Note: On Android devices with Unity 5.3 or older, this API will fail when trying to load AssetBundles from the Streaming Assets path. This is because the contents of that path will reside inside a compressed .jar file.  Unity 5.4 and newer can use this API call with Streaming Assets just fine.</p>
+<h2 id="wwwloadfromcacheordownload">WWW.LoadFromCacheOrDownload</h2>
+<p><a href="ScriptRef:WWW.LoadFromCacheOrDownload.html">WWW.LoadFromCacheOrDownload</a></p>
+<p><strong>TO BE DEPRECATED (Use UnityWebRequest)</strong></p>
+<p>This API is useful for downloading AssetBundles from a remote server or loading local AssetBundles.  It is the older, and less desirable version of the UnityWebRequest API.</p>
+<p>Loading an AssetBundle from a remote location will automatically cache the AssetBundle.  If the AssetBundle is compressed, a worker thread will spin up to decompress the bundle and write it to the cache.  Once a bundle has been decompressed and cached, it will load exactly like AssetBundle.LoadFromFile.  </p>
+<p>One example of how to use <code>LoadFromCacheOrDownload</code>:</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class LoadFromCacheOrDownloadExample : MonoBehaviour
+{
+    IEnumerator Start ()
+    {
+            while (!Caching.ready)
+                    yield return null;
+
+        var www = WWW.LoadFromCacheOrDownload(&quot;http://myserver.com/myassetBundle&quot;, 5);
+        yield return www;
+        if(!string.IsNullOrEmpty(www.error))
+        {
+            Debug.Log(www.error);
+            yield return;
+        }
+        var myLoadedAssetBundle = www.assetBundle;
+
+        var asset = myLoadedAssetBundle.mainAsset;
+    }
+}
+</code></pre><p>Due to the memory overhead of caching an AssetBundle&#39;s bytes in the WWW object, it is recommended that all developers using WWW.LoadFromCacheOrDownload ensure that their AssetBundles remain small - a few megabytes, at most. It is also recommended that developers operating on limited-memory platforms, such as mobile devices, ensure that their code downloads only a single AssetBundle at a time, in order to avoid memory spikes.</p>
+<p>If the cache folder does not have any space for caching additional files, LoadFromCacheOrDownload will iteratively delete the least-recently-used AssetBundles from the Cache until sufficient space is available to store the new AssetBundle. If making space is not possible (because the hard disk is full, or all files in the cache are currently in use), LoadFromCacheOrDownload() will bypass Caching and stream the file into memory </p>
+<p>In order to force LoadFromCacheOrDownload the version parameter (the second parameter) will need to change.  The AssetBundle will only be loaded from cache if the version passed to the function matches the version of the currently cached AssetBundle.</p>
+<h2 id="unitywebrequest">UnityWebRequest</h2>
+<p><a href="ScriptRef:Networking.UnityWebRequest.GetAssetBundle.html">UnityWebRequest</a></p>
+<p>The UnityWebRequest has a specific API call to deal with AssetBundles.  To begin, you’ll need to create your web request using <code>UnityWebRequest.GetAssetBundle</code>.  After returning the request, pass the request object into <code>DownloadHandlerAssetBundle.GetContent(UnityWebRequest)</code>.  This <code>GetContent</code> call will return your AssetBundle object.</p>
+<p>You can also use the <code>assetBundle</code> property on the <a href="ScriptRef:Networking.DownloadHandlerAssetBundle.html">DownloadHandlerAssetBundle</a> class after downloading the bundle to load the AssetBundle with the efficiency of <code>AssetBundle.LoadFromFile</code>.</p>
+<p>Here’s an example of how to load an AssetBundle that contains two GameObjects and Instantiate them.  To begin this process, we’d just need to call <code>StartCoroutine(InstantiateObject())</code>;</p>
+<pre><code>IEnumerator InstantiateObject()
+
+    {
+        string uri = &quot;file:///&quot; + Application.dataPath + &quot;/AssetBundles/&quot; + assetBundleName;        UnityEngine.Networking.UnityWebRequest request = UnityEngine.Networking.UnityWebRequest.GetAssetBundle(uri, 0);
+        yield return request.Send();
+        AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(request);
+        GameObject cube = bundle.LoadAsset&lt;GameObject&gt;(&quot;Cube&quot;);
+        GameObject sprite = bundle.LoadAsset&lt;GameObject&gt;(&quot;Sprite&quot;);
+        Instantiate(cube);
+        Instantiate(sprite);
+    }
+</code></pre><p>The advantages of using UnityWebRequest is that it allows developers to handle the downloaded data in a more flexible manner and potentially eliminate unnecessary memory usage.  This is the more current and preferred API over the UnityEngine.WWW class.</p>
+<h4 id="loading-assets-from-assetbundles">Loading Assets from AssetBundles</h4>
+<p>Now that you’ve successfully downloaded your AssetBundle, it’s time to finally load in some Assets.</p>
+<p>Generic code snippet:</p>
+<pre><code>T objectFromBundle = bundleObject.LoadAsset&lt;T&gt;(assetName);
+</code></pre><p>T is the type of the Asset you’re attempting to load.  </p>
+<p>There are a couple options when deciding how to load Assets.  We have <code>LoadAsset</code>, <code>LoadAllAssets</code>, and their Async counterparts <code>LoadAssetAsync</code> and <code>LoadAllAssetsAsync</code> respectively.</p>
+<p>This is how to load an asset from an AssetBundles synchronously:</p>
+<p>To load a single GameObject:</p>
+<pre><code>GameObject gameObject = loadedAssetBundle.LoadAsset&lt;GameObject&gt;(assetName);
+</code></pre><p>To load all Assets:</p>
+<pre><code>Unity.Object[] objectArray = loadedAssetBundle.LoadAllAssets();
+</code></pre><p>Now, where as the previously shown methods return either the type of object you’re loading or an array of objects, the asynchronous methods return an <a href="ScriptRef:AssetBundleRequest.html">AssetBundleRequest</a>.  You’ll need to wait for this operation to complete before accessing the asset.  To load an asset:</p>
+<pre><code>AssetBundleRequest request = loadedAssetBundleObject.LoadAssetAsync&lt;GameObject&gt;(assetName);
+yield return request;
+var loadedAsset = request.asset;
+</code></pre><p>And</p>
+<pre><code>AssetBundleRequest request = loadedAssetBundle.LoadAllAssetsAsync();
+yield return request;
+var loadedAssets = request.allAssets;
+</code></pre><p>Once you have loaded your Assets you’re good to go!  You’re able to use the loaded objects as you would any Object in Unity.</p>
+<h4 id="loading-assetbundle-manifests">Loading AssetBundle Manifests</h4>
+<p>Loading AssetBundle manifests can be incredibly useful.  Especially when dealing with AssetBundle dependencies.</p>
+<p>To get a useable <a href="ScriptRef:AssetBundleManifest.html">AssetBundleManifest</a> object, you’ll need to load that additional AssetBundle (the one that’s named the same thing as the folder it’s in) and load an object of type AssetBundleManifest from it.</p>
+<p>Loading the manifest itself is done exactly the same as any other Asset from an AssetBundle:</p>
+<pre><code>AssetBundle assetBundle = AssetBundle.LoadFromFile(manifestFilePath);
+AssetBundleManifest manifest = assetBundle.LoadAsset&lt;AssetBundleManifest&gt;(&quot;AssetBundleManifest&quot;);
+</code></pre><p>Now you have access to the <code>AssetBundleManifest</code> API calls through the manifest object from the above example.  From here you can use the manifest to get information about the AssetBundles you built.  This information includes dependency data, hash data, and variant data for the AssetBundles.</p>
+<p>Remember in the earlier section when we discussed AssetBundle Dependencies and how, if a bundle had a dependency on another bundle, those bundles would need to be loaded in before loading any Assets from the original bundle?  The manifest object makes dynamically finding a loading dependencies possible.  Let’s say we want to load all the dependencies for an AssetBundle named &quot;assetBundle&quot;.  </p>
+<pre><code>AssetBundle assetBundle = AssetBundle.LoadFromFile(manifestFilePath);
+AssetBundleManifest manifest = assetBundle.LoadAsset&lt;AssetBundleManifest&gt;(&quot;AssetBundleManifest&quot;);
+string[] dependencies = manifest.GetAllDependencies(&quot;assetBundle&quot;); //Pass the name of the bundle you want the dependencies for.
+foreach(string dependency in dependencies)
+{
+    AssetBundle.LoadFromFile(Path.Combine(assetBundlePath, dependency));
+}
+</code></pre><p>Now that you’re loading AssetBundles, AssetBundle dependencies, and Assets, it’s time to talk about managing all of these loaded AssetBundles.</p>
+<h2 id="managing-loaded-assetbundles">Managing Loaded AssetBundles</h2>
+<p>See also: Unity Learn tutorial on <a href="https://unity3d.com/fr/learn/tutorials/topics/best-practices/assetbundle-usage-patterns#Managing_Loaded_Assets">Managing Loaded AssetBundles</a></p>
+<p>Unity does not automatically unload Objects when they are removed from the active scene. Asset cleanup is triggered at specific times, and it can also be triggered manually.</p>
+<p>It is important to know when to load and unload an AssetBundle.  Improperly unloading an AssetBundle can lead to duplicating objects in memory or other undesirable circumstances, such as missing textures.</p>
+<p>The biggest thing to understand about AssetBundle management is when to call</p>
+<p><a href="ScriptRef:AssetBundle.Unload.html">AssetBundle.Unload(bool)</a>; and if you should pass true or false into the function call.  Unload is a non-static function that will unload your AssetBundle.  This API unloads the header information of the AssetBundle being called. The argument indicates whether to also unload all Objects instantiated from this AssetBundle.</p>
+<p><code>AssetBundle.Unload(true)</code> unloads all GameObjects (and their dependencies) that were loaded from the AssetBundle. This does not include copied GameObjects (such as Instantiated GameObjects), because they no longer belong to the AssetBundle. When this happens, Textures that are loaded from that AssetBundle (and still belong to it) disappear from GameObjects in the Scene, and Unity treats them as missing Textures.</p>
+<p>Let’s assume Material M is loaded from AssetBundle AB as shown below.</p>
+<p>If AB.Unload(true) is called.  Any instance of M in the active scene will also be unload and destroyed. </p>
+<p>If you were instead to call AB.Unload(false) it would break the chain of the current instances of M and AB.</p>
+<p><img src="../uploads/Main/AssetBundles-Native-1.png" alt=""></p>
+<p>If AB is loaded again later and AB.LoadAsset() is called, Unity will not re-link the existing copies of M to the newly loaded Material.  There will instead be two copies of M loaded.  </p>
+<p><img src="../uploads/Main/AssetBundles-Native-2.png" alt=""></p>
+<p><img src="../uploads/Main/AssetBundles-Native-3.png" alt=""></p>
+<p>Generally, using <code>AssetBundle.Unload(false)</code> does not lead to an ideal situation.  Most projects should use <code>AssetBundle.Unload(true)</code> to keep from duplicating objects in memory.</p>
+<p>Most projects should use <code>AssetBundle.Unload(true)</code> and adopt a method to ensure that Objects are not duplicated. Two common methods are:</p>
+<ul>
+<li><p>Having well-defined points during the application&#39;s lifetime at which transient AssetBundles are unloaded, such as between levels or during a loading screen. </p>
+</li>
+<li><p>Maintaining reference-counts for individual Objects and unload AssetBundles only when all of their constituent Objects are unused. This permits an application to unload &amp; reload individual Objects without duplicating memory.</p>
+</li>
+</ul>
+<p>If an application must use <code>AssetBundle.Unload(false)</code>, then individual Objects can only be unloaded in two ways:</p>
+<ul>
+<li><p>Eliminate all references to an unwanted Object, both in the scene and in code. After this is done, call <a href="ScriptRef:Resources.UnloadUnusedAssets.html">Resources.UnloadUnusedAssets</a>.</p>
+</li>
+<li><p>Load a scene non-additively. This will destroy all Objects in the current scene and invoke <a href="ScriptRef:Resources.UnloadUnusedAssets.html">Resources.UnloadUnusedAssets</a> automatically.</p>
+</li>
+</ul>
+<p>If you’d rather not manage loading Asset Bundes, dependencies, and Assets yourself, you might find yourself in need of the AssetBundle Manager.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

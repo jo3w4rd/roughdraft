@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Building AssetBundles | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Building AssetBundles | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="building-assetbundles">Building AssetBundles</h1>
+
+<p>In the documentation on the <a href="AssetBundles-Workflow.html">AssetBundle Workflow</a>, we have a code sample which passes three arguments to the <code>BuildPipeline.BuildAssetBundles</code> function. Let’s dive a little deeper into what we’re actually saying.</p>
+<p><em>Assets/AssetBundles</em>: This is the directory that the AssetBundles will be output to. You can change this to any output directory you desire, just ensure that the folder actually exists before you attempt a build.</p>
+<h4 id="buildassetbundleoptions">BuildAssetBundleOptions</h4>
+<p>There are several different <code>BuildAssetBundleOptions</code> that you can specify that have a variety of effects. See Scripting API Reference on <a href="ScriptRef:BuildAssetBundleOptions.html">BuildAssetBundleOptions</a> for a table of all the options.</p>
+<p>While you’re free to combine <code>BuildAssetBundleOptions</code> as needs change and arise, there are three specific <code>BuildAssetBundleOptions</code> that deal with AssetBundle Compression:</p>
+<ul>
+<li><p><code>BuildAssetBundleOptions.None</code>: This bundle option uses LZMA Format compression, which is a single compressed LZMA stream of serialized data files. LZMA compression requires that the entire bundle is decompressed before it’s used. This results in the smallest possible file size but a slightly longer load time due to the decompression. It is worth noting that when using this BuildAssetBundleOptions, in order to use any assets from the bundle the entire bundle must be uncompressed initially. <br> Once the bundle has been decompressed, it will be recompressed on disk using LZ4 compression which doesn’t require the entire bundle be decompressed before using assets from the bundle. This is best used when a bundle contains assets such that to use one asset from the bundle would mean all assets are going to be loaded. Packaging all assets for a character or scene are some examples of bundles that might use this. <br> Using LZMA compression is only recommended for the initial download of an AssetBundle from an off-site host due to the smaller file size. LZMA compressed asset bundles loaded through <a href="ScriptRef:Networking.UnityWebRequestAssetBundle.html">UnityWebRequestAssetBundle</a> are automatically recompressed to LZ4 compression and cached on the local file system. If you download and store the bundle through other means, you can recompress it with the  <a href="ScriptRef:AssetBundle.RecompressAssetBundleAsync.html">AssetBundle.RecompressAssetBundleAsync</a> API.</p>
+</li>
+<li><p><code>BuildAssetBundleOptions.UncompressedAssetBundle</code>: This bundle option builds the bundles in such a way that the data is completely uncompressed. The downside to being uncompressed is the larger file download size. However, the load times once downloaded will be much faster.</p>
+</li>
+<li><p><code>BuildAssetBundleOptions.ChunkBasedCompression</code>: This bundle option uses a compression method known as LZ4, which results in larger compressed file sizes than LZMA but does not require that entire bundle is decompressed, unlike LZMA, before it can be used. LZ4 uses a chunk based algorithm which allows the AssetBundle be loaded in pieces or &quot;chunks.&quot; Decompressing a single chunk allows the contained assets to be used even if the other chunks of the AssetBundle are not decompressed.</p>
+</li>
+</ul>
+<p>Using <code>ChunkBasedCompression</code> has comparable loading times to uncompressed bundles with the added benefit of reduced size on disk.</p>
+<h4 id="buildtarget">BuildTarget</h4>
+<p><code>BuildTarget.Standalone</code>: Here we’re telling the build pipeline which target platform we are going to be using these AssetBundles for. You can find a list of the available explicit build targets in the Scripting API Reference for <a href="ScriptRef:BuildTarget.html">BuildTarget</a>. However, if you’d rather not hardcode in your build target, feel free to take advantage of <code>EditorUserBuildSettings.activeBuildTarget</code> which will automatically find the platform you’re currently setup to build for and build your AssetBundles based on that target.</p>
+<p>Once you’ve properly set up your build script, it’s finally time to build your bundles. If you followed the script example above, click <strong>Assets</strong> &gt; <strong>Build AssetBundles</strong> to kick off the process.</p>
+<p>Now that you’ve successfully built your AssetBundles, you may notice that your AssetBundles directory has more files than you might have originally expected. 2*(n+1) more files, to be exact. Let’s take a minute and go over exactly what the <code>BuildPipeline.BuildAssetBundles</code> yields.</p>
+<p>For every AssetBundle you specified in the editor, you’ll notice a file with your AssetBundle name and your AssetBundle name + &quot;.manifest&quot;.</p>
+<p>There will be an additional bundle and manifest that doesn’t share a name with any AssetBundle you created. It, instead, is named after the directory that it’s located in (where the AssetBundles were built to). This is the Manifest Bundle. We’ll discuss more about this and how to use it in the future.</p>
+<h4 id="the-assetbundle-file">The AssetBundle File</h4>
+<p>This is the file that lacks the .manifest extension and what you’ll be loading in at runtime in order to load your Assets.</p>
+<p>The AssetBundle file is an archive that contains multiple files internally. The structure of this archive can change slightly depending on if it is an AssetBundle or a Scene AssetBundle. This is the structure of a normal AssetBundle:</p>
+<p><img src="../uploads/Main/AssetBundles-Building-0.png" alt=""></p>
+<p>The Scene AssetBundle is different to normal AssetBundles, in that it is optimized for stream loading of a Scene and its content.</p>
+<h4 id="the-manifest-file">The Manifest File</h4>
+<p>For every bundle generated, including the additional Manifest Bundle, an associated manifest file is generated. The manifest file can be opened with any text editor and contains information such as the cyclic redundancy check (CRC) data and dependency data for the bundle. For the normal AssetBundles their manifest file will look something like this:</p>
+<pre><code>ManifestFileVersion: 0
+CRC: 2422268106
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 8b6db55a2344f068cf8a9be0a662ba15
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 37ad974993dbaa77485dd2a0c38f347a
+HashAppended: 0
+ClassTypes:
+- Class: 91
+  Script: {instanceID: 0}
+Assets:
+  Asset_0: Assets/Mecanim/StateMachine.controller
+Dependencies: {}
+</code></pre><p>Which shows the contained assets, dependencies, and other information.</p>
+<p>The Manifest Bundle that was generated will have a manifest, but it’ll look more like this:</p>
+<pre><code>ManifestFileVersion: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: scene1assetbundle
+      Dependencies: {}
+</code></pre><p>This will show how AssetBundles relate and what their dependencies are. For now, just understand that this bundle contains the AssetBundleManifest object which will be incredibly useful for figuring out which bundle dependencies to load at runtime. To learn more about how to use this bundle and the manifest object, see documentation on <a href="AssetBundles-Native.html">Using AssetBundles Natively</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

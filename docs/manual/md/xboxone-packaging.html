@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Packaging | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Packaging | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="packaging">Packaging</h1>
+
+<p>Applications on the Xbox One are built and installed onto the console as packages.  During development, you have the option to keep your game as loose files for push and pull deployment, but you will build a package for the release version you send to Microsoft for certification.</p>
+<h2 id="building-a-package">Building a Package</h2>
+<p>The project is built as a package when you select the <em>Package</em> build type in the <a href="xboxone-buildsettings.html">Build Settings</a>.  Most of the <a href="xboxone-playersettings.html">Xbox One Player</a> settings control the entries in the  <em>appxmanifest.xml</em> file or the command line options used for the XDK&#39;s <em>makepkge.exe</em> tool.  Both of these are used to create the package, and are described in detail in the XDK documentation.</p>
+<p>To get the player into your game faster and thus improve their overall experience, you are strongly encouraged to build your game in a way that allows the player to enter your game without the full data set being present on his console.  See the <em>Streaming Installation and Chunks</em> section on the page for more details.</p>
+<p>There is usually a direct correlation between the makepkg.exe command line options and the options you find in this section. You can run makepkg.exe pack to get descriptions on these options from the tool itself.</p>
+<h2 id="differences-from-loose-deployment">Differences From Loose Deployment</h2>
+<p>There are unique features of a package that can make a big difference when compared to pull or push deployment.  Push and pull deployment is very handy when you&#39;re quickly iterating on your game, but it is strongly recommended to test your game when built as a package to ensure the differences to not cause bugs in your game. </p>
+<p>These features are explained in more detail in the XDK Documentation.</p>
+<h3 id="read-only-installation-drive">Read-Only Installation Drive</h3>
+<p>The drive that your game&#39;s files are installed on, the G:\ drive, is read-only when it is installed as a package so you cannot write any files to it.  There are separate drives that you can write to, but they are not suitable for persistent data, like saved game state or configuration settings.</p>
+<p>The Xbox One provides several storage options, and you can read more about them in the XDK documentation&#39;s *System &gt; Overviews &gt; Storage Overviews * section.  Unity&#39;s Xbox One Native Plugins provide APIs that let you use some of the different types of storage available to you. </p>
+<h3 id="streaming-installation-and-chunks">Streaming Installation and Chunks</h3>
+<p>When built as a package, your game&#39;s files are separated into chunks which can be downloaded to the console individually.  This lets a player run your game while parts of it are downloading in the background.  The chunks are build according to a <em>Package Manifest</em> which is described later on on this page.</p>
+<p>You must make sure that the players cannot access parts of your game that are not downloaded yet.  Depending on the size of your game, you may need to leverage this background downloading in order to pass certification.  Unity&#39;s Xbox One Native Plugins include a StreamingInstall library that has an API to help you with this.  There are samples and documentation along with it to get you started.   </p>
+<p>You can read more about Streaming Installation in the XDK whitepaper titled <em>Title Packaging, Content Updates, and Streaming-Installation Testing</em>.</p>
+<h3 id="embedded-os">Embedded OS</h3>
+<p>the game OS is embedded into your game, which is how your game can continue to run even after players update their console.  This will make the size of a package different than the size of all the loose files that were used during loose deployment.</p>
+<h3 id="encryption">Encryption</h3>
+<p>A package is normally encrypted, which could affect performance and does have an impact on how long it takes to build your package.  It&#39;s possible to turn encryption off in the <a href="xboxone-playersettings.html">0Packaging Player</a> settings, but it is recommended to use <em>Devkit Compatible</em> encryption during development.</p>
+<p>Devkit Compatible Encryption is equivalent to not providing a command line option to makepkg. Unencrypted is equivalent to the lu command line option.</p>
+<p>As you get ready to submit your final submission to cert you will need to turn on the /l option (Full Encryption). This is retail compatible encryption and is only required for final certification.</p>
+<h2 id="package-manifest">Package Manifest</h2>
+<p>A package manifest file is used to control how your game&#39;s files are separted into chunks for Streaming Installation.  The XDK documentation section <em>Test, Automation, and Publishing &gt; Tools &gt; Deployment Package Schema</em> describes the format of that file, and the whitepaper titled <em>Designing Title Package Layouts for Updates: Best Practices and Guidelines</em> explains how to configure this file well.</p>
+<p>Unity generates this manifest for you.  When you build a package, it will exist within your output directory and named <em>streamingInstallManifest.xml</em>.  The file has comments in it describing what each chunk includes and the logic Unity uses to decide what files go in which chunks.  We encourage you to read this file and to reconfigure it to optimize your game&#39;s package layout.  To override the default, use the <strong>Xbox One &gt; Package Settings &gt; Override Manifest File</strong> <a href="xboxone-playersettings.html">Player</a> setting.  You can use the file Unity created for you as a starting point, but remember to copy it out of the output directory and into a folder that can be accessed by Unity but not included in your game&#39;s data.    </p>
+<h2 id="proper-settings-for-certification-submission">Proper Settings for Certification Submission</h2>
+<p>There are some <a href="xboxone-buildsettings.html">Build Settings</a> and <a href="xboxone-playersettings.html">Player</a> settings that must be set or in a specific configuration when you build for certification submission to Microsoft.  It&#39;s important to set all of these settings properly, but here we will explain which settings are most important for certification.</p>
+<p>Depending on your project, there may be additional requirements needed to pass certification, such as setting the correct <em>Capabilities</em> and specifying the correct <em>Configured Sockets</em>.  These is only the bare minimum configuration that all projects will need.</p>
+<h3 id="make-a-clean-build">Make a Clean Build</h3>
+<p>When you make an important build, like the one you will create for certification submission, you should follow these steps to make a clean build:</p>
+<ol>
+<li>Close Unity.</li>
+<li>Delete your project&#39;s <strong>Library</strong> folder.</li>
+<li>Open Unity.</li>
+<li>Refrain from making any modifications to the Assets, Scenes, or settings.</li>
+<li>Build your project.</li>
+</ol>
+<p>You should follow these steps from the beginning every time you make a build for submission.  If you follow these steps then make another build without performing through steps 1-4 a second time, you risk creating large binary diffs.   </p>
+<p>Doing this will make sure that your project has the fewest binary diffs if you need to make a title update later on.  This is not a strict requirement or a setting, but a very important step to ensure you have the smallest possible patch size.    </p>
+<h3 id="build-settings">Build Settings</h3>
+<p><img src="../uploads/Main/xboxone-packaging-buildsettingsforcert.png" alt=""></p>
+<p>You must build your game as a package, and you must use the <em>Master</em> <strong>Build Type</strong>.  It&#39;s also important to take care in deciding your launch range.  There are certification requirements on the size of your launch range that you must adhere to.</p>
+<h3 id="company-and-product-names">Company and Product Names</h3>
+<p><img src="../uploads/Main/xboxone-packaging-playersettingsforcert-coandprodnames.png" alt=""></p>
+<p>These settings are given values by default, but you must give them unique names.  These are used to uniquely identify the package, and you cannot use the same names as another package.  </p>
+<h3 id="titile-id-and-service-configuration-id-scid">Titile ID and Service Configuration ID (SCID)</h3>
+<p><img src="../uploads/Main/xboxone-packaging-playersettingsforcert-TIDandSCID.png" alt=""></p>
+<p>These are IDs given to you by Microsoft.  You can find them on XDP after you have created and published a product.  Please see the XDK documentation for more details on that process.  The <em>Sandbox Survival Kit</em> white paper may particularly useful along with documention on XDP, Microsoft&#39;s web service for configuring content.</p>
+<h3 id="languages-and-ratings">Languages and Ratings</h3>
+<p><img src="../uploads/Main/xboxone-packaging-playersettingsforcert-LangsRatings.png" alt=""></p>
+<p>You must set at least one language.  The &quot;en-us&quot; value is set by default.</p>
+<p>There are no default Ratings set, and you don&#39;t have to have set all of them.  You must have proper values given to you by the ratings institutions of the respective regions you will be releasing your game to.</p>
+<h3 id="package-settings">Package Settings</h3>
+<p><img src="../uploads/Main/xboxone-packaging-playersettingsforcert-packagesettings.png" alt=""></p>
+<p>The Product ID is not strictly necessary, but without it you won&#39;t be able to add DLC to your game.  This ID is how DLC packages know which products can use them.  This is an ID given to you by Microsoft.</p>
+<p>The package must be encrypted in a particular way.  The <em>Retail Signing</em> option for the <strong>Encryption</strong> setting will have it encrypted correctly.</p>
+<p>Sandbox ID is for internal development security purposes only and is not applicable for cert. This will lock your game to run only within a specific sandbox.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

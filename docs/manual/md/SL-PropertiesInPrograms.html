@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Accessing shader properties in Cg/HLSL | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Accessing shader properties in Cg/HLSL | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="accessing-shader-properties-in-cghlsl">Accessing shader properties in Cg/HLSL</h1>
+
+<p>Shader declares Material properties in a <a href="SL-Properties.html">Properties</a> block. If you want to access some of those properties in a <a href="SL-ShaderPrograms.html">shader program</a>, you need to declare a Cg/HLSL variable with the same name and a matching type. An example is provided in <a href="ShaderTut2.html">Shader Tutorial: Vertex and Fragment Programs</a>.</p>
+<p>For example these shader properties:</p>
+<pre><code>_MyColor (&quot;Some Color&quot;, Color) = (1,1,1,1) 
+_MyVector (&quot;Some Vector&quot;, Vector) = (0,0,0,0) 
+_MyFloat (&quot;My float&quot;, Float) = 0.5 
+_MyTexture (&quot;Texture&quot;, 2D) = &quot;white&quot; {} 
+_MyCubemap (&quot;Cubemap&quot;, CUBE) = &quot;&quot; {} 
+</code></pre><p>would be declared for access in Cg/HLSL code as:</p>
+<pre><code>fixed4 _MyColor; // low precision type is usually enough for colors
+float4 _MyVector;
+float _MyFloat; 
+sampler2D _MyTexture;
+samplerCUBE _MyCubemap;
+</code></pre><p>Cg/HLSL can also accept <strong>uniform</strong> keyword, but it is not necessary:</p>
+<pre><code>uniform float4 _MyColor;
+</code></pre><p>Property types in ShaderLab map to Cg/HLSL variable types this way:</p>
+<ul>
+<li>Color and Vector properties map to <strong>float4</strong>, <strong>half4</strong> or <strong>fixed4</strong> variables.</li>
+<li>Range and Float properties map to <strong>float</strong>, <strong>half</strong> or <strong>fixed</strong> variables.</li>
+<li>Texture properties map to <strong>sampler2D</strong> variables for regular (2D) textures; Cubemaps map to <strong>samplerCUBE</strong>; and 3D textures map to <strong>sampler3D</strong>.</li>
+</ul>
+<h2 id="how-property-values-are-provided-to-shaders">How property values are provided to shaders</h2>
+<p>Shader property values are found and provided to shaders from these places:</p>
+<ul>
+<li>Per-Renderer values set in <a href="ScriptRef:MaterialPropertyBlock.html">MaterialPropertyBlock</a>. This is typically &quot;per-instance&quot; data (e.g. customized tint color for a lot of objects that all share the same material).</li>
+<li>Values set in the <a href="class-Material.html">Material</a> that&#39;s used on the rendered object.</li>
+<li>Global shader properties, set either by Unity rendering code itself (see <a href="SL-UnityShaderVariables.html">built-in shader variables</a>), or from your own scripts (e.g. <a href="ScriptRef:Shader.SetGlobalTexture.html">Shader.SetGlobalTexture</a>).</li>
+</ul>
+<p>The order of precedence is like above: per-instance data overrides everything; then Material data is used; and finally if shader property does not exist in these two places then global property value is used. Finally, if there&#39;s no shader property value defined anywhere, then &quot;default&quot; (zero for floats, black for colors, empty white texture for textures) value will be provided.</p>
+<h2 id="serialized-and-runtime-material-properties">Serialized and Runtime Material properties</h2>
+<p><a href="class-Material.html">Materials</a> can contain both serialized and runtime-set property values.</p>
+<p>Serialized data is all the properties defined in shader&#39;s <a href="SL-Properties.html">Properties</a> block. Typically these are values that need to be stored in the material, and are tweakable by the user in Material Inspector.</p>
+<p>A material can also have some properties that are used by the shader, but not declared in shader&#39;s <a href="SL-Properties.html">Properties</a> block. Typically this is for properties that are set from script code at runtime, e.g. via <a href="ScriptRef:Material.SetColor.html">Material.SetColor</a>. Note that matrices and arrays can only exist as non-serialized runtime properties (since there&#39;s no way to define them in Properties block).</p>
+<h2 id="special-texture-properties">Special Texture properties</h2>
+<p>For each texture that is setup as a shader/material property, Unity also sets up some extra information in additional vector properties.</p>
+<h4 id="texture-tiling--offset">Texture tiling &amp; offset</h4>
+<p><a href="class-Material.html">Materials</a> often have Tiling and Offset fields for their texture properties. This information is passed into shaders in a float4 <em>{TextureName}</em><code>_ST</code> property:</p>
+<ul>
+<li><code>x</code> contains X tiling value</li>
+<li><code>y</code> contains Y tiling value</li>
+<li><code>z</code> contains X offset value</li>
+<li><code>w</code> contains Y offset value</li>
+</ul>
+<p>For example, if a shader contains texture named <code>_MainTex</code>, the tiling information will be in a <code>_MainTex_ST</code> vector.</p>
+<h4 id="texture-size">Texture size</h4>
+<p><em>{TextureName}</em><code>_TexelSize</code> - a float4 property contains texture size information:</p>
+<ul>
+<li><code>x</code> contains 1.0/width</li>
+<li><code>y</code> contains 1.0/height</li>
+<li><code>z</code> contains width</li>
+<li><code>w</code> contains height</li>
+</ul>
+<h4 id="texture-hdr-parameters">Texture HDR parameters</h4>
+<p><em>{TextureName}</em><code>_HDR</code> - a float4 property with information on how to decode a potentially HDR (e.g. RGBM-encoded) texture depending on the <a href="LinearLighting.html">color space</a> used. See <code>DecodeHDR</code> function in <a href="SL-BuiltinIncludes.html">UnityCG.cginc</a> shader include file.</p>
+<h2 id="color-spaces-and-colorvector-shader-data">Color spaces and color/vector shader data</h2>
+<p>When using <a href="LinearLighting.html">Linear color space</a>, all material color properties are supplied as sRGB colors, but are converted into linear values when passed into shaders.</p>
+<p>For example, if your <a href="SL-Properties.html">Properties</a> shader block contains a <code>Color</code> property called &quot;_MyColor&quot;, then the corresponding &quot;_MyColor&quot; HLSL variable will get the linear color value.</p>
+<p>For properties that are marked as <code>Float</code> or <code>Vector</code> type, no color space conversions are done by default; it is assumed that they contain non-color data. It is possible to add <code>[Gamma]</code> attribute for float/vector properties to indicate that they are specified in sRGB space, just like colors (see <a href="SL-Properties.html">Properties</a>).</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="SL-Properties.html">ShaderLab Properties block</a>.</li>
+<li><a href="SL-ShaderPrograms.html">Writing Shader Programs</a>.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>PS4 Pro | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="PS4 Pro | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ps4-pro">PS4 Pro</h1>
+
+<p>PS4 Pro is an upgraded version of the PS4 with improved hardware.</p>
+<h2 id="adding-support-for-ps4-pro-to-your-unity-project">Adding support for PS4 Pro to your Unity Project</h2>
+<p>All PS4 applications need to support both the standard PlayStation 4 hardware and the newer PS4 Pro hardware, with a single application package. This is a <a href="https://ps4.siedev.net/resources/documents/TRC/latest/TRC/R4205.html">technical requirement by Sony</a> for publishing on the platform.</p>
+<p>To fulfill this requirement in Unity, open the <a href="PS4BuildSettings.html">Build Settings</a> window (menu: <strong>File &gt; Build Settings</strong>) and set the <strong>Hardware Targeted</strong> to <strong>Pro And Base</strong> .</p>
+<p><img src="../uploads/Main/PS4Pro1HardwareTargeted.png" alt=""> </p>
+<p><strong>Pro And Base</strong> is the default value. The other available value is <strong>Base Only</strong>, but you should only use this value for testing purposes when developing for PS4 Pro. </p>
+<p>You can also set this property from a script, using the <a href="ScritpRef:EditorUserBuildSettings-ps4HardwareTarget.html">UnityEditor.EditorUserBuildSettings.ps4HardwareTarget</a> property. This is useful when you build your Unity Project from an Editor script.</p>
+<p><a name="OperationModes"></a></p>
+<h2 id="ps4-application-operation-modes">PS4 application operation modes</h2>
+<p>There are two operation modes: 
+<strong>Base</strong> mode: Corresponds to the original PS4 hardware
+ <strong>NEO</strong> mode : Corresponds to the Pro hardware (although, in <a href="https://ps4.siedev.net/resources/documents/SDK/6.000/Programming-Startup_Guide/0004.html">some cases</a>, like when the PS4 Pro runs a game that does not support Pro mode, the PS4 Pro uses Base mode). The original PS4 hardware only supports Base mode, but the PS4 Pro hardware supports both NEO mode and Base mode. For more details, refer to the <a href="https://ps4.siedev.net/resources/documents/SDK/latest/Hardware-Overview/0001.html">PS4 Hardware Overview</a> documentation.</p>
+<p>To check if your application is running in NEO mode, create, and then run, a development build of your Unity Project. In Build Settings (menu: <strong>File &gt; Build Settings</strong>), set your prefered build options and then check the <strong>Development Build</strong> option. If you <strong>Build And Run</strong> now, and your application is running in NEO mode, you should see a watermark with the word “NEO” in the bottom right corner of the screen.</p>
+<p><img src="../uploads/Main/PS4Pro2NEO.png" alt=""> </p>
+<p>Test your application in both Base and NEO modes to make sure that it performs correctly on both hardware settings. You can test NEO mode directly on a PS4 Pro DevKit, and you can emulate Base mode. To emulate Base mode, set the <strong>Debug Settings &gt; Boot Parameters &gt; Standard PS4 Emulation</strong> option to <strong>On</strong> in the PS4 System Software.</p>
+<h2 id="enhancing-your-unity-application-for-ps4-pro">Enhancing your Unity application for PS4 Pro</h2>
+<p>Unity provides a number of ways in which you can enhance your application to take advantage of the <a href="https://www.playstation.com/en-gb/explore/ps4/tech-specs/">upgraded PS4 Pro hardware</a>. The best configuration will vary depending on the application, so it is up to you to determine which improvements to include in your application.
+Increasing screen resolution on PS4 Pro
+The properties to control the screen resolution are located In Player Settings (menu: <strong>Edit &gt; Settings &gt; Player</strong>). There are separate resolution properties for Base mode and Pro mode (NEO). <strong>Base Mode Resolution</strong> and <strong>Pro Mode Resolution</strong> respectively. Unity automatically chooses the correct resolution according to which operation mode the PS4 is running on.</p>
+<p><img src="../uploads/Main/PS4Pro3Resolution.png" alt=""></p>
+<p>These drop-down menus only show the valid resolutions accepted by Sony. Base can be set up to 1920x1080 and Pro (NEO) can be set up to 3840x2160 (4K). </p>
+<p>Increasing the resolution can be very intensive on the GPU and may adversely affect the frame rate. The <a href="https://ps4.siedev.net/resources/documents/TRC/latest/TRC/R4199.html">technical requirement R4199</a> is relevant here: “When NEO mode is enabled, the frame rate must be equal to or greater than Base mode performance.”. Test your Unity application to make sure that it adheres to this requirement on the correct hardware.</p>
+<p>If you set a high resolution for NEO mode, 4K for example, and the user’s monitor does not support this resolution, the PS4 system will automatically downsample the image to make it work on the monitor. However, Unity will still use 4K buffers internally. </p>
+<p>Alternatively, you can enable the <strong>1080p fallback</strong> option in Unity Player Settings. This way, if the high resolution is not supported, Unity uses 1920x1080 buffers internally and there is no need to downsample the image.</p>
+<h3 id="configuring-ps4-pro-quality-settings">Configuring PS4 Pro Quality Settings</h3>
+<p>You can define discrete levels of graphics quality for your application in the <a href="class-QualitySettings.html">Quality Settings</a> (Menu: <strong>Edit &gt; Settings &gt; Quality</strong>) for both PS4 hardware models. There are two unique quality levels that you must use for your Base and NEO custom levels, called <strong>Base</strong> and <strong>Neo</strong> respectively. Unity automatically activates these levels on application startup, depending to the <a href="#OperationModes">operation mode</a> you use to run the application.</p>
+<p>To create these levels, click <strong>Add Quality Level</strong> and set appropriate values for a variety of graphics properties on a per quality level basis. These properties include: refresh rate, anti-aliasing, shadow parameters, and <a href="class-QualitySettings.html">many more</a>.</p>
+<p><img src="../uploads/Main/PS4Pro4Quality.png" alt=""></p>
+<h3 id="using-specific-shaders-on-ps4-pro">Using specific Shaders on PS4 Pro</h3>
+<p>You can mark Shaders to only run in <strong>NEO</strong> mode. If a user is using the original hardware, your NEO Shader can also reference a fall back Shader to use in <strong>Base</strong> mode. For Unity to automatically choose the appropriate Shader, you must write your Pro Shader like this:</p>
+<pre><code>Shader &quot;MyShaderForPro&quot;
+{
+    SubShader
+    {
+        Pass
+        {
+            CGPROGRAM
+
+            #pragma argument(target=neo)   // Only compatible with PS4 Pro (NEO mode)
+
+            …
+
+            ENDCG
+        }
+    }
+    Fallback &quot;MyShaderForBase&quot;
+}
+</code></pre><p>If you run a development build of a Unity Project that uses this kind of Shader in Base mode, Unity will print a message in the application log with the name of the rejected PS4 Pro Shader.</p>
+<p>For details on what features you can use in PS4 Pro Shaders, see the <a href="https://ps4.siedev.net/resources/documents/SDK/6.000/Wave_Shader_Compiler-Users_Guide/0005.html">PS4 Wave Shader Compiler User Guide</a>.</p>
+<h3 id="configuring-the-extra-memory-available-on-ps4-pro">Configuring the extra memory available on PS4 Pro</h3>
+<p>PS4 Pro hardware has an extra 512MB of RAM available for applications compared to regular PS4 hardware. To distribute the extra memory between Onion (CPU) and Garlic (GPU) memory, use the <strong>Pro Mode Garlic Heap Size</strong> slider, in the PS4 Player Settings. This allocates extra memory to the Garlic Heap, the Onion Heap takes the memory that isn’t allocated to Garlic. For more information, see the <a href="PS4Memory.html">PlayStation 4 Memory</a> documentation.</p>
+<p><img src="../uploads/Main/PS4Pro5OtherSettings.png" alt=""></p>
+<h3 id="writing-mode-dependant-scripts">Writing mode-dependant scripts</h3>
+<p>You can use the <strong>UnityEngine.PS4.Utility.neoMode</strong> property in your custom scripts to determine whether the application is running in NEO mode (returns <code>true</code>) or Base mode (returns <code>false</code>). This enables you to create NEO-dependent code. For example, use UnityEngine.PS4.VR.PlayStationVR.SetOutputModeHMD to set a higher refresh rate for VR mode.</p>
+<pre><code>if(UnityEngine.PS4.Utility.neoMode)
+{
+    // If the application is running in NEO mode, the following code will execute.
+    UnityEngine.PS4.VR.PlayStationVR.SetOutputModeHMD(true, true, 90);
+}
+else
+{
+    // If the application is not running in NEO mode, this code will execute instead.
+    UnityEngine.PS4.VR.PlayStationVR.SetOutputModeHMD(true, true, 60);
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

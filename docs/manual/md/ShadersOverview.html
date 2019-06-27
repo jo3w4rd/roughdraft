@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Writing Shaders | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Writing Shaders | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="writing-shaders">Writing Shaders</h1>
+
+<p>Shaders in Unity can be written in one of three different ways:</p>
+<h3 id="surface-shaders">Surface Shaders</h3>
+<p><a href="SL-SurfaceShaders.html">Surface Shaders</a> are your best option if your Shader needs to be affected by lights and shadows. Surface Shaders make it easy to write complex Shaders in a compact way - it&#39;s a higher level of abstraction for interaction with Unity&#39;s lighting pipeline. Most Surface Shaders automatically support both forward and deferred lighting. You write Surface Shaders in a couple of lines of <strong>Cg/HLSL</strong>, and a lot more code gets auto-generated from that.</p>
+<p>Do not use Surface Shaders if your Shader is not doing anything with lights. For <a href="PostProcessingOverview.html">post-processed effects</a> or many special-effect Shaders, Surface Shaders are a suboptimal option, since they do a bunch of lighting calculations for no good reason.</p>
+<h3 id="vertex-and-fragment-shaders">Vertex and Fragment Shaders</h3>
+<p><a href="SL-ShaderPrograms.html">Vertex and Fragment Shaders</a> are required if your Shader doesn&#39;t need to interact with lighting, or if you need some very exotic effects that the Surface Shaders can&#39;t handle. Shader programs written this way are the most flexible way to create the effect you need (even Surface Shaders are automatically converted to a bunch of Vertex and Fragment Shaders), but that comes at a price: you have to write more code and it&#39;s harder to make it interact with lighting. These Shaders are written in <strong>Cg/HLSL</strong> as well.</p>
+<h3 id="fixed-function-shaders">Fixed Function Shaders</h3>
+<p>Fixed Function Shaders are legacy Shader syntax for very simple effects. It is advisable to write programmable Shaders, since that allows much more flexibility. Fixed function shaders are entirely written in a language called <strong>ShaderLab</strong>, which is similar to Microsoft&#39;s .FX files or NVIDIA&#39;s CgFX. Internally, all Fixed Function Shaders are converted into <a href="SL-ShaderPrograms.html">Vertex and Fragment Shaders</a> at shader import time.</p>
+<h2 id="shaderlab">ShaderLab</h2>
+<p>Regardless of which type you choose, the actual Shader code is always wrapped in ShaderLab, which is used to organize the Shader structure. It looks like this:</p>
+<pre><code>Shader &quot;MyShader&quot; {
+    Properties {
+        _MyTexture (&quot;My Texture&quot;, 2D) = &quot;white&quot; { }
+        // Place other properties like colors or vectors here as well
+    }
+    SubShader {
+        // here goes your
+        // - Surface Shader or
+        // - Vertex and Fragment Shader or
+        // - Fixed Function Shader
+    }
+    SubShader {
+        // Place a simpler &quot;fallback&quot; version of the SubShader above
+        // that can run on older graphics cards here
+    }
+}
+</code></pre><p>We recommend that you start by reading about some basic concepts of the ShaderLab syntax in the <a href="SL-Shader.html">ShaderLab reference</a> and then move on to the tutorials listed below.</p>
+<p>The tutorials include plenty of examples for the different types of Shaders. Unity&#39;s <a href="PostProcessingOverview.html">post-processing effects</a> allows you to create many interesting effects with shaders.</p>
+<p>Read on for an introduction to shaders, and check out the <a href="SL-Reference.html">Shader reference</a>!</p>
+<ul>
+<li><a href="ShaderTut1.html">Tutorial: ShaderLab &amp; Fixed Function Shaders</a></li>
+<li><a href="ShaderTut2.html">Tutorial: Vertex and Fragment Shaders</a></li>
+<li><a href="SL-SurfaceShaders.html">Surface Shaders</a></li>
+<li><a href="SL-ShaderPrograms.html">Writing Vertex and Fragment Shaders</a></li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

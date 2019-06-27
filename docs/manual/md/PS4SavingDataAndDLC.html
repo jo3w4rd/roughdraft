@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>PS4 Saving game data and DLC | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="PS4 Saving game data and DLC | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ps4-saving-game-data-and-dlc">PS4 Saving game data and DLC</h1>
+
+<p>PS4 applications save game data to various locations. These are described in detail in the <a href="https://ps4.siedev.net/resources/documents/SDK/4.500/Programming-Startup_Guide/0005.html">PS4 SDK documentation</a>.</p>
+<h1 id="storing-save-data">Storing save data</h1>
+<p>Unity provides access to save data storage via the <a href="ScriptRef:PlayerPrefs.html">PlayerPrefs</a> class, which is implemented using <a href="https://ps4.siedev.net/resources/documents/SDK/latest/SaveData-Overview/0006.html">PS4 Save Data memory</a>. Alternatively, you can write a native plugin that uses the PS4 <strong>SaveData</strong> library directly.</p>
+<h2 id="playerprefs">PlayerPrefs</h2>
+<p>To use the <a href="ScriptRef:PlayerPrefs.html">PlayerPrefs</a> class on PS4, you need to enable <strong>PlayerPrefs support</strong> in the <a href="PS4PlayerSettings.html">PS4 Player</a> settings. To do this, go to <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category. Select the <strong>PS4</strong> tab in the Inspector window, navigate to <strong>Other Settings</strong>, and then enable the <strong>PlayerPrefs support</strong> setting.</p>
+<p>You can configure the save file used by <a href="ScriptRef:PlayerPrefs.html">PlayerPrefs</a> to set the user and file descriptions as displayed in the PS4 system settings. Use the <a href="ScriptRef:PS4.PS4PlayerPrefs.html">PS4PlayerPrefs</a> class to do this. To set the icon used for the save file in the PS4 system settings, go to <strong>Player</strong> &gt; <strong>Save Data Image</strong>, which is available when <strong>PlayerPrefs support</strong> is enabled. The save file created is 10MiB. 2MiB is reserved by PS4 Save Data memory, and a total of 8MiB is available for all PlayerPref values.</p>
+<p><a href="ScriptRef:Application.Quit.html">Application.Quit()</a> does not trigger an automatic save of <code>PlayerPrefs</code> on PS4. This is because applications cannot be directly terminated on PS4. Call <a href="ScriptRef:PlayerPrefs.Save.html">PlayerPrefs.Save</a> directly to save changes to <code>PlayerPrefs</code>.</p>
+<h2 id="savedata-plug-in">SaveData plug-in</h2>
+<p>As with all Sony libraries, the <code>SaveData</code> API can be accessed by writing a native plug-in. You can also use Unity’s working <a href="PS4Samples.html">PS4 sample plug-in</a>, which includes source code that demonstrates use of the <strong>SaveData</strong> library.</p>
+<h2 id="viewing-saved-files">Viewing saved files</h2>
+<p>To see the files saved for your game, use the PS4 system settings menu to browse to <strong>System Storage Management</strong> &gt; <strong>Save Data</strong>. To see your game’s name, plus any save icon you have set, the game needs to have been installed and run as a package, rather than a PC-hosted build. Your save data will be listed for a game titled &quot;Unknown&quot; if there is not a package of the game installed.</p>
+<h1 id="storing-downloaded-data">Storing downloaded data</h1>
+<p>Use the <a href="ScriptRef:Application.html">Application</a> class to access the download storage area, which can be used for saving game data or files downloaded via the <code>WWW</code> class. To learn how to do this, and to learn more about how Unity maps <code>Application</code> class data paths to PS4 mount points, see documentation on <a href="PS4ProjectStructure.html">PS4 mount points</a>.</p>
+<h2 id="game-data-saved-to-download-storage">Game data saved to download storage</h2>
+<p>Download data storage can be used to save game data, but it cannot be managed by users via PS4 system menus. Use <code>PlayerPrefs</code> or a <strong>SaveData</strong> plug-in to allow users to manage their game data.</p>
+<h2 id="dlc-saved-to-download-storage">DLC saved to download storage</h2>
+<p>DLC is best handled via the <a href="ScriptRef:PS4.PS4DRM.html">PS4DRM</a> class, which is built on top of Sony’s <a href="https://ps4.siedev.net/resources/documents/SDK/latest/AppContent-Overview/0001.html">AppContent</a> library. To learn how to do this, see Unity’s <a href="PS4Samples.html">PS4 sample package</a> for creating and loading DLC using <code>PS4DRM</code>. Alternatively, if you wish to host your own content, you can download it to download storage via the <code>WWW</code> class.</p>
+<h3 id="www-class-on-ps4">WWW class on PS4</h3>
+<p>The <a href="ScriptRef:Caching.html">Caching</a> class and caching functionality of <a href="ScriptRef:WWW.LoadFromCacheOrDownload.html">WWW.LoadFromCacheOrDownload</a> is not implemented on PS4, so you cannot use it to store <code>WWW</code> downloads. Instead, save downloaded files using the <code>System.IO.File</code> class and manually check to see if the file exists to avoid redundant downloads.</p>
+<p>Example:</p>
+<pre><code>string filePath = Application.persistentDataPath + &quot;/myAssetBundle&quot;;
+// Download if file doesn&#39;t exist
+if (!System.IO.File.Exists(filePath))
+{
+    var wwwDownload = new WWW(&quot;myfiles.com/bundle1&quot;);
+    yield return wwwDownload;
+    System.IO.File.WriteAllBytes(fullPath, wwwDownload.bytes);
+}
+// Load using WWW to access Asset Bundle
+var wwwFileload = new WWW(&quot;file://&quot; + filePath);
+yield return wwwFileload;
+AssetBundle bundle = wwwFileload.assetBundle;
+Object obj = bundle.LoadAsset(&quot;myAsset&quot;);
+</code></pre><h1 id="title-user-storage-tus">Title User Storage (TUS)</h1>
+<p>Title User Storage (TUS) allows cloud storage of up to 64 x 64-bit integers per user, and up to 1MiB of binary data per user, for each title on the PSN servers. Additionally, 8 virtual users can be created per-title to allow common storage for all users. The Unity <a href="PS4Samples.html">NPToolKit plug-in</a> provides an example of how to access the <a href="https://ps4.siedev.net/resources/documents/SDK/latest/NpTus-Overview/0001.html">Sony NpTus library</a>, including how to store <code>PlayerPrefs</code> on TUS.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

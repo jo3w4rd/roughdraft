@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Using VR Trace with Unity | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using VR Trace with Unity | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-vr-trace-with-unity">Using VR Trace with Unity</h1>
+
+<p><strong>VR Trace</strong> is a tool by Sony Interactive Entertainment that is included in the PlayStation 4 SDK. It provides PlayStation VR diagnostic information that other tools (like Razor) do not provide. For more information, see Sony’s <a href="https://ps4.siedev.net/resources/documents/SDK/latest/VR_Trace-Users_Guide/__document_toc.html">VR Trace User Guide</a>.</p>
+<p>This document shows you how to analyze your Unity application with VR Trace.</p>
+<h2 id="application-frame-rate">Application frame rate</h2>
+<p>To get the correct reprojection behavior in your application, the frame rate of your application must consistently match the <strong>Playstation VR Framerate</strong> that you set in the Unity Editor <strong>Player</strong> settings (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category). </p>
+<p><img src="../uploads/Main/VRTrace1ResolutionAndPresentation.png" alt="Resolution and Presentation Player settings"></p>
+<p>For example, when selecting 60Hz, your application’s frame times need to be under 16.667 milliseconds. Unity caps the application to 60Hz and reprojects at 120Hz, as required by PS VR.</p>
+<p>If your application fails to meet the required frame time, VR Trace reports issues that help you identify the problem and plan a fix.</p>
+<p>To fix these issues, optimize your application and reduce frame times. For more information on optimization, see documentation on <a href="PS4ProfilingWithRazor.html">Razor CPU</a> and <a href="PS4ProfilingWithRazor-GPU.html">Razor GPU</a>.</p>
+<h2 id="gpu-markers-in-vr-trace">GPU markers in VR Trace</h2>
+<p>To get GPU markers in VR Trace, use a <strong>Development Build</strong> with <strong>VR Captures</strong> rather than <strong>Live Captures</strong>.</p>
+<h2 id="vr-trace-examples">VR Trace examples</h2>
+<p>This section shows examples of VR Trace captures using a Unity Project with these specifications:</p>
+<ul>
+<li><p>PS VR frame rate set to 60Hz (reprojected to 120Hz). </p>
+</li>
+<li><p><strong>Development Build __checked in __Build Settings</strong> (menu: <strong>File</strong> &gt; <strong>Build Settings...</strong>).</p>
+</li>
+<li><p><strong>VR Captures</strong> taken, rather than <strong>Live Captures</strong>.</p>
+</li>
+</ul>
+<h3 id="example-vr-trace-with-frame-times-on-budget-correct-behavior">Example VR Trace with frame times on budget (correct behavior)</h3>
+<p>This is a VR Trace of an application that consistently meets the 60Hz frame budget:</p>
+<p><img src="../uploads/Main/VRTrace2Controls.png" alt=""></p>
+<p>The <strong>Summary</strong> view shows almost no <strong>Issues</strong> (the issues registered in this example occurred during the VR capture stop event in the timeline, so you can ignore them) and an average of 60 frames per second (fps).</p>
+<p>The <strong>Frames</strong> tab shows very uniform frames in all respects and without any red warnings in the <strong>Game Frames</strong> or the <strong>Reprojection</strong> rows. </p>
+<p>For every application frame calculated, Unity performs two updates of the VR tracking data from the main thread (<em>eboot.bin</em>). One of them happens during input update at the start of the frame. The other one estimates the reprojection time, and happens before main rendering starts. The <strong>Thread: eboot.bin (…)</strong> row shows these updates as blue points in the <strong>Frames</strong> tab. </p>
+<p>In the next screenshot, the tracking update that generates the time estimate is selected (highlighted by the blue square): </p>
+<p><img src="../uploads/Main/VRTrace3Predictions.png" alt=""></p>
+<p>This selected update occurs during the first reprojection process of the frame (the red arrow in the screenshot indicates the marker). This timing allows a correct prediction time generation that points to the midpoint of the scanout interval (the period of time that an image is presented in the VR display) two frames ahead. This is the expected behavior from an application running with correct timings at 60Hz.</p>
+<h3 id="example-vr-trace-with-bad-frame-times-caused-by-the-cpus-main-thread">Example VR Trace with bad frame times caused by the CPU’s main thread</h3>
+<p>When the application is CPU-bound, the <strong>Summary</strong> and <strong>Dashboard &gt; FPS</strong> views look like this:</p>
+<p><img src="../uploads/Main/VRTrace4Frames.png" alt=""></p>
+<p>In the middle of the example VR Trace capture, the frame rate drops from the expected 60 fps to around 50 (the <strong>Game FPS</strong> graph goes from green to yellow and then red). The <strong>Summary</strong> also shows an average frame rate below 60 (in this case, 56).</p>
+<p>Unity reports a large number of <strong>Issues</strong> in the Summary (323). This indicates synchronization problems between Unity’s main thread and the reprojection processes.</p>
+<p>Note that the <strong>Reprojection FPS</strong> remains at 120Hz despite the game frame rate drop (you can ignore the dip near the end of the capture in this example, because that is caused by the capture end event).</p>
+<p>The __Frames __tab on this CPU-bound capture looks like this:</p>
+<p><img src="../uploads/Main/VRTrace5EarlyPrediction.png" alt=""></p>
+<p>The <strong>Game Frames</strong> row (top) displays some red frames that are longer than expected. In the <strong>Thread: eboot.bin(...)</strong> row, the prediction time from the VR update fails to point two frames ahead because the next frame is longer than expected. This causes an early prediction time reprojection Issue (shown as a red circle in the <strong>Reprojection</strong> row).</p>
+<h3 id="example-vr-trace-with-bad-frame-times-due-to-gpu-processing">Example VR Trace with bad frame times due to GPU processing</h3>
+<p>In a GPU-bound scenario, you might see a <strong>Summary</strong> and <strong>Dashboard &gt; FPS</strong> view like this:</p>
+<p><img src="../uploads/Main/VRTrace6Framesdrop.png" alt=""></p>
+<p>Here, the application started to be GPU-bound near the end of the capture, and the frame rate dropped.</p>
+<p>The VR Trace capture is very similar to the CPU-bound example, but the frame rate is capped at exactly 30 fps. Frame times would allow a frame rate of between 30 and 60 fps. Unity caps the frame rate when an application is GPU-bound in VR mode.</p>
+<p>The <strong>Frames</strong> tab for this example looks like this:</p>
+<p><img src="../uploads/Main/VRTrace7ControlsLowFPS.png" alt=""></p>
+<p>All frames are twice as long as they should be (30 fps instead of 60 fps). This causes all prediction times to be too early. This is indicated by the red circles in the <strong>Reprojection</strong> row, which appear in the previous frame instead of the current frame.</p>
+<p>Measuring the length of the GPU work per frame (as shown by the block of GPU markers each frame) can provide useful data. In this example, the length is 19040.9 microseconds (written in blue in the next screenshot), which is over the budget of 16666.7 microseconds (or 60Hz) per frame. </p>
+<p><img src="../uploads/Main/VRTrace8FrameTimes.png" alt=""></p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>To avoid crashes on your PS4 application while writing captures, go to your PS4 DevKit <strong>Debug Settings</strong> and set the <strong>Graphics &gt; SubmitDone Exception</strong> option set to <strong>No</strong>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

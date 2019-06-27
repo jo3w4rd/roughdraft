@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Extending IMGUI | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Extending IMGUI | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="extending-imgui">Extending IMGUI</h1>
+
+<p>There are a number of ways to leverage and extend the IMGUI system to meet your needs. Controls can be mixed and created, and you have a lot of leverage in dictating how user input into the GUI is processed.</p>
+<h2 id="compound-controls">Compound Controls</h2>
+<p>There might be situations in your GUI where two types of Controls always appear together. For example, maybe you are creating a Character Creation screen, with several Horizontal Sliders. All of those Sliders need a Label to identify them, so the player knows what they are adjusting. In this case, you could partner every call to <strong>GUI.Label()</strong> with a call to <strong>GUI.HorizontalSlider()</strong>, or you could create a <strong>Compound Control</strong> which includes both a Label and a Slider together.</p>
+<pre><code>/* Label and Slider Compound Control */
+
+
+// JavaScript
+var mySlider : float = 1.0;
+
+function OnGUI () {
+    mySlider = LabelSlider (Rect (10, 100, 100, 20), mySlider, 5.0, &quot;Label text here&quot;);
+}
+
+function LabelSlider (screenRect : Rect, sliderValue : float, sliderMaxValue : float, labelText : String) : float {
+    GUI.Label (screenRect, labelText);
+    screenRect.x += screenRect.width; // &lt;- Push the Slider to the end of the Label
+    sliderValue = GUI.HorizontalSlider (screenRect, sliderValue, 0.0, sliderMaxValue);
+    return sliderValue;
+}
+
+
+// C#
+using UnityEngine;
+using System.Collections;
+
+public class GUITest : MonoBehaviour {
+
+    private float mySlider = 1.0f;
+
+    void OnGUI () {
+        mySlider = LabelSlider (new Rect (10, 100, 100, 20), mySlider, 5.0f, &quot;Label text here&quot;);
+    }
+
+    float LabelSlider (Rect screenRect, float sliderValue, float sliderMaxValue, string labelText) {
+        GUI.Label (screenRect, labelText);
+
+        // &lt;- Push the Slider to the end of the Label
+        screenRect.x += screenRect.width; 
+
+        sliderValue = GUI.HorizontalSlider (screenRect, sliderValue, 0.0f, sliderMaxValue);
+        return sliderValue;
+    }
+
+}
+
+</code></pre><p>In this example, calling <strong>LabelSlider()</strong> and passing the correct arguments will provide a Label paired with a Horizontal Slider. When writing Compound Controls, you have to remember to return the correct value at the end of the function to make it interactive.</p>
+<p><img src="../uploads/Main/gsg-LabelSlider.png" alt="The above Compound Control always creates this pair of Controls"> </p>
+<h3 id="static-compound-controls">Static Compound Controls</h3>
+<p>By using <strong>Static</strong> functions, you can create an entire collection of your own Compound Controls that are self-contained. This way, you do not have to declare your function in the same script you want to use it.</p>
+<pre><code>/* This script is called CompoundControls */
+
+
+// JavaScript
+static function LabelSlider (screenRect : Rect, sliderValue : float, sliderMaxValue : float, labelText : String) : float {
+    GUI.Label (screenRect, labelText);
+    screenRect.x += screenRect.width; // &lt;- Push the Slider to the end of the Label
+    sliderValue = GUI.HorizontalSlider (screenRect, sliderValue, 0.0, sliderMaxValue);
+    return sliderValue;
+}
+
+
+// C#
+using UnityEngine;
+using System.Collections;
+
+public class CompoundControls : MonoBehaviour {     
+
+    public static float LabelSlider (Rect screenRect, float sliderValue, float sliderMaxValue, string labelText) {
+        GUI.Label (screenRect, labelText);
+
+        // &lt;- Push the Slider to the end of the Label
+        screenRect.x += screenRect.width; 
+
+        sliderValue = GUI.HorizontalSlider (screenRect, sliderValue, 0.0f, sliderMaxValue);
+        return sliderValue;
+    }
+
+}
+
+</code></pre><p>By saving the above example in a script called <strong>CompoundControls</strong>, you can call the <strong>LabelSlider()</strong> function from any other script by simply typing <strong>CompoundControls.LabelSlider()</strong> and providing your arguments.</p>
+<h3 id="elaborate-compound-controls">Elaborate Compound Controls</h3>
+<p>You can get very creative with Compound Controls. They can be arranged and grouped in any way you like. The following example creates a re-usable RGB Slider.</p>
+<pre><code>/* RGB Slider Compound Control */
+
+
+// JavaScript
+var myColor : Color;
+
+function OnGUI () {
+    myColor = RGBSlider (Rect (10,10,200,10), myColor);
+}
+
+function RGBSlider (screenRect : Rect, rgb : Color) : Color {
+    rgb.r = GUI.HorizontalSlider (screenRect, rgb.r, 0.0, 1.0);
+    screenRect.y += 20; // &lt;- Move the next control down a bit to avoid overlapping
+    rgb.g = GUI.HorizontalSlider (screenRect, rgb.g, 0.0, 1.0);
+    screenRect.y += 20; // &lt;- Move the next control down a bit to avoid overlapping
+    rgb.b = GUI.HorizontalSlider (screenRect, rgb.b, 0.0, 1.0);
+    return rgb;
+}
+
+
+// C#
+using UnityEngine;
+using System.Collections;
+
+public class GUITest : MonoBehaviour {
+
+    public Color myColor;
+
+    void OnGUI () {
+        myColor = RGBSlider (new Rect (10,10,200,10), myColor);
+    }
+
+    Color RGBSlider (Rect screenRect, Color rgb) {
+        rgb.r = GUI.HorizontalSlider (screenRect, rgb.r, 0.0f, 1.0f);
+
+        // &lt;- Move the next control down a bit to avoid overlapping
+        screenRect.y += 20; 
+        rgb.g = GUI.HorizontalSlider (screenRect, rgb.g, 0.0f, 1.0f);
+
+        // &lt;- Move the next control down a bit to avoid overlapping
+        screenRect.y += 20; 
+
+        rgb.b = GUI.HorizontalSlider (screenRect, rgb.b, 0.0f, 1.0f);
+        return rgb;
+    }
+}
+
+</code></pre><p><img src="../uploads/Main/gsg-RGBSlider.png" alt="The RGB Slider created by the example above"> </p>
+<p>Now let&#39;s build Compound Controls on top of each other, in order to demonstrate how Compound Controls can be used within other Compound Controls. To do this, we will create a new RGB Slider like the one above, but we will use the LabelSlider to do so. This way we&#39;ll always have a Label telling us which slider corresponds to which color.</p>
+<pre><code>/* RGB Label Slider Compound Control */
+
+
+// JavaScript
+var myColor : Color;
+
+function OnGUI () {
+    myColor = RGBLabelSlider (Rect (10,10,200,20), myColor);
+}
+
+function RGBLabelSlider (screenRect : Rect, rgb : Color) : Color {
+    rgb.r = CompoundControls.LabelSlider (screenRect, rgb.r, 1.0, &quot;Red&quot;);
+    screenRect.y += 20; // &lt;- Move the next control down a bit to avoid overlapping
+    rgb.g = CompoundControls.LabelSlider (screenRect, rgb.g, 1.0, &quot;Green&quot;);
+    screenRect.y += 20; // &lt;- Move the next control down a bit to avoid overlapping
+    rgb.b = CompoundControls.LabelSlider (screenRect, rgb.b, 1.0, &quot;Blue&quot;);
+    return rgb;
+}
+
+
+// C#
+using UnityEngine;
+using System.Collections;
+
+public class GUITest : MonoBehaviour {
+
+    public Color myColor;
+
+    void OnGUI () {
+        myColor = RGBSlider (new Rect (10,10,200,30), myColor);
+    }
+
+    Color RGBSlider (Rect screenRect, Color rgb) {
+        rgb.r = CompoundControls.LabelSlider (screenRect, rgb.r, 1.0f, &quot;Red&quot;);
+
+        // &lt;- Move the next control down a bit to avoid overlapping
+        screenRect.y += 20; 
+        rgb.g = CompoundControls.LabelSlider (screenRect, rgb.g, 1.0f, &quot;Green&quot;);
+
+        // &lt;- Move the next control down a bit to avoid overlapping
+        screenRect.y += 20; 
+
+        rgb.b = CompoundControls.LabelSlider (screenRect, rgb.b, 1.0f, &quot;Blue&quot;);
+
+        return rgb;
+    }   
+
+}
+
+</code></pre><p><img src="../uploads/Main/gsg-RGBLabelSlider.png" alt="The Compound RGB Label Slider created by the above code"> </p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

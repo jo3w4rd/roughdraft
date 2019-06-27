@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Managed Plugins | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Managed Plugins | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="managed-plugins">Managed Plugins</h1>
+
+<p>Usually, scripts are kept in a project as source files and compiled by Unity whenever the source changes. However, it is also possible to compile a script to a <strong>dynamically linked library</strong> (DLL) using an external compiler. The resulting DLL can then be added to the project and the classes it contains can be attached to objects just like normal scripts.</p>
+<p>It is generally much easier to work with scripts than DLLs in Unity. However, you may have access to third party Mono code which is supplied in the form of a DLL. When developing your own code, you may be able to use compilers not supported by Unity by compiling the code to a DLL and adding it to your Unity project. You may also want to supply Unity code without the source (for example, for an Asset Store product) and a DLL is an easy way to do this.</p>
+<h2 id="creating-a-dll">Creating a DLL</h2>
+<p>To create a DLL, you will first need a suitable compiler. Not all compilers that produce .NET code are guaranteed to work with Unity, so it may be wise to test the compiler with some available code before doing significant work with it. If the DLL contains no code that depends on the Unity API then you can simply compile it to a DLL using the appropriate compiler options. If you do want to use the Unity API then you will need to make Unity&#39;s own DLLs available to the compiler. On a Mac, these are contained in the application bundle (you can see the internal structure of the bundle by using the Show Package Contents command from the contextual menu; right click or ctrl-click the Unity application):-</p>
+<p>The path to the Unity DLLs will typically be</p>
+<pre><code>/Applications/Unity/Unity.app/Contents/Managed/
+</code></pre><p>...and the two DLLs are called UnityEngine.dll and UnityEditor.dll.</p>
+<p>On Windows, the DLLs can be found in the folders that accompany the Unity application. The path will typically be</p>
+<pre><code>C:\Program Files\Unity\Editor\Data\Managed
+</code></pre><p>...while the names of the DLLs are the same as for Mac OS.</p>
+<p>The exact options for compiling the DLL will vary depending on the compiler used. As an example, the command line for the Mono C# compiler, <strong>mcs</strong>, might look like this on Mac OS:-</p>
+<pre><code>mcs -r:/Applications/Unity/Unity.app/Contents/Managed/UnityEngine.dll -target:library ClassesForDLL.cs 
+</code></pre><p>Here, the <em>-r</em> option specifies a path to a library to be included in the build, in this case the UnityEngine library. The <em>-target</em> option specifies which type of build is required; the word &quot;library&quot; is used to select a DLL build. Finally, the name of the source file to compile is <em>ClassesForDLL.cs</em> (it is assumed that this file is in the current working folder, but you could specify the file using a full path if necessary). Assuming all goes well, the resulting DLL file will appear shortly in the same folder as the source file.</p>
+<h2 id="using-the-dll">Using the DLL</h2>
+<p>Once compiled, the DLL file can simply be dragged into the Unity project like any other asset. The DLL asset has a foldout triangle which can be used to reveal the separate classes inside the library. Classes that derive from MonoBehaviour can be dragged onto Game Objects like ordinary scripts. Non-MonoBehaviour classes can be used directly from other scripts in the usual way.</p>
+<p><img src="../uploads/Main/DLLScreenshot.png" alt="A folded-out DLL with the classes visible"> </p>
+<h2 id="step-by-step-guide-for-visual-studio">Step by step guide for Visual Studio</h2>
+<p>This section explains how to build and integrate a simple DLL example with Visual Studio, and also how to prepare a debugging session for the DLL.</p>
+<h3 id="setting-up-the-project">Setting Up the Project</h3>
+<p>First, open Visual Studio and create a new project. In Visual Studio, you should select <strong>File &gt; New &gt; Project</strong> and then choose <strong>Visual C# &gt; Class Library</strong>.</p>
+<p>You then need to fill out the information for the new library:</p>
+<ul>
+<li><strong>Name</strong> is the namespace (for this example use &quot;DLLTest&quot; as the name).</li>
+<li><strong>Location</strong> is the parent folder of the project.</li>
+<li><strong>Solution name</strong> is the folder of the project.</li>
+</ul>
+<p>Next, you should add references to the Unity DLLs. In Visual Studio, open the contextual menu for <em>References</em> in the Solution Explorer and choose <strong>Add Reference</strong>. Then, choose the option <strong>Browse &gt; Browse &gt; select file</strong>.</p>
+<p>At this stage, you will have the option to select the required DLL file. On Mac OS X, the file path is:</p>
+<pre><code>Applications/Unity.app/Contents/Managed/UnityEngine.dll
+</code></pre><p>On Windows, the path is:</p>
+<pre><code>Program Files\Unity\Editor\Data\Managed\UnityEngine.dll
+</code></pre><h3 id="code">Code</h3>
+<p>For this example, rename the class to <code>MyUtilities</code> in the Solution browser and replace its code with the following:</p>
+<pre><code>using System;   
+using UnityEngine;
+
+namespace DLLTest {
+
+    public class MyUtilities {
+
+        public int c;
+
+        public void AddValues(int a, int b) {
+            c = a + b;  
+        }
+
+        public static int GenerateRandom(int min, int max) {
+            System.Random rand = new System.Random();
+            return rand.Next(min, max);
+        }
+    }
+}
+</code></pre><p>With the code in place, build the project to generate the DLL file along with its debug symbols.</p>
+<h3 id="using-the-dll-in-unity">Using the DLL in Unity</h3>
+<p>For this example, create a new project in Unity and copy the built file &lt;project folder&gt;/bin/Debug/DLLTest.dll into the Assets folder. Then, create a C# script called &quot;Test&quot; in Assets, and replace its contents with the following code:</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+using DLLTest;
+
+public class Test : MonoBehaviour {
+
+     void Start () {
+        MyUtilities utils = new MyUtilities();
+        utils.AddValues(2, 3);
+        print(&quot;2 + 3 = &quot; + utils.c);
+     }
+
+     void Update () {
+        print(MyUtilities.GenerateRandom(0, 100));
+     }
+}
+</code></pre><p>When you attach this script to an object in the scene and press Play, you will see the output of the code from the DLL in the Console window.</p>
+<h3 id="setting-up-a-debugging-session-for-the-dll">Setting up a debugging session for the DLL</h3>
+<p>Firstly, you should prepare the debug symbols for the DLL. In Visual Studio, execute in the command prompt, passing &lt;project folder&gt;\bin\Debug\DLLTest.pdb as a parameter:</p>
+<pre><code>Program Files\Unity\Editor\Data\Mono\lib\mono\2.0\pdb2mdb.exe
+</code></pre><p>Then, copy the converted file <em>&lt;project folder&gt;\bin\Debug\DLLTest.dll.mdb</em> into <em>Assets/Plugins</em>.</p>
+<p>With this setup completed, you can debug code that uses the DLL in Unity in the usual way. See the <a href="ScriptingTools.html">Scripting Tools</a> section for further information about debugging.</p>
+<h3 id="compiling-unsafe-c-code">Compiling &#39;unsafe&#39; C# code</h3>
+<p>You can enable support for compiling <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/unsafe">‘unsafe’ C# code</a> in Unity. To do this, go to <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category. Expand the <strong>Other Settings</strong> panel to reveal the <strong>Allow ‘unsafe’ Code</strong> checkbox. </p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

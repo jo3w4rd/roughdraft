@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>1D Blending | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="1D Blending | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="1d-blending">1D Blending</h1>
+
+<p>The first option in the <strong>Inspector</strong> of a <strong>Blend Node</strong> is the <strong>Blend Type</strong>. This drop-down is used to select one of the different blend types that can blend according to one or two parameters. 1D Blending blends the child motions according to a single parameter.</p>
+<p>After setting the Blend Type, the first thing you need is to select the <a href="AnimationParameters.html">Animation Parameter</a> that will control this Blend Tree. In this example, the parameter is <em>direction</em> which varies between -1.0 (left) and +1.0 (right), with 0.0 denoting a straight run without leaning.</p>
+<p>Then you can add individual animations by clicking the small &quot;+&quot; button and selecting <strong>Add Motion Field</strong> from the popup menu. When you&#39;re done, it should look something like this:</p>
+<p><img src="../uploads/Main/MecanimBlendTree1D.png" alt="A 1D Blend Tree with three Animation Clips."> </p>
+<!-- The word "pyramid" is not ideal. However, "triangle", "wedge" etc are worse since the center motion could be perceived as consisting of two triangles, and we want to use a word that describes a single shape for a motion. The word should convey a shape with a peak in the middle and a slope on *both* sides. -->
+<p>The diagram at the top of the Inspector shows the influence of each of the child motions as the parameter varies between its minimum and maximum values. Each motion is shown as a little blue pyramid (the first and last are only shown in half), and if you click and hold down the left mouse button on one them, the corresponding motion is highlighted in the motion list below. The peak of each pyramid defines the parameter value where the motion has full influence, meaning that its animation weight is 1 and the other animations have a weight of 0. This is also called the <strong>threshold</strong> of the motion.</p>
+<p><img src="../uploads/Main/MecanimBlendTreeParam.png" alt="The diagram at the top of the Blend Tree Inspector visualizes the weights of the child motions over the range of the parameter values."> </p>
+<!-- source: MecanimBlendTreeParam.psd -->
+<p>The red vertical bar indicates the value of the <strong>Parameter</strong>. If you press <strong>Play</strong> in the <strong>Preview</strong> at the bottom of the <strong>Inspector</strong> and drag the red bar in the diagram left and right, you can see how the value of the parameter is controlling the blending of the different motions.</p>
+<h2 id="parameter-range">Parameter Range</h2>
+<p>The range of the parameter used by the Blend Tree is shown below the diagram as two numbers to the left and right. Either one of them can be changed by clicking on the number and dragging left or right with the mouse. Note that the values correspond to the threshold of the first and last motion in the motion list.</p>
+<h2 id="thresholds">Thresholds</h2>
+<p>You can change the threshold value of a motion by clicking on its corresponding blue pyramid in the diagram and dragging it left or right. If the &quot;Automate Thresholds&quot; toggle is not enabled, you can also edit the threshold value of a motion in the motion list by typing in a number in the number field in the Threshold column.</p>
+<p>Below the motion list is the checkbox <em>Automate Thresholds</em>. Enabling it will distribute the thresholds of the motions evenly across the parameter range. For example, if there are five clips and the parameter ranges from -90 to +90, the thresholds will be set to -90, -45, 0, +45 and +90 in order.</p>
+<p>The <strong>Compute Thresholds</strong> drop-down will set the thresholds from data of your choice obtained from the root motions in the Animation Clips. The data that is available to choose from is speed, velocity x, y, or z, and angular speed in degrees or radians. If your <strong>parameter</strong> corresponds to one of these properties, you can compute the thresholds using the Compute Thresholds drop-down.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Speed</strong></td>
+<td style="text-align:left">Sets the threshold of each motion according to its speed (the magnitude of the velocity).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Velocity X</strong></td>
+<td style="text-align:left">Sets the threshold of each motion according to its velocity.x.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Velocity Y</strong></td>
+<td style="text-align:left">Sets the threshold of each motion according to its velocity.y.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Velocity Z</strong></td>
+<td style="text-align:left">Sets the threshold of each motion according to its velocity.z.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Angular Speed (Rad)</strong></td>
+<td style="text-align:left">Sets the threshold of each motion according to its angular speed in radians per second.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Angular Speed (Deg)</strong></td>
+<td style="text-align:left">Sets the threshold of each motion according to its angular speed in degrees per second.</td>
+</tr>
+</tbody>
+</table>
+<p>Say, for example, you had a walk animation that covered 1.5 units per second, a jog at 2.3 units per second, and a run at 4 units per second, choosing the <strong>Speed</strong> option from the drop-down would set the parameter range and thresholds for the three animations based on these values. So, if you set the speed parameter to 3.0, it would blend the jog and run with a slight bias toward the jog.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

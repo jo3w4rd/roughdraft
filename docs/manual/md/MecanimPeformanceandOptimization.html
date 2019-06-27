@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Performance and optimization | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Performance and optimization | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="performance-and-optimization">Performance and optimization</h1>
+
+<p>This page contains some tips to help you obtain the best performance from <a href="AnimationOverview.html">Unity&#39;s animation system</a>, covering character setup, the animation system and run-time optimizations.</p>
+<h2 id="character-setup">Character setup</h2>
+<h3 id="number-of-bones">Number of bones</h3>
+<p>In some cases you need to create characters with a large number of bones: for example, when you want a lot of customizable attachments. These extra bones increase the size of the build, and may have a relative processing cost for each additional bone. For example, 15 additional bones on a rig that already has 30 bones takes 50% longer to solve in <strong>Generic</strong> mode. Note that you can have additional bones for <a href="GenericAnimations.html">Generic</a> and <a href="ConfiguringtheAvatar.html">Humanoid</a> types. When you have no animations playing using the additional bones, the processing cost should be negligible. This cost is even lower if their attachments are non-existent or hidden.</p>
+<h3 id="multiple-skinned-meshes">Multiple skinned Meshes</h3>
+<p>Combine skinned meshes whenever possible. Splitting a character into two <a href="class-SkinnedMeshRenderer.html">Skinned Mesh Renderers</a> reduces performance. It&#39;s better if your character has just one Material, but there are some cases when you might require more than one.</p>
+<h2 id="animation-system">Animation system</h2>
+<h3 id="controllers">Controllers</h3>
+<p>The <a href="class-Animator.html">Animator</a> doesn&#39;t spend time processing when a <a href="class-AnimatorController.html">Controller</a> is not set to it.</p>
+<h3 id="simple-animation">Simple animation</h3>
+<p>Playing a single <a href="class-AnimationClip.html">Animation Clip</a> with no blending can make Unity slower than the <a href="Animations.html">legacy animation system</a>. The old system is very direct, sampling the curve and directly writing into the transform. Unity&#39;s current animation system has temporary buffers it uses for blending, and there is additional copying of the sampled curve and other data. The current system layout is optimized for animation blending and more complex setups.</p>
+<h3 id="scale-curves">Scale curves</h3>
+<p>Animating scale curves is more expensive than animating translation and rotation curves. To improve performance, avoid scale animations.  </p>
+<p><strong>Note:</strong> This does not apply to constant curves (curves that have the same value for the length of the <a href="AnimationClips.html">animation clip</a>). Constant curves are optimized, and are less expensive that normal curves. Constant curves that have the same values as the default scene values do not write to the scene every frame.</p>
+<h3 id="layers">Layers</h3>
+<p>Most of the time Unity is evaluating animations, and keeps the overhead for <a href="AnimationLayers.html">animation layers</a> and <a href="AnimationStateMachines.html">Animation State Machines</a> to the minimum. The cost of adding another layer to the animator, synchronized or not, depends on what animations and blend trees are played by the layer. When the weight of the layer is zero, Unity skips the layer update.</p>
+<h3 id="humanoid-vs-generic-animation-types">Humanoid vs. Generic animation types</h3>
+<p>These are tips to help you decide between these types:</p>
+<ul>
+<li>When importing Humanoid animation use an Avatar Mask (class-AvatarMask) to remove IK Goals or finger animation if you don&#39;t need them.</li>
+<li>When you use Generic, using root motion is more expensive than not using it. If your animations don&#39;t use root motion, make sure that you have not specified a root bone.</li>
+</ul>
+<h3 id="scene-level-optimization">Scene-level optimization</h3>
+<p>There are many optimizations that can be made, some useful tips include:</p>
+<ul>
+<li>Use hashes instead of strings to query the Animator.</li>
+<li>Implement a small AI Layer to control the Animator. You can make it provide simple callbacks for OnStateChange, OnTransitionBegin, and other events.</li>
+<li>Use State Tags to easily match your AI state machine to the Unity state machine.</li>
+<li>Use additional curves to simulate events.</li>
+<li>Use additional curves to mark up your animations; for example, in conjunction with <a href="TargetMatching.html">target matching</a>.</li>
+</ul>
+<h2 id="runtime-optimizations">Runtime Optimizations</h2>
+<h3 id="visibility-and-updates">Visibility and updates</h3>
+<p>Always optimize animations by setting the animators&#39;s <a href="class-Animator.html">Culling Mode</a> to <strong>Based on Renderers</strong>, and disable the <a href="class-SkinnedMeshRenderer.html">skinned mesh renderer&#39;s</a> <strong>Update When Offscreen</strong> property. This saves Unity from updating animations when the character is not visible.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Textures | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Textures | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="textures">Textures</h1>
+
+<p>Textures are image or movie files that lay over or wrap around your GameObjects to give them a visual effect. This page details the properties you need to manage for your Textures.</p>
+<p>Unity recognises any image or movie file in a 3D project’s <em>Assets</em> folder as a Texture (in 2D projects, they are saved as Sprites). As long as the image meets the size requirements specified below, it is imported and optimized for game use (although any Shaders you use for your GameObjects have specific Texture requirements). This extends to multi-layer Photoshop or TIFF files, which are automatically flattened on import so that there is no size penalty for your game. This flattening happens internally to Unity, not to the PSD file itself, and is optional, so you can continue to save and import your PSD files with layers intact.</p>
+<h2 id="properties">Properties</h2>
+<p><img src="../uploads/Main/TextureImporter55.jpg" alt="The Texture Inspector window"></p>
+<p>The Inspector window is split into two sections: the <strong>Texture Importer</strong> above, and the <strong>Preview</strong> below.</p>
+<h2 id="texture-importer">Texture Importer</h2>
+<p>The Texture Importer defines how images are imported from your project’s <em>Assets</em> folder into the Unity Editor. To access the Texture Importer, select the image file in the Project window. The Texture Importer opens in the Inspector window.</p>
+<p>Note that some of the less commonly used properties are hidden by default. Click <strong>Advanced</strong> in the Inspector window to view these.</p>
+<p>The first property in the Texture Importer is the <strong>Texture Type</strong>. Use this to select the type of Texture you want to create from the source image file. See documentation on <a href="TextureTypes.html">Texture types</a> for more information on each type.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property:</strong></th>
+<th style="text-align:left"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Texture Type</strong></td>
+<td style="text-align:left">Use this to define what your Texture is to be used for. The other properties in the Texture Importer change depending on which one you choose.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Default</td>
+<td style="text-align:left">This is the most common setting used for all Textures. It provides access to most of the properties for Texture importing.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Normal Map</td>
+<td style="text-align:left">Select this to turn the color channels into a format suitable for real-time normal mapping. See <a href="ImportingTextures.html">Importing Textures</a> for more information on normal mapping.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Editor GUI</td>
+<td style="text-align:left">Select this if you are using the Texture on any HUD or GUI controls.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Sprite (2D and UI)</td>
+<td style="text-align:left">Select this if you are using the Texture in a 2D game as a <a href="Sprites.html">Sprite</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Cursor</td>
+<td style="text-align:left">Select this if you are using the Texture as a custom cursor.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Cookie</td>
+<td style="text-align:left">Select this to set your Texture up with the basic parameters used for the <a href="Cookies.html">Cookies</a> of your Scene’s <a href="class-Light.html">Lights</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Lightmap</td>
+<td style="text-align:left">Select this if you are using the Texture as a <a href="class-LightmapParameters.html">Lightmap</a>. This option enables encoding into a specific format (RGBM or dLDR, depending on the platform) and a post-processing step on Texture data (a push-pull dilation pass).</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Single Channel</td>
+<td style="text-align:left">Select this if you only need one channel in the Texture.</td>
+</tr>
+</tbody>
+</table>
+<p>The second property in the Texture Importer is the <strong>Texture Shape</strong>. Use this to select and define the shape and structure of the Texture.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property:</strong></th>
+<th style="text-align:left"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Texture Shape</strong></td>
+<td style="text-align:left">Use this to define the shape of the Texture. This is set to 2D by default.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;2D</td>
+<td style="text-align:left">This is the most common setting for all Textures; it defines the image file as a 2D Texture. These are used to map textures to 3D meshes and GUI elements, among other project elements.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Cube</td>
+<td style="text-align:left">This defines the Texture as a cubemap. You could use this for Skyboxes or Reflection Probes, for example. Selecting <strong>Cube</strong> displays different mapping options.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Mapping</strong></td>
+<td style="text-align:left">This setting is only available when <strong>Texture Shape</strong> is set to <strong>Cube</strong>. Use <strong>Mapping</strong> to specify how the Texture is projected onto your GameObject. This is set to <strong>Auto</strong> by default.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Auto</td>
+<td style="text-align:left">Unity tries to automatically work out the layout from the Texture information.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;6 Frames Layout (Cubic Environment)</td>
+<td style="text-align:left">The Texture contains six images arranged in one of the standard cubemap layouts: cross, or sequence (+x -x +y -y +z -z). The   images can be orientated either horizontally or vertically.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Latitude Longitude (Cylindrical)</td>
+<td style="text-align:left">Maps the Texture to a 2D Latitude-Longitude representation.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Mirrored Ball (Sphere Mapped)</td>
+<td style="text-align:left">Maps the Texture to a sphere-like cubemap.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Convolution Type</strong></td>
+<td style="text-align:left">Choose the type of pre-convolution (that is, filtering) that you want to use for this texture. The result of pre-convolution is stored in mips. This is set to <strong>None</strong> by default.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;None</td>
+<td style="text-align:left">The Texture has no pre-convolution (no filtering).</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Specular (Glossy Reflection)</td>
+<td style="text-align:left">Select this to use cubemaps as Reflection Probes. The Texture mip maps are pre-convoluted (filtered)  with the engine BRDF. (See Wikipedia&#39;s page on <a href="https://en.wikipedia.org/wiki/Bidirectional_reflectance_distribution_function">Bidirectional reflectance distribution function</a> for more information.)</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Diffuse (Irradiance)</td>
+<td style="text-align:left">The Texture is convoluted (filtered)  to represent irradiance. This is useful if you use the cubemap as a Light Probe.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fixup Edge Seams</strong></td>
+<td style="text-align:left">This option is only available with the <strong>None</strong> or <strong>Diffuse</strong> convolution (filter). Use this on low-end platforms as a work-around for filtering limitations, such as cubemaps incorrectly filtered between faces.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-specific-overrides">Platform-specific overrides</h2>
+<p>The Texture Inspector window has a <strong>Platform-specific overrides</strong> panel.</p>
+<p><img src="../uploads/Main/PlatformSpecificOverrides.png" alt="__Platform-specific overrides__ panel"></p>
+<p>When building for different platforms, you need to think about the resolution, the file size with associated memory size requirements, the pixel dimensions, and the quality of your Textures for each target platform. Use the <strong>Platform-specific overrides</strong> panel to set default options (using <strong>Default</strong>), and then override them for a specific platform using the buttons along the top of the panel. </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property:</strong></th>
+<th style="text-align:left"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Max Size</strong></td>
+<td style="text-align:left">The maximum imported Texture dimensions in pixels. Artists often prefer to work with huge dimension-size Textures; use <strong>Max Size</strong> to scale the Texture down to a suitable dimension-size.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Compression</strong></td>
+<td style="text-align:left">Choose the compression type for the Texture. This parameter helps the system choose the right compression format for a Texture. Depending on the platform and the availability of compression formats, different settings might end up with the same internal format (for example, <strong>Low Quality Compression</strong> has an effect on mobile platforms, but not on desktop platforms).</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;None</td>
+<td style="text-align:left">The Texture is not compressed.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Low Quality</td>
+<td style="text-align:left">The Texture is compressed in a low-quality format. This results in a lower memory usage compared with <strong>Normal Quality</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Normal Quality</td>
+<td style="text-align:left">The Texture is compressed with a standard format.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;High Quality</td>
+<td style="text-align:left">The Texture is compressed in a high-quality format. This results in a higher memory usage compared with <strong>Normal Quality</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Format</strong></td>
+<td style="text-align:left">This bypasses the automatic system to specify what internal representation is used for the Texture. The list of available formats depends on the platform and Texture type. See documentation on <a href="class-TextureImporterOverride.html">Texture formats for platform-specific overrides</a> for more information. <br><strong>Note:</strong> Even when a platform is not overridden, this option shows the format chosen by the automatic system. The Format property is only available when overriding for a specific platform, and not as a default setting.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Use crunch compression</strong></td>
+<td style="text-align:left">Use crunch compression, if applicable. Crunch is a lossy compression format on top of DXT or ETC Texture compression. Textures are decompressed to DXT or ETC on the CPU and then uploaded on the GPU at runtime. Crunch compression helps the Texture use the lowest possible amount of space on disk and for downloads. Crunch Textures can take a long time to compress, but decompression at runtime is very fast.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Compressor Quality</strong></td>
+<td style="text-align:left">When using Crunch Texture compression, use the slider to adjust the quality. A higher compression quality means larger Textures and longer compression times.</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

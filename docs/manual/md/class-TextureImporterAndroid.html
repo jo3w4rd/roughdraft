@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Android 2D Textures Overrides | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Android 2D Textures Overrides | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="android-2d-textures-overrides">Android 2D Textures Overrides</h1>
+
+<p>This page details the <strong>Texture Overrides</strong> specific to Android. A description of the general Texture Overrides can be found <a href="class-TextureImporter.html">here</a>.</p>
+<p>The information contained on this page assumes the reader has working knowledge of DXT and ETC Texture compression, OpenGL ES and Android development. </p>
+<p>Further information about Texture compression and OpenGL ES can be found on the following Wikipedia pages: </p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/S3_Texture_Compression#DXT1">DXT Texture compression</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Ericsson_Texture_Compression">ETC(Ericsson Texture Compression</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Lossy_compression">Lossy compression</a></li>
+<li><a href="https://en.wikipedia.org/wiki/OpenGL_ES#OpenGL_ES_3.0">OpenGL ES</a></li>
+</ul>
+<p><img src="../uploads/Main/TextureImporterOverride.png" alt="Android 2D Texture Override settings"> </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Texture Format</strong></th>
+<th style="text-align:left">Internal representation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed DXT1</strong></td>
+<td style="text-align:left">Compressed RGB texture. Supported by NVIDIA Tegra. 4 bits per pixel (32 KB for a 256x256 texture).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Crunched DXT1</strong></td>
+<td style="text-align:left">Compressed RGB Texture. Supported by NVIDIA Tegra. Crunch is a lossy compression format on top of DXT Texture compression. Textures are decompressed to DXT1 by the CPU and then uploaded to the GPU at runtime. Crunch produces smaller Textures than by regular DXT1 compression, but with lower quality. Crunch Textures can take a long time to compress, but decompression at runtime is very fast. 4 bits per pixel (output size varies depending on the Texture - from 1 KB for a 256x256 Texture).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Compressed DXT5</strong></td>
+<td style="text-align:left">Compressed RGBA texture. Supported by NVIDIA Tegra. 8 bits per pixel (64 KB for a 256x256 texture).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Crunched DXT5</strong></td>
+<td style="text-align:left">Compressed RGBA Texture. Supported by NVIDIA Tegra. Crunch is a lossy compression format on top of DXT Texture compression. Textures are decompressed to DXT5 on the CPU and then uploaded to the GPU at runtime. Crunch compression can be used to produce significantly smaller Textures than by regular DXT5 compression, but with lower quality. Crunch Textures can take a long time to compress, but decompression at runtime is very fast. 8 bits per pixel (output size varies depending on the Texture - from 1 KB for a 256x256 Texture).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed ETC 4 bits</strong></td>
+<td style="text-align:left">Compressed RGB Texture. This is the default Texture format for Android projects in Unity. ETC_RGB4 is a part of OpenGL ES 2.0 and is supported by all OpenGL ES 2.0 GPUs. It does not support alpha. 4 bits per pixel (32 KB for a 256x256 Texture).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Crunched ETC</strong></td>
+<td style="text-align:left">Compressed RGB Texture. Crunch is a lossy compression format on top of ETC Texture compression. Textures are decompressed to ETC_RGB4 by the CPU and then uploaded to the GPU at runtime. Crunch produces smaller Textures than by regular ETC_RGB4 compression, but with lower quality. Crunch Textures can take a long time to compress, but decompression at runtime is very fast. ETC_RGB4 is a part of OpenGL ES 2.0 and is supported by all OpenGL ES 2.0 GPUs. It does not support alpha. 4 bits per pixel (output size varies depending on the Texture - from 1 KB for a 256x256 Texture).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed ETC2 4 bits</strong></td>
+<td style="text-align:left">Compressed RGB Texture. ETC2 is a part of OpenGL ES 3.0 and is supported by all OpenGL ES 3.0 GPUs. 4 bits per pixel (32 KB for a 256x256 Texture).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB + 1-bit Alpha Compressed ETC2 4 bits</strong></td>
+<td style="text-align:left">Compressed RGB Texture with 1-bit punchthrough alpha. ETC2 is a part of OpenGL ES 3.0 and is supported by all OpenGL ES 3.0 GPUs. 4 bits per pixel (32 KB for a 256x256 Texture).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Compressed ETC2 8 bits</strong></td>
+<td style="text-align:left">Compressed RGBA Texture. Supported by all OpenGL ES 3.0 GPUs. (64 KB for a 256x256 Texture)</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Crunched ETC2</strong></td>
+<td style="text-align:left">Compressed RGBA Texture. Crunch is a lossy compression format on top of ETC Texture compression. Textures are decompressed to ETC2_RGBA8 on the CPU and then uploaded to the GPU at runtime. Crunch compression can be used to produce significantly smaller Textures than by regular ETC2_RGBA8 compression, but with lower quality. Crunch Textures can take a long time to compress, but decompression at runtime is very fast. Supported by all OpenGL ES 3.0 GPUs. 8 bits per pixel (output size varies depending on the Texture - from 1 KB for a 256x256 Texture).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed PVRTC 2 bits</strong></td>
+<td style="text-align:left">Compressed RGB Texture. Supported by Imagination PowerVR GPUs. 2 bits per pixel (16 KB for a 256x256 Texture)</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Compressed PVRTC 2 bits</strong></td>
+<td style="text-align:left">Compressed RGBA Texture. Supported by Imagination PowerVR GPUs. 2 bits per pixel (16 KB for a 256x256 Texture)</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed PVRTC 4 bits</strong></td>
+<td style="text-align:left">Compressed RGB Texture. Supported by Imagination PowerVR GPUs. 4 bits per pixel (32 KB for a 256x256 Texture)</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Compressed PVRTC 4 bits</strong></td>
+<td style="text-align:left">Compressed RGBA Texture. Supported by Imagination PowerVR GPUs. 4 bits per pixel (32 KB for a 256x256 Texture)</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed ATC 4 bits</strong></td>
+<td style="text-align:left">Compressed RGB Texture. Supported by Qualcomm Snapdragon. 4 bits per pixel (32 KB for a 256x256 Texture).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Compressed ATC 8 bits</strong></td>
+<td style="text-align:left">Compressed RGBA Texture. Supported by Qualcomm Snapdragon. 8 bits per pixel (64 KB for a 256x256 Texture).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed ASTC 4x4 block</strong> <br><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed ASTC 5x5 block</strong> <br><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed ASTC 6x6 block</strong> <br><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed ASTC 8x8 block</strong> <br><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed ASTC 10x10 block</strong> <br><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB Compressed ASTC 12x12 block</strong></td>
+<td style="text-align:left">Compressed RGB Texture. Supported by all OpenGL ES 3.2 and OpenGL ES 3.1+AEP GPUs, as well as by some OpenGL ES 3.0 GPUs. This compression type uses fixed 128-bit block size, and depending on the pixel block size (4x4 to 12x12), it may utilize 8 to 0.89 bits per pixel. The size of the compressed Texture varies from 64 KB for a 256x256 Texture (4x4 block, highest quality) to 7.6 KB for a 256x256 Texture (12x12 block, highest compression rate).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Compressed ASTC 4x4 block</strong> <br><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Compressed ASTC 5x5 block</strong> <br><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Compressed ASTC 6x6 block</strong> <br><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Compressed ASTC 8x8 block</strong> <br><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Compressed ASTC 10x10 block</strong> <br><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA Compressed ASTC 12x12 block</strong></td>
+<td style="text-align:left">Compressed RGBA Texture. Supported by all OpenGL ES 3.2 and OpenGL ES 3.1+AEP GPUs, as well as by some OpenGL ES 3.0 GPUs. This compression type uses fixed 128-bit block size, and depending on the pixel block size (4x4 to 12x12), it may utilize 8 to 0.89 bits per pixel. The size of the compressed Texture varies from 64 KB for a 256x256 Texture (4x4 block, highest quality) to 7.6 KB for a 256x256 Texture (12x12 block, highest compression rate).</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB 16 bit</strong></td>
+<td style="text-align:left">65 thousand colors with no alpha. Uses more memory than the compressed formats, but could be more suitable for UI or crisp Textures without gradients. 128 KB for a 256x256 Texture.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGB 24 bit</strong></td>
+<td style="text-align:left">Truecolor but without alpha. 192 KB for a 256x256 Texture.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Alpha 8 bit</strong></td>
+<td style="text-align:left">High quality alpha channel but without any color. 64 KB for a 256x256 Texture.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA 16 bit</strong></td>
+<td style="text-align:left">Low-quality truecolor. The default compression for the Textures with alpha channel. 128 KB for a 256x256 Texture.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>RGBA 32 bit</strong></td>
+<td style="text-align:left">Truecolor with alpha - this is the highest quality compression for the Textures with alpha. 256 KB for a 256x256 Texture.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Compression quality</strong></td>
+<td style="text-align:left">Choose Fast for quickest performance, Best for the best image quality and Normal for a balance between the two.</td>
+</tr>
+</tbody>
+</table>
+<p>If a your app is installed on a device that does not support the Texture compression format you have used, Unity will decompress the Textures to RGBA 32 and store them in the device’s memory—along with the compressed Textures—when the app is running. This will lead to increased loading times and higher memory usage as Unity must decompress the Textures and store two versions of the Textures used (compressed and uncompressed).This can also have a large impact on rendering performance, especially on older, slower devices.</p>
+<p>Use ETC2 compression unless you are targeting specific hardware (like Nvidia Tegra). ETC2 supports Textures with and without an alpha channel and is supported by all OpenGL ES 3 devices. To avoid software decompression, set the minimum graphics API to OpenGL ES 3 in the <a href="class-PlayerSettingsAndroid.html">Android Player</a> settings by removing OpenGL ES 2 from the <strong>Graphics APIs</strong> list and setting the <strong>Minimum API Level</strong> to 18+. </p>
+<p><img src="../uploads/Main/PlayerSettingsWindow.png" alt=""></p>
+<p>To target OpenGL ES 2 and OpenGL ES 3 devices, you can create two different APKs by first building an APK targeting OpenGL ES 3, as shown above, and then building an APK targeting OpenGL ES 2 by removing OpenGL ES 2 and Vulcan from the <strong>Graphics APIs</strong> section of the <strong>Player</strong> settings. You can then publish both of these APKs to the Google Play Store. When a user downloads your app, the Google Play Store will automatically install the most relevant APK for their device. For more information about publishing multiple APK files, see Android Developer documentation on <a href="https://developer.android.com/google/play/publishing/multiple-apks.html">Publishing Multiple APKs</a> and <a href="https://developer.android.com/google/play/filters.html">Google Play Store APK filtering</a>.</p>
+<p>When building an APK that targets OpenGL ES 2, you can use ETC1 texture compression. </p>
+<p>The Texture compression format for OpenGL ES2-targeted APK can be ETC1. Unity can use ETC1 for Textures with Alpha, provided they are placed on an <a href="https://docs.unity3d.com/Manual/SpritePacker.html">Atlas</a> (by specifying the packing tag) and the build is for Android. You can opt in for this by setting the <strong>Compress using ETC1</strong> checkbox for the Texture. Under the hood Unity splits the resulting atlas into two Textures, each without alpha and then combine them in the final parts of the render-pipeline.</p>
+<p>If you absolutely want to store an alpha channel in a Texture, RGBA16 bit is the compression format supported by all hardware vendors.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

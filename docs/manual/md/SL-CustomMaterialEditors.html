@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Custom Material Editors | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Custom Material Editors | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="custom-material-editors">Custom Material Editors</h1>
+
+<p>Sometimes you have a shader with some interesting data types that can not be nicely represented using the built in Unity material editor. Unity provides a way to override the default material inspector so that you can define your own. You can use this feature to define custom controls and data range validation.</p>
+<p>The first part to writing a custom material editor is defining a shader that requires a <a href="SL-CustomEditor.html">Custom Editor</a>. The name you use for the custom editor is the class that will be looked up by Unity for the material editor.</p>
+<p>To define a custom editor you extend from the MaterialEditor class and place the script below an Editor folder in the assets directory.</p>
+<pre><code>using UnityEditor;
+
+public class CustomMaterialInspector : MaterialEditor {
+    public override void OnInspectorGUI () {
+        base.OnInspectorGUI ();
+    }
+}
+</code></pre><p>Any shader that has a custom editor defined (<strong>CustomEditor &quot;CustomMaterialInspector&quot;</strong>) will find the editor listed above and execute the associated code. </p>
+<h2 id="a-real-example">A real example</h2>
+<p>So we have a situation where we have a shader that can work in two modes; it renders standard diffuse lighting or it only renders the red components of the source texture. This is achieved using <a href="SL-MultipleProgramVariants.html">shader multi compilation</a>.</p>
+<pre><code>Shader &quot;Custom/Redify&quot; {
+    Properties {
+        _MainTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; {}
+    }
+    SubShader {
+        Tags { &quot;RenderType&quot;=&quot;Opaque&quot; }
+        LOD 200
+
+        CGPROGRAM
+        #pragma surface surf Lambert
+        #pragma multi_compile REDIFY_ON REDIFY_OFF
+
+        sampler2D _MainTex;
+
+        struct Input {
+            float2 uv_MainTex;
+        };
+
+        void surf (Input IN, inout SurfaceOutput o) {
+            half4 c = tex2D (_MainTex, IN.uv_MainTex);
+            o.Albedo = c.rgb;
+            o.Alpha = c.a;
+
+
+    #if REDIFY_ON
+            o.Albedo.gb = (o.Albedo.g + o.Albedo.b) / 2.0;
+
+    #endif
+        }
+        ENDCG
+    } 
+    FallBack &quot;Diffuse&quot;
+    CustomEditor &quot;CustomMaterialInspector&quot;
+}
+</code></pre><p>As you can see the shader has two Keywords available for setting: REDIFY_ON and REDIFY_OFF. These can be changed be set on a per material basis by using the shaderKeywords property of the material. below is an editor that does this.</p>
+<pre><code>using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+using System.Linq;
+
+public class CustomMaterialInspector : MaterialEditor {
+
+    public override void OnInspectorGUI ()
+    {
+        // render the default inspector
+        base.OnInspectorGUI ();
+
+        // if we are not visible... return
+        if (!isVisible)
+            return;
+
+        // get the current keywords from the material
+        Material targetMat = target as Material;
+        string[] keyWords = targetMat.shaderKeywords;
+
+        // see if redify is set, then show a checkbox
+        bool redify = keyWords.Contains (&quot;REDIFY_ON&quot;);
+        EditorGUI.BeginChangeCheck();
+        redify = EditorGUILayout.Toggle (&quot;Redify material&quot;, redify);
+        if (EditorGUI.EndChangeCheck())
+        {
+            // if the checkbox is changed, reset the shader keywords
+            var keywords = new List&lt;string&gt; { redify ? &quot;REDIFY_ON&quot; : &quot;REDIFY_OFF&quot;};
+            targetMat.shaderKeywords = keywords.ToArray ();
+            EditorUtility.SetDirty (targetMat);
+        }
+    }
+}
+</code></pre><h2 id="how-the-default-material-editor-works">How the default material editor works</h2>
+<p>The default Unity editor renders all the properties that exist in a shader to the the material editor. Below is a custom material editor that behaves similar to the Unity material editor. Use this example if you wish to manually render the default fields.</p>
+<pre><code>using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+using System.Linq;
+
+public class CustomMatInspector : MaterialEditor {
+
+    // this is the same as the ShaderProperty function, show here so 
+    // you can see how it works
+    private void ShaderPropertyImpl(Shader shader, int propertyIndex)
+    {
+        int i = propertyIndex;
+        string label = ShaderUtil.GetPropertyDescription(shader, i);
+        string propertyName = ShaderUtil.GetPropertyName(shader, i);
+        switch (ShaderUtil.GetPropertyType(shader, i))
+        {
+            case ShaderUtil.ShaderPropertyType.Range: // float ranges
+            {
+                GUILayout.BeginHorizontal();
+                float v2 = ShaderUtil.GetRangeLimits(shader, i, 1);
+                float v3 = ShaderUtil.GetRangeLimits(shader, i, 2);
+                RangeProperty(propertyName, label, v2, v3);
+                GUILayout.EndHorizontal();
+
+                break;
+            }
+            case ShaderUtil.ShaderPropertyType.Float: // floats
+            {
+                FloatProperty(propertyName, label);
+                break;
+            }
+            case ShaderUtil.ShaderPropertyType.Color: // colors
+            {
+                ColorProperty(propertyName, label);
+                break;
+            }
+            case ShaderUtil.ShaderPropertyType.TexEnv: // textures
+            {
+                ShaderUtil.ShaderPropertyTexDim desiredTexdim = ShaderUtil.GetTexDim(shader, i);
+                TextureProperty(propertyName, label, desiredTexdim);
+
+                GUILayout.Space(6);
+                break;
+            }
+            case ShaderUtil.ShaderPropertyType.Vector: // vectors
+            {
+                VectorProperty(propertyName, label);
+                break;
+            }
+            default:
+            {
+                GUILayout.Label(&quot;ARGH&quot; + label + &quot; : &quot; + ShaderUtil.GetPropertyType(shader, i));
+                break;
+            }
+        }
+    }
+
+    public override void OnInspectorGUI ()
+    {
+        serializedObject.Update ();
+        var theShader = serializedObject.FindProperty (&quot;m_Shader&quot;); 
+        if (isVisible &amp;&amp; !theShader.hasMultipleDifferentValues &amp;&amp; theShader.objectReferenceValue != null)
+        {
+            float controlSize = 64;
+
+            EditorGUIUtility.LookLikeControls(Screen.width - controlSize - 20);
+
+            EditorGUI.BeginChangeCheck();
+            Shader shader = theShader.objectReferenceValue as Shader;
+
+            for (int i = 0; i &lt; ShaderUtil.GetPropertyCount(shader); i++)
+            {
+                ShaderPropertyImpl(shader, i);
+            }
+
+            if (EditorGUI.EndChangeCheck())
+                PropertiesChanged ();
+        }
+    }
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

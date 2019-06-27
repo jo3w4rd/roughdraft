@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>ShaderLab: Legacy Texture Combiners | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="ShaderLab: Legacy Texture Combiners | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="shaderlab-legacy-texture-combiners">ShaderLab: Legacy Texture Combiners</h1>
+
+<p>After the basic vertex lighting has been calculated, textures are applied. In ShaderLab this is done using <strong>SetTexture</strong> command.</p>
+<p><em>**Note:</em>* SetTexture commands have no effect when <a href="SL-ShaderPrograms.html">fragment programs</a> are used; as in that case pixel operations are completely described in the shader. It is advisable to use programmable shaders these days instead of SetTexture commands.*</p>
+<p>Fixed function texturing is the place to do old-style combiner effects. You can have multiple SetTexture commands inside a pass - all textures are applied in sequence, like layers in a painting program. SetTexture commands must be placed at the end of a <a href="SL-Pass.html">Pass</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>SetTexture [TextureName] {Texture Block}
+</code></pre><p>Assigns a texture. <em>TextureName</em> must be defined as a texture property. How to apply the texture is defined inside the <em>TextureBlock</em>.</p>
+<p>The texture block controls how the texture is applied. Inside the texture block can be up to two commands: <code>combine</code> and <code>constantColor</code>.</p>
+<h2 id="texture-block-combine-command">Texture block <code>combine</code> command</h2>
+<p><code>combine</code> <em>src1</em> * <em>src2</em>: Multiplies src1 and src2 together. The result will be darker than either input.</p>
+<p><code>combine</code> <em>src1</em> + <em>src2</em>: Adds src1 and src2 together. The result will be lighter than either input.</p>
+<p><code>combine</code> <em>src1</em> - <em>src2</em>: Subtracts src2 from src1.</p>
+<p><code>combine</code> <em>src1</em> <code>lerp</code> (<em>src2</em>) <em>src3</em>: Interpolates between src3 and src1, using the alpha of src2. Note that the interpolation is opposite direction: src1 is used when alpha is one, and src3 is used when alpha is zero.</p>
+<p><code>combine</code> <em>src1</em> * <em>src2</em> + <em>src3</em>: Multiplies src1 with the alpha component of src2, then adds src3.</p>
+<p>All the <strong>src</strong> properties can be either one of <em>previous</em>, <em>constant</em>, <em>primary</em> or <em>texture</em>. </p>
+<ul>
+<li><strong>Previous</strong> is the the result of the previous SetTexture.</li>
+<li><strong>Primary</strong> is the color from the <a href="SL-Material.html">lighting calculation</a> or the vertex color if it is <a href="SL-BindChannels.html">bound</a>.</li>
+<li><strong>Texture</strong> is the color of the texture specified by <em>TextureName</em> in the SetTexture (see above).</li>
+<li><strong>Constant</strong> is the color specified in <strong>ConstantColor</strong>.</li>
+</ul>
+<p>Modifiers:</p>
+<ul>
+<li>The formulas specified above can optionally be followed by the keywords <strong>Double</strong> or <strong>Quad</strong> to make the resulting color 2x or 4x as bright.</li>
+<li>All the <strong>src</strong> properties, except <code>lerp</code> argument, can optionally be preceded by <strong>one -</strong> to make the resulting color negated.</li>
+<li>All the <strong>src</strong> properties can be followed by <strong>alpha</strong> to take only the alpha channel.</li>
+</ul>
+<h2 id="texture-block-constantcolor-command">Texture block <code>constantColor</code> command</h2>
+<p><strong>ConstantColor color:</strong> Defines a constant color that can be used in the combine command.</p>
+<h2 id="functionality-removed-in-unity-50">Functionality removed in Unity 5.0</h2>
+<p>Unity versions before 5.0 did support texture coordinate transformations with a <code>matrix</code> command inside a texture block. If you need this functionality now, consider rewriting your shader as a <a href="SL-ShaderPrograms.html">programmable shader</a> instead, and do the UV transformation in the vertex shader.</p>
+<p>Similarly, 5.0 removed signed add (<code>a+-b</code>), multiply signed add (<code>a*b+-c</code>), multiply subtract (<code>a*b-c</code>) and dot product (<code>dot3</code>, <code>dot3rgba</code>) texture combine modes. If you need them, do the math in the pixel shader instead.</p>
+<h2 id="details">Details</h2>
+<p>Before <a href="SL-ShaderPrograms.html">fragment programs</a> existed, older graphics cards used a layered approach to textures. The textures are applied one after each other, modifying the color that will be written to the screen. For each texture, the texture is typically combined with the result of the previous operation. These days it is advisable to use actual fragment programs.</p>
+<p><img src="../uploads/SL/SetTextureGraph.png" alt=""> </p>
+<p>Note that each texture stage may or might not be clamped to 0..1 range, depending on the platform. This might affect SetTexture stages that can produce values higher than 1.0.</p>
+<h2 id="separate-alpha--color-computation">Separate Alpha &amp; Color computation</h2>
+<p>By default, the combiner formula is used for calculating both the RGB and alpha component of the color. Optionally, you can specify a separate formula for the alpha calculation. This looks like this:</p>
+<pre><code>SetTexture [_MainTex] { combine previous * texture, previous + texture }
+</code></pre><p>Here, we multiply the RGB colors and add the alpha.</p>
+<h2 id="specular-highlights">Specular highlights</h2>
+<p>By default the <strong>primary</strong> color is the sum of the diffuse, ambient and specular colors (as defined in the <a href="SL-Material.html">Lighting calculation</a>). If you specify <strong>SeparateSpecular On</strong> in the pass options, the specular color will be added in <em>after</em> the combiner calculation, rather than before. This is the default behavior of the built-in VertexLit shader.</p>
+<h2 id="graphics-hardware-support">Graphics hardware support</h2>
+<p>Modern graphics cards with <a href="SL-ShaderPrograms.html">fragment shader</a> support (&quot;shader model 2.0&quot; on desktop, OpenGL ES 2.0 on mobile) support all <strong>SetTexture</strong> modes and at least 4 texture stages (many of them support 8). If you&#39;re running on really old hardware (made before 2003 on PC, or before iPhone3GS on mobile), you might have as low as two texture stages. The shader author should write separate <a href="SL-SubShader.html">SubShaders</a> for the cards they want to support.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="alpha-blending-two-textures">Alpha Blending Two Textures</h3>
+<p>This small examples takes two textures. First it sets the first combiner to just take the <strong>_MainTex</strong>, then is uses the alpha channel of <strong>_BlendTex</strong> to fade in the RGB colors of <strong>_BlendTex</strong></p>
+<pre><code>Shader &quot;Examples/2 Alpha Blended Textures&quot; {
+    Properties {
+        _MainTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; {}
+        _BlendTex (&quot;Alpha Blended (RGBA) &quot;, 2D) = &quot;white&quot; {}
+    }
+    SubShader {
+        Pass {
+            // Apply base texture
+            SetTexture [_MainTex] {
+                combine texture
+            }
+            // Blend in the alpha texture using the lerp operator
+            SetTexture [_BlendTex] {
+                combine texture lerp (texture) previous
+            }
+        }
+    }
+}
+</code></pre><h3 id="alpha-controlled-self-illumination">Alpha Controlled Self-illumination</h3>
+<p>This shader uses the alpha component of the <strong>_MainTex</strong> to decide where to apply lighting. It does this by applying the texture to two stages; In the first stage, the alpha value of the texture is used to blend between the vertex color and solid white. In the second stage, the RGB values of the texture are multiplied in.</p>
+<pre><code>Shader &quot;Examples/Self-Illumination&quot; {
+    Properties {
+        _MainTex (&quot;Base (RGB) Self-Illumination (A)&quot;, 2D) = &quot;white&quot; {}
+    }
+    SubShader {
+        Pass {
+            // Set up basic white vertex lighting
+            Material {
+                Diffuse (1,1,1,1)
+                Ambient (1,1,1,1)
+            }
+            Lighting On
+
+            // Use texture alpha to blend up to white (= full illumination)
+            SetTexture [_MainTex] {
+                constantColor (1,1,1,1)
+                combine constant lerp(texture) previous
+            }
+            // Multiply in texture
+            SetTexture [_MainTex] {
+                combine previous * texture
+            }
+        }
+    }
+}
+</code></pre><p>We can do something else for free here, though; instead of blending to solid white, we can add a self-illumination color and blend to that. Note the use of <strong>ConstantColor</strong> to get a _SolidColor from the properties into the texture blending.</p>
+<pre><code>Shader &quot;Examples/Self-Illumination 2&quot; {
+    Properties {
+        _IlluminCol (&quot;Self-Illumination color (RGB)&quot;, Color) = (1,1,1,1)
+        _MainTex (&quot;Base (RGB) Self-Illumination (A)&quot;, 2D) = &quot;white&quot; {}
+    }
+    SubShader {
+        Pass {
+            // Set up basic white vertex lighting
+            Material {
+                Diffuse (1,1,1,1)
+                Ambient (1,1,1,1)
+            }
+            Lighting On
+
+            // Use texture alpha to blend up to white (= full illumination)
+            SetTexture [_MainTex] {
+                // Pull the color property into this blender
+                constantColor [_IlluminCol]
+                // And use the texture&#39;s alpha to blend between it and
+                // vertex color
+                combine constant lerp(texture) previous
+            }
+            // Multiply in texture
+            SetTexture [_MainTex] {
+                combine previous * texture
+            }
+        }
+    }
+}
+</code></pre><p>And finally, we take all the lighting properties of the vertexlit shader and pull that in:</p>
+<pre><code>Shader &quot;Examples/Self-Illumination 3&quot; {
+    Properties {
+        _IlluminCol (&quot;Self-Illumination color (RGB)&quot;, Color) = (1,1,1,1)
+        _Color (&quot;Main Color&quot;, Color) = (1,1,1,0)
+        _SpecColor (&quot;Spec Color&quot;, Color) = (1,1,1,1)
+        _Emission (&quot;Emmisive Color&quot;, Color) = (0,0,0,0)
+        _Shininess (&quot;Shininess&quot;, Range (0.01, 1)) = 0.7
+        _MainTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; {}
+    }
+
+    SubShader {
+        Pass {
+            // Set up basic vertex lighting
+            Material {
+                Diffuse [_Color]
+                Ambient [_Color]
+                Shininess [_Shininess]
+                Specular [_SpecColor]
+                Emission [_Emission]
+            }
+            Lighting On
+
+            // Use texture alpha to blend up to white (= full illumination)
+            SetTexture [_MainTex] {
+                constantColor [_IlluminCol]
+                combine constant lerp(texture) previous
+            }
+            // Multiply in texture
+            SetTexture [_MainTex] {
+                combine previous * texture
+            }
+        }
+    }
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

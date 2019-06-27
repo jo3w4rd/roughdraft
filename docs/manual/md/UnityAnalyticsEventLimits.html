@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Analytics Event limits | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Analytics Event limits | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="analytics-event-limits">Analytics Event limits</h1>
+
+<p>To maintain an efficient and responsive service, Analytics imposes limits on the Standard and Custom Events a given instance of your game or application can send. These limits include:</p>
+<ul>
+<li>100 events per hour (per instance of your game).</li>
+<li>10 parameters per event.</li>
+<li>500 bytes or characters of data sent in a single event, including the string length of parameter names and the byte size or string length of the parameter values.</li>
+<li>100 characters in the name of a custom event .</li>
+<li>The Analytics Dashboard shows only the 5,000 most frequent event, parameter, parameter value combinations (for categorizable parameter values) in a given day.</li>
+</ul>
+<p>All of the <a href="AnalyticsEvent.md">AnalyticsEvent</a> functions that send events, return a value from the <a href="Scriptref:AnalyticsResult.html">AnalyticsResult</a> enumeration. If an application exceeds one of the limits, the <code>AnalyticsResult</code> value identifies the specific error encountered:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>AnalyticsResult</code></strong></th>
+<th style="text-align:left"><strong>Limit Exceeded</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>AnalyticsResult.TooManyRequests</code></td>
+<td style="text-align:left">100 events per hour</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AnalyticsResult.TooManyItems</code></td>
+<td style="text-align:left">10 parameters per event</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AnalyticsResult.SizeLimitReached</code></td>
+<td style="text-align:left">500 bytes of data or 100 characters in the event name</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> The 100 events per instance limit is a default that suits the majority of Unity Analytics users. If you need a higher event limit for a game or application, contact the <a href="https://analytics.cloud.unity3d.com/support/">Analytics support team</a> to work out a limit suitable to your requirements.</p>
+<h2 id="single-event-data-limit">Single Event data limit</h2>
+<p>You can send up to 500 characters or bytes of data as part of a single Custom or Standard Event. This limit counts the combined string lengths of all the parameter names and the following sizes for parameter values (depending on data type):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">C# Data Type</th>
+<th style="text-align:left">Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">byte, ubyte</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">short, ushort</td>
+<td style="text-align:left">4 (converted to int)</td>
+</tr>
+<tr>
+<td style="text-align:left">Int, uint</td>
+<td style="text-align:left">4</td>
+</tr>
+<tr>
+<td style="text-align:left">long, ulong</td>
+<td style="text-align:left">8</td>
+</tr>
+<tr>
+<td style="text-align:left">float</td>
+<td style="text-align:left">8 (converted to double)</td>
+</tr>
+<tr>
+<td style="text-align:left">double</td>
+<td style="text-align:left">8</td>
+</tr>
+<tr>
+<td style="text-align:left">decimal</td>
+<td style="text-align:left">8 (converted to double)</td>
+</tr>
+<tr>
+<td style="text-align:left">string</td>
+<td style="text-align:left">String length</td>
+</tr>
+<tr>
+<td style="text-align:left">object</td>
+<td style="text-align:left">String length after calling <code>ToString()</code></td>
+</tr>
+</tbody>
+</table>
+<p>For example, the following event uses 67 bytes/characters of the data length limit:</p>
+<pre><code>    Dictionary&lt;string, object&gt; data = new Dictionary&lt;string, object&gt;();
+    data.Add(&quot;int_param&quot;, 32); // 9 characters + 4 bytes
+    data.Add(&quot;bool_param&quot;, true); // 10 characters + 1 byte
+    data.Add(&quot;float_param&quot;, 3.3f); // 11 characters + 8 bytes
+    data.Add(&quot;string_param&quot;, &quot;String value&quot;); // 12 characters + 12 characters
+    AnalyticsResult result = AnalyticsEvent.Custom(&quot;custom_event&quot;, data);
+</code></pre><p>When you send a Standard Event that defines its own required or optional parameters, the lengths of names and values of the required parameters, and those of any optional parameters, are included in the 500 byte limit, along with any custom data. </p>
+<p>The length of the name of an event itself cannot exceed 100 characters in length, but this length is not counted against the 500 byte limit for the event data. </p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

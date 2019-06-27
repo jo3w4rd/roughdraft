@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Debugging DirectX 11/12 shaders with Visual Studio | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Debugging DirectX 11/12 shaders with Visual Studio | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="debugging-directx-1112-shaders-with-visual-studio">Debugging DirectX 11/12 shaders with Visual Studio</h1>
+
+<p>Use the Graphics Debugger in Microsoft Visual Studio (2012 version or later) to capture individual frames of applications for debugging purposes, from platforms like Unity Editor, Windows Standalone or Universal Windows Platform.</p>
+<p>To install the Graphics Debugger in Visual Studio:</p>
+<ol>
+<li><p>Go to <strong>Tools </strong>&gt; <strong>Get Tools and Features</strong>
+ <img src="../uploads/Main/InstallingGraphicsDebugger.jpg" alt=""></p>
+</li>
+<li><p>On the <strong>Individual components</strong> tab, scroll to <strong>Games and Graphics</strong> and check the box for <strong>Graphics debugger and GPU profiler for DirectX</strong></p>
+</li>
+<li><p>Click <strong>Modify</strong></p>
+</li>
+<li><p>Wait for installation, then follow the instructions to restart your computer</p>
+</li>
+</ol>
+<h2 id="capture-directx-shaders-with-visual-studio">Capture DirectX shaders with Visual Studio</h2>
+<p>You should use a built version of your Unity application to capture frames, rather than a version running in the Unity Editor. This is because the Editor might have multiple child windows open at once, and the Graphics Debugger might capture a frame from an unintended window.</p>
+<h3 id="steps-to-capture-a-frame-from-unity-editor-or-windows-standalone">Steps to capture a frame from Unity Editor or Windows Standalone</h3>
+<p>To use the Graphics Debugger on either of these two platforms, you need to create a dummy Visual Studio Project:</p>
+<ol>
+<li><p>Launch Visual Studio 2017</p>
+</li>
+<li><p>Go to <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Project</strong> &gt; <strong>Visual C++</strong> &gt; <strong>Empty Project</strong></p>
+</li>
+<li><p>Go to <strong>Project</strong> &gt; <strong>Properties</strong> &gt; <strong>Configuration Properties</strong> &gt; <strong>Debugging</strong></p>
+</li>
+<li><p>In the <strong>Command</strong> field, replace $(TargetPath) with the path to the Unity Editor or Windows Standalone (for example, <em>C:\MyApp\MyApp.exe</em>)</p>
+</li>
+<li><p>If you want to force Windows Standalone or Unity Editor to run under DirectX 11, select <strong>Command Arguments</strong> and type <strong>-force-d3d11</strong>.
+ <img src="../uploads/Main/ShaderDebuggingVSProps.png" alt="Project Properties"></p>
+</li>
+<li><p>Go to <strong>Debug </strong>&gt; <strong>Graphics</strong> &gt; <strong>Start Graphics</strong> <strong>Debugging</strong></p>
+</li>
+<li><p>If everything is configured correctly, Unity displays the following text in the top-left corner of the application:
+ <img src="../uploads/Main/ShaderDebuggingStandalone.png" alt="Debugger messages in the Unity Editor"> </p>
+</li>
+<li><p>To capture a frame, use the Print Screen key on your keyboard, or click the <strong>Capture Frame</strong> box on the left side of the Visual Studio interface.
+ <img src="../uploads/Main/ShaderDebuggingCaptureFrame.png" alt="*Capture Frame* in the Visual Studio interface"></p>
+</li>
+</ol>
+<h2 id="debug-directx-shaders-with-visual-studio">Debug DirectX shaders with Visual Studio</h2>
+<p>To debug a shader, you have to compile with debug symbols. To do that, you need to insert <strong>#pragma enable_d3d11_debug_symbols.</strong></p>
+<p>Your shader should look something like this:</p>
+<pre><code>Shader &quot;Custom/NewShader&quot; {
+    Properties {
+        _MainTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; {}
+    }
+    SubShader {
+        Tags { &quot;RenderType&quot;=&quot;Opaque&quot; }
+        LOD 200
+
+        CGPROGRAM
+        #pragma surface surf Lambert
+        #pragma enable_d3d11_debug_symbols
+        sampler2D _MainTex;
+
+        struct Input {
+            float2 uv_MainTex;
+        };
+
+        void surf (Input IN, inout SurfaceOutput o) {
+            half4 c = tex2D (_MainTex, IN.uv_MainTex);
+            o.Albedo = c.rgb;
+            o.Alpha = c.a;
+        }
+        ENDCG
+    } 
+    FallBack &quot;Diffuse&quot;
+}
+</code></pre><h2 id="example-workflow">Example workflow</h2>
+<p>Let’s create a basic example to show the entire process:</p>
+<ol>
+<li><p>Create a new Unity project (see documentation on <a href="#GettingStarted">Getting Started</a>).</p>
+</li>
+<li><p>In the top menu, go to <strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>Shader</strong> &gt; <strong>Standard Surface Shader</strong>. This creates a new shader file in your <strong>Project</strong> folder.</p>
+</li>
+<li><p>Select the shader file, and in the Inspector window, click <strong>Open</strong>. This opens the shader file in your scripting editor. Insert <code>#pragma enable_d3d11_debug_symbols</code> into the shader code, underneath the other <code>#pragma</code> lines.</p>
+</li>
+<li><p>Create a new Material (menu: <strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>Material</strong>).</p>
+</li>
+<li><p>In the Material’s Inspector window, select the <strong>Shader</strong> dropdown, go to <strong>Custom</strong>, and select the shader you just created. </p>
+</li>
+<li><p>Create a 3D cube GameObject (menu: <strong>GameObject</strong> &gt; <strong>3D Object</strong> &gt; <strong>Cube</strong>).</p>
+</li>
+<li><p>Assign your new Material to your new GameObject. To do this, drag the Material from the <strong>Project</strong> window to the 3D cube.</p>
+</li>
+<li><p>Build the project for Windows Standalone. Note that real projects might be so large that building them every time you want to debug a shader becomes inefficient; in that case, debug in the Editor, but make sure your capture has profiled the correct window.</p>
+</li>
+<li><p>Capture a frame, using the steps described above in the section <strong>Capture DirectX shaders with Visual Studio</strong>.</p>
+</li>
+<li><p>Your captured frame appears in Visual Studio. Right-click it, and select <strong>Pixel.</strong></p>
+<p><img src="../uploads/Main/ShaderDebuggingCapturedFrame.png" alt="Captured frame, __History__, and selecting a __pixel__ of an object which has the custom shader assigned."></p>
+</li>
+<li><p>Click the play button next to the Vertex Shader (highlighted in the screenshot above). This opens the vertex shader file:
+<img src="../uploads/Main/ShaderDebuggingVertexShader.png" alt="Debugging vertex shader"></p>
+</li>
+</ol>
+<p>There is a known issues while working with DirectX 12, in which the play buttons are not available, and the following error appears: This draw call uses system-value semantics that interfere with pixel history computation. If you experience this, use <a href="#DebuggingShadersWithPIX">PIX</a> to debug your shaders instead.</p>
+<h3 id="universal-windows-platform">Universal Windows Platform</h3>
+<p>When you debug for Universal Windows Platform, you don’t need to create a dummy Visual Studio project, because Unity creates it for you. </p>
+<p>Steps to capture a frame and begin shader debugging are the same as they are for the Unity Editor or Windows Standalone.</p>
+<h2 id="alternative-shader-debugging-techniques">Alternative shader debugging techniques</h2>
+<p>You can also use <a href="#RenderDocIntegration">RenderDoc</a> to debug shaders. In RenderDoc, you capture the <strong>Scene</strong> from within the Editor, then use the standalone tool for debugging.</p>
+<p><a href="#DebuggingShadersWithPIX">PIX</a> works in a similar way to Visual Studio’s Graphics Debugger. Use PIX instead of the Graphics Debugger to debug DirectX 12 projects.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

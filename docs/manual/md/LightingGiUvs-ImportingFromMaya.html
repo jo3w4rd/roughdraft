@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Importing UVs from Autodesk&#174; Maya&#174; to Unity | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Importing UVs from Autodesk&#174; Maya&#174; to Unity | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="importing-uvs-from-autodesk-maya-to-unity">Importing UVs from Autodesk® Maya® to Unity</h1>
+
+<p>Autodesk® Maya® is a 3D computer animation software by Autodesk, with powerful modeling, rendering, simulation, texturing and animation tools for visual effects artists, modellers and animators (see <a href="http://www.autodesk.co.uk/products/maya/overview">www.autodesk.co.uk</a>). It is often used by Unity developers for advanced graphics work, which is then imported into Unity. It’s important to note that when importing from Autodesk® Maya®, your UVs may not look exactly the same, even if you untick the <strong>Optimize Realtime UVs</strong> checkbox. This section explains why.</p>
+<p>Because real-time UVs are repacked by Enlighten, it is very important to understand how UV charts are detected. By default, a chart is defined by a set of connected vertices. However, the DCC or Unity Mesh importer might introduce extra vertices in places where the Mesh has hard edges. These duplicated vertices create extra islands (unconnected groups) in your UVs. However, these cuts normally go unnoticed when you bake the lightmap, because the UVs are used directly and not repacked. The image below shows an example of this. </p>
+<p><img src="../uploads/Main/LightingGiUvs-3.png" alt="UVs in Autodesk® Maya®"></p>
+<p>A high smoothing angle does not preserve hard cuts in the model, and both the shading and GI look different as a result.</p>
+<p>The <a href="class-FBXImporter.html">Mesh Importer</a> settings that relate to this are <strong>Normals</strong>, <strong>Tangents</strong>, and <strong>Smoothing Angles</strong>:</p>
+<p><img src="../uploads/Main/LightingGiUvs-4.png" alt=""></p>
+<p>If you set <strong>Normals</strong> to <strong>Calculate</strong>, breaks are made wherever the angle between adjacent triangles exceeds the <strong>Smoothing Angle</strong> value.</p>
+<p>To avoid this, you can choose to author and import normals (see documentation on <a href="StandardShaderMaterialParameterNormalMap.html">Normal maps</a> to learn more about surface normals). In order to get good results with imported normals, you need to manually make the cuts along hard edges, and pay attention to how the DCC is inserting duplicate vertices. Otherwise, both GI and regular shading may have undesired lighting effects.</p>
+<h3 id="example">Example</h3>
+<p>When packing with a 40-degree <strong>Smoothing Angle</strong>, the hard angles in the model are preserved, and extra charts are created:</p>
+<p><img src="../uploads/Main/LightingGiUvs-5.jpg" alt="Asset source: Lee Perry Smith, [VizArtOnline](http://www.turbosquid.com/Search/Artists/VizArtOnline)"> </p>
+<p><img src="../uploads/Main/LightingGiUvs-6.jpg" alt=""></p>
+<p>If the <strong>Smoothing Angle</strong> is set to 180 degrees, no cuts are made, and the UVs are the same as they were in Autodesk® Maya®. The only difference is the chart packing:</p>
+<p><img src="../uploads/Main/LightingGiUvs-7.jpg" alt="Asset source: Lee Perry Smith, [VizArtOnline](http://www.turbosquid.com/Search/Artists/VizArtOnline)"> </p>
+<p><img src="../uploads/Main/LightingGiUvs-8.png" alt=""></p>
+<h2 id="optimizing-realtime-uvs">Optimizing Realtime UVs</h2>
+<p>The <a href="class-MeshRenderer.html">Mesh Renderer</a> contains an option called <strong>Optimize Realtime UVs</strong>.</p>
+<p><img src="../uploads/Main/LightingGiUvs-9.png" alt=""></p>
+<p><strong>Optimize Realtime UVs</strong> enables Enlighten’s UV optimization feature. Note that disabling this option does not allow the authored UVs to flow straight to Enlighten; repacking is still applied.</p>
+<p>The feature is intended to optimize charting for real-time GI only. It does not affect baked UVs. Its purpose is to simplify the UV unwrap, which reduces the chart count (and thus texel count). This makes lighting more consistent across the model, makes the texel distribution more even, and avoids wasting texels on small details. The time taken to do the precompute phase is proportional to the number of texels you feed in. For example, a detailed tiled floor with separate charts for each tile takes up an unnecessarily high number of texels, but joining them into a single chart results in far fewer texels. This works because the real-time lightmaps only store indirect lighting (meaning there are no sharp direct shadows). </p>
+<p>This process cannot alter the number of vertices in the model, so it cannot introduce breaks in the UVs where there already one present. This means the resulting chart layout is the same, but some of the charts might overlap or be merged in areas where it is unlikely to have a negative effect on the indirect lighting.</p>
+<p>Use the settings to define when the charts are merged:</p>
+<ul>
+<li><strong>Max Distance</strong>: Charts are simplified if the worldspace distance between the charts is smaller than this value.</li>
+<li><strong>Max Angle</strong>: Charts are merged if the angle between the charts is smaller than this value.</li>
+</ul>
+<p>These settings are intended to avoid merging charts when they are far apart or pointing in generally different directions.</p>
+<h3 id="optimizing-realtime-uvs-example">Optimizing Realtime UVs: Example</h3>
+<p>The following example uses the <a href="https://www.assetstore.unity3d.com/en/#!/content/4162">Desert Ruins</a> Asset from the Asset Store:</p>
+<p><img src="../uploads/Main/LightingGiUvs-10.jpg" alt="Asset source: [DEXSOFT-Games](https://www.assetstore.unity3d.com/en/#!/content/4162)"></p>
+<p>It uses default parameters, and the real-time lightmap resolution is 1 texel per unit. The model is approximately 9 units long. The image below shows the real-time UVs generated for this model using the Auto UV feature:</p>
+<p><img src="../uploads/Main/LightingGiUvs-11.jpg" alt=""></p>
+<p>Note that the the tiles on the floor have been packed to a single chart, with an appropriate resolution for the chosen texel density and instance size:</p>
+<p><img src="../uploads/Main/LightingGiUvs-12.png" alt=""></p>
+<p>When packed without the Auto UV feature, the generated UVs look like this:</p>
+<p><img src="../uploads/Main/LightingGiUvs-13.jpg" alt=""></p>
+<p>This generates a large number of small charts, because the charts are split in the authored UVs supplied by the model. Because <strong>Auto UVs</strong> is not enabled, none of these charts can be merged, and each UV island is awarded a 4x4 pixel block of its own regardless of its size. The image below shows a subsection of the UVs:</p>
+<p><img src="../uploads/Main/LightingGiUvs-14.png" alt=""></p>
+<p>The wall sides still get a sensible resolution of 10x4 texels, but the small tiles gets a disproportionate 4x4 texels each. The reason that the minimum chart size is 4x4 is that we want to be able to stitch against the chart on all 4 sides and still get a lighting gradient across the chart.</p>
+<h2 id="further-chart-optimization">Further Chart Optimization</h2>
+<p>There are two additional options for further optimizing the charting the UV layout:</p>
+<ul>
+<li><strong>Ignore Normals</strong></li>
+<li><strong>Min Chart Size</strong></li>
+</ul>
+<h3 id="ignore-normals">Ignore Normals</h3>
+<p><img src="../uploads/Main/LightingGiUvs-15.png" alt=""></p>
+<p>Tick the <strong>Ignore Normals</strong> checkbox to keep together any charts that have duplicated vertices due to hard normal breaks. A chart split might occur in Enlighten when the vertex position and the vertex lightmap UVs are the same, but the normals are different. For small details, multiple 4x4 texel charts to represent indirect lighting is too much, and affects precompute and baking performance. In these cases, enable <strong>Ignore Normals</strong>.</p>
+<h4 id="example-1">Example</h4>
+<p>In the following example, <strong>Optimize Realtime UVs</strong> is disabled, to demonstrate the effect of <strong>Ignore Normals</strong> in isolation.</p>
+<p><img src="../uploads/Main/LightingGiUvs-16.jpg" alt="Asset source: Lee Perry Smith, [VizArtOnline](http://www.turbosquid.com/Search/Artists/VizArtOnline)"></p>
+<p>The image on the left shows the result without <strong>Ignore Normals</strong> enabled. The image on the right shows the result with <strong>Ignore Normals</strong> enabled.</p>
+<p><img src="../uploads/Main/LightingGiUvs-17.png" alt=""><img src="../uploads/Main/LightingGiUvs-18.png" alt=""></p>
+<p>When <strong>Ignore Normals</strong> is enabled, the 24x24 Enlighten unwrap is reduced to a 16x16 unwrap for this model.</p>
+<h3 id="min-chart-size">Min Chart Size</h3>
+<p><img src="../uploads/Main/LightingGiUvs-19.png" alt=""></p>
+<p><strong>Min Chart Size</strong> removes the restriction of having a 4x4 minimum chart size. The stitching does not always work well, but for small details it is usually acceptable.</p>
+<h4 id="example-2">Example</h4>
+<p>In this example, <strong>Min Chart Size</strong> is set to <strong>2 (Minimum)</strong>.</p>
+<p><img src="../uploads/Main/LightingGiUvs-20.png" alt=""></p>
+<p>If you were to apply this <strong>Min Chart Size</strong> option and <strong>Ignore Normals</strong> to the model above, the unwrap reduces to 10x10. </p>
+<h2 id="getting-chart-edges-to-stitch-for-realtime-gi">Getting chart edges to stitch for realtime GI</h2>
+<p>The lightmaps that are set to <strong>Realtime</strong> support chart stitching. Chart stitching ensures that the lighting on adjacent texels in different charts is consistent. This is useful to avoid visible seams along the chart boundaries. In large texel sizes, the lighting on either side of a seam may be quite different. This difference is not automatically smoothed out by filtering, because the texels are not adjacent. </p>
+<p>In this example, a seam is visible on the sphere on the right, even when textured, because it has not been stitched:</p>
+<p><img src="../uploads/Main/LightingGiUvs-21.jpg" alt=""></p>
+<p>Stitching is on by default. If you think it is causing some unwanted issues, you can disable it; Apply <a href="class-LightmapParameters.html">Lightmap Parameters</a> to the instance in question and untick the <strong>Edge Stitching</strong> checkbox.</p>
+<p>For charts to stitch smoothly, edges must adhere to the following criteria:</p>
+<ul>
+<li><strong>Preserve UVs</strong> must be enabled, so that the charts are not simplified by the Auto UV feature.</li>
+<li>The charts must be in the same Mesh.</li>
+<li>The edges must share vertices.</li>
+<li>The edges must be horizontal or vertical in UV space.</li>
+<li>The edges must have the same number of texels (this usually follows from the two preceding criteria).</li>
+</ul>
+<p>This is how Unity’s built-in sphere, capsule and cylinder are authored. Notice how the charts line up:</p>
+<p><img src="../uploads/Main/LightingGiUvs-22.jpg" alt=""></p>
+<p><img src="../uploads/Main/LightingGiUvs-goo23.jpg" alt=""></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Trail Renderer | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Trail Renderer | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="trail-renderer">Trail Renderer</h1>
+
+<p>The <strong>Trail Renderer</strong> is used to make trails behind GameObjects in the Scene as they move.</p>
+<p><img src="../uploads/Main/Inspector-TrailRenderer.png" alt=""></p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Cast Shadows</strong></td>
+<td style="text-align:left">Determines whether the trail casts shadows, whether they should be cast from one or both sides of the trail, or whether the trail should only cast shadows and not otherwise be drawn. See <a href="ScriptRef:Renderer-shadowCastingMode.html">Renderer.shadowCastingMode</a> in the Scripting API reference documentation to learn more.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Receive Shadows</strong></td>
+<td style="text-align:left">If enabled, the trail receives shadows.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Motion Vectors</strong></td>
+<td style="text-align:left">Select the Motion Vector type to use for this Trail Renderer. See <a href="ScriptRef:Renderer-motionVectorGenerationMode.md">Renderer.motionVectorGenerationMode</a> in the Scripting API reference documentation to learn more.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Materials</strong></td>
+<td style="text-align:left">These properties describe an array of Materials used for rendering the trail. Particle Shaders work best for trails.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Lightmap Parameters</strong></td>
+<td style="text-align:left">Reference a <a href="class-LightmapParameters.html">Lightmap Parameters</a> Asset here to enable the trail to interact with the global illumination system.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Time</strong></td>
+<td style="text-align:left">Define the length of the trail, measured in seconds.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Min Vertex Distance</strong></td>
+<td style="text-align:left">The minimum distance between anchor points of the trail (see <strong>Minimum vertex separation</strong> below).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>AutoDestruct</strong></td>
+<td style="text-align:left">Enable this to destroy the GameObject once it has been idle for <strong>Time</strong> seconds.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Width</strong></td>
+<td style="text-align:left">Define a width value and a curve to control the width of your trail at various points between its start and end. The curve is applied from the beginning to the end of the trail, and sampled at each vertex. The overall width of the curve is controlled by the width value.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Color</strong></td>
+<td style="text-align:left">Define a gradient to control the color of the trail along its length.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Corner Vertices</strong></td>
+<td style="text-align:left">This property dictates how many extra vertices are used when drawing corners in a trail. Increase this value to make the trail corners appear rounder.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>End Cap Vertices</strong></td>
+<td style="text-align:left">This property dictates how many extra vertices are used to create end caps on the trail. Increase this value to make the trail caps appear rounder.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Alignment</strong></td>
+<td style="text-align:left">Set to <strong>View</strong> to make the Trail face the camera, or <strong>Local</strong> to align it based on the orientation of its Transform component.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Texture Mode</strong></td>
+<td style="text-align:left">Control how the Texture is applied to the Trail. Use <strong>Stretch</strong> to apply the Texture map along the entire length of the trail, or use <strong>Wrap</strong> to repeat the Texture along the length of the Trail. Use the <strong>Tiling</strong> parameters in the Material to control the repeat rate.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Generate Lighting Data</strong></td>
+<td style="text-align:left">When enabled, the trail geometry includes Normals and Tangents. This allows the trail to use Materials that use the scene lighting, for example via the Standard Shader, or by using a custom shader.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Light Probes</strong></td>
+<td style="text-align:left">Probe-based lighting interpolation mode.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shadow Bias</strong></td>
+<td style="text-align:left">Move shadows along the direction of the light to remove shadowing artifacts caused by approximating a volume with billboarded geometry.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Sorting Layer</strong></td>
+<td style="text-align:left">Name of the Renderer’s sorting layer.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Order in Layer</strong></td>
+<td style="text-align:left">This Renderer’s order within a sorting layer.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Reflection Probes</strong></td>
+<td style="text-align:left">If enabled and reflection probes are present in the Scene, a reflection Texture is picked for this Trail Renderer and set as a built-in Shader uniform variable.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details</h2>
+<p>The Trail Renderer renders a trail of polygons behind a moving GameObject. This can be used to give an emphasized feeling of motion to a moving object, or to highlight the path or position of moving objects. A trail behind a projectile adds visual clarity to its trajectory; contrails from the tip of a plane’s wings are an example of a trail effect that happens in real life.</p>
+<p>A Trail Renderer should be the only renderer used on the attached GameObject. It is best to create an empty GameObject, and attach a Trail Renderer as the only renderer. You can then parent the Trail Renderer to whatever GameObject you would like it to follow.</p>
+<h3 id="materials">Materials</h3>
+<p>A Trail Renderer component should use a Material that has a Particle Shader. The Texture used for the Material should be of square dimensions (for example 256x256, or 512x512). The trail is rendered once for each Material present in the array.</p>
+<h3 id="minimum-vertex-separation">Minimum vertex separation</h3>
+<p>The <strong>Min Vertex Distance</strong> value determines how far an object that contains a trail must travel before a segment of that trail is solidified. Low values like 0.1 create trail segments more often, creating smoother trails. Higher values like 1.5 create segments that are more jagged in appearance. There is a slight performance trade-off when using lower values/smoother trails, so try to use the largest possible value to achieve the effect you are trying to create. Additionally, wide trails may exhibit visual artifacts when the vertices are very close together and the trail changes direction significantly over a short distance.</p>
+<h3 id="hints">Hints</h3>
+<ul>
+<li>Use Particle Materials with the Trail Renderer.</li>
+<li>Trail Renderers must be laid out over a sequence of frames; they cannot appear instantaneously.</li>
+<li>Trail Renderers rotate to display the face toward the camera, similar to other Particle Systems.</li>
+<li>Unity samples colors from the Color Gradient at each vertex. Between each vertex, Unity applies linear interpolation to colors. Adding more vertices to your Line Renderer might give a closer approximation of a detailed Color Gradient.</li>
+</ul>
+<h2 id="trail-renderer-example-setup">Trail Renderer example setup</h2>
+<p><img src="../uploads/Main/TrailRenderer-example1.png" alt="A Trail Renderer component as it appears in the Inspector window, set up to create a multicoloured trail that gets thinner and then much wider "></p>
+<p><img src="../uploads/Main/TrailRenderer-example2.jpg" alt="The resulting trail created by the above component setup"></p>
+<p><br></p>
+<hr>
+<ul>
+<li></li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

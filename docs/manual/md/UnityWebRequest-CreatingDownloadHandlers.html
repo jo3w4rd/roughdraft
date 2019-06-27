@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Creating DownloadHandlers | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Creating DownloadHandlers | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="creating-downloadhandlers">Creating DownloadHandlers</h1>
+
+<p>There are several types of <code>DownloadHandlers</code>:</p>
+<ul>
+<li><code>DownloadHandlerBuffer</code> is used for simple data storage.</li>
+<li><code>DownloadHandlerFile</code> is used for downloading and saving file to disk with low memory footprint.</li>
+<li><code>DownloadHandlerTexture</code> is used for downloading images. </li>
+<li><code>DownloadHandlerAssetBundle</code> is used for fetching AssetBundles.</li>
+<li><code>DownloadHandlerAudioClip</code> is used for downloading audio files.</li>
+<li><code>DownloadHandlerMovieTexture</code> is used for downloading video files. It is recommended that you use <a href="ScriptRef:Video.VideoPlayer.html">VideoPlayer</a> for video download and movie playback since MovieTexture is soon to be deprecated.</li>
+<li><code>DownloadHandlerScript</code> is a special class. On its own, it does nothing. However, this class can be inherited by a user-defined class. This class receives callbacks from the UnityWebRequest system, which can then be used to perform completely custom handling of data as it arrives from the network.</li>
+</ul>
+<p>The APIs are similar to <code>DownloadHandlerTexture</code>&#39;s interface.</p>
+<p><code>UnityWebRequest</code> has a property <code>disposeDownloadHandlerOnDispose</code>, which defaults to true. If this property is true, when UnityWebRequest object is disposed, Dispose() will also be called on attached download handler rendering it useless. If you keep a reference to download handler longer than the reference to UnityWebRequest, you should set disposeDownloadHandlerOnDispose to false.</p>
+<h2 id="downloadhandlerbuffer">DownloadHandlerBuffer</h2>
+<p>This Download Handler is the simplest, and handles the majority of use cases. It stores received data in a native code buffer. When the download is complete, you can access the buffered data either as an array of bytes or as a text string.</p>
+<h3 id="example">Example</h3>
+<pre><code>using UnityEngine;
+using UnityEngine.Networking; 
+using System.Collections;
+
+
+public class MyBehaviour : MonoBehaviour {
+    void Start() {
+        StartCoroutine(GetText());
+    }
+
+    IEnumerator GetText() {
+        UnityWebRequest www = new UnityWebRequest(&quot;http://www.my-server.com&quot;);
+        www.downloadHandler = new DownloadHandlerBuffer();
+        yield return www.SendWebRequest();
+
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else {
+            // Show results as text
+            Debug.Log(www.downloadHandler.text);
+
+            // Or retrieve results as binary data
+            byte[] results = www.downloadHandler.data;
+        }
+    }
+}
+</code></pre><h2 id="downloadhandlerfile">DownloadHandlerFile</h2>
+<p>This is a special download handler for large files. It writes downloaded bytes directly to file, so the memory usage is low regardless of the size of the file being downloaded. The distinction from other download handlers is that you cannot get data out of this one, all data is saved to a file.</p>
+<h2 id="example-1">Example</h2>
+<pre><code>using System.Collections;
+using System.IO;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public class FileDownloader : MonoBehaviour {
+
+    void Start () {
+        StartCoroutine(DownloadFile());
+    }
+
+    IEnumerator DownloadFile() {
+        var uwr = new UnityWebRequest(&quot;https://unity3d.com/&quot;, UnityWebRequest.kHttpVerbGET);
+        string path = Path.Combine(Application.persistentDataPath, &quot;unity3d.html&quot;);
+        uwr.downloadHandler = new DownloadHandlerFile(path);
+        yield return uwr.SendWebRequest();
+        if (uwr.isNetworkError || uwr.isHttpError)
+            Debug.LogError(uwr.error);
+        else
+            Debug.Log(&quot;File successfully downloaded and saved to &quot; + path);
+    }
+}
+</code></pre><h2 id="downloadhandlertexture">DownloadHandlerTexture</h2>
+<p>Instead of using a <code>DownloadHandlerBuffer</code> to download an image file and then creating a texture from the raw bytes using <code>Texture.LoadImage</code>, it&#39;s more efficient to use <code>DownloadHandlerTexture</code>.</p>
+<p>This Download Handler stores received data in a <code>UnityEngine.Texture</code>. On download completion, it decodes JPEGs and PNGs into valid <code>UnityEngine.Texture objects</code>. Only one copy of the <code>UnityEngine.Texture</code> is created per <code>DownloadHandlerTexture</code> object. This reduces performance hits from garbage collection. The handler performs buffering, decompression and texture creation in native code. Additionally, decompression and texture creation are performed on a worker thread instead of the main thread, which can improve frame time when loading large textures.</p>
+<p>Finally, <code>DownloadHandlerTexture</code> only allocates managed memory when finally creating the Texture itself, which eliminates the garbage collection overhead associated with performing the byte-to-texture conversion in script.</p>
+<h3 id="example-2">Example</h3>
+<p>The following example downloads a PNG file from the internet, converts it to a Sprite, and assigns it to an <a href="script-Image.html">image</a>:</p>
+<pre><code>using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Networking; 
+using System.Collections;
+
+[RequireComponent(typeof(UnityEngine.UI.Image))]
+public class ImageDownloader : MonoBehaviour {
+    UnityEngine.UI.Image _img;
+
+    void Start () {
+        _img = GetComponent&lt;UnityEngine.UI.Image&gt;();
+        Download(&quot;http://www.mysite.com/myimage.png&quot;);
+    }
+
+    public void Download(string url) {
+        StartCoroutine(LoadFromWeb(url));
+    }
+
+    IEnumerator LoadFromWeb(string url)
+    {
+        UnityWebRequest wr = new UnityWebRequest(url);
+        DownloadHandlerTexture texDl = new DownloadHandlerTexture(true);
+        wr.downloadHandler = texDl;
+        yield return wr.SendWebRequest();
+        if(!(wr.isNetworkError || wr.isHttpError)) {
+            Texture2D t = texDl.texture;
+            Sprite s = Sprite.Create(t, new Rect(0, 0, t.width, t.height),
+                                     Vector2.zero, 1f);
+            _img.sprite = s;
+        }
+    }
+}
+</code></pre><h2 id="downloadhandlerassetbundle">DownloadHandlerAssetBundle</h2>
+<p>The advantage to this specialized Download Handler is that it is capable of streaming data to Unity&#39;s AssetBundle system. Once the AssetBundle system has received enough data, the AssetBundle is available as a <code>UnityEngine.AssetBundle</code> object. Only one copy of the <code>UnityEngine.AssetBundle</code> object is created. This considerably reduces run-time memory allocation as well as the memory impact of loading your AssetBundle. It also allows AssetBundles to be partially used while not fully downloaded, so you can stream Assets.</p>
+<p>All downloading and decompression occurs on worker threads.</p>
+<p>AssetBundles are downloaded via a <code>DownloadHandlerAssetBundle</code> object, which has a special <code>assetBundle</code> property to retrieve the AssetBundle.</p>
+<p>Due to the way the AssetBundle system works, all AssetBundle must have an address associated with them. Generally, this is the nominal URL at which they&#39;re located (meaning the URL before any redirects). In almost all cases, you should pass in the same URL as you passed to the UnityWebRequest. When using the High Level API (HLAPI), this is done for you.</p>
+<h3 id="example-3">Example</h3>
+<pre><code>using UnityEngine;
+using UnityEngine.Networking; 
+using System.Collections;
+
+public class MyBehaviour : MonoBehaviour {
+    void Start() {
+        StartCoroutine(GetAssetBundle());
+    }
+
+    IEnumerator GetAssetBundle() {
+        UnityWebRequest www = new UnityWebRequest(&quot;http://www.my-server.com&quot;);
+        DownloadHandlerAssetBundle handler = new DownloadHandlerAssetBundle(www.url, uint.MaxValue);
+        www.downloadHandler = handler;
+        yield return www.SendWebRequest();
+
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else {
+            // Extracts AssetBundle
+            AssetBundle bundle = handler.assetBundle;
+        }
+    }
+}
+</code></pre><h2 id="downloadhandleraudioclip">DownloadHandlerAudioClip</h2>
+<p>This download handler is optimized to for downloading audio files. Instead of downloading raw bytes using <code>DownloadHandlerBuffer</code> and then creating <code>AudioClip</code> out of them, you can use this download handler to do it in a more convenient way.</p>
+<h2 id="example-4">Example</h2>
+<pre><code>using System.Collections;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public class AudioDownloader : MonoBehaviour {
+
+    void Start () {
+        StartCoroutine(GetAudioClip());
+    }
+
+    IEnumerator GetAudioClip() {
+        using (var uwr = UnityWebRequestMultimedia.GetAudioClip(&quot;http://myserver.com/mysound.ogg&quot;, AudioType.OGGVORBIS)) {
+            yield return uwr.SendWebRequest();
+            if (uwr.isNetworkError || uwr.isHttpError) {
+                Debug.LogError(uwr.error);
+                yield break;
+            }
+
+            AudioClip clip = DownloadHandlerAudioClip.GetContent(uwr);
+            // use audio clip
+        }
+    }   
+}
+</code></pre><h2 id="downloadhandlermovietexture">DownloadHandlerMovieTexture</h2>
+<p><strong>Note:</strong> MovieTexture will be deprecated. You should use <a href="ScriptRef:Video.VideoPlayer.html">VideoPlayer</a> for video download and movie playback. </p>
+<p>This download handler is optimized to for downloading video files. Instead of downloading raw bytes using <code>DownloadHandlerBuffer</code> and then creating <code>MovieTexture</code> out of them, you can use this download handler to do it in a more convenient way.</p>
+<h2 id="example-5">Example</h2>
+<pre><code>using System.Collections;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public class MovieDownloader : MonoBehaviour {
+
+    void Start () {
+        StartCoroutine(GetAudioClip());
+    }
+
+    IEnumerator GetAudioClip() {
+        using (var uwr = UnityWebRequestMultimedia.GetMovieTexture(&quot;http://myserver.com/mysound.ogg&quot;)) {
+            yield return uwr.SendWebRequest();
+            if (uwr.isNetworkError || uwr.isHttpError) {
+                Debug.LogError(uwr.error);
+                yield break;
+            }
+
+            MovieTexture movie = DownloadHandlerMovieTexture.GetContent(uwr);
+            // use movie texture
+        }
+    }   
+}
+</code></pre><h2 id="downloadhandlerscript">DownloadHandlerScript</h2>
+<p>For users who require full control over the processing of downloaded data, Unity provides the <code>DownloadHandlerScript</code> class.</p>
+<p>By default, instances of this class do nothing. However, if you derive your own classes from <code>DownloadHandlerScript</code>, you may override certain functions and use them to receive callbacks as data arrives from the network.</p>
+<p><strong>Note:</strong> The actual downloads occur on a worker thread, but all <code>DownloadHandlerScript</code> callbacks operate on the main thread. Avoid performing computationally heavy operations during these callbacks.</p>
+<h3 id="functions-to-override">Functions to override</h3>
+<h4 id="receivecontentlength">ReceiveContentLength()</h4>
+<pre><code>protected void ReceiveContentLength(long contentLength);
+</code></pre><p>This function is called when the Content-Length header is received. Note that this callback may occur multiple times if your server sends one or more redirect responses over the course of processing your UnityWebRequest.</p>
+<h4 id="oncontentcomplete">OnContentComplete()</h4>
+<pre><code>protected void OnContentComplete();
+</code></pre><p>This function is called when the UnityWebRequest has fully downloaded all data from the server, and has forwarded all received data to the ReceiveData callback.</p>
+<h4 id="receivedata">ReceiveData()</h4>
+<pre><code>protected bool ReceiveData(byte[] data, long dataLength);
+</code></pre><p>This function is called after data has arrived from the remote server, and is called once per frame. The <code>data</code> argument contains the raw bytes received from the remote server, and <code>dataLength</code> indicates the length of new data in the data array.</p>
+<p>When not using pre-allocated data buffers, the system creates a new byte array each time it calls this callback, and <code>dataLength</code> is always equal to <code>data.Length</code>. When using pre-allocated data buffers, the data buffer is reused, and <code>dataLength</code> must be used to find the number of updated bytes.</p>
+<p>This function requires a return value of either <strong>true</strong> or <strong>false</strong>. If you return <strong>false</strong>, the system immediately aborts the UnityWebRequest. If you return <strong>true</strong>, processing continues normally.</p>
+<h3 id="avoiding-garbage-collection-overhead">Avoiding garbage collection overhead</h3>
+<p>Many of Unity&#39;s more advanced users are concerned with reducing CPU spikes due to garbage collection. For these users, the UnityWebRequest system permits the pre-allocation of a managed-code byte array, which is used to deliver downloaded data to DownloadHandlerScript&#39;s <code>ReceiveData</code> callback.</p>
+<p>Using this function completely eliminates managed-code memory allocation when using DownloadHandlerScript-derived classes to capture downloaded data.</p>
+<p>To make a <code>DownloadHandlerScript</code> operate with a pre-allocated managed buffer, supply a byte array to the constructor of <code>DownloadHandlerScript</code>.</p>
+<p><strong>Note:</strong> The size of the byte array limits the amount of data delivered to the ReceiveData callback each frame. If your data arrives slowly, over many frames, you may have provided too small of a byte array.</p>
+<h4 id="example-6">Example</h4>
+<pre><code>using UnityEngine;
+using UnityEngine.Networking; 
+using System.Collections;
+
+public class LoggingDownloadHandler : DownloadHandlerScript {
+
+    // Standard scripted download handler - allocates memory on each ReceiveData callback
+
+    public LoggingDownloadHandler(): base() {
+    }
+
+    // Pre-allocated scripted download handler
+    // reuses the supplied byte array to deliver data.
+    // Eliminates memory allocation.
+
+    public LoggingDownloadHandler(byte[] buffer): base(buffer) {
+    }
+
+    // Required by DownloadHandler base class. Called when you address the &#39;bytes&#39; property.
+
+    protected override byte[] GetData() { return null; }
+
+    // Called once per frame when data has been received from the network.
+
+    protected override bool ReceiveData(byte[] data, int dataLength) {
+        if(data == null || data.Length &lt; 1) {
+            Debug.Log(&quot;LoggingDownloadHandler :: ReceiveData - received a null/empty buffer&quot;);
+            return false;
+        }
+
+        Debug.Log(string.Format(&quot;LoggingDownloadHandler :: ReceiveData - received {0} bytes&quot;, dataLength));
+        return true;
+    }
+
+    // Called when all data has been received from the server and delivered via ReceiveData.
+
+    protected override void CompleteContent() {
+        Debug.Log(&quot;LoggingDownloadHandler :: CompleteContent - DOWNLOAD COMPLETE!&quot;);
+    }
+
+    // Called when a Content-Length header is received from the server.
+
+    protected override void ReceiveContentLength(int contentLength) {
+        Debug.Log(string.Format(&quot;LoggingDownloadHandler :: ReceiveContentLength - length {0}&quot;, contentLength));
+    }
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

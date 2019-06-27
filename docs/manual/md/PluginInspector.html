@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Plugin Inspector | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Plugin Inspector | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="plugin-inspector">Plugin Inspector</h1>
+
+<p>Use the Plugin Inspector to specify the conditions under which Unity loads and references a plugin file. You can also specify various other platform-specific settings for a plugin.</p>
+<p>Select a plugin file in the Project window to view the Plugin Inspector:</p>
+<p><img src="../uploads/Main/PluginInspector.png" alt="Plugin Inspector for &quot;MyPlugin.dll&quot;"></p>
+<h2 id="general">General</h2>
+<p>The <strong><strong>Auto Reference</strong></strong> setting controls how a plugin file is referenced by other assemblies and assembly definitions in the project.</p>
+<p>If <strong><strong>Auto Reference</strong></strong> is checked, which is the default, then all predefined assemblies and assembly definitions automatically reference the plugin file. Uncheck <strong><strong>Auto Reference</strong></strong> if you want to explicitly declare references to the plugin instead. </p>
+<p>You can declare references to a plugin file for an assembly definition using the Assembly Definition Inspector window. See <a href="ScriptCompilationAssemblyDefinitionFiles.html">Script Compilation and Assembly Definition Files</a> for more information.</p>
+<p><strong><strong>Important:</strong></strong> when you uncheck <strong><strong>Auto Reference</strong></strong> you cannot reference a plugin from the predefined assemblies created for your project by Unity. These predefined assemblies contain all the scripts in your project that you have not assigned to another assembly using an assembly definition file. Only code included in an assembly created with an assembly definition file can reference classes, functions, or other resources in a plugin that has the <strong>Auto Reference</strong> property unchecked..</p>
+<p>Set <strong>Auto Reference</strong> to false in order to limit the scope in which a plugin can be referenced by explicitly declare all references to that plugin. For example, if only one set of scripts in your project use a plugin, you could create an assembly definition file for those scripts and create an explicit reference to the plugin. Because the plugin is no longer automatically referenced throughout your project, other scripts in your project cannot mistakenly use the plugin. (More than one assembly can use the plugin, but all assemblies must explicitly declare the dependency.) Also, if you change the plugin, only the dependent assemblies must be recompiled, not your entire project.  </p>
+<p>You can also use explicit references to plugins to prevent plugins used in an Asset package from conflicting with other code in a project into which the package is imported.</p>
+<h2 id="select-platforms-for-plugin">Select platforms for plugin</h2>
+<p>Use the <strong>Select platforms for plugin</strong> setting to define the platforms with which a plugin file is compatible and should be used on. The list of platforms includes the Editor itself (for Play mode and for any scripts that run at edit time), Standalone, and platforms for which you have installed Unity build support, such as Android, iOS, and WebGL.</p>
+<p>You can check <strong>Any Platform</strong> and, optionally, exclude individual platforms. Or you can uncheck <strong>Any Platform</strong> and, optionally, include individual platforms. </p>
+<h2 id="platform-settings">Platform settings</h2>
+<p>Once you have selected the platforms, you can specify additional options such as CPU type and specific OS from the separate <strong>Platform settings</strong> section below. This area of the Inspector window contains a tab for each selected platform. Some platforms have no settings, or just a few (such as CPU and OS selection).</p>
+<p>When possible, the Inspector only shows settings that apply to the plugin type on a specific platform. For example, for a native plugin file with a .dll extension, the Inspector only shows the options that apply to Windows since such a plugin can only be used on Windows.</p>
+<p><strong>Note:</strong> Native plugins cannot be unloaded. If a plugin has already been loaded by the Editor, it remains loaded even after you change the settings for that plugin in the same Editor session. To unload the plugin, you must restart Unity.</p>
+<h4 id="editor-settings">Editor settings</h4>
+<p>Use the Editor platform settings to specify the CPU architectures and operating systems with which the plugin is compatible.</p>
+<p><img src="../uploads/Main/PluginInspectorEditorTab.png" alt="Options in the editor tab"></p>
+<p> Most managed plugins are compatible with any CPU and OS, but native plugins are typically only compatible with a single OS and, depending on how they were compiled, might be compatible with only a single CPU architecture.</p>
+<p>For instance, if you select <strong>CPU X86</strong>, Unity loads the plugin when you run an older, 32-bit version of the Editor, but not when you run a 64-bit version.</p>
+<p>Similarly, if you select <strong>OS Windows</strong>, Unity loads the plugin when running the Editor on Windows systems, but not on OS X or Linux systems.</p>
+<h4 id="standalone-settings">Standalone settings</h4>
+<p>For the Standalone platforms, Windows, OS X, Linux, you can choose the CPU architectures with which a library is compatible. Managed libraries are typically compatible with any OS and architecture unless they access specific system APIs. Native libraries are only compatible with a single OS, but can be compatible with the 32-bit, the 64-bit, or both CPU architectures.</p>
+<p>See also: <a href="class-PlayerSettingsStandalone.html">Player settings for Standalone platforms</a>.</p>
+<h4 id="universal-windows-platform">Universal Windows Platform</h4>
+<p>Universal Windows Platform plugin settings are covered in their own sections. See:</p>
+<ul>
+<li><p><a href="windowsstore-plugins.html" title="Plugins">Universal Windows Platform: Plugins on .NET Scripting Backend</a></p>
+</li>
+<li><p><a href="windowsstore-plugins-il2cpp.html" title="Plugins">Universal Windows Platform: Plugins on IL2CPP Scripting Backend</a></p>
+</li>
+</ul>
+<h4 id="android">Android</h4>
+<p>For plugin files that are potentially compatible with Android, you can choose the CPU architecture. The chosen architecture must match the architecture for which the library was compiled. Unity does not validate whether you choose the correct setting.</p>
+<h4 id="ios-and-tvos">iOS and tvOS</h4>
+<p>The iOS and tvOS settings allow you to specify which iOS frameworks a plugin depends upon, if any.</p>
+<p><img src="../uploads/Main/PluginiOSExample.png" alt="iOS plugin settings, showing Framework dependencies"></p>
+<p>For dynamically loaded libraries, as well as for bundles and frameworks containing dynamically loaded libraries or any assets and resources that need to be loaded at run time, check the <strong>Add to Embedded Binaries</strong> option. When you check this option, Unity sets the Xcode project options to copy the plugin file into the final application package. </p>
+<p>For plugin source code files, which must be compiled as part of the build, you can specify any flags needed when compiling in the <strong>Compile Flags</strong> field.</p>
+<p><strong>## Define Constraints</strong></p>
+<p>Use the <strong><strong>Define Constraints</strong></strong> setting to specify symbols that must be defined (or undefined) in order for the plugin file to be used.</p>
+<p>Unity only loads and references a plugin if all the <strong><strong>Define Constraints</strong></strong> are satisfied. Constraints work like the <code>#if</code> preprocessor directive in C#, but on the assembly level instead of the script level. All the symbols in the <strong><strong>Define Constraints</strong></strong> setting must be defined for the constraints to be satisfied. You can also specify that a symbol must be undefined by prefixing it with a negating <code>!</code> (bang) symbol. For example, if you specify the following symbols as your <strong><strong>Define Constraints</strong></strong>:</p>
+<p><img src="../uploads/Main/PluginDefineConstraints.png" alt="Define Constraints"></p>
+<p>the constraints are satisfied when the symbol <code>ENABLE_IL2CPP</code> is <em>NOT</em> defined and the symbol <code>UNITY_2018_3_OR_NEWER</code> <em>IS</em> defined. Or to put it differently, this assembly is only loaded and referenced on non-IL2CPP scripting runtimes for Unity 2018.3 or newer.</p>
+<p>You can use any of Unity’s built-in define symbols or any symbols defined in the project’s <strong>Scripting Define Symbols</strong> Player setting.  See <a href="[PlatformDependentCompilation](PlatformDependentCompilation.md)">Platform dependent compilation</a> for more information, including a list of the built-in symbols. Note that the <strong>Scripting Define Symbols</strong> settings are platform-specific. Make sure that you define the necessary symbols on all the relevant platforms.</p>
+<h2 id="plugin-detection">Plugin detection</h2>
+<p>Unity detects whether a file in your Assets folder is a plugin by its file extension. It treats files with the following extensions as plugins:</p>
+<ul>
+<li>.dll</li>
+<li>.winmd</li>
+<li>.so </li>
+<li>.jar</li>
+<li>.aar</li>
+<li>.xex</li>
+<li>.def</li>
+<li>.suprx</li>
+<li>.prx</li>
+<li>.sprx</li>
+<li>.rpl</li>
+<li>.cpp</li>
+<li>.cc </li>
+<li>.c</li>
+<li>.h</li>
+<li>.jslib</li>
+<li>.jspre</li>
+<li>.bc </li>
+<li>.a</li>
+<li>.m</li>
+<li>.mm </li>
+<li>.swift</li>
+<li>.xib</li>
+</ul>
+<p>Unity also treats certain folders as bundle plugins. Unity does not look for additional plugin files within such folders, so everything within the folder is considered a single plugin. Unity detects whether a folder is a bundle plugin when it has one of the following extensions:</p>
+<ul>
+<li>.framework</li>
+<li>.bundle</li>
+<li>.plugin</li>
+</ul>
+<p>Finally, Unity treats folders found with a parent path matching exactly <strong>Assets/Plugins/Android/</strong> as an Android Library plugin folder. Unity handles such folders in the same way as folders with the special extensions: .plugin, .bundle and .framework.</p>
+<h2 id="default-settings">Default settings</h2>
+<p>Unity sets defaults for the import settings of a plugin file according to the folder where the plugin is located:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Folder</strong></th>
+<th style="text-align:left"><strong>Default settings</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Assets/../Editor</strong></td>
+<td style="text-align:left">Plugin will be set only compatible with Editor, and won&#39;t be used when building to platform.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Assets/../Editor/</strong>(<strong>x86</strong> or <strong>x86_64</strong> or <strong>x64</strong>)</td>
+<td style="text-align:left">Plugin will be set only compatible with Editor, CPU value will be assigned depending on the subfolder.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Assets/../Plugins/</strong>(<strong>x86_64</strong> or <strong>x64</strong>)</td>
+<td style="text-align:left">x64 Standalone plugins will be set as compatible.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Assets/../Plugins/x86</strong></td>
+<td style="text-align:left">x86 Standalone plugins will be set as compatible.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Assets/Plugins/Android/</strong>(<strong>x86</strong> or <strong>armeabi</strong> or <strong>armeabi-v7a</strong>)</td>
+<td style="text-align:left">Plugin will be set only compatible with Android, if CPU subfolder is present, CPU value will be set as well.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Assets/Plugins/iOS</strong></td>
+<td style="text-align:left">Plugin will be set only compatible with iOS.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Assets/Plugins/WSA/</strong>(<strong>x86</strong> or <strong>ARM</strong>)</td>
+<td style="text-align:left">Plugin will be set only compatible with Universal Windows Platform, if subfolder is CPU present, CPU value will be set as well. Metro keyword can be used instead of WSA.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Assets/Plugins/WSA/</strong>(<strong>SDK80</strong> or <strong>SDK81</strong> or <strong>PhoneSDK81</strong>)</td>
+<td style="text-align:left">Same as above, additionally SDK value will be set, you can also add CPU subfolder afterwards. For compatibility reasons, SDK81 - Win81, PhoneSDK81 - WindowsPhone81.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Assets/Plugins/Tizen</strong></td>
+<td style="text-align:left">Plugin will be set only compatible with Tizen.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Assets/Plugins/PS4</strong></td>
+<td style="text-align:left">Plugin will be set only compatible with Playstation 4.</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

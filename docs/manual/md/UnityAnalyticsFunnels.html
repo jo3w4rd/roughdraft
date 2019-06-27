@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Funnels | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Funnels | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="funnels">Funnels</h1>
+
+<p>Funnels help you track whether players make it through linear sequences in your game. A funnel reveals what percentage of your players make it through each step of the sequence as well as the sequence as a whole. Common sequences to track with a funnel include:</p>
+<ul>
+<li>First-time user experience — track how new players make it through your on-boarding sequence</li>
+<li>Game Progression — track how players progress through the major milestones in your game, such as level completion</li>
+<li>Purchase UI — uncover impediments to making a purchase</li>
+</ul>
+<p>Funnels are based on <a href="">Standard</a> and <a href="">Custom</a> events. Unity Analytics evaluates each step in a funnel according to whether the defined standard or custom event has been dispatched with the correct parameter values. In order for users to enter and progress through a funnel, they must complete the funnel steps in the precise order those steps appear in the funnel.</p>
+<p>Create funnels on your Analytics Dashboard.</p>
+<p><em>*Important</em>: Unity Analytics evaluates the rules defined in a funnel as it processes incoming data. Existing data is not re-evaluated when you create a new funnel. Only data received after you create a funnel appears in the Funnel Analyzer report.  </p>
+<h2 id="create-a-new-funnel">Create a new funnel</h2>
+<p>Before creating a funnel, you should first:</p>
+<ol>
+<li>Add the necessary <strong>Standard</strong> or <strong>Custom Events</strong> to your game.</li>
+<li>Run your game so that at least one instance of each event is dispatched to the Unity Analytics system. You can perform this step while running your game in the Unity editor.</li>
+<li>Wait for Unity Analytics to process the events (about 8-16 hours).</li>
+</ol>
+<p>After dispatching at least one instance of the Standard and Custom events that you want to include in the funnel, and waiting until those events are processed, follow these steps to create the funnel rules on the Analytics Dashboard:</p>
+<ol>
+<li>On the Unity Analytics dashboard, click <strong>Funnel Analyzer</strong>.</li>
+<li><p>Click <strong>Create Funnel</strong>.
+<img src="../uploads/Main/UnityAnalyticsFunnels1.png" alt=""></p>
+</li>
+<li><p>Enter a <strong>Name</strong> and, optionally, a <strong>Description</strong> for your funnel.</p>
+</li>
+<li>For each step in the linear sequence of events you want to track and analyze:<ol>
+<li>Click <strong>+ Funnel Step</strong>. (The first two steps are created automatically, since a funnel always  requires comparing at least two phases of progression.)</li>
+<li>Select the <strong>Standard</strong> or <strong>Custom Event</strong> name. Only events that have been dispatched by an instance of your game and processed are listed.</li>
+<li>Set rules for the <strong>Parameters</strong> (optional).<br>The parameters dispatched with an event must satisfy the rules you define in order for that player to successfully complete that step in the funnel. If you do not define parameter rules, simply dispatching the event completes the step.</li>
+</ol>
+</li>
+<li><p>Click <strong>Save</strong>.   </p>
+<p>While you are creating the funnel steps, you can use the <strong>Delete</strong>, <strong>Duplicate</strong> and <strong>Rearrange</strong> icons at the top of each step to make changes.</p>
+</li>
+</ol>
+<p><strong>Note</strong>: After you&#39;ve clicked <strong>Save</strong>, funnel steps cannot be modified. However, you can create a copy of the funnel and modify the steps of the copy. The reason for this restriction is that changing the rules of an existing funnel would invalidate any existing data included in that funnel.</p>
+<h2 id="reading-a-funnel-analyzer-report">Reading a Funnel Analyzer report</h2>
+<p>The <strong>Funnel Analyzer</strong> page of your Analytics Dashboard lists the funnels that you have created. </p>
+<p><img src="../uploads/Main/UnityAnalyticsFunnels2.png" alt=""></p>
+<p>Check the <strong>Members</strong> column to see how many players have entered the funnel.
+A <strong>Funnel Analyzer</strong> report has two sections: the <strong>Funnel</strong> chart and the <strong>Drilldown</strong> section, which provides more detailed information about the funnel data.</p>
+<h3 id="funnel-conversion-chart">Funnel conversion chart</h3>
+<p>The <strong>Funnel</strong> conversion chart provides an immediate overview of how players have progressed through the sequence of steps tracked by the funnel. Unexpected drop-offs between steps indicate good places to investigate game play, user interface, or other issues that block players from continuing to the next step.</p>
+<p><img src="../uploads/Main/UnityAnalyticsFunnels3.png" alt="A funnel chart showing overall conversion from step to step"></p>
+<p>The above example shows an example funnel based on the level_complete event. This example exhibits large drop offs in the early levels. The chart can’t tell you exactly what is wrong -- the levels could be too hard, or they could be too easy -- but it can reveal good places to look for game-play problems. </p>
+<h3 id="funnel-metrics">Funnel metrics</h3>
+<p>You can add metrics and segments to the chart to get more detail about what is going on in the funnel. The metrics available include parameters that you included with any of the Standard or Custom Events used by the funnel. </p>
+<p><img src="../uploads/Main/AnalyticsDashboardFunnelMetrics.png" alt="A funnel chart showing level_complete event parameter values for players in the 1-3 Days segment"></p>
+<h3 id="funnel-steps-by-date-chart">Funnel Steps By Date chart</h3>
+<p>The Funnel Steps By Date chart shows changes of the conversion rate over time. You can display either the overall conversion rate of players entering and completing the funnel, or the conversion rate between individual steps.</p>
+<p><img src="../uploads/Main/AnalyticsDashboardFunnelByDate.png" alt="A Funnel Steps By Date chart showing conversion between two funnel steps"></p>
+<p>The above example shows a drop-off in conversion near the middle of the reporting period. The conversion rate recovers a few days later. Perhaps an update contained a bug that made it harder for players to complete the step and the bug was fixed in a subsequent update.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

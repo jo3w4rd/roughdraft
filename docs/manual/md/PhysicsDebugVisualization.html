@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Physics Debug Visualization | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Physics Debug Visualization | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="physics-debug-visualization">Physics Debug Visualization</h1>
+
+<p>Physics Debug Visualiser allows you to quickly inspect the <a href="CollidersOverview.html">Collider</a> geometry in your <a href="CreatingScenes.html">Scene</a>, and profile common physics-based scenarios. It provides a visualisation of which GameObjects should and should not collide with each other. This is particularly useful when there are many Colliders in your Scene, or if the <a href="class-MeshRenderer.html">Render</a> and <a href="class-MeshCollider.html">Collision Meshes</a> are out of sync.</p>
+<p>For further guidance on improving physics performance in your project, see documentation on the <a href="ProfilerPhysics.html">Physics Profiler</a>.</p>
+<p>To open the Physics Debug window in the Unity Editor, go to <strong>Window </strong>&gt; <strong>Analysis</strong> &gt; <strong>Physics Debugger</strong>. </p>
+<p><img src="../uploads/Main/PhysicsDebugVizImage0.jpg" alt="Default Physics Debug Visualization settings and a Cube primitive"></p>
+<p>From this window, you can customize visual settings and specify the types of GameObjects you want to see or hide in the visualizer.</p>
+<p><img src="../uploads/Main/PhysicsDebugVizImage1.jpg" alt="Physics Debug window with fold-out options and overlay panel "></p>
+<p><img src="../uploads/Main/PhysicsDebugVizImage2.png" alt="The Physics Debug overlay panel"></p>
+<p><strong>Hide Selected Items</strong> is the default mode. This means that every item appears in the visualizer, and you need to tick the checkbox for each item to hide it. To change this to <strong>Show Selected Items</strong>, use the drop-down at the top of the window. This means that no items appear in the visualizer, and you need to tick the checkbox for each item to display it.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Reset</strong></td>
+<td style="text-align:left">Click this button to reset the Physics Debug window back to default settings.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Hide Layers</strong></td>
+<td style="text-align:left">Use the dropdown menu to determine whether or not to display Colliders from the selected <a href="Layers.html">Layers</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Hide Static Colliders</strong></td>
+<td style="text-align:left">Tick this checkbox to remove static Colliders (Colliders with no Rigidbody component) from the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Hide Triggers</strong></td>
+<td style="text-align:left">Tick this checkbox to remove Colliders that are also Triggers from the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Hide Rigidbodies</strong></td>
+<td style="text-align:left">Tick this checkbox to remove <a href="class-Rigidbody.html">Rigidbody components</a> from the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Hide Kinematic Bodies</strong></td>
+<td style="text-align:left">Tick this checkbox to remove Colliders with __Kinematic __Rigidbody components (which are not controlled by the physics engine) from the visualization. See documentation on <a href="RigidbodiesOverview.html">Rigidbody components</a> for more details.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Hide Sleeping Bodies</strong></td>
+<td style="text-align:left">Tick this checkbox to remove Colliders with <strong>Sleeping</strong> Rigidbody components (which are not currently engaging with the physics engine) from the visualization. See documentation on <a href="RigidbodiesOverview.html">Rigidbody components: Sleeping</a> for more details.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Collider Types</strong></td>
+<td style="text-align:left">Use these options to remove specific Collider types from the physics visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Hide  <br>&#160;&#160;&#160;&#160;BoxColliders</td>
+<td style="text-align:left">Tick this checkbox to remove <a href="class-BoxCollider.html">Box Colliders</a> from the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Hide <br>&#160;&#160;&#160;&#160;SphereColliders</td>
+<td style="text-align:left">Tick this checkbox to remove <a href="class-SphereCollider.html">Sphere Colliders</a> from the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Hide <br>&#160;&#160;&#160;&#160;CapsuleColliders</td>
+<td style="text-align:left">Tick this checkbox to remove <a href="class-CapsuleCollider.html">Capsule Colliders</a> from the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Hide <br>&#160;&#160;&#160;&#160;MeshColliders <br>&#160;&#160;&#160;&#160;(convex)</td>
+<td style="text-align:left">Tick this checkbox to remove <strong>convex</strong> <a href="class-MeshCollider.html">Mesh Colliders</a> from the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Hide <br>&#160;&#160;&#160;&#160;MeshColliders <br>&#160;&#160;&#160;&#160;(concave)</td>
+<td style="text-align:left">Tick this checkbox to remove <strong>concave</strong> <a href="class-MeshCollider.html">Mesh Colliders</a> from the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Hide <br>&#160;&#160;&#160;&#160;TerrainColliders</td>
+<td style="text-align:left">Tick this checkbox to remove <a href="class-TerrainCollider.html">Terrain Colliders</a> from the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Hide None</strong></td>
+<td style="text-align:left">Click <strong>Hide None</strong> to clear all filtering criteria and display all Collider types in the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Hide All</strong></td>
+<td style="text-align:left">Click <strong>Hide All</strong> to enable all filters and remove all Collider types from the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Colors</strong></td>
+<td style="text-align:left">Use these settings to define how Unity displays physics components in the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Static <br>&#160;&#160;&#160;&#160;Colliders</td>
+<td style="text-align:left">Use this color selector to define which color indicates static Colliders (Colliders with no Rigidbody component) in the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Triggers</td>
+<td style="text-align:left">Use this color selector to define which color indicates Colliders that are also Triggers in the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Rigidbodies</td>
+<td style="text-align:left">Use this color selector to define which color indicates Rigidbody components in the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Kinematic <br>&#160;&#160;&#160;&#160;Bodies</td>
+<td style="text-align:left">Use this color selector to define which color indicates __Kinematic __Rigidbody components (which are not controlled by the physics engine) from the visualization. See documentation on <a href="RigidbodiesOverview.html">Rigidbody components</a> for more details.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Sleeping <br>&#160;&#160;&#160;&#160;Bodies</td>
+<td style="text-align:left">Use this color selector to define which color indicates __Sleeping __Rigidbody components (which are not currently engaging with the physics engine) from the visualization. See documentation on <a href="RigidbodiesOverview.html">Rigidbody components: Sleeping</a> for more details.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Variation</td>
+<td style="text-align:left">Use the slider to set a value between 0 and 1. This defines how much of your chose color blends with a random color. Use this to visually separate Colliders by color, and to see the structure of the GameObjects.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Rendering</strong></td>
+<td style="text-align:left">Use these settings to define how Unity renders and displays the physics visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Transparency</td>
+<td style="text-align:left">Use the slider to set the value between 0 and 1. This defines the transparency of drawn collision geometry in the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Force <br>&#160;&#160;&#160;&#160;Overdraw</td>
+<td style="text-align:left">Normal render geometry can sometimes obscure Colliders (for example, a Mesh Collider plane underneath a floor).Tick the <strong>Force Overdraw</strong> checkbox to make the visualization renderer draw Collider geometry on top of render geometry.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;View <br>&#160;&#160;&#160;&#160;Distance</td>
+<td style="text-align:left">Use this to set the view distance of the visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;Terrain <br>&#160;&#160;&#160;&#160;Tiles Max</td>
+<td style="text-align:left">Use this to set the maximum number of Terrain tiles in the visualization.</td>
+</tr>
+</tbody>
+</table>
+<p>The overlay panel has further options:</p>
+<p><img src="../uploads/Main/PhysicsDebugVizImage2.png" alt="The Physics Debug overlay panel"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Collision Geometry</strong></td>
+<td style="text-align:left">Tick this checkbox to enable collision geometry visualization.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Mouse Select</strong></td>
+<td style="text-align:left">Tick this checkbox to enable mouse-over highlighting and mouse selection. This can be useful if you have large GameObjects obstructing each other in the visualizer.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="profiling">Profiling</h3>
+<p>You can use Physics Debug to profile and troubleshoot physics activity in your game. You can customize which types of Colliders or Rigidbody components you can see in the visualiser, to help you find the source of activity. The two most helpful are:</p>
+<p><strong>To see active Rigidbody components only</strong>: To see only the Rigidbody components that are active and therefore using CPU/GPU resources, tick <strong>Hide Static Colliders</strong> and <strong>Hide Sleeping Bodies</strong>.</p>
+<p><strong>To see non-convex Mesh Colliders only:</strong> Non-convex (triangle-based) Mesh Colliders tend to generate the most contacts when their attached Rigidbody components are very near a collision with another Rigidbody or Collider. To visualize only the non-convex Mesh Colliders, set the window to <strong>Show Selected Items</strong> mode, click the <strong>Select None</strong> button, then tick the <strong>Show MeshColliders (concave)</strong> checkbox.</p>
+<h3 id="scripting-api-reference">Scripting API Reference</h3>
+<p>See Unity Scripting API Reference for: </p>
+<ul>
+<li><p><a href="ScriptRef:PhysicsDebugWindow.html">PhysicsDebugWindow</a></p>
+</li>
+<li><p><a href="ScriptRef:PhysicsVisualizationSettings.html">PhysicsVisualizationSettings</a></p>
+</li>
+</ul>
+<p><br></p>
+<hr>
+<ul>
+<li></li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Responding to Events | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Responding to Events | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="responding-to-events">Responding to Events</h1>
+
+<p>You can make a visual element react to an event that it receives in two ways:</p>
+<ul>
+<li>by registering an event callback,</li>
+<li>by implementing a default action.</li>
+</ul>
+<p>Whether you should register an event callback or implement default actions depends on many factors.</p>
+<p>For example, if you instantiate objects from an existing class and you want the instance to react in a specific way when it receive events, your only option is to register callbacks on this instance.</p>
+<p>However, if you derive a new class from VisualElement and you want all instances of this class to react to events in the same way, you can either register callbacks on all instances of this class in the constructor, or implement default actions for the class.</p>
+<p>The fundamental differences between callbacks and default actions are as follows:</p>
+<ul>
+<li>Callbacks must be registered on instances of the class. Default actions are implemented as virtual functions on the class.</li>
+<li>Callbacks are executed for all elements along the propagation path. Default actions are executed for the event target only.</li>
+</ul>
+<p>You can prevent default actions from executing by calling <code>event.PreventDefault()</code>. Some event types cannot be cancelled which means that their default actions cannot be cancelled. You can prevent callbacks from executing by calling <code>event.StopPropagation()</code> or <code>event.StopImmediatePropagation()</code>, even for events that are not cancellable.</p>
+<p>You should view default actions as the behaviors that an element of a specific type should have when it receives an event. </p>
+<p>For example, a checkbox should respond to a click event by toggling its state. This behavior should be implemented by overriding a default action virtual function rather than registering callbacks on all checkboxes. </p>
+<p>In general, you should prefer implementing the behaviors that are naturally expected from your element with default actions. This ensures that default element behaviors can be cancelled on an instance by instance basis by calling <code>PreventDefault()</code> in a callback attached to an instance.</p>
+<p>Additional benefits of implementing behaviors as default actions are that their execution do not require a lookup in the callback registry and instances without callbacks are optimized out of the trickle down/bubble-up propagation process.</p>
+<p>For greater flexibility, default actions of the event target can be executed at two moments during the event dispatch process:</p>
+<ul>
+<li>between the trickle down and the bubble up propagation phase, immediately after the target callbacks are executed, by overriding <code>ExecuteDefaultActionsAtTarget()</code>;</li>
+<li>at the end of the event dispatch process, by overriding <code>ExecuteDefaultActions()</code>.</li>
+</ul>
+<p>Whenever possible, implement your class default actions in <code>ExecuteDefaultActions()</code>. This gives the users of your class more options to override them: they can call <code>PreventDefault()</code> either during the trickle down phase or the bubble up phase of the event propagation process.</p>
+<p>Sometimes, however, you must enforce that an event executing a default action on your class is not propagated to the parent of the element. For example, a text field receives key down events that modifies its value. These key down events are not propagated to the parent that might, for example, use the Delete key to delete content. In this case, implement your default action using <code>ExecuteDefaultActionsAtTarget()</code> and call <code>StopPropagation()</code>. This ensures that the event is not processed by callbacks during the bubble up phase.</p>
+<p>Default actions are only executed for the target of an event. They are not executed when the element receives the event as a result of the event propagation process. If you want your class to react to events targeted at their children or at their parents, you must register a callback on each instance of your class. This is sometimes necessary, but for better expandability and better performance, try to avoid registering callbacks on every instance of your class.</p>
+<h2 id="registering-an-event-callback">Registering an event callback</h2>
+<p>To add a custom behavior to a specific instance of a visual element, you must register a callback for the event that triggers the custom behavior. </p>
+<p>The advantage of registering an event callback is that it lets you customize the behavior of an individual instance of an existing class. The disadvantage of registering an event callback is that it is less performant because it takes longer to execute. It takes longer to execute because, whenever an event is received, the registered event is checked to determine which callback should be executed. </p>
+<p>For example, the following code registers two callbacks for the <code>MouseDownEvent</code>:</p>
+<pre><code class="lang-csharp">    // Register a callback on a mouse down event
+    myElement.RegisterCallback&lt;MouseDownEvent&gt;(MyCallback);
+    // Same, but also send some user data to the callback
+    myElement.RegisterCallback&lt;MouseDownEvent, MyType&gt;(MyCallbackWithData, myData);
+</code></pre><p>Your callback signature should look like this:</p>
+<pre><code class="lang-csharp">void MyCallback(MouseDownEvent evt) { /* ... */ }
+void MyCallbackWithData(MouseDownEvent evt, MyType data) { /* ... */ }
+</code></pre><p>You can register as many callbacks as you wish for an event. However, the callback registration system prevents you from registering the same callback function more than once on a given event and propagation phase. You can remove a callback from a <code>VisualElement</code> by calling the <code>myElement.UnregisterCallback()</code> method.</p>
+<p>Each element along the propagation path, except the target, receives the event twice: once during the trickle down phase and once during the bubble-up phase. To avoid executing a registered callback twice, use the optional <code>RegisterCallback</code> to specify during which phase a callback is executed.</p>
+<p>By default, a registered callback is executed during the target phase and the bubble-up phase. This default behavior ensures that a parent element reacts after its children. If, for example, you want a parent to react first, to override the behaviour of its children, you would register your callback with the <code>TrickleDown.TrickleDown</code> option:</p>
+<pre><code class="lang-csharp">    // Register a callback for the trickle down phase
+    myElement.RegisterCallback&lt;MouseDownEvent&gt;(MyCallback, TrickleDown.TrickleDown);
+</code></pre><p>This informs the dispatcher to execute the callback at the target phase and the trickle down phase.</p>
+<h2 id="implementing-a-default-action">Implementing a default action</h2>
+<p>A default action applies to all instances of the class. This means that one or both methods are called for every event the element receives.  </p>
+<p>A class that implements default actions can also have callbacks registered on its instances.</p>
+<p>An event class implements behaviors that are executed either before or after processing an event. The events class does this by overriding the <code>PreDispatch()</code> of <code>PostDispatch()</code> method of the <code>EventBase</code> class. Since events are queued, these methods can update the state or perform tasks when the event is handled instead of when the event is emitted. For example, the <code>BlurEvent</code>changes the currently focused element before it proceses the element.</p>
+<p>Implementing a default action requires deriving a new subclass of <code>VisualElement</code> and implementing either the <code>ExecuteDefaultActionAtTarget()</code> method, the <code>ExecuteDefaultAction()</code> method, or both. </p>
+<p>Default actions are actions that are executed by each instance of a visual element sub-class when it receives an event. You can customize default actions by overriding <code>ExecuteDefaultActionAtTarget()</code> and <code>ExecuteDefaultAction()</code>:</p>
+<pre><code class="lang-csharp">override void ExecuteDefaultActionAtTarget(EventBase evt)
+{
+    // Do not forget to call the base function.
+    base.ExecuteDefaultActionAtTarget(evt);
+
+    if (evt.GetEventTypeId() == MouseDownEvent.TypeId())
+    {
+        // ...
+    }
+    else if (evt.GetEventTypeId() == MouseUpEvent.TypeId())
+    {
+        // ...
+    }
+    // More event types
+}
+</code></pre><p>For greater flexibility, you should implement your default actions in <code>ExecuteDefaultAction()</code>. This allows users to stop or prevent the execution of a default action, if needed. </p>
+<p>If you want the target default action to be executed before its parent callback, implement the default actions in  <code>ExecuteDefaultActionAtTarget()</code>.</p>
+<h1 id="the-event-handling-sequence">The event handling sequence</h1>
+<p>When an event occurs, it is sent along the propagation path in the visual element tree. Assuming that the event type demands that all phases of event propagation be followed, the event is sent to each visual element. The event handling sequence is a follows:</p>
+<ol>
+<li>Execute event callbacks on elements from the root element down to the parent of the event target. This is the <em>trickle down phase</em> of the dispatch process.</li>
+<li>Execute event callbacks on the event target. This is the <em>target phase</em> of the dispatch process.</li>
+<li>Call the target <code>ExecuteDefaultActionAtTarget()</code>.</li>
+<li>Execute event callbacks on elements from the event target parent up to the root. This is the <em>bubble-up phase</em> of the dispatch process.</li>
+<li>Call the target <code>ExecuteDefaultAction()</code>.</li>
+</ol>
+<p>As an event is sent along the propagation path, <code>Event.currentTarget</code> is updated to the element currently handling the event. This means that within an event callback function, <code>Event.currentTarget</code> is the element on which the callback was registered and <code>Event.target</code> is the element on which the event occured.</p>
+<h2 id="stopping-event-propagation-and-cancelling-default-actions">Stopping event propagation and cancelling default actions</h2>
+<p>You can use callbacks to stop, prevent, and cancel actions from being executed. However, you cannot prevent the <code>EventBase.PreDispatch()</code> and <code>EventBase.PostDispatch()</code>methods from being executed.</p>
+<p>The following methods affect event propagation and default actions: </p>
+<ul>
+<li><code>StopImmediatePropagation()</code> stops the event propagation process immediately. No other callbacks are executed for this event. However, the <code>ExecuteDefaultActionAtTarget()</code> and <code>ExecuteDefaultAction()</code> default actions are still executed.</li>
+<li><code>StopPropagation()</code> stops the event propagation process after the last callback on the current element. This ensure that all callbacks on the current element are executed, but that no further elements react to the event. The <code>ExecuteDefaultActionAtTarget()</code> and <code>ExecuteDefaultAction()</code> default actions are still be executed.</li>
+<li><code>PreventDefaultAction()</code> prevents the  <code>ExecuteDefaultActionAtTarget()</code> and
+<code>ExecuteDefaultAction()</code> default actions from being called. <code>PreventDefaultAction()</code>  does not prevent other callbacks from being executed. In addition, if you call <code>PreventDefaultAction()</code> during the bubble-up phase, the <code>ExecuteDefaultActionAtTarget()</code> default action is not prevented because it has already been executed. The <code>ExecuteDefaultActionAtTarget()</code> default action is executed during the trickle down phase.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

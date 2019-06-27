@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Unity Performance Reporting | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Unity Performance Reporting | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="unity-performance-reporting">Unity Performance Reporting</h1>
+
+<p>Unity Performance Reporting captures and aggregates exception data and native crash reports, to help you understand what’s happening during run time and to optimize your project faster. Exceptions are updated to the Services Dashboard while the game is running as a completed build, and while in Play Mode within the Editor.</p>
+<p><img src="../uploads/Main/UnityPerformanceReporting.png" alt="Services Dashboard"></p>
+<p>For information on enabling Performance Reporting to track crashes, including crashes in native user code, engine code, and plug-ins, see <a href="UnityPerformanceReportingSettingUp.html">Setting up Performance Reporting</a>.</p>
+<h2 id="native-crash-reporting-availability">Native crash reporting availability</h2>
+<p>Native crash reporting is available to Unity Plus and Pro users as part of the <a href="https://unity3d.com/unity/features/performance-reporting">Unity Performance Reporting</a> service. </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Platform</strong></th>
+<th style="text-align:left"><strong>Available starting with version</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">iOS</td>
+<td style="text-align:left">5.6</td>
+</tr>
+<tr>
+<td style="text-align:left">Android</td>
+<td style="text-align:left">2017.2</td>
+</tr>
+<tr>
+<td style="text-align:left">MacOS</td>
+<td style="text-align:left">2017.3</td>
+</tr>
+<tr>
+<td style="text-align:left">Windows</td>
+<td style="text-align:left">2018.1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ios-crash-reporting">iOS crash reporting</h2>
+<p>When you use <a href="IL2CPP.html">IL2CPP</a> and have the <a href="class-PlayerSettingsiOS.html">iOS Player</a> <strong>Script Call Optimization</strong> setting set to <strong>Fast but no exceptions</strong>, iOS crash reporting captures crashes due to uncaught managed exceptions.</p>
+<p>For more information on the <strong>Script Call Optimization</strong> settings, see <a href="iphone-iOS-Optimization.html">iPhone Optimization</a>.</p>
+<h2 id="reports">Reports</h2>
+<p>Reports show the native stack trace of the crashed thread. If the crash is caused by an uncaught managed exception, the reports also show the managed stack trace of where the exception originates from, along with the native stack trace.</p>
+<p>Note that iOS crash reporting cannot capture crashes caused by the application running out of memory and then being closed by the operating system.</p>
+<p>View your crashes in the <a href="http://developer.cloud.unity3d.com">Unity Cloud Developer Dashboard</a>. Here, select your game and select <strong>Enable Game Performance</strong> (see Image A).</p>
+<p><img src="../uploads/Main/UnityPerformanceReportingGamePerformance.png" alt="Image A: The Game Performance option on the Unity Cloud Developer Dashboard"></p>
+<h2 id="example">Example</h2>
+<p>The example report below demonstrates what a report for a crash due to a managed exception looks like:</p>
+<pre><code>
+Managed Stack Trace:
+
+at CrashTests.CrashNextUpdate () [0x00000] in &lt;filename unknown&gt;:0
+
+at CrashTests.Update () [0x00000] in &lt;filename unknown&gt;:0
+
+Native StackTrace:
+
+Thread 0 (crashed)
+
+0 crashreporttest CrashedCheckBelowForHintsWhy() (CrashReporter.mm:106)
+
+1 crashreporttest UnhandledExceptionEventHandler_Invoke_m689053609 (mscorlib_System_Delegate3660574010.h:79)
+
+2 crashreporttest RuntimeInvoker_Void_t2779279689_Il2CppObject_Il2CppObject(MethodInfo const*, void*, void**) (Il2CppInvokerTable.cpp:405)
+
+3 crashreporttest il2cpp::vm::Runtime::CallUnhandledExceptionDelegate(Il2CppDomain*, Il2CppDelegate*, Il2CppObject*) (Runtime.cpp:350)
+
+4 crashreporttest il2cpp::vm::Runtime::UnhandledException(Il2CppObject*) (Runtime.cpp:440)
+
+5 crashreporttest ScriptingInvocationNoArgs::Invoke(ScriptingException**) (ScriptingInvocationNoArgs.cpp:131)
+
+6 crashreporttest ScriptingInvocationNoArgs::Invoke() (ScriptingInvocationNoArgs.cpp:95)
+
+7 crashreporttest MonoBehaviour::CallUpdateMethod(int) (MonoBehaviour.cpp:541)
+
+8 crashreporttest void BaseBehaviourManager::CommonUpdate&lt;BehaviourManager&gt;() (Behaviour.cpp:169)
+
+9 crashreporttest PlayerLoop(bool, bool, IHookEvent*) (Player.cpp:1721)
+
+10 crashreporttest UnityPlayerLoopImpl(bool) (LibEntryPoint.mm:240)
+
+11 crashreporttest UnityRepaint (UnityAppController+Rendering.mm:238)
+
+12 crashreporttest -[UnityAppController(Rendering) repaintDisplayLink] (UnityAppController+Rendering.mm:54)
+
+13 QuartzCore CA::Display::DisplayLinkItem::dispatch()
+
+14 QuartzCore CA::Display::DisplayLink::dispatch_items(unsigned long long, unsigned long long, unsigned long long)
+
+15 IOKit IODispatchCalloutFromCFMessage
+
+16 CoreFoundation __CFMachPortPerform
+
+17 CoreFoundation __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__
+
+18 CoreFoundation __CFRunLoopDoSource1
+
+19 CoreFoundation __CFRunLoopRun
+
+20 CoreFoundation CFRunLoopRunSpecific
+
+21 GraphicsServices GSEventRunModal
+
+22 UIKit UIApplicationMain
+
+23 crashreporttest main (main.mm:32)
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

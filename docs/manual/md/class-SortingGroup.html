@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Sorting Group | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Sorting Group | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="sorting-group">Sorting Group</h2>
+
+<p>A Sorting Group is a component which alters the order in which <a href="class-SpriteRenderer.html">Sprite Renderers</a> do their rendering. It allows a group of Renderers which share a common root to be sorted together. Renderers in Unity are sorted by several criteria, including their order in the layer and their distance from the Camera. </p>
+<h3 id="setting-up-a-sorting-group">Setting up a Sorting Group</h3>
+<p>To use the Sorting Group component, add it to the <a href="class-GameObject.html">GameObject’s</a> root (the parent GameObject of all the GameObjects you want to apply group sorting to). Select the GameObject’s root, then in the main menu select <strong>Component</strong> &gt; <strong>Rendering</strong> &gt; <strong>Sorting Group</strong>.</p>
+<p>A Sorting Group does not have any visual representation in the Scene view. It can be added to an empty GameObject, which might be useful if you have many GameObjects to apply group sorting to at once. </p>
+<p>A Sorting Group is not dependent on any other Renderers, and any Renderers that are attached to that GameObject and its descendants are rendered together.</p>
+<p><img src="../uploads/Main/SortingGroup-0.png" alt="The Sorting Group component"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Sorting Layer</strong></td>
+<td style="text-align:left">Use the drop-down to select the Layer used to define this Sprite’s overlay priority during rendering.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Order in Layer</strong></td>
+<td style="text-align:left">Set the overlay priority of this Sprite within its layer. Lower numbers are rendered first, and subsequent numbers overlay those below.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sorting-a-sorting-group">Sorting a Sorting Group</h3>
+<p>Unity uses the concept of sorting layers to allow you to divide sprites into groups for overlay priority. Sorting Groups with a <strong>Sorting Layer</strong> lower in the order are overlaid by those in a higher <strong>Sorting Layer</strong>.</p>
+<p>Sometimes, two or more objects in the same <strong>Sorting Layer</strong> can overlap (for example, two player characters in a side scrolling game, as shown in the example below). The <strong>Order in Layer</strong> property can be used to apply consistent priorities to Sorting Groups in the same layer. As with <strong>Sorting Layer</strong>, lower numbers are rendered first, and are obscured by Sorting Groups with higher layer numbers, which are rendered later. See the documentation on <a href="class-TagManager.html">Tags and Layers</a> for details on editing <strong>Sorting Layers</strong>. </p>
+<p>The descendants of the Sorting Group are sorted against other descendants of closest or next Sorting Group (depending on whether sorting is by distance or Order in Layer). In other words, the Sorting Group creates a local sorting space for its descendants only. This allows each of the Renderers inside the group to be sorted using the <strong>Sorting Layer</strong> and <strong>Order in Layer</strong>, but locally to the containing Sorting Group.</p>
+<h3 id="nested-sorting-group">Nested Sorting Group</h3>
+<p>A nested Sorting Group is sorted against other Renderers in the same group.</p>
+<p>However, GameObjects in the Hierarchy that do not have a Sorting Group are rendered together as a single layer, and Renderers are still sorted based on their <strong>Sorting Layer</strong> and <strong>Order in Layer</strong>. </p>
+<p><strong>Example of how to use Sorting Groups</strong></p>
+<p>Sorting Groups are commonly used in 2D games with complex characters, made up of several Sprites. This example uses a 2D character with multiple Renderers in a Hierarchy. </p>
+<p><img src="../uploads/Main/SortingGroup-1.png" alt="A character made up of several Sprites in a single Sorting Layer, using multiple __Order in Layers__ to sort its body parts"></p>
+<p>This character is in a single Sorting Layer, and uses multiple <strong>Order in Layers</strong> to sort its body parts. Unity then saves the character as a <a href="Prefabs.html">Prefab</a>, and clones it multiple times during gameplay. </p>
+<p>When cloned, the body parts overlap each other because they are on the same layers, as seen below.</p>
+<p><img src="../uploads/Main/SortingGroup-2.png" alt="The body parts of two characters overlap, because they share the same layers"></p>
+<p>The desired outcome is to have all the Renderers of one character render together, and then be followed by the next character. This gives the visual effect of passing each other, with one appearing closer to the camera than the other, rather than both of them appearing to blend together.</p>
+<p>A Sorting Group component added to the root of the character ensures that the body parts no longer overlap and mix together. </p>
+<p><img src="../uploads/Main/SortingGroup-3.png" alt="The Sorting Group component sorts each character as a group, preventing the issue of overlapping body parts"></p>
+<p><img src="../uploads/Main/SortingGroup-4.png" alt="Multiple characters being sorted using a Sorting Group component on each character"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

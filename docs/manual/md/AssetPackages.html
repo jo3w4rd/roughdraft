@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Asset packages | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Asset packages | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="asset-packages">Asset packages</h1>
+
+<p>Unity uses two types of packages:</p>
+<ul>
+<li><strong>Asset packages</strong>, available on the Unity <strong>Asset Store</strong>, which allow you to share and re-use Unity Projects and collections of Assets.</li>
+<li><strong>Unity packages</strong>, available through the <a href="https://docs.unity3d.com/Packages/com.unity.package-manager-ui@latest/index.html">Package Manager window</a>. You can import a wide range of Assets, including plug-ins directly into Unity with this type of package. </li>
+</ul>
+<p>This section provides information about using Asset packages in Unity.</p>
+<h2 id="asset-packages-1">Asset packages</h2>
+<p>Unity <strong>Standard Assets</strong> and items on the Unity <strong>Asset Store</strong> are supplied in packages, which are 
+collections of files and data from Unity Projects, or elements of Projects, 
+which are compressed and stored in one file, similar to zip files. 
+Like zip files, a package maintains its original directory structure when it is unpacked, 
+as well as meta-data about Assets (such as import settings and links to other Assets).</p>
+<p>In Unity, the menu option <strong>Export Package</strong> compresses and stores the collection, 
+while <strong>Import Package</strong> unpacks the collection into your currently open Unity Project.</p>
+<p>This page contains information on:</p>
+<ul>
+<li><a href="#ImportingPackages">Importing packages</a> (both <strong>Standard Asset</strong> packages and custom packages)</li>
+<li><a href="#ExportingPackages">Exporting packages</a> (both new and updated)</li>
+</ul>
+<p><a name="ImportingPackages"></a></p>
+<h2 id="importing-asset-packages">Importing Asset packages</h2>
+<p>You can import <strong>Standard Asset Packages</strong>, which are Asset collections pre-made and supplied with Unity, and <strong>Custom Packages</strong>, which are made by people using Unity.</p>
+<p>Choose <strong>Assets</strong> &gt; <strong>Import Package</strong> to import both types of Asset packages.</p>
+<p><img src="../uploads/Main/ImportPackageMenu.jpg" alt="Fig 1: Asset &gt; Import Package menu"> </p>
+<p><a name="Standard"></a></p>
+<h3 id="importing-standard-assets">Importing Standard Assets</h3>
+<p>Unity <strong>&#39;Standard Assets&#39;</strong> consist of several different packages: 
+<strong>2D, Cameras, Characters, CrossPlatformInput, Effects, Environment, ParticleSystems, Prototyping, Utility, Vehicles</strong>.</p>
+<p>To import a new <strong>Standard Asset</strong> package:</p>
+<ol>
+<li><p>Open the Project you want to import Assets into.</p>
+</li>
+<li><p>Choose <strong>Assets</strong> &gt; <strong>Import Package</strong> and then select the name of the package you want to import from the list. 
+The <strong>Import Unity Package</strong> dialog box appears with all the items in the package pre-checked, 
+ready to install. (See <em>Fig 2: New install Import Unity Package Dialog Box</em>.)</p>
+</li>
+<li><p>Select <strong>Import</strong> and Unity puts the contents of the package into a <strong>Standard Asset</strong> folder, 
+which you can access from your <strong>Project View</strong>. </p>
+</li>
+</ol>
+<p><img src="../uploads/Main/NewInstallImportPackageDialog.png" alt="Fig 2: New install Import Unity Package dialog box"> </p>
+<h3 id="importing-custom-asset-packages">Importing custom Asset packages</h3>
+<p>You can import custom packages which have been exported from your own Projects or from Projects made by other Unity users.</p>
+<p>To import a new custom package:</p>
+<ol>
+<li><p>Open the Project you want to import Assets into.</p>
+</li>
+<li><p>Choose <strong>Assets</strong> &gt; <strong>Import Package</strong> &gt; <strong>Custom Package...</strong> to bring up up File Explorer (Windows) or Finder (Mac).</p>
+</li>
+<li><p>Select the package you want from Explorer or Finder, and the <strong>Import Unity Package</strong> dialog box displays, 
+with all the items in the package pre-checked, ready to install. (See <em>Fig 4: New install Import Unity Package dialog box</em>.)</p>
+</li>
+<li><p>Select <strong>Import</strong> and Unity puts the contents of the package into the <strong>Assets</strong> folder, 
+which you can access from your <strong>Project View</strong>. </p>
+</li>
+</ol>
+<p><img src="../uploads/Main/CustomPackageInstallDialog.png" alt="Fig 3: New install Import Unity Package dialog box"> </p>
+<h3 id="upgrading-standard-assets">Upgrading Standard Assets</h3>
+<p>Standard Assets do not upgrade automatically when you upgrade the Editor.</p>
+<p>When you create a new Project in Unity, you can choose to include <strong>Standard Assets</strong> collections in your Project. Unity copies the Assets you choose to include from the Unity install folder into your new Project folder. This means that if you upgrade your Unity Editor to a newer version, the <strong>Standard Assets</strong> you have already imported into your Project do not upgrade: you have to manually upgrade them.</p>
+<p><strong><em>Hint:</em></strong> A newer version of a <strong>Standard Asset</strong> might behave differently in your existing installation (for performance or quality reasons, for example). A newer version might make your Project look or behave differently and you may need to re-tweak its parameters. Check  the package contents and Unity&#39;s release notes before you decide to re-install.</p>
+<p><a name="ExportingPackages"></a></p>
+<h2 id="exporting-packages">Exporting packages</h2>
+<p>Use <strong>Export Package</strong> to create your own <strong>Custom Package</strong>.</p>
+<ol>
+<li><p>Open the Project you want to export Assets from.</p>
+</li>
+<li><p>Choose <strong>Assets &gt; Export Package...</strong> from the menu to bring up the <strong>Exporting Package</strong> dialog box.
+(See <em>Fig 4: Exporting Package dialog box</em>.)</p>
+</li>
+<li><p>In the dialog box, select the Assets you want to include in the package by clicking on the boxes so they are checked.</p>
+</li>
+<li><p>Leave the <strong>include dependencies</strong> box checked to auto-select any Assets used by the ones you have selected. </p>
+</li>
+<li><p>Click on <strong>Export</strong> to bring up File Explorer (Windows) or Finder (Mac) and choose where you want to store your package file. </p>
+</li>
+<li><p>Name and save the package anywhere you like.</p>
+</li>
+</ol>
+<p><strong><em>Hint:</em></strong> When exporting a package Unity can export all dependencies as well. 
+So, for example, if you select a Scene and export a package with all dependencies, then all models, 
+Textures and other Assets that appear in the scene will be exported as well. 
+This can be a quick way of exporting a bunch of Assets without manually locating them all.</p>
+<p><img src="../uploads/Main/ExportPackageDialog.png" alt="Fig 4: Exporting Package dialog box"></p>
+<h3 id="updating-packages">Updating packages</h3>
+<p>Sometimes you may want to change the contents of a package and create a newer, updated version of your Asset package. 
+To do this:</p>
+<ol>
+<li><p>Select the Asset files you want in your package (select both the unchanged ones and the new ones).</p>
+</li>
+<li><p>Export the files as described above in <strong><em>Export Package</em></strong>, above. </p>
+</li>
+</ol>
+<p><strong><em>Note:</em></strong> You can re-name an updated package and Unity will recognise it as an update, so you can use incremental naming, for example: MyAssetPackageVer1, MyAssetPackageVer2.</p>
+<p><strong><em>Hint:</em></strong> It is not good practice to remove files from packages and then replace them with the same name:
+Unity will recognize them as different and possibly conflicting files and so display a warning symbol when they are imported.
+If you have removed a file and then decide to replace it, it is better to give it a different but related name to the original.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

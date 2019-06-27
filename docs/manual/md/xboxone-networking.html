@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Networking | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Networking | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="networking">Networking</h1>
+
+<p>The Xbox One does not allow unencrypted communications in production. They use an API called <strong>Secure Sockets</strong> to encrypt secure communication between the Xbox One console and other devices (including other Xbox One consoles). The engine wraps the IPsec implementation for you, and once connections have been made, you can use all your standard Unity NetworkView and RPC&#39;s as normal. Currently only peer-to-peer is supported.</p>
+<p>  However there are additional steps required to make those connections, and they are described below.</p>
+<h2 id="manifest-socket-descriptions">Manifest Socket Descriptions</h2>
+<p>All socket usage must be described in your game&#39;s <em>appmanifest.xml</em> file. This lets the Xbox One know ahead of time which ports needs to be opened for communication while your game is running. You can add these descriptions into your Xbox One <a href="xboxone-playersettings.html">Player</a> settings by using the <span class="component">Configured Sockets</span> property. Use <span class="inspector">Secure Device Socket Description</span> window to configure the description. The <a href="xboxone-playersettings.html">Player</a> settings page explains how this property and window work, but you should consult the XDK documentation for more information on what the different description settings do.</p>
+<ul>
+<li>If your project has any socket descriptions bound to port 0 (or not bound to any port) we advise you to delete them.  They are deprecated and will conflict with Multiplayer.</li>
+<li>Mono broadcasts for Script Debugging are on port 58997 UDP - an entry will be added automatically if this is missing and Script Debugging is turned.  The socket description will be set to Initiate/SendDebug, with no template.</li>
+<li>Raknet outgoing connections use Ephemeral ports by default.  If you include the Multiplayer API DLL in your project, we will automatically add the port range &quot;57344-65535&quot; (&quot;57344-58996&quot; if Script Debugging is turned on).  The Socket description will be set to Initiate/SendGameData, and the template name will be &quot;Raknet&quot; and set to InitiateFromMicrosoftConsole/AcceptOnMicrosoftConsole.</li>
+</ul>
+<h2 id="secure-device-address">Secure Device Address</h2>
+<p>Every Xbox console has a <strong>Secure Device Address</strong> (SDA).  You cannot connect to another console without their SDA.  You can obtain this SDA using Microsoft&#39;s Matchmaking services.  See our Multiplayer Rendezvous API sample or our Multiplayer Plugin documentation for further details.</p>
+<h2 id="secure-tunnel">Secure Tunnel</h2>
+<p>Once you have obtained the SDA of the remote device, you can use the <strong>Secure Tunnel</strong> API to initiate a connection to it.  Once the tunnel has opened, you can connect to it using UnityEngine.XboxOne.Network.Connect (similar to the existing UnityEngine.Network.Connect function).</p>
+<p>For incoming connections you call UnityEngine.XboxOne.Network.InitializeServer(&quot;MyConnectionTemplate&quot;, maxConnections, myPort); and specify the &quot;Manifest Socket Description&quot; template name and port you&#39;d like to listen on.
+You can also register a callback on the SecureTunnelListener to be informed of incoming SecureTunnel connections.</p>
+<p>Please see the Multiplayer/Networking sample for a example of both initiating and hosting connections.  Please also see the Matchmaking plugins API documentation for more details.</p>
+<h2 id="no-support-for-ipv6-exclusive-networks">No Support for IPv6 exclusive Networks</h2>
+<p>Please note many Unity components do not support IPv6 communication (such as Mono Develop, and the Unity profiler).  Therefore we recommend developing on a network that has at least local IPv4 addresses.
+This does not affect peer-to-peer Multiplayer since you connect using SDA&#39;s (not directly by specifying IP&#39;s).</p>
+<h2 id="span-classcomponentunityenginenetworkspan-port-usage"><span class="component">UnityEngine.Network</span> Port Usage</h2>
+<p>Since you cannot communicate directly with servers over unencrypted connections, functionality like connecting to the facilitator, proxy servers, or even UnityEngine.Network.TestConnection are not available in production.
+Xbox One has its own built-in support for NAT punch-through.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

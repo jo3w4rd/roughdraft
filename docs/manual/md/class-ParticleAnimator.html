@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Particle Animator (Legacy) | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Particle Animator (Legacy) | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="particle-animator-legacy">Particle Animator (Legacy)</h1>
+
+<p><strong>Particle Animators</strong> move your particles over time, you use them to apply wind, drag &amp; color cycling to your particle systems.</p>
+<p><img src="../uploads/Main/Inspector-ParticleAnimator.png" alt=""> </p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Does Animate Color</strong></td>
+<td style="text-align:left">If enabled, particles cycle their color over their lifetime.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Color Animation</strong></td>
+<td style="text-align:left">The 5 colors particles go through. All particles cycle over this - if some have a shorter life &lt;span than others, they will animate faster.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>World Rotation Axis</strong></td>
+<td style="text-align:left">An optional world-space axis the particles rotate around. Use this to make advanced spell effects or give caustic bubbles some life.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Local Rotation Axis</strong></td>
+<td style="text-align:left">An optional local-space axis the particles rotate around. Use this to make advanced spell effects or give caustic bubbles some life.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Size Grow</strong></td>
+<td style="text-align:left">Use this to make particles grow in size over their lifetime. As randomized forces will spread your particles out, it is often nice to make them grow in size so they don&#39;t fall apart. Use this to make smoke rise upwards, to simulate wind, etc.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Rnd Force</strong></td>
+<td style="text-align:left">A random force added to particles every frame. Use this to make smoke become more alive.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Force</strong></td>
+<td style="text-align:left">The force being applied every frame to the particles, measure relative to the world.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Damping</strong></td>
+<td style="text-align:left">How much particles are slowed every frame. A value of 1 gives no damping, while less makes them slow down.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Autodestruct</strong></td>
+<td style="text-align:left">If enabled, the GameObject attached to the Particle Animator will be destroyed when all particles disappear.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details</h2>
+<p>Particle Animators allow your particle systems to be dynamic. They allow you to change the color of your particles, apply forces and rotation, and choose to destroy them when they are finished emitting. For more information about Particle Systems, reference <a href="class-MeshParticleEmitter.html">Mesh Particle Emitters</a>, <a href="class-EllipsoidParticleEmitter.html">Ellipsoid Particle Emitters</a>, and <a href="class-ParticleRenderer.html">Particle Renderers</a>.</p>
+<h3 id="animating-color">Animating Color</h3>
+<p>If you would like your particles to change colors or fade in/out, enable them to <strong>Animate Color</strong> and specify the colors for the cycle. Any particle system that animates color will cycle through the 5 colors you choose. The speed at which they cycle will be determined by the Emitter&#39;s <strong>Energy</strong> value.</p>
+<p>If you want your particles to fade in rather than instantly appear, set your first or last color to have a low Alpha value.</p>
+<p><img src="../uploads/Main/ParticleRainbow.jpg" alt="An Animating Color Particle System"> </p>
+<h3 id="rotation-axes">Rotation Axes</h3>
+<p>Setting values in either the Local or World <strong>Rotation Axes</strong> will cause all spawned particles to rotate around the indicated axis (with the <strong>Transform&#39;s</strong> position as the center). The greater the value is entered on one of these axes, the faster the rotation will be.</p>
+<p>Setting values in the Local Axes will cause the rotating particles to adjust their rotation as the Transform&#39;s rotation changes, to match its local axes.</p>
+<p>Setting values in the World Axes will cause the particles&#39; rotation to be consistent, regardless of the Transform&#39;s rotation.</p>
+<h3 id="forces--damping">Forces &amp; Damping</h3>
+<p>You use force to make particles accelerate in the direction specified by the force.</p>
+<p><strong>Damping</strong> can be used to decelerate or accelerate without changing their direction:</p>
+<ul>
+<li>A value of 1 means no <strong>Damping</strong> is applied, the particles will not slow down or accelerate.</li>
+<li>A value of 0 means particles will stop immediately.</li>
+<li>A value of 2 means particles will double their speed every second.</li>
+</ul>
+<h3 id="destroying-gameobjects-attached-to-particles">Destroying GameObjects attached to Particles</h3>
+<p>You can destroy the Particle System and any attached <strong>GameObject</strong> by enabling the <strong>AutoDestruct</strong> property. For example, if you have an oil drum, you can attach a Particle System that has <strong>Emit</strong> disabled and <strong>AutoDestruct</strong> enabled. On collision, you enable the Particle Emitter. The explosion will occur and after it is over, the Particle System and the oil drum will be destroyed and removed from the scene.</p>
+<p>Note that automatic destruction takes effect only after some particles have been emitted. The precise rules for when the object is destroyed when <strong>AutoDestruct</strong> is on:</p>
+<ul>
+<li>If there have been some particles emitted already, but all of them are dead now, <em>or</em></li>
+<li>If the <a href="class-EllipsoidParticleEmitter.html">emitter</a> did have <strong>Emit</strong> on at some point, but now <strong>Emit</strong> is off.</li>
+</ul>
+<h2 id="hints">Hints</h2>
+<ul>
+<li>Use the <strong>Color Animation</strong> to make your particles fade in &amp; out over their lifetime - otherwise, you will get nasty-looking pops.</li>
+<li>Use the <strong>Rotation Axes</strong> to make whirlpool-like swirly motions.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,244 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Creating Asset Bundles in Unity 4 | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Creating Asset Bundles in Unity 4 | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="creating-asset-bundles-in-unity-4">Creating Asset Bundles in Unity 4</h1>
+
+<p><em>In versions of Unity earlier than Unity 5, assets had to be selected and added to bundles using editor scripts alone. (In Unity 5 we provide tools in the editor to assign assets to specific Bundles). This information is provided for those working on legacy projects in Unity 4, and speaks assuming you are using Unity 4.</em></p>
+<p>To create an Asset Bundle you need to use the BuildPipeline editor class. All scripts using Editor classes must be placed in a folder named Editor, anywhere in the Assets folder. Here is an example of such a script in C#:</p>
+<pre><code>// Legacy Unity 4 example. Not for use in Unity 5 &amp; onwards
+using UnityEngine;
+using UnityEditor;
+
+public class ExportAssetBundles {
+    [MenuItem(&quot;Assets/Build AssetBundle&quot;)]
+    static void ExportResource () {
+        string path = &quot;Assets/myAssetBundle.unity3d&quot;;
+        Object[] selection = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
+        BuildPipeline.BuildAssetBundle(Selection.activeObject, selection, path, 
+                                       BuildAssetBundleOptions.CollectDependencies 
+                                     | BuildAssetBundleOptions.CompleteAssets);
+    }
+}
+</code></pre><p>An Editor script does not need to be applied to a GameObject, it is instead used by the Editor. This previous example will create a new item in the &quot;Assets&quot; menu of your editor called &quot;Build AssetBundle&quot;.</p>
+<p>To use this example:</p>
+<ul>
+<li>Create a C# script file named ExportAssetBundles.cs, inside an folder named Editor, in the Project View.</li>
+<li>Select the Asset or Assets in your project folder that you wish to make into an AssetBundle.</li>
+<li>Select Build AssetBundle from the Assets menu. Click &quot;Save&quot; to create the AssetBundle.</li>
+<li>The first line of the ExportResource function sets the path of your AssetBundle.</li>
+<li>The next line sets the selection to be made into an AssetBundle as the objects selected in the Project window.</li>
+</ul>
+<p>The BuildAssetBundle function is the line that creates the AssetBundle and saves it to the specified location. The first parameter specifies the mainAsset, which is a special Asset that can be obtained directly with the mainAsset property when loading Assets from the AssetBundle. It is not mandatory to set a main Asset, if this is not going to be used you can use null for the parameter. The second parameter is the array of objects that will make up the AssetBundle. The third parameter is the location on disk that the AssetBundle will be saved to. The final parameters are the build flags or options used when building AssetBundles. These <a href="ScriptRef:BuildAssetBundleOptions.md">BuildAssetBundleOptions</a> can be combined using the bitwise OR operator.</p>
+<p>Building AssetBundles should be a pre-publish step which happens only once and with a single function call, for example, with a Menu Item that builds all the AssetBundles. As you develop your application you should write helper scripts that can build all your AssetBundles for a target platform with a single click or in batchmode without user intervention.</p>
+<p>There are three class methods you can use to build AssetBundles: </p>
+<ul>
+<li><p><a href="ScriptRef:BuildPipeline.BuildAssetBundle.html">BuildPipeline.BuildAssetBundle</a> allows you to build AssetBundles of any type of asset.</p>
+</li>
+<li><p><a href="ScriptRef:BuildPipeline.BuildStreamedSceneAssetBundle.html">BuildPipeline.BuildStreamedSceneAssetBundle</a> is used when you want to include only scenes to be streamed and loaded as the data becomes available.</p>
+</li>
+<li><p><a href="ScriptRef:BuildPipeline.BuildAssetBundleExplicitAssetNames.html">BuildPipeline.BuildAssetBundleExplicitAssetNames</a> is the same as BuildPipeline.BuildAssetBundle but has an extra parameter to specify a custom string identifier (name) for each object.</p>
+</li>
+</ul>
+<h2 id="an-example-of-how-to-build-an-assetbundle">An example of how to build an AssetBundle</h2>
+<p>Building asset bundles is done through editor scripting. There is basic example of this in the scripting documentation for <a href="ScriptRef:BuildPipeline.BuildAssetBundle.html">BuildPipeline.BuildAssetBundle</a>. </p>
+<p>For the sake of this example, copy and paste the script from the link above into a new C# script called ExportAssetBundles. This script should be placed in a folder named Editor, so that it works inside the Unity Editor.</p>
+<p><img src="../uploads/Main/ExportAssetBundlesScript.png" alt=""> </p>
+<p>Now in the <strong>Assets</strong> menu, you should see two new menu options.</p>
+<p><img src="../uploads/Main/AssetBundleMenuOptions.png" alt=""> </p>
+<ol>
+<li><p><strong>Build AssetBundle From Selection - Track dependencies</strong>. This will build the current object into an asset bundle and include all of its dependencies. For example if you have a prefab that consists of several hierarchical layers then it will recursively add all the child objects and components to the asset bundle.</p>
+</li>
+<li><p><strong>Build AssetBundle From Selection - No dependency tracking</strong>. This is the opposite of the previous method and will only include the single asset you have selected.</p>
+</li>
+</ol>
+<p>For this example, you should create a new prefab. First create a new Cube by going to <strong>GameObject &gt; 3D Object &gt; Cube</strong>, which will create a new cube in the Hierarchy View. Then drag the Cube from the Hierarchy View into the Project View, which will create a prefab of that object.</p>
+<p>You should then right click the Cube prefab in the project window and select <strong>Build AssetBundle From Selection - Track dependencies</strong>. 
+At this point you will be presented with a window to save the &quot;bundled&quot; asset. If you created a new folder called &quot;AssetBundles&quot; and saved the cube as <strong>Cube.unity3d</strong>, your project window will now look something like this.</p>
+<p><img src="../uploads/Main/AssetBundlesCube.png" alt=""> </p>
+<p>At this point you can move the AssetBundle <strong>Cube.unity3d</strong> elsewhere on your local storage, or upload it to a server of your choice.</p>
+<h2 id="an-example-of-how-to-change-the-properties-of-the-assets-when-building-an-asset-bundle">An example of how to change the properties of the assets when building an Asset Bundle</h2>
+<p>You can use <a href="ScriptRef:AssetDatabase.ImportAsset.html">AssetDatabase.ImportAsset</a> to force reimporting the asset right before calling <a href="ScriptRef:BuildPipeline.BuildAssetBundle.html">BuildPipeline.BuildAssetBundle</a>, and then use <a href="ScriptRef:AssetPostprocessor.OnPreprocessTexture.html">AssetPostprocessor.OnPreprocessTexture</a> to set the required properties. The following example will show you how to set different texture compressions when building the Asset Bundle.</p>
+<pre><code>// Legacy Unity 4 example. Not for use in Unity 5 &amp; onwards.
+// Builds an asset bundle from the selected objects in the project view,
+// and changes the texture format using an AssetPostprocessor.
+
+using UnityEngine;
+using UnityEditor;
+
+public class ExportAssetBundles {
+
+    // Store current texture format for the TextureProcessor.
+    public static TextureImporterFormat textureFormat;
+
+    [MenuItem(&quot;Assets/Build AssetBundle From Selection - PVRTC_RGB2&quot;)]
+    static void ExportResourceRGB2 () {
+        textureFormat = TextureImporterFormat.PVRTC_RGB2;
+        ExportResource();       
+    }   
+
+    [MenuItem(&quot;Assets/Build AssetBundle From Selection - PVRTC_RGB4&quot;)]
+    static void ExportResourceRGB4 () {
+        textureFormat = TextureImporterFormat.PVRTC_RGB4;
+        ExportResource();
+    }
+
+    static void ExportResource () {
+        // Bring up save panel.
+        string path = EditorUtility.SaveFilePanel (&quot;Save Resource&quot;, &quot;&quot;, &quot;New Resource&quot;, &quot;unity3d&quot;);
+
+        if (path.Length != 0) {
+            // Build the resource file from the active selection.
+            Object[] selection = Selection.GetFiltered(typeof(Object), SelectionMode.DeepAssets);
+
+            foreach (object asset in selection) {
+                string assetPath = AssetDatabase.GetAssetPath((UnityEngine.Object) asset);
+                if (asset is Texture2D) {
+                    // Force reimport thru TextureProcessor.
+                    AssetDatabase.ImportAsset(assetPath);
+                }
+            }
+
+            BuildPipeline.BuildAssetBundle(Selection.activeObject, selection, path, BuildAssetBundleOptions.CollectDependencies | BuildAssetBundleOptions.CompleteAssets);
+            Selection.objects = selection;
+        }
+    }
+}
+</code></pre><pre><code>// Legacy Unity 4 example. Not for use in Unity 5 &amp; onwards.
+// Changes the texture format when building the Asset Bundle.
+
+using UnityEngine;
+using UnityEditor;
+
+public class TextureProcessor : AssetPostprocessor
+{ 
+    void OnPreprocessTexture() {
+        TextureImporter importer = assetImporter as TextureImporter;
+        importer.textureFormat = ExportAssetBundles.textureFormat;
+    }
+}
+
+</code></pre><p>You can also control how the asset is imported using the <a href="ScriptRef:ImportAssetOptions.html">AssetDatabase.ImportAssetOptions</a>.</p>
+<p>In a test environment, you sometimes need to test a change that requires AssetBundles to be rebuilt. In these cases, it is advisable to use the option <a href="ScriptRef:BuildAssetBundleOptions.UncompressedAssetBundle.html">BuildAssetBundleOptions.UncompressedAssetBundle</a> when you build the AssetBundles. This makes it faster to build and load the AssetBundles but they will also be bigger and therefore take longer to download.</p>
+<h2 id="building-assetbundles-in-a-production-enviroment">Building AssetBundles in a production enviroment</h2>
+<p>When first using AssetBundles, it may seem enough to manually build them as seen in the previous example. But as a project grows in size and the number of assets increases, doing this process by hand is not efficient. A better approach is to write a function that builds all of the AssetBundles for a project. You can, for example, use a text file that maps Asset files to AssetBundle files.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Debug Views | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Debug Views | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="debug-views">Debug Views</h2>
+
+<p>The <a href="PostProcessing-Stack.html">post-processing stack</a> comes with a selection of debug views to view specific effects or passes such as depth, normals and motion vectors. These can be found at the top of the post-processing profile. Debug views will affect the application of other effects on the Game view.</p>
+<p>The debug views included in the post-processing stack are:</p>
+<ul>
+<li><p>Depth</p>
+</li>
+<li><p>Normals</p>
+</li>
+<li><p>Motion Vectors</p>
+</li>
+<li><p>Ambient Occlusion</p>
+</li>
+<li><p>Eye Adaptation</p>
+</li>
+<li><p>Focus Plane</p>
+</li>
+<li><p>Pre Grading Log</p>
+</li>
+<li><p>Log Lut</p>
+</li>
+<li><p>User Lut</p>
+</li>
+</ul>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property:</strong></th>
+<th style="text-align:left"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Mode</strong></td>
+<td style="text-align:left">The currently selected debug view</td>
+</tr>
+</tbody>
+</table>
+<h3 id="depth">Depth</h3>
+<p>The Depth Debug View displays the depth values of the pixels on screen. These values can be shifted for easier viewing by adjusting the Scale value. </p>
+<p>The Debug View can be used to identify issues in all effects that use the <a href="SL-DepthTextures.html">depth texture</a>, such as <a href="PostProcessing-AmbientOcclusion.html">Ambient Occlusion</a> and <a href="PostProcessing-DepthOfField.html">Depth of Field</a>.</p>
+<p><img src="../uploads/Main/PostProcessing-DebugViews-0.png" alt="The Depth Debug View"></p>
+<h3 id="properties-1">Properties</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property:</strong></th>
+<th style="text-align:left"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Scale</strong></td>
+<td style="text-align:left">Scales the camera far plane before displaying the depth map.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="normals">Normals</h3>
+<p>The Normals Debug View displays the normals texture used for various effects. This Debug View differs between rendering paths. In the <a href="RenderTech-DeferredShading.html">Deferred rendering path</a> it displays the G-Buffer Normals texture, this includes details from object’s normal maps. In the Forward rendering path it just displays object’s vertex normals.</p>
+<p>This Debug View can be used to identify issues in all effects that use the normals texture such as <a href="PostProcessing-ScreenSpaceReflection.html">Screen Space Reflection</a> and <a href="PostProcessing-AmbientOcclusion.html">Ambient Occlusion</a>.</p>
+<p><img src="../uploads/Main/PostProcessing-DebugViews-1.jpg" alt="The Normals Debug View in the Deferred rendering path"></p>
+<p><img src="../uploads/Main/PostProcessing-DebugViews-2.jpg" alt="The Normals Debug View in the Forward rendering path"></p>
+<h3 id="motion-vectors">Motion Vectors</h3>
+<p>The Motion Vectors Debug View displays visualizations of the <a href="ScriptRef:DepthTextureMode.MotionVectors.html">motion vector</a> texture. There are two types of visualizations in the Motion Vectors Debug View.</p>
+<p>The overlay visualization displays motion vector colors of each pixel on screen. Different colors show different movement directions and more saturated values indicate higher velocities. The arrows visualization draws arrows on screen indicating direction and velocity of movement, this is less precise but easier to read.</p>
+<p>This Debug View can be used to identify issues with temporal effects such as <a href="PostProcessing-MotionBlur.html">Motion Blur</a> and <a href="PostProcessing-Antialiasing.html">Temporal Anti-aliasing</a>.</p>
+<p><img src="../uploads/Main/PostProcessing-DebugViews-3.jpg" alt="The Motion Vectors Debug View"></p>
+<h3 id="properties-2">Properties</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property:</strong></th>
+<th style="text-align:left"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>(Source Image) Opacity</strong></td>
+<td style="text-align:left">Opacity of the source render.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(Motion Vectors (overlay)) Opacity</strong></td>
+<td style="text-align:left">Opacity of the per-pixel motion vectors</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(Motion Vectors (overlay)) Amplitude</strong></td>
+<td style="text-align:left">Because motion vectors are mainly very small vectors, you can use this setting to make them more visible.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(Motion Vectors (arrows)) Opacity</strong></td>
+<td style="text-align:left">Opacity for the motion vector arrows.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(Motion Vectors (arrows)) Resolution</strong></td>
+<td style="text-align:left">The arrow density on screen.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(Motion Vectors (arrows)) Amplitude</strong></td>
+<td style="text-align:left">Tweaks the arrows length.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ambient-occlusion">Ambient Occlusion</h3>
+<p>The Ambient Occlusion Debug View displays the final result of the <a href="PostProcessing-AmbientOcclusion.html">Ambient Occlusion</a> effect without multiplying it on top of the scene. This can be useful for identifying problems in Ambient Occlusion.</p>
+<p><img src="../uploads/Main/PostProcessing-DebugViews-4.jpg" alt="The Ambient Occlusion Debug View."></p>
+<h3 id="eye-adaptation">Eye Adaptation</h3>
+<p>The Eye Adaptation Debug View displays a representation of the histogram used for <a href="PostProcessing-EyeAdaptation.html">Eye Adaptation</a>. This indicates the minimum and maximum for Histogram log and Luminance as well as the current average luminance computed by the effect. These are overlaid onto the luminance values of the screen, updated in real time to indicate the Eye Adaptation effect.</p>
+<p>This is useful for fine tuning the Eye Adaptation effect.</p>
+<p><img src="../uploads/Main/PostProcessing-DebugViews-5.jpg" alt="The Eye Adaptation Debug View."></p>
+<h3 id="focus-plane">Focus Plane</h3>
+<p>The Focus Plane Debug View displays the focus distance and aperture range used for <a href="PostProcessing-DepthOfField.html">Depth of Field</a>.</p>
+<p>This is useful for setting up the Depth of Field effect.</p>
+<p><img src="../uploads/Main/PostProcessing-DebugViews-6.jpg" alt="The Focus Plane Debug View."></p>
+<h3 id="pre-grading-log">Pre Grading Log</h3>
+<p>The Pre Grading Log Debug View displays the source image in Log space. This is the input used for most controls of <a href="PostProcessing-ColorGrading.html">Color Grading</a>. It displays a log/compressed view of the current HDR view.</p>
+<p>This is useful for identifying problems in Color Grading.</p>
+<p><img src="../uploads/Main/PostProcessing-DebugViews-7.jpg" alt="The Pre Grading Log Debug View."></p>
+<h3 id="log-lut">Log Lut</h3>
+<p>The Log Lut Debug View displays the output Lut for <a href="PostProcessing-ColorGrading.html">Color Grading</a>. This is the Lut generated by the Color Grading effect based on parameters set by the user.</p>
+<p>This is useful for identifying problems in Color Grading.</p>
+<p><img src="../uploads/Main/PostProcessing-DebugViews-8.jpg" alt="The Log Lut Debug View."></p>
+<h3 id="user-lut">User Lut</h3>
+<p>The User Lut Debug View displays the output Lut for <a href="PostProcessing-UserLut.html">User Lut</a>. This is the texture set in the Lut field adjusted by the __Contribution __parameter.</p>
+<p>This is useful for identifying problems in User Lut.</p>
+<p><img src="../uploads/Main/PostProcessing-DebugViews-9.jpg" alt="The User Lut Debug View."></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

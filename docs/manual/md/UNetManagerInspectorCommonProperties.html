@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title> | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content=" | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<p>|<strong>Network Info</strong>|You can expand this section of the inspector to access network-related settings, listed below|
+|<strong>Use Web Sockets</strong>|When running as a host, enable this setting to make the host listen for WebSocket connections instead of normal transport layer connections, so that WebGL clients can connect to it (if you build your game for the WebGL platform). These WebGL instances of your game cannot act as a host (in either peer-hosted or server-only mode). Therefore, for WebGL instances of your multiplayer game to be able to find each other and play together, you must host a server-only instance of your game running in LAN mode, with a publicly reachable IP address, and it must have this option enabled. This checkbox is unticked by default.|
+|<strong>Network Address</strong>|The network address currently in use. For clients, this is the address of the server that is connected to. For servers, this is the local address. This is set to ‘localhost’ by default.|
+|<strong>Network Port</strong>|The network port currently in use. For clients, this is the port of the server connected to. For servers, this is the listen port. This is set to 7777 by default.|
+|<strong>Server Bind To IP</strong>|Allows you to tell the server whether to bind to a specific IP address. If this checkbox is not ticked, then there is no specific IP address bound to (IP_ANY). This checkbox is unticked by default. Use this if your server has multiple network addresses (eg, internal LAN, external internet, VPN) and you want to specific the IP address to serve your game on.|
+|<strong>Server Bind Address</strong>|This field is only visible when the Server Bind To IP checkbox is ticked. Use this to enter the specific IP address that the server should bind to.|
+|<strong>Script CRC Check</strong>|When this is enabled, Unity checks that the clients and the server are using matching scripts. This is useful to make sure outdated versions of your client are not connecting to the latest (updated) version of your server. This checkbox is ticked by default. It does this by performing a (CRC check)[<a href="https://en.wikipedia.org/wiki/Cyclic_redundancy_check">https://en.wikipedia.org/wiki/Cyclic_redundancy_check</a>] between the server and client that ensures the NetworkBehaviour scripts match. This may not be appropriate in some cases, such as when you are intentionally using different Unity projects for the client and server. In most other cases however, you should leave it enabled.|
+|<strong>Max Delay</strong>|The maximum time in seconds to delay buffered messages. The default of 0.01 seconds means packets are delayed at most by 10 milliseconds. Setting this to zero disables HLAPI connection buffering. This is set to 0.01 by default.|
+|<strong>Max Buffered Packets</strong>|The maximum number of packets that a <a href="ScriptRef:Networking.NetworkConnection.html">NetworkConnection</a> can buffer for each channel. This corresponds to the <a href="ScriptRef:Networking.ChannelOption.MaxPendingBuffers.html">ChannelOption.MaxPendingBuffers</a> channel option. This is set to 16 by default.|
+|<strong>Packet Fragmentation</strong>|This allows the <code>NetworkConnection</code> instances to fragment packets that are larger than <code>maxPacketSize</code>, to up a maximum of 64K. This can cause delays in sending large packets. This checkbox is ticked by default. |
+|<strong>MatchMaker Host URI</strong>|The host address for the MatchMaker server. By default this points to the global Unity Multiplayer Service at mm.unet.unity3d.com, and usually you should not need to change this. Unity automatically groups players of your game into regional servers around the world, which ensures fast multiplayer response times between players in the same region. This means, for example, that players from Europe, the US, and Asia generally end up playing with other players from their same global region. You can override this value to explicitly control which regional server your game connects to. You might want to do this via scripting if you want to give your players the option of joining a server outside of their global region. For example, if “Player A” (in the US) wanted to connect to a match created via matchmaker by “Player B” (in Europe), they would need to be able to set their desired global region in your game. Therefore you would need to write a UI feature which allows them to select this. See API reference documentation on <a href="ScriptRef:Networking.Match.NetworkMatch-baseUri.html">NetworkMatch.baseUri</a> for more information, and for the regional server URIs.|
+|<strong>MatchMaker Port</strong>|The host port for the Matchmaker server.  By default this points to port 443, and usually you should not need to change this.|
+|<strong>Match Name</strong>|Define the name of the current match. This is set to &quot;default&quot; by default.|
+|<strong>Maximum Match Size</strong>|Define the maximum number of players in the current match. This is set to 4 by default.|
+|<strong>SpawnInfo</strong>|You can expand this section of the inspector to access spawn-related settings, listed below|
+|<strong>Player Prefab</strong>|Define the default prefab Unity should use to create player GameObjects on the server. Unity creates Player GameObjects in the default handler for <a href="ScriptRef:Networking.MsgType.AddPlayer.html">AddPlayer</a> on the server. Implement (OnServerAddPlayer)[<a href="https://docs.unity3d.com/ScriptReference/Networking.NetworkManager.OnServerAddPlayer.html">https://docs.unity3d.com/ScriptReference/Networking.NetworkManager.OnServerAddPlayer.html</a>] to override this behaviour.|
+|<strong>Auto Create Player</strong>|Tick this checkbox if you want Unity to automatically create player GameObjects on connect, and when the Scene changes. This checkbox is ticked by default. Note that if you are using the MigrationManager and you do not enable Auto Create Player, you need to call <a href="ScriptRef:Networking.ClientScene.SendReconnectMessage.html">ClientScene.SendReconnectMessage</a> when your client reconnects.|
+|<strong>Player Spawn Method</strong>|Define how Unity should decide where to spawn new player GameObjects. This is set to Random by default.|
+|&nbsp;&nbsp;&nbsp;&nbsp;Random|Choose Random to spawn players at randomly chosen startPositions.|
+|&nbsp;&nbsp;&nbsp;&nbsp;Round Robin|Choose Round Robin to cycle through startPositions in a set list.|
+|<strong>Registered Spawnable Prefabs</strong>|Use this list to add prefabs that you want the Network Manager to be aware of, so that it can spawn them. You can also add and remove them via scripting.|
+|<strong>Advanced Configuration</strong>|Tick this checkbox to reveal advanced configuration options in the Network Manager Inspector window.|
+|&nbsp;&nbsp;&nbsp;&nbsp;Max Connections|Define the maximum number of concurrent network connections to support. This is set to 4 by default.|
+|&nbsp;&nbsp;&nbsp;&nbsp;Qos Channels|A list containing the different communication channels the current Network Manager has, and the Quality Of Service (QoS) setting for each channel. Use this list to add or remove channels, and adjust their QoS setting. You can also configure the channels via scripting. For the descriptions of each QoS option, see <a href="ScriptRef:Networking.QosType.html">QosType</a>.|
+|&nbsp;&nbsp;&nbsp;&nbsp;Timeouts||
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Min Update Timeout|Set the minimum time (in milliseconds) the network thread waits between sending network messages. The network thread doesn’t send multiplayer network messages immediately. Instead, it check each connection periodically at a fixed rate to see if it has something to send. This is set to 10ms by default. See API reference documentation on <a href="ScriptRef:Networking.ConnectionConfig.MinUpdateTimeout.html">MinUpdateTimeout</a> for more information.|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Connect Timeout|Define the amount of time (in milliseconds) Unity should wait while trying to connect before attempting the connection again. This is set to 2000ms by default. See API reference documentation on <a href="ScriptRef:Networking.ConnectionConfig.ConnectTimeout.html">ConnectTimeout</a> for more information.|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Disconnect Timeout|The amount of time (in milliseconds) before Unity considers a connection to be disconnected. This is set to 2000ms by default. See API reference documentation on <a href="ScriptRef:Networking.ConnectionConfig.DisconnectTimeout.html">DisconnectTimeout</a> for more information.|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ping Timeout|The amount of time (in milliseconds) between sending pings (also known as “keep-alive” packets). The ping timeout duration should be approximately one-third to one-quarter of the Disconnect Timeout duration, so that Unity doesn’t assume that clients are disconnected until the server has failed to receive at least three pings from the client. This is set to 500ms by default. See API reference documentation on <a href="ScriptRef:Networking.ConnectionConfig.PingTimeout.html">ConnectionConfig.PingTimeout</a> for more information.|
+|&nbsp;&nbsp;&nbsp;&nbsp;Global Config|These settings relate to the Reactor. The Reactor is the part of the multiplayer system which receives network packets from the underlying operating system, and passes them into the multiplayer system for processing.|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thread Awake Timeout|The timeout duration in milliseconds, used by the Reactor. How the Reactor uses this value depends on which Reactor Model you select (see below). This is set to 1ms by default.|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reactor Model|Choose which type of reactor to use. The reactor model defines how Unity reads incoming packets. For most games and applications, the default Select reactor is appropriate. If you want to trade a small delay in the processing of network messages for lower CPU usage and improved battery life, use the Fix Rate reactor.|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Reactor|This model uses the <code>select()</code> API which means that the network thread “awakens” (becomes active) as soon as a packet is available. Using this method means your game gets the data as fast as possible. This is the default Reactor Model setting.|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fix Rate Reactor|This model lets the network thread sleep manually for a given amount of time (defined by the value in Thread Awake Timeout) before checking whether there are incoming packets waiting to be processed.|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reactor Max Recv Messages|Set the maximum number of messages stored in the receive queue. This is set to 1024 messages by default.|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reactor Max Sent Messages|Set the maximum number of messages stored in the send queue. This is set to 1024 messages by default.|
+|<strong>Use Network Simulator</strong>|Tick this checkbox to enable the usage of the network simulator. The network simulator introduces simulated latency and packet loss based on the following settings:|
+|&nbsp;&nbsp;&nbsp;&nbsp;Simulated Average Latency|The amount of delay in milliseconds to simulate.|
+|&nbsp;&nbsp;&nbsp;&nbsp;Simulated Packet Loss|The amount of packet loss to simulate in percent.|</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Windows Phone 8: Debugging | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Windows Phone 8: Debugging | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="windows-phone-8-debugging">Windows Phone 8: Debugging</h1>
+
+<p>Visual Studio can be used to debug C# scripts:</p>
+<ul>
+<li>Build Visual Studio project.</li>
+<li>Open generated solution.</li>
+<li>Click FILE -&gt; Add -&gt; Exiting Project..., navigate to Unity project folder and select Assembly-CSharp.csproj file.</li>
+<li>Go to BUILD -&gt; Configuration Manager... and make sure ARM platform is selected for your project.</li>
+<li>Optionally uncheck Build flag for Assembly-CSharp since it has already been built by Unity.</li>
+<li>Add breakpoint(s) to your script file(s).</li>
+<li>Make sure phone is connected to PC and is unlocked.</li>
+<li>Make sure debugger type is set to Managed Only (default).</li>
+<li>Hit F5 to build, deploy, run and debug your app.</li>
+</ul>
+<p>If debugging doesn&#39;t help to resolve your issue it might be useful to examine UnityPlayer.log file. It&#39;s located on the phone and can be retrieved by utility called <a href="http://wptools.codeplex.com/">Windows Phone Power Tools</a>. Don&#39;t forget to include this file with your bugs reports.</p>
+<h3 id="enabling-direct3d-debug-layer">Enabling Direct3D Debug Layer</h3>
+<p>(Based on Jeff McGlynn&#39;s blog post)</p>
+<ul>
+<li>Configure the project for native debugging.<ul>
+<li>Open the project properties.</li>
+<li>Navigate to the Debug tab.</li>
+<li>Change the UI Task debugger type to “Native Only”.</li>
+</ul>
+</li>
+<li>Enable Microsoft Symbols:<ul>
+<li><strong>Tools-&gt;Options-&gt;Debugging-&gt;Symbols</strong>, check <strong>Microsoft Symbol Servers</strong>, if it&#39;s not already check</li>
+</ul>
+</li>
+<li>Go to <strong>Tools-&gt;Options-&gt;Debugging-&gt;General</strong>, uncheck <strong>Enable Just My Code</strong>.</li>
+<li><p>Set a breakpoint on <strong>d3d11!D3D11CreateDevice</strong>. This can be done by selecting <strong>New Breakpoint -&gt; Breakpoint at Function</strong> in the breakpoints window.</p>
+<p><img src="../uploads/Main/wp8-d3d-breakpoint.png" alt=""></p>
+</li>
+<li><p>After hitting the breakpoint modify the Flags parameter to enable the debug layer by ORing it with <strong>D3D11_CREATE_DEVICE_DEBUG</strong> (0x02):</p>
+<ul>
+<li><p>On ARM: Change r3 to “2”.</p>
+<p><img src="../uploads/Main/wp8-d3d-registerARM.png" alt=""></p>
+</li>
+<li><p>On x86: Set a watch on the expression <em>(unsigned int</em>)(esp+0x10) and change its value to “2”.</p>
+<p><img src="../uploads/Main/wp8-d3d-registerX86.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

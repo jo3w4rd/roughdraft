@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Unity Analytics A/B Testing | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Unity Analytics A/B Testing | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="unity-analytics-ab-testing">Unity Analytics A/B Testing</h1>
+
+<p>An A/B test is a controlled experiment that exposes different groups of players to variations of some aspect of your game. The aspect of a game that you test can be fundamental, such as the input control scheme, or it can be cosmetic, like a different color treatment, or something else in between. An A/B test allows you to compare key metrics collected during the experiment to help you analyze which variation performs better.</p>
+<p><strong>How does A/B testing work?</strong></p>
+<p>Unity Analytics A/B testing groups players according to the variants you define in your experiment. Each group sees the treatment of your game that you specify for that variant group. A treatment is a set of one or more <a href="https://docs.unity3d.com/Manual/UnityAnalyticsRemoteSettings.html">Remote Settings</a> to which you assign unique values for each variant group. At runtime, the A/B testing service randomly assigns a player to one of the groups based on your variant allocation percentages. The player receives the values of the Remote Settings for their assigned group. Your application then uses those Remote Settings so that the player experiences the aspect of your game you wish to test.</p>
+<p>The key parts of an A/B test include:</p>
+<ul>
+<li><p><strong>Experiment</strong> — a test run by showing different treatments to different groups of players.</p>
+</li>
+<li><p><strong>Variant</strong> — defines the number of groups and the distribution of players to those groups. One variant is always the control group.</p>
+</li>
+<li><p><strong>Treatment</strong> — defines the Remote Settings to use for the experiment and the specific setting values for each variant.</p>
+</li>
+<li><p><strong>Goal</strong> — The Analytics metric that you want to improve with the experiment. An experiment compares the goal metric across the variant groups so that you can see which treatment has the most desirable effect.</p>
+</li>
+</ul>
+<p>You can run more than one experiment at the same time, but you should be careful that the different experiments do not interact since some players will see the experimental treatments for both experiments. For example, if you run a test to compare the ordering of the steps in your onboarding tutorial in one experiment and run a different test to test tutorial pacing, you will have difficulty figuring out which experiment caused any changes in results. While that example might be pretty obvious, even tests of unrelated parts of your game could interact. The more fundamental the part of your game you are testing and the larger your experimental groups, the more chance there is for experimental interaction.</p>
+<p>Create and run A/B tests from the Unity Analytics Dashboard. You must also implement the experiment treatment in your application using the <a href="UnityAnalyticsRemoteSettings.html">Remote Settings</a> API.</p>
+<h1 id="creating-an-experiment">Creating an experiment</h1>
+<p>To create an experiment:</p>
+<ol>
+<li><p>Go to the Analytics Dashboard for your project.</p>
+</li>
+<li><p>Click <strong>A/B Testing</strong> to open the A/B Testing page.</p>
+</li>
+<li><p>Click the <strong>Create Experiment</strong> button.</p>
+<p> The <strong>Create new experiment</strong> dialog opens.</p>
+<p> <img src="../uploads/Main/UnityAnalyticsABTesting0.png" alt=""></p>
+</li>
+<li><p>Enter a name for the experiment.</p>
+</li>
+<li><p>Click <strong>Create</strong>.</p>
+</li>
+</ol>
+<p>Once the experiment has been created, you must define the goals, variants and the treatments.</p>
+<h2 id="choose-an-experiment-goal">Choose an experiment goal</h2>
+<p>The experiment goal defines the analytics metric that the experiment treatments are designed to influence. You can choose:</p>
+<ul>
+<li><p><strong>Day 1 Retention</strong> — the percentage of users who return to your game exactly one day after the first time they play.</p>
+</li>
+<li><p><strong>Day 7 Retention</strong> — the percentage of users who return to your game exactly seven days after the first time they play.</p>
+</li>
+</ul>
+<p>The <a href="#reports">report</a> generated for your experiment shows the difference in the metric across the experiment variants. The chosen goal also influences the amount of time an experiment must run to collect statistically significant data. For example, it takes longer to run an experiment measuring Day 7 retention than one measuring Day 1 retention. </p>
+<p>To choose the experiment goal:</p>
+<ol>
+<li><p>Click the <strong>Select Experiment Goal</strong> button.</p>
+<p> <img src="../uploads/Main/UnityAnalyticsABTesting1.png" alt=""></p>
+</li>
+<li><p>Choose a goal from the drop-down list.</p>
+<p> <img src="../uploads/Main/UnityAnalyticsABTesting2.png" alt=""></p>
+</li>
+<li><p>Click <strong>Save</strong>.</p>
+</li>
+</ol>
+<h2 id="set-up-the-experiment-variants">Set up the experiment variants</h2>
+<p>Use the <strong>Variants</strong> section of the experiment to define the player groups for the A/B test and the assign the percentage of players the testing service allocates to each group. </p>
+<p><img src="../uploads/Main/UnityAnalyticsABTesting3.png" alt="Variants section"></p>
+<p>A <strong>Control</strong> group always exists. The control group should receive the current or default experience in your game. This group provides the basis to which the results of the other groups can be compared.</p>
+<p>To add an additional variant, click the <strong>ADD</strong> button at the top of the section. Assign a name and an allocation percentage for the group. The allocation percentages for all groups must add up to 100%. The <strong>Estimate</strong> column displays the number of players expected to be allocated to each variant per day.</p>
+<p>To delete a variant, click the trash can icon next to its name. </p>
+<p>The estimated time to complete the experiment is based on the on how long it should take to achieve a statistically valid number of samples. The more players (DAU) your application typically has and the larger the allocation of players to the experimental variants, the shorter the estimated time will be. </p>
+<p>Click <strong>Save</strong> when your variants are set up as desired.</p>
+<h2 id="set-up-the-experiment-treatments">Set up the experiment treatments</h2>
+<p>Use the <strong>Treatments</strong> section to define the settings used in the experiment and assign the individual setting values for each group.</p>
+<p><img src="../uploads/Main/UnityAnalyticsABTesting4.png" alt="Treatments section"></p>
+<p>Click the <strong>ADD</strong> button to add a setting to the experiment. </p>
+<p>You can use existing Remote Settings from the Release configuration as long as the settings are not used in any other active experiments. Note that the Remote Settings page only displays the default value used for the control group. The variant settings can only be viewed or changed on the A/B Testing page.</p>
+<p>You can create new settings without going to the Remote Settings page. Settings created in A/B Testing are not shown on the Remote Settings page. If you want to continue using a setting after the experiment is finished, you can create a Remote Setting with the same name.</p>
+<p>Click <strong>Save</strong> when your treatments are defined.  </p>
+<h2 id="implementing-your-treatments">Implementing your treatments</h2>
+<p>Use the <a href="UnityAnalyticsRemoteSettingsUsing.html">Remote Settings API</a> to access the values defined in your experiment at runtime. Use the setting name shown in the Treatments section as the key when accessing the setting in your game. You can implement Remote Settings in <a href="UnityAnalyticsRemoteSettingsScripting.html">code</a> or use the <a href="UnityAnalyticsRemoteSettingsComponent.html">Remote Settings component</a> to access and apply the settings values in the Unity Inspector window. </p>
+<h1 id="managing-experiments">Managing experiments</h1>
+<p>After you create at least one experiment, the A/B Testing page displays your experiments in a list.</p>
+<p><img src="../uploads/Main/UnityAnalyticsABTesting5.png" alt="Experiment queue"></p>
+<p><strong>To start an experiment:</strong></p>
+<ol>
+<li><p>Click the name of an experiment in the <strong>Not Started</strong> status.</p>
+</li>
+<li><p>Click the <strong>Start Experiment</strong> button.</p>
+</li>
+</ol>
+<p>__Note: __After an experiment has started, you can no longer make changes, since that would invalidate the test results.</p>
+<p><strong>To stop an experiment:</strong></p>
+<ol>
+<li><p>Click the name of an experiment in the <strong>Running</strong> status.</p>
+</li>
+<li><p>Click the <strong>Stop Experiment</strong> button.</p>
+</li>
+</ol>
+<p><strong>Note:</strong> You cannot restart an experiment.</p>
+<p><strong>To view a report:</strong></p>
+<ol>
+<li><p>Click the name of an experiment in the <strong>Ended</strong> status.</p>
+</li>
+<li><p>The Reporting section displays the experiment results.</p>
+</li>
+</ol>
+<p><a name="reports"></a></p>
+<h1 id="reports">Reports</h1>
+<p>Use the Reports section to review the results of an experiment once it has finished.</p>
+<p><img src="../uploads/Main/UnityAnalyticsABTesting6.png" alt="Reports section"></p>
+<p>The report lists the variant groups, the metrics recorded for the experiment goal, and how each variant compared to the control group. (The significance rating uses the standard statistical significance level of 5%.)</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

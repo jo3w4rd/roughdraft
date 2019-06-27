@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Global Illumination UVs | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Global Illumination UVs | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="global-illumination-uvs">Global Illumination UVs</h1>
+
+<p>There are two sets of GI lightmaps: <strong>Baked</strong> and <strong>Realtime</strong>. How you define which set to use depends on whether you’re working with environment lighting or specific lights:</p>
+<ul>
+<li><p><a href="GlobalIllumination.html">Global illumination</a> (environment lighting) can be set to <strong>Realtime</strong> or <strong>Baked</strong>. Go to <strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Lighting Settings</strong> and choose an option from the <strong>Ambient GI</strong> drop-down menu.</p>
+</li>
+<li><p><a href="class-Light.html">Lights</a> can be set to <strong>Realtime</strong>, <strong>Baked</strong> or <strong>Mixed</strong>. Go to the Inspector window and choose an option from the __Baking __drop-down menu.</p>
+</li>
+<li><p>Materials have emission controls that can be set to <strong>Realtime</strong> or <strong>Baked</strong>. See documentation on <a href="StandardShaderMaterialParameterEmission.html">Standard Shader Material parameter emissions</a> to learn more.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Lightmap</strong></th>
+<th style="text-align:left"><strong>Properties</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Baked</strong></td>
+<td style="text-align:left">Baked lightmaps are mainly useful for lights which do not change at all during run time (for example, a lit streetlamp), and are therefore stored as a static rendering in the lightmap. Features include direct lighting, indirect lighting, and ambient occlusion.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Realtime</strong></td>
+<td style="text-align:left">Real-time lightmaps are mainly useful for lights that are animated during runtime (for example, a flickering street lamp), and therefore need to be rendered in real time. Features include indirect lighting only, and typically low resolution. Direct light is not in the lightmap, but is rendered in real time.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Mixed</strong></td>
+<td style="text-align:left">When you set a light to Mixed mode, it contributes to the baked lightmaps, and also gives direct real-time lighting to non-static objects.</td>
+</tr>
+</tbody>
+</table>
+<p>You can use either one or both of these lightmap sets to light your Scenes. Your choice determines which lightmaps the light contributions and resulting GI is added to.</p>
+<h2 id="visualising-your-uvs">Visualising your UVs</h2>
+<p>It is important to be able to view the UVs that are being used, and Unity has a visualization tool to help you with this. First, open the Lighting window (menu: <strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Lighting Settings</strong>) and tick the <strong>Auto</strong> checkbox at the bottom. This ensures that your bake and precompute are up-to-date, and outputs the data that is needed to view the UVs. Wait for the process to finish (this can take some time for large or complex Scenes).</p>
+<h3 id="visualising-real-time-uvs">Visualising real-time UVs</h3>
+<p>To see the precomputed real-time GI UVs:</p>
+<ul>
+<li>Select a GameObject with a Mesh Renderer in your Scene</li>
+<li>Open the Lighting window and select the <strong>Object</strong> tab</li>
+<li>In the <strong>Preview</strong> area, select <strong>Charting</strong> from the drop-down.
+<img src="../uploads/Main/LightingGiUvs-0.jpg" alt=""></li>
+</ul>
+<p>This displays the UV layout for the real-time lightmap of the selected instance of this Mesh. </p>
+<ul>
+<li>The charts are indicated by the different colored areas in the Preview (show in the image above on the right-hand side). </li>
+<li>The UVs of the selected instance are laid over the charts, as a wireframe representation of the GameObject’s Mesh. </li>
+<li>Dark gray texels show unused areas of the lightmap. </li>
+</ul>
+<p>Multiple instances can be packed into a real-time lightmap, so some of the charts you see might actually belong to other GameObjects.</p>
+<p><strong>NOTE:</strong> There is no direct correspondence in the grouping of instances between real-time and baked lightmaps. Two instances in the same real-time lightmap may also be in two different baked lightmaps, and vice versa.</p>
+<h3 id="visualising-baked-uvs">Visualising baked UVs</h3>
+<p>To see the baked UVs:</p>
+<ul>
+<li>Select an instance.</li>
+<li>Open the Lighting window (menu: <strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Lighting Settings</strong>) and select the __Object __tab.</li>
+<li>In the <strong>Preview</strong> area, select <strong>Baked Intensity</strong> from the dropdown.</li>
+</ul>
+<p><img src="../uploads/Main/LightingGiUvs-1.jpg" alt=""></p>
+<p>As you can see, the baked UVs are very different to the precomputed real-time UVs. This is because the requirements for baked and precomputed real-time UVs are different.</p>
+<h2 id="real-time-uvs">Real-time UVs</h2>
+<p>It is important to note that you can never get the same UVs for precomputed real-time GI as for baked GI, even if you tick <strong>Preserve UVs</strong>.</p>
+<p>If you could, you would see heavy aliasing (such as light or dark edges) in unexpected places. This is because the resolution of real-time lightmaps is intentionally low, so that it is feasible to update them in real time. This doesn’t affect the graphical quality, because it only stores indirect lighting, which is generally low frequency (meaning it does not usually have sudden changes in intensity or detailed patterns). The direct light and shadows are rendered separately using the standard real-time lighting and shadowmaps. Direct light is generally higher frequency (meaning it is more likely to have sudden changes in intensity or detailed patterns, such as sharp edges to shadows) and therefore requires higher resolution lightmaps to capture this information.</p>
+<p>Low resolution lightmaps can create bleeding issues, caused when charts share texels. This has a detrimental effect on the quality of the lighting, but is solved by repacking the UV charts to ensure a half-pixel boundary around them. This way you are never sampling <em>across</em> charts (at the most detailed mip), even with bilinear interpolation. The other benefit of charts with a guaranteed half-pixel boundary is that you can place charts right next to each other, saving lightmap space.</p>
+<p><img src="../uploads/Main/LightingGiUvs-2.png" alt=""></p>
+<p>In summary, UVs used for precomputed realtime GI lightmaps are always repacked.</p>
+<p>Because repacking guarantees a half-pixel boundary around the charts, the UVs are dependent on the scale and lightmap resolution of the instance. If you scale up the UVs to get a higher resolution lightmap, you are no longer guaranteed this half-pixel boundary. The UVs are packed individually, with the scale and resolution of the instance taken into account. The real-time UVs are therefore <em>per instance</em>. Note that if you have 1000 objects with the same scale and resolution, they share the UVs.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

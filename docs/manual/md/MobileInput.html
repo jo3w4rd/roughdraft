@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Mobile Device Input | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Mobile Device Input | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="mobile-device-input">Mobile Device Input</h1>
+
+<p>On mobile devices, the <a href="ScriptRef:Input.html">Input</a> class offers access to touchscreen, accelerometer and geographical/location input. </p>
+<p>Access to keyboard on mobile devices is provided via the <a href="MobileKeyboard.html">iOS keyboard</a>.</p>
+<h3 id="multi-touch-screen">Multi-Touch Screen</h3>
+<p>The iPhone and iPod Touch devices are capable of tracking up to five fingers touching the screen simultaneously. You can retrieve the status of each finger touching the screen during the last frame by accessing the <a href="ScriptRef:Input-touches.html">Input.touches</a> property array.</p>
+<p>Android devices don&#39;t have a unified limit on how many fingers they track. Instead, it varies from device to device and can be anything from two-touch on older devices to five fingers on some newer devices.</p>
+<p>Each finger touch is represented by an <a href="ScriptRef:Touch.html">Input.Touch</a> data structure:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>fingerId</strong></td>
+<td style="text-align:left">The unique index for a touch.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>position</strong></td>
+<td style="text-align:left">The screen position of the touch.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>deltaPosition</strong></td>
+<td style="text-align:left">The screen position change since the last frame.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>deltaTime</strong></td>
+<td style="text-align:left">Amount of time that has passed since the last state change.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>tapCount</strong></td>
+<td style="text-align:left">The iPhone/iPad screen is able to distinguish quick finger taps by the user. This counter will let you know how many times the user has tapped the screen without moving a finger to the sides. Android devices do not count number of taps, this field is always 1.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>phase</strong></td>
+<td style="text-align:left">Describes so called &quot;phase&quot; or the state of the touch. It can help you determine if the touch just began, if user moved the finger or if they just lifted the finger.</td>
+</tr>
+</tbody>
+</table>
+<p>Phase can be one of the following:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Began</strong></td>
+<td style="text-align:left">A finger just touched the screen.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Moved</strong></td>
+<td style="text-align:left">A finger moved on the screen.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Stationary</strong></td>
+<td style="text-align:left">A finger is touching the screen but hasn&#39;t moved since the last frame.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ended</strong></td>
+<td style="text-align:left">A finger was lifted from the screen. This is the final phase of a touch.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Canceled</strong></td>
+<td style="text-align:left">The system cancelled tracking for the touch, as when (for example) the user puts the device to their face or more than five touches happened simultaneously. This is the final phase of a touch.</td>
+</tr>
+</tbody>
+</table>
+<p>Following is an example script which will shoot a ray whenever the user taps on the screen:</p>
+<pre><code>var particle : GameObject;
+function Update () {
+    for (var touch : Touch in Input.touches) {
+        if (touch.phase == TouchPhase.Began) {
+            // Construct a ray from the current touch coordinates
+            var ray = Camera.main.ScreenPointToRay (touch.position);
+            if (Physics.Raycast (ray)) {
+                // Create a particle if hit
+                Instantiate (particle, transform.position, transform.rotation);
+            }
+        }
+    }
+}
+
+</code></pre><h3 id="mouse-simulation">Mouse Simulation</h3>
+<p>On top of native touch support Unity iOS/Android provides a mouse simulation. You can use mouse functionality from the standard <a href="ScriptRef:Input.html">Input</a> class. Note that iOS/Android devices are designed to support multiple finger touch.  Using the mouse functionality will support just a single finger touch.  Also, finger touch on mobile devices can move from one area to another with no movement between them.  Mouse simulation on mobile devices will provide movement, so is very different compared to touch input.  The recommendation is to use the mouse simulation during early development but to use touch input as soon as possible.</p>
+<h3 id="accelerometer">Accelerometer</h3>
+<p>As the mobile device moves, a built-in accelerometer reports linear acceleration
+changes along the three primary axes in three-dimensional space. Acceleration
+along each axis is reported directly by the hardware as G-force values. A value
+of 1.0 represents a load of about +1g along a given axis while a value of -1.0
+represents -1g. If you hold the device upright (with the home button at the
+bottom) in front of you, the X axis is positive along the right, the Y axis is
+positive directly up, and the Z axis is positive pointing toward you.</p>
+<p>You can retrieve the accelerometer value by accessing the <a href="ScriptRef:Input-acceleration.html">Input.acceleration</a> property.</p>
+<p>The following is an example script which will move an object using the accelerometer:</p>
+<pre><code>var speed = 10.0;
+function Update () {
+    var dir : Vector3 = Vector3.zero;
+
+    // we assume that the device is held parallel to the ground
+    // and the Home button is in the right hand
+
+    // remap the device acceleration axis to game coordinates:
+    // 1) XY plane of the device is mapped onto XZ plane
+    // 2) rotated 90 degrees around Y axis
+    dir.x = -Input.acceleration.y;
+    dir.z = Input.acceleration.x;
+
+    // clamp acceleration vector to the unit sphere
+    if (dir.sqrMagnitude &gt; 1)
+        dir.Normalize();
+
+    // Make it move 10 meters per second instead of 10 meters per frame...
+    dir *= Time.deltaTime;
+
+    // Move object
+    transform.Translate (dir * speed);
+}
+
+</code></pre><h3 id="low-pass-filter">Low-Pass Filter</h3>
+<p>Accelerometer readings can be jerky and noisy. Applying low-pass filtering on the signal allows you to smooth it and get rid of high frequency noise.</p>
+<p>The following script shows you how to apply low-pass filtering to accelerometer readings:</p>
+<pre><code>var AccelerometerUpdateInterval : float = 1.0 / 60.0;
+var LowPassKernelWidthInSeconds : float = 1.0;
+
+private var LowPassFilterFactor : float = AccelerometerUpdateInterval / LowPassKernelWidthInSeconds; // tweakable
+private var lowPassValue : Vector3 = Vector3.zero;
+function Start () {
+    lowPassValue = Input.acceleration;
+}
+
+function LowPassFilterAccelerometer() : Vector3 {
+    lowPassValue = Vector3.Lerp(lowPassValue, Input.acceleration, LowPassFilterFactor);
+    return lowPassValue;
+}
+
+</code></pre><p>The greater the value of <code>LowPassKernelWidthInSeconds</code>, the slower the filtered value will converge towards the current input sample (and vice versa).</p>
+<h3 id="id-like-as-much-precision-as-possible-when-reading-the-accelerometer-what-should-i-do">I&#39;d like as much precision as possible when reading the accelerometer. What should I do?</h3>
+<p>Reading the <a href="ScriptRef:Input-acceleration.html">Input.acceleration</a> variable does not equal sampling the hardware. Put simply, Unity samples the hardware at a frequency of 60Hz and stores the result into the variable. In reality, things are a little bit more complicated -- accelerometer sampling doesn&#39;t occur at consistent time intervals, if under significant CPU loads. As a result, the system might report 2 samples during one frame, then 1 sample during the next frame.</p>
+<p>You can access all measurements executed by accelerometer during the frame. The following code will illustrate a simple average of all the accelerometer events that were collected within the last frame:</p>
+<pre><code>var period : float = 0.0;
+var acc : Vector3 = Vector3.zero;
+for (var evnt : iPhoneAccelerationEvent in iPhoneInput.accelerationEvents) {
+    acc += evnt.acceleration * evnt.deltaTime;
+    period += evnt.deltaTime;
+}
+if (period &gt; 0)
+    acc *= 1.0/period;
+return acc;
+
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

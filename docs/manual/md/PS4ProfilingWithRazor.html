@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Razor: CPU Profiling | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Razor: CPU Profiling | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="razor-cpu-profiling">Razor: CPU Profiling</h1>
+
+<h2 id="introduction">Introduction</h2>
+<p><strong>Razor for PS4</strong> is a profiling tool that is part of the PS4 SDK. It exists in two forms: <strong>Razor CPU</strong> for overview and CPU-related profiling, and <strong>Razor GPU</strong> for detailed GPU profiling. These tools are invaluable for investigating performance issues. This document covers <strong>Razor CPU</strong>.</p>
+<p>On a PS4 SDK installation with default paths, Razor is located at:</p>
+<ul>
+<li><strong>Razor CPU</strong>: <em>C:\Program Files (x86)\SCE\ORBIS\Tools\Razor\binx64\orbis-razorx64.exe</em></li>
+<li><strong>Razor GPU</strong>: <em>C:\Program Files (x86)\SCE\ORBIS\Tools\New Razor GPU\bin\PS4RazorGPU.exe</em></li>
+</ul>
+<p>While the <a href="https://docs.unity3d.com/Manual/Profiler.html">Unity Profiler</a> can be used to see where time is being spent and investigate performance, framerate and glitch issues, Razor provides more detailed information that helps when improving performance.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Razor is used for two main activities: finding general framerate problems, and finding specific short-lived spikes or glitches.</p>
+<p>For general framerate investigations, the first step is to use <strong>Razor CPU</strong> to establish whether your game is CPU-bound or GPU-bound. The difference is as follows:</p>
+<ul>
+<li><p><strong>CPU-bound</strong>: Framerate is being dictated by the work done on the CPU. This could be script work in fixed, general or late update, or the CPU side costs of animation, draw calls and physics work. Note in particular that a title *can *be CPU-bound on rendering work (draw calls in particular). This is where Razor can provide more detail: just because the Unity profiler suggests a high load in rendering, it may not mean the title is actually GPU-bound.</p>
+</li>
+<li><p><strong>GPU-bound</strong>: Framerate is being dictated by the workload on the GPU. This could be Shader cost, Image Effects, or complex geometry (very large numbers of polygons).</p>
+</li>
+</ul>
+<p>If your game is CPU-bound, then altering Shaders, reducing poly counts, Textures and using cheaper Image Effects has no effect on your framerate. Likewise, optimising script code doesn&#39;t make any difference when your game is GPU-bound. It is therefore very important that you establish where to start with your optimizations. It is also sometimes useful to know where you have opportunity. For example, if your title is running at an acceptable framerate but CPU activity far exceeds GPU activity, then you might consider adding GPU work (such as Image Effects) without any impact on the frame rate.</p>
+<p>Razor offers a number of different types of profiling captures, and the SDK documentation describes these in great detail. The most basic capture, and the best one to start with, is the <strong>Concurrency Capture</strong>, which shows core usage and thread activity. Razor&#39;s <strong>Timeline</strong> view also allows you to see the standard Unity profiling markers in this type of capture; however, you can only see these in a Development build.</p>
+<p>To grab a Razor <strong>Concurrency Capture</strong>, run a Development build of your game on the devkit and launch <strong>Razor CPU</strong>. Go to <strong>Capture</strong> &gt; <strong>CPU Trace With Options</strong> and select <strong>Concurrency Capture,</strong> with all other options left at default. Press <strong>Capture</strong> to start. Press <strong>Stop</strong> after you have sampled what you&#39;re interested in. Razor will then process the data and show you the information.</p>
+<p>The initial <strong>Summary</strong> page shows a Hardware Utilization graphic. This is the best way to quickly establish whether your title is CPU- or GPU-bound. Here is an example:</p>
+<p><img src="../uploads/Main/PS4ProfilingWithRazor1.png" alt=""> </p>
+<p>The leftmost column is the GPU workload - here it is at 24% of the total frame time averaged over the highlighted area of capture. The bars to the right of the vertical line 0-7 are the CPU cores; blue shading indicates user work, and orange indicates OS work. In this case, the title is CPU-bound on <strong>Core 0</strong>, which is the Unity Main Thread. Doing a lot more GPU work would not affect the frame rate. Conversely, to improve the frame rate, it is necessary to focus on the CPU workload on the main thread (Core 0) - script code, for example, runs on this core.</p>
+<p>Unity’s CPU core usage looks like this:</p>
+<ul>
+<li><p><strong>Core 0</strong> (Main Thread): scripts, scheduling jobs.</p>
+</li>
+<li><p><strong>Core 1</strong> (Render Thread): takes Unity draw commands and issues native GPU instructions. Note that Unity does not use a render thread when Native Graphics Jobs are enabled in <a href="PS4PlayerSettings.html">Player</a> settings.</p>
+</li>
+<li><p><strong>Cores 2-6</strong>: all other threads, including jobs, FMOD and mono threads. Note that core 6 is shared with the OS, hence the blue and orange shaded areas in the picture above.</p>
+</li>
+</ul>
+<p>Here&#39;s a capture showing a GPU-bound situation:</p>
+<p><img src="../uploads/Main/PS4ProfilingWithRazor2.png" alt=""></p>
+<p>The frame rate is being governed by GPU activity. Optimizing script code, for example, has no effect on frame rate. <strong>Razor GPU</strong> can then be used to get more information. To reiterate, once you know whether your frame rate is down to CPU or GPU workload, you can make decisions about where to spend time optimizing.</p>
+<h2 id="glitches-and-spikes">Glitches and spikes</h2>
+<p>A <strong>Concurrency Capture</strong> can also be used for finding the cause of short term spikes or glitches. Perform a capture as above and look at the <strong>Frame Summary</strong> section, at the summary page. Here is an example:</p>
+<p><img src="../uploads/Main/PS4ProfilingWithRazor3.png" alt=""></p>
+<p>Here you can see that the capture caught 30 frames and while most were in the 30 something ms range, two frames were much slower taking over 200ms. These were frames 23 and 18. On the table on the right, click on the frame you&#39;re interested in to jump to the Timeline view and show what was going on during that frame. </p>
+<h2 id="timeline-view">Timeline view</h2>
+<p>You can switch Razor into a <strong>Timeline</strong> view where all captured frames are available and the Unity profiler markers can be seen (in a development build). Be sure to try this out when learning to use Razor to investigate performance. It is selectable in the <strong>Current View</strong> drop down box. </p>
+<p>For spikes, use the <strong>Timeline</strong> to see where exceptional time is spent and investigate issues. There should be some stand-out remarkable difference between slow frames and the regular ones. Use that information to improve the spikes.</p>
+<p>Here is an example of a spike in Main Thread in the <strong>Timeline</strong> view, in a Development build:</p>
+<p><img src="../uploads/Main/PS4ProfilingWithRazor4.png" alt=""></p>
+<p>The view is zoomed to show data for two frames: frame #313 at left, and frame #314 at right. At the top of the view, over the green background, you can see that frame #313 had a duration of 6.422ms, which is an average frame for this example project. However frame #314 is a spike frame with a duration of just over 16ms.</p>
+<p>Below it, there is an area showing usage of each CPU core over time, represented with blue bars. You can see CPU 0 is almost always fully utilized, suggesting that something running on Unity&#39;s main thread produced the spike.</p>
+<p>Further down, you can see the profiler markers, shown as purple bars. It’s often the case that you can find the cause of a spike by comparing the length of those bars, one frame against the other. In this example, the bar lengths are very similar, except for the one labeled &quot;Update My World&quot;, which at the same time makes its parent markers, &quot;BehaviourUpdate&quot; and &quot;MainLoop&quot;, much longer. This allows you to conclude that code inside the &quot;Update My World&quot; marker is causing the spike. This marker is in fact a user marker added in script code (using <a href="https://docs.unity3d.com/ScriptReference/Profiler.BeginSample.html">Profiler.BeginSample</a>) inside a Update call in a script, which is why it’s inside Unity’s &quot;BehaviourUpdate&quot; marker. Using User Markers is a good way to investigate where time is being spent in your scripts.</p>
+<h2 id="summary">Summary</h2>
+<ul>
+<li><p>Use <strong>Razor CPU</strong> to get an overview and establish whether your game is CPU or GPU-bound</p>
+</li>
+<li><p>Use <strong>Razor CPU</strong> to investigate glitches and spikes</p>
+</li>
+<li><p>Razor is best used on a development build where Unity profile markers will be visible in the Timeline view.</p>
+</li>
+<li><p>A non-development build is slightly faster, so for the most accurate general framerate assessment, use a non-development build for final testing. Note that even here, there is a slight overhead in using Razor.</p>
+</li>
+<li><p>If you create your own threads, particularly native threads, <strong>Razor CPU</strong> allows you to investigate possible conflicts with Unity runtime activity including seeing affinity, priority and core assignment for all threads in the timeline view.</p>
+</li>
+<li><p>Profile often throughout development so you keep on top of performance.</p>
+</li>
+</ul>
+<p>To get the most from Razor it is essential to use the SDK documentation. While a quick overview can be obtained from the information above, <strong>Razor CPU</strong> and <strong>Razor GPU</strong> are very powerful tools with a lot of options. The more time spent learning those options, the better informed you will be about your game’s performance. Find more information in the <a href="https://ps4.scedev.net/resources/documents/SDK/latest/Razor_CPU-Users_Guide/__document_toc.html">Razor CPU User&#39;s Guide</a> and the <a href="https://ps4.scedev.net/resources/documents/SDK/latest/Razor_GPU-Users_Guide/__document_toc.html">Razor GPU User&#39;s Guide</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

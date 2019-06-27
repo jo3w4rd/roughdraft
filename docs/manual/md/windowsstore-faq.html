@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>FAQ | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="FAQ | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="faq">FAQ</h1>
+
+<h3 id="how-to-create-appx-package-from-visual-studio-">How to create AppX package from Visual Studio ?</h3>
+<ul>
+<li>After building the project from Unity Editor open it with Visual Studio</li>
+<li>In the solution explorer, right click on the project</li>
+<li><strong>Store</strong> -&gt; <strong>Create App Packages</strong></li>
+<li>Do you want to build packages to upload to the Windows Store? Choose No, then Next</li>
+<li>Pick appropriate platform, for ex., ARM Release</li>
+<li>Don&#39;t include public symbol files, this will make package smaller</li>
+<li>Create</li>
+<li>Locate folder which is named something like YourApp_1.0.0.0_ARM_Test, check that it has <strong>Add-AppDevPackage.ps1</strong> file</li>
+<li>Copy the folder contents to the target machine, then on the target machine right click on <strong>Add-AppDevPackage.ps1</strong> -&gt; <strong>Run with PowerShell</strong></li>
+<li>Follow the steps, you might need an internet connection to install Developper License, this will require for you to have Microsoft account</li>
+<li>If everything is okay, your app should appear on the start menu</li>
+</ul>
+<h3 id="how-to-install-an-appx-file-on-your-machine">How to install an appx file on your machine?</h3>
+<ul>
+<li>Open <strong>Windows PowerShell</strong> from start menu, navigate to your appx file, execute <strong>Add-AppxPackage &lt;yourappx&gt;.appx</strong>, if the appx was signed, it will be installed on your machine. <strong>Note:</strong> if you&#39;re installing appx file again, you have to uninstall the previous one, simply right-click on the icon, and click Uninstall.</li>
+</ul>
+<h3 id="i-am-getting-an-error-dep0600-incorrect-parameter-while-deploying-an-application">I am getting an error &quot;DEP0600: incorrect parameter&quot; while deploying an application.</h3>
+<ul>
+<li>Something is wrong with your certificate, try creating a new by clicking on <strong>Package.appxmanifest</strong> -&gt; <strong>Packaging</strong> -&gt; <strong>Choose Certificate</strong> -&gt; <strong>Configure Certificate</strong> -&gt; <strong>Create Test Certificate</strong></li>
+</ul>
+<h3 id="how-to-use-visual-studios-graphical-debugger-on-arm">How to use Visual Studio&#39;s graphical debugger on ARM?</h3>
+<ul>
+<li>Read this post <a href="http://msdn.microsoft.com/en-us/library/hh780905(v=vs.110).aspx">http://msdn.microsoft.com/en-us/library/hh780905(v=vs.110).aspx</a> . You will need to create a WinRT component, and reference it from main module.</li>
+</ul>
+<h3 id="how-to-deploy-a-project-on-a-tablet-pc">How to deploy a project on a tablet PC?</h3>
+<ul>
+<li>See <a href="windowsstore-deployment.html">Deployment</a>.</li>
+</ul>
+<h3 id="getting-more-information-about-windows-app-certification-kit-wack-failure">Getting more information about Windows App Certification Kit (WACK) failure?</h3>
+<p>You can find a log in &lt;<code>user&amp;gt;\AppData\Local\Microsoft\AppCertKit</code> which might contain additional information about the failure.</p>
+<h3 id="help-theres-too-many-defines-which-are-defined-when">Help! There&#39;s too many defines! Which are defined when?</h3>
+<p>No worries. Here&#39;s all of them:</p>
+<p>|:---|:---|
+|<strong>UNITY_WINRT</strong>|Defined on all scripts|
+|<strong>UNITY_WSA</strong>|Defined on all scripts|
+|<strong>UNITY_WINRT_10_0</strong>|Defined on all scripts|
+|<strong>UNITY_WSA_10_0</strong>|Defined on all scripts|
+|<strong>ENABLE_IL2CPP</strong>|Defined on all scripts when using IL2CPP scripting backend|
+|<strong>NETFX_CORE</strong>|Defined on C# scripts that are compiled using Microsoft C# compiler when using .NET scripting backend|
+|<strong>WINDOWS_UWP</strong>|Defined on C# scripts when using .NET 4.6 or .NET Standard 2.0 compatibility level|
+|<strong>ENABLE_WINMD_SUPPORT</strong>|Defined on C# scripts when using .NET 4.6 or .NET Standard 2.0 compatibility level|</p>
+<p>See also <a href="PlatformDependentCompilation.html">platform dependent compilation</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

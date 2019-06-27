@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>The Network Manager HUD in LAN mode | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The Network Manager HUD in LAN mode | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="the-network-manager-hud-in-lan-mode">The Network Manager HUD in LAN mode</h1>
+
+<p><img src="../uploads/Main/NetworkManagerHUDLANMode.png" alt="The Network Manager HUD in LAN mode (the default mode) as seen in the Game view."></p>
+<h3 id="lan-host">LAN Host</h3>
+<p>Click the <strong>LAN Host</strong> button to start a game as a host on the local network. This client is both the host <em>and *one of the players in the game. It uses the information from the **Network Info</em>* section in the inspector to host the game. </p>
+<p>When you click this button, the HUD switches to a simple display of network details, and a <strong>Stop (X)</strong> button which allows you to stop hosting the game and return to the main LAN menu.</p>
+<p><img src="../uploads/Main/NetworkManagerHUDHostingLAN.png" alt="The Network Manager HUD when hosting a LAN game."></p>
+<p>When you have started a game as a host, other players of the game can then connect to the host to join the game. </p>
+<p>Click the <strong>Stop (X)</strong> button to disconnect any players that are connected to the host player. Clicking <strong>Stop (X)</strong> also returns the HUD to the LAN menu.</p>
+<h3 id="lan-client">LAN Client</h3>
+<p>To connect to a host on the local network, use the text field to the right of the <strong>LAN Client</strong> button to specify the address of the host. The default host address is &quot;localhost&quot;, which means the client looks on its own computer for the game host. Click <strong>LAN Client ****(C)</strong> to attempt to connect to the host address you have specified.</p>
+<p>Use the default “localhost” in this field if you are running multiple instances of your game on one computer, to test multiplayer interactivity. To do this, you can create a standalone build of your game, and then launch it multiple times on your computer. This is a common way to quickly test that your networked game interactions are functioning as you expect, without you needing to deploy your game to multiple computers or devices.</p>
+<p><img src="../uploads/Main/NetworkGame3Instances.jpg" alt="An example of three instances of a networked game running on the same desktop PC. This is useful for quick tests to ensure networked interactions are behaving as you intended. One is running as LAN Host, and two are running as LAN Client."></p>
+<p>When you want to test your game on multiple machines within the same network (that is, on a LAN), you need to put the address of the person acting as host into the &quot;localhost<strong>&quot;</strong> text field.</p>
+<p>The person acting as the host needs to tell their IP address to everyone running LAN clients, so that you can type this into the box.</p>
+<p>Enter the IP address (or leave it as &quot;localhost&quot; if you are testing it on your own machine), then click <strong>LAN Client</strong> to attempt to connect to the host.</p>
+<p>When the client is attempting to connect, the HUD displays a <strong>Cancel Connection Attempt</strong> button. Click this if you want to stop trying to connect to the host.
+<img src="../uploads/Main/NetworkManagerHUDConnectionAttempt.png" alt="The HUD while attempting a connection"></p>
+<p>If the connection is successful, the HUD displays the <strong>Stop (X) button</strong>. Click this if you want to stop the game on the client and disconnect from the host:</p>
+<p><img src="../uploads/Main/NetworkManagerHUDConnected.png" alt="The HUD after a successful connection"></p>
+<p>Unity has a built-in Network Discovery system, which allows clients to automatically find hosts on the same local network. However, this is not built into the Network Manager HUD, so you need to enter the address manually. You can integrate the Network Discovery system into your game when you replace the Network Manager HUD with your own UI. See documentation on <a href="UNetDiscovery.html">Network Discovery</a> to learn more.</p>
+<h3 id="lan-server-only">LAN Server Only</h3>
+<p>Click <strong>LAN Server Only</strong> to start a game which acts as a server that other clients can connect to, but which does not act as a client to the game itself. This type of game is often called a &quot;dedicated server&quot;. A user cannot play the game on this particular instance of your game. All players must connect as clients, and nobody plays on the instance that is running as the server.</p>
+<p>A dedicated server on a LAN results in better performance for all connected players, because the server doesn’t need to process a local player’s gameplay in addition to acting as server.</p>
+<p>You might also choose this option if you want to host a game that can be played over the internet (rather than just within a local network), but want to maintain control of the server yourself - for example, to prevent cheating by one of the clients, because only the server has authority over the game. To do this, you would need to run the game in <strong>Server Only</strong> mode on a computer with a public IP address.</p>
+<h3 id="enable-match-maker">Enable Match Maker</h3>
+<p>Click <strong>Enable Match Maker (M)</strong> to change the HUD to Matchmaker mode. You need to use Matchmaker mode if you want to create or connect to games hosted on the internet using Unity’s Matchmaker multiplayer service. Click <strong>Enable Match Maker (M)</strong> to display the Matchmaker controls in the Network Manager HUD.</p>
+<p><strong>Note</strong>: Remember that the Network Manager HUD feature is a temporary aid to development. It allows you to get your multiplayer game running quickly, but you should replace it with your own UI controls when you are ready.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Profiling | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Profiling | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="profiling">Profiling</h1>
+
+<h2 id="first-steps">First steps</h2>
+<p>Unity relies on the CPU (heavily optimized for the SIMD part of it, like SSE on x86 or NEON on ARM) for skinning, batching, physics, user scripts, particles, etc. </p>
+<p>The GPU is used for shaders, drawcalls, image effects.</p>
+<h3 id="cpu-or-gpu-bound">CPU or GPU bound</h3>
+<ul>
+<li>Use the internal profiler to detect the CPU and GPU ms</li>
+</ul>
+<h3 id="pareto-analysis">Pareto analysis</h3>
+<p>A large majority of problems (80%) are produced by a few key causes (20%). You can use the Editor profiler to identify the most processor-intensive function calls and optimize them first. Often, optimizing a few key functions can give a significant increase in overall execution speed.</p>
+<p>You should make sure that functions are only executed when really necessary. For example, you can use events like <em>OnBecameVisible</em> and <em>OnBecameInvisible</em> to detect when an object can&#39;t be seen and avoid updating it. Coroutines can be a useful way to call code that needs regular updates but doesn&#39;t need to run every frame:-</p>
+<pre><code>// Do some stuff every frame:
+void Update () {
+}
+
+//Do some stuff every 0.2 seconds:
+IEnumerator SlowUpdate () {
+   while (true) {
+      //do something
+      yield return new WaitForSeconds (0.2f);
+   }
+}
+
+</code></pre><p>You can use the .NET <em>System.Threading.Thread</em> class to run heavy calculations on a separate thread. This allows you to run on multiple cores but note that the Unity API is not thread-safe - you need to buffer inputs and results and read and assign them on the main thread in order to use Unity API calls.</p>
+<h2 id="cpu-profiling">CPU Profiling</h2>
+<h3 id="profile-user-code">Profile user code</h3>
+<p>Not all of the user code is shown in the Profiler. But you can use <em>Profiler.BeginSample</em> and <em>Profiler.EndSample</em> to make the required user code appear in the profiler.</p>
+<h2 id="gpu-profiling">GPU Profiling</h2>
+<p>The Unity Editor profiler cannot show GPU data as of now. We&#39;re working with hardware manufacturers to make it happen with the Tegra devices being the first to appear in the Editor profiler.</p>
+<h3 id="tools-for-ios">Tools for iOS</h3>
+<ul>
+<li>Unity internal profiler (not the Editor profiler). This shows the GPU time for the whole scene.</li>
+<li>PowerVR PVRUniSCo shader analyzer. See below.</li>
+<li>iOS: Xcode OpenGL ES Driver Instruments can show only high-level info:<ul>
+<li>&quot;Device Utilization %&quot; - GPU time spent on rendering in total. &gt;95% means the app is GPU bound.</li>
+<li>&quot;Renderer Utilization %&quot; - GPU time spent drawing pixels.</li>
+<li>&quot;Tiler Utilization %&quot; - GPU time spent processing vertices.</li>
+<li>&quot;Split count&quot; - the number of frame splits, where the vertex data didn&#39;t fit into allocated buffers.</li>
+</ul>
+</li>
+</ul>
+<p>PowerVR is tile based deferred renderer, so it&#39;s impossible to get GPU timings per draw call. However you can get GPU times for the whole scene using Unity&#39;s built-in profiler (the one that prints results to Xcode output). Apple&#39;s tools currently can only tell you how busy the GPU and its parts are, but do not give times in milliseconds.</p>
+<p>PVRUniSCo gives cycles for the whole shader, and approximate cycles for each line in the 
+shader code. Windows &amp; Mac! But it won&#39;t match what Apple&#39;s drivers are doing exactly anyway. Still, a good ballpark measure. </p>
+<h3 id="tools-for-android">Tools for Android</h3>
+<ul>
+<li>Adreno (Qualcomm)</li>
+<li>NVPerfHUD (NVIDIA)</li>
+<li>PVRTune, PVRUniSCo (PowerVR)</li>
+</ul>
+<p>On Tegra, NVIDIA provides excellent performance tools which does everything you want - GPU time per draw call, Cycles per shader, Force 2x2 texture, Null view rectangle, runs on Windows, OSX, Linux. PerfHUD ES does not easily work with consumer devices, you need the development board from NVIDIA.</p>
+<p>Qualcomm provides excellent Adreno Profiler (Windows only) which is Windows only, but works with consumer devices! It features Timeline graphs, frame capture, Frame debug, API calls, Shader analyzer, live editing.</p>
+<h3 id="graphics-related-cpu-profiling">Graphics related CPU profiling</h3>
+<p>The internal profiler gives a good overview per module:</p>
+<ul>
+<li>time spent in OpenGL ES API</li>
+<li>batching efficiency</li>
+<li>skinning, animations, particles</li>
+</ul>
+<h2 id="profiler-ports">Profiler Ports</h2>
+<p>Ports that the Unity profiler uses:</p>
+<ul>
+<li>MulticastPort : 54998</li>
+<li>ListenPorts : 55000 - 55511</li>
+<li>Multicast (unittests) : 55512 - 56023</li>
+</ul>
+<p>They should be accessible from within the network node. That is, the devices that you&#39;re trying to profile on should be able to see these ports on the machine with the Unity Editor with the Profiler on.</p>
+<h2 id="memory">Memory</h2>
+<p>There are two types of memory,  Mono memory and Unity memory. </p>
+<h3 id="mono-memory">Mono memory</h3>
+<p>Mono memory handles script objects, wrappers for Unity objects (game objects, assets, components, etc). Garbage Collector cleans up when the allocation does not fit in the available memory or on a <em>System.GC.Collect()</em> call.</p>
+<p>Memory is allocated in heap blocks. More can allocated if it cannot fit the data into the allocated block. Heap blocks will be kept in Mono until the app is closed. In other words, Mono does not release any memory used to the OS (Unity 3.x). Once you allocate a certain amount of memory, it is reserved for mono and not available for the OS. Even when you release it, it will become available internally for Mono only and not for the OS. The heap memory value in the Profiler will only increase, never decrease.</p>
+<p>If the system cannot fit new data into the allocated heap block, the Mono calls a &quot;GC&quot; and can allocate a new heap block (for example, due to fragmentation).</p>
+<p>&quot;Too many heap sections&quot; means you&#39;ve run out of Mono memory (because of fragmentation or heavy usage). </p>
+<p>Use <code>System.GC.GetTotalMemory</code> to get the total used Mono memory.</p>
+<p>The general advice is, use as small an allocation as possible.</p>
+<h3 id="unity-memory">Unity memory</h3>
+<p>Unity memory handles Asset data (Textures, Meshes, Audio, Animation, etc), Game objects, Engine internals (Rendering, Particles, Physics, etc).
+Use <code>Profiler.usedHeapSize</code> to get the total used Unity memory.</p>
+<h3 id="memory-map">Memory map</h3>
+<p>No tools yet but you can use the following.</p>
+<ul>
+<li>Unity Profiler - not perfect, skips stuff, but you can get an overview. It works on the device!</li>
+<li>Internal profiler. Shows Used heap and allocated heap - see mono memory. Shows the number of mono allocations per frame.</li>
+<li>Xcode tools - iOS</li>
+<li>Xcode Instruments Activity Monitor - Real Memory column.</li>
+<li>Xcode Instruments Allocations - net allocations for created and living objects.</li>
+<li>VM Tracker (textures usually get allocated with IOKit label and meshes usually go into VM Allocate).</li>
+</ul>
+<p>You can also make your own tool using Unity API calls:-</p>
+<ul>
+<li><code>FindObjectsOfTypeAll (type : Type) : Object[]</code></li>
+<li><code>FindObjectsOfType (type : Type): Object[]</code></li>
+<li><code>GetRuntimeMemorySize (o : Object) : int</code></li>
+<li><code>GetMonoHeapSize</code></li>
+<li><code>GetMonoUsedSize</code></li>
+<li><code>Profiler.BeginSample/EndSample</code> - profile your own code</li>
+<li><code>UnloadUnusedAssets () : AsyncOperation</code></li>
+<li><code>System.GC.GetTotalMemory/Profiler.usedHeapSize</code></li>
+</ul>
+<p>References to the loaded objects - There is no way to figure this out. A workaround is to &quot;Find references in scene&quot; for public variables.</p>
+<h3 id="garbage-collector">Garbage collector</h3>
+<ul>
+<li>This fires when the system cannot fit new data into the allocated heap block.</li>
+<li>Don&#39;t use <code>OnGUI()</code> on mobiles: it shoots several times per frame, completely redraws the view and creates tons of memory allocation calls that require Garbage Collection to be invoked.</li>
+</ul>
+<h3 id="creatingremoving-too-many-objects-too-quickly">Creating/removing too many objects too quickly?</h3>
+<ul>
+<li>This may lead to fragmentation.</li>
+<li>Use the Editor profiler to track the memory activity.</li>
+<li>The internal profiler can be used to track the mono memory activity.</li>
+<li><code>System.GC.Collect()</code> You can use this <em>.Net</em> function when it&#39;s ok to have a hiccup.</li>
+</ul>
+<h3 id="allocation-hiccups">Allocation hiccups</h3>
+<ul>
+<li>Use lists of preallocated, reusable class instances to implement your own memory management scheme.</li>
+<li>Don&#39;t make huge allocations per frame, cache, preallocate instead</li>
+<li>Problems with fragmentation?</li>
+</ul>
+<h3 id="preallocating-a-memory-pool">Preallocating a memory pool.</h3>
+<ul>
+<li>Keep a List of inactive GameObjects and reuse them instead of Instantiating and Destroying them.</li>
+</ul>
+<h3 id="out-of-mono-memory">Out of mono memory</h3>
+<ul>
+<li>Profile memory activity - when does the first memory page fill up?</li>
+<li>Do you really need so many gameobjects that a single memory page is not enough?</li>
+<li>Use structs instead of classes for local data. Classes are stored on the heap; structs on the stack.</li>
+<li>Read the <a href="UnderstandingAutomaticMemoryManagement.html">Understanding Automatic Memory Management</a> page.</li>
+</ul>
+<h3 id="out-of-memory-crashes">Out of memory crashes</h3>
+<p>At some points a game may crash with &quot;out of memory&quot; though it in theory it should fit in fine. When this happens compare your normal game memory footprint and the allocated memory size when the crash happens. If the numbers are not similar, then there is a memory spike. This might be due to:</p>
+<ul>
+<li>Two big scenes being loaded at the same time - use an empty scene between two bigger ones to fix this.</li>
+<li>Additive scene loading - remove unused parts to maintain the memory size.</li>
+<li>Huge asset bundles loaded to the memory</li>
+<li>Textures without proper compression (a no go for mobiles).</li>
+<li>Textures having Get/Set pixels enabled. This requires an uncompressed copy of the texture in memory.</li>
+<li>Textures loaded from JPEG/PNGs at runtime are essentially uncompressed.</li>
+<li>Big mp3 files marked as decompress on loading.</li>
+<li>Keeping unused assets in weird caches like static monobehavior fields, which are not cleared when changing scenes.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

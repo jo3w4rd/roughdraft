@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Related topics | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Related topics | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="related-topics">Related topics</h1>
+
+<p>Unity&#39;s lighting system is affected by and can affect many of its other effects and systems.</p>
+<h2 id="quality-settings">Quality settings</h2>
+<p>The <a href="class-QualitySettings.html">Quality</a> window has many settings that affects lighting and shadows.</p>
+<h2 id="player-settings">Player settings</h2>
+<p>The <a href="class-PlayerSettings.html">Player</a> window allows you to choose the rendering path and color space.</p>
+<h2 id="camera-inspector">Camera inspector</h2>
+<p>The <a href="class-Camera.html">Camera inspector</a> allows you to override Unity Player settings for the rendering path per camera. HDR can also be activated here.</p>
+<h2 id="rendering-paths">Rendering paths</h2>
+<p>Unity supports a number of rendering techniques, or ‘paths’. An important early decision which needs to be made when starting a project is which path to use. Unity’s default is &#39;Forward Rendering”.</p>
+<p>In Forward Rendering, each object is rendered in a ‘pass’ for each light that affects it. Therefore each object might be rendered multiple times depending upon how many lights are within range.</p>
+<p>The advantages of this approach is that it can be very fast - meaning hardware requirements are lower than alternatives. Additionally, Forward Rendering offers us a wide range of custom ‘shading models’ and can handle transparency quickly. It also allows for the use of hardware techniques like ‘multi-sample anti-aliasing’ (MSAA) which are not available in other alternatives, such as Deferred Rendering which can have a great impact on image quality.</p>
+<p>However, a significant disadvantage of the forward path is that we have to pay a render cost on a per-light basis. That is to say, the more lights affecting each object, the slower rendering performance will become. For some game types, with lots of lights, this may therefore be prohibitive. However if it is possible to manage light counts in your game, Forward Rendering can actually be a very fast solution.</p>
+<p>In &#39;Deferred&#39; rendering, on the other hand, we defer the shading and blending of light information until after a first pass over the screen where positions, normals, and materials for each surface are rendered to a ‘geometry buffer’ (G-buffer) as a series of screen-space textures. We then composite these results together with the lighting pass. This approach has the principle advantage that the render cost of lighting is proportional to the number of pixels that the light illuminates, instead of the number of lights themselves. As a result you are no longer bound by the number of lights you wish to render on screen, and for some games this is a critical advantage.</p>
+<p>Deferred Rendering gives highly predictable performance characteristics, but generally requires more powerful hardware. It is also not supported by certain mobile hardware.</p>
+<p>For more information on the Deferred, Forward and the other available rendering paths, please see the <a href="RenderingPaths.html">main documentation page</a>.</p>
+<h2 id="high-dynamic-range">High dynamic range</h2>
+<p>High dynamic range rendering allows you to simulate a much wider range of colours than has been traditionally available. In turn, this usually means you need to choose a range of brightnesses to display on the screen. In this way it is possible to simulate great differences in brightness between, say, outdoor lighting in our scenes and shaded areas. We can also create effects like ‘blooms’ or glows by applying effects to these bright colors in your scene. Special effects like these can add realism to particles or other visible light sources.</p>
+<p>For more information about HDR, please see the relevant <a href="HDR.html">manual page</a>.</p>
+<h2 id="tonemapping">Tonemapping</h2>
+<p>Tonemapping is part of the color grading <a href="PostProcessingOverview.html">post-processing effect</a> that is required to describe how to map colours from HDR to what you can see on the screen. Please see the <a href="PostProcessing-ColorGrading.html">Color Grading</a> effect for more information.</p>
+<h2 id="reflection">Reflection</h2>
+<p>While not explicitly a lighting effect, reflections are important for realistically displaying materials that reflect light, such as shiny metals or glass. Modern shading techniques, including Unity&#39;s Standard Shader, integrate reflection into a material&#39;s properties.</p>
+<p>For more information, please refer to our <a href="ReflectionProbes.html">section on Reflections</a>.</p>
+<h2 id="linear-color-space">Linear color space</h2>
+<p>In addition to selecting a rendering path, it’s important to choose a ‘Color Space’ before lighting your project. Color Space determines the maths used by Unity when mixing colors in lighting calculations or reading values from textures. This can have a drastic effect on the realism of your game, but in many cases the decision over which Color Space to use will likely be forced by the hardware limitations of your target platform.</p>
+<p>The preferred Color Space for realistic rendering is Linear.</p>
+<p>A significant advantage of using Linear space is that the colors supplied to shaders within your scene will brighten linearly as light intensities increase. With the alternative, ‘Gamma’ Color Space, brightness will quickly begin to turn to white as values go up, which is detrimental to image quality.</p>
+<p>For further information please see <a href="LinearLighting.html">Linear rendering</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

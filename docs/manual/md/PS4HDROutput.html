@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>PS4 HDR output | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="PS4 HDR output | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ps4-hdr-output">PS4 HDR output</h1>
+
+<p>This page explains how to enable HDR output on any PS4 console (PS4 Pro and base PS4).</p>
+<p>Configuring HDR output only configures the PS4 and TV to transfer HDR format frame data between each other. It does not generate the correct HDR color space graphic data. You need to handle that in your code. For more information, see the <a href="https://ps4.siedev.net/projects/sdk/dl/dl/1930/10099/Initial%20HDR%20Guide%20for%20SDK%204.00.pdf">Initial HDR Guide for SDK 4.00</a>.</p>
+<p>You need to ensure that your game code generates appropriate <a href="https://en.wikipedia.org/wiki/Rec._2020">BT2020 HDR</a> frame data for the final output buffer. This requires game-specific shaders that should be part of the post processing chain. Without these shaders, the output appears in the wrong color space, and at the wrong brightness level. If your game contains any 2D UI elements, you might need to incorporate special handling for those elements. </p>
+<p>For more information, see the <a href="https://ps4.siedev.net/projects/sdk/dl/dl/1930/10098/PS4%20HDR%20Support%20Overview%20v1.0%20en.pdf">PlayStation®4 HDR Support Overview</a>.</p>
+<h2 id="configuring-an-hdr-title">Configuring an HDR title</h2>
+<p>To use HDR in your game, set the game to run in HDR mode. To do this, go to <strong>File</strong> &gt; <strong>Build Settings</strong> &gt; <strong>Player Settings</strong> &gt; <strong>Other Settings</strong> &gt; <strong>Use display in HDR mode</strong>. This sets the HDR attribute in the .sfo application file, and causes a warning dialog box at startup in order to comply with the PS4 technical requirement checklist (TRC).</p>
+<p>The application starts outputting an HDR signal to the TV. You can then set the initial color depth to HDR; go to <strong>File</strong> &gt; <strong>Build Settings</strong> &gt; <strong>Resolution and Presentation</strong> and set <strong>Color Depth</strong> to <strong>HDR</strong>.</p>
+<h2 id="handling-hdr-in-game">Handling HDR in-game</h2>
+<p>When you have configured HDR, the game launches with output mode set to HDR. You need to:</p>
+<ol>
+<li>Check the current video output mode on your PS4.</li>
+<li>Detect whether your PS4 and TV setup supports HDR.</li>
+<li>Change to SDR video output mode if HDR isn’t supported.</li>
+<li>Use the correct set of assets/shaders according to video output mode.</li>
+</ol>
+<p><strong>Note</strong>: You should insert the code snippets in the following steps into your initialisation code (for example, inside an <code>Awake()</code> function for a GameObject in the first Scene).</p>
+<h3 id="1-check-the-current-video-output-mode-on-your-ps4">1. Check the current video output mode on your PS4</h3>
+<p>Use the following code to detect whether the PS4 is currently configured for HDR output:</p>
+<pre><code>UnityEngine.PS4.Utility.VideoOutMode requestedVideoOutMode;
+UnityEngine.PS4.Utility.GetRequestedVideoOutMode(out requestedVideoOutMode);
+if ((requestedVideoOutMode.colorimetry == UnityEngine.PS4.Utility.VideoOutColorimetry.BT2020_PQ)||
+            (requestedVideoOutMode.colorimetry == UnityEngine.PS4.Utility.VideoOutColorimetry.RGB2020_PQ) ||
+            (requestedVideoOutMode.colorimetry == UnityEngine.PS4.Utility.VideoOutColorimetry.YCBCR2020_PQ))
+    Debug.Log(&quot;Currently outputting HDR data&quot;);
+</code></pre><p>The following table shows the expected results from calling <code>GetRequestedVideoOutMode</code> depending on whether <strong>Use display in HDR mode</strong> is set to on or off, with different hardware HDR settings:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Unity setting</strong></th>
+<th style="text-align:left"><strong>Device setting</strong></th>
+<th style="text-align:left"><strong>Results</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Display in HDR mode</strong></td>
+<td style="text-align:left"><strong>TV/PS4 HDR</strong></td>
+<td style="text-align:left"><strong>GetRequestedVideoOutMode</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">On</td>
+<td style="text-align:left">On - Both</td>
+<td style="text-align:left">BT2020_PQ</td>
+</tr>
+<tr>
+<td style="text-align:left">Off</td>
+<td style="text-align:left">On - Both</td>
+<td style="text-align:left">Any</td>
+</tr>
+<tr>
+<td style="text-align:left">On</td>
+<td style="text-align:left">Off - Either</td>
+<td style="text-align:left">BT2020_PQ</td>
+</tr>
+<tr>
+<td style="text-align:left">Off</td>
+<td style="text-align:left">Off - Either</td>
+<td style="text-align:left">Any</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-detect-whether-your-ps4-and-tv-setup-supports-hdr">2. Detect whether your PS4 and TV setup supports HDR</h3>
+<p>Use the following code to detect whether the PS4 and TV setup can support HDR:</p>
+<pre><code>UnityEngine.PS4.Utility.VideoOutDeviceCapability videoDeviceCap = UnityEngine.PS4.Utility.GetVideoOutDeviceCapability(UnityEngine.PS4.Utility.videoOutPortHandle);
+if ((videoDeviceCap &amp; UnityEngine.PS4.Utility.VideoOutDeviceCapability.BT2020_PQ) != 0)
+    Debug.Log(&quot;Setup Supports HDR&quot;);
+</code></pre><p>The following table shows the expected results from calling <code>GetVideoOutDeviceCapability</code> depending on whether <strong>Use display in HDR mode</strong> is set to on or off, with different hardware HDR settings:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Unity setting</strong></th>
+<th style="text-align:left"><strong>Device setting</strong></th>
+<th style="text-align:left"><strong>Results</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Display in HDR mode</strong></td>
+<td style="text-align:left"><strong>TV/PS4 HDR</strong></td>
+<td style="text-align:left"><strong>GetVideoOutDeviceCapability</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">On</td>
+<td style="text-align:left">On - Both</td>
+<td style="text-align:left">YUV, XVYCC, BT2020_PQ</td>
+</tr>
+<tr>
+<td style="text-align:left">Off</td>
+<td style="text-align:left">On - Both</td>
+<td style="text-align:left">YUV, XVYCC</td>
+</tr>
+<tr>
+<td style="text-align:left">On</td>
+<td style="text-align:left">Off - Either</td>
+<td style="text-align:left">YUV, XVYCC</td>
+</tr>
+<tr>
+<td style="text-align:left">Off</td>
+<td style="text-align:left">Off - Either</td>
+<td style="text-align:left">YUV, XVYCC</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: If <strong>Use display in HDR mode</strong> is unchecked in the Unity Editor, this will always return without HDR Support.</p>
+<p>You can configure PS4 dev kits to always return that they are connected to an HDR TV by selecting <strong>Debug Settings</strong> &gt; <strong>Sound and Screen</strong> &gt; <strong>Force HDR Capability</strong>.</p>
+<h3 id="3-change-between-hdr-and-sdr-video-output-modes">3. Change between HDR and SDR video output modes</h3>
+<p>Use this script code to request a change from SDR output to HDR:</p>
+<pre><code>UnityEngine.PS4.Utility.videoOutPixelFormat = UnityEngine.PS4.Utility.VideoOutPixelFormat.HDR;
+</code></pre><p><strong>Note</strong>: Before changing to HDR, always check your device has HDR support. Your application hangs if you change to HDR on a device which does not have HDR support. See PS4 documentation on <a href="https://ps4.siedev.net/resources/documents/TRC/2017.10/TRC/R4089.html">TRC item 4089</a> for more details.</p>
+<p>To request a change from HDR output to SDR, use this script code:</p>
+<pre><code>UnityEngine.PS4.Utility.videoOutPixelFormat = UnityEngine.PS4.Utility.VideoOutPixelFormat.Regular;
+</code></pre><p>When HDR isn’t possible, you can use these scripts to change to SDR properly: <a href="https://ps4.siedev.net/resources/documents/TRC/2017.10/TRC/R4202.html">TRC item R4202</a>.</p>
+<h3 id="4-use-the-correct-set-of-assetsshaders-according-to-video-output-mode">4. Use the correct set of assets/shaders according to video output mode</h3>
+<p>When you have set the right output mode, you need to load and use the appropriate set of assets for HDR or SDR display. You can do this using AssetBundle Variants, as shown in the <a href="https://unity3d.com/learn/tutorials/topics/scripting/assetbundles-and-assetbundle-manager">AssetBundles and AssetBundle Manager tutorial</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

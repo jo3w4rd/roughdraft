@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Data reset | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Data reset | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="data-reset">Data reset</h1>
+
+<p>Unity Analytics allows you to permanently clear all data from your Analytics dashboard by performing a data reset. This action <strong>cannot be undone</strong>, so read this documentation and the confirmation message in the Analytics dashboard carefully before carrying out this action. </p>
+<p>This page describes when data reset might be useful, and what impact it has on the data in your Analytics project.</p>
+<h2 id="when-to-perform-a-data-reset">When to perform a data reset</h2>
+<p>The main scenario that calls for resetting data in an Analytics project is to wipe data from your dashboard immediately prior to launching (or re-releasing) your game. This ensures that the data you collect after the reset is clean and not mixed with previously collected data, which may skew your analyses.</p>
+<p>Other common scenarios:</p>
+<ul>
+<li><p>Wiping data collected during development and testing prior to launching your game.</p>
+</li>
+<li><p>Wiping data from a pre-release or beta version.</p>
+</li>
+<li><p>Wiping data prior to launching your game in a store.</p>
+</li>
+<li><p>Wiping data prior to a product re-launch.</p>
+</li>
+</ul>
+<p>Please note that performing a data reset is optional - you may never need to use this feature.</p>
+<h2 id="how-this-impacts-your-data">How this impacts your data</h2>
+<p>Due to Unity Technologies&#39; data processing cycles, all data resets occur at 00:00 UTC the following day. See the Configure page for the exact time (in your timezone) your data is due to be reset.</p>
+<p><img src="../uploads/Main/AnalyticsDataReset1.jpg" alt=""></p>
+<p>Data is collected from the time the reset occurs, but might take up to 4 hours to populate in your dashboard. You cannot specify another date to reset your data on.</p>
+<p>Resetting your data affects these Analytics elements as follows:</p>
+<ul>
+<li><p><strong>Dashboard:</strong> This is permanently wiped of all visible data, including data in charts.</p>
+</li>
+<li><p><strong>Custom event data:</strong> This is permanently wiped from the dashboard. Note that custom events you have instrumented in your project don’t need to be re-validated.</p>
+</li>
+<li><p><strong>Reports, Funnels, Segments:</strong> All data associated with these configurations (that you have created in your project) is permanently wiped from the dashboard. However, the configurations themselves are not deleted. For example, if you create a three-step funnel, populate it with data, and then perform a data reset, the three-step funnel is still present in your dashboard but is no longer populated with the data.</p>
+</li>
+<li><p><strong>Livestream:</strong> This is not affected by performing a data reset.</p>
+</li>
+<li><p><strong>Raw Data Export:</strong> This is not affected by performing a data reset. You can still perform an export to access historical data, and all previous exports you have run are still present in the Activity table on the Raw Data Export page.</p>
+</li>
+</ul>
+<h2 id="how-to-perform-a-data-reset">How to perform a data reset</h2>
+<p>To perform a data reset, open the Unity Services Dashboard for the Analytics project that you want to reset, go to <strong>Configure</strong>, and click on <strong>Reset Data</strong>. Make sure to read the confirmation message carefully. Type the name of your project into the text box and click <strong>Reset</strong>. The data reset occurs immediately.</p>
+<p><img src="../uploads/Main/UnityAnalyticsDataReset55.jpg" alt=""></p>
+<p>When the data is reset, the following details are provided about the last reset in the <strong>Configure</strong> page:</p>
+<ul>
+<li><p>Date and time the reset occurred.</p>
+</li>
+<li><p>User who performed the reset.</p>
+</li>
+</ul>
+<p><strong>Note:</strong> Only Project Owners and Managers can perform this action. Project Users do not have permission to perform a reset.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

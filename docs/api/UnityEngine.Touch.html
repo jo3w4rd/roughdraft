@@ -1,0 +1,605 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Struct Touch
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct Touch
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.Touch">
+  
+  
+  <h1 id="UnityEngine_Touch" data-uid="UnityEngine.Touch">Struct Touch
+  </h1>
+  <div class="markdown level0 summary"><p>Structure describing the status of a finger touching the screen.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.html">UnityEngine</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_Touch_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct Touch</code></pre>
+  </div>
+  <h5 id="UnityEngine_Touch_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Devices can track a number of different pieces of data about a touch on a touchscreen, including its /phase/ (ie, whether it has just started, ended or moved), its position and whether the touch was a single contact or several taps. Furthermore, the continuity of a touch between frame updates can be detected by the device, so a consistent ID number can be reported across frames and used to determine how a particular finger is moving.</p>
+<p>The Touch struct is used by Unity to store data relating to a single touch instance and is returned by the Input::ref::GetTouch function. Fresh calls to GetTouch will be required on each frame update to obtain the latest touch information from the device but the ::ref::fingerId property can be used to identify the same touch between frames.</p>
+<p>SA: Input::ref::GetTouch, <a class="xref" href="UnityEngine.TouchPhase.html">TouchPhase</a> enum.</p>
+</div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_Touch_altitudeAngle_" data-uid="UnityEngine.Touch.altitudeAngle*"></a>
+  <h4 id="UnityEngine_Touch_altitudeAngle" data-uid="UnityEngine.Touch.altitudeAngle">altitudeAngle</h4>
+  <div class="markdown level1 summary"><p>Value of 0 radians indicates that the stylus is parallel to the surface, pi/2 indicates that it is perpendicular.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float altitudeAngle { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Touch_azimuthAngle_" data-uid="UnityEngine.Touch.azimuthAngle*"></a>
+  <h4 id="UnityEngine_Touch_azimuthAngle" data-uid="UnityEngine.Touch.azimuthAngle">azimuthAngle</h4>
+  <div class="markdown level1 summary"><p>Value of 0 radians indicates that the stylus is pointed along the x-axis of the device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float azimuthAngle { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Touch_deltaPosition_" data-uid="UnityEngine.Touch.deltaPosition*"></a>
+  <h4 id="UnityEngine_Touch_deltaPosition" data-uid="UnityEngine.Touch.deltaPosition">deltaPosition</h4>
+  <div class="markdown level1 summary"><p>The position delta since last change.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 deltaPosition { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Touch_deltaPosition_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The absolute position of the touch is recorded periodically and available in the ::ref::position property. The deltaPosition value is a Vector2 that represents the difference between the touch position recorded on the most recent update and that recorded on the previous update. The ::ref::deltaTime value gives the time that elapsed between the previous and current updates; you can calculate the touch&#39;s speed of motion by dividing deltaPosition.magnitude by deltaTime.</p>
+<p>SA: deltaTime.</p>
+</div>
+  
+  
+  <a id="UnityEngine_Touch_deltaTime_" data-uid="UnityEngine.Touch.deltaTime*"></a>
+  <h4 id="UnityEngine_Touch_deltaTime" data-uid="UnityEngine.Touch.deltaTime">deltaTime</h4>
+  <div class="markdown level1 summary"><p>Amount of time that has passed since the last recorded change in Touch values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float deltaTime { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Touch_deltaTime_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Values for the various touch properties are updated periodically. The deltaTime value is simply the amount of time that elapsed between the previous update and the current one. This is primarily useful for determining the movement speed of the touch position with reference to ::ref::deltaPosition.</p>
+<p>SA: deltaPosition.</p>
+</div>
+  
+  
+  <a id="UnityEngine_Touch_fingerId_" data-uid="UnityEngine.Touch.fingerId*"></a>
+  <h4 id="UnityEngine_Touch_fingerId" data-uid="UnityEngine.Touch.fingerId">fingerId</h4>
+  <div class="markdown level1 summary"><p>The unique index for the touch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int fingerId { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Touch_fingerId_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>All current touches are reported in the Input::ref::touches array or by using the Input::ref::GetTouch function with the equivalent array index. However, the array index is not guaranteed to be the same from one frame to the next. The /fingerId/ value, however, consistently refers to the same touch across frames. This ID value is very useful when analysing gestures and is more reliable than identifying fingers by their proximity to previous position, etc.</p>
+<p><a class="xref" href="UnityEngine.Touch.html#UnityEngine_Touch_fingerId">Touch.fingerId</a> is not the same as &quot;first&quot; touch, &quot;second&quot; touch and so on. It is merely a unique id per gesture. You cannot make any assumptions about fingerId and the number of fingers actually on screen, since virtual touches will be introduced to handle the fact that the touch structure is constant for an entire frame (while in reality the number of touches obviously might not be true, e.g. if multiple tappings occur within a single frame).</p>
+</div>
+  
+  
+  <a id="UnityEngine_Touch_maximumPossiblePressure_" data-uid="UnityEngine.Touch.maximumPossiblePressure*"></a>
+  <h4 id="UnityEngine_Touch_maximumPossiblePressure" data-uid="UnityEngine.Touch.maximumPossiblePressure">maximumPossiblePressure</h4>
+  <div class="markdown level1 summary"><p>The maximum possible pressure value for a platform.  If <a class="xref" href="UnityEngine.Input.html#UnityEngine_Input_touchPressureSupported">Input.touchPressureSupported</a> returns false, the value of this property will always be 1.0f.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float maximumPossiblePressure { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Touch_phase_" data-uid="UnityEngine.Touch.phase*"></a>
+  <h4 id="UnityEngine_Touch_phase" data-uid="UnityEngine.Touch.phase">phase</h4>
+  <div class="markdown level1 summary"><p>Describes the phase of the touch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TouchPhase phase { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.TouchPhase.html">TouchPhase</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Touch_phase_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The touch /phase/ refers to the action the finger has taken on the most recent frame update. Since a touch is tracked over its &quot;lifetime&quot; by the device, the start and end of a touch and movements in between can be reported on the frames they occur. The /phase/ property can be used as the basis of a &quot;switch&#39; statement or as part of a more sophisticated state handling system.</p>
+</div>
+  <h5 id="UnityEngine_Touch_phase_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    public Vector2 startPos;
+    public Vector2 direction;
+    public bool directionChosen;
+    void Update()
+    {
+        // Track a single touch as a direction control.
+        if (Input.touchCount &gt; 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            // Handle finger movements based on touch phase.
+            switch (touch.phase)
+            {
+                // Record initial touch position.
+                case TouchPhase.Began:
+                    startPos = touch.position;
+                    directionChosen = false;
+                    break;
+
+                // Determine direction by comparing the current touch position with the initial one.
+                case TouchPhase.Moved:
+                    direction = touch.position - startPos;
+                    break;
+
+                // Report that a direction has been chosen when the finger is lifted.
+                case TouchPhase.Ended:
+                    directionChosen = true;
+                    break;
+            }
+        }
+        if (directionChosen)
+        {
+            // Something that uses the chosen direction...
+        }
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_Touch_position_" data-uid="UnityEngine.Touch.position*"></a>
+  <h4 id="UnityEngine_Touch_position" data-uid="UnityEngine.Touch.position">position</h4>
+  <div class="markdown level1 summary"><p>The position of the touch in pixel coordinates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 position { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Touch_position_examples">Examples</h5>
+  <pre><code>
+</code></pre><pre><code>
+//This script outputs the current position of a touch
+
+//Attach this script to a GameObject
+//Create a Text GameObject (__Create__&gt;__UI__&gt;__Text__)
+//Attach the Text to the Text field in the Inspector window of your GameObject
+
+
+using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
+
+public class TouchPositionExample : MonoBehaviour
+{
+    public Text m_Text;
+
+    void Update()
+    {
+        Touch touch = Input.GetTouch(0);
+
+        //Update the Text on the screen depending on current position of the touch each frame
+        m_Text.text = &quot;Touch Position : &quot; + touch.position;
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_Touch_pressure_" data-uid="UnityEngine.Touch.pressure*"></a>
+  <h4 id="UnityEngine_Touch_pressure" data-uid="UnityEngine.Touch.pressure">pressure</h4>
+  <div class="markdown level1 summary"><p>The current amount of pressure being applied to a touch.  1.0f is considered to be the pressure of an average touch.  If <a class="xref" href="UnityEngine.Input.html#UnityEngine_Input_touchPressureSupported">Input.touchPressureSupported</a> returns false, the value of this property will always be 1.0f.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float pressure { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Touch_radius_" data-uid="UnityEngine.Touch.radius*"></a>
+  <h4 id="UnityEngine_Touch_radius" data-uid="UnityEngine.Touch.radius">radius</h4>
+  <div class="markdown level1 summary"><p>An estimated value of the radius of a touch.  Add radiusVariance to get the maximum touch size, subtract it to get the minimum touch size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float radius { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Touch_radius_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p><strong>Android</strong>: Works correctly on a limited set of devices.</p>
+</div>
+  
+  
+  <a id="UnityEngine_Touch_radiusVariance_" data-uid="UnityEngine.Touch.radiusVariance*"></a>
+  <h4 id="UnityEngine_Touch_radiusVariance" data-uid="UnityEngine.Touch.radiusVariance">radiusVariance</h4>
+  <div class="markdown level1 summary"><p>This value determines the accuracy of the touch radius. Add this value to the radius to get the maximum touch size, subtract it to get the minimum touch size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float radiusVariance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Touch_radiusVariance_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p><strong>Android</strong>: Returns 0 for the majority of devices.</p>
+</div>
+  
+  
+  <a id="UnityEngine_Touch_rawPosition_" data-uid="UnityEngine.Touch.rawPosition*"></a>
+  <h4 id="UnityEngine_Touch_rawPosition" data-uid="UnityEngine.Touch.rawPosition">rawPosition</h4>
+  <div class="markdown level1 summary"><p>The raw position used for the touch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 rawPosition { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Touch_tapCount_" data-uid="UnityEngine.Touch.tapCount*"></a>
+  <h4 id="UnityEngine_Touch_tapCount" data-uid="UnityEngine.Touch.tapCount">tapCount</h4>
+  <div class="markdown level1 summary"><p>Number of taps.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int tapCount { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Touch_tapCount_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is intended as a way to detect &quot;double-clicks&quot;, etc, from the finger in a particular position. In some circumstances, two fingers may be tapped alternately and this may incorrectly register as a single finger tapping and simultaneously moving.</p>
+</div>
+  
+  
+  <a id="UnityEngine_Touch_type_" data-uid="UnityEngine.Touch.type*"></a>
+  <h4 id="UnityEngine_Touch_type" data-uid="UnityEngine.Touch.type">type</h4>
+  <div class="markdown level1 summary"><p>A value that indicates whether a touch was of Direct, Indirect (or remote), or Stylus type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TouchType type { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.TouchType.html">TouchType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

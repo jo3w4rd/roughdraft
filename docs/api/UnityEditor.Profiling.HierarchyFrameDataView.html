@@ -1,0 +1,2141 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Class HierarchyFrameDataView
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class HierarchyFrameDataView
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEditor.Profiling.HierarchyFrameDataView">
+  
+  
+  <h1 id="UnityEditor_Profiling_HierarchyFrameDataView" data-uid="UnityEditor.Profiling.HierarchyFrameDataView">Class HierarchyFrameDataView
+  </h1>
+  <div class="markdown level0 summary"><p>Provides access to the Profiler data for a specific frame and thread.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">HierarchyFrameDataView</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEditor.Profiling.html">UnityEditor.Profiling</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class HierarchyFrameDataView : IDisposable</code></pre>
+  </div>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Use &#39;&#39;HierarchyFrameDataView&#39;&#39; to retrieve Profiler samples structured as a hierarchy.</p>
+<p>This is used in the <strong>Hierachy mode</strong> of the [[wiki:ProfilerCPU|CPU Usage Profiler]], for example.</p>
+<p>The &#39;&#39;HierarchyFrameDataView&#39;&#39; aggregates the data with time and memory information. Each hierarchy item includes accumulated data of its children.</p>
+</div>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_examples"><strong>Examples</strong></h5>
+  <pre><code>
+using System;
+using System.Collections.Generic;
+using UnityEditor.Profiling;
+using UnityEditorInternal;
+
+public class Example
+{
+    List&lt;int&gt; parentsCacheList = new List&lt;int&gt;();
+    List&lt;int&gt; childrenCacheList = new List&lt;int&gt;();
+
+    public void ProcessFrameData(int frame)
+    {
+        using (var frameData = ProfilerDriver.GetHierarchyFrameDataView(frame, 0, HierarchyFrameDataView.ViewModes.Default, HierarchyFrameDataView.columnGcMemory, false))
+        {
+            int rootId = frameData.GetRootItemID();
+            frameData.GetItemDescendantsThatHaveChildren(rootId, parentsCacheList);
+            foreach (int parentId in parentsCacheList)
+            {
+                frameData.GetItemChildren(parentId, childrenCacheList);
+                // Process further records
+            }
+        }
+    }
+}
+</code></pre>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_columnCalls" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.columnCalls">columnCalls</h4>
+  <div class="markdown level1 summary"><p>The Calls column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int columnCalls = 3</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_columnCalls_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The number of samples a marker generates at a specific level of the hierarchy.</p>
+<p>This is similar to a call counting function.</p>
+</div>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_columnDontSort" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.columnDontSort">columnDontSort</h4>
+  <div class="markdown level1 summary"><p>The column identifier that indicates whether sorting is disabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int columnDontSort = -1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_columnGcMemory" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.columnGcMemory">columnGcMemory</h4>
+  <div class="markdown level1 summary"><p>The GC Allocation column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int columnGcMemory = 4</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_columnGcMemory_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The amount of managed allocations within a sample. Managed allocations are subject to garbage collection.</p>
+</div>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_columnName" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.columnName">columnName</h4>
+  <div class="markdown level1 summary"><p>The Profiler Sample Name column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int columnName = 0</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_columnName_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The entries in this column are the names of the samples.</p>
+<p>They usually correspond with the name of the function they sample. Alternatively, they can be defined by a <a href="xref:UnityEditor.Profiling.ProfilerMarker">ProfilerMarker</a> or a <a href="xref:UnityEditor.Profiling.Profiler.BeginSample">Profiler.BeginSample</a></p>
+</div>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_columnObjectName" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.columnObjectName">columnObjectName</h4>
+  <div class="markdown level1 summary"><p>The Object Name column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int columnObjectName = 13</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_columnObjectName_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The name of this column corresponds with the UnityEngine.Object associated with a sample.</p>
+</div>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_columnSelfPercent" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.columnSelfPercent">columnSelfPercent</h4>
+  <div class="markdown level1 summary"><p>The percentage of the time CPU spends in a call itself.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int columnSelfPercent = 2</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_columnSelfPercent_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This percentage is calculated by summing all &#39;&#39;columnTotalTime&#39;&#39; child sample values and calculating the percentage of that from the total frame time spend on the CPU.</p>
+</div>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_columnSelfTime" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.columnSelfTime">columnSelfTime</h4>
+  <div class="markdown level1 summary"><p>The amount of the time CPU spends in a call itself. The amount of time is expressed in milliseconds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int columnSelfTime = 6</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_columnSelfTime_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This value is calculated by summing all &#39;&#39;columnTotalTime&#39;&#39; values for each child sample and subtracting the result from &#39;&#39;columnTotalTime&#39;&#39;.</p>
+</div>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_columnStartTime" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.columnStartTime">columnStartTime</h4>
+  <div class="markdown level1 summary"><p>The start time of a call in milliseconds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int columnStartTime = 14</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_columnTotalPercent" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.columnTotalPercent">columnTotalPercent</h4>
+  <div class="markdown level1 summary"><p>The percentage of time the CPU spends in a call hierarchy.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int columnTotalPercent = 1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_columnTotalTime" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.columnTotalTime">columnTotalTime</h4>
+  <div class="markdown level1 summary"><p>The amount of time the CPU spends in a call hierarchy. The amount of time is expressed in milliseconds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int columnTotalTime = 5</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_columnWarningCount" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.columnWarningCount">columnWarningCount</h4>
+  <div class="markdown level1 summary"><p>The amount of samples that are inside a code execution path that is suboptimal for performance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int columnWarningCount = 12</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_invalidSampleId" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.invalidSampleId">invalidSampleId</h4>
+  <div class="markdown level1 summary"><p>Index of the invalid item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int invalidSampleId = -1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_invalidSampleId_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If the &#39;&#39;invalidSampleId&#39;&#39; is the same item as returned by ::ref::GetRootItemID, then the data is unavailable.</p>
+</div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_frameFps_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.frameFps*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_frameFps" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.frameFps">frameFps</h4>
+  <div class="markdown level1 summary"><p>The current frames per second (fps) for the frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float frameFps { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_frameFps_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The fps is calculated by dividing 1000.0f by the ::ref::frameTimeMs.</p>
+<p>A negative value indicates that the frame is not ready.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_frameGpuTimeMs_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.frameGpuTimeMs*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_frameGpuTimeMs" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.frameGpuTimeMs">frameGpuTimeMs</h4>
+  <div class="markdown level1 summary"><p>The amount of GPU frame time in milliseconds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float frameGpuTimeMs { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_frameGpuTimeMs_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A negative value indicates that either the frame is not ready or GPU data is unavailable.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_frameIndex_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.frameIndex*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_frameIndex" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.frameIndex">frameIndex</h4>
+  <div class="markdown level1 summary"><p>The frame index for the &#39;&#39;HierarchyFrameDataView&#39;&#39;.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int frameIndex { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_frameTimeMs_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.frameTimeMs*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_frameTimeMs" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.frameTimeMs">frameTimeMs</h4>
+  <div class="markdown level1 summary"><p>The amount of CPU frame time in milliseconds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float frameTimeMs { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_frameTimeMs_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A negative value indicates that the frame is not ready.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_sortColumn_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.sortColumn*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_sortColumn" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.sortColumn">sortColumn</h4>
+  <div class="markdown level1 summary"><p>The column identifier that defines the sort column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int sortColumn { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_sortColumn_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Use the ::ref::Sort method to resort the view.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_sortColumnAscending_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.sortColumnAscending*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_sortColumnAscending" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.sortColumnAscending">sortColumnAscending</h4>
+  <div class="markdown level1 summary"><p>Whether the sorting order is ascending, true, or descending, false.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool sortColumnAscending { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_sortColumnAscending_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Use the ::ref::Sort method to resort the view.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_threadGroupName_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.threadGroupName*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_threadGroupName" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.threadGroupName">threadGroupName</h4>
+  <div class="markdown level1 summary"><p>The name of the group that the thread belongs to.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string threadGroupName { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_threadId_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.threadId*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_threadId" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.threadId">threadId</h4>
+  <div class="markdown level1 summary"><p>Persistent identifier associated with the thread.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ulong threadId { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint64">UInt64</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEditor_Profiling_HierarchyFrameDataView_threadId_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The &#39;&#39;threadId&#39;&#39; is unique and persists across frames.</p>
+</div>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_threadIndex_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.threadIndex*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_threadIndex" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.threadIndex">threadIndex</h4>
+  <div class="markdown level1 summary"><p>The index of the thread in the current frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int threadIndex { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_threadName_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.threadName*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_threadName" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.threadName">threadName</h4>
+  <div class="markdown level1 summary"><p>Name of the thread.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string threadName { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_valid_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.valid*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_valid" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.valid">valid</h4>
+  <div class="markdown level1 summary"><p>True after the frame data for the thread is processed and ready for retrieval.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool valid { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_viewMode_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.viewMode*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_viewMode" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.viewMode">viewMode</h4>
+  <div class="markdown level1 summary"><p>The view mode which defines how data is aggregated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HierarchyFrameDataView.ViewModes viewMode { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEditor.Profiling.HierarchyFrameDataView.ViewModes.html">HierarchyFrameDataView.ViewModes</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_Dispose_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.Dispose*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_Dispose" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_Equals_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.Equals*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_Equals_System_Object_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.Equals(System.Object)">Equals(Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_Finalize_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.Finalize*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_Finalize" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.Finalize">Finalize()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Finalize()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetFrameMetaData_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetFrameMetaData*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetFrameMetaData__1_Guid_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetFrameMetaData``1(Guid,System.Int32)">GetFrameMetaData&lt;T&gt;(Guid, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;T&gt; GetFrameMetaData&lt;T&gt;(Guid id, int tag)
+    where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Guid</span></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetFrameMetaData_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetFrameMetaData*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetFrameMetaData__1_Guid_System_Int32_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetFrameMetaData``1(Guid,System.Int32,System.Int32)">GetFrameMetaData&lt;T&gt;(Guid, Int32, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;T&gt; GetFrameMetaData&lt;T&gt;(Guid id, int tag, int index)
+    where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Guid</span></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetFrameMetaDataCount_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetFrameMetaDataCount*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetFrameMetaDataCount_Guid_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetFrameMetaDataCount(Guid,System.Int32)">GetFrameMetaDataCount(Guid, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetFrameMetaDataCount(Guid id, int tag)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Guid</span></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetHashCode_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetHashCode*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetHashCode" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemAncestors_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemAncestors*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemAncestors_System_Int32_List_System_Int32__" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemAncestors(System.Int32,List{System.Int32})">GetItemAncestors(Int32, List&lt;Int32&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetItemAncestors(int id, List&lt;int&gt; outAncestors)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><span class="parametername">outAncestors</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemChildren_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemChildren*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemChildren_System_Int32_List_System_Int32__" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemChildren(System.Int32,List{System.Int32})">GetItemChildren(Int32, List&lt;Int32&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetItemChildren(int id, List&lt;int&gt; outChildren)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><span class="parametername">outChildren</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemColumnData_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemColumnData*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemColumnData_System_Int32_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemColumnData(System.Int32,System.Int32)">GetItemColumnData(Int32, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetItemColumnData(int id, int column)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">column</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemColumnDataAsFloat_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemColumnDataAsFloat*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemColumnDataAsFloat_System_Int32_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemColumnDataAsFloat(System.Int32,System.Int32)">GetItemColumnDataAsFloat(Int32, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float GetItemColumnDataAsFloat(int id, int column)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">column</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemColumnDataAsSingle_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemColumnDataAsSingle*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemColumnDataAsSingle_System_Int32_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemColumnDataAsSingle(System.Int32,System.Int32)">GetItemColumnDataAsSingle(Int32, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float GetItemColumnDataAsSingle(int id, int column)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">column</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemDepth_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemDepth*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemDepth_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemDepth(System.Int32)">GetItemDepth(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetItemDepth(int id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemDescendantsThatHaveChildren_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemDescendantsThatHaveChildren*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemDescendantsThatHaveChildren_System_Int32_List_System_Int32__" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemDescendantsThatHaveChildren(System.Int32,List{System.Int32})">GetItemDescendantsThatHaveChildren(Int32, List&lt;Int32&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetItemDescendantsThatHaveChildren(int id, List&lt;int&gt; outChildren)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><span class="parametername">outChildren</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemInstanceID_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemInstanceID*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemInstanceID_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemInstanceID(System.Int32)">GetItemInstanceID(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetItemInstanceID(int id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMarkerFlags_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMarkerFlags*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMarkerFlags_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMarkerFlags(System.Int32)">GetItemMarkerFlags(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MarkerFlags GetItemMarkerFlags(int id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MarkerFlags</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMarkerID_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMarkerID*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMarkerID_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMarkerID(System.Int32)">GetItemMarkerID(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetItemMarkerID(int id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMarkerIDPath_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMarkerIDPath*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMarkerIDPath_System_Int32_List_System_Int32__" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMarkerIDPath(System.Int32,List{System.Int32})">GetItemMarkerIDPath(Int32, List&lt;Int32&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetItemMarkerIDPath(int id, List&lt;int&gt; outFullIdPath)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><span class="parametername">outFullIdPath</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMergedSamplesColumnData_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMergedSamplesColumnData*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMergedSamplesColumnData_System_Int32_System_Int32_List_System_String__" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMergedSamplesColumnData(System.Int32,System.Int32,List{System.String})">GetItemMergedSamplesColumnData(Int32, Int32, List&lt;String&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetItemMergedSamplesColumnData(int id, int column, List&lt;string&gt; outStrings)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">column</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><span class="parametername">outStrings</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMergedSamplesColumnDataAsFloats_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMergedSamplesColumnDataAsFloats*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMergedSamplesColumnDataAsFloats_System_Int32_System_Int32_List_System_Single__" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMergedSamplesColumnDataAsFloats(System.Int32,System.Int32,List{System.Single})">GetItemMergedSamplesColumnDataAsFloats(Int32, Int32, List&lt;Single&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetItemMergedSamplesColumnDataAsFloats(int id, int column, List&lt;float&gt; outValues)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">column</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a>&gt;</td>
+        <td><span class="parametername">outValues</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMergedSamplesCount_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMergedSamplesCount*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMergedSamplesCount_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMergedSamplesCount(System.Int32)">GetItemMergedSamplesCount(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetItemMergedSamplesCount(int id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMergedSamplesInstanceID_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMergedSamplesInstanceID*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMergedSamplesInstanceID_System_Int32_List_System_Int32__" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMergedSamplesInstanceID(System.Int32,List{System.Int32})">GetItemMergedSamplesInstanceID(Int32, List&lt;Int32&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetItemMergedSamplesInstanceID(int id, List&lt;int&gt; outInstanceIds)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><span class="parametername">outInstanceIds</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMetadata_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMetadata*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMetadata_System_Int32_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMetadata(System.Int32,System.Int32)">GetItemMetadata(Int32, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetItemMetadata(int id, int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMetadataAsFloat_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMetadataAsFloat*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMetadataAsFloat_System_Int32_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMetadataAsFloat(System.Int32,System.Int32)">GetItemMetadataAsFloat(Int32, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float GetItemMetadataAsFloat(int id, int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMetadataAsLong_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMetadataAsLong*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMetadataAsLong_System_Int32_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMetadataAsLong(System.Int32,System.Int32)">GetItemMetadataAsLong(Int32, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long GetItemMetadataAsLong(int id, int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int64">Int64</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMetadataCount_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMetadataCount*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemMetadataCount_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemMetadataCount(System.Int32)">GetItemMetadataCount(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetItemMetadataCount(int id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemName_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemName*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemName_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemName(System.Int32)">GetItemName(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetItemName(int id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemPath_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemPath*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetItemPath_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetItemPath(System.Int32)">GetItemPath(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetItemPath(int id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_GetRootItemID_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetRootItemID*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_GetRootItemID" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.GetRootItemID">GetRootItemID()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetRootItemID()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_HasItemChildren_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.HasItemChildren*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_HasItemChildren_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.HasItemChildren(System.Int32)">HasItemChildren(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasItemChildren(int id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_ResolveItemCallstack_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.ResolveItemCallstack*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_ResolveItemCallstack_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.ResolveItemCallstack(System.Int32)">ResolveItemCallstack(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ResolveItemCallstack(int id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_ResolveItemMergedSampleCallstack_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.ResolveItemMergedSampleCallstack*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_ResolveItemMergedSampleCallstack_System_Int32_System_Int32_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.ResolveItemMergedSampleCallstack(System.Int32,System.Int32)">ResolveItemMergedSampleCallstack(Int32, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ResolveItemMergedSampleCallstack(int id, int sampleIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">sampleIndex</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEditor_Profiling_HierarchyFrameDataView_Sort_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.Sort*"></a>
+  <h4 id="UnityEditor_Profiling_HierarchyFrameDataView_Sort_System_Int32_System_Boolean_" data-uid="UnityEditor.Profiling.HierarchyFrameDataView.Sort(System.Int32,System.Boolean)">Sort(Int32, Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Sort(int sortColumn, bool sortAscending)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">sortColumn</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">sortAscending</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

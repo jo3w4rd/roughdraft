@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Editing Properties | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Editing Properties | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="editing-properties">Editing Properties</h1>
+
+<p><strong>Properties</strong> are settings and options for components that can be edited in the inspector. </p>
+<p><img src="../uploads/Main/PropertiesExample.png" alt="Light component showing various value and reference properties"></p>
+<p>Properties can be broadly categorized as <em>references</em> (links to other objects and assets) or <em>values</em> (numbers, checkboxes, colors, etc).</p>
+<h2 id="references">References</h2>
+<p>References can be assigned by dragging and dropping an object or asset of the appropriate type to the property in the inspector. For example, the <a href="class-MeshFilter.html">Mesh Filter</a> component needs to refer to a <a href="class-Mesh.html">Mesh</a> asset somewhere in the project. When the component is initially created, the reference is unassigned:</p>
+<p><img src="../uploads/Main/RefPropUnassigned.png" alt=""></p>
+<p>...but you can assign a Mesh to it by dropping a Mesh asset onto it:</p>
+<p><img src="../uploads/Main/RefPropAssigned.png" alt=""></p>
+<p>You can also use the <strong>Object Picker</strong> to select an object for a reference property. If you click the small circle icon to the right of the property in the inspector, you will see a window like this:</p>
+<p><img src="../uploads/Main/ObjectPicker.png" alt=""> </p>
+<p>The object picker lets you search for and select objects within the scene or project assets (the information panel at the bottom of the window can be raised and lowered as desired). Choosing an object for the reference property is simply a matter of double clicking it in the picker.</p>
+<p>When a reference property is of a component type (such as <a href="class-Transform.html">Transform</a>), you can drop any object onto it; Unity will locate the first component of that type on the object and assign it to the reference. If the object doesn&#39;t have any components of the right type, the assignment will be rejected.</p>
+<h2 id="values">Values</h2>
+<p>Most values are edited using familiar text boxes, checkboxes and menus, depending on their type (as a convenience, numeric values can also be moved up or down by dragging the mouse over the property name label). However, there are some values of more complex types that have their own specific editors. These are described below.</p>
+<h3 id="colors">Colors</h3>
+<p>Color properties open the <strong>Color Picker</strong> when clicked.</p>
+<p><img src="../uploads/Main/ColorPicker.png" alt="The Unity Color Picker window"> </p>
+<p><img src="../uploads/Main/HDRColorPicker.png" alt="The HDR Color Picker window (displayed  when clicking the emission color property in the standard shader or if you use the ColorUsageAttribute on a Color in your script)"> </p>
+<p><img src="../uploads/Main/HDRColorPickerTonemapped.png" alt="The HDR Color Picker window shown with the tonemapped option selected"> </p>
+<p>Unity uses its own color picker but on Mac OS X you can choose to use the system picker from the <a href="Preferences.html">Preferences</a> (menu: <strong>Unity &gt; Preferences</strong> and then <strong>Use OS X Color Picker</strong> from the <em>General</em> panel).</p>
+<h3 id="gradients">Gradients</h3>
+<p>In graphics and animation, it is often useful to be able to blend one colour gradually into another, over space or time. A <strong>gradient</strong> is a visual representation of a colour progression, which simply shows the main colours (which are called <strong>stops</strong>) and all the intermediate shades between them:</p>
+<p><img src="../uploads/Main/GradientDiagram.png" alt=""> </p>
+<p>The upward-pointing arrows along the bottom of the gradient bar denote the stops. You can select a stop by clicking on it; its value will be shown in the Color box which will open the standard colour picker when clicked. A new stop can be created by clicking just underneath the gradient bar. The position of any of the stops can be changed simply by clicking and dragging and a stop can be removed with <strong>ctrl/cmd + delete</strong>.</p>
+<p>The downward-pointing arrows above the gradient bar are also stops but they correspond to the alpha (transparency) of the gradient at that point. By default, there are two stops set to 100% alpha (ie, fully opaque) but any number of stops can be added and edited in much the same way as the colour stops.</p>
+<h3 id="curves">Curves</h3>
+<p>A <strong>Curve</strong> is a line graph that shows the response (on the Y axis) to the varying value of an input (on the X axis).</p>
+<p><img src="../uploads/Main/CurveEditor.png" alt="Curve editor"></p>
+<p>Curves are used in a variety of different contexts within Unity, especially in animation, and have a number of different options and tools. These are explained on the <a href="EditingCurves.html">Editing Curves</a> page of the manual.</p>
+<h3 id="arrays">Arrays</h3>
+<p>When a script exposes an array as a public variable, the inspector will show a value editor that lets you edit both the size of the array and the values or references within it.</p>
+<p><img src="../uploads/Main/ArrayInspector.png" alt="Script with a Vector3 array property"></p>
+<p>When you decrease the <em>Size</em> property, values from the end of the array will be removed. When you increase the size, the current last value will be copied into all the new elements added. This can be useful when setting up an array whose values are mostly the same - you can set the first element and then change the size to copy it to all the other elements.</p>
+<h2 id="editing-several-objects-at-once">Editing Several Objects at Once</h2>
+<p>When you have two or more objects selected, the components they have in common can all be edited together (ie, the values you supply will be copied to all the selected objects).</p>
+<p><img src="../uploads/Main/MultiObjectEdit.svg" alt="Inspector showing a multiple selection"></p>
+<p>Where property values are the same for all selected objects, the value will be shown but otherwise, it will be shown as a dash character. Only components that are common to <em>all</em> objects will be visible in the inspector. If any selected object has components that are not present on other objects, the inspector will show a message to say that some components are hidden. The context menu for a property (opened by right-clicking on its name label) also has options to allow you to set its value from any of the selected components.</p>
+<p>Note that you can also edit several selected instances of a prefab at once but the usual <em>Select</em>, <em>Revert</em> and <em>Apply</em> buttons will not be available.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

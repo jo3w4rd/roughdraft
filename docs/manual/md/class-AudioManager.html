@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Audio | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Audio | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="audio">Audio</h1>
+
+<p>The <strong>Audio</strong> settings (main menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Audio</strong> category) allows you to tweak the maximum volume of all sounds playing in the Scene.</p>
+<p><img src="../uploads/Main/AudioSet.png" alt="Audio settings"> </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Global Volume</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set the volume for all sounds during playback.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Volume Rolloff Scale</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set the global attenuation rolloff factor for <a href="class-AudioSource.html">Logarithmic rolloff-based sources</a>. The higher the value, the faster the volume attenuates. Conversely, the lower the value, the slower it attenuates. <br><strong>Tip:</strong> A value of 1 simulates the &quot;real world&quot;.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Doppler Factor</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set how audible the Doppler effect is. Use 0 to disable it. Use 1 make it audible for fast moving objects.<br><strong>Tip:</strong> After setting the <strong>Doppler Factor</strong> to 1, you can tweak both <strong>Speed of Sound</strong> and <strong>Doppler Factor</strong> until you are satisfied.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Default Speaker Mode</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set which speaker mode should be the default for your project. The default is 2, which corresponds to stereo speakers. For the full list of modes, see the <a href="ScriptRef:AudioSpeakerMode.html">AudioSpeakerMode</a> API reference.<br><strong>Note:</strong> You can also change the speaker mode at runtime through scripting. See <a href="ScriptRef:AudioSettings.html">Audio Settings</a> for details.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>System Sample Rate</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set the output sample rate. If set to 0, Unity uses the sample rate of the system. <br><strong>Note:</strong> This only serves as a reference only, since certain platforms allow you to change the sample rate, such as iOS or Android.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>DSP Buffer Size</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set the size of the DSP buffer to optimize for latency or performance.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Default</strong></td>
+<td style="text-align:left">Default buffer size.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Best Latency</strong></td>
+<td style="text-align:left">Trade off performance in favour of latency.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Good Latency</strong></td>
+<td style="text-align:left">Balance between latency and performance.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Best Performance</strong></td>
+<td style="text-align:left">Trade off latency in favour of performance.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Max Virtual Voices</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set the number of virtual voices that the audio system manages. This value should always be larger than the number of voices played by the game. If not, Unity displays warnings in the console.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Max Real Voices</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set the number of real voices that can play at the same time. At every frame, the loudest voice is picked.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Spatializer Plugin</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Choose which native audio plugin to use in order to perform spatialized filtering of 3D sources.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ambisonic Decoder Plugin</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Choose which native audio plugin to perform ambisonic-to-binaural filtering of sources.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Disable Unity Audio</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable to deactivate the audio system in standalone builds. Note that this also affects the audio of MovieTextures. <br>In the Editor the audio system is still on and supports previewing audio clips, but Unity does not handle calls to <a href="ScriptRef:AudioSource.Play.html">AudioSource.Play</a> and <a href="ScriptRef:AudioSource.playOnAwake.html">AudioSource.playOnAwake</a> in order to simulate behavior of the standalone build.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Virtualize Effect</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable to dynamically turn off effects and spatializers on AudioSources that are culled in order to save CPU.</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

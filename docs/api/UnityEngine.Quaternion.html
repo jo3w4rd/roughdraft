@@ -1,0 +1,2612 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Struct Quaternion
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct Quaternion
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.Quaternion">
+  
+  
+  <h1 id="UnityEngine_Quaternion" data-uid="UnityEngine.Quaternion">Struct Quaternion
+  </h1>
+  <div class="markdown level0 summary"><p>Quaternions are used to represent rotations.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.html">UnityEngine</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_Quaternion_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct Quaternion : IEquatable&lt;Quaternion&gt;</code></pre>
+  </div>
+  <h5 id="UnityEngine_Quaternion_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>They are compact, don&#39;t suffer from gimbal lock and can easily be interpolated.
+Unity internally uses Quaternions to represent all rotations.</p>
+<p>They are based on complex numbers and are not easy to understand intuitively.
+You almost never access or modify individual Quaternion components (x,y,z,w);
+most often you would just take existing rotations (e.g. from the <a href="xref:UnityEngine.Transform">Transform</a>) and use them
+to construct new rotations (e.g. to smoothly interpolate between two rotations).
+The Quaternion functions that you use 99% of the time are:
+<a href="xref:UnityEngine.Quaternion.LookRotation">Quaternion.LookRotation</a>, <a href="xref:UnityEngine.Quaternion.Angle">Quaternion.Angle</a>, <a href="xref:UnityEngine.Quaternion.Euler">Quaternion.Euler</a>, <a href="xref:UnityEngine.Quaternion.Slerp">Quaternion.Slerp</a>, <a href="xref:UnityEngine.Quaternion.FromToRotation">Quaternion.FromToRotation</a>, and <a class="xref" href="UnityEngine.Quaternion.html#UnityEngine_Quaternion_identity">Quaternion.identity</a>. (The other functions are only for exotic uses.)</p>
+<p>You can use the Quaternion.operator * to rotate one rotation by another, or to rotate a vector by a rotation.</p>
+<p>Note that Unity expects Quaternions to be normalized.</p>
+</div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="UnityEngine_Quaternion__ctor_" data-uid="UnityEngine.Quaternion.#ctor*"></a>
+  <h4 id="UnityEngine_Quaternion__ctor_System_Single_System_Single_System_Single_System_Single_" data-uid="UnityEngine.Quaternion.#ctor(System.Single,System.Single,System.Single,System.Single)">Quaternion(Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion(float x, float y, float z, float w)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">z</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">w</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="UnityEngine_Quaternion_kEpsilon" data-uid="UnityEngine.Quaternion.kEpsilon">kEpsilon</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const float kEpsilon = 1E-06F</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="UnityEngine_Quaternion_w" data-uid="UnityEngine.Quaternion.w">w</h4>
+  <div class="markdown level1 summary"><p>W component of the Quaternion. Do not directly modify quaternions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float w</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Quaternion_w_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A quaternion can represent a 3D rotation and is defined by 4 real numbers. ::ref::x, ::ref::y and ::ref::z represent a vector. ::ref::w is a scalar that stores the rotation around the vector. More details about quaternions can be located at <a href="https://scriptinghelpers.org/blog/how-to-think-about-quaternions">https://scriptinghelpers.org/blog/how-to-think-about-quaternions</a>.</p>
+</div>
+  <h5 id="UnityEngine_Quaternion_w_examples">Examples</h5>
+  <pre><code>
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+// Quaternion-w script example
+// Create a Sphere and apply a texture to help the orientation be recognised.
+// At each second the sphere is rotated and the quaternion is displayed.
+
+public class ExampleClass : MonoBehaviour
+{
+    private float timeDelay = 0.0f;
+    private Quaternion q;
+    private string label = &quot;&quot;;
+
+    void Awake()
+    {
+        // Add a line that passes through the y axis of the sphere and make
+        // the line as a child.
+        GameObject line = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        line.transform.localScale = new Vector3(0.05f, 1.5f, 0.05f);
+        line.transform.parent = gameObject.transform;
+    }
+
+    void Update()
+    {
+        if (timeDelay &gt; 1.0f)
+        {
+            Vector3 v;
+
+            // generate a random euler angle
+            v.x = Random.Range(0.0f, 360.0f);
+            v.y = Random.Range(0.0f, 360.0f);
+            v.z = Random.Range(0.0f, 360.0f);
+
+            // convert the euler into a quaternion
+            q = Quaternion.Euler(v);
+
+            // and apply it to the sphere
+            transform.rotation = q;
+
+            // generate a string
+            label = q.ToString(&quot;f3&quot;);
+
+            // and start another 1 second delay
+            timeDelay = 0.0f;
+        }
+        timeDelay += Time.deltaTime;
+    }
+
+    // display the quaternion as a string
+    void OnGUI()
+    {
+        GUI.skin.label.fixedHeight = 40;
+        GUI.skin.label.fontSize = 24;
+        GUI.Label(new Rect(10, 10, 400, 30), label);
+    }
+}
+</code></pre>
+  
+  
+  <h4 id="UnityEngine_Quaternion_x" data-uid="UnityEngine.Quaternion.x">x</h4>
+  <div class="markdown level1 summary"><p>X component of the Quaternion. Don&#39;t modify this directly unless you know quaternions inside out.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float x</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Quaternion_x_examples">Examples</h5>
+  <pre><code>
+//Create three Sliders (__Create__&gt;__UI__&gt;__Slider__) and three Text GameObjects (__Create__&gt;__UI__&gt;__Text__). These are for manipulating the x, y, and z values of the Quaternion. The text will act as a label for each Slider, so position them appropriately.
+//Attach this script to a GameObject.
+//Click on the GameObject and attach each of the Sliders and Texts to the fields in the Inspector.
+
+//This script shows how the numbers placed into the x, y, and z components of a Quaternion effect the GameObject when the w component is left at 1.
+//Use the Sliders to see the effects.
+
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Example : MonoBehaviour
+{
+    //These are the floats for the x, y, and z components of the quaternion
+    float m_MyX, m_MyY, m_MyZ;
+    //These are the Sliders that set the rotation. Remember to assign these in the Inspector
+    public Slider m_SliderX, m_SliderY, m_SliderZ;
+    //These are the Texts that output the current value of the rotations. Remember to assign these in the Inspector
+    public Text m_TextX, m_TextY, m_TextZ;
+
+    // Use this for initialization
+    void Start()
+    {
+        //Initialise the x, y, and z components of the future Quaternion
+        m_MyX = 0;
+        m_MyY = 0;
+        m_MyZ = 0;
+
+        //Set all the sliders max values to 1 so the Quaternion values don&#39;t go over 1
+        m_SliderX.maxValue = 1;
+        m_SliderY.maxValue = 1;
+        m_SliderZ.maxValue = 1;
+
+        //Set all the sliders min values to -1 so the Quaternion values don&#39;t go under 1
+        m_SliderX.minValue = -1;
+        m_SliderY.minValue = -1;
+        m_SliderZ.minValue = -1;
+    }
+
+    //Change the Quaternion values depending on the values of the Sliders
+    private static Quaternion Change(float x, float y, float z)
+    {
+        //Return the new Quaternion
+        return new Quaternion(x, y , z, 1);
+    }
+
+    void Update()
+    {
+        //Update the x, y and z values to that of the sliders
+        m_MyX = m_SliderX.value;
+        m_MyY = m_SliderY.value;
+        m_MyZ = m_SliderZ.value;
+        //Output the current values of x, y, and z
+        m_TextX.text = &quot; X : &quot; + m_MyX;
+        m_TextY.text = &quot; Y : &quot; + m_MyY;
+        m_TextZ.text = &quot; Z : &quot; + m_MyZ;
+
+        //Rotate the GameObject by the new Quaternion
+        transform.rotation = Change(m_MyX, m_MyY, m_MyZ);
+    }
+}
+</code></pre>
+  
+  
+  <h4 id="UnityEngine_Quaternion_y" data-uid="UnityEngine.Quaternion.y">y</h4>
+  <div class="markdown level1 summary"><p>Y component of the Quaternion. Don&#39;t modify this directly unless you know quaternions inside out.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float y</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Quaternion_y_examples">Examples</h5>
+  <pre><code>
+//Create three Sliders (__Create__&gt;__UI__&gt;__Slider__) and three Text GameObjects (__Create__&gt;__UI__&gt;__Text__). These are for manipulating the x, y, and z values of the Quaternion. The text will act as a label for each Slider, so position them appropriately.
+//Attach this script to a GameObject.
+//Click on the GameObject and attach each of the Sliders and Texts to the fields in the Inspector.
+
+//This script shows how the numbers placed into the x, y, and z components of a Quaternion effect the GameObject when the w component is left at 1.
+//Use the Sliders to see the effects.
+
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Example : MonoBehaviour
+{
+    //These are the floats for the x, y, and z components of the quaternion
+    float m_MyX, m_MyY, m_MyZ;
+    //These are the Sliders that set the rotation. Remember to assign these in the Inspector
+    public Slider m_SliderX, m_SliderY, m_SliderZ;
+    //These are the Texts that output the current value of the rotations. Remember to assign these in the Inspector
+    public Text m_TextX, m_TextY, m_TextZ;
+
+    // Use this for initialization
+    void Start()
+    {
+        //Initialise the x, y, and z components of the future Quaternion
+        m_MyX = 0;
+        m_MyY = 0;
+        m_MyZ = 0;
+
+        //Set all the sliders max values to 1 so the Quaternion values don&#39;t go over 1
+        m_SliderX.maxValue = 1;
+        m_SliderY.maxValue = 1;
+        m_SliderZ.maxValue = 1;
+
+        //Set all the sliders min values to -1 so the Quaternion values don&#39;t go under 1
+        m_SliderX.minValue = -1;
+        m_SliderY.minValue = -1;
+        m_SliderZ.minValue = -1;
+    }
+
+    //Change the Quaternion values depending on the values of the Sliders
+    private static Quaternion Change(float x, float y, float z)
+    {
+        //Return the new Quaternion
+        return new Quaternion(x, y , z, 1);
+    }
+
+    void Update()
+    {
+        //Update the x, y and z values to that of the sliders
+        m_MyX = m_SliderX.value;
+        m_MyY = m_SliderY.value;
+        m_MyZ = m_SliderZ.value;
+        //Output the current values of x, y, and z
+        m_TextX.text = &quot; X : &quot; + m_MyX;
+        m_TextY.text = &quot; Y : &quot; + m_MyY;
+        m_TextZ.text = &quot; Z : &quot; + m_MyZ;
+
+        //Rotate the GameObject by the new Quaternion
+        transform.rotation = Change(m_MyX, m_MyY, m_MyZ);
+    }
+}
+</code></pre>
+  
+  
+  <h4 id="UnityEngine_Quaternion_z" data-uid="UnityEngine.Quaternion.z">z</h4>
+  <div class="markdown level1 summary"><p>Z component of the Quaternion. Don&#39;t modify this directly unless you know quaternions inside out.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float z</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Quaternion_z_examples">Examples</h5>
+  <pre><code>
+//Create three Sliders (__Create__&gt;__UI__&gt;__Slider__) and three Text GameObjects (__Create__&gt;__UI__&gt;__Text__). These are for manipulating the x, y, and z values of the Quaternion. The text will act as a label for each Slider, so position them appropriately.
+//Attach this script to a GameObject.
+//Click on the GameObject and attach each of the Sliders and Texts to the fields in the Inspector.
+
+//This script shows how the numbers placed into the x, y, and z components of a Quaternion effect the GameObject when the w component is left at 1.
+//Use the Sliders to see the effects.
+
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Example : MonoBehaviour
+{
+    //These are the floats for the x, y, and z components of the quaternion
+    float m_MyX, m_MyY, m_MyZ;
+    //These are the Sliders that set the rotation. Remember to assign these in the Inspector
+    public Slider m_SliderX, m_SliderY, m_SliderZ;
+    //These are the Texts that output the current value of the rotations. Remember to assign these in the Inspector
+    public Text m_TextX, m_TextY, m_TextZ;
+
+    // Use this for initialization
+    void Start()
+    {
+        //Initialise the x, y, and z components of the future Quaternion
+        m_MyX = 0;
+        m_MyY = 0;
+        m_MyZ = 0;
+
+        //Set all the sliders max values to 1 so the Quaternion values don&#39;t go over 1
+        m_SliderX.maxValue = 1;
+        m_SliderY.maxValue = 1;
+        m_SliderZ.maxValue = 1;
+
+        //Set all the sliders min values to -1 so the Quaternion values don&#39;t go under 1
+        m_SliderX.minValue = -1;
+        m_SliderY.minValue = -1;
+        m_SliderZ.minValue = -1;
+    }
+
+    //Change the Quaternion values depending on the values of the Sliders
+    private static Quaternion Change(float x, float y, float z)
+    {
+        //Return the new Quaternion
+        return new Quaternion(x, y , z, 1);
+    }
+
+    void Update()
+    {
+        //Update the x, y and z values to that of the sliders
+        m_MyX = m_SliderX.value;
+        m_MyY = m_SliderY.value;
+        m_MyZ = m_SliderZ.value;
+        //Output the current values of x, y, and z
+        m_TextX.text = &quot; X : &quot; + m_MyX;
+        m_TextY.text = &quot; Y : &quot; + m_MyY;
+        m_TextZ.text = &quot; Z : &quot; + m_MyZ;
+
+        //Rotate the GameObject by the new Quaternion
+        transform.rotation = Change(m_MyX, m_MyY, m_MyZ);
+    }
+}
+</code></pre>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_Quaternion_eulerAngles_" data-uid="UnityEngine.Quaternion.eulerAngles*"></a>
+  <h4 id="UnityEngine_Quaternion_eulerAngles" data-uid="UnityEngine.Quaternion.eulerAngles">eulerAngles</h4>
+  <div class="markdown level1 summary"><p>Returns or sets the euler angle representation of the rotation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 eulerAngles { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Quaternion_eulerAngles_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A rotation that rotates euler.z degrees around the z axis, euler.x degrees around the x axis, and euler.y degrees around the y axis (in that order). The euler can be set for, or read from, the quaternion.</p>
+</div>
+  <h5 id="UnityEngine_Quaternion_eulerAngles_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+
+// eulerAngles
+// Generate a cube that has different color on each face.  This shows
+// the orientation of the cube as determined by the eulerAngles.
+// Update the orientation every 2 seconds.
+
+public class ExampleScript : MonoBehaviour
+{
+    private Quaternion quaternion;
+    private GameObject cube;
+    private float timeCount = 0.0f;
+
+    void Awake()
+    {
+        quaternion = new Quaternion(0.0f, 0.0f, 0.0f, 1.0f);
+        cube = CreateCube();
+    }
+
+    void Update()
+    {
+        if (timeCount &gt; 2.0f)
+        {
+            // Every two seconds generate a random rotation for
+            // the cube. The rotation is a quaternion.
+            quaternion = Random.rotation;
+            cube.transform.rotation = quaternion;
+
+            timeCount = 0.0f;
+        }
+
+        timeCount = timeCount + Time.deltaTime;
+    }
+
+    void OnGUI()
+    {
+        GUIStyle style = new GUIStyle();
+        style.fontSize = 24;
+
+        // use eulerAngles to show the euler angles of the quaternion
+        Vector3 angles = quaternion.eulerAngles;
+        GUI.Label(new Rect(10, 10, 0, 0), angles.ToString(&quot;F3&quot;), style);
+
+        // note that localEulerAngles will give the same result
+        // GUI.Label(new Rect(10,90,250,50), cube.transform.localEulerAngles.ToString(&quot;F3&quot;));
+    }
+
+    private GameObject CreateCube()
+    {
+        // make a cube from 6 quad game objects.
+        // color each side of the cube
+
+        GameObject newCube = new GameObject(&quot;Cube&quot;);
+
+        GameObject minusZ = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        minusZ.transform.position = new Vector3(0.0f, 0.0f, -0.5f);
+        minusZ.GetComponent&lt;Renderer&gt;().material.color = Color.gray;
+        minusZ.transform.parent = newCube.transform;
+
+        GameObject plusZ = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        plusZ.transform.position = new Vector3(0.0f, 0.0f, 0.5f);
+        plusZ.transform.Rotate(new Vector3(0.0f, 180.0f, 0.0f));
+        plusZ.GetComponent&lt;Renderer&gt;().material.color = Color.magenta;
+        plusZ.transform.parent = newCube.transform;
+
+        GameObject minusX = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        minusX.transform.position = new Vector3(0.5f, 0.0f, 0.0f);
+        minusX.transform.Rotate(new Vector3(0.0f, 270.0f, 0.0f));
+        minusX.GetComponent&lt;Renderer&gt;().material.color = Color.yellow;
+        minusX.transform.parent = newCube.transform;
+
+        GameObject plusX = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        plusX.transform.position = new Vector3(-0.5f, 0.0f, 0.0f);
+        plusX.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+        plusX.GetComponent&lt;Renderer&gt;().material.color = Color.blue;
+        plusX.transform.parent = newCube.transform;
+
+        GameObject minusY = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        minusY.transform.position = new Vector3(0.0f, -0.5f, 0.0f);
+        minusY.transform.Rotate(new Vector3(270.0f, 0.0f, 0.0f));
+        minusY.GetComponent&lt;Renderer&gt;().material.color = Color.green;
+        minusY.transform.parent = newCube.transform;
+
+        GameObject plusY = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        plusY.transform.position = new Vector3(0.0f, 0.5f, 0.0f);
+        plusY.transform.Rotate(new Vector3(90.0f, 0.0f, 0.0f));
+        plusY.GetComponent&lt;Renderer&gt;().material.color = Color.red;
+        plusY.transform.parent = newCube.transform;
+
+        return newCube;
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_Quaternion_identity_" data-uid="UnityEngine.Quaternion.identity*"></a>
+  <h4 id="UnityEngine_Quaternion_identity" data-uid="UnityEngine.Quaternion.identity">identity</h4>
+  <div class="markdown level1 summary"><p>The identity rotation (RO).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion identity { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Quaternion_identity_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This quaternion corresponds to &quot;no rotation&quot; - the object is perfectly aligned with the world or parent axes.</p>
+</div>
+  <h5 id="UnityEngine_Quaternion_identity_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+
+public class Example : MonoBehaviour
+{
+    void Start()
+    {
+        transform.rotation = Quaternion.identity;
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_Quaternion_Item_" data-uid="UnityEngine.Quaternion.Item*"></a>
+  <h4 id="UnityEngine_Quaternion_Item_System_Int32_" data-uid="UnityEngine.Quaternion.Item(System.Int32)">Item[Int32]</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float this[int index] { get; set; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_normalized_" data-uid="UnityEngine.Quaternion.normalized*"></a>
+  <h4 id="UnityEngine_Quaternion_normalized" data-uid="UnityEngine.Quaternion.normalized">normalized</h4>
+  <div class="markdown level1 summary"><p>Returns this quaternion with a magnitude of 1 (RO).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion normalized { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Quaternion_normalized_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When normalized, a quaternion keeps the same orientation but its magnitude is 1.0.</p>
+<p>Note that the current quaternion is unchanged and a new normalized quaternion is returned. If you
+want to normalize the original quaternion, use the ::ref::Normalize method instead.</p>
+<p>If the quaternion is too small to be normalized <a class="xref" href="UnityEngine.Quaternion.html#UnityEngine_Quaternion_identity">Quaternion.identity</a> will be returned.</p>
+<p>SA: ::ref::Normalize function.</p>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="UnityEngine_Quaternion_Angle_" data-uid="UnityEngine.Quaternion.Angle*"></a>
+  <h4 id="UnityEngine_Quaternion_Angle_UnityEngine_Quaternion_UnityEngine_Quaternion_" data-uid="UnityEngine.Quaternion.Angle(UnityEngine.Quaternion,UnityEngine.Quaternion)">Angle(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float Angle(Quaternion a, Quaternion b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">a</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_AngleAxis_" data-uid="UnityEngine.Quaternion.AngleAxis*"></a>
+  <h4 id="UnityEngine_Quaternion_AngleAxis_System_Single_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.AngleAxis(System.Single,UnityEngine.Vector3)">AngleAxis(Single, Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion AngleAxis(float angle, Vector3 axis)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">angle</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_AxisAngle_" data-uid="UnityEngine.Quaternion.AxisAngle*"></a>
+  <h4 id="UnityEngine_Quaternion_AxisAngle_UnityEngine_Vector3_System_Single_" data-uid="UnityEngine.Quaternion.AxisAngle(UnityEngine.Vector3,System.Single)">AxisAngle(Vector3, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.AngleAxis instead. This function was deprecated because it uses radians instead of degrees&quot;)]
+public static Quaternion AxisAngle(Vector3 axis, float angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">angle</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_Dot_" data-uid="UnityEngine.Quaternion.Dot*"></a>
+  <h4 id="UnityEngine_Quaternion_Dot_UnityEngine_Quaternion_UnityEngine_Quaternion_" data-uid="UnityEngine.Quaternion.Dot(UnityEngine.Quaternion,UnityEngine.Quaternion)">Dot(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float Dot(Quaternion a, Quaternion b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">a</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_Equals_" data-uid="UnityEngine.Quaternion.Equals*"></a>
+  <h4 id="UnityEngine_Quaternion_Equals_System_Object_" data-uid="UnityEngine.Quaternion.Equals(System.Object)">Equals(Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetype.equals#System_ValueType_Equals_System_Object_">ValueType.Equals(Object)</a></div>
+  
+  
+  <a id="UnityEngine_Quaternion_Equals_" data-uid="UnityEngine.Quaternion.Equals*"></a>
+  <h4 id="UnityEngine_Quaternion_Equals_UnityEngine_Quaternion_" data-uid="UnityEngine.Quaternion.Equals(UnityEngine.Quaternion)">Equals(Quaternion)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(Quaternion other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_Euler_" data-uid="UnityEngine.Quaternion.Euler*"></a>
+  <h4 id="UnityEngine_Quaternion_Euler_System_Single_System_Single_System_Single_" data-uid="UnityEngine.Quaternion.Euler(System.Single,System.Single,System.Single)">Euler(Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Euler(float x, float y, float z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">z</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_Euler_" data-uid="UnityEngine.Quaternion.Euler*"></a>
+  <h4 id="UnityEngine_Quaternion_Euler_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.Euler(UnityEngine.Vector3)">Euler(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Euler(Vector3 euler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">euler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_EulerAngles_" data-uid="UnityEngine.Quaternion.EulerAngles*"></a>
+  <h4 id="UnityEngine_Quaternion_EulerAngles_System_Single_System_Single_System_Single_" data-uid="UnityEngine.Quaternion.EulerAngles(System.Single,System.Single,System.Single)">EulerAngles(Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public static Quaternion EulerAngles(float x, float y, float z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">z</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_EulerAngles_" data-uid="UnityEngine.Quaternion.EulerAngles*"></a>
+  <h4 id="UnityEngine_Quaternion_EulerAngles_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.EulerAngles(UnityEngine.Vector3)">EulerAngles(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public static Quaternion EulerAngles(Vector3 euler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">euler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_EulerRotation_" data-uid="UnityEngine.Quaternion.EulerRotation*"></a>
+  <h4 id="UnityEngine_Quaternion_EulerRotation_System_Single_System_Single_System_Single_" data-uid="UnityEngine.Quaternion.EulerRotation(System.Single,System.Single,System.Single)">EulerRotation(Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public static Quaternion EulerRotation(float x, float y, float z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">z</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_EulerRotation_" data-uid="UnityEngine.Quaternion.EulerRotation*"></a>
+  <h4 id="UnityEngine_Quaternion_EulerRotation_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.EulerRotation(UnityEngine.Vector3)">EulerRotation(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public static Quaternion EulerRotation(Vector3 euler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">euler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_FromToRotation_" data-uid="UnityEngine.Quaternion.FromToRotation*"></a>
+  <h4 id="UnityEngine_Quaternion_FromToRotation_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.FromToRotation(UnityEngine.Vector3,UnityEngine.Vector3)">FromToRotation(Vector3, Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion FromToRotation(Vector3 fromDirection, Vector3 toDirection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">fromDirection</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">toDirection</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_GetHashCode_" data-uid="UnityEngine.Quaternion.GetHashCode*"></a>
+  <h4 id="UnityEngine_Quaternion_GetHashCode" data-uid="UnityEngine.Quaternion.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetype.gethashcode#System_ValueType_GetHashCode">ValueType.GetHashCode()</a></div>
+  
+  
+  <a id="UnityEngine_Quaternion_Inverse_" data-uid="UnityEngine.Quaternion.Inverse*"></a>
+  <h4 id="UnityEngine_Quaternion_Inverse_UnityEngine_Quaternion_" data-uid="UnityEngine.Quaternion.Inverse(UnityEngine.Quaternion)">Inverse(Quaternion)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Inverse(Quaternion rotation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">rotation</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_Lerp_" data-uid="UnityEngine.Quaternion.Lerp*"></a>
+  <h4 id="UnityEngine_Quaternion_Lerp_UnityEngine_Quaternion_UnityEngine_Quaternion_System_Single_" data-uid="UnityEngine.Quaternion.Lerp(UnityEngine.Quaternion,UnityEngine.Quaternion,System.Single)">Lerp(Quaternion, Quaternion, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Lerp(Quaternion a, Quaternion b, float t)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">a</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">t</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_LerpUnclamped_" data-uid="UnityEngine.Quaternion.LerpUnclamped*"></a>
+  <h4 id="UnityEngine_Quaternion_LerpUnclamped_UnityEngine_Quaternion_UnityEngine_Quaternion_System_Single_" data-uid="UnityEngine.Quaternion.LerpUnclamped(UnityEngine.Quaternion,UnityEngine.Quaternion,System.Single)">LerpUnclamped(Quaternion, Quaternion, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion LerpUnclamped(Quaternion a, Quaternion b, float t)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">a</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">t</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_LookRotation_" data-uid="UnityEngine.Quaternion.LookRotation*"></a>
+  <h4 id="UnityEngine_Quaternion_LookRotation_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.LookRotation(UnityEngine.Vector3)">LookRotation(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion LookRotation(Vector3 forward)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">forward</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_LookRotation_" data-uid="UnityEngine.Quaternion.LookRotation*"></a>
+  <h4 id="UnityEngine_Quaternion_LookRotation_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.LookRotation(UnityEngine.Vector3,UnityEngine.Vector3)">LookRotation(Vector3, Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion LookRotation(Vector3 forward, Vector3 upwards)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">forward</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">upwards</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_Normalize_" data-uid="UnityEngine.Quaternion.Normalize*"></a>
+  <h4 id="UnityEngine_Quaternion_Normalize" data-uid="UnityEngine.Quaternion.Normalize">Normalize()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Normalize()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_Quaternion_Normalize_" data-uid="UnityEngine.Quaternion.Normalize*"></a>
+  <h4 id="UnityEngine_Quaternion_Normalize_UnityEngine_Quaternion_" data-uid="UnityEngine.Quaternion.Normalize(UnityEngine.Quaternion)">Normalize(Quaternion)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Normalize(Quaternion q)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">q</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_RotateTowards_" data-uid="UnityEngine.Quaternion.RotateTowards*"></a>
+  <h4 id="UnityEngine_Quaternion_RotateTowards_UnityEngine_Quaternion_UnityEngine_Quaternion_System_Single_" data-uid="UnityEngine.Quaternion.RotateTowards(UnityEngine.Quaternion,UnityEngine.Quaternion,System.Single)">RotateTowards(Quaternion, Quaternion, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion RotateTowards(Quaternion from, Quaternion to, float maxDegreesDelta)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">from</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">to</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">maxDegreesDelta</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_Set_" data-uid="UnityEngine.Quaternion.Set*"></a>
+  <h4 id="UnityEngine_Quaternion_Set_System_Single_System_Single_System_Single_System_Single_" data-uid="UnityEngine.Quaternion.Set(System.Single,System.Single,System.Single,System.Single)">Set(Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Set(float newX, float newY, float newZ, float newW)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">newX</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">newY</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">newZ</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">newW</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_SetAxisAngle_" data-uid="UnityEngine.Quaternion.SetAxisAngle*"></a>
+  <h4 id="UnityEngine_Quaternion_SetAxisAngle_UnityEngine_Vector3_System_Single_" data-uid="UnityEngine.Quaternion.SetAxisAngle(UnityEngine.Vector3,System.Single)">SetAxisAngle(Vector3, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.AngleAxis instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public void SetAxisAngle(Vector3 axis, float angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">angle</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_SetEulerAngles_" data-uid="UnityEngine.Quaternion.SetEulerAngles*"></a>
+  <h4 id="UnityEngine_Quaternion_SetEulerAngles_System_Single_System_Single_System_Single_" data-uid="UnityEngine.Quaternion.SetEulerAngles(System.Single,System.Single,System.Single)">SetEulerAngles(Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public void SetEulerAngles(float x, float y, float z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">z</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_SetEulerAngles_" data-uid="UnityEngine.Quaternion.SetEulerAngles*"></a>
+  <h4 id="UnityEngine_Quaternion_SetEulerAngles_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.SetEulerAngles(UnityEngine.Vector3)">SetEulerAngles(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public void SetEulerAngles(Vector3 euler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">euler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_SetEulerRotation_" data-uid="UnityEngine.Quaternion.SetEulerRotation*"></a>
+  <h4 id="UnityEngine_Quaternion_SetEulerRotation_System_Single_System_Single_System_Single_" data-uid="UnityEngine.Quaternion.SetEulerRotation(System.Single,System.Single,System.Single)">SetEulerRotation(Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public void SetEulerRotation(float x, float y, float z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">z</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_SetEulerRotation_" data-uid="UnityEngine.Quaternion.SetEulerRotation*"></a>
+  <h4 id="UnityEngine_Quaternion_SetEulerRotation_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.SetEulerRotation(UnityEngine.Vector3)">SetEulerRotation(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.Euler instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public void SetEulerRotation(Vector3 euler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">euler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_SetFromToRotation_" data-uid="UnityEngine.Quaternion.SetFromToRotation*"></a>
+  <h4 id="UnityEngine_Quaternion_SetFromToRotation_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.SetFromToRotation(UnityEngine.Vector3,UnityEngine.Vector3)">SetFromToRotation(Vector3, Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetFromToRotation(Vector3 fromDirection, Vector3 toDirection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">fromDirection</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">toDirection</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_SetLookRotation_" data-uid="UnityEngine.Quaternion.SetLookRotation*"></a>
+  <h4 id="UnityEngine_Quaternion_SetLookRotation_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.SetLookRotation(UnityEngine.Vector3)">SetLookRotation(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetLookRotation(Vector3 view)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">view</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_SetLookRotation_" data-uid="UnityEngine.Quaternion.SetLookRotation*"></a>
+  <h4 id="UnityEngine_Quaternion_SetLookRotation_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.SetLookRotation(UnityEngine.Vector3,UnityEngine.Vector3)">SetLookRotation(Vector3, Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetLookRotation(Vector3 view, Vector3 up)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">view</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">up</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_Slerp_" data-uid="UnityEngine.Quaternion.Slerp*"></a>
+  <h4 id="UnityEngine_Quaternion_Slerp_UnityEngine_Quaternion_UnityEngine_Quaternion_System_Single_" data-uid="UnityEngine.Quaternion.Slerp(UnityEngine.Quaternion,UnityEngine.Quaternion,System.Single)">Slerp(Quaternion, Quaternion, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion Slerp(Quaternion a, Quaternion b, float t)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">a</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">t</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_SlerpUnclamped_" data-uid="UnityEngine.Quaternion.SlerpUnclamped*"></a>
+  <h4 id="UnityEngine_Quaternion_SlerpUnclamped_UnityEngine_Quaternion_UnityEngine_Quaternion_System_Single_" data-uid="UnityEngine.Quaternion.SlerpUnclamped(UnityEngine.Quaternion,UnityEngine.Quaternion,System.Single)">SlerpUnclamped(Quaternion, Quaternion, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion SlerpUnclamped(Quaternion a, Quaternion b, float t)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">a</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">t</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_ToAngleAxis_" data-uid="UnityEngine.Quaternion.ToAngleAxis*"></a>
+  <h4 id="UnityEngine_Quaternion_ToAngleAxis_System_Single__UnityEngine_Vector3__" data-uid="UnityEngine.Quaternion.ToAngleAxis(System.Single@,UnityEngine.Vector3@)">ToAngleAxis(out Single, out Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ToAngleAxis(out float angle, out Vector3 axis)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">angle</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_ToAxisAngle_" data-uid="UnityEngine.Quaternion.ToAxisAngle*"></a>
+  <h4 id="UnityEngine_Quaternion_ToAxisAngle_UnityEngine_Vector3__System_Single__" data-uid="UnityEngine.Quaternion.ToAxisAngle(UnityEngine.Vector3@,System.Single@)">ToAxisAngle(out Vector3, out Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.ToAngleAxis instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public void ToAxisAngle(out Vector3 axis, out float angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">angle</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_ToEuler_" data-uid="UnityEngine.Quaternion.ToEuler*"></a>
+  <h4 id="UnityEngine_Quaternion_ToEuler" data-uid="UnityEngine.Quaternion.ToEuler">ToEuler()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.eulerAngles instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public Vector3 ToEuler()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_ToEulerAngles_" data-uid="UnityEngine.Quaternion.ToEulerAngles*"></a>
+  <h4 id="UnityEngine_Quaternion_ToEulerAngles" data-uid="UnityEngine.Quaternion.ToEulerAngles">ToEulerAngles()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.eulerAngles instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public Vector3 ToEulerAngles()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_ToEulerAngles_" data-uid="UnityEngine.Quaternion.ToEulerAngles*"></a>
+  <h4 id="UnityEngine_Quaternion_ToEulerAngles_UnityEngine_Quaternion_" data-uid="UnityEngine.Quaternion.ToEulerAngles(UnityEngine.Quaternion)">ToEulerAngles(Quaternion)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Quaternion.eulerAngles instead. This function was deprecated because it uses radians instead of degrees.&quot;)]
+public static Vector3 ToEulerAngles(Quaternion rotation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">rotation</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_ToString_" data-uid="UnityEngine.Quaternion.ToString*"></a>
+  <h4 id="UnityEngine_Quaternion_ToString" data-uid="UnityEngine.Quaternion.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetype.tostring#System_ValueType_ToString">ValueType.ToString()</a></div>
+  
+  
+  <a id="UnityEngine_Quaternion_ToString_" data-uid="UnityEngine.Quaternion.ToString*"></a>
+  <h4 id="UnityEngine_Quaternion_ToString_System_String_" data-uid="UnityEngine.Quaternion.ToString(System.String)">ToString(String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ToString(string format)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">format</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+  </h3>
+  
+  
+  <a id="UnityEngine_Quaternion_op_Equality_" data-uid="UnityEngine.Quaternion.op_Equality*"></a>
+  <h4 id="UnityEngine_Quaternion_op_Equality_UnityEngine_Quaternion_UnityEngine_Quaternion_" data-uid="UnityEngine.Quaternion.op_Equality(UnityEngine.Quaternion,UnityEngine.Quaternion)">Equality(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(Quaternion lhs, Quaternion rhs)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">lhs</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">rhs</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_op_Inequality_" data-uid="UnityEngine.Quaternion.op_Inequality*"></a>
+  <h4 id="UnityEngine_Quaternion_op_Inequality_UnityEngine_Quaternion_UnityEngine_Quaternion_" data-uid="UnityEngine.Quaternion.op_Inequality(UnityEngine.Quaternion,UnityEngine.Quaternion)">Inequality(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(Quaternion lhs, Quaternion rhs)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">lhs</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">rhs</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_op_Multiply_" data-uid="UnityEngine.Quaternion.op_Multiply*"></a>
+  <h4 id="UnityEngine_Quaternion_op_Multiply_UnityEngine_Quaternion_UnityEngine_Quaternion_" data-uid="UnityEngine.Quaternion.op_Multiply(UnityEngine.Quaternion,UnityEngine.Quaternion)">Multiply(Quaternion, Quaternion)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion operator *(Quaternion lhs, Quaternion rhs)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">lhs</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">rhs</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Quaternion_op_Multiply_" data-uid="UnityEngine.Quaternion.op_Multiply*"></a>
+  <h4 id="UnityEngine_Quaternion_op_Multiply_UnityEngine_Quaternion_UnityEngine_Vector3_" data-uid="UnityEngine.Quaternion.op_Multiply(UnityEngine.Quaternion,UnityEngine.Vector3)">Multiply(Quaternion, Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector3 operator *(Quaternion rotation, Vector3 point)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">rotation</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">point</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

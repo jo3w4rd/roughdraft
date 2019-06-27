@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Xbox One Setup | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Xbox One Setup | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="xbox-one-setup">Xbox One Setup</h1>
+
+<p>To get started with Xbox One you first need to ensure you have the XDK and console properly setup.  The <em>XDK</em> is a software development kit and API that is installed on your PC.  The console gets flashed with what&#39;s called a <em>recovery</em>.  In addition to the <em>recovery</em>, there is a set of tools installed on the console called the <em>provision</em> which is dependent on the XDK you have installed on your PC. </p>
+<p>The best source of information for setting up your development environment can found on Microsoft&#39;s <a href="https://developer.xboxlive.com/en-US/Platform/Pages/home.aspx">GDN</a> site.  A direct link to XDK and recovery downloads can be found on the <a href="https://developer.xboxlive.com/en-us/platform/development/downloads/Pages/home.aspx">GDN Downloads page</a>, which also has a link to Microsoft&#39;s <em>Getting Started guide</em>.</p>
+<h2 id="a-summary-of-the-steps-to-get-a-proper-environment-setup">A summary of the steps to get a proper environment setup:</h2>
+<ol>
+<li>Download and install the XDK supported by Unity.  The XDK supported by Unity can be found listed for each build on the <a href="https://sites.google.com/a/unity3d.com/xbox-one-alpha/builds">builds page</a>.</li>
+<li>Setup the console and enable <em>Devkit Mode</em> in the <em>Devleoper Settings</em>. </li>
+<li>Identify the Tools IP addresses for the console.  These can be located on the Xbox One under Settings -&gt; Developer Settings -&gt; Tools IP.</li>
+<li>Establish a connection between your PC and console.<ul>
+<li>Run the <strong>Xbox One Manager</strong> tool which was installed on your PC when you installed the XDK.</li>
+<li>Click the <em>Add Console</em> button in the bottom left.</li>
+<li>Enter the the Tools IP from step 3. </li>
+<li>Click <em>Add</em>.</li>
+</ul>
+</li>
+<li>You are now ready to deploy to the console from Unity.</li>
+</ol>
+<h2 id="provisioning-the-devkit">Provisioning the Devkit</h2>
+<p>When you update the console with a new recovery, it also <em>provisions</em> it.  This installs development tools onto the console an OS that is used for your game when using push or pull deployment.  The <em>provision</em> is dependent on the XDK; different XDKs install different versions of the <em>provision</em> on the console. </p>
+<p>In order for Unity to work with the console, you must provision it using the XDK supported by Unity.  Unity has a prebuilt executable,  XboxOnePlayer.exe, that runs your game.  This executable is tied to the XDK, and using a <em>provision</em> from a different XDK can cause errors or crashes when running your game.</p>
+<p>This isn&#39;t a problem for your game once it is released because your released version will be built as a package which has the important parts from the <em>provision</em> built into it.     </p>
+<h2 id="supported-xdk-and-recovery-versions">Supported XDK And Recovery Versions</h2>
+<p>The XboxOnePlayer.exe that runs your game is prebuilt with a specific version of the XDK.  The version is noted in the release notes and on Unity&#39;s Xbox One Google group&#39;s <a href="https://sites.google.com/a/unity3d.com/xbox-one-alpha/builds">build page</a>.</p>
+<p>You must install the supported XDK on your PC and provision the console using that same XDK.  You can install a later recovery on your console, but only if you provision the devkit with the <em>xbprovision.exe</em> from the earlier XDK, the one that Unity supports.</p>
+<p>Updating to the latest recovery is always recommended.  XR testing always uses the latest available recovery.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

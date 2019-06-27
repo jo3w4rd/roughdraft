@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Projector | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Projector | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="projector">Projector</h1>
+
+<p>A <strong>Projector</strong> allows you to project a <strong>Material</strong> onto all objects that intersect its frustum. The material must use a special type of shader for the projection effect to work correctly - see the projector prefabs in Unity&#39;s standard assets for examples of how to use the supplied Projector/Light and Projector/Multiply shaders.</p>
+<p><img src="../uploads/Main/Inspector-Projector.png" alt=""> </p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Near Clip Plane</strong></td>
+<td style="text-align:left">Objects in front of the near clip plane will not be projected upon.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Far Clip Plane</strong></td>
+<td style="text-align:left">Objects beyond this distance will not be affected.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Field Of View</strong></td>
+<td style="text-align:left">The field of view in degrees. This is only used if the Projector is not Ortho Graphic.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Aspect Ratio</strong></td>
+<td style="text-align:left">The Aspect Ratio of the Projector. This allows you to tune the height vs width of the Projector.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Is Ortho Graphic</strong></td>
+<td style="text-align:left">If enabled, the Projector will be Ortho Graphic instead of perspective.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ortho Graphic Size</strong></td>
+<td style="text-align:left">The Ortho Graphic size of the Projection. this is only used if Is Ortho Graphic is turned on.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Material</strong></td>
+<td style="text-align:left">The Material that will be Projected onto Objects.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ignore Layers</strong></td>
+<td style="text-align:left">Objects that are in one of the Ignore Layers will not be affected. By default, Ignore Layers is none so all geometry that intersects the Projector frustum will be affected.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details</h2>
+<p>With a projector you can:</p>
+<ol>
+<li>Create shadows.</li>
+<li>Make a real world projector on a tripod with another <a href="class-Camera.html">Camera</a> that films some other part of the world using a <strong>Render Texture</strong>.</li>
+<li>Create bullet marks.</li>
+<li>Funky lighting effects.</li>
+</ol>
+<p><img src="../uploads/Main/Projector-BlobShadow.jpg" alt="A Projector is used to create a Blob Shadow for this Robot"> </p>
+<p>If you want to create a simple shadow effect, simply drag the <strong>StandardAssets-&gt;Blob-Shadow-&gt;Blob shadow projector</strong> <strong>Prefab</strong> into your scene. You can modify the Material to use a different Blob shadow texture.</p>
+<p><strong>Note:</strong> When creating a projector, always be sure to set the wrap mode of the texture&#39;s material of the projector to <em>clamp</em>. else the projector&#39;s texture will be seen repeated and you will not achieve the desired effect of shadow over your character.</p>
+<h2 id="hints">Hints</h2>
+<ul>
+<li>Projector Blob shadows can create very impressive Splinter Cell-like lighting effects if used to shadow the environment properly.</li>
+<li>When no <strong>Falloff</strong> Texture is used in the projector&#39;s Material, it can project both forward and backward, creating &quot;double projection&quot;. To fix this, use an alpha-only Falloff texture that has a black leftmost pixel column.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

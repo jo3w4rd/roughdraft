@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Spring Joint 2D | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Spring Joint 2D | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="spring-joint-2d">Spring Joint 2D</h1>
+
+<p>The <strong>Spring Joint 2D</strong> component allows two game objects controlled by rigidbody physics to be attached together as if by a spring. The spring will apply a force along its axis between the two objects, attempting to keep them a certain distance apart.</p>
+<p><img src="../uploads/Main/SpringJoint2DInspector.png" alt=""> </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Enable Collision</strong></td>
+<td style="text-align:left">Can the two connected objects collide with each other? Check the box for yes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Connected Rigid Body</strong></td>
+<td style="text-align:left">Specify here the other object this joint connects to. Leave this as <strong>None</strong> and the other end of the joint will be fixed at a point in space defined by the <strong>Connected Anchor</strong> setting. Select the circle to the right of the field to view a list of objects to connect to.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Auto Configure Connected Anchor</strong></td>
+<td style="text-align:left">Check this box to automatically set the anchor location for the other object this joint connects to. (Check this instead of completing the <strong>Connected Anchor</strong> fields.)</td>
+</tr>
+</tbody>
+</table>
+<p>|<strong>Anchor</strong> |The place (in terms of X, Y co-ordinates on the <strong>RigidBody</strong>) where the end point of the joint connects to <em>this</em> object. |
+|<strong>Connected Anchor</strong> |The place (in terms of X, Y co-ordinates on the <strong>RigidBody</strong>) where the end point of the joint connects to <em>the other</em> object. |
+|<strong>Auto Configure Distance</strong> | Check this box to automtically detect the distance between the two objects and set it as the distance that the joint keeps between the two objects. |
+|<strong>Distance</strong> |The distance that the spring should attempt to maintain between the two objects. (Can be set manually.) |
+|<strong>Damping Ratio</strong> | The degree to which you want to suppress spring oscillation: In the range 0 to 1, the higher the value, the less movement. |
+|<strong>Frequency</strong> |The frequency at which the spring oscillates while the objects are approaching the separation distance you want (measured in cycles per second): In the range 0 to 1,000,000 - the higher the value, the stiffer the spring. |
+|<strong>Break Force</strong> |Specify the force level needed to break and so delete the joint. <strong>Infinity</strong> means it is unbreakable. |</p>
+<h2 id="details">Details</h2>
+<p>(See also <a href="Joints2D.html">Joints 2D</a>: <em>Details and Hints</em> for useful background information on all 2D joints.)</p>
+<p>This joint behaves like a spring. Its aim is to keep a linear distance between two points. You  set this via the <strong>Distance</strong> setting. Those two points can be two <strong>Rigidbody2D</strong> components or a <strong>Rigidbody2D</strong> component and a fixed position in the world. (Connect to a fixed position in the world by setting <strong>Connected Rigidbody</strong> to None).  The joint aplies a linear force to both rigid bodies. It doesn&#39;t apply torque (an angle force).  </p>
+<p>The joint uses a simulated spring. You can set the spring&#39;s stiffness and movement:</p>
+<p>A stiff, barely moving spring...</p>
+<ul>
+<li><p>A high (1,000,000 is the highest)  <strong>Frequency</strong> == a stiff spring.</p>
+</li>
+<li><p>A high (1 is the highest) <strong>Damping Ratio</strong> ==  a barely moving spring.</p>
+</li>
+</ul>
+<p>A loose, moving spring...</p>
+<ul>
+<li><p>A low  <strong>Frequency</strong> == a loose spring.</p>
+</li>
+<li><p>A low  <strong>Damping Ratio</strong> ==  a moving spring.</p>
+</li>
+</ul>
+<p>When the spring applies its force between the objects, it tends to overshoot the distance you have set between them, and then rebound repeatedly, giving in a continuous oscillation. The <strong>Damping Ratio</strong> sets how quickly the objects stop moving. The <strong>Frequency</strong> sets how quickly the objects oscillate either side of the target distance.</p>
+<p>This joint has one constraint:</p>
+<ul>
+<li>Maintain a zero linear distance between two anchor points on two rigid body objects.</li>
+</ul>
+<p><strong>For Example:</strong></p>
+<p>You can use this joint to construct physical objects that need to react as if they are connected together using a spring or a connection which allows rotation.  Such as:</p>
+<ul>
+<li>A character who&#39;s body is composed of multiple objects that act as if they are semi-rigid. Use the the Spring Joint to connect the character&#39;s body parts together, allowing them to flex to and from each other.  You can specify whether the body parts are held together loosely or tightly.</li>
+</ul>
+<p><strong>HINTS:</strong></p>
+<ul>
+<li>Zero in the <strong>Frequency</strong> is a special case: It gives the stiffest spring possible.</li>
+<li>Spring Joint 2D uses a Box 2D spring-joint.
+Distance Joint 2D also uses the same Box 2D spring-joint but it sets the frequency to zero!   Technically, a Spring Joint 2D with a frequency of zero and damping of 1 is identical to a Distance Joint 2D!</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

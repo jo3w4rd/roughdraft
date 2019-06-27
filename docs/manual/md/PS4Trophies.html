@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>PS4 Trophies | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="PS4 Trophies | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ps4-trophies">PS4 Trophies</h1>
+
+<p>Unity supports <strong>PS4 Trophies</strong> via the <strong>NPToolkit2</strong> plug-in, which is in the <a href="[https://oc.unity3d.com/index.php/s/6diVG9Aaf0c0m7j](https://oc.unity3d.com/index.php/s/6diVG9Aaf0c0m7j)">PS4 plug-ins ownCloud folder</a>. Use <strong>Trophies</strong> to reward your game&#39;s player for reaching certain milestones or completing challenges in your game. Refer to the <a href="[https://ps4.siedev.net/resources/documents/SDK/latest/Trophy_System-Overview/__document_toc.html">Trophy System Overview</a> and <a href="https://ps4.siedev.net/resources/documents/Misc/current/Trophy_Pack_File_Utility-Users_Guide/__document_toc.html">Trophy Pack Users&#39; Guide</a> Sony Developer pages for more information.</p>
+<h1 id="how-to-set-up-trophies-in-unity">How to set up Trophies in Unity</h1>
+<p>To set up <strong>Trophies</strong> in Unity, follow the steps below:</p>
+<ul>
+<li>Import the following folders, along with all sub-folders and files from the <strong>NPToolkit2</strong> plug-in into your project: <ul>
+<li>Editor</li>
+<li>Plug-ins</li>
+<li>SonyAssemblies</li>
+</ul>
+</li>
+</ul>
+<p><img src="../uploads/Main/ps4Trophies_image_1.png" alt="Importing PS4 Plug-ins via Unity Packages"></p>
+<ul>
+<li>Open the <a href="class-PlayerSettings.html">Player</a> window (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category) and navigate to the <strong>PlayStation Network</strong> setting under the <strong>Publishing Settings</strong> panel. Set up the <strong>Trophy Pack</strong> (<em>trophy.trp</em> file), <strong>NP Title ID</strong> (<em>nptitle.dat</em> file) using the values and <em>trophy.trp</em> files for your project. You must obtain the NP Title ID from Sony before adding them to your project. Refer to the <a href="[https://ps4.siedev.net/resources/documents/SDK/latest/PSN_Service_Setup-Guide/0003.html](https://ps4.siedev.net/resources/documents/SDK/latest/PSN_Service_Setup-Guide/0003.html)">PSN Service Setup Guide</a> Sony Developer documentation for more information. You can also find a guide to setting up your own Trophy Pack files on the <a href="https://ps4.siedev.net/resources/documents/Misc/current/Trophy_Pack_File_Utility-Users_Guide/0001.html#__document_toc_00000000">Sony Developer Documentation website</a>.</li>
+<li>If you are not using online features in your game (such as chat, leaderboards or online play), set the <strong>NP Age Rating</strong> to 0. This stops the Playstation API from initializing unused features, but still allows trophy functionality.</li>
+</ul>
+<p><img src="../uploads/Main/ps4Trophies_image_2.png" alt=""></p>
+<p>The Playstation Network settings section of the <a href="class-PlayerSettings.html">Player</a> window.</p>
+<p>Refer to the <a href="https://ps4.siedev.net/resources/documents/SDK/latest/Trophy_System-Overview/__document_toc.html">Sony Developer Trophy documentation</a> for more information on Trophies for PS4.</p>
+<h3 id="nptoolkit2-example-files">NPToolkit2 example files</h3>
+<p>The NPToolkit2 plug-in contains several example files to be used as a reference when setting up Trophies for your game in Unity.</p>
+<p>The NPToolkit2 plug-in includes example versions of the <em>nptitle.dat</em> and <em>trophy.trp</em> files (in the <em>Assets/Editor</em> folder). The <strong>SetPlatformOptionsPS4.cs</strong> class contains examples <strong>Content ID</strong> values.</p>
+<p><strong>Note</strong>: The example __Content ID __values are not suitable for publishing as part of a completed project. Replace the values and files with your own as soon as you can before publishing your project. </p>
+<h2 id="trophy-support-example-script">Trophy support example script</h2>
+<p>The following is an example script that initializes the NPToolkit2 plug-in and adds trophy functionality to your game.</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+using UnityEngine.PS4;
+using System;
+
+public class TrophyManager : MonoBehaviour 
+{
+    //The active current user logged
+    public PS4Input.LoggedInUser loggedInUser;
+
+    // NPToolkit2 and Trophy initialization
+    void Start () 
+    {
+        //For this example we use Aync Handling of the NPToolkit2 operations
+        Sony.NP.Main.OnAsyncEvent += Main_OnAsyncEvent;
+        Sony.NP.InitToolkit init = new Sony.NP.InitToolkit();
+        init.contentRestrictions.DefaultAgeRestriction = 0;
+
+        //You can add several age restrictions by region
+        Sony.NP.AgeRestriction[] ageRestrictions = new Sony.NP.AgeRestriction[1];
+        ageRestrictions[0] = new Sony.NP.AgeRestriction(10, new Sony.NP.Core.CountryCode(&quot;us&quot;));
+        init.contentRestrictions.AgeRestrictions = ageRestrictions;
+
+        // you can set affinity to other cores this way: Sony.NP.Affinity.Core2 | Sony.NP.Affinity.Core4;
+        init.threadSettings.affinity = Sony.NP.Affinity.AllCores; 
+        init.SetPushNotificationsFlags(Sony.NP.PushNotificationsFlags.None);
+
+        //For this example we use the first user
+        loggedInUser = PS4Input.PadRefreshUsersDetails(0); 
+
+        try
+        {
+            //Initialize the NPToolkit2
+            Sony.NP.Main.Initialize(init);
+            //Register the Trophy Pack
+            RegisterTrophyPack();
+        }
+        catch (Sony.NP.NpToolkitException e)
+        {
+            Debug.Log(&quot;Error initializing the NPToolkit2 : &quot; + e.ExtendedMessage);
+        }   
+    }
+
+    public void RegisterTrophyPack()
+    {
+        try
+        {
+            Sony.NP.Trophies.RegisterTrophyPackRequest request = new Sony.NP.Trophies.RegisterTrophyPackRequest();
+
+            request.UserId = loggedInUser.userId;
+
+            Sony.NP.Core.EmptyResponse response = new Sony.NP.Core.EmptyResponse();
+
+            // Make the async call which returns the Request Id 
+            int requestId = Sony.NP.Trophies.RegisterTrophyPack(request, response);
+            Debug.Log(&quot;RegisterTrophyPack Async : Request Id = &quot; + requestId);
+        }
+        catch (Sony.NP.NpToolkitException e)
+        {
+            Debug.Log(&quot;Exception : &quot; + e.ExtendedMessage);
+        }
+    }
+
+    public void UnlockTrophy(int nextTrophyId)
+    {
+        try
+        {
+            Sony.NP.Trophies.UnlockTrophyRequest request = new Sony.NP.Trophies.UnlockTrophyRequest();
+
+            request.TrophyId = nextTrophyId;
+
+            request.UserId = loggedInUser.userId;
+
+            Sony.NP.Core.EmptyResponse response = new Sony.NP.Core.EmptyResponse();
+
+            // Make the async call which returns the Request Id 
+            int requestId = Sony.NP.Trophies.UnlockTrophy(request, response);
+            Debug.Log(&quot;GetUnlockedTrophies Async : Request Id = &quot; + requestId);
+        }
+        catch (Sony.NP.NpToolkitException e)
+        {
+            Debug.Log(&quot;Exception : &quot; + e.ExtendedMessage);
+        }
+    }
+
+    // NOTE : This is called on the &quot;Sony NP&quot; thread and is independent of the Behaviour update.
+    // This thread is created by the SonyNP.dll when NpToolkit2 is initialised.
+    private void Main_OnAsyncEvent(Sony.NP.NpCallbackEvent callbackEvent)
+    {
+        //Print some useful info on the current event: 
+        Debug.Log(&quot;Event: Service = (&quot; + callbackEvent.Service + &quot;) : API Called = (&quot; + callbackEvent.ApiCalled + &quot;) : Request Id = (&quot; + callbackEvent.NpRequestId + &quot;) : Calling User Id = (&quot; + callbackEvent.UserId + &quot;)&quot;);
+        HandleAsyncEvent(callbackEvent);
+    }
+
+    //Here we manage the response of the previous request
+    private void HandleAsyncEvent(Sony.NP.NpCallbackEvent callbackEvent)
+    {
+        try
+        {
+            if (callbackEvent.Response != null)
+            {
+                //We got an error response 
+                if (callbackEvent.Response.ReturnCodeValue &lt; 0)
+                {
+                    Debug.LogError(&quot;Response : &quot; + callbackEvent.Response.ConvertReturnCodeToString(callbackEvent.ApiCalled));
+                }
+                else
+                {
+                    //The callback of the event is a trophyUnlock event
+                    if(callbackEvent.ApiCalled == Sony.NP.FunctionTypes.TrophyUnlock)
+                    {
+                        Debug.Log(&quot;Trophy Unlock : &quot; + callbackEvent.Response.ConvertReturnCodeToString(callbackEvent.ApiCalled));
+                    }
+                }
+            }
+        }
+        catch ( Sony.NP.NpToolkitException e)
+        {
+            Debug.Log(&quot;Main_OnAsyncEvent Exception = &quot; + e.ExtendedMessage);
+        }
+    }
+}
+</code></pre><h1 id="trophy-support-for-ps4-sdk-40">Trophy support for PS4 SDK 4.0</h1>
+<p>Use the original NPToolkit plug-in to add trophies to your game when using PS4 SDK 4.0 or older.</p>
+<p><strong>Note</strong>: From the PS4 SDK 4.5 onwards, it is not possible to submit games using an older SDK.</p>
+<p>The following is an example script that initializes the NPToolkit plug-in and adds trophy support to your game. This example assumes that you are not using any online functionality.</p>
+<pre><code>
+using UnityEngine;
+using System.Collections;
+using UnityEngine.PS4;
+using System;
+
+public class TrophyManager : MonoBehaviour
+{
+   bool m_NpReady = false; // Is the NP plugin initialised and ready for use.
+   void Start ()
+   {
+      //Register basic Trophy events:
+      Sony.NP.Trophies.OnAwardedTrophy += OnAwardedTrophyEvent;
+      Sony.NP.Trophies.OnAwardTrophyFailed += OnAwardTrophyFailedEvent;
+      Sony.NP.Trophies.OnAlreadyAwardedTrophy += OnAlreadyAwardedTrophyEvent;
+
+      // Register a callback for completion of NP initialization.
+      Sony.NP.Main.OnNPInitialized += OnNPInitialized;
+
+      // Initialize the NPToolkit
+      Sony.NP.Main.Initialize(0);
+
+      // Register the trophy pack.
+      Sony.NP.Trophies.RegisterTrophyPack();
+   }
+
+   //Update the Main NPToolkit
+   void Update ()
+   {
+      Sony.NP.Main.Update();
+   }
+
+   //Award Trophy using the index of the trophy
+   void UnlockTrophy(int trophyIndex)
+   {
+      if(Sony.NP.Trophies.TrophiesAreAvailable &amp;&amp; m_NpReady)
+      {
+         Sony.NP.Trophies.AwardTrophy(trophyIndex);
+      }
+   }
+
+   //Event fired when a trophy is sucessfully awarded
+   void OnAwardedTrophyEvent(Sony.NP.Messages.PluginMessage msg)
+   {
+        Debug.Log(&quot;OnAwardedTrophy Event: &quot; + msg.type);
+   }
+
+   //Event fired when it wasn&#39;t possible to award a trophy
+   void OnAwardTrophyFailedEvent(Sony.NP.Messages.PluginMessage msg)
+   {
+        Debug.Log(&quot;OnAwardTrophyFailed Event: &quot; + msg.type);
+   }
+
+   //Event fired when a trophy is already awarded
+   void OnAlreadyAwardedTrophyEvent(Sony.NP.Messages.PluginMessage msg)
+   {
+        Debug.Log(&quot;OnAlreadyAwardedTrophy Event: &quot; + msg.type);
+   }
+
+   //NP plugin initialised and ready for use.
+   void OnNPInitialized(Sony.NP.Messages.PluginMessage msg)
+   {
+        m_NpReady = true;
+   }
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

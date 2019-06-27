@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>WMR input and interaction concepts | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="WMR input and interaction concepts | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="wmr-input-and-interaction-concepts">WMR input and interaction concepts</h1>
+
+<p>All Windows Mixed Reality devices use specific forms of interaction to take input from the user. Some of these forms of input are specific to certain Windows Mixed Reality devices, such as HoloLens or immersive headsets.</p>
+<p>Immersive headsets use a variety of inputs, including spatial controllers. HoloLens is limited to using 3 forms of input, unless extra hardware is required by the application to be used in addition to the headset.</p>
+<p>All forms of input work with Windows Mixed Reality immersive headsets. Gaze works in VR, gestures trigger when you use the Select button on the controller, and voice is available when the end user has a microphone connected to their PC.</p>
+<p>Input on HoloLens is different from other platforms because the primary means of interaction are:</p>
+<ol>
+<li><strong>Gaze</strong>: Controls the application by tracking where the user is looking in the world.</li>
+<li><strong>Voice</strong>: Short, spoken commands, and longer free-form dictation, which can be used to issue commands or trigger actions.</li>
+<li><strong>Gesture</strong>: Hand signals or controller input trigger commands in the system.</li>
+</ol>
+<h2 id="gaze-all-devices">Gaze (all devices)</h2>
+<p>Gaze is an input mechanism that tracks where a user is looking:</p>
+<p><img src="../uploads/Main/Gaze.jpg" alt=""></p>
+<p>On HoloLens, this is accurate enough that you can use it to get users to select GameObjects in the world. You can also use it to direct commands at specific GameObjects rather than every GameObject in the Scene.</p>
+<p><img src="../uploads/Main/Gaze_indicator.jpg" alt="Example of targeting a GameObject using Gaze (the white circle represents the Gaze indicator)"></p>
+<p>For more information, see Microsoft&#39;s documentation on <a href="https://dev.windows.com/en-us/holographic/gaze_indicator">Gaze indicator</a> and <a href="https://developer.microsoft.com/en-us/windows/mixed-reality/gaze_targeting">Gaze targeting</a>.</p>
+<h2 id="voice-all-devices">Voice (all devices)</h2>
+<p><img src="../uploads/Main/Voice_input.png" alt=""></p>
+<p>Windows 10 API provides voice input on both HoloLens and immersive devices. Unity supports three styles of input:</p>
+<ul>
+<li><p><strong>Keywords</strong>: Simple commands or phrases (set up in code) used to generate events. This allows you to quickly add voice commands to an application, as long as you do not require localization. The <a href="ScriptRef:Windows.Speech.KeywordRecognizer.html">KeywordRecognizer</a> API provides this functionality.</p>
+</li>
+<li><p><strong>Grammars</strong>: A table of commands with semantic meaning. You can configure grammars through an XML grammar file (.grxml), and localize the table if you need to. For more information on this file format, see Microsoft’s documentation on <a href="https://msdn.microsoft.com/en-us/library/ms873278.aspx">Creating Grammar Files</a>. The <a href="ScriptRef:Windows.Speech.GrammarRecognizer.html">GrammarRecognizer</a> API provides this functionality.</p>
+</li>
+<li><p><strong>Dictation</strong>: A more free-form text-to-speech system that translates longer spoken input into text. To prolong battery life, dictation recognition on the HoloLens is only active for short periods of time. It requires a working Internet connection. The <a href="ScriptRef:Windows.Speech.DictationRecognizer.html">DictationRecognizer</a> API provdes this functionality.</p>
+</li>
+</ul>
+<p>HoloLens headsets have a built in microphone, allowing voice input without extra hardware. For an application to use voice input with immersive headsets, users need to have an external microphone connected to their PC.</p>
+<p>For more information about voice input, refer to Microsoft’s documentation on <a href="https://dev.windows.com/en-us/holographic/Voice_design">Voice design</a>.</p>
+<h2 id="gestures-all-devices">Gestures (all devices)</h2>
+<p><img src="../uploads/Main/Gestures.png" alt=""></p>
+<p>A gesture is a hand signal interpreted by the system or a controller signal from a Spatial Controller. Both HoloLens and immersive devices support gestures. Immersive devices require a spatial controller to initiate gestures, while HoloLens gestures require hand movement. You can use gestures to trigger specific commands in your application. </p>
+<p>Windows Mixed Reality provides several built-in gestures for use in your application, as well as a generic API to recognize custom gestures. Both built-in gestures and custom gestures (added via API) are functional in Unity.</p>
+<p>For more information, see Microsoft&#39;s documentation on <a href="https://developer.microsoft.com/en-us/windows/mixed-reality/gestures">gestures</a>.</p>
+<h2 id="focus-point-all-devices">Focus Point (all devices)</h2>
+<p>Windows Mixed Reality uses a process called Late Stage Reprojection 9LSR) to compensate for movement of the user’s head between the time a frame is rendered and when it appears on the display. To compensate for this latency, LSR modifyies the rendered image according to the most recent head tracking data, then presents the image on the display.</p>
+<p>The HoloLens uses a stabilization plane for reprojection (see Microsoft documentation on <a href="https://developer.microsoft.com/en-us/windows/mixed-reality/hologram_stability#stabilization_plane">plane-based reprojection</a>). This is a plane in space which represents an area where the user is likely to be focusing. This stabilization plane has default values, but applications can also use the <a href="ScriptRef:XR.WSA.HolographicSettings.SetFocusPointForFrame.html">SetFocusPoint</a> API to explicitly set the position, normal, and velocity of this plane. Objects appear most stable at their intersection with this plane. Immersive headsets also support this method, but for these devices there is a more efficient form of reprojection available called <a href="https://developer.microsoft.com/en-us/windows/mixed-reality/hologram_stability#stabilization_plane">per-pixel depth reprojection</a>.</p>
+<p><img src="../uploads/Main/stabilisation_plane.jpg" alt="Stabilization plane for 3D objects"></p>
+<p>Desktop applications using immersive headsets can enable per-pixel depth reprojection, which offers higher quality without requiring explicit work by the application. To allow per-pixel depth reprojection, open the Player Settings for the Windows Mixed Reality, go to <strong>XR Settings &gt; Virtual Reality SDKs</strong> and check <strong>Enable Depth Buffer Sharing</strong>.</p>
+<p><img src="../uploads/Main/perpixel_reprojection.png" alt="Enabling per-pixel reprojection on desktop hardware using immersive headsets"></p>
+<p>When <strong>Enable Depth Buffer Sharing</strong> is enabled, ensure applications do not explicitly call  the <code>SetFocusPoint</code> method, which overrides <a href="https://developer.microsoft.com/en-us/windows/mixed-reality/hologram_stability#stabilization_plane">per-pixel depth reprojection</a> with <a href="https://developer.microsoft.com/en-us/windows/mixed-reality/hologram_stability#stabilization_plane">plane-based reprojection</a>.</p>
+<p><strong>Enable Depth Buffer Sharing</strong> on HoloLens has no benefit unless you have updated the device’s OS to Windows 10 Redstone 4 (RS4). If the device is running RS4, then it determines the stabilization plane automatically from the range of values found in the depth buffer. Reprojection still happens using a stabilization plane, but the application does not need to explicitly call <code>SetFocusPoint</code>.</p>
+<p>For more information on how the HoloLens achieves stable holograms, see Microsoft’s documentation on <a href="https://dev.windows.com/en-us/holographic/Hologram_stability.html#Stabilization_Plane">hologram stability</a>.</p>
+<h2 id="anchors-hololens-only">Anchors (HoloLens only)</h2>
+<p>Anchor components are a way for the virtual world to interact with the real world. An anchor is a special component that overrides the position and orientation of the Transform component of the GameObject it is attached to.</p>
+<h3 id="worldanchors">WorldAnchors</h3>
+<p>A WorldAnchor represents a link between the device’s understanding of an exact point in the physical world and the GameObject containing the WorldAnchor component. Once added, a GameObject with a WorldAnchor component remains locked in place to a location in the real world, but may shift in Unity coordinates from frame to frame as the device’s understanding of the anchor’s position becomes more precise.</p>
+<p>Some common uses for WorldAnchors include:</p>
+<ul>
+<li><p>Locking a holographic game board to the top of a table.</p>
+</li>
+<li><p>Locking a video window to a wall.</p>
+</li>
+</ul>
+<p>Use WorldAnchors whenever there is a GameObject or group of GameObjects that you want to fix to a physical location.</p>
+<p>WorldAnchors override their parent GameObject’s Transform component, so any direct manipulations of the Transform component are lost. Similarly, GameObjects with WorldAnchor components should not contain Rigidbody components with dynamic physics. These components can be more resource-intensive and game performance will decrease the further apart the WorldAnchors are. </p>
+<p><strong>Note</strong>: Only use a small number of WorldAnchors to minimise performance issues. For example, a game board surface placed upon a table only requires a single anchor for the board. In this case, child GameObjects of the board do not require their own WorldAnchor.</p>
+<p>For more information and best practices, see Microsoft’s documentation on <a href="https://developer.microsoft.com/en-us/windows/mixed-reality/spatial_anchors">spatial anchors</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

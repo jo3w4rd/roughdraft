@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Wheel Collider Tutorial | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Wheel Collider Tutorial | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="wheel-collider-tutorial">Wheel Collider Tutorial</h1>
+
+<p>The Wheel Collider component is powered by the PhysX 3 Vehicles SDK.</p>
+<p>This tutorial takes you through the process of creating a basic functioning car.</p>
+<p>To start, select <strong>GameObject</strong> &gt; <strong>3D Object</strong> &gt; <strong>Plane</strong>. This is the ground the car is going to drive on. To keep it simple, make sure the ground has a Transform of <strong>0</strong> (on the Transform component in the Inspector Window, click the Settings cog and click <strong>Reset</strong>). Increase the Transform&#39;s Scale fields to <strong>100</strong> to make the Plane bigger.</p>
+<h2 id="create-a-basic-car-skeleton">Create a basic car skeleton</h2>
+<ol>
+<li>First, add a GameObject to act as the car root GameObject. To do this, go to <strong>GameObject</strong> &gt; <strong>Create Empty</strong>. Change the GameObject&#39;s name to <code>car_root</code>.</li>
+<li>Add a Physics 3D Rigidbody component to <code>car_root</code>. The default mass of 1kg is too light for the default suspension settings; change it to 1500kg to make it much heavier.</li>
+<li>Next, create the car body Collider. Go to <strong>GameObject</strong> &gt; <strong>3D Object</strong> &gt; <strong>Cube</strong>. Make this cube a child GameObject under <code>car_root</code>. Reset the Transform to <strong>0</strong> to make it perfectly aligned in local space. The car is oriented along the Z axis, so set the Transform&#39;s <strong>Z</strong> <strong>Scale</strong> to <strong>3</strong>.</li>
+<li>Add the wheels root. Select <code>car_root</code> and <strong>GameObject</strong> &gt; <strong>Create Empty Child</strong>. Change the name to <code>wheels</code>. Reset the Transform on it. This GameObject is not mandatory, but it is useful for tuning and debugging later. </li>
+<li>To create the first wheel, select the <code>wheels</code> GameObject, go to <strong>GameObject</strong> &gt; <strong>Create Empty Child</strong>, and name it <code>frontLeft</code>. Reset the Transform, then set the Transform <strong>Position</strong> <strong>X</strong> to -1, <strong>Y</strong> to 0, and <strong>Z</strong> to  1. To add a Collider to the wheel, go to <strong>Add component</strong> &gt; <strong>Physics</strong> &gt; <strong>Wheel Collider</strong>.</li>
+<li>Duplicate the <code>frontLeft</code> GameObject. Change the <strong>Transform</strong>&#39;s <strong>X</strong> position to 1. Change the name to <code>frontRight</code>.</li>
+<li>Select both the <code>frontLeft</code> and <code>frontRight</code> GameObjects. Duplicate them. Change the <strong>Transform</strong>&#39;s <strong>Z</strong> position of both GameObjects to -1. Change the names to <code>rearLeft</code> and <code>rearRight</code> respectively.</li>
+<li>Finally, select the <code>car_root</code> GameObject and use the Move Tool to raise it slightly above the ground.</li>
+</ol>
+<p>Now you should be able to see something like this:</p>
+<p><img src="../uploads/Main/WheelColliderTutorial.png" alt=""> </p>
+<p>To make this car actually drivable, you need to write a controller for it. The following code sample works as a controller:</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+public class SimpleCarController : MonoBehaviour {
+    public List&lt;AxleInfo&gt; axleInfos; // the information about each individual axle
+    public float maxMotorTorque; // maximum torque the motor can apply to wheel
+    public float maxSteeringAngle; // maximum steer angle the wheel can have
+
+    public void FixedUpdate()
+    {
+        float motor = maxMotorTorque * Input.GetAxis(&quot;Vertical&quot;);
+        float steering = maxSteeringAngle * Input.GetAxis(&quot;Horizontal&quot;);
+
+        foreach (AxleInfo axleInfo in axleInfos) {
+            if (axleInfo.steering) {
+                axleInfo.leftWheel.steerAngle = steering;
+                axleInfo.rightWheel.steerAngle = steering;
+            }
+            if (axleInfo.motor) {
+                axleInfo.leftWheel.motorTorque = motor;
+                axleInfo.rightWheel.motorTorque = motor;
+            }
+        }
+    }
+}
+
+[System.Serializable]
+public class AxleInfo {
+    public WheelCollider leftWheel;
+    public WheelCollider rightWheel;
+    public bool motor; // is this wheel attached to motor?
+    public bool steering; // does this wheel apply steer angle?
+}
+</code></pre><p>Create a new C# script (<strong>Add Component</strong> &gt; <strong>New Script</strong>), on the <code>car_root</code> GameObject, copy this sample into the script file and save it. You can tune the script parameters as shown below; experiment with the settings and enter Play Mode to test the results. </p>
+<p>The following settings are very effective as a car controller:</p>
+<p><img src="../uploads/Main/WheelColliderSettings.png" alt=""> </p>
+<p>You can have up to 20 wheels on a single vehicle instance, with each of them applying steering, motor or braking torque.</p>
+<p>Next, move on to visual wheels. As you can see, a Wheel Collider doesn&#39;t apply the simulated wheel position and rotation back to the Wheel Collider&#39;s Transform, so adding visual wheel requires some tricks. </p>
+<p>You need some wheel geometry here. You can make a simple wheel shape out of a cylinder. There could be several approaches to adding visual wheels: making it so that you have to assign visual wheels manually in script properties, or writing some logic to find the corresponding visual wheel automatically. This tutorial follows the second approach. Attach the visual wheels to the Wheel Collider GameObjects.</p>
+<p>Next, change the controller script:</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+[System.Serializable]
+public class AxleInfo {
+    public WheelCollider leftWheel;
+    public WheelCollider rightWheel;
+    public bool motor;
+    public bool steering;
+}
+
+public class SimpleCarController : MonoBehaviour {
+    public List&lt;AxleInfo&gt; axleInfos; 
+    public float maxMotorTorque;
+    public float maxSteeringAngle;
+
+    // finds the corresponding visual wheel
+    // correctly applies the transform
+    public void ApplyLocalPositionToVisuals(WheelCollider collider)
+    {
+        if (collider.transform.childCount == 0) {
+            return;
+        }
+
+        Transform visualWheel = collider.transform.GetChild(0);
+
+        Vector3 position;
+        Quaternion rotation;
+        collider.GetWorldPose(out position, out rotation);
+
+        visualWheel.transform.position = position;
+        visualWheel.transform.rotation = rotation;
+    }
+
+    public void FixedUpdate()
+    {
+        float motor = maxMotorTorque * Input.GetAxis(&quot;Vertical&quot;);
+        float steering = maxSteeringAngle * Input.GetAxis(&quot;Horizontal&quot;);
+
+        foreach (AxleInfo axleInfo in axleInfos) {
+            if (axleInfo.steering) {
+                axleInfo.leftWheel.steerAngle = steering;
+                axleInfo.rightWheel.steerAngle = steering;
+            }
+            if (axleInfo.motor) {
+                axleInfo.leftWheel.motorTorque = motor;
+                axleInfo.rightWheel.motorTorque = motor;
+            }
+            ApplyLocalPositionToVisuals(axleInfo.leftWheel);
+            ApplyLocalPositionToVisuals(axleInfo.rightWheel);
+        }
+    }
+}
+</code></pre><p>One important parameter of the Wheel Collider component is <strong>Force App Point Distance</strong>. This is the distance from the base of the resting wheel to the point where the wheel forces are applied. The default value is 0, which means to apply the forces at the base of the resting wheel, but actually, it is wise to have this point located somewhere slightly below the car&#39;s centre of mass.</p>
+<p><strong>Note</strong>: To see the Wheel Collider in action, download the <a href="https://www.assetstore.unity3d.com/en/#!/content/83660">Vehicle Tools</a> package, which includes tools to rig wheeled vehicles and create suspension for wheel colliders.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

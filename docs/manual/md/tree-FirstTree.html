@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Building Your First Tree | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Building Your First Tree | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="building-your-first-tree">Building Your First Tree</h1>
+
+<p>We&#39;ll now walk you through the creation of your first tree with the Tree creation tool.</p>
+<h2 id="adding-a-new-tree">Adding a new Tree</h2>
+<p>To create a new <strong>Tree</strong> asset, select <strong>GameObject &gt; 3D Object &gt; Tree</strong>. You&#39;ll see a new Tree asset is created in your Project View, and instantiated in the currently open Scene. This new tree is very basic with only a single branch, so let&#39;s add some character to it.</p>
+<h2 id="adding-branches">Adding Branches</h2>
+<p><img src="../uploads/Main/TreeCreator-BasicBranch.png" alt="A brand new tree in your scene"> </p>
+<p>Select the tree to view the <strong>Tree</strong> window in the <strong>Inspector</strong>. This interface provides all the tools for shaping and sculpting your trees. You will see the <strong>Tree Hierarchy</strong> window with two nodes present: the <strong>Tree Root</strong> node and a single <strong>Branch Group</strong> node, which we&#39;ll call the trunk of the tree.</p>
+<p>In the <strong>Tree Hierarchy</strong>, select the <strong>Branch Group</strong>, which acts as the trunk of the tree. Click on the <strong>Add Branch Group</strong> button and you&#39;ll see a new <strong>Branch Group</strong> appear connected to the Main Branch. Now you can play with the settings in the <strong>Branch Group Properties</strong> to see alterations of the branches attached to the tree trunk.</p>
+<p><img src="../uploads/Main/TreeCreator-AddingBranches1.jpg" alt="Adding branches to the tree trunk."> </p>
+<p>After creating the branches that are attached to the trunk, we can now add smaller twigs to the newly created branches by attaching another <strong>Branch Group</strong> node. Select the secondary <strong>Branch Group</strong> and click the <strong>Add Branch Group</strong> button again. Tweak the values of this group to create more branches that are attached to the secondary branches.</p>
+<p><img src="../uploads/Main/TreeCreator-AddingBranches2.jpg" alt="Adding branches to the secondary branches."> </p>
+<p>Now the tree&#39;s branch structure is in place. Our game doesn&#39;t take place in the winter time, so we should also add some <strong>Leaves</strong> to the different branches, right?</p>
+<h2 id="adding-leaves">Adding Leaves</h2>
+<p>We decorate our tree with leaves by adding <strong>Leaf Groups</strong>, which basically work the same as the Branch groups we&#39;ve already used. Select your secondary Branch Group node and then click the <strong>Add Leaf Group</strong> button. If you&#39;re really hardcore, you can add another leaf group to the tiniest branches on the tree as well.</p>
+<p><img src="../uploads/Main/TreeCreator-AddingLeaves.jpg" alt="Leaves added to the secondary and smallest branches"> </p>
+<p>Right now the leaves are rendered as opaque planes. This is because we want to adjust the leaves&#39; values (size, position, rotation, etc.) before we add a material to them. Tweak the Leaf values until you find some settings you like.</p>
+<h2 id="adding-materials">Adding Materials</h2>
+<p>In order to make our tree realistic looking, we need to apply <strong>Materials</strong> for the branches and the leaves. Create a new Material in your project using <strong>Assets &gt; Create &gt; Material</strong>. Rename it to &quot;My Tree Bark&quot;, and choose <strong>Nature &gt; Tree Creator Bark</strong> from the Shader drop-down. From here you can assign the <strong>Textures</strong> provided in the Tree Creator Package to the Base, Normalmap, and Gloss properties of the Bark Material. We recommend using the texture &quot;BigTree_bark_diffuse&quot; for the Base and Gloss properties, and &quot;BigTree_bark_normal&quot; for the Normalmap property.</p>
+<p>Now we&#39;ll follow the same steps for creating a Leaf Material. Create a new Material and assign the shader as <strong>Nature &gt; Tree Creator Leaves</strong>. Assign the texture slots with the leaf textures from the Tree Creator Package.</p>
+<p><img src="../uploads/Main/TreeCreator-LeavesMaterial.png" alt="Material for the Leaves"> </p>
+<p>When both Materials are created, we&#39;ll assign them to the different Group Nodes of the Tree. Select your Tree and click any Branch or Leaf node, then expand the <strong>Geometry</strong> section of the <strong>Branch Group Properties</strong>. You will see a Material assignment slot for the type of node you&#39;ve selected. Assign the relevant Material you created and view the results.</p>
+<p><img src="../uploads/Main/TreeCreator-AddingMaterialToLeaves.jpg" alt="Setting the leaves material"> </p>
+<p>To finish off the tree, assign your Materials to all the <strong>Branch</strong> and <strong>Leaf Group</strong> nodes in the Tree. Now you&#39;re ready to put your first tree into a game!</p>
+<p><img src="../uploads/Main/TreeCreator-FinalTree.jpg" alt="Tree with materials on leaves and branches."> </p>
+<h2 id="hints">Hints.</h2>
+<ul>
+<li>Creating trees is a trial and error process.</li>
+<li>Don&#39;t create too many leaves/branches as this can affect the performance of your game.</li>
+<li>Check the <a href="HOWTO-alphamaps.html">alpha maps</a> guide for creating custom leaves.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

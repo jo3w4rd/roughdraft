@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Flare | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Flare | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="flare">Flare</h1>
+
+<p><strong>Flare</strong> objects are the source assets that are used by <a href="class-LensFlare.html">Lens Flare Components</a>. The Flare itself is a combination of a texture file and specific information that determines how the Flare behaves. Then when you want to use the Flare in a <strong>Scene</strong>, you reference the specific Flare from inside a <strong>LensFlare</strong> <strong>Component</strong> attached to a <strong>GameObject</strong>.</p>
+<p>There are some sample Flares in the <a href="AssetTypes#Standard">Standard Assets</a> package. If you want to add one of these to your scene, attach a <a href="class-LensFlare.html">Lens Flare</a> Component to a GameObject, and drag the Flare you want to use into the <strong>Flare</strong> property of the Lens Flare, just like assigning a <strong>Material</strong> to a <strong>Mesh Renderer</strong>.</p>
+<p><img src="../uploads/Main/FlareInspector.png" alt="The Flare Inspector"> </p>
+<p>Flares work by containing several Flare <strong>Elements</strong> on a single <strong>Texture</strong>. Within the Flare, you pick and choose which <strong>Elements</strong> you want to include from any of the Textures. </p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Elements</strong></td>
+<td style="text-align:left">The number of Flare images included in the Flare.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Image Index</strong></td>
+<td style="text-align:left">Which Flare image to use from the <strong>Flare Texture</strong> for this Element. See the <em>Flare Textures</em> section below for more information.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Position</strong></td>
+<td style="text-align:left">The Element&#39;s offset along a line running from the containing GameObject&#39;s position through the screen center. 0 = GameObject position, 1 = screen center.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Size</strong></td>
+<td style="text-align:left">The size of the element.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Color</strong></td>
+<td style="text-align:left">Color tint of the element.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Use Light Color</strong></td>
+<td style="text-align:left">If the Flare is attached to a Light, enabling this will tint the Flare with the Light&#39;s color.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Rotate</strong></td>
+<td style="text-align:left">If enabled, bottom of the Element will always face the center of the screen, making the Element spin as the Lens Flare moves around on the screen.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Zoom</strong></td>
+<td style="text-align:left">If enabled, the Element will scale up when it becomes visible and scale down again when it isn&#39;t.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Fade</strong></td>
+<td style="text-align:left">If enabled, the Element will fade in to full strength when it becomes visible and fade out when it isn&#39;t.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Flare Texture</strong></td>
+<td style="text-align:left">A texture containing images used by this Flare&#39;s <strong>Elements</strong>. It must be arranged according to one of the <strong>TextureLayout</strong> options.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Texture Layout</strong></td>
+<td style="text-align:left">How the individual Flare Element images are laid out inside the <strong>Flare Texture</strong> (see <em>Texture Layouts</em> below for further details).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Use Fog</strong></td>
+<td style="text-align:left">If enabled, the Flare will fade away with distance fog. This is used commonly for small Flares.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details</h2>
+<p>A Flare consists of multiple <strong>Elements</strong>, arranged along a line. The line is calculated by comparing the position of the GameObject containing the Lens Flare to the center of the screen. The line extends beyond the containing GameObject and the screen center. All Flare <strong>Elements</strong> are strung out on this line.</p>
+<h2 id="flare-textures">Flare Textures</h2>
+<p>For performance reasons, all <strong>Elements</strong> of one Flare must share the same Texture. This Texture contains a collection of the different images that are available as Elements in a single Flare. The <strong>Texture Layout</strong> defines how the <strong>Elements</strong> are laid out in the <strong>Flare Texture</strong>.</p>
+<h2 id="texture-layouts">Texture Layouts</h2>
+<p>These are the options you have for different Flare <strong>Texture Layouts</strong>. The numbers in the images correspond to the <strong>Image Index</strong> property for each <strong>Element</strong>.</p>
+<h3 id="1-large-4-small">1 Large 4 Small</h3>
+<p><img src="../uploads/Main/FlaresLayout0.png" alt=""> </p>
+<p>Designed for large sun-style Flares where you need one of the <strong>Elements</strong> to have a higher fidelity than the others. This is designed to be used with Textures that are twice as high as they are wide.</p>
+<h3 id="1-large-2-medium-8-small">1 Large 2 Medium 8 Small</h3>
+<p><img src="../uploads/Main/FlaresLayout1.png" alt=""> </p>
+<p>Designed for complex flares that require 1 high-definition, 2 medium and 8 small images. This is used in the standard assets &quot;50mm Zoom Flare&quot; where the two medium Elements are the rainbow-colored circles. This is designed to be used with textures that are twice as high as they are wide.</p>
+<h3 id="1-texture">1 Texture</h3>
+<p><img src="../uploads/Main/FlaresLayout2.png" alt=""> </p>
+<p>A single image.</p>
+<h2 id="2x2-grid">2x2 grid</h2>
+<p><img src="../uploads/Main/FlaresLayout3.png" alt=""> </p>
+<p>A simple 2x2 grid.</p>
+<h3 id="3x3-grid">3x3 grid</h3>
+<p><img src="../uploads/Main/FlaresLayout4.png" alt=""> </p>
+<p>A simple 3x3 grid.</p>
+<h3 id="4x4-grid">4x4 grid</h3>
+<p><img src="../uploads/Main/FlaresLayout5.png" alt=""> </p>
+<p>A simple 4x4 grid.</p>
+<h2 id="hints">Hints</h2>
+<ul>
+<li>If you use many different Flares, using a single <strong>Flare Texture</strong> that contains all the <strong>Elements</strong> will give you best rendering performance.</li>
+<li>Lens Flares are blocked by <strong>Colliders</strong>. A Collider in-between the Flare GameObject and the Camera will hide the Flare, even if the Collider does not have a <strong>Mesh Renderer</strong>. If the in-between Collider is marked as Trigger it will block the flare if and only if <strong>Physics.queriesHitTriggers</strong> is true.</li>
+<li>To override the shader used for Flares, open the <a href="class-GraphicsSettings.html">Graphics</a> window and set <strong>Lens Flares</strong> to the shader that you would like to use as the override.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

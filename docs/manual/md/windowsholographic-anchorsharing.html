@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>HoloLens Anchor Sharing | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="HoloLens Anchor Sharing | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="hololens-anchor-sharing">HoloLens Anchor Sharing</h1>
+
+<!-- https://trello.com/c/Qw7imxOL -->
+<p>Anchor Sharing is a system for saving a <a href="wmr_input_types.html">World Anchor</a> on one device in such a way that it can be loaded onto different devices. </p>
+<p>For example: Two users play a game with a virtual game board placed on a table. For the two users&#39; game boards to line up, both devices require a spatial understanding of where the virtual game board is placed, relative to the real world. Anchor Sharing allows Anchor information to be saved from one user&#39;s device and recreated on the other user&#39;s device. </p>
+<p>Note that the Anchor Sharing feature does not contain the transport layer necessary to transfer data between devices. Network transport systems provide this functionality. See Unity documentation on <a href="UNet.html">Networking</a> for more information on this.</p>
+<h2 id="exporting-anchors">Exporting Anchors</h2>
+<p>To export an existing World Anchor, you need a shared name for that Anchor and a <code>WorldAnchorTransferBatch</code>. </p>
+<p>The example below shows basic usage of this API. Note that:</p>
+<ol>
+<li>You should expect multiple calls to <code>OnExportDataAvailable</code>. </li>
+<li>If you set up your application to send data to other devices incrementally, you also need to handle cases where data is sent but the export call fails mid-stream.</li>
+</ol>
+<pre><code>private void ExportWorldAnchor()
+{
+    WorldAnchorTransferBatch transferBatch = new WorldAnchorTransferBatch();
+    transferBatch.AddWorldAnchor(&quot;GameRootAnchor&quot;, this.MyWorldAnchor);
+    WorldAnchorTransferBatch.ExportAsync(transferBatch, OnExportDataAvailable, OnExportComplete);
+}
+
+private void OnExportComplete(SerializationCompletionReason completionReason)
+{
+    if (completionReason != SerializationCompletionReason.Succeeded)
+    {
+        // If we have been transferring data and it failed, 
+        // tell the client to discard the data
+        SendExportFailedToClient();
+    }
+    else
+    {
+        // Tell the client that serialization has succeeded.
+        // The client can start importing once all the data is received.
+        SendExportSucceededToClient();
+    }
+}
+
+private void OnExportDataAvailable(byte[] data)
+{
+    // Send the bytes to the client.  Data may also be buffered.
+    TransferDataToClient(data); 
+}
+</code></pre><h2 id="importing-anchors">Importing Anchors</h2>
+<p>Once the data is received, import it through <code>WorldAnchorTransferBatch</code> to then recreate the World Anchor on a different client. </p>
+<p>The example below shows basic usage. Note that importing sometimes fails; if this happens, retry the process.</p>
+<pre><code>private int retryCount = 10;
+private void ImportWorldAnchor(byte[] importedData)
+{
+    WorldAnchorTransferBatch.ImportAsync(importedData, OnImportComplete);
+}
+​
+private void OnImportComplete(SerializationCompletionReason completionReason, WorldAnchorTransferBatch deserializedTransferBatch)
+{
+    if (completionReason != SerializationCompletionReason.Succeeded)
+    {
+        Debug.Log(&quot;Failed to import: &quot; + completionReason.ToString());
+        if (retryCount &gt; 0)
+        {
+            retryCount--;
+            WorldAnchorTransferBatch.ImportAsync(fileData, OnImportComplete);
+        }
+        return;
+    }
+​
+    string[] ids = deserializedTransferBatch.GetAllIds();
+    foreach (string id in ids)
+    {
+        GameObject gameObject = GetGameObjectFromAnchorId(id);
+        if (gameObject != null)
+        {
+            transferBatch.LockObject(id, gameObject);
+        }
+        else
+        {
+            Debug.Log(&quot;Failed to find object for anchor id: &quot; + id);
+        }
+    }
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
