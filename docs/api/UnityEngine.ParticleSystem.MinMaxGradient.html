@@ -107,7 +107,6 @@ Gradients are edited via the ParticleSystem Inspector once a <a class="xref" hre
 </div>
   <h5 id="UnityEngine_ParticleSystem_MinMaxGradient_examples"><strong>Examples</strong></h5>
   <pre><code>
-</code></pre><pre><code>
 using UnityEngine;
 
 // This example shows setting a constant color value.
@@ -136,7 +135,6 @@ public class ConstantColorExample : MonoBehaviour
         colorModule.color = Color.red;
     }
 }
-</code></pre><pre><code>
 </code></pre><pre><code>
 using UnityEngine;
 
@@ -167,7 +165,6 @@ public class TwoConstantColorsExample : MonoBehaviour
     }
 }
 </code></pre><pre><code>
-</code></pre><pre><code>
 using UnityEngine;
 
 // This example shows using a gradient to drive the color over lifetime.
@@ -189,7 +186,7 @@ public class GradientColorExample : MonoBehaviour
         ourGradient.SetKeys(
             new GradientColorKey[] { new GradientColorKey(Color.green, 0.0f), new GradientColorKey(Color.red, 1.0f) },
             new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
-        );
+            );
 
         // Apply the gradient.
         colorModule.color = ourGradient;
@@ -205,13 +202,12 @@ public class GradientColorExample : MonoBehaviour
         ourGradient.SetKeys(
             new GradientColorKey[] { new GradientColorKey(Color.green, 0.0f), new GradientColorKey(Color.red, 1.0f) },
             new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
-        );
+            );
 
         // Apply the changed gradient.
         colorModule.color = ourGradient;
     }
 }
-</code></pre><pre><code>
 </code></pre><pre><code>
 using UnityEngine;
 
@@ -236,7 +232,7 @@ public class TwoGradientColorExample : MonoBehaviour
         ourGradientMin.SetKeys(
             new GradientColorKey[] { new GradientColorKey(Color.green, 0.0f), new GradientColorKey(Color.red, 1.0f) },
             new GradientAlphaKey[] { new GradientAlphaKey(alpha1, 0.0f), new GradientAlphaKey(alpha1, 1.0f) }
-        );
+            );
 
         // A simple 2 color gradient with a fixed alpha of 0.0f.
         float alpha2 = 0.0f;
@@ -244,7 +240,7 @@ public class TwoGradientColorExample : MonoBehaviour
         ourGradientMax.SetKeys(
             new GradientColorKey[] { new GradientColorKey(Color.green, 0.0f), new GradientColorKey(Color.red, 1.0f) },
             new GradientAlphaKey[] { new GradientAlphaKey(alpha2, 0.0f), new GradientAlphaKey(alpha2, 1.0f) }
-        );
+            );
 
         // Apply the gradients.
         colorModule.color = new ParticleSystem.MinMaxGradient(ourGradientMin, ourGradientMax);
@@ -260,7 +256,7 @@ public class TwoGradientColorExample : MonoBehaviour
         ourGradientMin.SetKeys(
             new GradientColorKey[] { new GradientColorKey(Color.green, 0.0f), new GradientColorKey(Color.red, 1.0f) },
             new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
-        );
+            );
 
         // Apply the changed gradients.
         colorModule.color = new ParticleSystem.MinMaxGradient(ourGradientMin, ourGradientMax);
