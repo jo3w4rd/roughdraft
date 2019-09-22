@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Android Manifest | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Android Manifest | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="android-manifest">Android Manifest</h1>
+
+<p>The Android Manifest is an XML file which contains important metadata about the Android app. This includes the package name, activity names, main activity (the entry point to the app), configurations, Android version support, hardware features support, and permissions.</p>
+<p>For more information about the Android Manifest file, refer to the Android Developer documentation on <a href="https://developer.android.com/guide/topics/manifest/manifest-intro.html">Android Manifests</a>.</p>
+<h2 id="how-unity-produces-the-android-manifest">How Unity produces the Android Manifest</h2>
+<p>When building your app, Unity automatically generates the Android Manifest, following the steps below:</p>
+<ol>
+<li><p>Unity takes the main Android Manifest.</p>
+</li>
+<li><p>Unity finds all the Android Manifests of your plug-ins (AARs and Android Libraries).</p>
+</li>
+<li><p>Manifests from plug-ins are merged into the main Manifest using Google’s <a href="https://android.googlesource.com/platform/sdk/+/0386f5d/manifmerger">manifmerger</a> class.</p>
+</li>
+<li><p>Unity modifies the Manifest, automatically adding permissions, configuration options, features used, and other information to the Manifest.</p>
+</li>
+</ol>
+<h2 id="overriding-the-android-manifest">Overriding the Android Manifest</h2>
+<p>Although Unity generates a correct Manifest for you, in some cases you might want direct control over its contents.</p>
+<p>To use an Android Manifest that you have created outside of Unity, import your Android Manifest file to the following location: <em>Assets/Plugins/Android/AndroidManifest.xml</em>. This overrides the default Unity-created Manifest.</p>
+<p>In this situation, Android Libraries’ Manifests are later merged into your main Manifest, and the resulting Manifest is still tweaked by Unity to make sure the configuration is correct. For full control of the Manifest, including permissions, you need to export the Project and modify the final Manifest in <a href="https://developer.android.com/studio/index.html?gclid=CPbCm_HwptICFVXnGwodghYK5w">Android Studio</a>. Please note that we only support <a href="https://developer.android.com/guide/topics/manifest/activity-element.html#lmode"><em>launchMode - singleTask</em></a>.</p>
+<h2 id="permissions">Permissions</h2>
+<p>Unity automatically adds the necessary permissions to the Manifest based on the <a href="class-PlayerSettingsAndroid.html">Android Player</a> settings and Unity APIs that your app calls from the script. For example:</p>
+<ul>
+<li><p><a href="ScriptRef:Network.html">Network</a> classes add the <code>INTERNET</code> permission</p>
+</li>
+<li><p>Using vibration (such as <a href="ScriptRef:Handheld.Vibrate.html">Handheld.Vibrate</a>) adds <code>VIBRATE</code></p>
+</li>
+<li><p>The <a href="ScriptRef:Application-internetReachability.html">InternetReachability</a> property adds <code>ACCESS_NETWORK_STATE</code></p>
+</li>
+<li><p>Location APIs (such as <a href="ScriptRef:LocationService.html">LocationService</a>) adds <code>ACCESS_FINE_LOCATION</code></p>
+</li>
+<li><p><a href="ScriptRef:WebCamTexture.html">WebCamTexture</a> APIs add <code>CAMERA</code> permission</p>
+</li>
+<li><p>The <a href="ScriptRef:Microphone.html">Microphone</a> class adds <code>RECORD_AUDIO</code></p>
+</li>
+<li><p><a href="SriptRef:Networking.NetworkDiscovery.html">NetworkDiscovery</a> and <a href="ScriptRef:Networking.NetworkTransport.SetMulticastLock.html">NetworkTransport.SetMulticastLock</a> adds <code>CHANGE_WIFI_MULTICAST_STATE</code></p>
+</li>
+</ul>
+<p>For more information about permissions, see the <a href="https://developer.android.com/guide/topics/manifest/manifest-intro.html#perms">Android Manifest Permissions</a> page of the Android Developer documentation.</p>
+<p>Note that if your plug-ins require a permission by declaring it in their Manifests, the permission is automatically be added to the resulting Android Manifest during the merge stage. Any Unity APIs called by the plug-ins also contribute to the permission list.</p>
+<h2 id="runtime-permissions-in-android-60-marshmallow">Runtime permissions in Android 6.0 (Marshmallow)</h2>
+<p>If your app is running on a device with Android 6.0 (Marshmallow) or later and also targets Android API level 23 or higher, your app uses the Android <a href="https://developer.android.com/training/permissions/requesting.html">Runtime Permission System</a>.</p>
+<p>The Android Runtime Permission System asks the app’s user to grant permissions while the app is running, instead of when the app is first installed.  App users can usually grant or deny each permission when the app needs them while the app is running (for example, requesting camera permission before taking a picture). This allows an app to run with limited functionality without permissions. The <a href="ScriptRef:Android.Permission">Android.Permission</a> class allows you to check whether specific permissions have been granted or denied. If a permission your app relies upon has been denied, you can inform the user why you need it and ask them to approve the permission. See <a href="android-RequestingPermissions.html">Requesting Permissions</a>.</p>
+<p>Normally, your app prompts the user to allow what Android calls &quot;dangerous&quot; permissions on startup. See Android&#39;s  documentation on <a href="https://developer.android.com/guide/topics/permissions/requesting.html">dangerous permissions</a> for more information. However, if you don’t want your Unity Android app to ask for permissions on startup, you can add the following to your Manifest in either the <strong>Application</strong> or <strong>Activity</strong> sections.</p>
+<pre><code>&lt;meta-data android:name=&quot;unityplayer.SkipPermissionsDialog&quot; android:value=&quot;true&quot; /&gt;
+</code></pre><p>Adding this completely suppresses the permission dialog shown on startup, but you must handle runtime permissions carefully to avoid crashes. This method is only recommended for advanced Android app developers.</p>
+<p>For further information about the Runtime Permission System and handling permissions, see the <a href="https://developer.android.com/training/permissions/requesting.html">Requesting Permissions</a> section of the Android Developer documentation. </p>
+<h2 id="examining-the-resulting-android-manifest">Examining the resulting Android Manifest</h2>
+<p>To examine the final Android Manifest that Unity has generated for your app, open the <em>Temp/StagingArea/AndroidManifest.xml</em> file after you have built your Project but before exiting the Unity Editor.</p>
+<p>The Manifest is stored in binary format in the output package (APK). To check the contents of a Manifest inside an APK, you can use the <a href="https://developer.android.com/studio/build/apk-analyzer.html">Android Studio APK Analyzer</a> or another third-party tool (such as <a href="https://ibotpeaches.github.io/Apktool/">Apktool</a>).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

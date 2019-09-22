@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>HoloLens video capture | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="HoloLens video capture | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="hololens-video-capture">HoloLens video capture</h1>
+
+<!-- https://trello.com/c/Qw7imxOL -->
+<p>Use the <a href="ScriptRef:XR.WSA.WebCam.VideoCapture.html">VideoCapture</a> API to record videos directly to the file system in the MP4 format. Please note that the <strong>VideoCapture</strong> API does not work in the Unity Editor.  </p>
+<p>You must enable the WebCam and Microphone capabilities to use the <strong>VideoCapture</strong> API. The following example records a 5 second video and saves it to the file system.</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+using System.Linq;
+using UnityEngine.XR.WSA.WebCam;
+
+public class VideoCaptureExample : MonoBehaviour
+{
+    static readonly float MaxRecordingTime = 5.0f;
+
+    VideoCapture m_VideoCapture = null;
+    float m_stopRecordingTimer = float.MaxValue;
+
+    // Use this for initialization
+    void Start()
+    {
+
+        StartVideoCaptureTest();
+    }
+
+    void Update()
+    {
+        if (m_VideoCapture == null || !m_VideoCapture.IsRecording)
+        {
+            return;
+        }
+
+        if (Time.time &gt; m_stopRecordingTimer)
+        {
+            m_VideoCapture.StopRecordingAsync(OnStoppedRecordingVideo);
+        }
+    }
+
+    void StartVideoCaptureTest()
+    {
+
+        Resolution cameraResolution = VideoCapture.SupportedResolutions.OrderByDescending((res) =&gt; res.width * res.height).First();
+        Debug.Log(cameraResolution);
+
+        float cameraFramerate = VideoCapture.GetSupportedFrameRatesForResolution(cameraResolution).OrderByDescending((fps) =&gt; fps).First();
+        Debug.Log(cameraFramerate);
+
+        VideoCapture.CreateAsync(false, delegate (VideoCapture videoCapture)
+        {
+            if (videoCapture != null)
+            {
+                m_VideoCapture = videoCapture;
+                Debug.Log(&quot;Created VideoCapture Instance!&quot;);
+
+                CameraParameters cameraParameters = new CameraParameters();
+                cameraParameters.hologramOpacity = 0.0f;
+                cameraParameters.frameRate = cameraFramerate;
+                cameraParameters.cameraResolutionWidth = cameraResolution.width;
+                cameraParameters.cameraResolutionHeight = cameraResolution.height;
+                cameraParameters.pixelFormat = CapturePixelFormat.BGRA32;
+
+                m_VideoCapture.StartVideoModeAsync(cameraParameters,
+                                                   VideoCapture.AudioState.ApplicationAndMicAudio,
+                                                   OnStartedVideoCaptureMode);
+            }
+            else
+            {
+                Debug.LogError(&quot;Failed to create VideoCapture Instance!&quot;);
+            }
+        });
+    }
+
+    void OnStartedVideoCaptureMode(VideoCapture.VideoCaptureResult result)
+    {
+        Debug.Log(&quot;Started Video Capture Mode!&quot;);
+        string timeStamp = Time.time.ToString().Replace(&quot;.&quot;, &quot;&quot;).Replace(&quot;:&quot;, &quot;&quot;);
+        string filename = string.Format(&quot;TestVideo_{0}.mp4&quot;, timeStamp);
+        string filepath = System.IO.Path.Combine(Application.persistentDataPath, filename);
+        filepath = filepath.Replace(&quot;/&quot;, @&quot;\&quot;);
+        m_VideoCapture.StartRecordingAsync(filepath, OnStartedRecordingVideo);
+    }
+
+    void OnStoppedVideoCaptureMode(VideoCapture.VideoCaptureResult result)
+    {
+        Debug.Log(&quot;Stopped Video Capture Mode!&quot;);
+    }
+
+    void OnStartedRecordingVideo(VideoCapture.VideoCaptureResult result)
+    {
+        Debug.Log(&quot;Started Recording Video!&quot;);
+        m_stopRecordingTimer = Time.time + MaxRecordingTime;
+    }
+
+    void OnStoppedRecordingVideo(VideoCapture.VideoCaptureResult result)
+    {
+        Debug.Log(&quot;Stopped Recording Video!&quot;);
+        m_VideoCapture.StopVideoModeAsync(OnStoppedVideoCaptureMode);
+    }
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

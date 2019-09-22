@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>HoloLens photo capture | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="HoloLens photo capture | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="hololens-photo-capture">HoloLens photo capture</h1>
+
+<!-- https://trello.com/c/Qw7imxOL -->
+<p>Use the  <a href="ScriptRef:XR.WSA.WebCam.PhotoCapture.html">PhotoCapture</a> API to take photos from the HoloLens web camera. You must enable the <strong>WebCam</strong> and <strong>Microphone</strong> capabilities to use the PhotoCapture API. The following example demonstrates how to take a photo using the PhotoCapture functionality and display it on a Unity <a href="ScriptRef:GameObject.html">GameObject</a>.</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+using System.Linq;
+using UnityEngine.XR.WSA.WebCam;
+
+public class PhotoCaptureExample : MonoBehaviour {
+    PhotoCapture photoCaptureObject = null;
+    Texture2D targetTexture = null;
+
+    // Use this for initialization
+    void Start() {
+        Resolution cameraResolution = PhotoCapture.SupportedResolutions.OrderByDescending((res) =&gt; res.width * res.height).First();
+        targetTexture = new Texture2D(cameraResolution.width, cameraResolution.height);
+
+        // Create a PhotoCapture object
+        PhotoCapture.CreateAsync(false, delegate (PhotoCapture captureObject) {
+            photoCaptureObject = captureObject;
+            CameraParameters cameraParameters = new CameraParameters();
+            cameraParameters.hologramOpacity = 0.0f;
+            cameraParameters.cameraResolutionWidth = cameraResolution.width;
+            cameraParameters.cameraResolutionHeight = cameraResolution.height;
+            cameraParameters.pixelFormat = CapturePixelFormat.BGRA32;
+
+            // Activate the camera
+            photoCaptureObject.StartPhotoModeAsync(cameraParameters, delegate (PhotoCapture.PhotoCaptureResult result) {
+                // Take a picture
+                photoCaptureObject.TakePhotoAsync(OnCapturedPhotoToMemory);
+            });
+        });
+    }
+
+    void OnCapturedPhotoToMemory(PhotoCapture.PhotoCaptureResult result, PhotoCaptureFrame photoCaptureFrame) {
+        // Copy the raw image data into the target texture
+        photoCaptureFrame.UploadImageDataToTexture(targetTexture);
+
+        // Create a GameObject to which the texture can be applied
+        GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        Renderer quadRenderer = quad.GetComponent&lt;Renderer&gt;() as Renderer;
+        quadRenderer.material = new Material(Shader.Find(&quot;Custom/Unlit/UnlitTexture&quot;));
+
+        quad.transform.parent = this.transform;
+        quad.transform.localPosition = new Vector3(0.0f, 0.0f, 3.0f);
+
+        quadRenderer.material.SetTexture(&quot;_MainTex&quot;, targetTexture);
+
+        // Deactivate the camera
+        photoCaptureObject.StopPhotoModeAsync(OnStoppedPhotoMode);
+    }
+
+    void OnStoppedPhotoMode(PhotoCapture.PhotoCaptureResult result) {
+        // Shutdown the photo capture resource
+        photoCaptureObject.Dispose();
+        photoCaptureObject = null;
+    }
+}
+</code></pre><h2 id="capture-a-photo-to-memory">Capture a photo to memory</h2>
+<p>When you capture an image to memory, a <a href="ScriptRef:XR.WSA.WebCam.PhotoCaptureFrame.html">PhotoCaptureFrame</a> is returned. A <code>PhotoCaptureFrame</code> contains both the native image data and spatial matrices that indicate where the image was taken.</p>
+<p>Capturing an image to memory allows you to reference the captured image in a Shader, or apply it to a GameObject. There are three ways to extract the image data from the <code>PhotoCaptureFrame</code>. These are:</p>
+<ol>
+<li><p>Access the image data as a <a href="ScriptRef:Texture2D.html">Texture2D</a>. This is the most common way to extract image data, because most components in Unity understand how to access image data in a Texture2D. Once your image has been captured to memory, you need to upload the image data into a Texture2D. Once the image data is uploaded into a Texture2D, you can then begin referencing that image data in materials, scripts, or any other relevant element of your project. The Unity API Documentation has an example which demonstrates how to capture a photo to memory and then upload it to a Texture2D. See <a href="ScriptRef:XR.WSA.WebCam.PhotoCapture.TakePhotoAsync.html">WebCam.PhotoCapture.TakePhotoAsync</a> to learn how to capture a photo to a Texture2D. Uploading the image data to a Texture2D via the upload command is the easiest way to start working with your image data in Unity. The upload operation happens on the main thread. This operation is resource-intensive and can affect the performance of your project.</p>
+</li>
+<li><p>Capture the native image data as a <strong>WinRT IMFMediaBuffer</strong>. See Microsoft&#39;s documentation on <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms696261.aspx">IMFMediaBuffer</a> to learn more. Make a copy of the native image data by passing a byte list into the <a href="ScriptRef:XR.WSA.WebCam.PhotoCaptureFrame.CopyRawImageDataIntoBuffer.html">PhotoFrame.CopyRawImageDataIntoBuffer</a> function. Please note that the copy operation occurs on the main thread. This operation is resource-intensive and can affect the performance of your project.</p>
+</li>
+<li><p>If you create your own plugin, or process the image data on a separate thread, you can get a pointer to the native image data via the <a href="ScriptRef:XR.WSA.WebCam.PhotoCaptureFrame.GetUnsafePointerToBuffer.html">PhotoFrame.GetUnsafePointerToBuffer</a> function. The pointer returned is a pointer to an IMFMediaBuffer Component Object Model (COM). See Microsoft’s documentation on <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms696261.aspx">IMFMediaBuffer</a> and <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms694363.aspx">Component Object Models</a> for more information. Once you call this function, a reference is added to the COM object. You are responsible for releasing the reference when you no longer need the resource.</p>
+</li>
+</ol>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

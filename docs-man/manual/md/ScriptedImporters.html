@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Scripted Importers | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Scripted Importers | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="scripted-importers">Scripted Importers</h2>
+
+<p>Scripted Importers are part of the <a href="ScriptingSection.html">Unity Scripting API</a>. Use Scripted Importers to write custom Asset importers in C# for file formats not natively supported by Unity.</p>
+<p>Create a custom importer by specializing the abstract class <a href="ScriptRef:Experimental.AssetImporters.ScriptedImporter.html">ScriptedImporter</a> and applying the <a href="ScriptRef:Experimental.AssetImporters.ScriptedImporterAttribute.html">ScriptedImporter</a> attribute. This registers your custom importer to handle one or more file extensions. When a file matching the registered file extensions is detected by the Asset pipeline as being new or changed, Unity invokes the method <code>OnImportAsset</code> of your custom importer.</p>
+<p>Note: Scripted Importers cannot handle a file extension that is already natively handled by Unity.</p>
+<p><strong>Note: Limitation</strong></p>
+<p>This is an experimental release of the Scripted Importer feature and as such is limited to assets that can be created using the Unity Scripting API. This is not a limitation of the implementation or design of the this feature, but does impose limits on its real-world use.</p>
+<h3 id="example">Example</h3>
+<p>Below is a simple example as Scripted Importer: It imports asset files with the extension &quot;cube&quot; into a Unity Prefab with a cube primitive as the main Asset and a default material with a color fetched from the Asset file:</p>
+<pre><code>using UnityEngine;
+using UnityEditor.Experimental.AssetImporters;
+using System.IO;
+
+[ScriptedImporter(1, &quot;cube&quot;)]
+public class CubeImporter : ScriptedImporter
+{
+    public float m_Scale = 1;
+
+    public override void OnImportAsset(AssetImportContext ctx)
+    {
+        var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        var position = JsonUtility.FromJson&lt;Vector3&gt;(File.ReadAllText(ctx.assetPath));
+
+        cube.transform.position = position;
+        cube.transform.localScale = new Vector3(m_Scale, m_Scale, m_Scale);
+
+        // &#39;cube&#39; is a a GameObject and will be automatically converted into a prefab
+        // (Only the &#39;Main Asset&#39; is elligible to become a Prefab.)
+        ctx.AddObjectToAsset(&quot;main obj&quot;, cube);
+        ctx.SetMainObject(cube);
+
+        var material = new Material(Shader.Find(&quot;Standard&quot;));
+        material.color = Color.red;
+
+        // Assets must be assigned a unique identifier string consistent across imports
+        ctx.AddObjectToAsset(&quot;my Material&quot;, material);
+
+        // Assets that are not passed into the context as import outputs must be destroyed
+        var tempMesh = new Mesh();
+        DestroyImmediate(tempMesh);
+    }
+}
+</code></pre><p><strong>Note</strong>: </p>
+<ul>
+<li>The importer is registered with Unity&#39;s Asset pipeline by placing the the <code>ScriptedImporter</code> attribute on the CubeImporter class.</li>
+<li>The CubeImporter class implements the abstract <code>ScriptedImporter</code> base class.</li>
+<li><code>OnImportAsset</code>’s ctx argument contains both input and output data for the import event.</li>
+<li>Each import event must generate one (and only one) call to <code>SetMainAsset</code>.</li>
+<li>Each import event may generate as many calls to <code>AddSubAsset</code> as necessary.</li>
+<li>Please refer to the <a href="ScrptRef:Experimental.AssetImporters.ScriptedImporter.html">Scripting API documentation</a> for more details.</li>
+</ul>
+<p>You may also implement a custom Import Settings Editor by specializing <a href="ScriptRef:Experimental.AssetImporters.ScriptedImporterEditor">ScriptedImporterEditor</a> class and decorating it with the class attribute <code>CustomEditor</code> to tell it what type of importer it is used for.</p>
+<p>For example:</p>
+<pre><code>using UnityEditor;
+using UnityEditor.Experimental.AssetImporters;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+
+[CustomEditor(typeof(CubeImporter))]
+public class CubeImporterEditor: ScriptedImporterEditor
+{
+    public override void OnInspectorGUI()
+    {
+        var colorShift = new GUIContent(&quot;Color Shift&quot;);
+        var prop = serializedObject.FindProperty(&quot;m_ColorShift&quot;);
+        EditorGUILayout.PropertyField(prop, colorShift);
+        base.ApplyRevertGUI();
+    }
+}
+</code></pre><h3 id="using-a-scripted-importer">Using a Scripted Importer</h3>
+<p>Once you have added a scripted importer class to a project, you may use it just like any other native file type supported by Unity:</p>
+<ul>
+<li>Drop a supported file in the Asset directory hierarchy to import.</li>
+<li>Restarting the Unity Editor reimports any files that have changed since last update.</li>
+<li>Editing the Asset file on disk and returning to the Unity Editor triggers a reimport.</li>
+<li>Import a new asset using <strong>Asset</strong> &gt; <strong>Import New Asset...</strong>.</li>
+<li>Explicitly trigger a re-import via the menu: <strong>Asset</strong> &gt; <strong>Reimport</strong>.</li>
+<li>Click on the Asset to see its settings in the <a href="UsingTheInspector.html">Inspector window</a>. To modify its settings, edit them in the Inspector window and click <strong>Apply</strong> .
+<br><br></li>
+</ul>
+<p><img src="../uploads/Main/ScriptedImporters-2.png" alt="The Inspector window of an Asset (An Alembic Girl) imported by the Scripted Importer"></p>
+<h3 id="real-world-use-of-scripted-importers">Real-world use of Scripted Importers</h3>
+<ul>
+<li><p><strong>Alembic</strong>: The Alembic importer plug-in has been updated to use a Scripted Importer. For more information, visit <a href="https://github.com/unity3d-jp/AlembicImporter">Unity github: AlembicImporter</a>.</p>
+</li>
+<li><p><strong>USD</strong>: The USD importer plug-in has been updated to use a Scripted Importer.
+For more information, please visit <a href="https://github.com/unity3d-jp/USDForUnity">Unity github:: USDForUnity</a>.</p>
+</li>
+</ul>
+<p><br>
+<br></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

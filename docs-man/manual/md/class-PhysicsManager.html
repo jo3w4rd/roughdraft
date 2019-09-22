@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Physics | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Physics | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="physics">Physics</h1>
+
+<p>Use the <strong>Physics</strong> settings (main menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Physics</strong> category) to apply global settings for 3D physics. </p>
+<p><strong>Note:</strong> To manage global settings for 2D physics, use the <a href="class-Physics2DManager.html">Physics 2D</a> settings instead.</p>
+<p><img src="../uploads/Main/PhysicsSet.png" alt="3D Physics settings"></p>
+<p>These settings define limits on the accuracy of the physical simulation. Generally speaking, a more accurate simulation requires more processing overhead, so these settings offer a way to trade off accuracy against performance. For more information, see the <a href="PhysicsSection.html">Physics</a> section of the manual.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Gravity</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Use the x, y and z axes to set the amount of gravity applied to all Rigidbody components. For realistic gravity settings, apply a negative number to the y axis. Gravity is defined in world units per seconds squared. <br><strong>Note</strong>: If you increase the gravity, you might need to also increase the <strong>Default Solver Iterations</strong> value to maintain stable contacts.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Default Material</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set a reference to the default Physics Material to use if none has been assigned to an individual Collider.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Bounce Threshold</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set a velocity value. If two colliding objects have a relative velocity below this value, they do not bounce off each other. This value also reduces jitter, so it is not recommended to set it to a very low value.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Sleep Threshold</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set a global energy threshold, below which a non-kinematic Rigidbody (that is, one that is not controlled by the physics system) may go to sleep. When a Rigidbody is sleeping, it is not updated every frame, making it less resource-intensive. If a Rigidbody’s kinetic energy divided by its mass is below this threshold, it is a candidate for sleeping.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Default Contact Offset</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set the distance the collision detection system uses to generate collision contacts. The value must be positive, and if set too close to zero, it can cause jitter. This is set to 0.01 by default. Colliders only generate collision contacts if their distance is less than the sum of their contact offset values.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Default Solver Iterations</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Define how many solver processes Unity runs on every physics frame. Solvers are small physics engine tasks which determine a number of physics interactions, such as the movements of joints or managing contact between overlapping Rigidbody components. <br>This affects the quality of the solver output and it’s advisable to change the property in case non-default <code>Time.fixedDeltaTime</code> is used, or the configuration is extra demanding. Typically, it’s used to reduce the jitter resulting from joints or contacts.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Default Solver Velocity Iterations</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Set how many velocity processes a solver performs in each physics frame. The more processes the solver performs, the higher the accuracy of the resulting exit velocity after a Rigidbody bounce. If you experience problems with jointed Rigidbody components or Ragdolls moving too much after collisions, try increasing this value.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Queries Hit Backfaces</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option if you want physics queries (such as <code>Physics.Raycast</code>) to detect hits with the backface triangles of MeshColliders. By default, this setting is disabled.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Queries Hit Triggers</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option if you want physics hit tests (such as Raycasts, SphereCasts and SphereTests) to return a hit when they intersect with a Collider marked as a Trigger. Individual raycasts can override this behavior. By default, this setting is enabled.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Adaptive Force</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option to enable the adaptive force. The adaptive force affects the way forces are transmitted through a pile or stack of objects, to give more realistic behaviour. By default, this setting is disabled.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Contacts Generation</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Choose a contact generation method.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Legacy Contacts Generation</em></td>
+<td style="text-align:left">Before Unity 5.5, Unity used a contacts generation method based on the separating axis theorem (<a href="http://www.dyn4j.org/2010/01/sat/">SAT</a>.<br><br>PCM is more efficient, but for older projects, you might find it easier to continue using SAT, to avoid needing to retweak physics slightly. PCM can result in a slightly different bounce, and fewer useless contacts end up in the contacts buffers (that is, the arrays you get in the <a href="ScriptRef:Collision.html">Collision</a> instance passed to <code>OnCollisionEnter</code>, <code>OnCollisionStay</code>, and <code>OnCollisionExit</code>).<br><br><strong>Upgrade advice</strong>: To migrate a Project made with Unity 2018.2 or lower, you might need to update your scripts to work with the code that merges patches in the manifold, and selects contacts.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Persistent Contacts Manifold (PCM)</em></td>
+<td style="text-align:left">Generates fewer contacts every physics frame, and more contact data is shared across frames. The PCM contacts generation path is also more accurate, and usually produces better collision feedback in most of the cases. For more information, see <a href="https://docs.nvidia.com/gameworks/content/gameworkslibrary/physx/guide/Manual/AdvancedCollisionDetection.html#persistent-contact-manifold-pcm">Nvidia documentation on Persistent Contact Manifold</a>.<br>This is the default value.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Auto Simulation</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option to run the physics simulation automatically or allow explicit control over it.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Auto Sync Transforms</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option to automatically sync transform changes with the physics system whenever a Transform component changes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Contact Pairs Mode</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Choose the type of contact pair generation to use.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Default Contact Pairs</em></td>
+<td style="text-align:left">Receive collision and trigger events from all contact pairs except kinematic-kinematic and kinematic-static pairs.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Enable Kinematic Kinematic Pairs</em></td>
+<td style="text-align:left">Receive collision and trigger events from kinematic-kinematic contact pairs.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Enable Kinematic Static Pairs</em></td>
+<td style="text-align:left">Receive collision and trigger events from kinematic-static contact pairs.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Enable All Contact Pairs</em></td>
+<td style="text-align:left">Receive collision and trigger events from all contact pairs.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Broadphase Type</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Choose which <a href="https://docs.nvidia.com/gameworks/content/gameworkslibrary/physx/guide/3.3.4/Manual/RigidBodyCollision.html#broad-phase-algorithms">broad-phase algorithm</a> to use in the physics simulation. See NVIDIA’s documentation on <a href="https://docs.nvidia.com/gameworks/content/gameworkslibrary/physx/apireference/files/structPxBroadPhaseType.html">PhysX SDK</a> and <a href="https://docs.nvidia.com/gameworks/content/gameworkslibrary/physx/guide/Manual/RigidBodyCollision.html">Rigid Body Collision</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Sweep and Prune Broadphase_</em></td>
+<td style="text-align:left">Use the sweep-and-prune broad phase collision method (that is, sorting objects along a single axis to rule out having to check pairs that are far apart).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>_Multibox Pruning Broadphase</em></td>
+<td style="text-align:left">Multi-box pruning uses a grid, and each grid cell performs sweep-and-prune. This usually helps improve performance if, for example, there are many GameObjects in a flat world.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>World Bounds</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Define the 2D grid that encloses the world to prevent far away objects from affecting each other when using the <strong>Multibox Pruning Broadphase</strong> algorithm. <br>This option is only used when you set <strong>Broadphase Type</strong> to <strong>Multibox Pruning Broadphase</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>World Subdivisions</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">The number of cells along the x and z axis in the 2D grid algorithm. <br>This option is only used when you set <strong>Broadphase Type</strong> to <strong>Multibox Pruning Broadphase</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Friction Type</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Choose the friction algorithm used for simulation.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Patch Friction Type</em></td>
+<td style="text-align:left">A basic strong friction algorithm which typically leads to the most stable results at low solver iteration counts. This method uses only up to four scalar solver constraints per pair of touching objects.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>One Directional Friction Type</em></td>
+<td style="text-align:left">A simplification of the Coulomb friction model, in which the friction for a given point of contact is applied in the alternating tangent directions of the contact&#39;s normal. Reduces the number of iterations required for convergence but is not as accurate as the two-directional model.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Two Directional Friction Type</em></td>
+<td style="text-align:left">Like the one-directional model, but applies friction in both tangent directions simultaneously. This requires more solver iterations but is more accurate. More expensive than patch friction for scenarios with many contact points because it is applied at every contact point.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Enhanced Determinism</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Simulation in the scene is consistent regardless the actors present, provided that the game inserts the actors in a deterministic order. This mode sacrifices some performance to ensure this additional determinism.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Unified Heightmaps</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option to process Terrain collisions in the same way as Mesh collisions.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Layer Collision Matrix</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Define how the <a href="LayerBasedCollision.html">layer-based collision</a> detection system behaves. Select which layers on the Collision Matrix interact with the other layers by checking them.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cloth Inter-Collision</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Distance</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Define the diameter of a sphere around each <a href="class-Cloth#intercollision">intercolliding Cloth</a> particle. Unity ensures that these spheres do not overlap during simulations. Distance should be smaller than the smallest distance between two particles in the configuration. If the distance is larger, cloth collision may violate some distance constraints and result in jittering.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Stiffness</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">How strong the separating impulse between <a href="class-Cloth#intercollision">intercolliding Cloth</a> particles should be. The cloth solver calculates this and it should be enough to keep the particles separated.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

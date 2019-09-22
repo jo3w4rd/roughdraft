@@ -1,0 +1,392 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Particle System GPU Instancing | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Particle System GPU Instancing | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="particle-system-gpu-instancing">Particle System GPU Instancing</h1>
+
+<p>GPU instancing offers a large performance boost compared with CPU rendering. You can use it if you want your particle system to render <strong>Mesh</strong> particles (as opposed to the default <a href="PartSysRendererModule.html">rendering mode</a> of rendering <strong>billboard</strong> particles).</p>
+<p>To be able to use GPU instancing with your particle systems:</p>
+<ul>
+<li><p>Set your Particle System’s <a href="PartSysRendererModule.html">renderer</a> mode to <strong>Mesh</strong></p>
+</li>
+<li><p>Use a shader for the <a href="PartSysRendererModule.html">renderer</a> material that supports GPU Instancing</p>
+</li>
+<li><p>Run your project on a platform that supports GPU instancing</p>
+</li>
+</ul>
+<p>To enable GPU instancing for a particle system, you must enable the <strong>Enable GPU Instancing</strong> checkbox in the <strong>Renderer</strong> module of your particle system.</p>
+<p><img src="../uploads/Main/PartSysInstancingEnable.png" alt="The option to enable Particle System GPU instancing in the Renderer module"></p>
+<p>Unity comes with a built-in particle shader that supports GPU instancing, but the default particle material does not use it, so you must change this to use GPU instancing. The particle shader that supports GPU instancing is called <strong>Particles/Standard Surface</strong>. To use it, you must create your own new <strong>material</strong>, and set the material’s shader to <strong>Particles/Standard Surface</strong>. You must then assign this new material to the material field in the Particle System <a href="PartSysRendererModule.html">renderer</a> module.</p>
+<p><img src="../uploads/Main/PartSysInstancingShader.png" alt="The built-in shader that is compatible with Particle System GPU Instancing"></p>
+<p>If you are using a different shader for your particles, it must use ‘#pragma target 4.5’ or higher. See <a href="SL-ShaderCompileTargets.html">Shader Compile Targets</a> for more details. This requirement is higher than regular GPU Instancing in Unity because the Particle System writes all its instance data to a single large buffer, rather than breaking up the instancing into multiple draw calls.</p>
+<h2 id="custom-shader-examples">Custom shader examples</h2>
+<p>You can also write custom shaders that make use of GPU Instancing. See the following sections for more information:</p>
+<ul>
+<li><a href="#SurfaceShader">Particle system GPU Instancing in a Surface Shader</a></li>
+<li><a href="#CustomShader">Particle system GPU Instancing in a Custom Shader</a></li>
+<li><a href="#CustomVertexStreams">Customising instance data used by the Particle System</a> (to work alongside Custom Vertex Streams)</li>
+</ul>
+<p><a name="SurfaceShader"></a></p>
+<h3 id="particle-system-gpu-instancing-in-a-surface-shader">Particle system GPU Instancing in a Surface Shader</h3>
+<p>Here is a complete working example of Surface Shader using Particle System GPU Instancing:</p>
+<pre><code>
+Shader &quot;Instanced/ParticleMeshesSurface&quot; {
+    Properties {
+        _Color (&quot;Color&quot;, Color) = (1,1,1,1)
+        _MainTex (&quot;Albedo (RGB)&quot;, 2D) = &quot;white&quot; {}
+        _Glossiness (&quot;Smoothness&quot;, Range(0,1)) = 0.5
+        _Metallic (&quot;Metallic&quot;, Range(0,1)) = 0.0
+    }
+    SubShader {
+        Tags { &quot;RenderType&quot;=&quot;Opaque&quot; }
+        LOD 200
+
+        CGPROGRAM
+        // Physically based Standard lighting model, and enable shadows on all light types
+        // And generate the shadow pass with instancing support
+        #pragma surface surf Standard nolightmap nometa noforwardadd keepalpha fullforwardshadows addshadow vertex:vert
+        // Enable instancing for this shader
+        #pragma multi_compile_instancing
+        #pragma instancing_options procedural:vertInstancingSetup
+        #pragma exclude_renderers gles
+        #include &quot;UnityStandardParticleInstancing.cginc&quot;
+        sampler2D _MainTex;
+        struct Input {
+            float2 uv_MainTex;
+            fixed4 vertexColor;
+        };
+        fixed4 _Color;
+        half _Glossiness;
+        half _Metallic;
+        void vert (inout appdata_full v, out Input o)
+        {
+            UNITY_INITIALIZE_OUTPUT(Input, o);
+            vertInstancingColor(o.vertexColor);
+            vertInstancingUVs(v.texcoord, o.uv_MainTex);
+        }
+
+        void surf (Input IN, inout SurfaceOutputStandard o) {
+            // Albedo comes from a texture tinted by color
+            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * IN.vertexColor * _Color;
+            o.Albedo = c.rgb;
+            // Metallic and smoothness come from slider variables
+            o.Metallic = _Metallic;
+            o.Smoothness = _Glossiness;
+            o.Alpha = c.a;
+        }
+        ENDCG
+    }
+    FallBack &quot;Diffuse&quot;
+}
+</code></pre><p>There are a number of small differences to a regular <a href="SL-SurfaceShaders.html">Surface Shader</a> in the above example, which make it work with particle instancing.</p>
+<p>Firstly, you must add the following two lines to enable Procedural Instancing, and specify the built-in vertex setup function. This function lives in UnityStandardParticleInstancing.cginc, and loads the per-instance (per-particle) positional data:</p>
+<pre><code>        #pragma instancing_options procedural:vertInstancingSetup
+        #include &quot;UnityStandardParticleInstancing.cginc&quot;
+</code></pre><p>The other modification in the example is to the Vertex function, which has two extra lines that apply per-instance attributes, specifically, particle colors and <a href="PartSysTexSheetAnimModule.html">Texture Sheet Animation</a> texture coordinates:</p>
+<pre><code>            vertInstancingColor(o.vertexColor);
+            vertInstancingUVs(v.texcoord, o.uv_MainTex);
+</code></pre><p><a name="CustomShader"></a></p>
+<h3 id="particle-system-gpu-instancing-in-a-custom-shader">Particle System GPU Instancing in a Custom Shader</h3>
+<p>Here is a complete working example of a Custom Shader using particle system GPU instancing. This custom shader adds a feature which the standard particle shader does not have - a fade between the individual frames of a <a href="PartSysTexSheetAnimModule.html">texture sheet animation</a>.</p>
+<pre><code>Shader &quot;Instanced/ParticleMeshesCustom&quot;
+{
+    Properties
+    {
+        _MainTex(&quot;Albedo&quot;, 2D) = &quot;white&quot; {}
+        [Toggle(_TSANIM_BLENDING)] _TSAnimBlending(&quot;Texture Sheet Animation Blending&quot;, Int) = 0
+    }
+    SubShader
+    {
+        Tags{ &quot;RenderType&quot; = &quot;Opaque&quot; }
+        LOD 100
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile __ _TSANIM_BLENDING
+            #pragma multi_compile_instancing
+            #pragma instancing_options procedural:vertInstancingSetup
+            #include &quot;UnityCG.cginc&quot;
+            #include &quot;UnityStandardParticleInstancing.cginc&quot;
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                fixed4 color : COLOR;
+                float2 texcoord : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+            };
+            struct v2f
+            {
+                float4 vertex : SV_POSITION;
+                fixed4 color : COLOR;
+                float2 texcoord : TEXCOORD0;
+#ifdef _TSANIM_BLENDING
+                float3 texcoord2AndBlend : TEXCOORD1;   
+#endif
+            };
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            fixed4 readTexture(sampler2D tex, v2f IN)
+            {
+                fixed4 color = tex2D(tex, IN.texcoord);
+#ifdef _TSANIM_BLENDING
+                fixed4 color2 = tex2D(tex, IN.texcoord2AndBlend.xy);
+                color = lerp(color, color2, IN.texcoord2AndBlend.z);
+#endif
+                return color;
+            }
+            v2f vert(appdata v)
+            {
+                v2f o;
+                UNITY_SETUP_INSTANCE_ID(v);
+                o.color = v.color;
+                o.texcoord = v.texcoord;
+                vertInstancingColor(o.color);
+#ifdef _TSANIM_BLENDING
+                vertInstancingUVs(v.texcoord, o.texcoord, o.texcoord2AndBlend);
+#else
+                vertInstancingUVs(v.texcoord, o.texcoord);
+#endif
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                return o;
+            }
+            fixed4 frag(v2f i) : SV_Target
+            {
+                half4 albedo = readTexture(_MainTex, i);
+                return i.color * albedo;
+            }
+            ENDCG
+        }
+    }
+}
+</code></pre><p>This example contains the same set-up code as the Surface Shader for loading the positional data:</p>
+<pre><code>        #pragma instancing_options procedural:vertInstancingSetup
+        #include &quot;UnityStandardParticleInstancing.cginc&quot;
+</code></pre><p>The modification to the vertex function is very similar to the Surface Shader too:</p>
+<pre><code>                vertInstancingColor(o.color);
+#ifdef _TSANIM_BLENDING
+                vertInstancingUVs(v.texcoord, o.texcoord, o.texcoord2AndBlend);
+#else
+                vertInstancingUVs(v.texcoord, o.texcoord);
+#endif
+</code></pre><p>The only difference here, compared with the first example above, is the texture sheet animation blending. This means that the shader requires an extra set of texture coordinates to read two frames of the texture sheet animation instead of just one, and blends them together.</p>
+<p>Finally, the fragment shader reads the textures and calculates the final color.</p>
+<p><a name="CustomVertexStreams"></a></p>
+<h3 id="particle-system-gpu-instancing-with-custom-vertex-streams">Particle system GPU Instancing with custom vertex streams</h3>
+<p>The examples above only use the default vertex stream setup for particles. This includes a position, a normal, a color, and one UV. However, by using <a href="PartSysVertexStreams.html">custom vertex streams</a>, you can send other data to the shader, such as velocities, rotations and sizes. </p>
+<p>In this next example, the shader is designed to display a special effect, which makes faster particles appear brighter, and slower particles dimmer. There is some extra code that brightens particles according to their speed, using the Speed Vertex Stream. Also, because this shader assumes the effect will not be using texture sheet animation, it is omitted from the custom stream struct.</p>
+<p>Here is the full Shader:</p>
+<pre><code>Shader &quot;Instanced/ParticleMeshesCustomStreams&quot;
+{
+    Properties
+    {
+        _MainTex(&quot;Albedo&quot;, 2D) = &quot;white&quot; {}
+    }
+    SubShader
+    {
+        Tags{ &quot;RenderType&quot; = &quot;Opaque&quot; }
+        LOD 100
+        Pass
+        {
+            CGPROGRAM
+#pragma exclude_renderers gles
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile_instancing
+            #pragma instancing_options procedural:vertInstancingSetup
+            #define UNITY_PARTICLE_INSTANCE_DATA MyParticleInstanceData
+            #define UNITY_PARTICLE_INSTANCE_DATA_NO_ANIM_FRAME
+            struct MyParticleInstanceData
+            {
+                float3x4 transform;
+                uint color;
+                float speed;
+            };
+            #include &quot;UnityCG.cginc&quot;
+            #include &quot;UnityStandardParticleInstancing.cginc&quot;
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                fixed4 color : COLOR;
+                float2 texcoord : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+            };
+            struct v2f
+            {
+                float4 vertex : SV_POSITION;
+                fixed4 color : COLOR;
+                float2 texcoord : TEXCOORD0;
+            };
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            v2f vert(appdata v)
+            {
+                v2f o;
+                UNITY_SETUP_INSTANCE_ID(v);
+                o.color = v.color;
+                o.texcoord = v.texcoord;
+                vertInstancingColor(o.color);
+                vertInstancingUVs(v.texcoord, o.texcoord);
+#if defined(UNITY_PARTICLE_INSTANCING_ENABLED)
+                UNITY_PARTICLE_INSTANCE_DATA data = unity_ParticleInstanceData[unity_InstanceID];
+                o.color.rgb += data.speed;
+#endif
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                return o;
+            }
+            fixed4 frag(v2f i) : SV_Target
+            {
+                half4 albedo = tex2D(_MainTex, i.texcoord);
+                return i.color * albedo;
+            }
+            ENDCG
+        }
+    }
+}
+</code></pre><p>The shader includes <code>UnityStandardParticleInstancing.cginc</code>, which contains the default instancing data layout for when Custom Vertex Streams are not being used. So, when using custom streams, you must override some of the defaults defined in that header. These overrides must come <strong>before</strong> the include. The example above sets the following custom overrides:</p>
+<p>Firstly, there is a line that tells Unity to use a custom struct called ‘MyParticleInstanceData’ for the custom stream data, using the UNITY_PARTICLE_INSTANCE_DATA macro:</p>
+<pre><code>            #define UNITY_PARTICLE_INSTANCE_DATA MyParticleInstanceData
+</code></pre><p>Next, another define tells the instancing system that the Anim Frame Stream is not required in this shader, because the effect in this example is not intended for use with texture sheet animation:</p>
+<pre><code>            #define UNITY_PARTICLE_INSTANCE_DATA_NO_ANIM_FRAME
+</code></pre><p>Thirdly, the struct for the custom stream data is declared:</p>
+<pre><code>            struct MyParticleInstanceData
+            {
+                float3x4 transform;
+                uint color;
+                float speed;
+            };
+</code></pre><p>These overrides all come before <code>UnityStandardParticleInstancing.cginc</code> is included, so the shader does not use its own defaults for those defines.</p>
+<p>When writing your struct, the variables must match the vertex streams listed in the Inspector in the Particle System renderer module. This means you must choose the streams you want to use in the Renderer module UI, and add them to variable definitions in your custom stream data struct in the same order, so that they match:</p>
+<p><img src="../uploads/Main/PartSysInstancingCustomVertexStreams.png" alt="The custom vertex streams shown in the Renderer module UI, showing some instanced and some non-instanced streams"></p>
+<p>The first item (Position) is mandatory, so you cannot remove it. You can freely add/remove other entries using the plus and minus buttons to customize your vertex stream data.</p>
+<p>Entries in the list that are followed by <strong>INSTANCED</strong> contain instance data, so you must include them in your particle instance data struct. The number directly appended to the word <strong>INSTANCED</strong> (for example zero in <strong>INSTANCED0</strong> and one in <strong>INSTANCED1</strong>) indicates the order in which the variables must appear in your struct, <em>after</em> the initial &quot;transform&quot; variable. The trailing letters (.x .xy .xyz or .xyzw) indicate the variable’s type and map to float, float2, float3 and float4 variable types in your shader code.</p>
+<p>You can omit any other vertex stream data that appears in the list, but that does *<em>not</em> *have the word <strong>INSTANCED</strong> after it, from the particle instance data struct, because it is not instanced data to be processed by the shader. This data belongs to the source mesh, for example UV’s, Normals and Tangents.</p>
+<p>The final step to complete our example is to apply the speed to the particle color inside the Vertex Shader:</p>
+<pre><code>#if defined(UNITY_PARTICLE_INSTANCING_ENABLED)
+                UNITY_PARTICLE_INSTANCE_DATA data = unity_ParticleInstanceData[unity_InstanceID];
+                o.color.rgb += data.speed;
+#endif
+</code></pre><p>You must wrap all the instancing code inside the check for UNITY_PARTICLE_INSTANCING_ENABLED, so that it can compile when instancing is not being used.</p>
+<p>At this point, if you want to pass the data to the Fragment Shader instead, you can write the data into the v2f struct, like you would with any other shader data.</p>
+<p>This example describes how to modify a Custom Shader for use with Custom Vertex Streams, but you can apply exactly the same approach to a Surface Shader to achieve the same functionality.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

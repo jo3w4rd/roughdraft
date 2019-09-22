@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Analytics event parameters | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Analytics event parameters | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="analytics-event-parameters">Analytics event parameters</h1>
+
+<p>Both Standard and Custom events allow you to send additional information to the Analytics Service as part of an event. The only difference between Standard and Custom Events is that most Standard Events have required or optional parameters which take precedence over any custom parameters. </p>
+<p>Pass your custom parameters to the appropriate <a href="ScriptRef:Analytics.AnalyticsEvent.html">AnalyticsEvent</a> function in the form of a <code>Dictionary&lt;string, object&gt;</code> instance. The keys of this dictionary are the parameter names, and the values are the parameter values. When creating this dictionary, maintain consistent key names and data types for each parameter in your event data, both within a single version of your game as well as from version to version. For example, don’t send a level name parameter as a number sometimes and as a string at other times. Doing this can make your data difficult to interpret. </p>
+<p><strong>Note:</strong> Do not begin the key names of the custom parameter dictionary with the prefix &quot;unity&quot;, which is reserved for internal Unity Analytics events.</p>
+<p>Unity serializes values sent to the Analytics service. It parses number characters as numbers even if the data type you add to the dictionary is a string. In other words, adding the string &quot;<em>51</em>&quot; to the parameter dictionary is equivalent to adding the number <em>51</em>.</p>
+<p>You can pass up to ten parameters with an event. For Standard Events, this limit includes the required parameters and any optional parameters to which you assign a value (unused optional parameters don’t count against this limit). In addition, the length of an individual key name and string value passed to the event must not exceed 100 characters and the total length of all key names and string values must not exceed 500 characters.</p>
+<p>For efficiency, you can create the parameter dictionary instance as a class member and reuse the dictionary each time you dispatch the event. Reusing the dictionary object avoids allocating memory each time you send the event. This reduces the memory allocations that the C# garbage collector needs to clean up. The more frequently you dispatch an event in a Scene, the more benefit this technique provides. The following example defines a class that dispatches a Custom event. The class defines a parameter dictionary as an instance variable and sets the parameter values each time it sends an event. </p>
+<pre><code>using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Analytics;
+
+public class MyCustomAnalyticsEvent : MonoBehaviour {
+    private const string Name = &quot;my_custom_event&quot;;
+
+    private Dictionary&lt;string, object&gt; parameters 
+        = new Dictionary&lt;string, object&gt;();
+
+    void Start(){
+        // Define parameters with default values
+        parameters.Add(&quot;character_class&quot;, &quot;Unknown&quot;);
+        parameters.Add(&quot;health&quot;, 0);
+        parameters.Add(&quot;xp&quot;, 0);
+        parameters.Add(&quot;world_x&quot;, 0);
+        parameters.Add(&quot;world_y&quot;, 0);
+        parameters.Add(&quot;world_z&quot;, 0);
+    }
+
+    public bool Dispatch(string characterClass, 
+                         int health, 
+                         int experience, 
+                         Vector3 location){
+
+        // Set parameter values for a specific event
+        parameters[&quot;character_class&quot;] = characterClass;
+        parameters[&quot;health&quot;] = health;
+        parameters[&quot;xp&quot;] = experience;
+        parameters[&quot;world_x&quot;] = location.x;
+        parameters[&quot;world_y&quot;] = location.y;
+        parameters[&quot;world_z&quot;] = location.z;
+
+        // Send event
+        AnalyticsResult result 
+            = AnalyticsEvent.Custom(Name, parameters);
+        if(result == AnalyticsResult.Ok){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+</code></pre><p>You can use the same technique for the custom parameters you send with Standard events.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

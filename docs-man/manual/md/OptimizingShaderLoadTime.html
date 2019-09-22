@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Optimizing Shader Load Time | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Optimizing Shader Load Time | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="optimizing-shader-load-time">Optimizing Shader Load Time</h1>
+
+<p>Shaders are small programs that execute on the GPU, and loading them can take some time. Each individual GPU program typically does not take much time to load, but shaders often have a lot of &quot;variants&quot; internally.</p>
+<p>For example, the <a href="shader-StandardShader.html">Standard shader</a>, if fully compiled, ends up being many thousands of slightly different GPU programs. This creates two potential problems:</p>
+<ul>
+<li>Large numbers of these shader variants increase game build time, and game data size.</li>
+<li>Loading large numbers of shader variants during game is slow and takes up memory.</li>
+</ul>
+<h2 id="shader-build-time-stripping">Shader build time stripping</h2>
+<p>While building the game, Unity can detect that some of the internal shader variants are not used by the game, and skip them from build data. Build-time stripping is done for:</p>
+<ul>
+<li>Individual shader features, for shaders that use <code>#pragma shader_feature</code>. If none of the used materials use a particular variant, then it is not included into the build. See <a href="SL-MultipleProgramVariants.html">internal shader variants</a> documentation. Out of built-in shaders, the <a href="shader-StandardShader.html">Standard shader</a> uses this.</li>
+<li>Shader variants to handle Fog and Lightmapping modes not used by any of the scenes are not included into the game data. See the <a href="class-GraphicsSettings.html">Graphics</a> window if you want to override this behavior.</li>
+</ul>
+<p>Combination of the above often substantially cuts down on shader data size. For example, a fully compiled Standard shader would take several hundred megabytes, but in typical projects it often ends up taking just a couple megabytes (and is often compressed further by the application packaging process).</p>
+<h2 id="default-unity-shader-loading-behavior">Default Unity shader loading behavior</h2>
+<p>Under all default settings, Unity loads the <a href="SL-Shader.html">shaderlab Shader</a> object into memory, but does not create the <a href="SL-MultipleProgramVariants.html">internal shader variants</a> until they are actually needed.</p>
+<p>This means that shader variants that are included into the game build can still potentially be used, but there&#39;s no memory or load time cost paid until they are needed. For example, shaders always include a variant to handle point lights with shadows, but if you never end up using a point light with shadows in your game, then there&#39;s no point in loading this particular variant.</p>
+<p>One downside of this default behavior, however, is a possible hiccup for when some shader variant is needed for the first time - since a new GPU program code has to be loaded into the graphics driver. This is often undesirable during gameplay, so Unity has <strong>ShaderVariantCollection</strong> assets to help solve that.</p>
+<h3 id="shader-variant-collections">Shader Variant Collections</h3>
+<p>ShaderVariantCollection is an asset that is basically a list of <a href="class-Shader.html">Shaders</a>, and for each of them, a list of Pass types and shader keyword combinations to load.</p>
+<p><img src="../uploads/Main/ShaderVariantCollection.png" alt="Shader variant collection inspector"></p>
+<p>To help with creating these assets based on actually used shaders and their variants, the editor can track which shaders and their variants are actually used. In the <a href="class-GraphicsSettings.html">Graphics</a> window, there is a button to create a new ShaderVariantCollection out of currently tracked shaders, or to clear the currently tracked shader list.</p>
+<p><img src="../uploads/Main/GraphicsSettings-NewVariantCollection.svg" alt="Creating ShaderVariantCollection from Shaders used by editor"> </p>
+<p>Once you have some ShaderVariantCollection assets, you can set for these variants to be automatically preloaded while loading the application (under Preloaded Shaders list on the <a href="class-GraphicsSettings.html">Graphics</a> window), or you can preload an individual shader variant collection from a script. </p>
+<p>The Preloaded Shaders list is intended for frequently used shaders. Shader variants that are listed there the are loaded into memory for entire lifetime of the application. This may use significant amount of memory for ShaderVariantCollections assets that include large number of variants. To avoid that, ShaderVariantCollection assets should be created at smaller granularity and loaded from a script. One strategy is to record used shader variants for each scene, save them into separate ShaderVariantCollections assets and load them on scene startup.</p>
+<p>See <a href="ScriptRef:ShaderVariantCollection.html">ShaderVariantCollection</a> scripting class.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="OptimizingGraphicsPerformance.html">Optimizing Graphics Performance</a></li>
+<li><a href="class-GraphicsSettings.html">Graphics</a> settings</li>
+<li><a href="SL-Shader.html">Shaders reference</a></li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

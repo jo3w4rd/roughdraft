@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Linear or gamma workflow | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Linear or gamma workflow | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="linear-or-gamma-workflow">Linear or gamma workflow</h1>
+
+<p>The Unity Editor offers both linear and gamma workflows. The linear workflow has a color space crossover where <a href="Textures.html">Textures</a> that were authored in gamma color space can be correctly and precisely rendered in linear color space. See documentation on <a href="LinearLighting.html">Linear rendering overview</a> for more information about gamma and linear color space.</p>
+<p>For further reading, see documentation on:</p>
+<ul>
+<li><a href="LinearLighting.html">Linear rendering overview</a> for background information on linear and gamma color space.</li>
+<li><a href="LinearRendering-GammaTextures.html">Gamma Textures with linear rendering</a> for information on gamma Textures in a linear workflow.</li>
+<li><a href="LinearRendering-LinearTextures.html">Linear Textures</a> for information on working with linear Textures.</li>
+</ul>
+<p>Textures tend to be saved in gamma color space, while Shaders expect linear color space. As such, when Textures are sampled in Shaders, the gamma-based values lead to inaccurate results. To overcome this, you can set Unity to use an RGB sampler to cross over from gamma to linear sampling. This ensures a linear workflow with all inputs and outputs of a Shader in the correct color space, resulting in a correct outcome. </p>
+<p>To specify a gamma or linear workflow, go to <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category, navigate to the <strong>Other Settings</strong>, open the <strong>Rendering</strong> section, and change the <strong>Color Space</strong> to <strong>Linear</strong> or <strong>Gamma</strong>, depending on your preference.</p>
+<p><img src="../uploads/Main/LinearRendering-ColorSpaceSetting.png" alt="Player settings showing the Color Space setting"></p>
+<h2 id="gamma-color-space-workflow">Gamma color space workflow</h2>
+<p>While a linear workflow ensures more precise rendering, sometimes you may want a gamma workflow (for example, on some platforms the hardware only supports the gamma format).</p>
+<p>To do this, set <strong>Color Space</strong> to <strong>Gamma</strong> in the <strong>Player</strong> settings (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category). With this option selected,  the rendering pipeline uses all colors and textures in the gamma color space in which they are stored - textures do not have gamma correction removed from them when they are used in a Shader. </p>
+<p>Note that you can choose to bypass sRGB sampling in <strong>Color Space: Gamma</strong> mode by unchecking the <strong>sRGB (Color Texture)</strong> checkbox in the <a href="UsingTheInspector.html">Inspector window</a> for the Texture.</p>
+<p><strong>Note</strong>: Even though these values are in gamma space, all the Unity Editor’s Shader calculations still treat their inputs as if they were in linear space. To ensure an acceptable final result, the Editor makes an adjustment to deal with the mismatched formats when it writes the Shader outputs to a framebuffer and does not apply gamma correction to the final result. </p>
+<h2 id="linear-color-space-workflow">Linear color space workflow</h2>
+<p>Working in linear color space gives more accurate rendering than working in gamma color space. </p>
+<p>To do this, set <strong>Color Space</strong> to <strong>Linear</strong> in the <strong>Player</strong> settings (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category).</p>
+<p>You can work in linear color space if your Textures were created in linear or gamma color space. Gamma color space Texture inputs to the linear color space Shader program are supplied to the Shader with gamma correction removed from them. </p>
+<h3 id="linear-textures">Linear Textures</h3>
+<ul>
+<li>Selecting <strong>Color Space:</strong> <strong>Linear</strong> assumes your Textures are in gamma color space. Unity uses your GPU’s sRGB sampler by default to crossover from gamma to linear color space. If your Textures are authored in linear color space, you need to bypass the sRGB sampling. See documentation on <a href="LinearRendering-LinearTextures.html">Working with linear Textures</a> for more information.</li>
+</ul>
+<h3 id="gamma-textures">Gamma Textures</h3>
+<ul>
+<li>Crossing over from gamma color space to linear color space requires some tweaking. See documentation on <a href="LinearRendering-GammaTextures.html">Gamma Textures with linear rendering</a> for more information.</li>
+</ul>
+<h4 id="notes">Notes</h4>
+<p>For colors, this conversion is applied implicitly, because the Unity Editor already converts the values to floating point before passing them to the GPU as constants. When sampling Textures, the GPU automatically removes the gamma correction, converting the result to linear space. </p>
+<p>These inputs are then passed to the Shader, with lighting calculations taking place in linear space as they normally do. When writing the resulting value to a framebuffer, it is either gamma-corrected straight away or left in linear space for later gamma correction - this depends on the current rendering configuration. For example, in high dynamic range (HDR), rendering results are left in linear space and gamma corrected later.</p>
+<h2 id="differences-between-linear-and-gamma-color-space">Differences between linear and gamma color space</h2>
+<p>When using linear rendering, input values to the lighting equations are different to those in gamma space. This means differing results depending on the color space. For example, light striking surfaces has differing response curves, and Image Effects behave differently.</p>
+<h3 id="light-fall-off">Light fall-off</h3>
+<p>The fall-off from distance and normal-based lighting differs in two ways:</p>
+<ul>
+<li><p>When rendering in linear mode, the additional gamma correction that is performed makes a light’s radius appear larger. </p>
+</li>
+<li><p>Lighting edges also appear more clearly. This more correctly models lighting intensity fall-off on surfaces.</p>
+</li>
+</ul>
+<p><img src="../uploads/Main/LinearRendering-LightingSphereLinearGamma.png" alt="Left: Lighting a sphere in linear space.  Right: Lighting a sphere in gamma space"></p>
+<h3 id="linear-intensity-response">Linear intensity response</h3>
+<p>When you are using gamma rendering, the colors and Textures that are supplied to a Shader already have gamma correction applied to them. When they are used in a Shader, the colors of high luminance are actually brighter than they should be compared to linear lighting. This means that as light intensity increases, the surface gets brighter in a nonlinear way. This leads to lighting that can be too bright in many places. It can also give models and scenes a washed-out feel. When you are using linear rendering, the response from the surface remains linear as the light intensity increases. This leads to much more realistic surface shading and a much nicer color response from the surface.</p>
+<p>The Infinite 3D Head Scan image below demonstrates different light intensities on a human head model under linear lighting and gamma lighting.</p>
+<p><img src="../uploads/Main/LinearRendering-Infinite3DHeadScan.jpg" alt="Infinite 3D Head Scan by Lee Perry-Smith, licensed under a Creative Commons Attribution 3.0 Unported License (available from www.ir-ltd.net)"></p>
+<h3 id="linear-and-gamma-blending">Linear and gamma blending</h3>
+<p>When blending into a framebuffer, the blending occurs in the color space of the framebuffer. </p>
+<p>When you use gamma space rendering, nonlinear colors get blended together. This is not the mathematically correct way to blend colors, and can give unexpected results, but it is the only way to do a blend on some graphics hardware. </p>
+<p>When you use linear space rendering, blending occurs in linear color space: This is mathematically correct and gives precise results.</p>
+<p>The image below demonstrates the different types of blending:</p>
+<p><img src="../uploads/Main/LinearRendering-BlendingLinearGamma.jpg" alt="Top: Blending in linear color space produces expected blending results&lt;br/&gt;Bottom: Blending in gamma color space results in over-saturated and overly-bright blends"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

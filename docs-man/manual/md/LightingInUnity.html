@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Lighting overview | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Lighting overview | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="lighting-overview">Lighting overview</h1>
+
+<p>In order to calculate the shading of a 3D object, Unity needs to know the intensity, direction and color of the light that falls on it.</p>
+<p><img src="../uploads/Main/LightBasic.svg" alt=""></p>
+<p>These properties are provided by <span class='doc-keyword'>Light</span> objects in the scene. Different types of light emit their assigned color in different ways; some lights may diminish with distance from the source, and have different rules about the angle of light received from the source. The different types of light source available in Unity are detailed in <a href="Lighting.html">Types of light</a>.</p>
+<p>Unity can calculate complex, advanced lighting effects in various different ways, each suited to different use cases.</p>
+<h2 id="choosing-a-lighting-technique">Choosing a lighting technique</h2>
+<p>Broadly speaking, lighting in Unity can be considered as either ‘realtime’ or ‘precomputed’ in some way and both techniques can be used in combination to create immersive scene lighting.</p>
+<p>In this section we will give a brief overview of what opportunities the different techniques offer, their relative advantages and individual performance characteristics.</p>
+<h2 id="realtime-lighting">Realtime lighting</h2>
+<p>By default, lights in Unity - directional, spot and point, are realtime. This means that they contribute direct light to the scene and update every frame. As lights and GameObjects are moved within the scene, lighting will be updated immediately. This can be observed in both the scene and game views.</p>
+<p><img src="../uploads/Main/RealtimeSpotlight.png" alt="The effect of realtime light alone. Note that shadows are completely black as there is no bounced light. Only surfaces falling within the cone of the spot light are affected."></p>
+<p>Realtime lighting is the most basic way of lighting objects within the scene and is useful for illuminating characters or other movable geometry.</p>
+<p>Unfortunately, the light rays from Unity’s realtime lights do not bounce when they are used by themselves. In order to create more realistic scenes using techniques such as global illumination we need to enable Unity’s precomputed lighting solutions.</p>
+<p><a name="BakedLightMaps"></a></p>
+<h2 id="baked-lightmaps">Baked lightmaps</h2>
+<p>Unity can calculate complex static lighting effects (using a technique called global illumination, or GI) and store them in a reference texture map called a lightmap. This calculation process is referred to as baking.</p>
+<p>When baking a lightmap, the effects of light sources on static objects in the scene are calculated and the results are written to textures which are overlaid on top of scene geometry to create the effect of lighting.</p>
+<p><img src="../uploads/GlobalIllumination/Lightmap.png" alt="Left: A simple lightmapped scene. Right: The lightmap texture generated by Unity. Note how both shadow and light information is captured."></p>
+<p>These lightmaps can include both the direct light which strikes a surface and also the indirect light that bounces from other objects or surfaces within the scene. This lighting texture can be used together with surface information like color (albedo) and relief (normals) by the Shader associated with an object’s material.</p>
+<p>With baked lighting, these lightmaps cannot change during gameplay and so are referred to as ‘static’. Realtime lights can be overlaid and used additively on top of a lightmapped scene but cannot interactively change the lightmaps themselves.</p>
+<p>With this approach, we trade the ability to move our lights at gameplay for a potential increase in performance, suiting less powerful hardware such as mobile platforms.</p>
+<p>See <a href="GlobalIllumination.html">the Lighting window reference</a> and <a href="UsingPrecomputedLighting.html">Using precomputed lighting</a> for more information.</p>
+<h2 id="precomputed-realtime-global-illumination">Precomputed realtime global illumination</h2>
+<p>Whilst static lightmaps are unable to react to changes in lighting conditions within the scene, precomputed realtime GI does offer us a technique for updating complex scene lighting interactively.</p>
+<p>With this approach it is possible to create lit environments featuring rich global illumination with bounced light which responds, in realtime, to lighting changes. A good example of this would be a time of day system - where the position and color of the light source changes over time. With traditional baked lighting, this is not possible.</p>
+<p><img src="../uploads/GlobalIllumination/timeofdaycycle.gif" alt="A simple example of time of day using Precomputed Realtime GI."></p>
+<p>In order to deliver these effects at playable framerates, we need to shift some of the lengthy number-crunching from being a realtime process to one which is precomputed.</p>
+<p>Precomputing shifts the burden of calculating complex light behaviour from something that happens during gameplay, to something which can be calculated when time is no longer so critical. We refer to this as an ‘offline’ process.</p>
+<p>For further information, please see the <a href="http://unity3d.com/learn/tutorials/topics/graphics/unity-5-lighting-and-rendering?playlist=17102">lighting and rendering tutorial</a>.</p>
+<h2 id="benefits-and-costs">Benefits and costs</h2>
+<p>Although it is possible to simultaneously use Baked GI lighting and Precomputed Realtime GI, be wary that the performance cost of rendering both systems simultaneously is exactly the sum of them both. Not only do we have to store both sets of lightmaps in video memory, but we also pay the processing cost of decoding both in shaders.</p>
+<p>The cases in which you may wish to choose one lighting method over another depend on the nature of your project and the performance capabilities of your intended hardware. For example, on mobile where video memory and processing power is more limited, it is likely that a Baked GI lighting approach would be more performant. On standalone computers with dedicated graphics hardware, or recent games consoles, it is quite possible to use Precomputed Realtime GI or even to use both systems simultaneously.</p>
+<p>The decision on which approach to take will have to be evaluated based on the nature of your particular project and desired target platform. Remember that when targeting a range of different hardware, that often it is the least performant which will determine which approach is needed.</p>
+<p>See also: <a href="LightPerformance.html">Light Troubleshooting and Performance</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Scene view Control Bar | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Scene view Control Bar | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="scene-view-control-bar">Scene view Control Bar</h1>
+
+<p>The Scene view control bar lets you choose various options for viewing the Scene and also control whether lighting and audio are enabled. These controls only affect the Scene view during development and have no effect on the built game.</p>
+<p><img src="../uploads/Main/SceneViewControlBar.png" alt=""></p>
+<h2 id="draw-mode-menu">Draw mode menu</h2>
+<p>The first drop-down menu selects which <strong>Draw Mode</strong> will be used to depict the Scene. The available options are:</p>
+<h3 id="shading-mode">Shading mode</h3>
+<ul>
+<li><strong>Shaded</strong>: show surfaces with their textures visible.</li>
+<li><strong>Wireframe</strong>: draw meshes with a wireframe representation.</li>
+<li><strong>Shaded Wireframe</strong>: show meshes textured and with wireframes overlaid.</li>
+</ul>
+<h3 id="miscellaneous">Miscellaneous</h3>
+<ul>
+<li><strong>Shadow Cascades</strong>: show directional light <a href="DirLightShadows.html">shadow cascades</a>.</li>
+<li><strong>Render Paths</strong>: show the <a href="RenderingPaths.html">rendering path</a> for each object using a color code: Blue indicates <a href="RenderTech-DeferredShading.html">deferred shading</a>, Green indicates <a href="RenderTech-DeferredLighting.html">deferred lighting</a>, yellow indicates <a href="RenderTech-ForwardRendering.html">forward rendering</a> and red indicates <a href="RenderTech-VertexLit.html">vertex lit</a>.</li>
+<li><strong>Alpha Channel</strong>: render colors with alpha.</li>
+<li><strong>Overdraw</strong>: render objects as transparent &quot;silhouettes&quot;. The transparent colors accumulate, making it easy to spot places where one object is drawn over another.</li>
+<li><strong>Mipmaps</strong>: show ideal texture sizes using a color code: red indicates that the texture is larger than necessary (at the current distance and resolution); blue indicates that the texture could be larger. Naturally, ideal texture sizes depend on the resolution at which the game will run and how close the camera can get to particular surfaces.</li>
+</ul>
+<h3 id="deferred">Deferred</h3>
+<p>These modes let you view each of the elements of the G-buffer (<strong>Albedo</strong>, <strong>Specular</strong>, <strong>Smoothness</strong> and <strong>Normal</strong>) in isolation. See documentation on <a href="RenderTech-DeferredShading.html">Deferred Shading</a> for more information.</p>
+<h3 id="global-illumination">Global Illumination</h3>
+<p>The following modes are available to help visualise aspects of the <a href="GlobalIllumination.html">Global Illumination</a> system: <strong>UV Charts</strong>, <strong>Systems</strong>, <strong>Albedo</strong>, <strong>Emissive</strong>, <strong>Irradiance</strong>, <strong>Directionality</strong>, <strong>Baked</strong>, <strong>Clustering</strong> and <strong>Lit Clustering</strong>. See documentation on <a href="GIVis.html">GI Visualisations</a> for informaiton about each of these modes.</p>
+<h3 id="material-validator">Material Validator</h3>
+<p>There are two <strong>Material Validator</strong> modes: <strong>Albedo</strong> and <strong>Metal Specular</strong>. These allow you to check whether your physically-based materials use values within the recommended ranges. See <a href="MaterialValidator.html">Physically Based Material Validator</a> for more information.</p>
+<h2 id="2d-lighting-and-audio-switches">2D, lighting and Audio switches</h2>
+<p>To the right of the <strong>Render Mode</strong> menu are three buttons that switch certain Scene view options on or off:</p>
+<ul>
+<li><strong>2D</strong>: switches between 2D and 3D view for the Scene. In 2D mode the camera is oriented looking towards positive z, with the x axis pointing right and the y axis pointing up.</li>
+<li><strong>Lighting</strong>: turns Scene view lighting (lights, object shading, etc) on or off.</li>
+<li><strong>Audio</strong>: turns Scene view audio effects on or off.</li>
+</ul>
+<h2 id="effects-button-and-menu">Effects button and menu</h2>
+<p>The menu (activated by the small mountain icon to the right of the <strong>Audio</strong> button) has options to enable or disable rendering effects in the Scene view.</p>
+<ul>
+<li><strong>Skybox</strong>: a skybox texture rendered in the Scene&#39;s background</li>
+<li><strong>Fog</strong>: gradual fading of the view to a flat color with distance from the camera.</li>
+<li><strong>Flares</strong>: lens flares on lights.</li>
+<li><strong>Animated Materials</strong>: Defines whether or not animated materials show the animation</li>
+</ul>
+<p>The <strong>Effects</strong> button itself acts as a switch that enables or disables all the effects at once.</p>
+<h2 id="gizmos-menu">Gizmos menu</h2>
+<p>The Gizmos menu contains lots of options for how objects, icons, and gizmos are displayed. This menu is available in both the Scene view and the <a href="GameView.html">Game view</a>. See documentation on the <a href="GizmosMenu.html">Gizmos Menu</a> manual page for more information.</p>
+<h2 id="search-box">Search box</h2>
+<p>The rightmost item on the control bar is a search box that lets you filter items in the Scene view by their names and/or types (you can select which with the small menu at the left of the search box). The set of items that match the search filter are also be shown in the Hierarchy view which, by default, is located to the left of the Scene view.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

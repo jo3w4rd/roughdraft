@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Practical guide to optimization for mobiles | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Practical guide to optimization for mobiles | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="practical-guide-to-optimization-for-mobiles">Practical guide to optimization for mobiles</h1>
+
+<p>This guide is for developers new to mobile game development, who are probably feeling overwhelmed and are either planning and prototyping a new mobile game or porting an existing project to run smoothly on a mobile device. This guide should also be useful as a reference for anyone making mobile games or browser games that target old PCs and netbooks.</p>
+<p>Optimization is a broad topic, and how you do it depends a lot on your game. Because of this, this guide is best read as an introduction or reference rather than a step-by-step guide that guarantees a smooth product.</p>
+<h2 id="all-mobile-devices-are-not-created-equal">All mobile devices are not created equal</h2>
+<p>The information here assumes hardware around the level of the Apple A4 chipset, which is used on the original iPad, the iPhone 3GS, and the third generation iPod Touch. On the Android side, that would mean an Android phone such as the Nexus One, or most phones that run Android 2.3 Gingerbread. Most of these devices were released around early 2010. Out of the app-hungry market, these devices are the older, slower portion, but they should be supported because they represent a large portion of the market. </p>
+<p>For an overview of Apple mobile device tech specs, see documentation on <a href="iphone-Hardware.html">iPhone hardware</a>. The very low-end Apple mobile devices (such as the iPhone 3G) and the first and second generation iPod Touches are extremely limited, and even more care must be taken to optimize for them. However, there is some question as to whether consumers who have not upgraded their device will be buying apps at all. So, unless you are making a free app, it might not be worthwhile to support the old hardware.</p>
+<p>There are much slower and much faster phones out there, and the computational capability of mobile devices is increasing at an extraordinary rate. It&#39;s not unheard of for a new generation of a mobile GPU to be five times faster than its predecessor. That&#39;s incredibly fast when compared to the PC industry.</p>
+<h2 id="make-optimization-a-design-consideration-not-a-final-step">Make optimization a design consideration, not a final step</h2>
+<p>British computer scientist Michael A. Jackson is often quoted for his rules of program optimization:</p>
+<p><em>&quot;The first rule of program optimization: don&#39;t do it. The second rule of program optimization (for experts only!): don&#39;t do it yet.&quot;</em></p>
+<p>His rationale was that, considering how fast computers are and how quickly their speed is increasing, there is a good chance that, if you program something, it will run fast enough. Additionally, if you try to optimize too heavily, you might over-complicate things, limit yourself, or create bugs.</p>
+<p>However, if you are developing mobile games, there is another consideration: The hardware that is on the market right now is very limited compared to the computers we are used to working with, so the risk of creating something that simply won&#39;t run on the device balances out the risk of over-complication that comes with optimizing from the start.</p>
+<p>Throughout this guide, we will try to point out situations where an optimization would help a lot, versus situations where it would just be frivolous.</p>
+<h3 id="optimization-not-just-for-programmers">Optimization: not just for programmers</h3>
+<p>Artists also need to know the limitations of the platform, and the methods that are used to get around them, so they can make creative choices that pay off without having to re-produce work.</p>
+<ul>
+<li>More responsibility can fall on the artist if the game design calls for atmosphere and lighting to be drawn into Textures instead of being baked.</li>
+<li>Whenever anything can be baked, artists can produce content for baking instead of real-time rendering. This allows them to ignore technical limitations and work freely.</li>
+</ul>
+<h3 id="design-your-game-for-a-smooth-runtime">Design your game for a smooth runtime</h3>
+<p>These two pages detail general trends in game performance, and explain how you can best design your game to be optimized or how you can intuitively figure out which things need to be optimized if you&#39;ve already gone into production.</p>
+<ul>
+<li><a href="MobileOptimizationPracticalRenderingOptimizations.html">Practical Methods for Optimized Rendering</a></li>
+<li><a href="MobileOptimizationPracticalScriptingOptimizations.html">Practical Methods for Optimized Scripting and Gameplay</a></li>
+</ul>
+<h2 id="profile-early-and-often">Profile early and often</h2>
+<p>Profiling is important because it helps you discern which optimizations will pay off with big performance increases and which ones are a waste of your time. Because of the way that rendering is handled on a separate chip (GPU), the time it takes to render a frame is not the time that the CPU takes plus the time that the GPU takes. Instead, it is the longer of the two.</p>
+<p>That means that if the CPU is slowing things down, optimizing your Shaders won&#39;t increase the frame rate at all, and if the GPU is slowing things down, optimizing physics and scripts won&#39;t help at all.</p>
+<p>Often, different parts of the game and different situations perform differently as well. This means one part of the game might cause 100 millisecond frames entirely due to a script, and another part of the game might cause the same slowdown but because of something that is being rendered. At the very least, you need to know where all the bottlenecks are if you&#39;re going to optimize your game.</p>
+<h3 id="unity-profiler">Unity Profiler</h3>
+<p>You can use the main Profiler in Unity when targeting iOS, Android or Tizen. See documentation on the <a href="Profiler.html">Profiler</a> for basic instructions on how to use it.</p>
+<h3 id="internal-profilers">Internal profilers</h3>
+<p>Andriod and iOS both have a built-in internal profiler, which spews out text every 30 frames. It can help you figure out which aspects of your game are slowing things down (such as physics, scripts, or rendering), but it doesn&#39;t go into much detail (for example, it can&#39;t tell you which script or renderer is the culprit).</p>
+<ul>
+<li>If the profiler indicates that most of your processing time is spent in rendering, see documentation on <a href="MobileOptimizationPracticalRenderingOptimizations.html">Rendering Optimizations</a></li>
+<li>If the profiler indicates that most of your processing time is spent outside of rendering, see documentation on <a href="MobileOptimizationPracticalScriptingOptimizations.html">Scripting Optimizations</a></li>
+</ul>
+<p>See documentation on <a href="iphone-InternalProfiler.html">Internal profilers</a> for information on how they work and how to turn them on.</p>
+<h3 id="table-of-contents">Table of contents</h3>
+<ul>
+<li><a href="MobileOptimizationGraphicsMethods.html">Practical Guide to Optimization for Mobiles - Graphics Methods</a></li>
+<li><a href="MobileOptimizationScriptingMethods.html">Practical Guide to Optimization for Mobiles - Scripting and Gameplay Methods</a></li>
+<li><a href="MobileOptimizationPracticalRenderingOptimizations.html">Practical Guide to Optimization for Mobiles - Rendering Optimizations</a></li>
+<li><a href="MobileOptimizationPracticalScriptingOptimizations.html">Practical Guide to Optimization for Mobiles - Optimizing Scripts</a></li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

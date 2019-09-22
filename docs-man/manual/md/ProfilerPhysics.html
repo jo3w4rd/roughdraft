@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Physics Profiler | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Physics Profiler | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="physics-profiler">Physics Profiler</h1>
+
+<p>The Physics Profiler displays statistics about physics that have been processed by the physics engine in your Scene. This information can help you diagnose and resolve performance issues or unexpected discrepancies related to the physics in your Scene. </p>
+<p>See also <a href="PhysicsDebugVisualization.html">Physics Debug Visualization</a>.</p>
+<p><img src="../uploads/Main/physicsProfiler0.png" alt="Physics Profiler"></p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Active Dynamic</strong></td>
+<td style="text-align:left">The number of non-Kinematic Rigidbody components that are not sleeping.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Active Kinematic</strong></td>
+<td style="text-align:left">The number of Kinematic Rigidbody components that are not sleeping. Note that Kinematic Rigidbody components with joints attached may be processed multiple times per frame, and this contributes to the number shown. A Kinematic Rigidbody is active when <a href="ScriptRef:Rigidbody.MovePosition.html">MovePosition</a> or <a href="ScriptRef:Rigidbody.MoveRotation.html">MoveRotation</a> is called in a frame, and remains active in the next frame.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Static Colliders</strong></td>
+<td style="text-align:left">The number of Collider components on GameObjects that don’t have Rigidbody components attached to the GameObjects or their parent GameObjects. If such GameObjects or their parent GameObjects have Rigidbody components, the Colliders will not count as Static Colliders. Those Colliders are instead referred to as Compound Colliders. These help to arrange multiple Colliders of a body in a convenient way, rather than having all the Colliders on the same GameObject as the Rigidbody component.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Rigidbody</strong></td>
+<td style="text-align:left">The number of Rigidbody components processed by the physics engine, irrespective of the components’ sleeping state.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Trigger Overlaps</strong></td>
+<td style="text-align:left">The number of overlapping triggers (counted in pairs).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Active Constraints</strong></td>
+<td style="text-align:left">The number of primitive constraints processed by the physics engine. Constraints are used as a building block of Joints as well as collision response. For example, restricting a linear or rotational degree of freedom of a <a href="ScriptRef:ConfigurableJoint.html">ConfigurableJoint</a> involves a primitive constraint per each restriction.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Contacts</strong></td>
+<td style="text-align:left">The total number of contact pairs between all Colliders in the Scene, including the amount of trigger overlap pairs as well. Note that contact pairs are created per Collider pair once the distance between them is below a certain user configurable limit, so you may see contacts generated for Rigidbody components that are not yet touching or overlapping. Refer to <a href="ScriptRef:Collider-contactOffset.html">Collider.contactOffset</a> and <a href="ScriptRef:ContactPoint-separation.md">ContactPoint.separation</a> for more details.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li><p>The numbers might not correspond to the exact number of GameObjects with physics components in your Scene. This is because some physics components are processed at a different rate depending on which other components affect it (for example, an attached Joint component). To calculate the exact number of GameObjects with specific physics components attached, write a custom script using the <a href="https://docs.unity3d.com/ScriptReference/Object.FindObjectsOfType.html">FindObjectsOfType</a> function.</p>
+</li>
+<li><p>The Physics Profiler does not show the number of sleeping Rigidbody components. These are components which are not engaging with the physics engine, and are therefore not processed by the Physics Profiler. Refer to <a href="RigidbodiesOverview.html">Rigidbody overview: Sleeping</a> for more information on sleeping Rigidbody components.</p>
+</li>
+</ul>
+<h2 id="using-the-physics-profiler-to-understand-performance-issues">Using the Physics Profiler to understand performance issues</h2>
+<p>The physics simulation runs on a separate fixed frequency update cycle from the main logic’s update loop, and can only advance time via a <a href="ScriptRef:Time-fixedDeltaTime.html">Time.fixedDeltaTime</a> per call. This is similar to the difference between <a href="ScriptRef:MonoBehaviour.Update.html">Update</a> and <a href="ScriptRef:MonoBehaviour.FixedUpdate.html">FixedUpdate</a> (see documentation on the <a href="class-TimeManager.html">Time</a> window for more). </p>
+<p>When a heavy logics or graphics frame occurs that takes a long amount of time, the Physics Profiler has to call the physics simulation multiple times per frame. This means that an already resource-intensive frame takes even more time and resources, which can easily cause the physics simulation to temporarily stop due to the <strong>Maximum Allowed Timestep</strong> value (which can be set in <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Time</strong> category). </p>
+<p>You can detect this in your project by selecting the <a href="ProfilerCPU.html">CPU Usage Profiler</a> and checking the number of calls for <strong>Physics.Processing</strong> or <strong>Physics.Simulate</strong> in the <strong>Overview</strong> section. </p>
+<p><img src="../uploads/Main/physicsProfiler1.jpg" alt="Physics Profiler with the value of 1 in the __Calls__ column"></p>
+<p>In this example image, the value of 1 in the <strong>Calls</strong> column indicates that the physics simulation was called one time over the last logical frame. </p>
+<p>A call count close to 10 might indicate an issue. As a first solution, reduce the frequency of the physics simulation; if the issue continues, check what could have caused the heavy frame right before the Physics Profiler had to use that many simulation calls in order to catch up with the game time. Sometimes, a heavy graphics frame may cause more physics simulation calls later on in a Scene. </p>
+<p>For more detailed information about the physics simulation in your Scene, click the triangle arrow to expand <strong>Physics.Processing</strong> as shown in the screenshot above. This displays the actual names of the physics engine tasks that run to update your Scene. The two most common names you’re likely to see are:</p>
+<ul>
+<li><p><strong>Pxs</strong>: short for ‘PhysX solver’, which are physics engine tasks required by joints as well as resolving contacts for overlapping bodies.</p>
+</li>
+<li><p><strong>ScScene</strong>: used for tasks required for updating the Scene, running the broad phase and narrow phase, and integrating bodies (moving them in space due to forces and impulses). See <a href="http://planning.cs.uiuc.edu/node214.html">Steven M. LaValle’s work on Planning Algorithms</a> for a definition on two-phase collision detection phases.</p>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

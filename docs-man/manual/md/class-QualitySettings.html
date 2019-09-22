@@ -1,0 +1,321 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Quality | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Quality | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="quality">Quality</h1>
+
+<p>Unity allows you to set the level of graphical quality it attempts to render. Generally speaking, quality comes at the expense of framerate and so it may be best not to aim for the highest quality on mobile devices or older hardware since it tends to have a detrimental effect on gameplay. Use the <strong>Quality</strong> settings (menu: <strong>Edit &gt; Project Settings</strong>, then select the <strong>Quality</strong> category) to select the quality level in the Editor for the chosen device. It is split into two main areas: the Quality matrix appears at the top; and below it, the settings for the selected quality level appear.</p>
+<p>Unity lets you assign a name to a given combination of quality options for easy reference. The rows of the matrix let you choose which of the different platforms each quality level applies to. The <strong>Default</strong> row at the bottom of the matrix is not a quality level in itself but rather sets the default quality level used for each platform (a green checkbox in a column denotes the level currently chosen for that platform). Unity comes with six quality levels pre-enabled but you can <a href="#define">add your own levels</a>. </p>
+<p><img src="../uploads/Main/QualSettingsTop.png" alt="Quality settings levels for each platform"> </p>
+<p>To delete an unwanted quality level, use the trashcan icon (the rightmost column).</p>
+<p>To select a quality level for editing, click on its name in the matrix. Its definitions appear in the panel below the settings and you can modify any settings you need to:</p>
+<p><img src="../uploads/Main/QualitySettingsBottom.png" alt="Edit the settings for a specific Quality level"> </p>
+<p><a name="define"></a>
+To define a new Quality level, click the <strong>Add Quality Level</strong> button and type the name for the new level in the <strong>Name</strong> property box. </p>
+<p>Then you can choose which of the quality options documented in the following sections you need to update or set:</p>
+<ul>
+<li><a href="#Rendering">Rendering</a></li>
+<li><a href="#Shadows">Shadows</a></li>
+<li><a href="#Other">Other</a></li>
+</ul>
+<p><a name="Rendering"></a></p>
+<h2 id="rendering">Rendering</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Pixel Light Count</strong></td>
+<td style="text-align:left">Set the maximum number of pixel lights when Unity uses <a href="RenderTech-ForwardRendering.html">Forward Rendering</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Texture Quality</strong></td>
+<td style="text-align:left">Choose whether to display Textures at maximum resolution or at a fraction of this (lower resolution has less processing overhead). The options are <em>Full Res</em>, <em>Half Res</em>, <em>Quarter Res</em> and <em>Eighth Res</em>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Anisotropic Textures</strong></td>
+<td style="text-align:left">Choose if and how Unity uses anisotropic Textures. The options are <em>Disabled</em>, <em>Per Texture</em> and <em>Forced On</em> (that is, always enabled).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>AntiAliasing</strong></td>
+<td style="text-align:left">Choose the level of <a href="#antialias">antialiasing</a> that Unity uses. The options are <em>Disabled</em>, <em>2x Multi Sampling</em>, <em>4x Multi Sampling</em> and <em>8x Multi Sampling</em>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Soft Particles</strong></td>
+<td style="text-align:left">Enable this option to use soft blending for particles? See <a href="#softicles">Soft Particles</a> for more information.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Realtime Reflection Probes</strong></td>
+<td style="text-align:left">Enable this option to update <a href="class-ReflectionProbe.html">reflection probes</a> during gameplay.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Billboards Face Camera Position</strong></td>
+<td style="text-align:left">Enable this option to force billboards to face the camera while rendering instead of the camera plane. This produces a better, more realistic image, but is more expensive to render.</td>
+</tr>
+<tr>
+<td style="text-align:left"><a name="FixedDPIFactor"></a><strong>Resolution Scaling Fixed DPI Factor</strong></td>
+<td style="text-align:left">Downscales the device&#39;s screen resolution below its native resolution. For more details, see <a href="class-PlayerSettingsAndroid#Scaling">Android Player</a> settings and <a href="class-PlayerSettingsiOS#Scaling">iOS Player</a> settings.</td>
+</tr>
+<tr>
+<td style="text-align:left"><a name="texStream"></a><strong>Texture Streaming</strong></td>
+<td style="text-align:left">Enable Texture mipmap streaming.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="antialias"></a></p>
+<h3 id="anti-aliasing">Anti-aliasing</h3>
+<p>Anti aliasing improves the appearance of polygon edges, so they are not &quot;jagged&quot;, but smoothed out on the screen. However, it incurs a performance cost for the graphics card and uses more video memory (there&#39;s no cost on the CPU though). The level of anti-aliasing determines how smooth polygon edges are (and how much video memory it consumes).</p>
+<p><img src="../uploads/Main/AntiAliasingNone.png" alt="Without anti-aliasing, polygon edges are &quot;jagged&quot;."> </p>
+<p><img src="../uploads/Main/AntiAliasing4x.png" alt="With 4x anti-aliasing, polygon edges are smoothed out."> </p>
+<p>However, built-in hardware anti-aliasing does not work with <a href="RenderTech-DeferredShading.html">Deferred Shading</a> or <a href="HDR.html">HDR</a> rendering. For these cases, you&#39;ll need to use <a href="PostProcessing-Antialiasing.html">Antialiasing Image Effect</a>.</p>
+<p><a name="softicles"></a></p>
+<h3 id="soft-particles">Soft Particles</h3>
+<p>Soft Particles fade out near intersections with other Scene geometry. This looks much nicer, but it&#39;s more expensive to compute (more complex pixel shaders), and only works on platforms that support <a href="SL-DepthTextures.html">depth textures</a>. Furthermore, you have to use <a href="RenderTech-DeferredShading.html">Deferred Shading</a> or <a href="RenderTech-DeferredLighting.html">Legacy Deferred Lighting</a> rendering path, or make the camera render <a href="SL-CameraDepthTexture.html">depth textures</a> from scripts.</p>
+<p><img src="../uploads/Main/SoftParticlesOff.jpg" alt="Without Soft Particles - visible intersections with the scene."> </p>
+<p><img src="../uploads/Main/SoftParticlesOn.jpg" alt="With Soft Particles - intersections fade out smoothly."> </p>
+<p><a name="Shadows"></a></p>
+<h2 id="shadows">Shadows</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"></th>
+<th><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Shadowmask Mode</strong></td>
+<td style="text-align:left"></td>
+<td>Choose the shadowmask behavior when using the <a href="LightMode-Mixed-ShadowmaskMode.html">Shadowmask</a> Mixed lighting mode. Use the Lighting window (menu: <strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Lighting Settings</strong>) to set this up in your Scene.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Distance Shadowmask</strong></td>
+<td>Unity uses real-time shadows up to the <strong>Shadow Distance</strong>, and baked shadows beyond it.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Shadowmask</strong></td>
+<td>Static GameObjects that cast shadows always cast baked shadows.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shadows</strong></td>
+<td style="text-align:left"></td>
+<td>Choose which type of shadows to use. The available options are <em>Hard and Soft Shadows</em>, <em>Hard Shadows Only</em> and <em>Disable Shadows</em>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shadow Resolution</strong></td>
+<td style="text-align:left"></td>
+<td>Choose which resolution to render shadows at. The available options are <em>Low Resolution</em>, <em>Medium Resolution</em>, <em>High Resolution</em> and <em>Very High Resolution</em>. The higher the resolution, the greater the processing overhead.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shadow Projection</strong></td>
+<td style="text-align:left"></td>
+<td>Choose which method to use for projecting shadows from a directional light.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Close Fit</strong></td>
+<td>Renders higher resolution shadows but they can sometimes wobble slightly if the camera moves.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Stable Fit</strong></td>
+<td>Renders lower resolution shadows but they don&#39;t wobble with camera movements.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shadow Distance</strong></td>
+<td style="text-align:left"></td>
+<td>Enter the maximum distance from the Camera at which shadows are visible. Unity does not render shadows that fall beyond this distance.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shadow Near Plane Offset</strong></td>
+<td style="text-align:left"></td>
+<td>Enter the offset shadow near plane to account for large triangles being distorted by shadow pancaking.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shadow Cascades</strong></td>
+<td style="text-align:left"></td>
+<td>Choose the number of shadow cascades to use. The available options are <em>No Cascades</em>, <em>Two Cascades</em>, or__Four Cascades_. A higher number of cascades gives better quality but at the expense of processing overhead (see <a href="DirLightShadows.html">Directional Light Shadows</a> for further details).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cascade splits</strong></td>
+<td style="text-align:left"></td>
+<td>Adjust the cascade shadow split(s) by moving the vertical line between each cascade left or right.<br>Depending on what value you chose for the <strong>Shadow Cascades</strong> setting, you can see two or four different colors. If <strong>Shadow Cascades</strong> is set to <em>No Cascades</em>, then this entire control is hidden.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Other"></a></p>
+<h2 id="other">Other</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Blend Weights</strong></td>
+<td style="text-align:left">Choose the number of bones that can affect a given vertex during an animation. The available options are <em>1 Bone</em>, <em>2 Bones</em> and <em>4 Bones</em>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>V Sync Count</strong></td>
+<td style="text-align:left">Choose to synchronize rendering with vertical blanks or not to synchronize at all. Unity can synchronize rendering with the refresh rate of the display device to <a href="#tearing">avoid tearing artifacts</a>. The available options are <em>Every V Blank</em>, <em>Every Second V Blank</em>, or <em>Don&#39;t Sync</em>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Lod Bias</strong></td>
+<td style="text-align:left">Set the level-of-detail (LOD) bias. <br>LOD levels are chosen based on the onscreen size of an object. When the size is between two LOD levels, the choice can be biased toward the less detailed or more detailed of the two Models available. This is set as a fraction from 0 to +infinity.  When it is set between 0 and 1 it favors less detail.  A setting of more than 1 favors greater detail. For example, setting LOD Bias to 2 and having it change at 50% distance, LOD actually only changes on 25%.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Maximum LOD Level</strong></td>
+<td style="text-align:left">Set the highest LOD that the game uses. See <a href="#maxLOD">Maximum LOD level</a> for more information.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Particle Raycast Budget</strong></td>
+<td style="text-align:left">Set the maximum number of raycasts to use for approximate particle system collisions (those with <em>Medium</em> or <em>Low</em> quality). See <a href="class-ParticleSystem.html">Particle System Collision Module</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Async Upload Time Slice</strong></td>
+<td style="text-align:left">Set the amount of CPU time in milliseconds per frame to spend uploading buffered textures to the GPU. See <a href="AsyncTextureUpload.html">Async Texture Upload</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Async Upload Buffer Size</strong></td>
+<td style="text-align:left">Set the size in MB for the Async Upload buffer. See <a href="AsyncTextureUpload.html">Async Texture Upload</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="maxLOD"></a></p>
+<h3 id="maximum-lod-level">Maximum LOD level</h3>
+<p>Unity does not use Models which have a LOD below the MaximumLOD level and omits them from the build (which saves storage and memory space). Unity uses the smallest LOD value from all the MaximumLOD values linked with the <strong>Quality</strong> settings for the target platform. If an LOD level is included, then Models from that LODGroup are included in the build and always loaded at runtime for that LODGroup, regardless of the Quality setting being used. As an example, if LOD level 0 is used in any Quality setting then all the LOD levels are included in the build and all the referenced Models load at runtime. </p>
+<p><a name="tearing"></a></p>
+<h3 id="tearing">Tearing</h3>
+<p>The picture on the display device is not continuously updated, but rather the updates happen at regular intervals much like frame updates in Unity. However, Unity&#39;s updates are not necessarily synchronized with those of the display, so it is possible for Unity to issue a new frame while the display is still rendering the previous one. This results in a visual artifact called &quot;tearing&quot; at the position onscreen where the frame change occurs.</p>
+<p><img src="../uploads/Main/Tearing.jpg" alt="Simulated example of tearing. The shift in the picture is clearly visible in the magnified portion."> </p>
+<p>It is possible to get Unity to switch frames only during the period where the display device is not updating, the so-called &quot;vertical blank&quot;. The <strong>V Sync Count</strong> option in <strong>Quality</strong> settings synchronizes frame switches with the device&#39;s vertical blank or optionally with every other vertical blank. The latter may be useful if the game requires more than one device update to complete the rendering of a frame.</p>
+<p><br></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Lighting: Technical information and terminology | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Lighting: Technical information and terminology | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="lighting-technical-information-and-terminology">Lighting: Technical information and terminology</h1>
+
+<ul>
+<li><p><strong>Surface</strong>: All triangles from all meshes in a Scene together are called the <strong>surface</strong> of a scene. A surface point is a point within any triangle defined for the Scene.</p>
+</li>
+<li><p><strong>Emitted Light</strong>: This is light that is emitted directly onto the surface of the Scene.</p>
+</li>
+<li><p><strong>Direct Light</strong>: This is light that is emitted, hits the surface of the Scene and is then reflected into a sensor (for example, the eye’s retina or a camera). A Light’s direct contribution is any direct light that arrives at a sensor from that Light. </p>
+</li>
+<li><p><strong>Indirect Light</strong>: This is light that is emitted, hits the surface of the Scene at least two times and is ultimately reflected into a sensor. A Light’s indirect contribution is any indirect light that arrives at a sensor from that Light.</p>
+</li>
+</ul>
+<p><img src="../uploads/Main/LightModes-TechnicalInformation-0.png" alt=""></p>
+<h3 id="reflection-of-simulated-light-in-a-scene">Reflection of simulated light in a Scene</h3>
+<p>Rough surfaces scatter incoming light in many directions, illuminating surfaces that are not directly lit from light sources. The rougher the surfaces in a scene, the brighter such shadowed areas will appear. In the past, this effect was approximated by defining one additional ambient light color which was simply added to the result of direct lighting, so that surfaces in shadows would not appear completely black. More sophisticated approximations use a gradient to simulate different ambient colors depending on the orientation of the surface, or even spherical harmonics to have even more complex <a href="GlobalIllumination.html">ambient lighting</a>.</p>
+<p>Smooth or glossy surfaces reflect most of the incoming light in predictable directions, leading to visible highlights on materials. The extreme case of a glossy surface is a mirror, where all the incoming light from one direction gets reflected into exactly one other direction. A variation of glossy reflections are translucent materials, that can also refract incoming light when it enters and leaves the material again. </p>
+<p>In the case of indirect lighting, a light path has at least two interactions with the Scene’s surface. These interactions can be a combination of glossy and/or rough surface reflections. For example, glossy reflections/refractions hitting a rough surface display patterns of focused light and darkness visible from all viewing directions, which are called <strong>caustics</strong>. Rough reflections hitting another rough surface are usually referred to as <strong>ambient lighting</strong>.</p>
+<p>Due to the nature of light being reflected multiple times on the surface of a scene, a correct solution needs to take the entire scene with all its surface material properties and light interactions for all relevant light paths into account. Hence the term <a href="GIIntro.html">Global Illumination</a>.</p>
+<h3 id="solving-the-problem">Solving the problem</h3>
+<p><em>Ray tracing</em> is a very elegant way of solving this problem in computer graphics, as it tries to simulate what actually happens in the real world by following ray paths through the scene. The movie industry has entirely moved to ray tracing at this point for generating their images. </p>
+<p>Unfortunately, ray tracing is still too slow to be used in most real time graphics, where <a href="https://en.wikipedia.org/wiki/Rasterisation">rasterization</a> is the standard method of generating images. Unlike ray tracing, rasterization cannot follow arbitrary light paths through the scene. In fact, a rasterizer can only ever calculate one segment of a light path. This is why lighting in real time graphics gets complicated.</p>
+<p>Since rasterizers cannot follow light rays, real time lighting concentrates on the parts of lighting with the most visible impact. These are emission, and more commonly, direct lighting. Even in this case the light path already consists of two segments - one from the camera to the surface, and one from the surface to the light. </p>
+<p>The first segment is the view rendered from the camera position. In order to calculate the second segment, techniques like <a href="Shadows.html">shadow mapping</a> are used. Since shadow maps are specific to each shadow-casting Light, a unique shadow map must be generated for each one. The more shadow-casting Lights there are, the more shadow maps need to be generated. Depending on the number of Lights there are, required rendering time can quickly become too long. Another drawback of shadow maps is their limited resolution.  This leads to blocky shadows. Therefore, shadow maps present both an image quality issue due to the limited resolution, and a performance issue due to the memory requirements to store the shadow maps and the time it takes to generate them every frame. </p>
+<p>Unlike offline rendering, games have certain hard limits on how much time they can spend rendering a frame. For instance, VR applications have 11.11 milliseconds to draw a frame, in order to achieve 90 frames per second (FPS). Games relying on fast player reactions have 16.66ms to draw a frame in order to hit 60 FPS. Games that target 30 FPS have 33.33ms. These times must also include calculations for the rest of the application or game, such as AI and physics. It is therefore important to make everything as efficient as possible to get the most out of the system. All rendering must occur within less than the time between frames.</p>
+<h3 id="summary">Summary</h3>
+<p>To recap, the two major issues that need to be addressed are:</p>
+<ol>
+<li><p>How to deal with the performance penalty caused by calculating shadows for direct lighting.</p>
+</li>
+<li><p>How to deal with indirect lighting (note: in the context of real time graphics, Global Illumination is synonymous with indirect lighting, even though the actual meaning encompasses direct lighting as well).</p>
+</li>
+</ol>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Dynamic lighting | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Dynamic lighting | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="dynamic-lighting">Dynamic lighting</h1>
+
+<p>Dynamically-lit GameObjects, especially large GameObjects, require more tricks than their static counterparts. GameObjects usually require dynamic lighting if they change position in the Scene, so pre-calculated lighting isn’t an option. However, dynamic GameObjects have to work within certain limitations. To improve the quality of dynamic GameObject lighting, consider:</p>
+<ul>
+<li><a href="#lppv">Light Probe Proxy Volume (LPPV)</a></li>
+<li><a href="#aoMap">Per-object baked Ambient Occlusion Map (AO)</a></li>
+<li><a href="#reflection">Local Reflection</a></li>
+<li><a href="#assumptions">Fake Shadows or occlusion based on assumptions</a></li>
+</ul>
+<p><a name="lppv"></a></p>
+<h2 id="light-probe-proxy-volume-lppv">Light Probe Proxy Volume (LPPV)</h2>
+<p>The surfaces of dynamic GameObjects that aren’t lit by dynamic lighting generally use Light Probe data to fill in their lighting information (in a Scene where Light Probes are not present, Environment Lighting is used). Depending on the lighting strategy used in a Scene, this can range from indirect lighting information to shadowing and baked diffused Light Probe lighting information. This Light Probe strategy usually works fine for small dynamic GameObjects. However, larger GameObjects require a finer granularity of Light Probe lighting. This is where Light Probe Proxy Volumes come in. For more information, see <a href="class-LightProbeProxyVolume.html">Light Probe Proxy Volume component</a>.</p>
+<p>Using Light Probe Proxy Volumes allows a large dynamically-lit GameObject to use more than a single Light Probe, resulting in higher lighting accuracy. The following example shows how the capsule with LPPV demonstrates higher accuracy of Light Probe sampling, despite only using 2x2x2 Volume grid:</p>
+<p><img src="../uploads/Main/BelievableVisualsLPPVCapsule.jpg" alt="Capsule comparison showing impact of LLPV"></p>
+<p><a name="aoMap"></a></p>
+<h2 id="per-object-baked-ambient-occlusion-map-ao">Per-object baked Ambient Occlusion Map (AO)</h2>
+<p>Dynamic GameObjects only receive lighting from Light Probes or ambient lights. So you need to pre-calculate an occlusion for the GameObject, especially if the GameObject involves a concave interior, such as the tram in the example. In the example below, the tram on the left without AO is applying Light Probe lighting data without knowing how to differentiate the interior and the exterior surfaces. With the pre-baked AO, this map serves as a guide to reduce the intensity of light and reflection from the exterior, giving a much more grounded look:</p>
+<p><img src="../uploads/Main/BelievableVisualsBakedAO.jpg" alt="Tram comparison showing impact of AO"></p>
+<p>Per-GameObject AO offline baking can even give further detailed occlusion by baking from a higher detailed mesh to lower a detailed mesh, in a similar way to how normal map baking works. </p>
+<p><strong>Note</strong>: Per-GameObject AO doesn’t interact with other dynamic GameObjects. For example, a dynamic GameObject (such as character entering the tram) receives Light Probe data from the Scene and doesn’t necessarily match the occlusion of the tram interior.</p>
+<p><a name="reflection"></a></p>
+<h2 id="local-reflection">Local reflection</h2>
+<p>Most dynamic GameObjects don’t need their own reflection. However, for GameObjects that involve concave interiors, attaching a Reflection Probe to the GameObject and allowing it to run in real time can help reduce false reflection hits coming from the environment Reflection Probe.</p>
+<p><img src="../uploads/Main/BelievableVisualsLocalReflection.jpg" alt="Exaggerated material showing reflection issues"></p>
+<p><a name="assumptions"></a></p>
+<h2 id="fake-shadows-or-occlusion-based-on-assumptions">Fake shadows or occlusion based on assumptions</h2>
+<p>If you can make certain assumptions for a GameObject, there are tricks that you can use to improve visual quality. In the sample shown below, the tram should always be on the rails. So to help its ground light occlusion in shaded areas, we can use a &quot;Particle/Multiply&quot; transparent material plane:</p>
+<p><img src="../uploads/Main/BelievableVisualsFakeShadows.jpg" alt="Simple Plane trick using a Particle/Multiply transparent material"></p>
+<p>A similar trick is to place a blob shadow projector under a character instead of the character casting real shadows. </p>
+<p>In real-time rendering, if you can find a trick that works, and it’s cheap on performance, it’s usually a viable solution. There are certainly more tips and tricks that improve visual rendering. The above list should give you confidence in thinking of solutions for different kinds of visual requirements.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

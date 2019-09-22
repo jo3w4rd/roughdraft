@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Dynamic Buffers | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Dynamic Buffers | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ecs-dynamic-buffers">
+<h1 id="dynamic-buffers">Dynamic Buffers</h1>
+
+<p>A <code>DynamicBuffer</code> is a type of component data that allows a variable-sized, &quot;stretchy&quot;
+buffer to be associated with an entity. It behaves as a component type that
+carries an internal capacity of a certain number of elements, but can allocate
+a heap memory block if the internal capacity is exhausted.</p>
+<p>Memory management is fully automatic when using this approach. Memory associated with
+<code>DynamicBuffers</code> is managed by the <code>EntityManager</code> so that when a <code>DynamicBuffer</code>
+component is removed, any associated heap memory is automatically freed as well.</p>
+<p><code>DynamicBuffers</code> supersede fixed array support which has been removed.</p>
+<h2 id="declaring-buffer-element-types">Declaring Buffer Element Types</h2>
+<p>To declare a <code>Buffer</code>, you declare it with the type of element that you will be
+putting into the <code>Buffer</code>:</p>
+<pre><code>// This describes the number of buffer elements that should be reserved
+// in chunk data for each instance of a buffer. In this case, 8 integers
+// will be reserved (32 bytes) along with the size of the buffer header
+// (currently 16 bytes on 64-bit targets)
+[InternalBufferCapacity(8)]
+public struct MyBufferElement : IBufferElementData
+{
+    // These implicit conversions are optional, but can help reduce typing.
+    public static implicit operator int(MyBufferElement e) { return e.Value; }
+    public static implicit operator MyBufferElement(int e) { return new MyBufferElement { Value = e }; }
+
+    // Actual value each buffer element will store.
+    public int Value;
+}
+</code></pre><p>While it seem strange to describe the element type and not the <code>Buffer</code> itself,
+this design enables two key benefits in the ECS: </p>
+<ol>
+<li><p>It supports having more than one <code>DynamicBuffer</code> of type <code>float3</code>, or any
+other common value type. You can add any number of <code>Buffers</code> that leverage the
+same value types, as long as the elements are uniquely wrapped in a top-level
+struct.</p>
+</li>
+<li><p>We can include <code>Buffer</code> element types in <code>EntityArchetypes</code>, and it generally
+will behave like having a component.</p>
+</li>
+</ol>
+<h2 id="adding-buffer-types-to-entities">Adding Buffer Types To Entities</h2>
+<p>To add a buffer to an entity, you can use the normal methods of adding a
+component type onto an entity:</p>
+<h3 id="using-addbuffer">Using AddBuffer()</h3>
+<pre><code>entityManager.AddBuffer&lt;MyBufferElement&gt;(entity);
+</code></pre><h3 id="using-an-archetype">Using an archetype</h3>
+<pre><code>Entity e = entityManager.CreateEntity(typeof(MyBufferElement));
+</code></pre><h2 id="accessing-buffers">Accessing Buffers</h2>
+<p>There are several ways to access <code>DynamicBuffers</code>, which parallel access methods
+to regular component data.</p>
+<h3 id="direct-main-thread-only-access">Direct, main-thread only access</h3>
+<pre><code>DynamicBuffer&lt;MyBufferElement&gt; buffer = entityManager.GetBuffer&lt;MyBufferElement&gt;(entity);
+</code></pre><h2 id="entity-based-access">Entity based access</h2>
+<p>You can also look up <code>Buffers</code> on a per-entity basis from a JobComponentSystem:</p>
+<pre><code>    var lookup = GetBufferFromEntity&lt;EcsIntElement&gt;();
+    var buffer = lookup[myEntity];
+    buffer.Append(17);
+    buffer.RemoveAt(0);
+</code></pre><h2 id="reinterpreting-buffers-experimental">Reinterpreting Buffers (experimental)</h2>
+<p><code>Buffers</code> can be reinterpreted as a type of the same size. The intention is to
+allow controlled type-punning and to get rid of the wrapper element types when
+they get in the way. To reinterpret, simply call <code>Reinterpret&lt;T&gt;</code>:</p>
+<pre><code>var intBuffer = entityManager.GetBuffer&lt;EcsIntElement&gt;().Reinterpret&lt;int&gt;();
+</code></pre><p>The reinterpreted <code>Buffer</code> carries with it the safety handle of the original
+<code>Buffer</code>, and is safe to use. They use the same underlying <code>BufferHeader</code>, so
+modifications to one reinterpreted <code>Buffer</code> will be immediately reflected in
+others.</p>
+<p>Note that there are no type checks involved, so it is entirely possible to
+alias a <code>uint</code> and <code>float</code> buffer.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Tilemap Renderer Modes | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Tilemap Renderer Modes | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tilemap-renderer-modes">Tilemap Renderer Modes</h1>
+
+<p>The <strong>Tilemap Renderer</strong> component renders the <a href="Tilemap.md">Tilemap</a> in the Scene. Unity creates Tilemaps with the Tilemap Renderer attached by default. The Tilemap Renderer can:</p>
+<ul>
+<li><a href="#batch">Render Tilemap Sprites in batches</a></li>
+<li><a href="#individual">Render Tilemap Sprites individually</a></li>
+</ul>
+<p><a name="batch"></a></p>
+<h2 id="rendering-tilemap-sprites-in-batches">Rendering Tilemap Sprites in batches</h2>
+<p><a name="Chunk"></a><strong>Chunk Mode</strong> is the default rendering mode for the Tilemap Renderer:</p>
+<p><img src="../uploads/Main/2D_IsoTilemap_9.png" alt=""></p>
+<p>When set to <strong>Chunk Mode</strong>, the Tilemap Renderer handles Sprites on a Tilemap in batches and renders them together. This reduces the number of draw calls to improve overall performance.</p>
+<h3 id="using-the-sprite-atlas-for-sorting-chunk-mode-only">Using the Sprite Atlas for Sorting (Chunk Mode only)</h3>
+<p>In <strong>Chunk Mode</strong>, the Tilemap Renderer is not able to sort Tiles from multiple textures, so the renderer may sort and render Tiles inconsistently (see <a href="#chunkExample">example below</a>).</p>
+<p><img src="../uploads/Main/2D_IsoTilemap_10.png" alt=""></p>
+<p>Packing all the separate Sprites into a single <a href="https://docs.unity3d.com/Manual/SpriteAtlas.html">Sprite Atlas</a> helps to solve this issue. To do this:</p>
+<ol>
+<li>Create a <strong>Sprite Atlas</strong> from the Assets menu (go to: <strong>Atlas &gt; Create &gt; Sprite Atlas</strong>).</li>
+<li><p>Add the Sprites to the Sprite Atlas by dragging them to the <strong>Objects for Packing</strong> list in the Atlas’ Inspector window.
+<img src="../uploads/Main/2D_IsoTilemap_11.png" alt=""></p>
+</li>
+<li><p>Click <strong>Pack Preview</strong>. Unity packs the Sprites into the Sprite Atlas during Play mode, and correctly sorts and renders them. This is only visible in the Editor during Play mode.
+<img src="../uploads/Main/2D_IsoTilemap_12.png" alt="label"></p>
+</li>
+</ol>
+<p><a name="individual"></a></p>
+<h3 id="rendering-tilemap-sprites-individually">Rendering Tilemap Sprites individually</h3>
+<p><img src="../uploads/Main/2D_IsoTilemap_13.png" alt=""></p>
+<p>In <strong>Individual Mode</strong>, the Tilemap Renderer sorts and renders the Sprites on a Tilemap with consideration of other renderers in the Scene, such as the <a href="class-SpriteRenderer.html">SpriteRenderer</a> and <a href="class-MeshRenderer.html">MeshRenderer</a>. Use this mode if the other renderers need to interact with other Sprites and objects on the Tilemap.</p>
+<p>In this mode, the Tilemap Renderer sorts Sprites based on their position on the Tilemap and the sorting properties set in the Tilemap Renderer. For example, this allows a character Sprite to appear behind the tower Sprites but in front of the ground sprites:. </p>
+<p><img src="../uploads/Main/2D_IsoTilemap_14.png" alt="In __Individual Mode__, the character can be rendered behind the tower Sprites, but in front of the ground Sprites behind it."></p>
+<p><a name="chunkExample"></a>
+Using the same example in <strong>Chunk Mode</strong>, character Sprites may get hidden behind ground sprites:</p>
+<p><img src="../uploads/Main/2D_IsoTilemap_15.png" alt="The same Scene rendered in __Chunk Mode__."></p>
+<p>Using <strong>Individual Mode</strong> may reduce performance because there is more overhead when rendering each Sprite on the Tilemap individually.</p>
+<h3 id="custom-axis-sorting-mode-for-a-z-as-y-tilemap-in-individual-modea-namecustomaxisa">Custom Axis Sorting Mode for a Z as Y Tilemap in Individual Mode<a name="CustomAxis"></a></h3>
+<p>To correctly sort and display the Tiles on a Z as Y Tilemap  with the <strong>Renderer Mode</strong> set to Individual Mode, go to to <strong>Edit &gt; Settings &gt; Graphics</strong>.</p>
+<p>Set <strong>Transparency Sort Mode</strong> to <strong>Custom Axis</strong>, and enter the values below for the Transparency Sort Axis. The Z-axis is set to -0.49 to give a bias to Tiles with a Z position to be drawn first, so that they are sorted correctly on the Tilemap.</p>
+<p><img src="../uploads/Main/2D_IsoTilemap_16.png" alt=""></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

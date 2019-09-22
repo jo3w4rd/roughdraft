@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Windows 8.1 Universal Applications | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Windows 8.1 Universal Applications | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="windows-81-universal-applications">Windows 8.1 Universal Applications</h1>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>WARNING: LEGACY DOCUMENTATION</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Note that that from Unity 2017.1 this documentation is out-dated. 2017-06-30</td>
+</tr>
+</tbody>
+</table>
+<p>Windows 8.1 Universal Applications is a way to target both Windows Store and Windows Phone target with a - single Visual Studio project that works on both Windows 8.1 and Windows Phone 8.1: desktops, laptops, tablets and phones. It is a direct result of platform convergence movement.</p>
+<p>You can read more about Windows 8.1 Universal Applications here: <a href="http://dev.windows.com/en-us/develop/Building-universal-Windows-apps">http://dev.windows.com/en-us/develop/Building-universal-Windows-apps</a></p>
+<p>Unity exposes a way to build Universal Windows Store/Phone 8.1 applications, through selecting &quot;Universal 8.1&quot; SDK in build window. Upon building such a project, Unity creates a Universal Visual Studio project, which then can be built to both Windows and Windows Phone devices.</p>
+<h2 id="how-does-it-work">How does it work?</h2>
+<p>Windows Phone 8.1 and Windows 8.1 are still not binary compatible - you cannot run a single DLL on both platforms unless it is a portable class library, which would mean you would not be able to access platform specific APIs on them (like SMS API on the Windows Phone and mouse API on Windows). Therefore, we compile two versions of assemblies.</p>
+<p>There are two main differences between assemblies compiled for the phone and the store: preprocessor directives and target SDK. Windows gets to target Windows .NET Core, while the Phone targets Phone .NET Core. They&#39;re almost identical, although there are some very minor differences.</p>
+<p>Universal Project folder structure looks like this:</p>
+<pre><code>UniversalApp1 - (solution directory)
+    UniversalApp1.Windows - (here goes windows specific files, all Windows DLLs)
+        -
+        -
+        -
+    UniversalApp1.WindowsPhone - (here goes windows phone specific files, all Windows Phone DLLs)
+        -
+        -
+        -
+    UniversalApp1.Shared - (here goes shared files)
+        -
+        -
+        -
+</code></pre><p>When you build a Universal Application, you will produce two binaries out of single project - one for Windows and one for Windows Phone. Neither AppX package has redundant files left from over the other platform - all thanks to the project structure.</p>
+<p><br>
+<br></p>
+<hr>
+<ul>
+<li></li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

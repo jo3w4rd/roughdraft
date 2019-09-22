@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Example - Creating a Quad | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Example - Creating a Quad | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="example---creating-a-quad">Example - Creating a Quad</h1>
+
+<p>Unity comes with the <strong>Plane</strong> and <strong>Quad</strong> primitive objects to represent flat surfaces (see the <a href="PrimitiveObjects.html">Primitive Objects</a> page for further details). However, it is useful to examine how a minimal quadrilateral mesh can be constructed, since this is probably the simplest useful example, with just four vertices for the corners and two triangles.</p>
+<p>The first thing is to set the vertices array. We&#39;ll assume that the plane lies in the X and Y axes and let its width and height be determined by parameter variables. We&#39;ll supply the vertices in the order bottom-left, bottom-right, top-left, top-right.</p>
+<p><img src="../uploads/Main/MeshConstruction.jpg" alt=""> </p>
+<pre><code>var vertices: Vector3[] = new Vector3[4];
+
+vertices[0] = new Vector3(0, 0, 0);
+vertices[1] = new Vector3(width, 0, 0);
+vertices[2] = new Vector3(0, height, 0);
+vertices[3] = new Vector3(width, height, 0);
+
+mesh.vertices = vertices;
+</code></pre><p>(Since the Mesh data properties execute code behind the scenes, it is much more efficient to set up the data in your own array and then assign this to a property rather than access the property array element by element.)</p>
+<p>Next come the triangles. Since we want two triangles, each defined by three integers, the triangles array will have six elements in total. Remembering the clockwise rule for ordering the corners, the lower left triangle will use 0, 2, 1 as its corner indices, while the upper right one will use 2, 3, 1.</p>
+<pre><code>var tri: int[] = new int[6];
+
+//  Lower left triangle.
+tri[0] = 0;
+tri[1] = 2;
+tri[2] = 1;
+
+//  Upper right triangle.   
+tri[3] = 2;
+tri[4] = 3;
+tri[5] = 1;
+
+mesh.triangles = tri;
+</code></pre><p>A mesh with just the vertices and triangles set up will be visible in the editor but will not look very convincing since it is not correctly shaded without the normals. The normals for the flat plane are very simple - they are all identical and point in the negative Z direction in the plane&#39;s local space. With the normals added, the plane will be correctly shaded but remember that you need a light in the scene to see the effect.</p>
+<pre><code>var normals: Vector3[] = new Vector3[4];
+
+normals[0] = -Vector3.forward;
+normals[1] = -Vector3.forward;
+normals[2] = -Vector3.forward;
+normals[3] = -Vector3.forward;
+
+mesh.normals = normals;
+</code></pre><p>Finally, adding texture coordinates to the mesh will enable it to display a material correctly. Assuming we want to show the whole image across the plane, the UV values will all be 0 or 1, corresponding to the corners of the texture.</p>
+<pre><code>var uv: Vector2[] = new Vector2[4];
+
+uv[0] = new Vector2(0, 0);
+uv[1] = new Vector2(1, 0);
+uv[2] = new Vector2(0, 1);
+uv[3] = new Vector2(1, 1);
+
+mesh.uv = uv;
+</code></pre><p>The complete script might look a bit like this:-</p>
+<pre><code>var width: float;
+var height: float;
+
+function Start() {  
+    var mf: MeshFilter = GetComponent.&lt;MeshFilter&gt;();
+    var mesh = new Mesh();
+    mf.mesh = mesh;
+
+    var vertices: Vector3[] = new Vector3[4];
+
+    vertices[0] = new Vector3(0, 0, 0);
+    vertices[1] = new Vector3(width, 0, 0);
+    vertices[2] = new Vector3(0, height, 0);
+    vertices[3] = new Vector3(width, height, 0);
+
+    mesh.vertices = vertices;
+
+    var tri: int[] = new int[6];
+
+    tri[0] = 0;
+    tri[1] = 2;
+    tri[2] = 1;
+
+    tri[3] = 2;
+    tri[4] = 3;
+    tri[5] = 1;
+
+    mesh.triangles = tri;
+
+    var normals: Vector3[] = new Vector3[4];
+
+    normals[0] = -Vector3.forward;
+    normals[1] = -Vector3.forward;
+    normals[2] = -Vector3.forward;
+    normals[3] = -Vector3.forward;
+
+    mesh.normals = normals;
+
+    var uv: Vector2[] = new Vector2[4];
+
+    uv[0] = new Vector2(0, 0);
+    uv[1] = new Vector2(1, 0);
+    uv[2] = new Vector2(0, 1);
+    uv[3] = new Vector2(1, 1);
+
+    mesh.uv = uv;
+}
+</code></pre><p>Note that the if the code is executed once in the Start function then the mesh will stay the same throughout the game. However, you can just as easily put the code in the Update function to allow the mesh to be changed each frame (although this will increase the CPU overhead considerably).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

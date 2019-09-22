@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Using Particle Systems in Unity | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Particle Systems in Unity | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-particle-systems-in-unity">Using Particle Systems in Unity</h1>
+
+<p>Unity implements Particle Systems with a component, so placing a Particle System in a Scene is a matter of adding a pre-made GameObject (menu: <strong>GameObject</strong> &gt; <strong>Effects</strong> &gt; <strong>Particle System</strong>) or adding the component to an existing GameObject (menu: <strong>Component</strong> &gt; <strong>Effects</strong> &gt; <strong>Particle System</strong>). Because the component is quite complicated, the Inspector is divided into a number of collapsible sub-sections or <strong>modules</strong> that each contain a group of related properties. Additionally, you can edit one or more systems at the same time using a separate Editor window accessed via the <strong>Open Window</strong> button in the Inspector. See  documentation on the <a href="class-ParticleSystem.html">Particle System component</a> and individual <a href="ParticleSystemModules.html">Particle System modules</a> to learn more.</p>
+<p>When a GameObject with a Particle System is selected, the Scene view contains a small <strong>Particle Effect</strong> panel, with some simple controls that are useful for visualising changes you make to the system&#39;s settings.</p>
+<p><img src="../uploads/Main/PartSysEffectPanel.png" alt=""></p>
+<p>The <strong>Playback Speed</strong> allows you to speed up or slow down the particle simulation, so you can quickly see how it looks at an advanced state. The <strong>Playback Time</strong> indicates the time elapsed since the system was started; this may be faster or slower than real time depending on the playback speed. The <strong>Particle Count</strong> indicates how many particles are currently in the system. The playback time can be moved backwards and forwards by clicking on the <strong>Playback Time</strong> label and dragging the mouse left and right. The buttons at the top of the panel can be used to pause and resume the simulation, or to stop it and reset to the initial state.</p>
+<p><a name="VaryOverTime"></a></p>
+<h2 id="varying-properties-over-time">Varying properties over time</h2>
+<p>Many of the numeric properties of particles or even the whole Particle System can vary over time. Unity provides several different methods of specifying how this variation happens:</p>
+<ul>
+<li><strong>Constant:</strong> The property&#39;s value is fixed throughout its lifetime.</li>
+<li><strong>Curve:</strong> The value is specified by a curve/graph.</li>
+<li><strong>Random Between Two Constants:</strong> Two constant values define the upper and lower bounds for the value; the actual value varies randomly over time between those bounds.</li>
+<li><strong>Random Between Two Curves:</strong> Two curves define the upper and lower bounds of the value at a given point in its lifetime; the current value varies randomly between those bounds.</li>
+</ul>
+<p>When you set a property to <strong>Curve</strong> or <strong>Random Between Two Curves</strong>, the Particle System Curves editor appears at the bottom of the Inspector:</p>
+<p><img src="../uploads/Main/ParticleSystemCurve.png" alt=""></p>
+<p>To edit a curve, click and drag an end point or key to reshape the curve:</p>
+<p><img src="../uploads/Main/ParticleSystemCurveKeys.png" alt=""></p>
+<p>Particle System curves are similar to <a href="AnimationCurves.html">Animation curves</a>. For information on using curves, see the documentation on <a href="EditingCurves.html">Editing Curves</a>.</p>
+<p>The Particle System Curves editor has the following buttons:</p>
+<ul>
+<li><strong>Optimize</strong>: Fits the curve into four or fewer keys to build a fast evaluator called a Polynomial, which is more efficient than reading the unoptimized curve.</li>
+<li><strong>Remove</strong>: Deletes the selected curve.</li>
+</ul>
+<p>To edit the way in which the Particle System plays curves, click the cog next to a selected key and choose one of the following options: </p>
+<ul>
+<li><strong>Loop</strong>: Plays the curve the specified number times over a particle&#39;s life. For example, if you make a curve that scales a particle&#39;s size up and down, you can tell it to loop multiple times, which causes the &quot;up and down&quot; animation to happen multiple times before the particle dies, instead of just once. </li>
+<li><strong>Ping Pong</strong>: Similar to <strong>Loop</strong>, but plays the curve forwards then backwards in a continuous oscillation.</li>
+<li><strong>Clamp</strong>: Limits particle queries that fall outside the curve time range to the first or last value of the curve.</li>
+</ul>
+<p>Similarly, the <strong>Start Color</strong> property in the main module has the following options:</p>
+<ul>
+<li><strong>Color:</strong> The particle start color is fixed throughout the system&#39;s lifetime.</li>
+<li><strong>Gradient:</strong> Particles are emitted with a start color specified by a gradient, with the gradient representing the lifetime of the Particle System.</li>
+<li><strong>Random Between Two Colors:</strong> The starting particle color is chosen as a random linear interpolation between the two given colors.</li>
+<li><strong>Random Between Two Gradients:</strong> Two colors are picked from the given Gradients at the point corresponding to the current age of the Particle System; the starting particle color is chosen as a random linear interpolation between these colors.</li>
+<li><strong>Random Color</strong>: Picks any point at random from the Gradient for every newly spawned particle. </li>
+</ul>
+<p>When you set the <strong>Gradient</strong> color for particles, the Gradient Editor appears:</p>
+<p><img src="../uploads/Main/ParticleSystemGradientEditor.png" alt=""></p>
+<ul>
+<li><strong>Mode:</strong> Determines whether the particle color settings are blended or not. </li>
+<li><strong>Color:</strong> Displays the color of the currently selected key in the Gradient. Use this to edit the color at that position of the Gradient.</li>
+<li><strong>Location:</strong> Shows how far along on the Gradient the currently selected key is.</li>
+<li><strong>Presets:</strong> Allows you to save Gradient settings. Click New to make the current set of values a Gradient preset.</li>
+</ul>
+<p>Color properties in various modules are multiplied together per channel to calculate the final particle color result.</p>
+<h2 id="animation-bindings">Animation bindings</h2>
+<p>All particle properties are accessible by the Animation system, meaning you can keyframe them in and control them from your animations.</p>
+<p>To access the Particle System’s properties, there must be an Animator component attached to the Particle System’s GameObject. An Animation Controller and an Animation are also required.</p>
+<p><img src="../uploads/Main/ParticleSystemAnimatorComponent.png" alt="To animate a Particle System, add an Animator Component, and assign an Animation Controller with an Animation."></p>
+<p>To animate a Particle System property, open the <strong>Animation Window</strong> with the GameObject containing the Animator and Particle System selected. Click <strong>Add Property</strong> to add properties.</p>
+<p><img src="../uploads/Main/ParticleSystemAnimationWindow.png" alt="Add properties to the animation in the Animation Window."></p>
+<p>Scroll to the right to reveal the <strong>add controls</strong>.</p>
+<p><img src="../uploads/Main/ParticleSystemAnimationScrollRight.png" alt=""></p>
+<p>Note that for curves, you can only keyframe the overall <strong>curve multiplier</strong>, which can be found next to the curve editor in the <strong>Inspector</strong>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

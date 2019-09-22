@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Input types | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Input types | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="input-types">Input types</h1>
+
+<p>Input on HoloLens is different from other platforms. Unlike other platforms, the primary means of interaction are three non-traditional systems:</p>
+<ol>
+<li><strong>Gaze</strong>: Where the user is looking in the world.</li>
+<li><strong>Gesture</strong>: Hand signals used to signify commands to the system.</li>
+<li><strong>Voice</strong>: Short, spoken commands, and longer free-form dictation.</li>
+</ol>
+<h2 id="gaze">Gaze</h2>
+<p>The <strong>Gaze</strong> refers to where the user is looking. On HoloLens, this is fairly precise and can be used to select GameObjects in the world. This can be used to direct commands at specific GameObjects rather than every GameObject in the Scene.</p>
+<p>Microsoft provides useful documentation on <a href="https://dev.windows.com/en-us/holographic/gaze_indicator">Gaze indicator</a> and <a href="https://dev.windows.com/en-us/holographic/gaze_targeting">Gaze targeting</a> pages.</p>
+<h2 id="gesture">Gesture</h2>
+<p>A <strong>Gesture</strong> is a hand signal interpreted by the system. These can be used to represent commands. There are several built-in Gestures you can use in your application, as well as a generic API to recognize custom Gestures. Both built-in Gestures and custom Gestures (via API) are functional in Unity.</p>
+<p>Built-in Gestures:</p>
+<ul>
+<li><strong>Tap</strong>:  With a closed hand and extended thumb and forefinger, press thumb and forefinger together. This is commonly used as a select command on the HoloLens.</li>
+<li><strong>Double Tap</strong>:  Two Tap Gestures in rapid succession.</li>
+<li><strong>Hold</strong>:  A Tap Gesture, keeping the forefinger and thumb together for one second or more.</li>
+<li><strong>Manipulation</strong>: A Hold Gesture, followed by a translation in space. Distances from the Hold position are reported in the Gesture.</li>
+<li><strong>Navigation</strong>: A Hold gesture, followed by a translation in space. This may be constrained to one or more of the x, y, and z planes, and reports a value from -1 to 1 for each axis.</li>
+</ul>
+<p>For more information about gestures, refer to Microsoft&#39;s documentation on <a href="https://dev.windows.com/en-us/holographic/Gesture_design">Gesture design</a>.</p>
+<h2 id="voice">Voice</h2>
+<p><strong>Voice</strong> input on HoloLens is provided by the Windows 10 API. Unity supports three styles of input:</p>
+<ul>
+<li><strong>Keywords</strong>: Simple commands or phrases set up in code which generate events. This allows you to quickly add voice commands to an application where localization is not an issue. This functionality is provided by the <a href="ScriptRef:Windows.Speech.KeywordRecognizer.html">KeywordRecognizer</a>.</li>
+<li><strong>Grammars</strong>: A table of commands with semantic meaning which you can localize. Grammars are configured from an xml grammar file (.grxml). See Microsoft&#39;s documentation on <a href="https://msdn.microsoft.com/en-us/library/ms873278.aspx">Creating Grammar Files</a> for more information on the file format. Grammar recognition functionality is provided by the <a href="ScriptRef:Windows.Speech.GrammarRecognizer.html">GrammarRecognizer</a>.</li>
+<li><strong>Dictation</strong>: A more free-form text-to-speech system that translates longer spoken input into text. Dictation recognition on the HoloLens is only active for short periods of time to prolong battery life. Dictation requires a working Internet connection and is provided by the <a href="ScriptRef:Windows.Speech.DictationRecognizer.html">DictationRecognizer</a>.</li>
+</ul>
+<p>For more information about voice input, refer to Microsoft&#39;s documentation on <a href="https://dev.windows.com/en-us/holographic/Voice_design">Voice design</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

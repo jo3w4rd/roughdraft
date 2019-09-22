@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Audio Clip properties | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Audio Clip properties | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="audio-clip-properties">Audio Clip properties</h1>
+
+<p>Use the Inspector window to change the properties of an Audio clip. These properties include the name of the clip, its timing, play speed, its blend properties, the audio file used by the Audio clip, and whether Audio clip loops or plays once.</p>
+<p><img src="../uploads/Main/timeline_inspector_audio_clip.png" alt="Inspector window when selecting an Audio clip in the Timeline Editor window"></p>
+<h2 id="display-name">Display Name</h2>
+<p>The name of the Audio clip shown in the Timeline Editor window. This is not the name of the audio file that is used for the waveform. The name of the audio file is part of the <strong>Audio Playable Asset</strong> properties.</p>
+<h2 id="clip-timing-properties">Clip Timing properties</h2>
+<p>Use the <strong>Clip Timing</strong> properties to trim and change the duration of the Audio clip. Most of the timing properties are expressed in both seconds (s) and frames (f). When specifying seconds to modify a <strong>Clip Timing</strong> property, all decimal values are accepted. When specifying frames, only integer values are accepted. For example, if you attempt to enter 12.5 in a frames (f) field, it is set to 12 frames.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property:</strong></th>
+<th style="text-align:left"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Start</strong></td>
+<td style="text-align:left">The frame or time (in seconds) when the clip starts. Changing the Start property changes the position of the clip on its track in the Timeline Asset. Changing the Start may also affect the Duration. All clips use the Start property.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>End</strong></td>
+<td style="text-align:left">The frame or time (in seconds) when the clip ends. Changing the End property affects the Duration. All clips use the End property.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Duration</strong></td>
+<td style="text-align:left">The duration of the clip in frames or seconds. Changing the Duration property also affects the End property. All clips use the Duration property.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="blend-curves">Blend Curves</h2>
+<p>Use the <strong>Blend Curves</strong> to customize the transition between the out-going clip and the incoming clip when blending between two Audio clips. See <a href="TimelineBlendingClips.html">Blending clips</a> for details on how to blend clips and how to customize blend curves.</p>
+<p>When easing-in or easing-out clips, the <strong>Blend Curves</strong> allow you to customize the curve that eases-in an Audio clip and the curve that eases-out an Audio clip. See <a href="TimelineEasingClips.html">Easing-in and Easing-out clips</a> for details.</p>
+<h2 id="audio-playable-asset-properties">Audio Playable Asset properties</h2>
+<p>Use the <strong>Audio Playable Asset</strong> properties to select the Audio file used by the Audio clip and to set whether the selected Audio clip loops (<strong>Loop</strong> enabled) or plays once (<strong>Loop</strong> disabled).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

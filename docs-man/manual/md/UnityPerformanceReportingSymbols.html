@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Performance Reporting missing symbols | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Performance Reporting missing symbols | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="performance-reporting-missing-symbols">Performance Reporting missing symbols</h1>
+
+<p>Symbols map program addresses to function names. They allow the Performance Reporting service to provide a native crash stack trace with human-readable function names, instead of just memory addresses. They can be contained within the executable itself, but are usually stored in a separate file to reduce executable size and make it more difficult to tamper with the executable.</p>
+<p>Symbol files come in different formats depending on the operating system.  Apple platforms use dSYM folders, Android symbols are stored in .so files, and Windows symbols are stored in .pdb files. The Performance Reporting service can identify and process all of these formats.</p>
+<p>The Performance Reporting service works with two separate sets of symbols:</p>
+<ul>
+<li>System symbols - System symbols are generated by the operating system supplier. Unity supports symbols generated by Apple, Google and Microsoft.</li>
+<li>Application symbols - Application symbols are generated when you build your Unity project.</li>
+</ul>
+<h2 id="why-are-my-symbols-missing">Why are my symbols missing?</h2>
+<p>Symbol files have a universally unique identifier (UUID) or globally unique identifier (GUID) that must exactly match the ID of the executable. The Performance Reporting service generates the following errors if it cannot load a symbol file with an ID that matches a library or module:</p>
+<p><em>&lt;system symbols missing&gt;</em></p>
+<p><em>&lt;symbols missing for uuid: xxx...&gt;</em></p>
+<p>The Performance Reporting service missing symbol file generates reports that appear in the Unity Services Dashboard under the Performance tab in the Reports section.</p>
+<h2 id="missing-system-symbols">Missing system symbols</h2>
+<p>Reports where the system symbols are missing contain a line in the stack trace located in the Reports section of the Dashboard:</p>
+<p><em>&lt;symbols missing for uuid: xxx...&gt;</em></p>
+<p>Typically, the issue is that Unity does not have the symbols for that version of the operating system.  For iOS and other Apple platforms, it can be difficult to obtain the symbols for older versions of the operating system. Unity has system symbol coverage on about 80% of iOS versions, starting from the iOS 7 family.  Unity makes an effort to capture symbols for new iOS versions as soon as possible after they are released.</p>
+<p>If you encounter this situation, you can check to see if you have similar crash reports for another version of the operating system. If you do, you might be able to resolve the issue by debugging it in that version of the operating system.</p>
+<h2 id="missing-application-symbols">Missing application symbols</h2>
+<p>Reports where the application symbols are missing contain a line in the stack trace:</p>
+<p><em>&lt;symbols missing for uuid: xxx...&gt;</em></p>
+<p>When you build a project on which Performance Reporting is enabled, Unity generates a symbol file and uploads it to the Performance Reporting servers. If the process fails, the symbols missing message appears in the Services Dashboard.</p>
+<p>To troubleshoot failures in the symbol upload, check the <code>symbol_upload.log</code>  file located in the same folder as the <a href="LogFiles.html">main Unity log</a>. It should indicate which symbols were found and processed, along with any errors that occurred during processing and uploading of the symbols.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

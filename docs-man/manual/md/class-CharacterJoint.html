@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Character Joint | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Character Joint | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="character-joint">Character Joint</h1>
+
+<p><strong>Character Joints</strong> are mainly used for Ragdoll effects. They are an extended ball-socket joint which allows you to limit the joint on each axis.</p>
+<p>If you just want to set up a ragdoll read about <a href="wizard-RagdollWizard.html">Ragdoll Wizard</a>.</p>
+<p><img src="../uploads/Main/Inspector-CharacterJoint.png" alt=""> </p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Connected Body</strong></td>
+<td style="text-align:left">Optional reference to the <strong>Rigidbody</strong> that the joint is dependent upon. If not set, the joint connects to the world.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Anchor</strong></td>
+<td style="text-align:left">The point in the <strong>GameObject&#39;s</strong> local space where the joint rotates around.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Axis</strong></td>
+<td style="text-align:left">The twist axes. Visualized with the orange gizmo cone.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Auto Configure Connected Anchor</strong></td>
+<td style="text-align:left">If this is enabled, then the Connected Anchor position will be calculated automatically to match the global position of the anchor property. This is the default behavior. If this is disabled, you can configure the position of the connected anchor manually.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Connected Anchor</strong></td>
+<td style="text-align:left">Manual configuration of the connected anchor position.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Swing Axis</strong></td>
+<td style="text-align:left">The swing axis. Visualized with the green gizmo cone.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Low Twist Limit</strong></td>
+<td style="text-align:left">The lower limit of the joint. See below.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>High Twist Limit</strong></td>
+<td style="text-align:left">The higher limit of the joint. See below.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Swing 1 Limit</strong></td>
+<td style="text-align:left">Limits the rotation around one element of the defined <strong>Swing Axis</strong> (visualized with the green axis on the gizmo). See below.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Swing 2 Limit</strong></td>
+<td style="text-align:left">Limits movement around one element of the defined <strong>Swing Axis</strong>. See below.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Break Force</strong></td>
+<td style="text-align:left">The force that needs to be applied for this joint to break.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Break Torque</strong></td>
+<td style="text-align:left">The torque that needs to be applied for this joint to break.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Collision</strong></td>
+<td style="text-align:left">When checked, this enables collisions between bodies connected with a joint.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Preprocessing</strong></td>
+<td style="text-align:left">Disabling preprocessing helps to stabilize impossible-to-fulfil configurations.</td>
+</tr>
+</tbody>
+</table>
+<p><img src="../uploads/Main/CharacterJointWindow.jpg" alt="The Character Joint on a Ragdoll"> </p>
+<h2 id="details">Details</h2>
+<p>Character joints give you a lot of possibilities for constraining motion like with a universal joint.</p>
+<p>The twist axis (visualized with the orange access on the gizmo) gives you most control over the limits as you can specify a lower and upper limit in degrees (the limit angle is measured relative to the starting position). A value of -30 in <strong>Low Twist Limit</strong>-&gt;<strong>Limit</strong> and 60 in <strong>High Twist Limit</strong>-&gt;<strong>Limit</strong> limits the rotation around the twist axis (orange gizmo) between -30 and 60 degrees.</p>
+<p>The <strong>Swing 1 Limit</strong> limits the rotation around the swing axis (visualized with the green axis on the gizmo). The limit angle is symmetric. Thus a value of 30 will limit the rotation between -30 and 30.</p>
+<p>The <strong>Swing 2 Limit</strong> axis isn&#39;t visualized on the gizmo but the axis is orthogonal to the two other axes (that is the twist axis visualised in orange on the gizmo and the <strong>Swing 1 Limit</strong> visualised in green on the gizmo).
+The angle is symmetric, thus a value of 40 will limit the rotation around that axis between -40 and 40 degrees.</p>
+<p>For each of the limits the following values can be set:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Bounciness</strong></td>
+<td style="text-align:left">A value of 0 will not bounce. A value of 1 will bounce without any loss of energy.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Spring</strong></td>
+<td style="text-align:left">The spring force used to keep the two objects together.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Damper</strong></td>
+<td style="text-align:left">The damper force used to dampen the spring force.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Contact Distance</strong></td>
+<td style="text-align:left">Within the contact distance from the limit contacts will persist in order to avoid jitter.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="breaking-joints">Breaking joints</h3>
+<p>You can use the <strong>Break Force</strong> and <strong>Break Torque</strong> properties to set limits for the joint&#39;s strength. If these are less than infinity, and a force/torque greater than these limits are applied to the object, its Fixed Joint will be destroyed and will no longer be confined by its restraints.</p>
+<h2 id="hints">Hints</h2>
+<ul>
+<li>You do not need to assign a <strong>Connected Body</strong> to your joint for it to work.</li>
+<li>Character Joints require your object to have a Rigidbody attached.</li>
+<li>For Character Joints made with the Ragdoll wizard, take a note that the setup is made such that the joint&#39;s Twist axis corresponds with the limb&#39;s largest swing axis, the joint&#39;s Swing 1 axis corresponds with limb&#39;s smaller swing axis and joint&#39;s Swing 2 is for twisting the limb. This naming scheme is for legacy reasons.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

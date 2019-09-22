@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Tilemap Renderer | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Tilemap Renderer | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tilemap-renderer">Tilemap Renderer</h1>
+
+<p>The <strong>Tilemap Renderer</strong> component is part of the <a href="Tilemap-CreatingTilemaps.html">Tilemap GameObject</a>. It controls how <strong>Tiles</strong> set on the <strong>Tilemap</strong> are rendered.</p>
+<p><img src="../uploads/Main/2D_Tilemap_Render_properties.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Material</strong></td>
+<td>Define the Material used to render the Sprite texture.</td>
+</tr>
+<tr>
+<td><strong>Sort Order</strong></td>
+<td>Set the direction that Tiles on the selected Tilemap are sorted from.</td>
+</tr>
+<tr>
+<td><strong>Mode</strong></td>
+<td>Set the rendering mode of the Renderer.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;Chunk</td>
+<td>The Renderer groups Tiles by location, and batches their Sprites together for rendering. Select this mode for the best rendering performance with Tilemap.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;Individual</td>
+<td>The Renderer renders each Tile individually, taking into account their location and sorting order as well. This mode enables the Sprites on the Tiles to interact with other Renderers in the scene or with a <a href="https://docs.unity3d.com/Manual/Tilemap-Isometric-RenderModes.html#CustomAxis">Custom Sorting Axis</a>.</td>
+</tr>
+<tr>
+<td><strong>Detect Chunk Culling Bounds</strong></td>
+<td>Determines how the Render detects the <a href="https://docs.unity3d.com/ScriptReference/Tilemaps.TilemapRenderer-chunkCullingBounds.html">bounds</a> used for the culling of <a href="https://docs.unity3d.com/ScriptReference/Tilemaps.TilemapRenderer-chunkSize.html">Tilemap chunks</a>. These bounds expand the boundary of Tilemap chunks to ensure that oversized Sprites will not be clipped during culling.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;Auto</td>
+<td>The Renderer automatically inspects the Sprites used by the Tiles  to determine the expanded culling bounds to use.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;Manual</td>
+<td>The values used to extend the bounds for culling of the Tilemap chunks are manually set instead of with the Editor&#39;s automatic detection.</td>
+</tr>
+<tr>
+<td><strong>Chunk Culling Bounds (when ‘Manual’ is selected)</strong></td>
+<td>Input the values (in Unity units) that the culling bounds are extended by.</td>
+</tr>
+<tr>
+<td><strong>Sorting Layer</strong></td>
+<td>Set the <a href="https://docs.unity3d.com/Manual/class-TagManager.html">Sorting Layer</a> of the Tilemap. Select an existing Sorting Layer from the drop-down box, or create a new Sorting Layer.</td>
+</tr>
+<tr>
+<td><strong>Order in Layer</strong></td>
+<td>Set the render priority of the Tilemap within its Sorting Layer. Lower numbered layers are rendered first. Higher numbered layers overlap those below.</td>
+</tr>
+<tr>
+<td><strong>Mask Interaction</strong></td>
+<td>Set how the Tilemap Renderer behaves when it interactswith a <a href="https://docs.unity3d.com/Manual/class-SpriteMask.html">Sprite Mask</a>.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;None</td>
+<td>The Tilemap Renderer does not interact with any Sprite Mask in the Scene. This is the default option.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;Visible Inside Mask</td>
+<td>The Tilemap is visible where the Sprite Mask overlays it, but not outside of it.</td>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;Visible Outside Mask</td>
+<td>The Tilemap is visible outside the Sprite Mask, but not inside it. The Sprite Mask hides the sections of the Sprite it overlays.</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

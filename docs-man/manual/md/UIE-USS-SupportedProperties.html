@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>USS supported properties | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="USS supported properties | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="uss-supported-properties">USS supported properties</h1>
+
+<p>This topic lists the supported USS properties and their accepted values. </p>
+<h2 id="uss-syntax">USS syntax</h2>
+<p>UIElements style properties use the same grammar syntax as W3C CSS documents:</p>
+<ul>
+<li>Keyword values appear as is. For example:  <code>auto</code>, <code>baseline</code>.</li>
+<li>Basic data types appear between angle brackets ( <code>&lt;</code> and <code>&gt;</code>). For example:  <em>&lt;length&gt;</em>, <em>&lt;color&gt;</em>.</li>
+<li>Non-terminals that share the same name as a property appear between angle brackets ( <code>&lt;</code> and <code>&gt;</code>). For example,  <em>&lt;border-width&gt;</em>.</li>
+</ul>
+<p>If a property value has more than one component:</p>
+<ul>
+<li>Several juxtaposed words mean that all of them must occur, in the given order.</li>
+<li>A bar (<code>|</code>) separates two or more alternatives: exactly one must occur.</li>
+<li>A double bar (<code>||</code>) separates two or more options: one or more must occur, in any order.</li>
+<li>A double ampersand (<code>&amp;&amp;</code>) separates two or more components, all of which must occur, in any order.</li>
+<li>Square brackets (<code>[</code> <code>]</code>) denote grouping.</li>
+</ul>
+<p>Every type, keyword, or angle-bracketed group may be followed by modifiers:</p>
+<ul>
+<li>an asterisk (<code>*</code>) indicates that the preceding type, word, or group occurs zero or more times.</li>
+<li>a plus (<code>+</code>) indicates that the preceding type, word, or group occurs one or more times.</li>
+<li>a question mark (<code>?</code>) indicates that the preceding type, word, or group is optional.</li>
+<li>a pair of numbers in curly braces (<code>{A,B}</code>) indicates that the preceding type, word, or group occurs at least <code>A</code> and at most <code>B</code> times.</li>
+</ul>
+<h2 id="box-model">Box model</h2>
+<p><img src="../uploads/Main/style-box-model.png" alt="Box model"></p>
+<h3 id="dimensions">Dimensions</h3>
+<ul>
+<li><em>width: &lt;number&gt;</em></li>
+<li><em>height: &lt;number&gt;</em></li>
+<li><em>min-width: &lt;number&gt;</em></li>
+<li><em>min-height: &lt;number&gt;</em></li>
+<li><em>max-width: &lt;number&gt;</em></li>
+<li><em>max-height: &lt;number&gt;</em></li>
+</ul>
+<p>The <code>width</code> and <code>height</code> specifies the size of the element in pixels. If <code>width</code> is not specified, the width is based on the width of the element&#39;s contents. If <code>height</code>  is not specified, the height is based on the height of the element&#39;s contents.</p>
+<h3 id="margins">Margins</h3>
+<ul>
+<li><em>margin-left: &lt;number&gt;</em></li>
+<li><em>margin-top: &lt;number&gt;</em></li>
+<li><em>margin-right: &lt;number&gt;</em></li>
+<li><em>margin-bottom: &lt;number&gt;</em></li>
+</ul>
+<h3 id="borders">Borders</h3>
+<ul>
+<li><em>border-left-width: &lt;number&gt;</em></li>
+<li><em>border-top-width: &lt;number&gt;</em></li>
+<li><em>border-right-width: &lt;number&gt;</em></li>
+<li><em>border-bottom-width: &lt;number&gt;</em></li>
+</ul>
+<h3 id="padding">Padding</h3>
+<ul>
+<li><em>padding-left: &lt;number&gt;</em></li>
+<li><em>padding-top: &lt;number&gt;</em></li>
+<li><em>padding-right: &lt;number&gt;</em></li>
+<li><em>padding-bottom: &lt;number&gt;</em></li>
+</ul>
+<h2 id="flex-layout">Flex layout</h2>
+<p>This section lists the properties for positioning visual elements. UIElements includes a <a href="UIE-LayoutEngine.html">layout engine</a> that positions visual elements based on layout and styling properties. The layout engine implements a subset of <em>Flexbox</em>: a HTML/CSS layout system. </p>
+<p>By default, all items are vertically placed in their container. </p>
+<h3 id="items">Items</h3>
+<ul>
+<li><em>flex-grow: &lt;number&gt;</em></li>
+<li><em>flex-shrink: &lt;number&gt;</em></li>
+<li><em>flex-basis: &lt;number&gt; | auto</em></li>
+<li><em>flex: none | [ &lt;flex-grow&gt; [ &lt;flex-shrink&gt; &lt;flex-basis&gt;? ]? ]</em></li>
+<li><em>align-self: auto | flex-start | flex-end | center | baseline | stretch</em></li>
+</ul>
+<p>Note: Because <code>units</code> are not supported, the <em>&lt;flex-basis&gt;</em> value must always be specified last. </p>
+<h3 id="containers">Containers</h3>
+<ul>
+<li><em>flex-direction: row | row-reverse | column | column-reverse</em></li>
+<li><em>flex-wrap: nowrap | wrap | wrap-reverse</em></li>
+<li><em>align-content: flex-start | flex-end | center | space-between | space-around | stretch</em></li>
+<li><em>align-items: flex-start | flex-end | center | baseline | stretch</em></li>
+<li><em>justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly</em></li>
+</ul>
+<h2 id="relative-and-absolute-positioning">Relative and absolute positioning</h2>
+<h3 id="positioning">Positioning</h3>
+<ul>
+<li><em>position: absolute | relative</em></li>
+</ul>
+<p>This property is set to <code>relative</code> by default, which positions the element based on its parent. If this property is set to <code>absolute</code>, the element leaves its parent layout and values are specified based on the parent bounds.</p>
+<h3 id="position">Position</h3>
+<ul>
+<li><em>left</em></li>
+<li><em>top</em></li>
+<li><em>right</em></li>
+<li><em>bottom</em></li>
+</ul>
+<p>The distance in pixels from the parent edge or the original position of the element.</p>
+<h2 id="drawing-properties">Drawing properties</h2>
+<p>The drawing properties set the background, borders, and appearance of the visual element.</p>
+<h3 id="background">Background</h3>
+<ul>
+<li><em>background-color: &lt;color&gt;</em></li>
+<li><em>background-image: &lt;resource&gt; | &lt;url&gt; | none</em></li>
+<li><em>-unity-background-scale-mode: stretch-to-fill | scale-and-crop | scale-to-fit</em></li>
+</ul>
+<h3 id="borders-1">Borders</h3>
+<ul>
+<li><em>border-color: &lt;color&gt;</em></li>
+<li><em>border-left-radius: &lt;number&gt;</em></li>
+<li><em>border-top-radius: &lt;number&gt;</em></li>
+<li><em>border-right-radius: &lt;number&gt;</em></li>
+<li><em>border-bottom-radius: &lt;number&gt;</em></li>
+</ul>
+<h3 id="appearance">Appearance</h3>
+<ul>
+<li><em>overflow: hidden | visible</em></li>
+<li><em>opacity: &lt;number&gt;</em></li>
+<li><em>visibility: visible | hidden</em></li>
+</ul>
+<h2 id="text-properties">Text properties</h2>
+<p>Text properties set the color, font, font size, and Unity specific properties for font resource, font style, alignment, word wrap, and clipping.</p>
+<ul>
+<li><em>color: &lt;color&gt;</em></li>
+<li><em>-unity-font: &lt;resource&gt; | &lt;url&gt;</em></li>
+<li><em>font-size: &lt;number&gt;</em></li>
+<li><em>-unity-font-style: normal | italic | bold | bold-and-italic</em></li>
+<li><em>-unity-text-align: upper-left | middle-left | lower-left | upper-left | middle-center | lower-center | upper-right | middle-right | lower-right</em></li>
+<li><em>-unity-word-wrap: true | false</em></li>
+<li><em>-unity-clipping: clip | overflow</em></li>
+</ul>
+<h2 id="cursor-property">Cursor property</h2>
+<p>Use the <code>cursor</code> default texture type to import a custom texture for the cursor. The Unity editor only supports default cursor values.</p>
+<p><em>cursor: [ [ &lt;resource&gt; | &lt;url&gt; ] [ &lt;hotspotX&gt; &lt;hotspotY&gt;]? , ] [ arrow | text | resize-vertical | resize-horizontal | link | slide-arrow | resize-up-right | resize-up-left | move-arrow | rotate-arrow | scale-arrow | arrow-plus | arrow-minus | pan | orbit | zoom | fps | split-resize-up-down | split-resize-left-right ]</em></p>
+<h2 id="obsolete-and-renamed-properties">Obsolete and renamed properties</h2>
+<p>This section lists the drawing properties that were either made obsolete or renamed in UIElements. The obsolete and renamed properties are listed alphabetically.</p>
+<ul>
+<li><code>background-size</code> has been renamed <code>-unity-background-scale-mode</code>.</li>
+<li><code>border-left</code>, <code>border-top</code>, <code>border-right</code>, and <code>border-bottom</code> have been renamed <code>border-left-width</code>, <code>border-top-width</code>, <code>border-right-width</code>, and <code>border-bottom-width</code>, respectively.</li>
+<li><code>font</code> has been renamed  <code>-unity-font</code>.</li>
+<li><code>font-style</code> has been renamed  <code>-unity-font-style</code>.</li>
+<li><code>position-left</code>, <code>position-top</code>, <code>position-right</code>, and <code>position-bottom</code> have been renamed <code>left</code>, <code>top</code>, <code>right</code>, and <code>bottom</code>, respectively.</li>
+<li><code>position-type</code> has been renamed <code>position</code>.</li>
+<li><code>text-alignment</code> has been renamed  <code>-unity-text-align</code>.</li>
+<li><code>text-clipping</code> has been renamed  <code>-unity-clipping</code>. It is recommended that you use the standard <code>overflow</code> property instead.</li>
+<li><code>text-color</code> has been renamed  <code>color</code>.</li>
+<li><code>-word-wrap</code> has been renamed  <code>-unity-word-wrap</code>.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

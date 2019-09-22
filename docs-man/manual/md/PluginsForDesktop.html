@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Building Plugins for Desktop Platforms | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Building Plugins for Desktop Platforms | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="building-plugins-for-desktop-platforms">Building Plugins for Desktop Platforms</h1>
+
+<p>This page describes <a href="Plugins.html">Native Code Plugins</a> for desktop platforms (Windows/Mac OS X/Linux).</p>
+<h2 id="building-a-plugin-for-mac-os-x">Building a Plugin for Mac OS X</h2>
+<p>On Mac OSX, <a href="Plugins.html">plugins</a> are deployed as bundles. You can create the bundle project with XCode by selecting <strong>File-&gt;NewProject...</strong> and then selecting <strong>Bundle</strong> -&gt; <strong>Carbon/Cocoa Loadable Bundle</strong> (in XCode 3) or <strong>OS X</strong> -&gt; <strong>Framework &amp; Library</strong> -&gt; <strong>Bundle</strong> (in XCode 4)</p>
+<p>If you are using C++ (.cpp) or Objective-C (.mm) to implement the plugin then you must ensure the functions are declared with C linkage to avoid <a href="http://en.wikipedia.org/wiki/Name_mangling">name mangling issues</a>.</p>
+<pre><code>extern &quot;C&quot; {
+  float FooPluginFunction ();
+}
+</code></pre><h2 id="building-a-plugin-for-windows">Building a Plugin for Windows</h2>
+<p>Plugins on Windows are DLL files with exported functions. Practically any language or development environment that can create DLL files can be used to create plugins. 
+As with Mac OSX, you should declare any C++ functions with C linkage to avoid name mangling issues.</p>
+<h2 id="building-a-plugin-for-linux">Building a Plugin for Linux</h2>
+<p>Plugins on Linux are <code>.so</code> files with exported functions. These libraries are typically written in C or C++, but any language can be used. 
+As with the other platforms, you should declare any C++ functions with C linkage in order to avoid name mangling issues.</p>
+<h2 id="32-bit-and-64-bit-libraries">32-bit and 64-bit libraries</h2>
+<p>The issue of needing 32-bit and/or 64-bit plugins is handled differently depending on the platform.</p>
+<h3 id="windows-and-linux">Windows and Linux</h3>
+<p>On Windows and Linux, plugins can be managed manually (e.g, before building a 64-bit player, you copy the 64-bit library into the <code>Assets/Plugins</code> folder, and before building a 32-bit player, you copy the 32-bit library into the <code>Assets/Plugins</code> folder) OR you can place the 32-bit version of the plugin in <code>Assets/Plugins/x86</code> and the 64-bit version of the plugin in <code>Assets/Plugins/x86_64</code>. By default the editor will look in the architecture-specific sub-directory first, and if that directory does not exist, it will copy plugins from the root <code>Assets/Plugins</code> folder instead.</p>
+<p>Note that for the Universal Linux build, you are required to use the architecture-specific sub-directories (when building a Universal Linux build, the Editor will not copy any plugins from the root <code>Assets/Plugins</code> folder).</p>
+<h3 id="mac-os-x">Mac OS X</h3>
+<p>For Mac OS X, you should build your plugin as a universal binary that contains both 32-bit and 64-bit architectures.</p>
+<h2 id="using-your-plugin-from-c">Using your plugin from C#</h2>
+<p>Once built, the bundle should be placed in the <strong>Assets-&gt;Plugins</strong> folder (or the appropriate architecture-specific sub-directory) in the Unity project. Unity will then find it by name when you define a function like this in the C# script:-</p>
+<pre><code>[DllImport (&quot;PluginName&quot;)]
+private static extern float FooPluginFunction ();
+</code></pre><p>Please note that <strong>PluginName</strong> should not include the library prefix nor file extension. For example, the actual name of the plugin file would be PluginName.dll on Windows and libPluginName.so on Linux. 
+Be aware that whenever you change code in the Plugin you will need to recompile scripts in your project or else the plugin will not have the latest compiled code.</p>
+<h2 id="deployment">Deployment</h2>
+<p>For cross platform plugins you must include the .bundle (for Mac), .dll (for Windows), and .so (for Linux) files in the Plugins folder. 
+No further work is then required on your side - Unity automatically picks the right plugin for the target platform and includes it with the player.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="simplest-plugin">Simplest Plugin</h3>
+<p>This plugin project implements only some very basic operations (print a number, print a string, add two floats, add two integers). This example may be helpful if this is your first Unity plugin. 
+The project can be found <a href="../uploads/Examples/SimplestPluginExample-4.0.zip">here</a> and includes Windows, Mac, and Linux project files.</p>
+<h3 id="rendering-from-c-code">Rendering from C++ code</h3>
+<p>An example multiplatform plugin that works with multithreaded rendering in Unity can be found on the <a href="NativePluginInterface.html">Native Plugin Interface</a> page.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

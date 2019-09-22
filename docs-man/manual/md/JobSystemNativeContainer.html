@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>NativeContainer | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="NativeContainer | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="nativecontainer">NativeContainer</h1>
+
+<p>The drawback to the <a href="JobSystemSafetySystem.html">safety system’s</a> process of copying data is that it also isolates the results of a job within each copy. To overcome this limitation you need to store the results in a type of shared memory called <a href="ScriptRef:Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute.html">NativeContainer</a>.</p>
+<h2 id="what-is-a-nativecontainer">What is a NativeContainer?</h2>
+<p>A <code>NativeContainer</code> is a managed value type that provides a relatively safe C# wrapper for native memory. It contains a pointer to an unmanaged allocation. When used with the Unity C# Job System, a <code>NativeContainer</code> allows a job to access data shared with the main thread rather than working with a copy. </p>
+<h2 id="what-types-of-nativecontainer-are-available">What types of NativeContainer are available?</h2>
+<p>Unity ships with a <code>NativeContainer</code> called <a href="ScriptRef:Unity.Collections.NativeArray_1.html">NativeArray</a>. You can also manipulate a <code>NativeArray</code> with <a href="ScriptRef:Unity.Collections.NativeSlice_1.html">NativeSlice</a> to get a subset of the <code>NativeArray</code> from a particular position to a certain length. </p>
+<p><strong>Note</strong>: The <a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples">Entity Component System</a> (ECS) package extends the <code>Unity.Collections</code> namespace to include other types of <code>NativeContainer</code>:</p>
+<ul>
+<li><code>NativeList</code> - a resizable <code>NativeArray</code>.</li>
+<li><code>NativeHashMap</code> - key and value pairs.</li>
+<li><code>NativeMultiHashMap</code> - multiple values per key.</li>
+<li><code>NativeQueue</code> - a first in, first out (<a href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)">FIFO</a>) queue.</li>
+</ul>
+<h2 id="nativecontainer-and-the-safety-system">NativeContainer and the safety system</h2>
+<p>The safety system is built into all <code>NativeContainer</code> types. It tracks what is reading and writing to any <code>NativeContainer</code>. </p>
+<p><strong>Note</strong>: All safety checks on <code>NativeContainer</code> types (such as out of bounds checks, deallocation checks, and race condition checks) are only available in the Unity <strong>Editor</strong> and <strong>Play Mode</strong>. </p>
+<p>Part of this safety system is the <a href="ScriptRef:Unity.Collections.LowLevel.Unsafe.DisposeSentinel.html">DisposeSentinel</a> and <a href="ScriptRef:Unity.Collections.LowLevel.Unsafe.AtomicSafetyHandle.html">AtomicSafetyHandle</a>. The <code>DisposeSentinel</code> detects memory leaks and gives you an error if you have not correctly freed your memory. Triggering the memory leak error happens long after the leak occurred.</p>
+<p>Use the <code>AtomicSafetyHandle</code> to transfer ownership of a <code>NativeContainer</code> in code. For example, if two scheduled jobs are writing to the same <code>NativeArray</code>, the safety system throws an exception with a clear error message that explains why and how to solve the problem. The safety system throws this exception when you schedule the offending job.</p>
+<p>In this case, you can schedule a job with a dependency. The first job can write to the <code>NativeContainer</code>, and once it has finished executing, the next job can then safely read and write to that same <code>NativeContainer</code>. The read and write restrictions also apply when accessing data from the main thread. The safety system does allow multiple jobs to read from the same data in parallel.</p>
+<p>By default, when a job has access to a <code>NativeContainer</code>, it has both read and write access. This configuration can slow performance. The C# Job System does not allow you to schedule a job that has write access to a <code>NativeContainer</code> at the same time as another job that is writing to it.</p>
+<p>If a job does not need to write to a <code>NativeContainer</code>, mark the <code>NativeContainer</code> with the <code>[ReadOnly]</code> attribute, like so:</p>
+<pre><code>[ReadOnly]
+public NativeArray&lt;int&gt; input;
+</code></pre><p>In the above example, you can execute the job at the same time as other jobs that also have read-only access to the first <code>NativeArray</code>.</p>
+<p><strong>Note</strong>: There is no protection against accessing static data from within a job. Accessing static data circumvents all safety systems and can crash Unity. For more information, see <a href="JobSystemTroubleshooting.html">C# Job System tips and troubleshooting</a>. </p>
+<h2 id="nativecontainer-allocator">NativeContainer Allocator</h2>
+<p>When creating a <code>NativeContainer</code>, you must specify the type of memory allocation you need. The allocation type depends on the length of time the job runs. This way you can tailor the allocation to get the best performance possible in each situation. </p>
+<p>There are three <a href="ScriptRef:Unity.Collections.Allocator.html">Allocator</a> types for <code>NativeContainer</code> memory allocation and release. You need to specify the appropriate one when instantiating your <code>NativeContainer</code>.</p>
+<ul>
+<li><strong>Allocator.Temp</strong> has the fastest allocation. It is for allocations with a life&lt;span of one frame or fewer. You should not pass <code>NativeContainer</code> allocations using <code>Temp</code> to jobs. You also need to call the <code>Dispose</code> method before you return from the method call (such as <a href="ScriptRef:MonoBehaviour.Update.html">MonoBehaviour.Update</a>, or any other callback from native to managed code).</li>
+<li><strong>Allocator.TempJob</strong> is a slower allocation than <code>Temp</code> but is faster than <code>Persistent</code>. It is for allocations within a life&lt;span of four frames and is thread-safe. If you don’t <code>Dispose</code> of it within four frames, the console prints a warning, generated from the native code. Most small jobs use this <code>NativeContainer</code> allocation type.</li>
+<li><strong>Allocator.Persistent</strong> is the slowest allocation but can last as long as you need it to, and if necessary, throughout the application’s lifetime. It is a wrapper for a direct call to <a href="http://www.cplusplus.com/reference/cstdlib/malloc/">malloc</a>. Longer jobs can use this <code>NativeContainer</code> allocation type. You should not use <code>Persistent</code> where performance is essential.</li>
+</ul>
+<p>For example:</p>
+<pre><code>NativeArray&lt;float&gt; result = new NativeArray&lt;float&gt;(1, Allocator.TempJob);
+</code></pre><p><strong>Note</strong>: The number 1 in the example above indicates the size of the <code>NativeArray</code>. In this case, it has only one array element (as it only stores one piece of data in <code>result</code>).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

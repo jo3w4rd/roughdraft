@@ -1,0 +1,387 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Shader semantics | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Shader semantics | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="shader-semantics">Shader semantics</h1>
+
+<p>When writing HLSL <a href="SL-ShaderPrograms.html">shader programs</a>,
+input and output variables need to have their &quot;intent&quot; indicated
+via <strong>semantics</strong>. This is a standard concept in HLSL
+shader language; see the <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb509647.aspx">Semantics documentation on MSDN</a> for more details.</p>
+<p><em>You can download the examples shown below as a zipped Unity project, <a href="../uploads/Examples/UnityShaderDocExamples.zip">here</a>.</em></p>
+<h2 id="vertex-shader-input-semantics">Vertex shader input semantics</h2>
+<p>The main vertex shader function (indicated by the <code>#pragma vertex</code>
+directive) needs to have semantics on all of the input parameters.
+These correspond to individual <a href="class-Mesh.html">Mesh</a> data elements, like vertex position, normal mesh, and texture coordinates.
+See <a href="SL-VertexProgramInputs.html">vertex program inputs</a> for more details.</p>
+<p>Here&#39;s an example of a simple vertex shader that takes vertex position
+and a texture coordinate as an input. The pixel shader
+visualizes the texture coordinate as a color.</p>
+<pre><code>Shader &quot;Unlit/Show UVs&quot;
+{
+    SubShader
+    {
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            struct v2f {
+                float2 uv : TEXCOORD0;
+                float4 pos : SV_POSITION;
+            };
+
+            v2f vert (
+                float4 vertex : POSITION, // vertex position input
+                float2 uv : TEXCOORD0 // first texture coordinate input
+                )
+            {
+                v2f o;
+                o.pos = UnityObjectToClipPos(vertex);
+                o.uv = uv;
+                return o;
+            }
+
+            fixed4 frag (v2f i) : SV_Target
+            {
+                return fixed4(i.uv, 0, 0);
+            }
+            ENDCG
+        }
+    }
+}
+</code></pre><p><img src="../uploads/SL/SemanticsShowUVs.png" alt=""></p>
+<p>Instead of spelling out all individual inputs one by one,
+it is also possible to declare a structure of them, and indicate
+semantics on each individual member variable of the struct.
+See <a href="SL-VertexFragmentShaderExamples.html">shader program examples</a>
+to learn how to do this.</p>
+<h2 id="fragment-shader-output-semantics">Fragment shader output semantics</h2>
+<p>Most often a fragment (pixel) shader outputs a color, and has an
+<code>SV_Target</code> semantic. The fragment shader in the example above does
+exactly that:</p>
+<pre><code>fixed4 frag (v2f i) : SV_Target
+</code></pre><p>The function <code>frag</code> has a return type of <code>fixed4</code> (low precision
+RGBA color). As it only returns a single value, the semantic
+is indicated on the function itself, <code>: SV_Target</code>.</p>
+<p>It is also possible to return a structure with the outputs.
+The fragment shader above could be rewritten this way too, and it would
+do exactly the same:</p>
+<pre><code>struct fragOutput {
+    fixed4 color : SV_Target;
+};            
+fragOutput frag (v2f i)
+{
+    fragOutput o;
+    o.color = fixed4(i.uv, 0, 0);
+    return o;
+}
+</code></pre><p>Returning structures from the fragment shader is mostly useful
+for shaders that don&#39;t just return a single color. Additional
+semantics supported by the fragment shader outputs are as follows.</p>
+<h4 id="svtargetn-multiple-render-targets">SV_TargetN: Multiple render targets</h4>
+<p><code>SV_Target1</code>, <code>SV_Target2</code>, etc.: These are additional colors written by the shader. This is used when rendering into more than one render target at once (known as the Multiple Render Targets rendering technique, or MRT). <code>SV_Target0</code> is the same as <code>SV_Target</code>.</p>
+<h4 id="svdepth-pixel-shader-depth-output">SV_Depth: Pixel shader depth output</h4>
+<p>Usually the fragment
+shader does not override the Z buffer value, and a default value
+is used from the regular triangle rasterization. However, for some
+effects it is useful to output custom Z buffer depth values per pixel.</p>
+<p>Note that on many GPUs this turns off some depth buffer optimizations, so do not override Z buffer value without a good reason. The cost incurred by <code>SV_Depth</code> varies depending on the GPU architecture, but overall it&#39;s fairly similar to the cost of alpha testing (using the built-in <code>clip()</code> function in HLSL). Render shaders that modify depth after all regular opaque shaders (for example, by using the <code>AlphaTest</code> <a href="SL-SubShaderTags.html">rendering queue</a>.</p>
+<p>The depth output value needs to be a single <code>float</code>.</p>
+<h2 id="vertex-shader-outputs-and-fragment-shader-inputs">Vertex shader outputs and fragment shader inputs</h2>
+<p>A vertex shader needs to output the final clip space position of a vertex, so that the GPU knows where on the screen to rasterize it, and at what depth. This output needs to have the <code>SV_POSITION</code> semantic, and be of a <code>float4</code> type.</p>
+<p>Any other outputs (&quot;interpolators&quot; or &quot;varyings&quot;) produced by the vertex shader are whatever your particular shader needs. The values output from the vertex shader will be interpolated across the face of the rendered triangles, and the values at each pixel will be passed as inputs to the fragment shader.</p>
+<p>Many modern GPUs don&#39;t really care what semantics these variables have; however some old systems (most notably, shader model 2 GPUs on Direct3D 9) did have special rules about the semantics:</p>
+<ul>
+<li><code>TEXCOORD0</code>, <code>TEXCOORD1</code> etc are used to indicate arbitrary high precision data such as texture coordinates and positions.</li>
+<li><code>COLOR0</code> and <code>COLOR1</code> semantics on vertex outputs and fragment inputs are for low-precision, 0-1 range data (like simple color values).</li>
+</ul>
+<p>For best cross platform support, label vertex outputs and
+fragment inputs as <code>TEXCOORDn</code> semantics.</p>
+<p>See <a href="SL-VertexFragmentShaderExamples.html">shader program examples</a>
+for examples.</p>
+<h4 id="interpolator-count-limits">Interpolator count limits</h4>
+<p>There are limits to how many interpolator variables can be used in total
+to pass the information from the vertex into the fragment shader. The limit
+depends on the platform and GPU, and the general guidelines are:</p>
+<ul>
+<li><strong>Up to 8 interpolators</strong>: OpenGL ES 2.0 (iOS/Android), Direct3D 11 9.x level
+(Windows Phone) and Direct3 9 shader model 2.0 (old PCs). Since the interpolator
+count is limited, but each interpolator can be a 4-component vector,
+some shaders pack things together to stay within limits. For example, two texture
+coordinates can be passed in one <code>float4</code> variable (.xy for one coordinate, .zw
+for the second coordinate).</li>
+<li><strong>Up to 10 interpolators</strong>: Direct3D 9 shader model 3.0 (<code>#pragma target 3.0</code>).</li>
+<li><strong>Up to 16 interpolators</strong>: OpenGL ES 3.0 (iOS/Android), Metal (iOS).</li>
+<li><strong>Up to 32 interpolators</strong>: Direct3D 10 shader model 4.0 (<code>#pragma target 4.0</code>).</li>
+</ul>
+<p>Regardless of your particular target hardware, it is generally a good idea to use as few interpolators as possible for performance reasons.</p>
+<h2 id="other-special-semantics">Other special semantics</h2>
+<h4 id="screen-space-pixel-position-vpos">Screen space pixel position: VPOS</h4>
+<p>A fragment shader can receive position of the pixel being rendered as a special <code>VPOS</code> semantic.
+This feature only exists starting with shader model 3.0, so the shader needs to have the <code>#pragma target 3.0</code> compilation directive.</p>
+<p>On different platforms the underlying type of the screen space position input varies, so for maximum portability use the <code>UNITY_VPOS_TYPE</code> type for it (it will be <code>float4</code> on most platforms, and float2 on Direct3D 9).</p>
+<p>Additionally, using the pixel position semantic makes it hard to have both the clip space position (SV_POSITION) and VPOS in the same vertex-to-fragment structure. So the vertex shader should output the clip space position as a separate &quot;out&quot; variable. See the example shader below:</p>
+<pre><code>Shader &quot;Unlit/Screen Position&quot;
+{
+    Properties
+    {
+        _MainTex (&quot;Texture&quot;, 2D) = &quot;white&quot; {}
+    }
+    SubShader
+    {
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma target 3.0
+
+            // note: no SV_POSITION in this struct
+            struct v2f {
+                float2 uv : TEXCOORD0;
+            };
+
+            v2f vert (
+                float4 vertex : POSITION, // vertex position input
+                float2 uv : TEXCOORD0, // texture coordinate input
+                out float4 outpos : SV_POSITION // clip space position output
+                )
+            {
+                v2f o;
+                o.uv = uv;
+                outpos = UnityObjectToClipPos(vertex);
+                return o;
+            }
+
+            sampler2D _MainTex;
+
+            fixed4 frag (v2f i, UNITY_VPOS_TYPE screenPos : VPOS) : SV_Target
+            {
+                // screenPos.xy will contain pixel integer coordinates.
+                // use them to implement a checkerboard pattern that skips rendering
+                // 4x4 blocks of pixels
+
+                // checker value will be negative for 4x4 blocks of pixels
+                // in a checkerboard pattern
+                screenPos.xy = floor(screenPos.xy * 0.25) * 0.5;
+                float checker = -frac(screenPos.r + screenPos.g);
+
+                // clip HLSL instruction stops rendering a pixel if value is negative
+                clip(checker);
+
+                // for pixels that were kept, read the texture and output it
+                fixed4 c = tex2D (_MainTex, i.uv);
+                return c;
+            }
+            ENDCG
+        }
+    }
+}
+</code></pre><p><img src="../uploads/SL/SemanticsScreenPosition.png" alt=""></p>
+<h4 id="face-orientation-vface">Face orientation: VFACE</h4>
+<p>A fragment shader can receive a variable that indicates whether the rendered surface is facing the camera, or facing away from the camera. This is useful when rendering geometry that should be visible from both sides -- often used on leaves and similar thin objects. The <code>VFACE</code> semantic input variable will contain a positive value for front-facing triangles, and a negative value for back-facing ones.</p>
+<p>This feature only exists from shader model 3.0 onwards, so the shader needs to have the <code>#pragma target 3.0</code> compilation directive.</p>
+<pre><code>Shader &quot;Unlit/Face Orientation&quot;
+{
+    Properties
+    {
+        _ColorFront (&quot;Front Color&quot;, Color) = (1,0.7,0.7,1)
+        _ColorBack (&quot;Back Color&quot;, Color) = (0.7,1,0.7,1)
+    }
+    SubShader
+    {
+        Pass
+        {
+            Cull Off // turn off backface culling
+
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma target 3.0
+
+            float4 vert (float4 vertex : POSITION) : SV_POSITION
+            {
+                return UnityObjectToClipPos(vertex);
+            }
+
+            fixed4 _ColorFront;
+            fixed4 _ColorBack;
+
+            fixed4 frag (fixed facing : VFACE) : SV_Target
+            {
+                // VFACE input positive for frontbaces,
+                // negative for backfaces. Output one
+                // of the two colors depending on that.
+                return facing &gt; 0 ? _ColorFront : _ColorBack;
+            }
+            ENDCG
+        }
+    }
+}
+</code></pre><p>The shader above uses the <a href="SL-CullAndDepth.html">Cull</a> state to turn off backface culling (by default back-facing triangles are not rendered at all). Here is the shader applied to a bunch of Quad meshes, rotated at different orientations:</p>
+<p><img src="../uploads/SL/SemanticsFaceOrientation.png" alt=""></p>
+<h4 id="vertex-id-svvertexid">Vertex ID: SV_VertexID</h4>
+<p>A vertex shader can receive a variable that has the &quot;vertex number&quot; as an unsigned integer. This is mostly useful when you want to
+fetch additional per-vertex data from textures or <a href="ComputeShaders.md">ComputeBuffers</a>.</p>
+<p>This feature only exists from DX10 (shader model 4.0) and GLCore / OpenGL ES 3, so the shader needs to have the <code>#pragma target 3.5</code> compilation directive.</p>
+<pre><code>Shader &quot;Unlit/VertexID&quot;
+{
+    SubShader
+    {
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma target 3.5
+
+            struct v2f {
+                fixed4 color : TEXCOORD0;
+                float4 pos : SV_POSITION;
+            };
+
+            v2f vert (
+                float4 vertex : POSITION, // vertex position input
+                uint vid : SV_VertexID // vertex ID, needs to be uint
+                )
+            {
+                v2f o;
+                o.pos = UnityObjectToClipPos(vertex);
+                // output funky colors based on vertex ID
+                float f = (float)vid;
+                o.color = half4(sin(f/10),sin(f/100),sin(f/1000),0) * 0.5 + 0.5;
+                return o;
+            }
+
+            fixed4 frag (v2f i) : SV_Target
+            {
+                return i.color;
+            }
+            ENDCG
+        }
+    }
+}
+</code></pre><p><img src="../uploads/SL/SemanticsVertexID.png" alt=""></p>
+<p><em>(You can download the examples shown above as a <a href="../uploads/Examples/UnityShaderDocExamples.zip">zipped Unity project, here</a>)</em></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

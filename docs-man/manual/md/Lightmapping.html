@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Lightmapping: Getting started | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Lightmapping: Getting started | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="lightmapping-getting-started">Lightmapping: Getting started</h1>
+
+<p>This page provides an introduction to lightmapping in Unity. Lightmapping is the process of pre-calculating the brightness of surfaces in a Scene, and storing the result in a chart or &quot;light map&quot; for later use.</p>
+<p>Unity uses a system called the <a href="ProgressiveLightmapper.html">Progressive Lightmapper</a>, which bakes lightmaps for your Scene based on how your Scene is set up within Unity, taking into account Meshes, Materials, Textures, and Lights. Lightmapping is an integral part of the rendering engine; when your lightmaps are created, GameObjects automatically use them.</p>
+<p>For information about specific lightmapping-related settings, see documentation on <a href="GlobalIllumination.html">Global Illumination</a>.</p>
+<h2 id="preparing-the-scene-and-baking-the-lightmaps">Preparing the Scene and baking the lightmaps</h2>
+<p>Select <strong>Window</strong> &gt; <strong>Lighting</strong> &gt; <strong>Settings</strong> from the Unity Editor menu to open the Lighting window. Make sure any Mesh you want to apply a light map to has proper UVs for lightmapping. The easiest way to do this is to open the <a href="FBXImporter-Model.html">Mesh import settings</a> and enable the <strong>Generate Lightmap UVs</strong> setting.</p>
+<p>Next, to control the resolution of the lightmaps, go to the <strong>Lightmapping Settings</strong> section and adjust the <strong>Lightmap Resolution</strong> value. </p>
+<p><strong>Note:</strong> To have a better understanding of how you spend your lightmap texels, look at the small <strong>Shaded <a href="GIVis.html">debug scene visualization mode</a> within the __Scene View</strong>, switch to <strong>Baked Lightmap</strong> and tick the <strong>Show Resolution</strong> checkbox.</p>
+<p><img src="../uploads/Main/Lightmapping-0.jpg" alt=""></p>
+<p>In the <strong>Mesh Renderer</strong> and <strong>Terrain</strong> components of your GameObjects, enable the <strong>Lightmap Static</strong> property. This tells Unity that those GameObjects don’t move or change, so Unity can add them to a lightmap. In the <strong>Mesh Renderer</strong> component, you can also use the <strong>Scale In Lightmap</strong> parameter to adjust the resolution of your lightmap’s static <strong>Mesh</strong> or <strong>Terrain</strong>.</p>
+<p>You can also adjust settings for Lights in the <a href="LightingExplorer.html">Light Explorer</a>. </p>
+<p><img src="../uploads/Main/Lightmapping-1.jpg" alt=""></p>
+<p>To generate lightmaps for your Scene:</p>
+<ol>
+<li><p>At the bottom of the <strong>Scene</strong> tab on the <a href="GlobalIllumination.html">Lighting window</a>, click <strong>Generate Lighting</strong> (or ensure that <strong>Auto Generate</strong> is ticked).</p>
+</li>
+<li><p>A progress bar appears in Unity Editor’s status bar, in the bottom-right corner.</p>
+</li>
+<li><p>When baking is complete, you can see all the baked lightmaps in the <strong>Global Maps</strong> and <strong>Object Maps</strong> tabs of the Lighting window.</p>
+</li>
+</ol>
+<p>When lightmapping is complete, Unity’s Scene and Game views update automatically.</p>
+<p><img src="../uploads/Main/Lightmapping-2.jpg" alt=""></p>
+<p>To see the UV chart of the Mesh, click on a GameObject that has <strong>Lightmap Static</strong> enabled, then navigate to the Inspector window and select the __Object Maps __tab. Here, you can switch between different light map visualization modes. When you manually generate lighting, Unity adds <a href="LightmapSnapshot.html">Lighting Data Assets</a>, <a href="GlobalIllumination.html">baked lightmaps</a> and <a href="ReflectionProbes.html">Reflection Probes</a> to the <a href="SpecialFolders.html">Assets</a> folder.</p>
+<h2 id="tweaking-bake-settings">Tweaking bake settings</h2>
+<p>The final look of your Scene depends on your lighting set-up and bake settings. Let’s take a look at an example of some basic settings that can improve lighting quality.</p>
+<p>Sample count
+Progressive Lightmapper generates color values resulting from a single ray in order to remove noise. These color values are called samples. There are two settings that control the number of samples the Progressive Lightmapper uses for direct and indirect lighting calculations: <strong>Direct Samples</strong> and <strong>Indirect Samples</strong>. To find these, open the Lighting window (<strong>Window</strong> &gt; <strong>Lighting</strong> &gt; <strong>Settings</strong>), and go to <strong>Lightmapping Settings</strong> &gt; <strong>Lightmapper</strong>.</p>
+<p>Higher sample values reduce noise and can improve the quality of the lightmaps, but they also increase the bake time. The images below shows how a higher number of samples increases the quality of lightmaps without using filtering, and produces results that are less noisy.</p>
+<p><img src="../uploads/Main/Lightmapping-3.jpg" alt="A Scene using 10 samples"></p>
+<p><img src="../uploads/Main/Lightmapping-4.jpg" alt="A Scene using 100 samples"></p>
+<p><img src="../uploads/Main/Lightmapping-5.jpg" alt="A Scene using 1000 samples"></p>
+<h3 id="environment-lighting">Environment Lighting</h3>
+<p>In addition to all <a href="LightSources.html">Light sources</a>, <a href="GlobalIllumination.html#Environment">Environment Lighting</a> can also contribute to Global Illumination. You can assign a custom Skybox Material instead of default <strong>Procedural Skybox</strong> and adjust intensity. The following image shows how lighting can change in the Scene with and without <strong>Environment Lighting</strong>, and provide softer results. The settings for light sources are the same in both Scenes. Unity provides several custom HDRI assets in the <a href="https://assetstore.unity.com/packages/essentials/beta-projects/unity-hdri-pack-72511">Asset Store</a>.</p>
+<p><img src="../uploads/Main/Lightmapping-6.jpg" alt=""></p>
+<h3 id="filtering">Filtering</h3>
+<p>Filtering allows you to blur noisy results. The Progressive Lightmapper offers two different types of filtering: <strong>Gaussian</strong> and <strong>A-Trous</strong>. When you enable <strong>Advanced</strong> settings, you can apply these filters for <strong>Direct</strong>, <strong>Indirect __and __Ambient Occlusion</strong> separately. For more information, see documentation on <a href="ProgressiveLightmapper.html">Progressive Lightmapper</a>.</p>
+<p><img src="../uploads/Main/Lightmapping-7.jpg" alt=""></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

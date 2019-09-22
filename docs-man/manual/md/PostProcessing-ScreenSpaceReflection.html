@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Screen Space Reflection | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Screen Space Reflection | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="screen-space-reflection">Screen Space Reflection</h2>
+
+<p>The effect descriptions on this page refer to the default effects found within the post-processing stack.</p>
+<p>Screen Space Reflection is a technique for reusing screen space data to calculate reflections. It is commonly used to create more subtle reflections such as on wet floor surfaces or in puddles.</p>
+<p>Screen Space Reflection is an expensive technique, but when used correctly can give great results. Screen Space Reflection is only available in the <a href="RenderTech-DeferredShading.html">deferred rendering path</a> as it relies on the Normals G-Buffer. As it is an expensive effect it is not recommended to be used on mobile.</p>
+<p><img src="../uploads/Main/PostProcessing-ScreenSpaceReflection-0.jpg" alt="Scene with Screen Space Reflection"></p>
+<p><img src="../uploads/Main/PostProcessing-ScreenSpaceReflection-1.jpg" alt="Scene without reflections"></p>
+<p><img src="../uploads/Main/PostProcessing-ScreenSpaceReflection-2.png" alt="UI for Screen Space Reflection"></p>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property:</strong></th>
+<th style="text-align:left"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Blend Type</strong></td>
+<td style="text-align:left">How the reflections are blended into the render.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Reflection Quality</strong></td>
+<td style="text-align:left">The size of the buffer used for resolve. Half resolution SSR is much faster, but less accurate.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Max Distance</strong></td>
+<td style="text-align:left">Maximum reflection distance in world units.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Iteration Count</strong></td>
+<td style="text-align:left">Maximum raytracing length.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Step Size</strong></td>
+<td style="text-align:left">Ray tracing coarse step size. Higher traces farther, lower gives better quality silhouettes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Width Modifier</strong></td>
+<td style="text-align:left">Typical thickness of columns, walls, furniture, and other objects that reflection rays might pass behind.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Reflection Blur</strong></td>
+<td style="text-align:left">Blurriness of reflections.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Reflect Backfaces</strong></td>
+<td style="text-align:left">Renders the scene by culling all front faces and uses the resulting texture for estimating what the backfaces might look like when a point on the depth map is hit from behind.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Reflection Multiplier</strong></td>
+<td style="text-align:left">Nonphysical multiplier for the SSR reflections. 1.0 is physically based.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fade Distance</strong></td>
+<td style="text-align:left">How far away from the Max Distance to begin fading SSR.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fresnel Fade</strong></td>
+<td style="text-align:left">Amplify Fresnel fade out. Increase if floor reflections look good close to the surface and bad farther &#39;under&#39; the floor.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fresnel Fade Power</strong></td>
+<td style="text-align:left">Higher values correspond to a faster Fresnel fade as the reflection changes from the grazing angle.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>(Screen Edge Mask) Intensity</strong></td>
+<td style="text-align:left">Higher values fade out SSR near the edge of the screen so that reflections don&#39;t pop under camera motion.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="optimisation">Optimisation</h3>
+<ul>
+<li><p>Disable Reflect Backfaces</p>
+</li>
+<li><p>Reduce Reflection Quality</p>
+</li>
+<li><p>Reduce Iteration Count (increase step size to compensate)</p>
+</li>
+<li><p>Use Additive Reflection</p>
+</li>
+</ul>
+<h3 id="restrictions">Restrictions</h3>
+<ul>
+<li>Unsupported in VR</li>
+</ul>
+<h3 id="details">Details</h3>
+<p>Screen Space Reflection can be used to obtain more detailed reflections than other methods such as <a href="class-Cubemap.html">Cubemaps</a> or <a href="class-ReflectionProbe.html">Reflection Probes</a>. Objects using Cubemaps for reflection are unable to obtain self reflection and Reflection Probe reflections are limited in their accuracy.</p>
+<p><img src="../uploads/Main/PostProcessing-ScreenSpaceReflection-3.jpg" alt="Scene using the baked Reflection Probes"></p>
+<p>In the above image you can see inaccurate reflection in the red-highlighted area. This is due to the translation between the <a href="class-Camera.html">Camera</a> and Reflection Probe. Also notice that as this Reflection Probe is baked it is unable to reflect dynamic object such as the colored spheres.</p>
+<p><img src="../uploads/Main/PostProcessing-ScreenSpaceReflection-4.jpg" alt=""></p>
+<p>With realtime Reflection Probes (pictured above) dynamic objects are captured but, like in the example above, the position of the reflection is incorrect. In the red-highlighted area you can see the reflection of the white sphere.</p>
+<p>Comparing these to the image at the top of the page (using Screen Space Reflection) we can clearly see the disparity in reflection accuracy, however these methods are much less expensive and should always be used when such accuracy is not necessary.</p>
+<p>Screen Space Reflection is calculated by ray-marching from reflection points on the depth map to other surfaces. A reflection vector is calculated for each reflective point in the <a href="SL-DepthTextures.html">depth buffer</a>. This vector is marched in steps until an intersection is found with another point on the depth buffer. This second point is then draw to the original point as a reflection.</p>
+<p>Reducing <strong>Iteration Count</strong> reduces the amount of amount of times the ray is tested against the depth buffer, reducing the cost substantially. However, doing so will shorten the overall depth that is tested resulting in shorter reflections. Increasing the <strong>Step Size</strong> increases the distance between these tests, regaining the overall depth but reducing precision.</p>
+<p>When using the <strong>Physically Based Blend Type</strong> the BRDF of the reflective material is sampled and used to alter the resulting reflection, this process is expensive but results in more realistic reflections, especially for rougher surfaces.</p>
+<p>When using <strong>Reflect Backfaces</strong> the effect will also raytrace in the opposite direction in attempt to approximate the reflection of the back of an object. This process vastly increases the cost of the effect but can be used to get approximate reflection on reflective objects with other objects in front of them.</p>
+<h3 id="requirements">Requirements</h3>
+<ul>
+<li><p><a href="RenderTech-DeferredShading.html">Deferred rendering path</a></p>
+</li>
+<li><p><a href="SL-CameraDepthTexture.html">Depth &amp; Normals texture</a></p>
+</li>
+<li><p>Shader model 3</p>
+</li>
+</ul>
+<p>See the <a href="GraphicsEmulation.html">Graphics Hardware Capabilities and Emulation</a> page for further details and a list of compliant hardware.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

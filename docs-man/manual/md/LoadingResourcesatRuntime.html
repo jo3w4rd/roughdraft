@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Loading Resources at Runtime | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Loading Resources at Runtime | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="loading-resources-at-runtime">Loading Resources at Runtime</h1>
+
+<p>In some situations, it is useful to make an asset available to a project without loading it in as part of a scene. For example, there may be a character or other object that can appear in any scene of the game but which will only be used infrequently (this might be a &quot;secret&quot; feature, an error message or a highscore alert, say). Furthermore, you may even want to load assets from a separate file or URL to reduce initial download time or allow for interchangeable game content.</p>
+<p>Unity supports <strong>Resource Folders</strong> in the project to allow content to be supplied in the main game file yet not be loaded until requested. You can also create <strong>Asset Bundles</strong>. These are files completely separate from the main game file which contain assets to be accessed by the game on demand from a file or URL.</p>
+<h2 id="asset-bundles">Asset Bundles</h2>
+<p>An Asset Bundle is an external collection of assets. You can have many Asset Bundles and therefore many different external collections of assets. These files exist outside of the built Unity player, usually sitting on a web server for end-users to access dynamically. </p>
+<p>To build an Asset Bundle, you call <a href="ScriptRef:BuildPipeline.BuildAssetBundles.html">BuildPipeline.BuildAssetBundles()</a> from inside an Editor script. In the arguments, you specify an array of <strong>Objects</strong> to be included in the built file, along with some other options. This will build a file that you can later load dynamically in the runtime by using <a href="ScriptRef:AssetBundle.LoadAsset.html">AssetBundle.LoadAsset()</a>.</p>
+<h2 id="resource-folders">Resource Folders</h2>
+<p>Resource Folders are collections of assets that are included in the built Unity player, but are not necessarily linked to any GameObject in the Inspector.</p>
+<p>To put anything into a Resource Folder, you simply create a new folder inside the <strong>Project View</strong>, and name the folder &quot;Resources&quot;. You can have multiple Resource Folders organized differently in your Project. Whenever you want to load an asset from one of these folders, you call <a href="ScriptRef:Resources.Load.html">Resources.Load()</a>.</p>
+<h3 id="note">Note:</h3>
+<p>All assets found in the Resources folders and their dependencies are stored in a file called <em>resources.assets</em>. If an asset is already used by another level it is stored in the <em>.sharedAssets</em> file for that level.
+The <strong>Edit -&gt; PlayerSettings</strong> <strong>First Streamed Level</strong> setting determines the level at which the <em>resources.assets</em> will be collected and included in the build.</p>
+<p>If a level prior to <em>&quot;First streamed Level&quot;</em> is including an asset in a Resource folder, the asset will be stored in assets for that level. If it is included afterwards, the level will reference the asset from the &quot;resources.assets&quot; file.</p>
+<p>Only assets that are in the <em>Resources folder</em> can be accessed through <a href="ScriptRef:Resources.Load.html">Resources.Load()</a>. However many more assets might end up in the &quot;resources.assets&quot; file since they are dependencies. (For example a Material in the Resources folder might reference a Texture outside of the Resources folder)</p>
+<h2 id="resource-unloading">Resource Unloading</h2>
+<p>You can unload resources of an AssetBundle by calling <a href="ScriptRef:AssetBundle.Unload.html">AssetBundle.Unload()</a>. If you pass <strong>true</strong> for the <strong>unloadAllLoadedObjects</strong> parameter, both the objects held internally by the AssetBundle and the ones loaded from the AssetBundle using <a href="ScriptRef:AssetBundle.LoadAsset.html">AssetBundle.LoadAsset()</a> will be destroyed and memory used by the bundle will be released.</p>
+<p>Sometimes you may prefer to load an AssetBundle, instantiate the objects desired and release the memory used up by the bundle while keeping the objects around. The benefit is that you free up memory for other tasks, for instance loading another AssetBundle. In this scenario you would pass <strong>false</strong> as the parameter. After the bundle is destroyed you will not be able to load objects from it any more.</p>
+<p>If you want to destroy scene objects loaded using <a href="ScriptRef:Resources.Load.html">Resources.Load()</a> prior to loading another level, call <a href="ScriptRef:Object.Destroy.html">Object.Destroy()</a> on them. To release assets, use <a href="ScriptRef:Resources.UnloadUnusedAssets.html">Resources.UnloadUnusedAssets()</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

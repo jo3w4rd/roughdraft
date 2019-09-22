@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Movie Textures | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Movie Textures | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="movie-textures">Movie Textures</h1>
+
+<p><strong>Note:</strong> MovieTexture is due to be deprecated in a future version of Unity. You should use <a href="ScriptRef:Video.VideoPlayer.html">VideoPlayer</a> for video download and movie playback.</p>
+<p><strong>Movie Textures</strong> are animated <strong>Textures</strong> that are created from a video file. By placing a video file in your project&#39;s <strong>Assets Folder</strong>, you can import the video to be used exactly as you would use a regular <a href="class-TextureImporter.html">Texture</a>.</p>
+<p>Video files are imported via Apple QuickTime. Supported file types are what your QuickTime installation can play (usually <strong>.mov</strong>, <strong>.mpg</strong>, <strong>.mpeg</strong>, <strong>.mp4</strong>, <strong>.avi</strong>, <strong>.asf</strong>). On Windows, movie importing requires Quicktime to be installed. Download Quicktime from <a href="https://support.apple.com/downloads/quicktime">Apple Support Downloads</a>.</p>
+<h2 id="properties">Properties</h2>
+<p>The Movie Texture <strong>Inspector</strong> is very similar to the regular <a href="class-TextureImporter.html">Texture</a> Inspector.</p>
+<p><img src="../uploads/Main/MovieTextureInInspector.png" alt="Video files are Movie Textures in Unity"> </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Aniso Level</strong></td>
+<td style="text-align:left">Increases Texture quality when viewing the texture at a steep angle. Good for floor and ground textures</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Filtering Mode</strong></td>
+<td style="text-align:left">Selects how the Texture is filtered when it gets stretched by 3D transformations</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Loop</strong></td>
+<td style="text-align:left">If enabled, the movie will loop when it finishes playing</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Quality</strong></td>
+<td style="text-align:left">Compression of the Ogg Theora video file. A higher value means higher quality, but larger file size</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details</h2>
+<p>When a video file is added to your Project, it will automatically be imported and converted to <strong>Ogg Theora</strong> format. Once your Movie Texture has been imported, you can attach it to any <strong>GameObject</strong> or <strong>Material</strong>, just like a regular Texture.</p>
+<h3 id="playing-the-movie">Playing the Movie</h3>
+<p>Your Movie Texture will not play automatically when the game begins running. You must use a short script to tell it when to play.</p>
+<pre><code>// this line of code will make the Movie Texture begin playing
+((MovieTexture)GetComponent&lt;Renderer&gt;().material.mainTexture).Play();
+
+</code></pre><p>Attach the following script to toggle Movie playback when the space bar is pressed:</p>
+<pre><code>public class PlayMovieOnSpace : MonoBehaviour {
+    void Update () {
+        if (Input.GetButtonDown (&quot;Jump&quot;)) {
+
+            Renderer r = GetComponent&lt;Renderer&gt;();
+            MovieTexture movie = (MovieTexture)r.material.mainTexture;
+
+            if (movie.isPlaying) {
+                movie.Pause();
+            }
+            else {
+                movie.Play();
+            }
+        }
+    }
+}
+
+</code></pre><p>For more information about playing Movie Textures, see the <a href="ScriptRef:MovieTexture.html">Movie Texture Script Reference</a> page</p>
+<h3 id="movie-audio">Movie Audio</h3>
+<p>When a Movie Texture is imported, the audio track accompanying the visuals are imported as well. This audio appears as an <strong>AudioClip</strong> child of the Movie Texture.</p>
+<p><img src="../uploads/Main/MovieTextureAudio.png" alt="The video&#39;s audio track appears as a child of the Movie Texture in the Project View"> </p>
+<p>To play this audio, the Audio Clip must be attached to a GameObject, like any other Audio Clip. Drag the Audio Clip from the Project View onto any GameObject in the Scene or Hierarchy View. Usually, this will be the same GameObject that is showing the Movie. Then use <a href="ScriptRef:GameObject-audio.html">audio.Play()</a> to make the the movie&#39;s audio track play along with its video.</p>
+<h3 id="ios">iOS</h3>
+<p>Movie Textures are not supported on iOS. Instead, full-screen streaming playback is provided using <a href="ScriptRef:Handheld.PlayFullScreenMovie.html">Handheld.PlayFullScreenMovie</a>.</p>
+<h3 id="you-need-to-keep-your-videos-inside-the-streamingassets-folder-located-in-the-assets-folder-of-your-project">You need to keep your videos inside the <em>StreamingAssets</em> folder located in the <em>Assets</em> folder of your project.</h3>
+<p>Unity iOS supports any movie file types that play correctly on an iOS device, implying files with the extensions <strong>.mov</strong>, <strong>.mp4</strong>, <strong>.mpv</strong>, and <strong>.3gp</strong> and using one of the following compression standards:</p>
+<ul>
+<li>H.264 Baseline Profile Level 3.0 video</li>
+<li>MPEG-4 Part 2 video</li>
+</ul>
+<p>For more information about supported compression standards, consult the iPhone SDK <a href="http://developer.apple.com/library/ios/#documentation/MediaPlayer/Reference/MPMoviePlayerController_Class/MPMoviePlayerController/MPMoviePlayerController.html">MPMoviePlayerController Class Reference</a>.</p>
+<p>As soon as you call <a href="ScriptRef:Handheld.PlayFullScreenMovie.html">Handheld.PlayFullScreenMovie</a> the screen will fade from your current content to the designated background color. It might take some time before the movie is ready to play but in the meantime, the player will continue displaying the background color and may also display a progress indicator to let the user know the movie is loading. When playback finishes, the screen will fade back to your content.</p>
+<h3 id="the-video-player-does-not-respect-switching-to-mute-while-playing-videos">The video player does not respect switching to mute while playing videos</h3>
+<p>As written above, video files are played using Apple&#39;s embedded player (as of SDK 3.2 and iPhone OS 3.1.2 and earlier). This contains a bug that prevents Unity switching to mute.</p>
+<h3 id="the-video-player-does-not-respect-the-devices-orientation">The video player does not respect the device&#39;s orientation</h3>
+<p>The Apple video player and iPhone SDK do not provide a way to adjust the orientation of the video. A common approach is to manually create two copies of each movie in landscape and portrait orientations. Then, the orientation of the device can be determined before playback so the right version of the movie can be chosen.</p>
+<h3 id="android">Android</h3>
+<p>Movie Textures are not supported on Android. Instead, full-screen streaming playback is provided using <a href="ScriptRef:Handheld.PlayFullScreenMovie.html">Handheld.PlayFullScreenMovie</a>.</p>
+<h3 id="you-need-to-keep-your-videos-inside-the-streamingassets-folder-located-in-the-assets-folder-of-your-project-1">You need to keep your videos inside the <em>StreamingAssets</em> folder located in the <em>Assets</em> folder of your project.</h3>
+<p>Unity Android supports any movie file type supported by Android, (ie, files with the extensions <strong>.mp4</strong> and <strong>.3gp</strong>) and using one of the following compression standards:</p>
+<ul>
+<li>H.263</li>
+<li>H.264 AVC</li>
+<li>MPEG-4 SP</li>
+</ul>
+<p>However, device vendors are keen on expanding this list, so some Android devices are able to play formats other than those listed, such as HD videos.</p>
+<p>For more information about the supported compression standards, consult the Android SDK <a href="http://developer.android.com/guide/appendix/media-formats.html">Core Media Formats documentation</a>.</p>
+<p>As soon as you call <a href="ScriptRef:Handheld.PlayFullScreenMovie.html">Handheld.PlayFullScreenMovie</a> the screen will fade from your current content to the designated background color. It might take some time before the movie is ready to play but in the meantime, the player will continue displaying the background color and may also display a progress indicator to let the user know the movie is loading. When playback finishes, the screen will fade back to your content.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

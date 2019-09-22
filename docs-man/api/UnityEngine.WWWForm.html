@@ -1,0 +1,624 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Class WWWForm
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class WWWForm
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.WWWForm">
+  
+  
+  <h1 id="UnityEngine_WWWForm" data-uid="UnityEngine.WWWForm">Class WWWForm
+  </h1>
+  <div class="markdown level0 summary"><p>Helper class to generate form data to post to web servers using the <a href="xref:UnityEngine.UnityWebRequest">UnityWebRequest</a> or <a href="xref:UnityEngine.WWW">WWW</a> classes.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">WWWForm</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.html">UnityEngine</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_WWWForm_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class WWWForm</code></pre>
+  </div>
+  <h5 id="UnityEngine_WWWForm_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Here is a sample script that retrieves the high scores stored
+in a table in an SQL database.</p>
+</div>
+  <h5 id="UnityEngine_WWWForm_examples"><strong>Examples</strong></h5>
+  <pre><code>using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
+
+public class WWWFormImage : MonoBehaviour
+{
+
+    public string screenShotURL= &quot;http://www.my-server.com/cgi-bin/screenshot.pl&quot;;
+
+    // Use this for initialization
+    void Start()
+    {
+        StartCoroutine(UploadPNG());
+    }
+
+    IEnumerator UploadPNG()
+    {
+        // We should only read the screen after all rendering is complete
+        yield return new WaitForEndOfFrame();
+
+        // Create a texture the size of the screen, RGB24 format
+        int width = Screen.width;
+        int height = Screen.height;
+        var tex = new Texture2D( width, height, TextureFormat.RGB24, false );
+
+        // Read screen contents into the texture
+        tex.ReadPixels( new Rect(0, 0, width, height), 0, 0 );
+        tex.Apply();
+
+        // Encode texture into PNG
+        byte[] bytes = tex.EncodeToPNG();
+        Destroy( tex );
+
+        // Create a Web Form
+        WWWForm form = new WWWForm();
+        form.AddField(&quot;frameCount&quot;, Time.frameCount.ToString());
+        form.AddBinaryData(&quot;fileUpload&quot;, bytes, &quot;screenShot.png&quot;, &quot;image/png&quot;);
+
+        // Upload to a cgi script
+        using (var w = UnityWebRequest.Post(screenShotURL, form))
+        {
+            yield return w.SendWebRequest();
+            if (w.isNetworkError || w.isHttpError) {
+                print(w.error);
+            }
+            else {
+                print(&quot;Finished Uploading Screenshot&quot;);
+            }
+        }
+    }
+}
+</code></pre><pre><code>
+using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
+
+public class WWWFormScore : MonoBehaviour
+{
+    string highscore_url = &quot;http://www.my-site.com/highscores.pl&quot;;
+    string playName = &quot;Player 1&quot;;
+    int score = -1;
+
+    // Use this for initialization
+    IEnumerator Start()
+    {
+        // Create a form object for sending high score data to the server
+        WWWForm form = new WWWForm();
+
+        // Assuming the perl script manages high scores for different games
+        form.AddField( &quot;game&quot;, &quot;MyGameName&quot; );
+
+        // The name of the player submitting the scores
+        form.AddField( &quot;playerName&quot;, playName );
+
+        // The score
+        form.AddField( &quot;score&quot;, score );
+
+        // Create a download object
+        var download = UnityWebRequest.Post(highscore_url, form);
+
+        // Wait until the download is done
+        yield return download.SendWebRequest();
+
+        if (download.isNetworkError || download.isHttpError)
+        {
+            print( &quot;Error downloading: &quot; + download.error );
+        }
+        else
+        {
+            // show the highscores
+            Debug.Log(download.downloadHandler.text);
+        }
+    }
+}
+</code></pre><pre><code>#!/usr/bin/perl
+# The SQL database needs to have a table called highscores
+# that looks something like this:
+#
+#   CREATE TABLE highscores (
+#     game varchar(255) NOT NULL,
+#     player varchar(255) NOT NULL,
+#     score integer NOT NULL
+#   );
+#
+use strict;
+use CGI;
+use DBI;
+
+# Read form data etc.
+my $cgi = new CGI;
+
+# The results from the high score script will be in plain text
+print $cgi-&gt;header(&quot;text/plain&quot;);
+
+my $game = $cgi-&gt;param(&#39;game&#39;);
+my $playerName = $cgi-&gt;param(&#39;playerName&#39;);
+my $score = $cgi-&gt;param(&#39;score&#39;);
+
+exit 0 unless $game; # This parameter is required
+
+# Connect to a database
+my $dbh = DBI-&gt;connect( &#39;DBI:mysql:databasename&#39;, &#39;username&#39;, &#39;password&#39; )
+    || die &quot;Could not connect to database: $DBI::errstr&quot;;
+
+# Insert the player score if there are any
+if( $playerName &amp;&amp; $score) {
+    $dbh-&gt;do( &quot;insert into highscores (game, player, score) values(?,?,?)&quot;,
+        undef, $game, $playerName, $score );
+}
+
+# Fetch the high scores
+my $sth = $dbh-&gt;prepare(
+    &#39;SELECT player, score FROM highscores WHERE game=? ORDER BY score desc LIMIT 10&#39; );
+$sth-&gt;execute($game);
+while (my $r = $sth-&gt;fetchrow_arrayref) {
+    print join(&#39;:&#39;,@$r),&quot;\n&quot;
+}
+</code></pre>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="UnityEngine_WWWForm__ctor_" data-uid="UnityEngine.WWWForm.#ctor*"></a>
+  <h4 id="UnityEngine_WWWForm__ctor" data-uid="UnityEngine.WWWForm.#ctor">WWWForm()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public WWWForm()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_WWWForm_data_" data-uid="UnityEngine.WWWForm.data*"></a>
+  <h4 id="UnityEngine_WWWForm_data" data-uid="UnityEngine.WWWForm.data">data</h4>
+  <div class="markdown level1 summary"><p>(RO) The raw data to pass as the POST request body when sending the form.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte[] data { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_WWWForm_data_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Usually, you just pass the WWWForm object directly to the <a href="xref:UnityEngine.WWW">WWW</a> constructor, but you will
+need this variable if you want to change the request headers sent to the web server.</p>
+<p>SA: ::ref::headers variable.</p>
+</div>
+  <h5 id="UnityEngine_WWWForm_data_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+public class ExampleClass : MonoBehaviour
+{
+    IEnumerator Start()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField( &quot;name&quot;, &quot;value&quot; );
+        Dictionary&lt;string, string&gt; headers = form.headers;
+        byte[] rawData = form.data;
+        string url = &quot;www.myurl.com&quot;;
+
+        // Add a custom header to the request.
+        // In this case a basic authentication to access a password protected resource.
+        headers[&quot;Authorization&quot;] = &quot;Basic &quot; + System.Convert.ToBase64String(
+            System.Text.Encoding.ASCII.GetBytes(&quot;username:password&quot;));
+
+        // Post a request to an URL with our custom headers
+        using (WWW www = new WWW(url, rawData, headers))
+        {
+            yield return www;
+            //.. process results from WWW request here...
+        }
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_WWWForm_headers_" data-uid="UnityEngine.WWWForm.headers*"></a>
+  <h4 id="UnityEngine_WWWForm_headers" data-uid="UnityEngine.WWWForm.headers">headers</h4>
+  <div class="markdown level1 summary"><p>(RO) Returns the correct request headers for posting the form using the <a href="xref:UnityEngine.WWW">WWW</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, string&gt; headers { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Dictionary</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_WWWForm_headers_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This field only contains one header, /&quot;Content-Type&quot;/,
+which is set to the correct mime type for the form: &quot;@@application/x-www-form-urlencoded@@&quot; for normal
+forms and &quot;@@multipart/form-data@@&quot; for forms containing data added using ::ref::AddBinaryData.</p>
+</div>
+  <h5 id="UnityEngine_WWWForm_headers_examples">Examples</h5>
+  <pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Example : MonoBehaviour {
+
+    IEnumerator Start () {
+        Dictionary&lt;string, string&gt; headers = new Dictionary&lt;string,string&gt;();
+        headers.Add(&quot;header-name&quot;, &quot;header content&quot;);
+        WWW www = new WWW(&quot;https://example.com&quot;, null, headers);
+        yield return www;
+        Debug.Log (www.text);
+    }
+
+}
+</code></pre>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="UnityEngine_WWWForm_AddBinaryData_" data-uid="UnityEngine.WWWForm.AddBinaryData*"></a>
+  <h4 id="UnityEngine_WWWForm_AddBinaryData_System_String_System_Byte___" data-uid="UnityEngine.WWWForm.AddBinaryData(System.String,System.Byte[])">AddBinaryData(String, Byte[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddBinaryData(string fieldName, byte[] contents)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">fieldName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</td>
+        <td><span class="parametername">contents</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_WWWForm_AddBinaryData_" data-uid="UnityEngine.WWWForm.AddBinaryData*"></a>
+  <h4 id="UnityEngine_WWWForm_AddBinaryData_System_String_System_Byte___System_String_" data-uid="UnityEngine.WWWForm.AddBinaryData(System.String,System.Byte[],System.String)">AddBinaryData(String, Byte[], String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddBinaryData(string fieldName, byte[] contents, string fileName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">fieldName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</td>
+        <td><span class="parametername">contents</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">fileName</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_WWWForm_AddBinaryData_" data-uid="UnityEngine.WWWForm.AddBinaryData*"></a>
+  <h4 id="UnityEngine_WWWForm_AddBinaryData_System_String_System_Byte___System_String_System_String_" data-uid="UnityEngine.WWWForm.AddBinaryData(System.String,System.Byte[],System.String,System.String)">AddBinaryData(String, Byte[], String, String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddBinaryData(string fieldName, byte[] contents, string fileName, string mimeType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">fieldName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.byte">Byte</a>[]</td>
+        <td><span class="parametername">contents</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">fileName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">mimeType</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_WWWForm_AddField_" data-uid="UnityEngine.WWWForm.AddField*"></a>
+  <h4 id="UnityEngine_WWWForm_AddField_System_String_System_Int32_" data-uid="UnityEngine.WWWForm.AddField(System.String,System.Int32)">AddField(String, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddField(string fieldName, int i)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">fieldName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">i</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_WWWForm_AddField_" data-uid="UnityEngine.WWWForm.AddField*"></a>
+  <h4 id="UnityEngine_WWWForm_AddField_System_String_System_String_" data-uid="UnityEngine.WWWForm.AddField(System.String,System.String)">AddField(String, String)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddField(string fieldName, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">fieldName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_WWWForm_AddField_" data-uid="UnityEngine.WWWForm.AddField*"></a>
+  <h4 id="UnityEngine_WWWForm_AddField_System_String_System_String_Encoding_" data-uid="UnityEngine.WWWForm.AddField(System.String,System.String,Encoding)">AddField(String, String, Encoding)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddField(string fieldName, string value, Encoding e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">fieldName</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Encoding</span></td>
+        <td><span class="parametername">e</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

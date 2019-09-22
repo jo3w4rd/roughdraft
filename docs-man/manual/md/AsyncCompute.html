@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Asynchronous compute | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Asynchronous compute | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="asynchronous-compute">Asynchronous compute</h1>
+
+<p>Unity provides an API interface for asynchronous compute (also called &quot;async compute&quot;). Async compute allows you to use GPU resources more efficiently when performing compute shader tasks. It is especially useful if you are issuing custom compute shader dispatches.</p>
+<p>This page is split into two sections:</p>
+<ul>
+<li><p><a href="#AsyncComputeIntro">Introduction to async compute</a></p>
+</li>
+<li><p><a href="#AsyncComputeUsing">Using async compute in Unity</a></p>
+</li>
+</ul>
+<p><strong>Note:</strong> Only PS4 development supports async compute.</p>
+<p><a name="AsyncComputeIntro"></a></p>
+<h2 id="introduction-to-async-compute">Introduction to async compute</h2>
+<p>The modern rendering pipeline does not always make use of the full capacity of the GPU. Getting the most efficient use from the available compute units can be a challenge, but is a key factor in getting good GPU performance from complex Scenes. </p>
+<p>Under-utilizing the compute units often occurs during depth-only rendering, such as shadow map creation or depth prepasses. During these stages, there is often no pixel shader bound to the GPU, and the GPU cannot create vertex shader wavefronts fast enough to fully make use of all the wavefronts the hardware has to offer. As a result, the rendering process is not making use of the GPU’s full computational power. </p>
+<p>Consider a GPU that has ten wavefronts available per single-instruction, multiple data (SIMD) unit. The wavefront distribution on a single SIMD unit is loosely represented in the diagram below: </p>
+<p><img src="../uploads/Main/AsyncCompute-0.png" alt=""></p>
+<p>In this scenario, the GPU carries out four steps:</p>
+<ol>
+<li><p>Performs some vertex and pixel shader rendering</p>
+</li>
+<li><p>Switches to perform depth-only work</p>
+</li>
+<li><p>Performs some work using the compute shaders</p>
+</li>
+<li><p>Switches back to vertex and pixel shader draws </p>
+</li>
+</ol>
+<p>Asynchronous compute allows you to schedule compute shader work on <strong>compute queues</strong> to run simultaneously alongside tasks scheduled from the <strong>graphics queue</strong>. This makes efficient use of GPU resources that the rendering process is not using.</p>
+<p>In the example described above, you could schedule custom compute shader dispatches on one or more compute queue to run at the same time as the depth-only rendering on the graphics queue. These compute shader dispatches make good use of the computational resources of the GPU, which the depth-only pass does not use. </p>
+<p>The diagram below shows the same scenario as the first diagram, but with async compute applied:</p>
+<p><img src="../uploads/Main/AsyncCompute-1.png" alt=""></p>
+<p>By comparing the two diagrams, you can see that:</p>
+<ul>
+<li><p>With async compute, the time it takes to complete the compute processing is longer than if it was dispatched on the graphics queue. However, async compute reduces the overall time it takes to complete all of the work, which can improve performance.</p>
+</li>
+<li><p>Moving the compute work to coincide with either of the two vertex and pixel shader-enabled draw operations might not enhance optimization, because all wavefronts are in use at that time. However, you can improve performance by pairing async compute operations that have different bottlenecks with tasks running on the graphics queue (for example, ALU and bandwidth). For optimum performance improvement, use trial and error to determine where async compute operations can overlap with graphics queue tasks.</p>
+</li>
+</ul>
+<p><a name="AsyncComputeUsing"></a></p>
+<h2 id="using-async-compute-in-unity">Using async compute in Unity</h2>
+<p>For best results, use Unity’s async compute scripting interface as part of a <a href="ScriptableRenderPipeline.html">scriptable render pipeline</a>. This provides the most flexibility for scheduling async compute work relative to the graphics queue. You can also use async compute in projects that do not use scriptable render pipelines.</p>
+<p>Use a graphics <a href="GraphicsCommandBuffers.html">command buffer</a> interface to issue work to the async compute queues. To do this, construct a command buffer containing only compute queue-compatible work, then use <a href="ScriptRef:Graphics.ExecuteCommandBufferAsync.html">Graphics.ExecuteCommandBufferAsync</a>or <a href="ScriptRef:Experimental.Rendering.ScriptableRenderContext.ExecuteCommandBufferAsync.html">ScriptableRenderContext.ExecuteCommandBufferAsync</a> to submit it. All of the commands within the submitted buffer execute on the same compute queue. </p>
+<p>The following commands are valid within command buffers for async compute execution. If you attempt to asynchronously execute command buffers that contain any command not included below, you generate an error that appears in the Unity Editor and in the log at runtime:</p>
+<ul>
+<li><p><a href="ScriptRef:Rendering.CommandBuffer.CopyCounterValue.html">CopyCounterValue</a></p>
+</li>
+<li><p><a href="ScriptRef:Rendering.CommandBuffer.CopyTexture.html">CopyTexture</a></p>
+</li>
+<li><p><a href="ScriptRef:Rendering.CommandBuffer.CreateGPUFence.html">CreateGPUFence</a></p>
+</li>
+<li><p><a href="ScriptRef:Rendering.CommandBuffer.DispatchCompute.html">DispatchCompute</a></p>
+</li>
+<li><p><a href="ScriptRef:Rendering.CommandBuffer.WaitOnGPUFence.html">WaitOnGPUFence</a></p>
+</li>
+<li><p>Any of the <code>SetCompute[...]Param</code> commands (<a href="ScriptRef:Rendering.CommandBuffer.SetComputeBufferParam.html">SetComputeBufferParam</a>, <a href="ScriptRef:Rendering.CommandBuffer.SetComputeFloatParam.html">SetComputeFloatParam</a>, <a href="ScriptRef:Rendering.CommandBuffer.SetComputeFloatParams.html">SetComputeFloatParams</a>, <a href="ScriptRef:Rendering.CommandBuffer.SetComputeIntParam.html">SetComputeIntParam</a>, <a href="ScriptRef:Rendering.CommandBuffer.SetComputeIntParams.html">SetComputeIntParams</a>, <a href="ScriptRef:Rendering.CommandBuffer.SetComputeTextureParam.html">SetComputeTextureParam</a>, <a href="ScriptRef:Rendering.CommandBuffer.SetComputeVectorParam.html">SetComputeVectorParam</a>)</p>
+</li>
+</ul>
+<p>If you execute command buffers asynchronously on platforms that do not support async compute, Unity submits the work to the graphics queue. Use <a href="ScriptRef:SystemInfo-supportsAsyncCompute.html">SystemInfo.supportsAsyncCompute</a> to check support for async compute on a given platform.</p>
+<p>To schedule work related to graphics tasks, use <a href="ScriptRef:Rendering.GPUFence.html">GPUFences</a>. The rendering pipeline passes these fences when the last <code>Blit</code>, <code>Clear</code>, <code>Draw</code>, <code>Dispatch</code> or <code>Copy</code> operation issued by Unity’s graphics processing has completed on the GPU, either as a result of a graphics-related command issued from your script, or from Unity’s own internal processing to render the Scene. You can use <a href="ScriptRef:Graphics.CreateGPUFence.html">Graphics.CreateGPUFence</a>or <a href="ScriptRef:Rendering.CommandBuffer.CreateGPUFence.html">CommandBuffer.CreateGPUFence</a> to create GPU fences. </p>
+<p>Use <a href="ScriptRef:Graphics.WaitOnGPUFence.html">Graphics.WaitOnGPUFence</a> to make the GPU’s graphics queue or an async compute queue wait for the rendering pipeline to pass a given fence before proceeding. Use <a href="ScriptRef:Rendering.CommandBuffer.WaitOnGPUFence.html">CommandBuffer.WaitOnGPUFence</a> to make an async compute queue wait for the rendering pipeline to pass a given fence before proceeding. Neither of these functions stalls the CPU.</p>
+<p>To ensure optimal use of GPU resources, think about when to start async compute work relative to work on the graphics queue. Most async compute command buffers have <code>WaitOnGPUFence</code> as their first entry. If you asynchronously execute command buffers that do not wait on a fence created from the graphics queue, those command buffers execute on the GPU at an undefined point during that frame’s GPU processing, which might occur before any graphics queue work.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

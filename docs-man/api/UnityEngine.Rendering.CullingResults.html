@@ -1,0 +1,947 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Struct CullingResults
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct CullingResults
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.Rendering.CullingResults">
+  
+  
+  <h1 id="UnityEngine_Rendering_CullingResults" data-uid="UnityEngine.Rendering.CullingResults">Struct CullingResults
+  </h1>
+  <div class="markdown level0 summary"><p>Culling results (visible objects, lights, reflection probes).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.Rendering.html">UnityEngine.Rendering</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_Rendering_CullingResults_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct CullingResults : IEquatable&lt;CullingResults&gt;</code></pre>
+  </div>
+  <h5 id="UnityEngine_Rendering_CullingResults_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>In a scriptable render loop, the rendering process is typically doing culling for each camera (<a href="xref:UnityEngine.Rendering.ScriptableRenderContext.Cull">ScriptableRenderContext.Cull</a>), followed by rendering subsets of visible objects (<a href="xref:UnityEngine.Rendering.ScriptableRenderContext.DrawRenderers">ScriptableRenderContext.DrawRenderers</a>) and processing visible lights (::ref::visibleLights, ::ref::visibleReflectionProbes).</p>
+<p>CullingResults also provides several functions to aid shadow rendering (::ref::ComputeDirectionalShadowMatricesAndCullingPrimitives, ::ref::ComputeSpotShadowMatricesAndCullingPrimitives, ::ref::ComputePointShadowMatricesAndCullingPrimitives).</p>
+</div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_lightAndReflectionProbeIndexCount_" data-uid="UnityEngine.Rendering.CullingResults.lightAndReflectionProbeIndexCount*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_lightAndReflectionProbeIndexCount" data-uid="UnityEngine.Rendering.CullingResults.lightAndReflectionProbeIndexCount">lightAndReflectionProbeIndexCount</h4>
+  <div class="markdown level1 summary"><p>Gets the number of per-object light and reflection probe indices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int lightAndReflectionProbeIndexCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Rendering_CullingResults_lightAndReflectionProbeIndexCount_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>SA: ::ref::FillLightAndReflectionProbeIndices.</p>
+</div>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_lightIndexCount_" data-uid="UnityEngine.Rendering.CullingResults.lightIndexCount*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_lightIndexCount" data-uid="UnityEngine.Rendering.CullingResults.lightIndexCount">lightIndexCount</h4>
+  <div class="markdown level1 summary"><p>Gets the number of per-object light indices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int lightIndexCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Rendering_CullingResults_lightIndexCount_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>SA: ::ref::FillLightAndReflectionProbeIndices.</p>
+</div>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_reflectionProbeIndexCount_" data-uid="UnityEngine.Rendering.CullingResults.reflectionProbeIndexCount*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_reflectionProbeIndexCount" data-uid="UnityEngine.Rendering.CullingResults.reflectionProbeIndexCount">reflectionProbeIndexCount</h4>
+  <div class="markdown level1 summary"><p>Gets the number of per-object reflection probe indices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int reflectionProbeIndexCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Rendering_CullingResults_reflectionProbeIndexCount_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>SA: ::ref::FillLightAndReflectionProbeIndices.</p>
+</div>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_visibleLights_" data-uid="UnityEngine.Rendering.CullingResults.visibleLights*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_visibleLights" data-uid="UnityEngine.Rendering.CullingResults.visibleLights">visibleLights</h4>
+  <div class="markdown level1 summary"><p>Array of visible lights.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;VisibleLight&gt; visibleLights { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="UnityEngine.Rendering.VisibleLight.html">VisibleLight</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Rendering_CullingResults_visibleLights_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>After <a href="xref:UnityEngine.Rendering.ScriptableRenderContext.Cull">ScriptableRenderContext.Cull</a> is done, this property will contain array of lights that are visible.</p>
+<p>SA: <a class="xref" href="UnityEngine.Rendering.VisibleLight.html">VisibleLight</a>, ::ref::visibleReflectionProbes.</p>
+</div>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_visibleOffscreenVertexLights_" data-uid="UnityEngine.Rendering.CullingResults.visibleOffscreenVertexLights*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_visibleOffscreenVertexLights" data-uid="UnityEngine.Rendering.CullingResults.visibleOffscreenVertexLights">visibleOffscreenVertexLights</h4>
+  <div class="markdown level1 summary"><p>Off screen lights that still effect visible Scene vertices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;VisibleLight&gt; visibleOffscreenVertexLights { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="UnityEngine.Rendering.VisibleLight.html">VisibleLight</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_visibleReflectionProbes_" data-uid="UnityEngine.Rendering.CullingResults.visibleReflectionProbes*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_visibleReflectionProbes" data-uid="UnityEngine.Rendering.CullingResults.visibleReflectionProbes">visibleReflectionProbes</h4>
+  <div class="markdown level1 summary"><p>Array of visible reflection probes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;VisibleReflectionProbe&gt; visibleReflectionProbes { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="UnityEngine.Rendering.VisibleReflectionProbe.html">VisibleReflectionProbe</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Rendering_CullingResults_visibleReflectionProbes_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>After <a href="xref:UnityEngine.Rendering.ScriptableRenderContext.Cull">ScriptableRenderContext.Cull</a> is done, this property will contain array of reflection probes that are visible.</p>
+<p>SA: <a class="xref" href="UnityEngine.Rendering.VisibleReflectionProbe.html">VisibleReflectionProbe</a>, ::ref::visibleLights.</p>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_ComputeDirectionalShadowMatricesAndCullingPrimitives_" data-uid="UnityEngine.Rendering.CullingResults.ComputeDirectionalShadowMatricesAndCullingPrimitives*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_ComputeDirectionalShadowMatricesAndCullingPrimitives_System_Int32_System_Int32_System_Int32_UnityEngine_Vector3_System_Int32_System_Single_UnityEngine_Matrix4x4__UnityEngine_Matrix4x4__UnityEngine_Rendering_ShadowSplitData__" data-uid="UnityEngine.Rendering.CullingResults.ComputeDirectionalShadowMatricesAndCullingPrimitives(System.Int32,System.Int32,System.Int32,UnityEngine.Vector3,System.Int32,System.Single,UnityEngine.Matrix4x4@,UnityEngine.Matrix4x4@,UnityEngine.Rendering.ShadowSplitData@)">ComputeDirectionalShadowMatricesAndCullingPrimitives(Int32, Int32, Int32, Vector3, Int32, Single, out Matrix4x4, out Matrix4x4, out ShadowSplitData)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ComputeDirectionalShadowMatricesAndCullingPrimitives(int activeLightIndex, int splitIndex, int splitCount, Vector3 splitRatio, int shadowResolution, float shadowNearPlaneOffset, out Matrix4x4 viewMatrix, out Matrix4x4 projMatrix, out ShadowSplitData shadowSplitData)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">activeLightIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">splitIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">splitCount</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">splitRatio</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">shadowResolution</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">shadowNearPlaneOffset</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">viewMatrix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">projMatrix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Rendering.ShadowSplitData.html">ShadowSplitData</a></td>
+        <td><span class="parametername">shadowSplitData</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_ComputePointShadowMatricesAndCullingPrimitives_" data-uid="UnityEngine.Rendering.CullingResults.ComputePointShadowMatricesAndCullingPrimitives*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_ComputePointShadowMatricesAndCullingPrimitives_System_Int32_UnityEngine_CubemapFace_System_Single_UnityEngine_Matrix4x4__UnityEngine_Matrix4x4__UnityEngine_Rendering_ShadowSplitData__" data-uid="UnityEngine.Rendering.CullingResults.ComputePointShadowMatricesAndCullingPrimitives(System.Int32,UnityEngine.CubemapFace,System.Single,UnityEngine.Matrix4x4@,UnityEngine.Matrix4x4@,UnityEngine.Rendering.ShadowSplitData@)">ComputePointShadowMatricesAndCullingPrimitives(Int32, CubemapFace, Single, out Matrix4x4, out Matrix4x4, out ShadowSplitData)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ComputePointShadowMatricesAndCullingPrimitives(int activeLightIndex, CubemapFace cubemapFace, float fovBias, out Matrix4x4 viewMatrix, out Matrix4x4 projMatrix, out ShadowSplitData shadowSplitData)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">activeLightIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.CubemapFace.html">CubemapFace</a></td>
+        <td><span class="parametername">cubemapFace</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">fovBias</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">viewMatrix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">projMatrix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Rendering.ShadowSplitData.html">ShadowSplitData</a></td>
+        <td><span class="parametername">shadowSplitData</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_ComputeSpotShadowMatricesAndCullingPrimitives_" data-uid="UnityEngine.Rendering.CullingResults.ComputeSpotShadowMatricesAndCullingPrimitives*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_ComputeSpotShadowMatricesAndCullingPrimitives_System_Int32_UnityEngine_Matrix4x4__UnityEngine_Matrix4x4__UnityEngine_Rendering_ShadowSplitData__" data-uid="UnityEngine.Rendering.CullingResults.ComputeSpotShadowMatricesAndCullingPrimitives(System.Int32,UnityEngine.Matrix4x4@,UnityEngine.Matrix4x4@,UnityEngine.Rendering.ShadowSplitData@)">ComputeSpotShadowMatricesAndCullingPrimitives(Int32, out Matrix4x4, out Matrix4x4, out ShadowSplitData)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ComputeSpotShadowMatricesAndCullingPrimitives(int activeLightIndex, out Matrix4x4 viewMatrix, out Matrix4x4 projMatrix, out ShadowSplitData shadowSplitData)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">activeLightIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">viewMatrix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">projMatrix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Rendering.ShadowSplitData.html">ShadowSplitData</a></td>
+        <td><span class="parametername">shadowSplitData</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_Equals_" data-uid="UnityEngine.Rendering.CullingResults.Equals*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_Equals_System_Object_" data-uid="UnityEngine.Rendering.CullingResults.Equals(System.Object)">Equals(Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetype.equals#System_ValueType_Equals_System_Object_">ValueType.Equals(Object)</a></div>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_Equals_" data-uid="UnityEngine.Rendering.CullingResults.Equals*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_Equals_UnityEngine_Rendering_CullingResults_" data-uid="UnityEngine.Rendering.CullingResults.Equals(UnityEngine.Rendering.CullingResults)">Equals(CullingResults)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(CullingResults other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Rendering.CullingResults.html">CullingResults</a></td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_FillLightAndReflectionProbeIndices_" data-uid="UnityEngine.Rendering.CullingResults.FillLightAndReflectionProbeIndices*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_FillLightAndReflectionProbeIndices_UnityEngine_ComputeBuffer_" data-uid="UnityEngine.Rendering.CullingResults.FillLightAndReflectionProbeIndices(UnityEngine.ComputeBuffer)">FillLightAndReflectionProbeIndices(ComputeBuffer)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void FillLightAndReflectionProbeIndices(ComputeBuffer computeBuffer)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.ComputeBuffer.html">ComputeBuffer</a></td>
+        <td><span class="parametername">computeBuffer</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_GetHashCode_" data-uid="UnityEngine.Rendering.CullingResults.GetHashCode*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_GetHashCode" data-uid="UnityEngine.Rendering.CullingResults.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetype.gethashcode#System_ValueType_GetHashCode">ValueType.GetHashCode()</a></div>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_GetLightIndexMap_" data-uid="UnityEngine.Rendering.CullingResults.GetLightIndexMap*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_GetLightIndexMap_Allocator_" data-uid="UnityEngine.Rendering.CullingResults.GetLightIndexMap(Allocator)">GetLightIndexMap(Allocator)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;int&gt; GetLightIndexMap(Allocator allocator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Allocator</span></td>
+        <td><span class="parametername">allocator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_GetReflectionProbeIndexMap_" data-uid="UnityEngine.Rendering.CullingResults.GetReflectionProbeIndexMap*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_GetReflectionProbeIndexMap_Allocator_" data-uid="UnityEngine.Rendering.CullingResults.GetReflectionProbeIndexMap(Allocator)">GetReflectionProbeIndexMap(Allocator)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;int&gt; GetReflectionProbeIndexMap(Allocator allocator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Allocator</span></td>
+        <td><span class="parametername">allocator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_GetShadowCasterBounds_" data-uid="UnityEngine.Rendering.CullingResults.GetShadowCasterBounds*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_GetShadowCasterBounds_System_Int32_UnityEngine_Bounds__" data-uid="UnityEngine.Rendering.CullingResults.GetShadowCasterBounds(System.Int32,UnityEngine.Bounds@)">GetShadowCasterBounds(Int32, out Bounds)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool GetShadowCasterBounds(int lightIndex, out Bounds outBounds)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">lightIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Bounds.html">Bounds</a></td>
+        <td><span class="parametername">outBounds</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_SetLightIndexMap_" data-uid="UnityEngine.Rendering.CullingResults.SetLightIndexMap*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_SetLightIndexMap_NativeArray_System_Int32__" data-uid="UnityEngine.Rendering.CullingResults.SetLightIndexMap(NativeArray{System.Int32})">SetLightIndexMap(NativeArray&lt;Int32&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetLightIndexMap(NativeArray&lt;int&gt; lightIndexMap)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><span class="parametername">lightIndexMap</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_SetReflectionProbeIndexMap_" data-uid="UnityEngine.Rendering.CullingResults.SetReflectionProbeIndexMap*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_SetReflectionProbeIndexMap_NativeArray_System_Int32__" data-uid="UnityEngine.Rendering.CullingResults.SetReflectionProbeIndexMap(NativeArray{System.Int32})">SetReflectionProbeIndexMap(NativeArray&lt;Int32&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetReflectionProbeIndexMap(NativeArray&lt;int&gt; lightIndexMap)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><span class="parametername">lightIndexMap</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+  </h3>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_op_Equality_" data-uid="UnityEngine.Rendering.CullingResults.op_Equality*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_op_Equality_UnityEngine_Rendering_CullingResults_UnityEngine_Rendering_CullingResults_" data-uid="UnityEngine.Rendering.CullingResults.op_Equality(UnityEngine.Rendering.CullingResults,UnityEngine.Rendering.CullingResults)">Equality(CullingResults, CullingResults)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(CullingResults left, CullingResults right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Rendering.CullingResults.html">CullingResults</a></td>
+        <td><span class="parametername">left</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Rendering.CullingResults.html">CullingResults</a></td>
+        <td><span class="parametername">right</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Rendering_CullingResults_op_Inequality_" data-uid="UnityEngine.Rendering.CullingResults.op_Inequality*"></a>
+  <h4 id="UnityEngine_Rendering_CullingResults_op_Inequality_UnityEngine_Rendering_CullingResults_UnityEngine_Rendering_CullingResults_" data-uid="UnityEngine.Rendering.CullingResults.op_Inequality(UnityEngine.Rendering.CullingResults,UnityEngine.Rendering.CullingResults)">Inequality(CullingResults, CullingResults)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(CullingResults left, CullingResults right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Rendering.CullingResults.html">CullingResults</a></td>
+        <td><span class="parametername">left</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Rendering.CullingResults.html">CullingResults</a></td>
+        <td><span class="parametername">right</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

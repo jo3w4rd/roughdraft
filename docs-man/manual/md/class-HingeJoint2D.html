@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Hinge Joint 2D | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Hinge Joint 2D | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="hinge-joint-2d">Hinge Joint 2D</h1>
+
+<p>The <strong>Hinge Joint 2D</strong> component allows a GameObject controlled by RigidBody 2D physics to be attached to a point in space around which it can rotate. The rotation can be left to happen passively (for example, in response to a collision) or can be actively powered by a motor torque provided by the Joint 2D itself. You can set limits to prevent the hinge from making a full rotation, or make more than a single rotation.</p>
+<h2 id="properties">Properties</h2>
+<p><img src="../uploads/Main/HingeJoint2DInspector.png" alt=""> </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Enable Collision</strong></td>
+<td style="text-align:left">Check the box to enable collisions between the two connected GameObjects.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Connected Rigid Body</strong></td>
+<td style="text-align:left">Specify the other GameObject this Hinge Joint 2D connects to. If you leave this as <strong>None</strong>, the other end of the Hinge Joint 2D is fixed to a point in space defined by the <strong>Connected Anchor</strong> setting. Select the circle to the right of the field to view a list of GameObjects to connect to.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Auto Configure Connected Anchor</strong></td>
+<td style="text-align:left">Check this box to automatically set the anchor location for the other GameObject this Hinge Joint 2D connects to. If you check this, you don&#39;t need to complete the <strong>Connected Anchor</strong> fields.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Anchor</strong></td>
+<td style="text-align:left">Define where (in terms of x, y co-ordinates on the <strong>RigidBody 2D</strong>) the end point of the Friction Joint 2D connects to this GameObject.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Connected Anchor</strong></td>
+<td style="text-align:left">Define where (in terms of x, y co-ordinates on the <strong>RigidBody 2D</strong>) the end point of the Friction Joint 2D connects to the other GameObject.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Motor</strong></td>
+<td style="text-align:left">Use this to change Motor settings.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Use Motor</strong></td>
+<td style="text-align:left">Check the box to enable the hinge motor.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Motor Speed</strong></td>
+<td style="text-align:left">Set the target motor speed, in degrees per second.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Maximum Motor Force</strong></td>
+<td style="text-align:left">Set the maximum torque (or rotation) the motor can apply while attempting to reach the target speed.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Use Limits</strong></td>
+<td style="text-align:left">Check this box to limit the rotation angle</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Angle Limits</strong></td>
+<td style="text-align:left">Use these settings to set limits if <strong>Use Limits</strong> is enabled.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Lower Angle</strong></td>
+<td style="text-align:left">Set the lower end of the rotation arc allowed by the limit.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Upper Angle</strong></td>
+<td style="text-align:left">Set the upper end of the rotation arc allowed by the limit.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Break Force</strong></td>
+<td style="text-align:left">Specify the linear (or straight line) force level needed to break and therefore delete the joint. <strong>Infinity</strong> means it is unbreakable.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Break Torque</strong></td>
+<td style="text-align:left">Specify the the angular (or rotation) level needed to break and therefore delete the joint. <strong>Infinity</strong> means it is unbreakable.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notes">Notes</h2>
+<p>The Hinge Joint 2D&#39;s name suggest a door hinge. It can be used as a door hinge, but also anything that rotates around a particular point - for example: machine parts, powered wheels, and pendulums.</p>
+<p>You can use this joint to make two points overlap. Those two points can be two <strong>Rigidbody 2D</strong> components, or a <strong>Rigidbody 2D</strong> component and a fixed position in the world. Connect the Hinge Joint 2D to a fixed position in the world by setting <strong>Connected Rigid Body</strong> to None. The joint applies a linear force to both connected Rigidbody 2D GameObjects.</p>
+<p>The Hinge Joint 2D has a simulated rotational motor which you can turn on or off. Set the <strong>Maximum Motor Speed</strong> and <strong>Maximum Motor Force</strong> to control the angular speed (<strong>Torque</strong>) and make the two Rigidbody 2D GameObjects rotate in an arc relative to each other. Set the limits of the arc using <strong>Lower Angle</strong> and <strong>Upper Angle</strong>.</p>
+<h3 id="constraints">Constraints</h3>
+<p>Hinge Joint 2D has three simultaneous constraints. All are optional:</p>
+<ul>
+<li>Maintain a relative linear distance between two anchor points on two Rigidbody 2D GameObjects.</li>
+<li>Maintain an angular speed between two anchor points on two Rigidbody 2D GameObjects (limited with a maximum torque in <strong>Maximum Motor Force </strong>.</li>
+<li>Maintain an angle within a specified arc.</li>
+</ul>
+<p>You can use this joint to construct physical GameObjects that need to behave as if they are connected with a rotational pivot. For example: </p>
+<ul>
+<li>A see-saw pivot where the horizontal section is connected to the base. Use the joint&#39;s <strong>Angle Limits</strong> to simulate the highest and lowest point of the see-saw&#39;s movement.</li>
+<li>A pair of scissors connected together with a hinge pivot. Use the joint&#39;s <strong>Angle Limits</strong> to simulate the closing and maximum opening of the scisssors.</li>
+<li>A simple wheel connected to the body of a car with the pivot connecting the wheel at its center to the car. In this example you can use the Hinge Joint 2D&#39;s motor to rotate the wheel.</li>
+</ul>
+<p>See <a href="Joints2D.html">Joints 2D</a>: <em>Details and Hints</em> for useful background information on all 2D joints.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

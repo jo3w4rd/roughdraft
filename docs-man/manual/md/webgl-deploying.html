@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>WebGL: Deploying compressed builds | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="WebGL: Deploying compressed builds | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="webgl-deploying-compressed-builds">WebGL: Deploying compressed builds</h1>
+
+<p>When you build a WebGL project in release mode (see <a href="PublishingBuilds.html">Publishing builds</a>), Unity compresses your build output files to reduce the download size of your build. You can choose the type of compression it uses from the Compression Format options in Publishing Settings (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category, and then navigate to the <strong>Publishing Settings</strong> panel):</p>
+<ul>
+<li><p><strong>gzip</strong>: This is the default option. gzip files are bigger than Brotli files, but faster to build, and natively supported by all browsers over both http and https.</p>
+</li>
+<li><p><strong>Brotli</strong>: Brotli compression offers the best compression ratios. Brotli compressed files are significantly smaller than gzip, but take a long time to compress, increasing your iteration times on release builds. Brotli compression is natively supported by Chrome and Firefox over https (see <a href="webgl-browsercompatibility.html">WebGL browser compatibility</a> for more information).</p>
+</li>
+<li><p><strong>Disabled</strong>: This disables compression. Use this if you want to implement your own compression in post-processing scripts.</p>
+</li>
+</ul>
+<p>Compression-built Unity builds work on any browser. Unity contains a software decompressor written in JavaScript, which it falls back to when compression on the http transfer level is not enabled by the server.</p>
+<h2 id="advanced-native-browser-decompression">Advanced: Native browser decompression</h2>
+<p>The browser can handle decompression of Unity builds natively while it downloads the build data. This has the advantage of avoiding the additional delay caused by decompressing your files in JavaScript, therefore reducing your startup time. To let the browser handle decompression natively, you need to configure your web server to serve the compressed files with the appropriate http headers: These tell the browser that the data is compressed with gzip or Brotli so it decompresses the data while it is being transferred. Brotli compression is supported by Firefox and Chrome on https only, while gzip compression is supported by all browsers. See <a href="webgl-browsercompatibility.html">WebGL browser compatibility</a> for more information.</p>
+<h2 id="setting-up-web-servers">Setting up web servers</h2>
+<p>The setup process for native browser decompression depends on your web server. The instructions on this page apply to the two most common web servers, <strong>Apache</strong> and <strong>IIS</strong>. Note that these are designed to work on a default setup, but may need adjustments to match your specific configuration. In particular, there may be issues if you already have other server-side configuration to compress hosted files, which may interfere with this setup. The basic idea is to append a <em>Content-Encoding</em> header to the server response, corresponding to the type of compression used at build time. This will allow the browser to perform decompression natively and asynchronously during download.</p>
+<h3 id="apache">Apache</h3>
+<p>Apache server uses invisible <em>.htaccess</em> files for server configuration. The code below shows examples of <em>.htaccess</em> files which can be used to enforce native browser decompression. Note that Apache server configuration setup is optional.</p>
+<p>For gzip-compressed builds put the following <em>.htaccess</em> file into your <em>Build</em> subfolder:</p>
+<pre><code>&lt;IfModule mod_mime.c&gt;
+  AddEncoding gzip .unityweb
+&lt;/IfModule&gt;
+</code></pre><p>For brotli-compressed builds put the following <em>.htaccess</em> file into your <em>Build</em> subfolder:</p>
+<pre><code>&lt;IfModule mod_mime.c&gt;
+  AddEncoding br .unityweb
+&lt;/IfModule&gt;
+</code></pre><h2 id="iis">IIS</h2>
+<p><strong>Necessary IIS server configuration steps:</strong></p>
+<p>By default IIS server does not serve static content of unknown MIME type. In order to make Unity build work on IIS, you first need to associate the <em>.unityweb</em> extension with the <em>application/octet-stream</em> content typ. There are two ways to achieve that:</p>
+<p><em>Using IIS Manager interface:</em>
+Select your website in the IIS Manager panel, open the <em>MIME Types</em> feature and select <em>Add…</em> action. Set <em>.unityweb</em> as file name extension and <em>application/octet-stream</em> as MIME type, click <em>OK</em>.</p>
+<p><em>Using server configuration file:</em>
+IIS uses <em>web.config</em> files for server configuration. Those configuration files reflect all the changes made in IIS Manager for a specific folder. In order to associate <em>application/octet-stream</em> MIME type with <em>.unityweb</em> extension, you can use the following <em>web.config</em> file:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration&gt;
+    &lt;system.webServer&gt;
+            &lt;staticContent&gt;
+            &lt;remove fileExtension=&quot;.unityweb&quot; /&gt;
+&lt;mimeMap fileExtension=&quot;.unityweb&quot; mimeType=&quot;application/octet-stream&quot; /&gt;
+            &lt;/staticContent&gt;
+    &lt;/system.webServer&gt;
+&lt;/configuration&gt;
+</code></pre><p>Note that configuration file affects all the server subfolders, therefore it is sufficient to set the MIME type for the <em>.unityweb</em> extension just once in the server root folder.</p>
+<p>Optional IIS server configuration steps:</p>
+<p>In order to speed up the build startup times, you may optionally use the following configuration files. Note that in order to use this setup, you need to have Microsoft’s <a href="http://www.iis.net/downloads/microsoft/url-rewrite">IIS URL Rewrite IIS module</a> installed; otherwise, the browser will throw a 500 Internal Server Error.</p>
+<p>For gzip-compressed builds put the following <em>web.config</em> file into the <em>Build</em> subfolder:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration&gt;
+    &lt;system.webServer&gt;
+            &lt;staticContent&gt;
+                    &lt;remove fileExtension=&quot;.unityweb&quot; /&gt;
+                    &lt;mimeMap fileExtension=&quot;.unityweb&quot; mimeType=&quot;application/octet-stream&quot; /&gt;
+            &lt;/staticContent&gt;
+            &lt;rewrite&gt;
+                    &lt;outboundRules&gt;
+                        &lt;rule name=&quot;Append gzip Content-Encoding header&quot;&gt;
+                            &lt;match serverVariable=&quot;RESPONSE_Content-Encoding&quot; pattern=&quot;.*&quot; /&gt;
+                            &lt;conditions&gt;
+                                    &lt;add input=&quot;{REQUEST_FILENAME}&quot; pattern=&quot;\.unityweb$&quot; /&gt;
+                            &lt;/conditions&gt;
+                            &lt;action type=&quot;Rewrite&quot; value=&quot;gzip&quot; /&gt;
+                        &lt;/rule&gt;
+                    &lt;/outboundRules&gt;
+            &lt;/rewrite&gt;
+    &lt;/system.webServer&gt;
+&lt;/configuration&gt;
+</code></pre><p>For brotli-compressed builds put the following <em>web.config</em> file into the <em>Build</em> subfolder:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration&gt;
+    &lt;system.webServer&gt;
+            &lt;staticContent&gt;
+                    &lt;remove fileExtension=&quot;.unityweb&quot; /&gt;
+                    &lt;mimeMap fileExtension=&quot;.unityweb&quot; mimeType=&quot;application/octet-stream&quot; /&gt;
+            &lt;/staticContent&gt;
+            &lt;rewrite&gt;
+                    &lt;outboundRules&gt;
+                        &lt;rule name=&quot;Append br Content-Encoding header&quot;&gt;
+                            &lt;match serverVariable=&quot;RESPONSE_Content-Encoding&quot; pattern=&quot;.*&quot; /&gt;
+                            &lt;conditions&gt;
+                                    &lt;add input=&quot;{REQUEST_FILENAME}&quot; pattern=&quot;\.unityweb$&quot; /&gt;
+                            &lt;/conditions&gt;
+                            &lt;action type=&quot;Rewrite&quot; value=&quot;br&quot; /&gt;
+                        &lt;/rule&gt;
+                    &lt;/outboundRules&gt;
+            &lt;/rewrite&gt;
+    &lt;/system.webServer&gt;
+&lt;/configuration&gt;
+</code></pre><p>Note that the <code>&lt;remove fileExtension=&quot;.unityweb&quot; /&gt;</code> lines are required to handle a situation when content type is already overridden at a higher level in the server directory’s hierarchy, which could otherwise cause a server exception.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

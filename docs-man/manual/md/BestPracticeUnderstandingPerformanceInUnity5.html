@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Strings and text | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Strings and text | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="strings-and-text">Strings and text</h1>
+
+<p>Handling strings and text is a common source of performance problems in Unity projects. In C#, all strings are immutable. Any manipulation of a string results in the allocation of a full new string. This is relatively expensive, and repeated string concatenations can develop into performance problems when performed on large strings, on large datasets, or in tight loops.</p>
+<p>Further, as N string concatenations require the allocation of N-1 intermediate strings, serial concatenations can also be a major cause of managed memory pressure.</p>
+<p>For cases where strings must be concatenated in tight loops or during each frame, use a StringBuilder to perform the actual concatenation operations. The StringBuilder instance can also be reused to further minimize unnecessary memory allocation.</p>
+<p>Microsoft maintains a list of best practices for working with strings in C#, which can be found here on the MSDN website:  <a href="https://msdn.microsoft.com/en-us/library/dd465121(v=vs.110).aspx">msdn.microsoft.com</a>. </p>
+<h2 id="locale-coercion-and-ordinal-comparisons">Locale coercion and ordinal comparisons</h2>
+<p>One of the core performance problems often found in string-related code is the unintended use of the slow, default string APIs. These APIs were built for business applications, and attempt to deal with handling strings from many different cultural and linguistic rules with regards to the characters found in text.</p>
+<p>For example, the following example code returns true when run under the US-English locale, but returns false for many European locales(1) </p>
+<p>NOTE: 
+Note that, as of Unity 5.3 and 5.4, Unity’s scripting runtimes always run under the US English (en-US) locale:</p>
+<pre><code>    String.Equals(&quot;encyclopedia&quot;, “encyclopædia”);
+</code></pre><p>For most Unity projects, this is entirely unnecessary. It is roughly ten times faster to use the ordinal comparison type, which compares strings in a manner familiar to C and C++ programmers: by simply comparing each sequential byte of the string, without regard for the character represented by that byte.</p>
+<p>Switching to ordinal string comparison is as simple as supplying <code>StringComparison.Ordinal</code> as the final argument to <code>String.Equals</code>:</p>
+<pre><code>myString.Equals(otherString, StringComparison.Ordinal);
+</code></pre><h2 id="inefficient-built-in-string-apis">Inefficient built-in string APIs</h2>
+<p>Beyond switching to ordinal comparisons, certain C# <code>String</code> APIs are known to be extremely inefficient. Among these are <code>String.Format</code>, <code>String.StartsWith</code> and <code>String.EndsWith. String.Format</code> is difficult to replace, but the inefficient string comparison methods are trivially optimized away.</p>
+<p>While Microsoft’s recommendation is to pass <code>StringComparison.Ordinal</code> into any string comparison that does not need to be adjusted for localization, Unity benchmarks show that the impact of this is relatively minimal compared to a custom implementation.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">Time (ms) for 100k short strings</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>String.StartsWith</code>, default culture</td>
+<td style="text-align:left">137</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>String.EndsWit</code>h, default culture</td>
+<td style="text-align:left">542</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>String.StartsWith</code>, ordinal</td>
+<td style="text-align:left">115</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>String.EndsWith</code>, ordinal</td>
+<td style="text-align:left">34</td>
+</tr>
+<tr>
+<td style="text-align:left">Custom <code>StartsWith</code> replacement</td>
+<td style="text-align:left">4.5</td>
+</tr>
+<tr>
+<td style="text-align:left">Custom <code>EndsWith</code> replacement</td>
+<td style="text-align:left">4.5</td>
+</tr>
+</tbody>
+</table>
+<p>Both <code>String.StartsWith</code> and <code>String.EndsWith</code> can be replaced with simple hand-coded versions, similar to the example attached below.</p>
+<pre><code>
+    public static bool CustomEndsWith(string a, string b) {
+        int ap = a.Length - 1;
+        int bp = b.Length - 1;
+
+        while (ap &gt;= 0 &amp;&amp; bp &gt;= 0 &amp;&amp; a [ap] == b [bp]) {
+            ap--;
+            bp--;
+        }
+        return (bp &lt; 0 &amp;&amp; a.Length &gt;= b.Length) || 
+
+                (ap &lt; 0 &amp;&amp; b.Length &gt;= a.Length);
+        }
+
+    public static bool CustomStartsWith(string a, string b) {
+        int aLen = a.Length;
+        int bLen = b.Length;
+        int ap = 0; int bp = 0;
+
+        while (ap &lt; aLen &amp;&amp; bp &lt; bLen &amp;&amp; a [ap] == b [bp]) {
+        ap++;
+        bp++;
+        }
+
+        return (bp == bLen &amp;&amp; aLen &gt;= bLen) || 
+
+                (ap == aLen &amp;&amp; bLen &gt;= aLen);
+    }
+</code></pre><h2 id="regular-expressions">Regular Expressions</h2>
+<p>While Regular Expressions are a powerful way to match and manipulate strings, they can be extremely performance-intensive. Further, due to the C# library’s implementation of Regular Expressions, even simple boolean <code>IsMatch</code> queries allocate large transient datastructures &quot;under the hood.&quot; This transient managed memory churn should be deemed unacceptable, except during initialization.</p>
+<p>If regular expressions are necessary, it is strongly recommended to not use the static <code>Regex.Match</code> or <code>Regex.Replace</code> methods, which accept the regular expression as a string parameter. These methods compile the regular expression on-the-fly and do not cache the generated object.</p>
+<p>This example code is an innocuous one-liner.</p>
+<pre><code>
+Regex.Match(myString, &quot;foo&quot;);
+</code></pre><p>However, each time it’s executed, it generates 5 kilobytes of garbage. A simple refactoring can eliminate much of this garbage:</p>
+<pre><code>
+var myRegExp = new Regex(&quot;foo&quot;);
+
+myRegExp.Match(myString);
+</code></pre><p>In this example, each call to <code>myRegExp.Match</code> &quot;only&quot; results in 320 bytes of garbage. While this is still expensive for a simple matching operation, it is a considerable improvement over the previous example.</p>
+<p>Therefore, if the regular expressions are invariant string literals, it is considerably more efficient to precompile them by passing them as the first parameter of the Regex object’s constructor. These precompiled Regexes should then be reused.</p>
+<h2 id="xml-json-and-other-long-form-text-parsing">XML, JSON and other long-form text parsing</h2>
+<p>Parsing text is often one of the heaviest operations that occurs at loading time. In some cases, the time spent parsing text can outweigh the time spent loading and instantiating Assets.</p>
+<p>The reasons behind this depend on the specific parser used. C#’s built-in XML parser is extremely flexible, but as a result, it is not optimizable for specific data layouts.</p>
+<p>Many third-party parsers are built on reflection. While reflection is an excellent choice during development (because it allows the parser to rapidly adapt to changing data layouts), it is notoriously slow.</p>
+<p>Unity has introduced a partial solution with its built-in <a href="ScriptRef:JsonUtility.html">JSONUtility</a> API, which provides an interface to Unity’s serialization system that reads/emits JSON. In most benchmarks, it is faster than pure C# JSON parsers, but it has the same limitations as other interfaces to Unity’s serialization system – it cannot serialized many complex data types, such as Dictionaries, without additional code(2) (NOTE: 
+     See the <a href="ScriptRef:ISerializationCallbackReceiver.md">ISerializationCallbackReceiver</a> interface for one way to easily add the additional processing necessary to convert to/from complex data types during Unity’s serialization process.).</p>
+<p>When encountering performance problems that arise from textual data parsing, consider three alternative resolutions.</p>
+<h3 id="option-1-parse-at-build-time">Option 1: Parse at build time</h3>
+<p>The best way to avoid the cost of text parsing is to entirely eliminate the parsing of text at runtime. In general, this means &quot;baking&quot; the textual data into a binary format via some sort of build step.</p>
+<p>Most developers who opt for this route move their data to some sort of ScriptableObject-derived class hierarchy and then distribute the data via AssetBundles. For an excellent discussion of using ScriptableObjects, see <a href="https://www.youtube.com/watch?v=VBA1QCoEAX4">Richard Fine’s Unite 2016 talk</a> on youtube.</p>
+<p>This strategy offers the best possible performance, but is only suitable for data that does not need to be generated dynamically. It is best suited for game design parameters and other content.</p>
+<h3 id="option-2-split-and-lazy-load">Option 2: Split and lazy load</h3>
+<p>A second possibility is to split up the data that must be parsed into smaller chunks. Once split, the cost of parsing the data can be spread across several frames. In the ideal case, identify the specific portions of the data that are required to present the desired experience to the user and load only those portions.</p>
+<p>In a simple example: if the project were a platform game, it would not be necessary to serialize data for all the levels together into one giant blob. If the data were split into individual Assets for each level, and perhaps segmented the levels into regions, the data could be parsed as the player approached it.</p>
+<p>While this sounds easy, in practice it requires a substantial investment in tool code and may require data structures to be reorganized. </p>
+<h3 id="option-3-threads">Option 3: Threads</h3>
+<p>For data that is parsed entirely into plain C# objects, and does not require any interaction with Unity APIs, it is possible to move the parsing operations to worker threads.</p>
+<p>This option can be extremely powerful on platforms with a significant number of cores(3) (NOTE: 
+Note that iOS devices have at most 2 cores. Most Android devices have 2-4. This technique of more interest when building for standalone and console build targets.)  However, it requires careful programming to avoid creating deadlocks and race conditions.</p>
+<p>Projects that choose to implement threading generally use the built-in C# <a href="https://msdn.microsoft.com/en-us/library/system.threading.thread(v=vs.110).aspx">Thread</a> and <a href="https://msdn.microsoft.com/en-us/library/system.threading.threadpool(v=vs.110).aspx">ThreadPool</a> classes (see <a href="https://msdn.microsoft.com/en-us/library/system.threading.thread(v=vs.110).aspx">msdn.microsoft.com</a>)  to manage their worker threads, along with the standard C# synchronization classes.</p>
+<p><strong>Footnotes</strong></p>
+<ul>
+<li><p>(1)  Note that, as of Unity 5.3 and 5.4, Unity’s scripting runtimes always run under the US English (en-US) locale.</p>
+</li>
+<li><p>(2)  See the <a href="ScriptRef:ISerializationCallbackReceiver.md">ISerializationCallbackReceiver</a> interface for one way to easily add the additional processing necessary to convert to/from complex data types during Unity’s serialization process.</p>
+</li>
+<li><p>(3) Note that iOS devices have at most 2 cores. Most Android devices have 2-4. This technique is of more interest when building for standalone and console build targets.</p>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

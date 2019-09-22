@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Gameplay in 2D | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Gameplay in 2D | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="gameplay-in-2d">Gameplay in 2D</h1>
+
+<p>While famous for its 3D capabilities, Unity can also be used to create 2D games. The familiar functions of the editor are still available but with helpful additions to simplify 2D development.</p>
+<p><img src="../uploads/Main/Overview2D.jpg" alt="Scene viewed in 2D mode"></p>
+<p>The most immediately noticeable feature is the <em>2D</em> view mode button in the toolbar of the Scene view. When 2D mode is enabled, an orthographic (ie, perspective-free) view will be set; the camera looks along the Z axis with the Y axis increasing upwards. This allows you to visualise the scene and place 2D objects easily.</p>
+<p>For a full list of 2D components, how to switch between 2D and 3D mode, and the different 2D and 3D Mode settings, see <a href="2Dor3D.html">2D or 3D Projects</a>.</p>
+<h2 id="2d-graphics">2D graphics</h2>
+<p>Graphic objects in 2D are known as <strong>Sprites</strong>. Sprites are essentially just standard textures but there are special techniques for combining and managing sprite textures for efficiency and convenience during development. Unity provides a built-in <a href="SpriteEditor.html">Sprite Editor</a> to let you extract sprite graphics from a larger image. This allows you to edit a number of component images within a single texture in your image editor. You could use this, for example, to keep the arms, legs and body of a character as separate elements within one image.</p>
+<p>Sprites are rendered with a <a href="class-SpriteRenderer.html">Sprite Renderer</a> component rather than the <a href="class-MeshRenderer.html">Mesh Renderer</a> used with 3D objects. You can add this to a GameObject via the Components menu (<strong>Component &gt; Rendering &gt; Sprite Renderer</strong> or alternatively, you can just create a GameObject directly with a Sprite Renderer already attached (menu: <strong>GameObject &gt; 2D Object &gt; Sprite</strong>).</p>
+<p>In addition, you can use a <a href="SpriteCreator.html">Sprite Creator</a> tool to make placeholder 2D images.</p>
+<h2 id="2d-physics">2D physics</h2>
+<p>Unity has a separate physics engine for handling 2D physics so as to make use of optimizations only available with 2D. The components correspond to the standard 3D physics components such as <a href="class-Rigidbody.html">Rigidbody</a>, <a href="class-BoxCollider.html">Box Collider</a> and <a href="class-HingeJoint.html">Hinge Joint</a>, but with &quot;2D&quot; appended to the name. So, sprites can be equipped with <a href="class-Rigidbody2D.html">Rigidbody 2D</a>, <a href="class-BoxCollider2D.html">Box Collider 2D</a> and <a href="class-HingeJoint2D.html">Hinge Joint 2D</a>. Most 2D physics components are simply &quot;flattened&quot; versions of the 3D equivalents (eg, <em>Box Collider 2D</em> is a square while <em>Box Collider</em> is a cube) but there are a few exceptions.</p>
+<p>For a full list of 2D physics components, see <a href="2Dor3D.html">2D or 3D Projects</a>.  See the <a href="PhysicsSection.html">Physics</a> section of the manual for further information about 2D physics concepts and components. To specify 2D physics settings, see the <a href="class-Physics2DManager.html">Physics 2D</a> window.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Custom lighting models in Surface Shaders | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Custom lighting models in Surface Shaders | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="custom-lighting-models-in-surface-shaders">Custom lighting models in Surface Shaders</h1>
+
+<p>When writing <a href="SL-SurfaceShaders.html">Surface Shaders</a>, you describe the properties of a surface (such as albedo color and normal), and a <strong>Lighting Model</strong> computes the lighting interaction. </p>
+<p>There are two built-in lighting models: <code>Lambert</code> for diffuse lighting, and <code>BlinnPhong</code> for specular lighting. The <em>Lighting.cginc</em> file inside Unity defines these models (Windows: <em>&lt;unity install path&gt;/Data/CGIncludes/Lighting.cginc</em>; macOS: <em>/Applications/Unity/Unity.app/Contents/CGIncludes/Lighting.cginc</em>).</p>
+<p>Sometimes you might want to use a custom lighting model. You can do this with Surface Shaders. A lighting model is simply a couple of Cg/HLSL functions that match some conventions. </p>
+<h2 id="declaring-lighting-models">Declaring lighting models</h2>
+<p>A lighting model consists of regular functions with names that begin <code>Lighting</code>. You can declare them anywhere in your shader file, or one of the included files. The functions are:</p>
+<ol>
+<li><p><code>half4 Lighting&lt;Name&gt; (SurfaceOutput s, UnityGI gi);</code>
+Use this in forward rendering paths for light models that are <em>not</em> dependent on the view direction.</p>
+</li>
+<li><p><code>half4 Lighting&lt;Name&gt; (SurfaceOutput s, half3 viewDir, UnityGI gi);</code>
+Use this in forward rendering paths for light models that <em>are</em> dependent on the view direction.</p>
+</li>
+<li><p><code>half4 Lighting&lt;Name&gt;_Deferred (SurfaceOutput s, UnityGI gi, out half4 outDiffuseOcclusion, out half4 outSpecSmoothness, out half4 outNormal);</code>
+Use this in deferred lighting paths.</p>
+</li>
+<li><p><code>half4 Lighting&lt;Name&gt;_PrePass (SurfaceOutput s, half4 light);</code>
+Use this in light prepass (legacy deferred) lighting paths.</p>
+</li>
+</ol>
+<p>Note that you don&#39;t need to declare all functions. A lighting model either uses view direction or it does not. Similarly, if the lighting model only works in forward rendering, do not declare the <code>_Deferred</code> or <code>_Prepass</code> function. This ensures that Shaders that use it only compile to forward rendering.</p>
+<h2 id="custom-gi">Custom GI</h2>
+<p>Declare the following function to customize the decoding lightmap data and probes:</p>
+<ol>
+<li><code>half4 Lighting&lt;Name&gt;_GI (SurfaceOutput s, UnityGIInput data, inout UnityGI gi);</code></li>
+</ol>
+<p>Note that to decode standard Unity lightmaps and SH probes, you can use the built-in <code>DecodeLightmap</code> and <code>ShadeSHPerPixel</code> functions, as seen in <code>UnityGI_Base</code> in the <em>UnityGlobalIllumination.cginc</em> file inside Unity (Windows: <em>&lt;unity install path&gt;/Data/CGIncludes/UnityGlobalIllumination.cginc</em>; macOS: <em>/Applications/Unity/Unity.app/Contents/CGIncludes/UnityGlobalIllumination.cginc_</em>).</p>
+<h2 id="examples">Examples</h2>
+<p>See documentation on <a href="SL-SurfaceShaderLightingExamples.html">Surface Shader Lighting Examples</a> for more information.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

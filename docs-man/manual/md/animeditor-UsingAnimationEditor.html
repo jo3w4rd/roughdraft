@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Using the Animation view | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using the Animation view | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-the-animation-view">Using the Animation view</h1>
+
+<p>The <strong>Animation view</strong> is used to preview and edit <strong>Animation Clips</strong> for animated <strong>GameObjects</strong> in Unity. To open the Animation view in Unity, go to <strong>Window</strong> &gt; <strong>Animation</strong>.</p>
+<h2 id="viewing-animations-on-a-gameobject">Viewing Animations on a GameObject</h2>
+<p>The <strong>Animation window</strong> is linked with with the Hierarchy window, the Project window, the Scene view, and the Inspector window. Like the Inspector, the Animation window shows the timeline and keyframes of the Animation for the currently selected GameObject or Animation Clip Asset. You can select a GameObject using the Hierarchy window or the Scene View, or select an Animation Clip Asset using the Project Window.</p>
+<p>Note: The Animation view is separate from, but looks similar to the <a href="TimelineSection.html">Timeline window</a>. </p>
+<h2 id="the-animated-properties-list">The Animated Properties list</h2>
+<p>In the image below, the Animation view (left) shows the Animation used by the currently selected GameObject, and its child GameObjects if they are also controlled by this Animation. The Scene view and Hierarchy view are on the right, demonstrating that the Animation view shows the Animations attached to the currently selected GameObject. </p>
+<p><img src="../uploads/Main/AnimationEditorShowsSelected.jpg" alt=""> </p>
+<p>In the left side of the Animation view is a list of the animated properties. In a newly created clip where no animation has yet been recorded, this list is empty.</p>
+<p><img src="../uploads/Main/AnimationWindowEmptyClip.png" alt="The Animation view displaying an empty clip. No properties are shown on the left yet."> </p>
+<p>When you begin to animate various properties within this clip, the animated properties will appear here. If the animation controls multiple child objects, the list will also include hierarchical sub-lists of each child object&#39;s animated properties. In the example above, various parts of the Robot Arm&#39;s GameObject hierarchy are all animated within the same animation clip.</p>
+<p>When animating a hierarchy of GameObjects within a single clip like this, make sure you create the Animation on the root GameObject in the hierarchy.</p>
+<p>Each property can be folded and unfolded to reveal the exact values recorded at each keyframe. The value fields show the interpolated value if the playback head (the white line) is between keyframes. You can edit these fields directly. If changes are made when the playback head is over a keyframe, the keyframe&#39;s values are modified. If changes are made when the playback head is between keyframes (and therefore the value shown is an interpolated value), a new keyframe is created at that point with the new value that you entered.</p>
+<p><img src="../uploads/Main/AnimationEditorUnfoldedProperty.png" alt="An unfolded property in the Animation View, allowing the keyframe value to be typed in directly. In this image, an interpolated value is shown because the playback head (the white line) is between keyframes. Entering a new value at this point would create a new keyframe."> </p>
+<h2 id="the-animation-timeline">The Animation Timeline</h2>
+<p>On the right side of the Animation View is the timeline for the current clip. The keyframes for each animated property appear in this timeline. The timeline view has two modes, <strong>Dopesheet</strong> and <strong>Curves</strong>. To toggle between these modes, click <strong>Dopesheet</strong> or <strong>Curve</strong> at the bottom of the animated property list area:</p>
+<p><img src="../uploads/Main/AnimationEditorDopeSheetCurvesButtons.png" alt=""> </p>
+<p>These offer two alternate views of the Animation timeline and keyframe data.</p>
+<h3 id="dopesheet-timeline-mode">Dopesheet timeline mode</h3>
+<p><strong>Dopesheet</strong> mode offers a more compact view, allowing you to view each property&#39;s keyframe sequence in an individual horizontal track. This allows you to view a simple overview of the keyframe timing for multiple properties or GameObjects.</p>
+<p><img src="../uploads/Main/AnimationEditorDopeSheetView.png" alt="Here the Animation Window is in Dope Sheet mode, showing the keyframe positions of all animated properties within the Animation clip"></p>
+<p>See documentation on <a href="animeditor-AdvancedKeySelectionAndManipulation.html">Key manipulation in Dopesheet mode</a> for more information.</p>
+<h3 id="curves-timeline-mode">Curves timeline mode</h3>
+<p><strong>Curves</strong> mode displays a resizable graph containing a view of how the values for each animated property changes over time. All selected properties appear overlaid within the same graph view. This mode allows you to have great control over viewing and editing the values, and how they are interpolated between.</p>
+<p><img src="../uploads/Main/AnimationEditorCurvesViewMultipleSelected.png" alt="Here, the Animation Window shows the curves for the rotation data of four selected GameObjects within this Animation clip"></p>
+<h3 id="fitting-your-selection-to-the-window">Fitting your selection to the window</h3>
+<p>When using <strong>Curves</strong> mode to view your Animation, it&#39;s important to understand that sometimes the various ranges for each property can differ greatly. For example, consider a simple Animation clip for a spinning bouncing cube. The bouncing Y position value may vary between the range 0 to 2 (meaning the cube bounces 2 units high during the animation); however, the rotation value goes from 0 to 360 (representing its degrees of rotation). When viewing these two curves at the same time, the animation curves for the position values will be very difficult to make out because the view will be zoomed out to fit the 0-360 range of the rotation values within the window:</p>
+<p><img src="../uploads/Main/AnimationEditorTwoCurvesBigRangeDifference.png" alt="The position and rotation curves of a bouncing spinning cube are both selected, but because the view is zoomed out to fit the 0-360 range of the rotation curve, the bouncing Y position curve is not easily discernible"></p>
+<p>Press <strong>F</strong> on the keyboard to zoom the view to the currently selected keyframes. This is useful as a quick way to focus and re-scale the window on a portion of your Animation timeline for easier editing.</p>
+<p><img src="../uploads/Main/AnimationEditorSelectedKeyframesFitView.png" alt=""></p>
+<p>Click on individual properties in the list and press <strong>F</strong> on the keyboard to automatically re-scale the view to fit the range for that value. You can also manually adjust the zoom of the <strong>Curves</strong> window by using the drag handles at each end of the view&#39;s scrollbar sliders. In the image below, the Animation Window is zoomed in to view the bouncing Y position Animation. The start of the yellow rotation curve is still visible, but now extends way off the top of the view:</p>
+<p><img src="../uploads/Main/AnimationEditorTwoCurvesZoomedIn.png" alt=""></p>
+<p>Press <strong>A</strong> on the keyboard to fit and re-scale the window to show all the keyframes in the clip, regardless of which ones are selected. This is useful if you want to view the whole timeline while preserving your current selection:</p>
+<p><img src="../uploads/Main/AnimationEditorSelectedKeyframesAllView.png" alt=""></p>
+<h3 id="playback-and-frame-navigation-controls">Playback and frame navigation controls</h3>
+<p>To control playback of the <strong>Animation Clip</strong>, use the <strong>Playback Controls</strong> at the top left of Animation view.</p>
+<p><img src="../uploads/Main/AnimationEditorFrameNavigation.png" alt="Frame navigation"> </p>
+<p>From left-to-right, these controls are:</p>
+<ul>
+<li>Preview mode (toggle on/off)</li>
+<li>Record mode (toggle on/off) <em>Note: Preview mode is always on if record mode is on</em></li>
+<li>Move playback head to the beginning of the clip</li>
+<li>Move playback head to the previous keyframe</li>
+<li>Play Animation</li>
+<li>Move playback head to the next keyframe</li>
+<li>Move playback head to the end of the clip</li>
+</ul>
+<p>You can also control the playback head using the following keyboard shortcuts:</p>
+<ul>
+<li>Press <strong>Comma</strong> (<strong>,</strong>) to go to the previous frame.</li>
+<li>Press <strong>Period</strong> (<strong>.</strong>) to go to the next frame.</li>
+<li>Hold Alt and press <strong>Comma</strong> (<strong>,</strong>) to go to the previous <strong>keyframe</strong>.</li>
+<li>Hold Alt and press <strong>Period</strong> (<strong>.</strong>) to go to the next <strong>keyframe</strong>.</li>
+</ul>
+<h3 id="locking-the-window">Locking the window</h3>
+<p>You can lock the Animation editor window so that it does not automatically switch to reflect the currently selected GameObject in the Hierarchy or Scene. Locking the window is useful if you want to focus on the Animation for one particular GameObject, and still be able to select and manipulate other GameObjects in the Scene.</p>
+<p><img src="../uploads/Main/AnimationEditorWindowLockIcon.png" alt="The Lock button"> </p>
+<p>To learn more about navigating the Curve view, see documentation on <a href="animeditor-AnimationCurves.html">Using Animation Curves</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

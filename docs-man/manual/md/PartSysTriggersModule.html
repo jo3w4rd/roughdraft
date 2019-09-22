@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Triggers module | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Triggers module | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="triggers-module">Triggers module</h1>
+
+<p>Particle Systems have the ability to trigger a Callback whenever they interact with one or more Colliders in the Scene. The Callback can be triggered when a particle enters or exits a Collider, or during the time that a particle is inside or outside of the Collider.</p>
+<p>You can use the Callback as a simple way to destroy a particle when it enters the Collider (for example, to prevent raindrops from penetrating a rooftop), or it can be used to modify any or all particles’ properties.</p>
+<p>The Triggers module also offers the <strong>Kill</strong> option to remove particles automatically, and the <strong>Ignore</strong> option to ignore collision events, shown below. </p>
+<p><img src="../uploads/Main/PartSysTriggersModule.png" alt="Particle Systems Triggers module"></p>
+<p>To use the module, first add the Colliders you wish to create triggers for, then select which events to use. </p>
+<p>You can elect to trigger an event whenever the particle is:</p>
+<ul>
+<li>Inside a Collider’s bounds </li>
+<li>Outside a Collider’s bounds</li>
+<li>Entering a Collider’s bounds</li>
+<li>Exiting a Collider’s bounds  </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Inside</strong></td>
+<td style="text-align:left">Select Callback if you want the event to trigger when the particle is inside the Collider. Select Ignore for the event <strong>not</strong> to trigger when the particle is inside the Collider. Select Kill to destroy particles inside the Collider.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Outside</strong></td>
+<td style="text-align:left">Select Callback if you want the event to trigger when the particle is outside the Collider. Select Ignore for the event <strong>not</strong> to trigger when the particle is outside the Collider. Select Kill to destroy particles outside the Collider.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enter</strong></td>
+<td style="text-align:left">Select Callback if you want the event to trigger when the particle enters the Collider. Select Ignore for the event <strong>not</strong> to trigger when the particle enters the Collider. Select Kill to destroy particles when they enter the Collider.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Exit</strong></td>
+<td style="text-align:left">Select Callback if you want the event to trigger when the particle exits the Collider. Select Ignore for the event <strong>not</strong> to trigger when the particle exits the Collider. Select Kill to destroy particles when they exit the Collider.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Radius Scale</strong></td>
+<td style="text-align:left">This parameter sets the particle’s Collider bounds, allowing an event to appear to happen before or after the particle touches the Collider. For example, you may want a particle to appear to penetrate a Collider object’s surface a little before bouncing off, in which case you would set the Radius Scale to be a little less than 1. Note that this setting does not change when the event actually triggers, but can delay or advance the visual effect of the trigger. <br>- Enter 1 for the event to appear to happen as a Particle touches the Collider <br>- Enter a value less than 1 for the trigger to appear to happen after a Particle penetrates the Collider <br>- Enter a value greater than 1 for the trigger to appear to happen after a Particle penetrates the Collider</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Visualize Bounds</strong></td>
+<td style="text-align:left">This allows you to display the Particle’s Collider bounds in the Editor window.</td>
+</tr>
+</tbody>
+</table>
+<p>Inside the Callback, use <a href="ScriptRef:ParticlePhysicsExtensions.GetTriggerParticles.html">ParticlePhysicsExtensions.GetTriggerParticles()</a> (along with the <a href="ScriptRef:ParticleSystemTriggerEventType.html">ParticleSystemTriggerEventType</a> you want to specify) to determine which particles meet which criteria.</p>
+<p>The example below causes particles to turn red as they enter the Collider, then turn green as they leave the Collider’s bounds.</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+[ExecuteInEditMode]
+public class TriggerScript : MonoBehaviour
+{
+    ParticleSystem ps;
+
+    // these lists are used to contain the particles which match
+    // the trigger conditions each frame.
+    List&lt;ParticleSystem.Particle&gt; enter = new List&lt;ParticleSystem.Particle&gt;();
+    List&lt;ParticleSystem.Particle&gt; exit = new List&lt;ParticleSystem.Particle&gt;();
+
+    void OnEnable()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+    }
+
+    void OnParticleTrigger()
+    {
+        // get the particles which matched the trigger conditions this frame
+        int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter);
+        int numExit = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Exit, exit);
+
+        // iterate through the particles which entered the trigger and make them red
+        for (int i = 0; i &lt; numEnter; i++)
+        {
+            ParticleSystem.Particle p = enter[i];
+            p.startColor = new Color32(255, 0, 0, 255);
+            enter[i] = p;
+        }
+
+        // iterate through the particles which exited the trigger and make them green
+        for (int i = 0; i &lt; numExit; i++)
+        {
+            ParticleSystem.Particle p = exit[i];
+            p.startColor = new Color32(0, 255, 0, 255);
+            exit[i] = p;
+        }
+
+        // re-assign the modified particles back into the particle system
+        ps.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter);
+        ps.SetTriggerParticles(ParticleSystemTriggerEventType.Exit, exit);
+    }
+}
+</code></pre><p>The result of this is demonstrated in the images below:</p>
+<p><img src="../uploads/Main/PartSysTriggersModule-ExampleEditorView.jpg" alt="Editor view"></p>
+<p><img src="../uploads/Main/PartSysTriggersModule-ExampleGameView.jpg" alt="Game view"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

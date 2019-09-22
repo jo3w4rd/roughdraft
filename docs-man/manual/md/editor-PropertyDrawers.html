@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Property Drawers | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Property Drawers | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="property-drawers">Property Drawers</h1>
+
+<p>Property Drawers can be used to customize the look of certain controls in the <strong>Inspector window</strong> by using attributes on your scripts, or by controlling how a specific <code>Serializable</code> class should look.</p>
+<p>Property Drawers have two uses:</p>
+<ul>
+<li>Customize the GUI of every instance of a Serializable class.</li>
+<li>Customize the GUI of script members with custom <strong>Property Attributes</strong>.</li>
+</ul>
+<h2 id="customize-the-gui-of-a-serializable-class">Customize the GUI of a Serializable class</h2>
+<p>If you have a custom <strong>Serializable</strong> class, you can use a <strong>Property Drawer</strong> to control how it looks in the <strong>Inspector</strong>. Consider the Serializable class Ingredient in the script examples below (<strong>Note</strong>: These are not editor scripts. Property attribute classes should be placed in a regular script file):</p>
+<p><strong>C# (example)</strong>:</p>
+<pre><code>using System;
+using UnityEngine;
+
+enum IngredientUnit { Spoon, Cup, Bowl, Piece }
+
+// Custom serializable class
+[Serializable]
+public class Ingredient
+{
+    public string name;
+    public int amount = 1;
+    public IngredientUnit unit;
+}
+
+public class Recipe : MonoBehaviour
+{
+    public Ingredient potionResult;
+    public Ingredient[] potionIngredients;
+}
+</code></pre><p>Using a custom Property Drawer, every appearance of the Ingredient class in the Inspector can be changed. Compare the look of the Ingredient properties in the Inspector without and with a custom Property Drawer:</p>
+<p><img src="../uploads/Main/CustomPropertyDrawer_Class.png" alt="Class in the Inspector without (left) and with (right) custom Property Drawer."> </p>
+<p>You can attach the Property Drawer to a Serializable class by using the <strong>CustomPropertyDrawer</strong> attribute and pass in the type of the Serializable class that it&#39;s a drawer for.</p>
+<p><strong>C# (example)</strong>:</p>
+<pre><code>using UnityEditor;
+using UnityEngine;
+
+// IngredientDrawer
+[CustomPropertyDrawer(typeof(Ingredient))]
+public class IngredientDrawer : PropertyDrawer
+{
+    // Draw the property inside the given rect
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        // Using BeginProperty / EndProperty on the parent property means that
+        // prefab override logic works on the entire property.
+        EditorGUI.BeginProperty(position, label, property);
+
+        // Draw label
+        position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+
+        // Don&#39;t make child fields be indented
+        var indent = EditorGUI.indentLevel;
+        EditorGUI.indentLevel = 0;
+
+        // Calculate rects
+        var amountRect = new Rect(position.x, position.y, 30, position.height);
+        var unitRect = new Rect(position.x + 35, position.y, 50, position.height);
+        var nameRect = new Rect(position.x + 90, position.y, position.width - 90, position.height);
+
+        // Draw fields - passs GUIContent.none to each so they are drawn without labels
+        EditorGUI.PropertyField(amountRect, property.FindPropertyRelative(&quot;amount&quot;), GUIContent.none);
+        EditorGUI.PropertyField(unitRect, property.FindPropertyRelative(&quot;unit&quot;), GUIContent.none);
+        EditorGUI.PropertyField(nameRect, property.FindPropertyRelative(&quot;name&quot;), GUIContent.none);
+
+        // Set indent back to what it was
+        EditorGUI.indentLevel = indent;
+
+        EditorGUI.EndProperty();
+    }
+}
+</code></pre><h2 id="customize-the-gui-of-script-members-using-property-attributes">Customize the GUI of script members using Property Attributes</h2>
+<p>The other use of <strong>Property Drawer</strong> is to alter the appearance of members in a script that have custom <strong>Property Attributes</strong>. Say you want to limit floats or integers in your script to a certain range and show them as sliders in the <strong>Inspector</strong>. Using the built-in <strong>PropertyAttribute</strong> called <strong>RangeAttribute</strong> you can do just that:</p>
+<p><strong>C# (example)</strong>:</p>
+<pre><code>// Show this float in the Inspector as a slider between 0 and 10
+[Range(0f, 10f)]
+float myFloat = 0f;
+</code></pre><p>You can make your own <strong>PropertyAttribute</strong> as well. We&#39;ll use the code for the <strong>RangeAttribute</strong> as an example. The attribute must extend the <strong>PropertyAttribute</strong> class. If you want, your property can take parameters and store them as public member variables.</p>
+<p><strong>C# (example)</strong>:</p>
+<pre><code>using UnityEngine;
+
+public class MyRangeAttribute : PropertyAttribute 
+{
+        readonly float min;
+        readonly float max;
+
+        void MyRangeAttribute(float min, float max)
+        {
+            this.min = min;
+            this.max = max;
+        }
+}
+</code></pre><p>Now that you have the attribute, you need to make a <strong>Property Drawer</strong> that draws properties that have that attribute. The drawer must extend the <strong>PropertyDrawer</strong> class, and it must have a <strong>CustomPropertyDrawer</strong> attribute to tell it which attribute it&#39;s a drawer for.</p>
+<p>The property drawer class should be placed in an editor script, inside a folder called Editor.</p>
+<p><strong>C# (example)</strong>:</p>
+<pre><code>using UnityEditor;
+using UnityEngine;
+
+// Tell the MyRangeDrawer that it is a drawer for properties with the MyRangeAttribute.
+[CustomPropertyDrawer(typeof(MyRangeAttribute))]
+public class RangeDrawer : PropertyDrawer
+{
+    // Draw the property inside the given rect
+    void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    {
+        // First get the attribute since it contains the range for the slider
+        MyRangeAttribute range = (MyRangeAttribute)attribute;
+
+        // Now draw the property as a Slider or an IntSlider based on whether it&#39;s a float or integer.
+        if (property.propertyType == SerializedPropertyType.Float)
+            EditorGUI.Slider(position, property, range.min, range.max, label);
+        else if (property.propertyType == SerializedPropertyType.Integer)
+            EditorGUI.IntSlider(position, property, (int) range.min, (int) range.max, label);
+        else
+            EditorGUI.LabelField(position, label.text, &quot;Use MyRange with float or int.&quot;);
+    }
+}
+</code></pre><p>Note that for performance reasons, EditorGUILayout functions are not usable with Property Drawers.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

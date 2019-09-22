@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Ambient Occlusion | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Ambient Occlusion | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="ambient-occlusion">Ambient Occlusion</h2>
+
+<p>The effect descriptions on this page refer to the default effects found within the post-processing stack.</p>
+<p>The Ambient Occlusion post-processing effect approximates <a href="http://en.wikipedia.org/wiki/Ambient_occlusion">Ambient Occlusion</a> in real time as a full-screen post-processing effect. It darkens creases, holes, intersections and surfaces that are close to each other. In real life, such areas tend to block out or occlude ambient light, hence they appear darker.</p>
+<p>Note that the Ambient Occlusion effect is quite expensive in terms of processing time and generally should only be used on desktop or console hardware. Its cost depends purely on screen resolution and the effects parameters and does not depend on scene complexity as true Ambient Occlusion would.</p>
+<p><img src="../uploads/Main/PostProcessing-AmbientOcclusion-0.jpg" alt="Scene with Ambient Occlusion."></p>
+<p><img src="../uploads/Main/PostProcessing-AmbientOcclusion-1.jpg" alt="Scene without Ambient Occlusion. Note the differences at geometry intersections."></p>
+<p><img src="../uploads/Main/PostProcessing-AmbientOcclusion-2.png" alt="UI for Ambient Occlusion"></p>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property:</strong></th>
+<th style="text-align:left"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Intensity</strong></td>
+<td style="text-align:left">Degree of darkness produced by the effect.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Radius</strong></td>
+<td style="text-align:left">Radius of sample points, which affects extent of darkened areas.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Sample Count</strong></td>
+<td style="text-align:left">Number of sample points, which affects quality and performance.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Downsampling</strong></td>
+<td style="text-align:left">Halves the resolution of the effect to increase performance at the cost of visual quality.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Force Forward Compatibility</strong></td>
+<td style="text-align:left">Forces compatibility with Forward rendered objects when working with the Deferred rendering path.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>High Precision (Forward)</strong></td>
+<td style="text-align:left">Toggles the use of a higher precision depth texture with the forward rendering path (may impact performances). Has no effect with the deferred rendering path.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ambient Only</strong></td>
+<td style="text-align:left">Enables the ambient-only mode in that the effect only affects ambient lighting. This mode is only available with the Deferred rendering path and HDR rendering.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="optimisation">Optimisation</h3>
+<ul>
+<li><p>Reduce Radius size</p>
+</li>
+<li><p>Reduce Sample Count</p>
+</li>
+<li><p>Enable Downsampling</p>
+</li>
+<li><p>If using deferred rendering, disable Force Forward Compatibility (will cause forward rendered object to not be used when calculating Ambient Occlusion</p>
+</li>
+<li><p>If using forward rendering, disable High Precision (will cause the effect to use a lower precision depth texture, impacting visual quality)</p>
+</li>
+</ul>
+<h3 id="details">Details</h3>
+<p>Beware that this effect can be quite expensive, especially when viewed very close to the camera. For that reason it is recommended to always enable Downsampling and favor a low radius setting. With a low radius the Ambient Occlusion effect will only sample pixels that are close, in clip space, to the source pixel, which is good for performance as they can be cached efficiently. With higher radiuses, the generated samples will be further away from the source pixel and won&#39;t benefit from caching thus slowing down the effect. Because of the camera’s perspective, objects near the front plane will use larger radiuses than those far away, so computing the Ambient Occlusion pass for an object close to the camera will be slower than for an object further away that only occupies a few pixels on screen.</p>
+<p>When working with the Deferred rendering path, you have the possibility to render the ambient occlusion straight to the ambient G-Buffer so that it&#39;s taken into account by Unity during the lighting pass. Note that this setting requires the camera to have HDR enabled.</p>
+<p>When working with the Forward rendering path you may experience some quality issues in regards to depth precision. You can overcome these issues by toggling High Precision but only do it if you actually need it as it will lower performances.</p>
+<h3 id="requirements">Requirements</h3>
+<ul>
+<li><p>Depth &amp; Normals texture</p>
+</li>
+<li><p>Shader model 3</p>
+</li>
+</ul>
+<p>See the <a href="GraphicsEmulation.html">Graphics Hardware Capabilities and Emulation</a> page for further details and a list of compliant hardware.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

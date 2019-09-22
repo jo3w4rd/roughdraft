@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Wheel Joint 2D | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Wheel Joint 2D | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="wheel-joint-2d">Wheel Joint 2D</h1>
+
+<p>Use the <strong>Wheel Joint 2D</strong> to simulate a rolling wheel, on which an object can move. You can apply motor power to the joint. The wheel uses a suspension &quot;spring&quot; to maintain its distance from the main body of the vehicle.</p>
+<p><img src="../uploads/Main/WheelJoint2DInspector.png" alt=""> </p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Enable Collision</strong></td>
+<td style="text-align:left">Can the two connected objects collide with each other? Check the box for yes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Connected Rigid Body</strong></td>
+<td style="text-align:left">Specify here the other object this joint connects to. Leave this as <strong>None</strong> and the other end of the joint will be fixed at a point in space defined by the <strong>Connected Anchor</strong> setting. Select the circle to the right of the field to view a list of objects to connect to.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Auto Configure Connected Anchor</strong></td>
+<td style="text-align:left">Check this box to automatically set the anchor location for the other object this joint connects to. (Check this instead of completing the <strong>Connected Anchor</strong> fields.)</td>
+</tr>
+</tbody>
+</table>
+<p>|<strong>Anchor</strong> |The place (in terms of X, Y co-ordinates on the <strong>RigidBody</strong>) where the end point of the joint connects to <em>this</em> object. |
+|<strong>Connected Anchor</strong> |The place (in terms of X, Y co-ordinates on the <strong>RigidBody</strong>) where the end point of the joint connects to <em>the other</em> object. | </p>
+<p>|<strong>Damping Ratio</strong> | The degree to which you want to suppress spring oscillation in the suspension: In the range 0 to 1, the higher the value, the less movement. |
+|<strong>Frequency</strong> |The frequency at which the spring in the suspension oscillates while the objects are approaching the separation distance you want (measured in cycles per second): In the range 0 to 1,000,000 - the higher the value, the stiffer the suspension spring. |
+|<strong>Angle</strong> |The world movement angle for the suspension. |
+|<strong>Use Motor</strong> |Apply a motor force to the wheel? Check the box for yes.|
+|<strong>Motor</strong> | |
+|<strong>Motor Speed</strong> |Target speed (degrees per second) for the motor to reach. |
+|<strong>Maximum Motor Force</strong> |Maximum force applied to the object to attain the desired speed. |</p>
+<p>|<strong>Break Force</strong> |Specify the force level needed to break and so delete the joint. <strong>Infinity</strong> means it is unbreakable. |
+|<strong>Break Torque</strong> |Specify the torque level needed to break and so delete the joint. <strong>Infinity</strong> means it is unbreakable. |</p>
+<h2 id="details">Details</h2>
+<p>(See also <a href="Joints2D.html">Joints 2D</a>: <em>Details and Hints</em> for useful background information on all 2D joints.)</p>
+<p>Use this joint to simulate wheels and suspension. The aim of the joint is to keep the position of two points on a line that extends to infinity, whilst at the same time making them overlap.  Those two points can be two <strong>Rigidbody2D</strong> components or a <strong>Rigidbody2D</strong> component and a fixed position in the world. (Connect to a fixed position in the world by setting <strong>Connected Rigidbody</strong> to None).  </p>
+<p>Wheel Joint 2D acts like a combination of a <a href="class-SliderJoint2D.html">Slider Joint 2D</a> (without its motor or limit constraints) and a <a href="class-HingeJoint2D.html">Hinge Joint 2D</a> (without its limit constraint).</p>
+<p>The joint applies a linear force to both connected rigid body objects to keep them on the line, an angular motor to rotate the objects on the line, and a spring to simulate wheel suspension.</p>
+<p>Set the <strong>Maximum Motor Speed</strong> and <strong>Maximum Motor Force</strong> (torque, in this joint) to control the angular motor speed, and make the two rigid body objects rotate.</p>
+<p>You can set the wheel suspension stiffness and movement:</p>
+<p>Stiff, barely moving suspension... </p>
+<ul>
+<li><p>A high (1,000,000 is the highest)  <strong>Frequency</strong> == stiff suspension.</p>
+</li>
+<li><p>A high (1 is the highest) <strong>Damping Ratio</strong> ==  barely moving suspension.</p>
+</li>
+</ul>
+<p>Loose, moving suspension... </p>
+<ul>
+<li><p>A low  <strong>Frequency</strong> == loose suspension.</p>
+</li>
+<li><p>A low <strong>Damping Ratio</strong> ==  moving suspension.</p>
+</li>
+</ul>
+<p>It has has two simultaneous constraints:</p>
+<ul>
+<li>Maintain a zero relative linear distance away from a specified line between two anchor points on two rigid body objects.</li>
+<li>Maintain an angular speed between two anchor points on two rigid body objects. (Set the speed via the <strong>Maximum Motor Speed</strong> option and maximum torque via <strong>Maximum Motor Force</strong>.)</li>
+</ul>
+<p><strong>For Example:</strong></p>
+<p>You can use this joint to construct physical objects that need to react as if they are connected with a rotational pivot but cannot move away from a specified line. Such as:</p>
+<ul>
+<li>Simulating wheels with a motor to drive the wheels and a line defining the movement allowed for the suspension. </li>
+</ul>
+<h2 id="hints">Hints</h2>
+<p><strong>Wheel Joint 2D behaves differently to the Wheel Collider:</strong></p>
+<p>Unlike the <a href="class-WheelCollider.html">Wheel Collider</a> used with 3D physics, the Wheel Joint 2D  uses a separate <strong>Rigidbody</strong> object for the wheel, which  rotates when the force is applied. (The Wheel Collider, by contrast, simulates the suspension using a raycast and the wheel&#39;s rotation is purely a graphical effect). The wheel object will typically be a <a href="class-CircleCollider2D.html">Circle Collider 2D</a> with a <a href="class-PhysicsMaterial2D.html">Physics Material 2D</a> that gives the right amount of traction for your gameplay.</p>
+<p><strong>To simulate a car or other vehicle:</strong></p>
+<p>Set the <strong>Motor Speed</strong> property to zero in the inspector and then vary it from your script according to the player&#39;s input. You can change the value of <strong>Maximum Motor Force</strong> to simulate the effect of gear changes and power-ups.</p>
+<p><strong>Zero frequency:</strong></p>
+<p>Zero in the <strong>Frequency</strong> is a special case: It gives the stiffest spring possible.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

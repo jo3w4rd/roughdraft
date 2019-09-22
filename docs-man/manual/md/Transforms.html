@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Transforms | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Transforms | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="transforms">Transforms</h1>
+
+<p>The <strong>Transform</strong> is used to store a GameObject&#39;s position, rotation, scale and parenting state and is thus very important. A GameObject will always have a Transform component attached - it is not possible to remove a Transform or to create a GameObject without one.</p>
+<h2 id="editing-transforms">Editing Transforms</h2>
+<p>Transforms are manipulated in 3D space in the X, Y, and Z axes or in 2D space in just X and Y. In Unity, these axes are represented by the colors red, green, and blue respectively.</p>
+<p><img src="../uploads/Main/TransformExample2.png" alt="A transform showing the color-coding of the axes"> </p>
+<p>A Transform can be edited in the Scene View or by changing its properties in the Inspector. In the scene, you can modify Transforms using the Move, Rotate and Scale tools. These tools are located in the upper left-hand corner of the Unity Editor.</p>
+<p><img src="../uploads/Main/Transform-Tools.png" alt="The View, Translate, Rotate, and Scale tools"> </p>
+<p>The tools can be used on any object in the scene. When you click on an object, you will see the tool gizmo appear within it. The appearance of the gizmo depends on which tool is selected.</p>
+<p><img src="../uploads/Main/TransformGizmo35.png" alt="Transform gizmo"> </p>
+<p>When you click and drag on one of the three gizmo axes, you will notice that its color changes to yellow. As you drag the mouse, you will see the object translate, rotate, or scale along the selected axis. When you release the mouse button, the axis remains selected.</p>
+<p><img src="../uploads/Main/TransformExample3.png" alt="A Transform showing the selected (yellow) X axis"></p>
+<p>There is also an additional option in Translate mode to lock movement to a particular plane (ie, allow dragging in two of the axes while keeping the third unchanged). The three small coloured squares around the center of the Translate gizmo activate the lock for each plane; the colors correspond to the axis that will be locked when the square is clicked (eg, blue locks the Z axis).</p>
+<h2 id="parenting">Parenting</h2>
+<p>Parenting is one of the most important concepts to understand when using Unity. When a GameObject is a <strong>Parent</strong> of another GameObject, the <strong>Child</strong> GameObject will move, rotate, and scale exactly as its Parent does. You can think of parenting as being like the relationship between your arms and your body; whenever your body moves, your arms also move along with it. Child objects can also have children of their own and so on. So your hands could be regarded as &quot;children&quot; of your arms and then each hand has several fingers, etc. Any object can have multiple children, but only one parent. These multiple levels of parent-child relationships form a Transform <em>hierarchy</em>. The object at the very top of a hierarchy (ie, the only object in the hierarchy that doesn&#39;t have a parent) is known as the <strong>root</strong>.</p>
+<p>You can create a Parent by dragging any GameObject in the <strong>Hierarchy View</strong> onto another. This will create a Parent-Child relationship between the two GameObjects.</p>
+<p><img src="../uploads/Main/ParentingExample.png" alt="Example of a Parent-Child hierarchy. GameObjects with foldout arrows to the left of their names are parents."> </p>
+<p>Note that the Transform values in the Inspector for any child GameObject are displayed relative to the Parent&#39;s Transform values. These values are referred to as <strong>local coordinates</strong>. Returning to the analogy of body and arms, the position of your body may move as you walk but your arms will still be attached at the same relative position. For scene construction, it is usually sufficient to work with local coordinates for child objects but in gameplay it is often useful to find their exact position in world space or <strong>global coordinates</strong>. The scripting API for the Transform component has separate properties for local and global position, rotation and scale and also allows you to convert any point between local and global coordinates.</p>
+<h2 id="limitations-with-non-uniform-scaling">Limitations with Non-Uniform Scaling</h2>
+<p>Non-uniform scaling is when the <strong>Scale</strong> in a Transform has different values for x, y, and z; for example (2, 4, 2). In contrast, uniform scaling has the same value for x, y, and z; for example (3, 3, 3). Non-uniform scaling can be useful in a few specific cases but it introduces a few oddities that don&#39;t occur with uniform scaling:-</p>
+<ul>
+<li>Certain components do not fully support non-uniform scaling. For example, some components have a circular or spherical element defined by a <strong>radius</strong> property, among them <strong>Sphere Collider</strong>, <strong>Capsule Collider</strong>, <strong>Light</strong> and <strong>Audio Source</strong>. In cases like this the circular shape will not become elliptical under non-uniform scaling as you would expect and will simply remain circular.</li>
+<li>When a child object has a non-uniformly scaled parent and is rotated relative to that parent, it may appear skewed or &quot;sheared&quot;. There are components that support simple non-uniform scaling but don&#39;t work correctly when skewed like this. For example, a skewed <strong>Box Collider</strong> will not match the shape of the rendered mesh accurately.</li>
+<li>For performance reasons, a child object of a non-uniformly scaled parent will not have its scale automatically updated when it rotates. As a result, the child&#39;s shape may appear to change abruptly when the scale eventually <em>is</em> updated, say if the child object is detached from the parent.</li>
+</ul>
+<h2 id="importance-of-scale">Importance of Scale</h2>
+<p>The scale of the Transform determines the difference between the size of a mesh in your modeling application and the size of that mesh in Unity. The mesh&#39;s size in Unity (and therefore the Transform&#39;s scale) is <em>very</em> important, especially during physics simulation. By default, the physics engine assumes that one unit in world space corresponds to one metre. If an object is very large, it can appear to fall in &quot;slow motion&quot;; the simulation is actually correct since effectively, you are watching a very large object falling a great distance.</p>
+<p>There are three factors that can affect the scale of your object:</p>
+<ul>
+<li>The size of your mesh in your 3D modeling application.</li>
+<li>The <strong>Mesh Scale Factor</strong> setting in the object&#39;s <strong>Import Settings</strong>.</li>
+<li>The <strong>Scale</strong> values of your Transform Component.</li>
+</ul>
+<p>Ideally, you should not adjust the <strong>Scale</strong> of your object in the Transform Component. The best option is to create your models at real-life scale so you won&#39;t have to change your Transform&#39;s scale. The next best option is to adjust the scale at which your mesh is imported in the <strong>Import Settings</strong> for your individual mesh. Certain optimizations occur based on the import size, and instantiating an object that has an adjusted scale value can decrease performance. For more information, see the section about optimizing scale on the <a href="class-Rigidbody.html">Rigidbody</a> component reference page.</p>
+<h2 id="tips-for-working-with-transforms">Tips for Working with Transforms</h2>
+<ul>
+<li>When parenting Transforms, it is useful to set the parent&#39;s location to &lt;0,0,0&gt; before adding the child. This means that the local coordinates for the child will be the same as global coordinates making it easier to be sure you have the child in the right position. </li>
+<li><strong>Particle Systems</strong> are not affected by the Transform&#39;s <strong>Scale</strong>. In order to scale a Particle System, you need to modify the properties in the System&#39;s Particle Emitter, Animator and Renderer.</li>
+<li>If you are using <strong>Rigidbodies</strong> for physics simulation then be sure to read about the Scale property on the <a href="class-Rigidbody.html">Rigidbody</a> component reference page.</li>
+<li>You can change the colors of the Transform axes (and other UI elements) from the preferences (<strong>Menu: Unity &gt; Preferences</strong> and then select the <strong>Colors &amp; keys</strong> panel).</li>
+<li>Changing the Scale affects the position of child transforms. For example scaling the parent to (0,0,0) will position all children at (0,0,0) relative to the parent.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

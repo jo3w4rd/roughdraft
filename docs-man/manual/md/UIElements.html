@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>UIElements Developer Guide | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="UIElements Developer Guide | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="uielements-developer-guide">UIElements Developer Guide</h1>
+
+<p>The Unity editor user interface has been mostly built around the immediate mode UI system. While IMGUI works well in some contexts, it has some serious design limitations that affect the productivity of everyone working on Editor features and extensions.</p>
+<p>This was the motivation behind creating UIElements. UIElements is a retained-mode UI system that opens the door to improved performance and provides stylesheets, dynamic/contextual event handling, accessibility and data persistence.</p>
+<p>Many concepts in UIElements are based on recognized web technologies. If you are familiar with XML, CSS, JQuery, the HTML DOM, and the DOM event system, then you may already be familiar with many UIElements concepts.</p>
+<p>The goal of this guide is to help you take advantage of UIElements by describing the concepts behind the framework and by providing you with a clear explanation of how to build an interactive user interface (UI) with UIElements. </p>
+<h2 id="selecting-a-ui-toolkit">Selecting a UI toolkit</h2>
+<p>Unity provides three user interface (UI) toolkits. You should select a UI toolkit based on your answers to the following questions:</p>
+<ul>
+<li>Are you developing for a game or for the editor?</li>
+<li>If you are developing for a game, will the UI be shipped with the game?</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>Runtime dev UI</strong></th>
+<th><strong>Runtime game UI</strong></th>
+<th><strong>Editor</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IMGUI</strong></td>
+<td>for debugging</td>
+<td>not recommmended</td>
+<td>&#x2714;</td>
+</tr>
+<tr>
+<td><strong>UGUI</strong></td>
+<td>&#x2714;</td>
+<td>&#x2714;</td>
+<td>not available</td>
+</tr>
+<tr>
+<td><strong>UIElements</strong></td>
+<td>2019.x</td>
+<td>2020.x</td>
+<td>2019.1</td>
+</tr>
+</tbody>
+</table>
+<p>UIElements is poised to become the toolkit of choice for both in-game and editor UI development.</p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>UIElements is an experimental feature: it is incomplete and subject to API breaking changes. UIElements is still in active development.</p>
+<p>In addition, changes to UIElements in 2018.3 will not be backported to older versions. If you upgrade, you must also upgrade some elements from previous Unity versions.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

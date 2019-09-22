@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Scene View navigation | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Scene View navigation | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="scene-view-navigation">Scene View navigation</h1>
+
+<p>The Scene View has a set of navigation controls to help you move around quickly and efficiently.</p>
+<h2 id="scene-gizmo">Scene Gizmo</h2>
+<p>The Scene Gizmo is in the upper-right corner of the Scene View. This displays the Scene View Camera’s current orientation, and allows you to quickly modify the viewing angle and projection mode.</p>
+<p><img src="../uploads/Main/Editor-SceneGizmo.png" alt=""></p>
+<p>The Scene Gizmo has a conical arm on each side of the cube. The arms at the forefront are labelled <strong>X</strong>, <strong>Y</strong> and <strong>Z</strong>. Click on any of the conical axis arms to snap the Scene View Camera to the axis it represents (for example: top view, left view and front view). You can also right-click the cube to bring up a menu with a list of viewing angles. To return to the default viewing angle, right-click the Scene Gizmo and click <strong>Free</strong>.</p>
+<p>You can also toggle <strong>Perspective</strong> on and off. This changes the projection mode of the Scene View between <strong>Perspective</strong> and <strong>Orthographic</strong> (sometimes called ‘isometric’). To do this, click the cube in the centre of the Scene Gizmo, or the text below it. Orthographic view has no perspective, and is useful in combination with clicking one of the conical axis arms to get a front, top or side elevation.</p>
+<p><img src="../uploads/Main/CameraPerspectiveAndOrtho.jpg" alt="A Scene shown in Perspective mode (left) and Orthographic mode (right) "></p>
+<p><img src="../uploads/Main/SceneViewOrthoTopAndSide.jpg" alt="The same Scene viewed in top and front view, in orthographic mode"></p>
+<p><em>(Scene above from <a href="https://www.assetstore.unity3d.com/en/#!/publisher/1299">BITGEM</a>)</em></p>
+<p>If your Scene View is in an awkward viewpoint (upside-down, or just an angle you find confusing), Shift-click the cube at the centre of the Scene Gizmo to get back to a <strong>Perspective</strong> view with an angle that is looking at the Scene from the side and slightly from above.</p>
+<p>Click on the padlock on the top right of the Scene Gizmo to enable or disable rotation of the Scene. Once Scene rotation is disabled, right-clicking the mouse pans the view instead of rotating it. This is the same as the Hand tool (see <a href="#handtool"><em>Hand tool</em></a>, below).</p>
+<p>Note that in <strong>2D Mode</strong> the Scene Gizmo is not displayed, because the only option is to have the view looking perpendicularly at the XY plane.</p>
+<h3 id="scene-gizmo-mac-trackpad-gestures">Scene Gizmo: Mac trackpad gestures</h3>
+<p>On a Mac with a trackpad, you can drag with two fingers to zoom the view.</p>
+<p>You can also use three fingers to simulate the effect of clicking the arms of the <strong>Scene Gizmo</strong>: drag up, left, right or down to snap the Scene View Camera to the corresponding direction. In OS X 10.7 &quot;Lion&quot; you may have to change your trackpad settings in order to enable this feature:</p>
+<ul>
+<li>Open System Preferences and then Trackpad (or type trackpad into Spotlight).</li>
+<li>Click into the &quot;More Gestures&quot; option.</li>
+<li>Click the first option labelled &quot;Swipe between pages&quot; and then either set it to &quot;Swipe left or right with three fingers&quot; or &quot;Swipe with two or three fingers&quot;.</li>
+</ul>
+<h2 id="moving-orbiting-and-zooming-in-the-scene-view">Moving, orbiting and zooming in the Scene View</h2>
+<p>Moving, orbiting and zooming are key operations in Scene View navigation. Unity provides several ways to perform them for maximum accessibility:</p>
+<h3 id="arrow-movement">Arrow movement</h3>
+<p>You can use the <strong>Arrow Keys</strong> to move around the Scene as though &quot;walking&quot; through it. The up and down arrows move the Camera forward and backward in the direction it is facing. The left and right arrows pan the view sideways. Hold down the <strong>Shift</strong> key with an arrow to move faster.</p>
+<p><a name="handtool"></a></p>
+<h3 id="the-hand-tool">The Hand tool</h3>
+<p>When the Hand tool is selected (shortcut: <strong>Q</strong>), the following mouse controls are available:</p>
+<p><img src="../uploads/Main/UI-ViewTool.png" alt=""> <strong>Move:</strong> Click-drag to drag the Camera around. </p>
+<p><img src="../uploads/Main/Editor-EyeTool.png" alt=""> <strong>Orbit:</strong> Hold <strong>Alt</strong>, and left-click and drag to orbit the Camera around the current pivot point. This option is not available in 2D mode, because the view is orthographic.</p>
+<p><img src="../uploads/Main/Editor-ZoomTool.png" alt=""> <strong>Zoom:</strong> Hold <strong>Alt</strong>, and right-click and drag to zoom the Scene View. On Mac you can also hold <strong>Control</strong>, and left-click and drag instead.</p>
+<p>Hold down <strong>Shift</strong> to increase the rate of movement and zooming.</p>
+<h3 id="flythrough-mode">Flythrough mode</h3>
+<p>Use <strong>Flythrough mode</strong> to navigate the Scene View by flying around in first-person, similar to how you would navigate in many games.</p>
+<ul>
+<li>Click and hold the right mouse button.</li>
+<li>Move the view around using the mouse, the <strong>WASD</strong> keys to move left/right/forward/backward, and the <strong>Q</strong> and <strong>E</strong> keys to move up and down.</li>
+<li>Hold down <strong>Shift</strong> to move faster.</li>
+</ul>
+<p>Flythrough mode is designed for <strong>Perspective Mode</strong>. In <strong>Orthographic Mode</strong>, holding down the right mouse button and moving the mouse orbits the Camera instead.</p>
+<p>Note that Flythrough mode is not available in 2D mode. Instead, holding the right mouse button down while moving the mouse pans around the Scene View.</p>
+<h3 id="movement-shortcuts">Movement shortcuts</h3>
+<p>For extra efficiency, all of these controls can also be used regardless of which transform tool is selected.
+The most convenient controls depend on which mouse or track-pad you are using:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Action</strong></th>
+<th style="text-align:left"><strong>3-button mouse</strong></th>
+<th style="text-align:left"><strong>2-button mouse or track-pad</strong></th>
+<th style="text-align:left"><strong>Mac with only one mouse button or track-pad</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Move</strong></td>
+<td style="text-align:left">Hold Alt+middle mouse button, then drag</td>
+<td style="text-align:left">Hold Alt+Control+left-click, then drag</td>
+<td style="text-align:left">Hold Alt+Command+left-click, then drag</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Orbit</strong> (Not available in 2D mode)</td>
+<td style="text-align:left">Hold Alt+left-click, then drag</td>
+<td style="text-align:left">Hold Alt+left-click, then drag</td>
+<td style="text-align:left">Hold Alt+left-click, then drag</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Zoom</strong></td>
+<td style="text-align:left">Use the scroll wheel, or hold Alt+right-click, then drag</td>
+<td style="text-align:left">Hold Alt+right-click, then drag</td>
+<td style="text-align:left">Use the two-finger swipe method to scroll in and out, or hold Alt-Control+left-click, then drag</td>
+</tr>
+</tbody>
+</table>
+<h2 id="centering-the-view-on-a-gameobject">Centering the view on a GameObject</h2>
+<p>To center the Scene View on a GameObject, select the GameObject in the Hierarchy, then move the mouse over the Scene View and press <strong>F</strong>. This feature can also be found in the menu bar under <strong>Edit</strong> &gt; <strong>Frame Selected</strong>. To lock the view to the GameObject even when the GameObject is moving, press <strong>Shift+F</strong>. This feature can also be found in the menu bar under <strong>Edit</strong> &gt; <strong>Lock View to Selected</strong>.</p>
+<p><img src="../uploads/Main/FrameSelection.png" alt=""></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

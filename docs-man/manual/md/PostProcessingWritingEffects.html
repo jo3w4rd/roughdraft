@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Writing post-processing effects | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Writing post-processing effects | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="writing-post-processing-effects">Writing post-processing effects</h2>
+
+<p><a href="PostProcessingOverview.html">Post-processing</a> is a way of applying effects to rendered images in Unity.</p>
+<p>Any Unity <a href="CreatingAndUsingScripts.html">script</a> that uses the  <a href="ScriptRef:Camera.OnRenderImage.html">OnRenderImage</a> function can act as a post-processing effect. Add it to a <a href="class-Camera.html">Camera</a> <a href="GameObjects.html">GameObject</a> for the script to perform post-processing.</p>
+<h3 id="onrenderimage-function">OnRenderImage function</h3>
+<p>The <a href="ScriptRef:Camera.OnRenderImage.html">OnRenderImage</a> Unity Scripting API function receives two arguments: </p>
+<ul>
+<li><p>The source image as a <a href="class-RenderTexture.html">RenderTexture</a> </p>
+</li>
+<li><p>The destination it should render into, which is a  RenderTexture as well.</p>
+</li>
+</ul>
+<p>Post-processing effects often use <a href="ScriptRef:Graphics.Blit.html">Shaders](class-Shader.md). These read the source image, do some calculations on it, and render the result into the destination (using Graphics.Blit</a>, for example). The post-processing effect fully replaces all the pixels of the destination.</p>
+<p>Cameras can have multiple post-processing effects, each as <a href="UsingComponents.html">components</a>. Unity executes them as a stack, in the order they are listed in the <a href="UsingTheInspector.html">Inspector</a> with the post-processing component at the top of the Inspector rendered first. In this situation, the result of the first post-processing component is passed as the &quot;source image&quot; to the next post-processing component. Internally, Unity creates one or more temporary render textures to keep these intermediate results in.</p>
+<p>Note that the list of post-processing components in the post-processing stack do not specify the order they are applied in.</p>
+<p>Things to keep in mind:</p>
+<ul>
+<li><p>The destination render texture can be null, which means &quot;render to screen&quot; (that is, the back buffer). This happens on the last post-processing effect on a Camera.</p>
+</li>
+<li><p>When <code>OnRenderImage</code> finishes, Unity expects that the destination render texture is the active render target. Generally, a <a href="ScriptRef:Graphics.Blit.html">Graphics.Blit</a> or manual rendering into the destination texture should be the last rendering operation.</p>
+</li>
+<li><p>Turn off depth buffer writes and tests in your post-processing effect shaders. This ensures that <a href="ScriptRef:Graphics.Blit.html">Graphics.Blit</a> does not write unintended values into destination Z buffer. Almost all post-processing shader passes should contain <code>Cull Off ZWrite Off ZTest Always</code> states.</p>
+</li>
+<li><p>To use stencil or depth buffer values from the original scene render, explicitly bind the depth buffer from the original scene render as your depth target, using <a href="ScriptRef:Graphics.SetRenderTarget.html">Graphics.SetRenderTarget</a>. Pass the very first source image effects depth buffer as the depth buffer to bind.</p>
+</li>
+</ul>
+<h3 id="after-opaque-post-processing-effects">After opaque post-processing effects</h3>
+<p>By default, Unity executes post-processing effects after it renders a whole Scene. In some cases, you may prefer Unity to render post-processing effects after it has rendered all opaque objects in your scene but before it renders others (for example, before <a href="class-Skybox.html">skybox</a> or <a href="StandardShaderMaterialParameterAlbedoColor.html">transparencies</a>). Depth-based effects like Depth of Field often use this.</p>
+<p>To do this, add an <a href="ScriptRef:ImageEffectOpaque.html">ImageEffectOpaque</a> attribute on the <a href="ScriptRef:Camera.OnRenderImage.html">OnRenderImage</a> Unity Scripting API function.</p>
+<h3 id="texture-coordinates-on-different-platforms">Texture coordinates on different platforms</h3>
+<p>If a post-processing effect is sampling different screen-related textures at once, you might need to be aware of how different platforms use texture coordinates. A common scenario is that the effect &quot;source&quot; texture and camera’s <a href="SL-CameraDepthTexture.html">depth texture</a> need different vertical coordinates, depending on anti-aliasing settings. See the Unity User Manual <a href="SL-PlatformDifferences.html">Platform Differences</a> page for more information.</p>
+<h3 id="related-topics">Related topics</h3>
+<ul>
+<li><p><a href="SL-CameraDepthTexture.html">Depth Textures</a> are often used in image post-processing to get distance to closest opaque surface for each pixel on screen.</p>
+</li>
+<li><p>For <a href="HDR.html">HDR</a> rendering, a <a href="ScriptRef:ImageEffectTransformsToLDR.html">ImageEffectTransformsToLDR</a> attribute indicates using tonemapping.</p>
+</li>
+<li><p>You can also use <a href="GraphicsCommandBuffers.html">Command Buffers</a> to perform post-processing.</p>
+</li>
+<li><p>Use <a href="ScriptRef:RenderTexture.GetTemporary.html">RenderTexture.GetTemporary</a> to get temporary render textures and do calculations inside a post-processing effect.</p>
+</li>
+<li><p>See also the Unity User Manual page on <a href="SL-ShaderPrograms.html">Writing Shader Programs</a>.</p>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

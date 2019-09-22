@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Particle System Force Field | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Particle System Force Field | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="particle-system-force-field">Particle System Force Field</h1>
+
+<p>A <strong>Particle System Force Field</strong> component can apply forces to particles belonging to <a href="class-ParticleSystem.html">Particle Systems</a>. To attach this component to a Particle System, enable the <a href="PartSysExtForceModule.html">External Forces Module</a> in the Particle System, and assign either a Layer Mask, or the specific Force Field component. </p>
+<p>For a full introduction to particle systems and their uses, see documentation on <a href="ParticleSystems.html">Particle Systems</a>.</p>
+<p><img src="../uploads/Main/PartSysForceFieldInsp.png" alt=""></p>
+<h2 id="properties">Properties</h2>
+<p>Use the Particle System Force Field component to apply various types of forces to particles.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property</em></strong></th>
+<th style="text-align:left"><strong><em>Function</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Shape</strong></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shape</strong></td>
+<td style="text-align:left">The shape of the area of influence.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Start Range</strong></td>
+<td style="text-align:left">The inner point within the shape, where the area of influence begins.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>End Range</strong></td>
+<td style="text-align:left">The outer point of the shape, where the area of influence ends.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Direction X, Y and Z</strong></td>
+<td style="text-align:left">A linear force to apply to particles along the x-axis, y-axis and z-axis respectively. The higher the value, the greater the force. You can specify a constant force or vary the force over time. See <a href="PartSysUsage.html#VaryOverTime">Varying properties over time</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Gravity</strong></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Strength</strong></td>
+<td style="text-align:left">The amount of attraction that particles have towards the focal point within the shape. The higher the value, the greater the strength. You can specify a constant strength or vary the strength over time. See <a href="PartSysUsage.html#VaryOverTime">Varying properties over time</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Gravity Focus</strong></td>
+<td style="text-align:left">The focal point for gravity to pull particles towards. A value of 0 attracts particles to the center of the shape, and a value of 1 attracts particles to the outer edge of the shape.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Rotation</strong></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Speed</strong></td>
+<td style="text-align:left">The speed at which the Particle System propels particles around the vortex, which is the center of the force field. The higher the value, the faster the speed. You can specify a constant speed or vary the speed over time. See <a href="PartSysUsage.html#VaryOverTime">Varying properties over time</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Attraction</strong></td>
+<td style="text-align:left">The strength at which particles are dragged into the vortex motion. A value of 1 applies the maximum attraction, and a value of 0 applies no attraction. You can specify a constant attraction or vary the attraction over time. See <a href="PartSysUsage.html#VaryOverTime">Varying properties over time</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Rotation Randomness</strong></td>
+<td style="text-align:left">A random axes of the shape to propel particles around. A value of 1 applies maximum randomness, and a value of 0 applies no randomness.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Drag</strong></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Strength</strong></td>
+<td style="text-align:left">The strength of the drag effect, which slows particles down. The higher the value, the greater the strength. You can specify a constant strength or vary the strength over time. See <a href="PartSysUsage.html#VaryOverTime">Varying properties over time</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Multiply Drag by Size</strong></td>
+<td style="text-align:left">Adjust the drag based on the size of the particles.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Multiply Drag by Velocity</strong></td>
+<td style="text-align:left">Adjust the drag based on the velocity of the particles.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Vector Field</strong></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Volume Texture</strong></td>
+<td style="text-align:left">The texture of the vector field.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Speed</strong></td>
+<td style="text-align:left">The speed multiplier to apply to particles traveling through the vector field. The higher the value, the faster the speed. You can specify a constant strength or vary the strength over time. See <a href="PartSysUsage.html#VaryOverTime">Varying properties over time</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Attraction</strong></td>
+<td style="text-align:left">The strength at which Unity drags particles into the vector field motion. The higher the value, the greater the attraction. You can specify a constant attraction or vary the attraction over time. See <a href="PartSysUsage.html#VaryOverTime">Varying properties over time</a>.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

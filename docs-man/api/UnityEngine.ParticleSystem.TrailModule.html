@@ -1,0 +1,1582 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Struct ParticleSystem.TrailModule
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct ParticleSystem.TrailModule
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.ParticleSystem.TrailModule">
+  
+  
+  <h1 id="UnityEngine_ParticleSystem_TrailModule" data-uid="UnityEngine.ParticleSystem.TrailModule">Struct ParticleSystem.TrailModule
+  </h1>
+  <div class="markdown level0 summary"><p>Script interface for the Particle System Trails module.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.html">UnityEngine</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct TrailModule</code></pre>
+  </div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>This module adds trails to your particles. Trails can either be left in the wake of particles as they move, or can connect each particle in the system together.</p>
+<p>SA: <a class="xref" href="UnityEngine.ParticleSystem.html">ParticleSystem</a>, <a class="xref" href="UnityEngine.ParticleSystem.html#UnityEngine_ParticleSystem_trails">ParticleSystem.trails</a>.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_examples"><strong>Examples</strong></h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    void Start()
+    {
+        ParticleSystem ps = GetComponent&lt;ParticleSystem&gt;();
+        var trails = ps.trails;
+        trails.enabled = true;
+        trails.ratio = 0.5f;
+    }
+}
+</code></pre>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_attachRibbonsToTransform_" data-uid="UnityEngine.ParticleSystem.TrailModule.attachRibbonsToTransform*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_attachRibbonsToTransform" data-uid="UnityEngine.ParticleSystem.TrailModule.attachRibbonsToTransform">attachRibbonsToTransform</h4>
+  <div class="markdown level1 summary"><p>Adds an extra position to each ribbon, connecting it to the location of the Transform Component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool attachRibbonsToTransform { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_attachRibbonsToTransform_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public bool attachRibbonsToTransform = true;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.01f, 1.0f);
+        main.startLifetime = 1.5f;
+
+        var shape = ps.shape;
+        shape.radius = 2.0f;
+        shape.radiusThickness = 0.0f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+        trails.mode = ParticleSystemTrailMode.Ribbon;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.attachRibbonsToTransform = attachRibbonsToTransform;
+    }
+
+    void OnGUI()
+    {
+        attachRibbonsToTransform = GUI.Toggle(new Rect(25, 25, 200, 30), attachRibbonsToTransform, &quot;Attach Ribbons To Transform&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_colorOverLifetime_" data-uid="UnityEngine.ParticleSystem.TrailModule.colorOverLifetime*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_colorOverLifetime" data-uid="UnityEngine.ParticleSystem.TrailModule.colorOverLifetime">colorOverLifetime</h4>
+  <div class="markdown level1 summary"><p>The gradient controlling the trail colors during the lifetime of the attached particle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ParticleSystem.MinMaxGradient colorOverLifetime { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.ParticleSystem.MinMaxGradient.html">ParticleSystem.MinMaxGradient</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_colorOverLifetime_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>SA: <a class="xref" href="UnityEngine.ParticleSystem.MinMaxGradient.html">ParticleSystem.MinMaxGradient</a>.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_colorOverLifetime_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    private Gradient gradient = new Gradient();
+    public bool swapColors = true;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startSize = 0.1f;
+        main.startLifetime = 1.5f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        if (swapColors)
+        {
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f), new GradientColorKey(Color.green, 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) }
+            );
+        }
+        else
+        {
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(Color.green, 0.0f), new GradientColorKey(Color.blue, 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) }
+            );
+        }
+
+        trails.colorOverLifetime = gradient;
+    }
+
+    void OnGUI()
+    {
+        swapColors = GUI.Toggle(new Rect(25, 25, 200, 30), swapColors, &quot;Swap Trail Colors&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_colorOverTrail_" data-uid="UnityEngine.ParticleSystem.TrailModule.colorOverTrail*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_colorOverTrail" data-uid="UnityEngine.ParticleSystem.TrailModule.colorOverTrail">colorOverTrail</h4>
+  <div class="markdown level1 summary"><p>The gradient controlling the trail colors over the length of the trail.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ParticleSystem.MinMaxGradient colorOverTrail { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.ParticleSystem.MinMaxGradient.html">ParticleSystem.MinMaxGradient</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_colorOverTrail_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>SA: <a class="xref" href="UnityEngine.ParticleSystem.MinMaxGradient.html">ParticleSystem.MinMaxGradient</a>.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_colorOverTrail_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    private Gradient gradient = new Gradient();
+    public bool swapColors = true;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startSize = 0.1f;
+        main.startLifetime = 1.5f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        if (swapColors)
+        {
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f), new GradientColorKey(Color.green, 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) }
+            );
+        }
+        else
+        {
+            gradient.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(Color.green, 0.0f), new GradientColorKey(Color.blue, 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) }
+            );
+        }
+
+        trails.colorOverTrail = gradient;
+    }
+
+    void OnGUI()
+    {
+        swapColors = GUI.Toggle(new Rect(25, 25, 200, 30), swapColors, &quot;Swap Trail Colors&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_dieWithParticles_" data-uid="UnityEngine.ParticleSystem.TrailModule.dieWithParticles*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_dieWithParticles" data-uid="UnityEngine.ParticleSystem.TrailModule.dieWithParticles">dieWithParticles</h4>
+  <div class="markdown level1 summary"><p>If enabled, Trails will disappear immediately when their owning particle dies. Otherwise, the trail will persist until all its points have naturally expired, based on its lifetime.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool dieWithParticles { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_dieWithParticles_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public bool dieWithParticles = true;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSizeMultiplier = 0.1f;
+        main.startLifetimeMultiplier = 1.0f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.dieWithParticles = dieWithParticles;
+    }
+
+    void OnGUI()
+    {
+        dieWithParticles = GUI.Toggle(new Rect(25, 25, 200, 30), dieWithParticles, &quot;Die With Particles&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_enabled_" data-uid="UnityEngine.ParticleSystem.TrailModule.enabled*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_enabled" data-uid="UnityEngine.ParticleSystem.TrailModule.enabled">enabled</h4>
+  <div class="markdown level1 summary"><p>Enable/disable the Trail module.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool enabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_enabled_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>SA: <a class="xref" href="UnityEngine.ParticleSystem.html#UnityEngine_ParticleSystem_trails">ParticleSystem.trails</a>.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_enabled_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public float hSliderValueRatio = 1.0f;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = 0.1f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.ratio = hSliderValueRatio;
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(25, 40, 100, 30), &quot;Ratio&quot;);
+
+        hSliderValueRatio = GUI.HorizontalSlider(new Rect(55, 45, 100, 30), hSliderValueRatio, 0.0f, 1.0f);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_generateLightingData_" data-uid="UnityEngine.ParticleSystem.TrailModule.generateLightingData*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_generateLightingData" data-uid="UnityEngine.ParticleSystem.TrailModule.generateLightingData">generateLightingData</h4>
+  <div class="markdown level1 summary"><p>Configures the trails to generate Normals and Tangents. With this data, Scene lighting can affect the trails via Normal Maps and the Unity Standard Shader, or your own custom-built Shaders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool generateLightingData { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_generateLightingData_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startSize = 0.1f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+        trails.generateLightingData = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Standard&quot;));
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_inheritParticleColor_" data-uid="UnityEngine.ParticleSystem.TrailModule.inheritParticleColor*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_inheritParticleColor" data-uid="UnityEngine.ParticleSystem.TrailModule.inheritParticleColor">inheritParticleColor</h4>
+  <div class="markdown level1 summary"><p>Toggle whether the trail will inherit the particle color as its starting color.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool inheritParticleColor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_inheritParticleColor_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Any Trail module curves will be applied on top of the particle color, if enabled.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_inheritParticleColor_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public bool inheritParticleColor = true;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = 0.1f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.inheritParticleColor = inheritParticleColor;
+    }
+
+    void OnGUI()
+    {
+        inheritParticleColor = GUI.Toggle(new Rect(25, 25, 200, 30), inheritParticleColor, &quot;Inherit Particle Color&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_lifetime_" data-uid="UnityEngine.ParticleSystem.TrailModule.lifetime*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_lifetime" data-uid="UnityEngine.ParticleSystem.TrailModule.lifetime">lifetime</h4>
+  <div class="markdown level1 summary"><p>The curve describing the trail lifetime, throughout the lifetime of the particle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ParticleSystem.MinMaxCurve lifetime { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html">ParticleSystem.MinMaxCurve</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_lifetime_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This value is relative to the particle lifetime.
+SA: <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html">ParticleSystem.MinMaxCurve</a>.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_lifetime_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public float hSliderValueLifetime = 1.0f;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = 0.1f;
+        main.startLifetime = 1.5f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.lifetime = hSliderValueLifetime;
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(25, 40, 100, 30), &quot;Lifetime&quot;);
+
+        hSliderValueLifetime = GUI.HorizontalSlider(new Rect(95, 45, 100, 30), hSliderValueLifetime, 0.0f, 1.0f);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_lifetimeMultiplier_" data-uid="UnityEngine.ParticleSystem.TrailModule.lifetimeMultiplier*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_lifetimeMultiplier" data-uid="UnityEngine.ParticleSystem.TrailModule.lifetimeMultiplier">lifetimeMultiplier</h4>
+  <div class="markdown level1 summary"><p>Change the lifetime multiplier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float lifetimeMultiplier { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_lifetimeMultiplier_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is more efficient than accessing the whole curve, if you only want to change the overall lifetime multiplier.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_lifetimeMultiplier_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public float hSliderValueLifetime = 1.0f;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = 0.1f;
+        main.startLifetime = 1.5f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.lifetimeMultiplier = hSliderValueLifetime;
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(25, 40, 100, 30), &quot;Lifetime&quot;);
+
+        hSliderValueLifetime = GUI.HorizontalSlider(new Rect(95, 45, 100, 30), hSliderValueLifetime, 0.0f, 1.0f);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_minVertexDistance_" data-uid="UnityEngine.ParticleSystem.TrailModule.minVertexDistance*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_minVertexDistance" data-uid="UnityEngine.ParticleSystem.TrailModule.minVertexDistance">minVertexDistance</h4>
+  <div class="markdown level1 summary"><p>Set the minimum distance each trail can travel before a new vertex is added to it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float minVertexDistance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_minVertexDistance_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Smaller values with give smoother trails, consisting of more vertices, but costing more performance.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_minVertexDistance_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public float hSliderValueDistance = 0.2f;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = 0.1f;
+        main.startLifetime = 2.5f;
+        main.gravityModifier = 0.35f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.minVertexDistance = hSliderValueDistance;
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(25, 40, 100, 30), &quot;Vertex Distance&quot;);
+
+        hSliderValueDistance = GUI.HorizontalSlider(new Rect(125, 45, 100, 30), hSliderValueDistance, 0.01f, 1.0f);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_mode_" data-uid="UnityEngine.ParticleSystem.TrailModule.mode*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_mode" data-uid="UnityEngine.ParticleSystem.TrailModule.mode">mode</h4>
+  <div class="markdown level1 summary"><p>Choose how particle trails are generated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ParticleSystemTrailMode mode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.ParticleSystemTrailMode.html">ParticleSystemTrailMode</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_mode_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>SA: <a class="xref" href="UnityEngine.ParticleSystemTrailMode.html">ParticleSystemTrailMode</a>.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_mode_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public bool ribbonMode = false;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = 0.1f;
+        main.startLifetime = 2.5f;
+        main.gravityModifierMultiplier = 0.2f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.mode = ribbonMode ? ParticleSystemTrailMode.Ribbon : ParticleSystemTrailMode.PerParticle;
+    }
+
+    void OnGUI()
+    {
+        ribbonMode = GUI.Toggle(new Rect(25, 25, 200, 30), ribbonMode, &quot;Ribbon mode&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_ratio_" data-uid="UnityEngine.ParticleSystem.TrailModule.ratio*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_ratio" data-uid="UnityEngine.ParticleSystem.TrailModule.ratio">ratio</h4>
+  <div class="markdown level1 summary"><p>Choose what proportion of particles will receive a trail.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float ratio { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_ratio_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Use a value between 0 and 1, where 0 will add trails to no particles, and 1 will add trails to all particles.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_ratio_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public float hSliderValueRatio = 1.0f;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = 0.1f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.ratio = hSliderValueRatio;
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(25, 40, 100, 30), &quot;Ratio&quot;);
+
+        hSliderValueRatio = GUI.HorizontalSlider(new Rect(55, 45, 100, 30), hSliderValueRatio, 0.0f, 1.0f);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_ribbonCount_" data-uid="UnityEngine.ParticleSystem.TrailModule.ribbonCount*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_ribbonCount" data-uid="UnityEngine.ParticleSystem.TrailModule.ribbonCount">ribbonCount</h4>
+  <div class="markdown level1 summary"><p>Select how many lines to create through the Particle System.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ribbonCount { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_ribbonCount_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For example, if using 1 ribbon, a single line is drawn, starting at the youngest particle and travelling through each subsequent particle based on their ages, until finally reaching the oldest. If using a value larger than 1, multiple lines are drawn, connecting each Nth oldest particle. For example, if using 3 ribbons, every 3rd particle is connected (1,4,7, and 2,5,8 and 3,6,9).</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_ribbonCount_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public float hSliderValueRibbonCount = 1.0f;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = 0.1f;
+        main.startLifetime = 2.5f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+        trails.mode = ParticleSystemTrailMode.Ribbon;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.ribbonCount = (int)hSliderValueRibbonCount;
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(25, 40, 100, 30), &quot;Ribbon Count&quot;);
+
+        hSliderValueRibbonCount = GUI.HorizontalSlider(new Rect(125, 45, 100, 30), hSliderValueRibbonCount, 1.0f, 4.0f);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_shadowBias_" data-uid="UnityEngine.ParticleSystem.TrailModule.shadowBias*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_shadowBias" data-uid="UnityEngine.ParticleSystem.TrailModule.shadowBias">shadowBias</h4>
+  <div class="markdown level1 summary"><p>Apply a shadow bias to prevent self-shadowing artifacts. The specified value is the proportion of the trail width at each segment.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float shadowBias { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_shadowBias_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public float hSliderValueBias = 1.0f;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = 0.1f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.shadowBias = hSliderValueBias;
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(25, 40, 100, 30), &quot;Shadow Bias&quot;);
+
+        hSliderValueBias = GUI.HorizontalSlider(new Rect(55, 45, 100, 30), hSliderValueBias, 0.0f, 1.0f);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_sizeAffectsLifetime_" data-uid="UnityEngine.ParticleSystem.TrailModule.sizeAffectsLifetime*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_sizeAffectsLifetime" data-uid="UnityEngine.ParticleSystem.TrailModule.sizeAffectsLifetime">sizeAffectsLifetime</h4>
+  <div class="markdown level1 summary"><p>Set whether the particle size will act as a multiplier on top of the trail lifetime.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool sizeAffectsLifetime { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_sizeAffectsLifetime_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Useful for making larger particles have longer trails.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_sizeAffectsLifetime_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public bool sizeAffectsLifetime = true;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.01f, 1.0f);
+        main.startLifetime = 1.5f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.sizeAffectsLifetime = sizeAffectsLifetime;
+    }
+
+    void OnGUI()
+    {
+        sizeAffectsLifetime = GUI.Toggle(new Rect(25, 25, 200, 30), sizeAffectsLifetime, &quot;Size affects lifetime&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_sizeAffectsWidth_" data-uid="UnityEngine.ParticleSystem.TrailModule.sizeAffectsWidth*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_sizeAffectsWidth" data-uid="UnityEngine.ParticleSystem.TrailModule.sizeAffectsWidth">sizeAffectsWidth</h4>
+  <div class="markdown level1 summary"><p>Set whether the particle size will act as a multiplier on top of the trail width.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool sizeAffectsWidth { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_sizeAffectsWidth_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Useful for making larger particles have wider trails.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_sizeAffectsWidth_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public bool sizeAffectsWidth = true;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.01f, 1.0f);
+        main.startLifetime = 1.5f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        trails.sizeAffectsWidth = sizeAffectsWidth;
+    }
+
+    void OnGUI()
+    {
+        sizeAffectsWidth = GUI.Toggle(new Rect(25, 25, 200, 30), sizeAffectsWidth, &quot;Size affects width&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_splitSubEmitterRibbons_" data-uid="UnityEngine.ParticleSystem.TrailModule.splitSubEmitterRibbons*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_splitSubEmitterRibbons" data-uid="UnityEngine.ParticleSystem.TrailModule.splitSubEmitterRibbons">splitSubEmitterRibbons</h4>
+  <div class="markdown level1 summary"><p>When used on a sub emitter, ribbons will connect particles from each parent particle independently.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool splitSubEmitterRibbons { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_splitSubEmitterRibbons_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    private ParticleSystem sps;
+    public bool splitSubEmitterRibbons = true;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.01f, 1.0f);
+        main.startLifetime = 1.5f;
+
+        sps = new GameObject(&quot;SubEmitter&quot;, typeof(ParticleSystem)).GetComponent&lt;ParticleSystem&gt;();
+        sps.transform.parent = ps.transform;
+
+        var sub = ps.subEmitters;
+        sub.enabled = true;
+        sub.AddSubEmitter(sps, ParticleSystemSubEmitterType.Birth, ParticleSystemSubEmitterProperties.InheritColor);
+
+        var smain = sps.main;
+        smain.startSpeed = 0.0f;
+
+        var sshape = sps.shape;
+        sshape.enabled = false;
+
+        var strails = sps.trails;
+        strails.enabled = true;
+        strails.mode = ParticleSystemTrailMode.Ribbon;
+        strails.widthOverTrail = 0.1f;
+
+        var spsr = sps.GetComponent&lt;ParticleSystemRenderer&gt;();
+        spsr.renderMode = ParticleSystemRenderMode.None;
+        spsr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var strails = sps.trails;
+        strails.splitSubEmitterRibbons = splitSubEmitterRibbons;
+    }
+
+    void OnGUI()
+    {
+        splitSubEmitterRibbons = GUI.Toggle(new Rect(25, 25, 200, 30), splitSubEmitterRibbons, &quot;Split Sub Emitter Ribbons&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_textureMode_" data-uid="UnityEngine.ParticleSystem.TrailModule.textureMode*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_textureMode" data-uid="UnityEngine.ParticleSystem.TrailModule.textureMode">textureMode</h4>
+  <div class="markdown level1 summary"><p>Choose whether the U coordinate of the trail texture is tiled or stretched.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ParticleSystemTrailTextureMode textureMode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.ParticleSystemTrailTextureMode.html">ParticleSystemTrailTextureMode</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_textureMode_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Stretching will cause the texture to be mapped once along the entire length of the trail, whereas Tiling will cause the texture to be repeated at a rate of once per world unit. To set the tiling rate, use <a href="xref:UnityEngine.Material.SetTextureScale">Material.SetTextureScale</a>.</p>
+</div>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_widthOverTrail_" data-uid="UnityEngine.ParticleSystem.TrailModule.widthOverTrail*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_widthOverTrail" data-uid="UnityEngine.ParticleSystem.TrailModule.widthOverTrail">widthOverTrail</h4>
+  <div class="markdown level1 summary"><p>The curve describing the width, of each trail point.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ParticleSystem.MinMaxCurve widthOverTrail { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html">ParticleSystem.MinMaxCurve</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_widthOverTrail_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>SA: <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html">ParticleSystem.MinMaxCurve</a>.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_widthOverTrail_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    private AnimationCurve curve = new AnimationCurve();
+    public bool widthOverTrail = true;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.01f, 1.0f);
+        main.startLifetime = 1.5f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        curve.AddKey(0.0f, 1.0f);
+        curve.AddKey(1.0f, 0.0f);
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        if (widthOverTrail)
+            trails.widthOverTrail = new ParticleSystem.MinMaxCurve(1.0f, curve);
+        else
+            trails.widthOverTrail = 1.0f;
+    }
+
+    void OnGUI()
+    {
+        widthOverTrail = GUI.Toggle(new Rect(25, 25, 200, 30), widthOverTrail, &quot;Width over Trail&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_widthOverTrailMultiplier_" data-uid="UnityEngine.ParticleSystem.TrailModule.widthOverTrailMultiplier*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_widthOverTrailMultiplier" data-uid="UnityEngine.ParticleSystem.TrailModule.widthOverTrailMultiplier">widthOverTrailMultiplier</h4>
+  <div class="markdown level1 summary"><p>Change the width multiplier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float widthOverTrailMultiplier { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_widthOverTrailMultiplier_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is more efficient than accessing the whole curve, if you only want to change the overall width multiplier.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_widthOverTrailMultiplier_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public bool widthOverTrail = true;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.01f, 1.0f);
+        main.startLifetime = 1.5f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        var trails = ps.trails;
+        if (widthOverTrail)
+            trails.widthOverTrailMultiplier = 0.2f;
+        else
+            trails.widthOverTrailMultiplier = 1.0f;
+    }
+
+    void OnGUI()
+    {
+        widthOverTrail = GUI.Toggle(new Rect(25, 25, 200, 30), widthOverTrail, &quot;Width over Trail&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_ParticleSystem_TrailModule_worldSpace_" data-uid="UnityEngine.ParticleSystem.TrailModule.worldSpace*"></a>
+  <h4 id="UnityEngine_ParticleSystem_TrailModule_worldSpace" data-uid="UnityEngine.ParticleSystem.TrailModule.worldSpace">worldSpace</h4>
+  <div class="markdown level1 summary"><p>Drop new trail points in world space, regardless of Particle System Simulation Space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool worldSpace { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_worldSpace_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When set to true, trails will always be in world space, and will not move relative to the Transform component.
+When set to false, trails will move with the Particle System transform, if also using local Simulation Space.
+SA: <a class="xref" href="UnityEngine.ParticleSystem.MainModule.html#UnityEngine_ParticleSystem_MainModule_simulationSpace">ParticleSystem.MainModule.simulationSpace</a>.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_TrailModule_worldSpace_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    private ParticleSystem ps;
+    public bool worldSpace = true;
+
+    void Start()
+    {
+        ps = GetComponent&lt;ParticleSystem&gt;();
+
+        var main = ps.main;
+        main.startColor = new ParticleSystem.MinMaxGradient(Color.red, Color.yellow);
+        main.startSize = 0.1f;
+        main.startLifetime = 0.5f;
+
+        var trails = ps.trails;
+        trails.enabled = true;
+
+        var psr = GetComponent&lt;ParticleSystemRenderer&gt;();
+        psr.trailMaterial = new Material(Shader.Find(&quot;Sprites/Default&quot;));
+    }
+
+    void Update()
+    {
+        ps.transform.position = new Vector3(Mathf.Sin(Time.time * 2.0f) * 2.0f, 0.0f, 0.0f);
+
+        var trails = ps.trails;
+        trails.worldSpace = worldSpace;
+    }
+
+    void OnGUI()
+    {
+        worldSpace = GUI.Toggle(new Rect(25, 25, 200, 30), worldSpace, &quot;World Space&quot;);
+    }
+}
+</code></pre>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Mesh Collider | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Mesh Collider | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="mesh-collider">Mesh Collider</h1>
+
+<p>The <strong>Mesh Collider</strong> takes a <a href="class-Mesh.html">Mesh Asset</a> and builds its Collider based on that Mesh. It is far more accurate for collision detection than using primitives for complicated Meshes. Mesh Colliders that are marked as <strong>Convex</strong> can collide with other Mesh Colliders.</p>
+<p><img src="../uploads/Main/Inspector-MeshCollider.png" alt=""> </p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property</em></strong></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"><strong><em>Function</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Convex</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Tick the checkbox to enable <strong>Convex</strong>. If enabled, this Mesh Collider collides with other Mesh Colliders. <strong>Convex</strong> Mesh Colliders are limited to 255 triangles.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Is Trigger</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">If enabled, Unity uses this Collider for triggering events, and the physics engine ignores it.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cooking Options</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable or disable the <a href="#cooking">Mesh cooking</a> options that affect how the physics engine processes Meshes.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>None</strong></td>
+<td style="text-align:left">Disable all of the <strong>Cooking Options</strong> listed below.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Everything</strong></td>
+<td style="text-align:left">Enable all of the <strong>Cooking Options</strong> listed below.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Cook for Faster Simulation</strong></td>
+<td style="text-align:left">Make the physics engine cook Meshes for faster simulation. When enabled, this runs some extra steps to guarantee the resulting Mesh is optimal for run-time performance. This affects the performance of the physics queries and contacts generation. When this setting is disabled, the physics engine uses a faster cooking time instead, and produces results as fast as possible. Consequently, the cooked Mesh Collider might not be optimal.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Enable Mesh Cleaning</strong></td>
+<td style="text-align:left">Make the physics engine clean Meshes. When enabled, the cooking process tries to eliminate <a href="https://en.wikipedia.org/wiki/Degeneracy_(mathematics)#Triangle">degenerate triangles</a> of the Mesh, as well as other geometrical artifacts. This results in a Mesh that is better suited for use in collision detection and tends to produce more accurate hit points.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Weld Colocated Vertices</strong></td>
+<td style="text-align:left">Make the physics engine remove equal vertices in the Meshes. When enabled, the physics engine combines the vertices that have the same position. This is important for the collision feedback that happens at run time.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Material</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Reference to the <a href="class-PhysicMaterial.html">Physics Material</a> that determines how this Collider interacts with others.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Mesh</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Reference to the Mesh to use for collisions.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details</h2>
+<p>The Mesh Collider builds its collision representation from the <a href="class-Mesh.html">Mesh</a> attached to the GameObject, and reads the properties of the attached <a href="class-Transform.html">Transform</a> to set its position and scale correctly. The benefit of this is that you can make the shape of the Collider exactly the same as the shape of the visible Mesh for the GameObject, resulting in more precise and authentic collisions. However, this precision comes with a higher processing overhead than collisions involving primitive colliders (such as Sphere, Box, and Capsule) and so it is best to use Mesh Colliders sparingly.</p>
+<p>Faces in collision meshes are one-sided. This means objects can pass through them from one direction, but collide with them from the other.</p>
+<p><a name="cooking"></a></p>
+<h2 id="mesh-cooking">Mesh cooking</h2>
+<p>Mesh cooking changes a normal Mesh into a Mesh that you can use in the physics engine. Cooking builds the spatial search structures for the physics queries, such as <a href="ScriptRef:Physics.Raycast.html">Physics.Raycast</a>, as well as supporting structures for the contacts generation. Unity cooks all Meshes before using them in collision detection. This can happen at import time (<strong>Import Settings &gt; Model &gt; Generate Colliders</strong>) or at run time.</p>
+<p>When generating Meshes at run time (for example, for procedural surfaces), it&#39;s useful to set the <strong>Cooking Options</strong> to produce results faster, and disable the additional data cleaning steps of cleaning. The downside is that you need to generate no degenerate triangles and no co-located vertices, but the cooking works faster. </p>
+<p>If you disable <strong>Enable Mesh Cleaning</strong> or <strong>Weld Colocated Vertices</strong>, you need to ensure you aren&#39;t using data that those algorithms would otherwise filter. Make sure you don&#39;t have any co-located vertices if <strong>Weld Colocated Vertices</strong> is disabled, and when <strong>Enable Mesh Cleaning</strong> is enabled, make sure there are no tiny triangles whose area is close to zero, no thin triangles, and no huge triangles whose area is close to infinity.</p>
+<p><strong>Note</strong>: Setting <strong>Cooking Options</strong> to any other value than the default settings means the Mesh Collider must use a Mesh that has an <a href="ScriptRef:Mesh-isReadable.html">isReadable</a> value of true.</p>
+<h2 id="limitations">Limitations</h2>
+<p>There are some limitations when using the Mesh Collider:</p>
+<p>Mesh Colliders that do not have <strong>Convex</strong> enabled are only supported on GameObjects without a Rigidbody component. To apply a Mesh Collider to a Rigidbody component, tick the <strong>Convex</strong> checkbox.</p>
+<p>For a Mesh Collider to work properly, the Mesh must be read/write enabled in any of these circumstances:</p>
+<ul>
+<li>The Mesh Collider&#39;s Transform has negative scaling (for example, (–1, 1, 1)) and the Mesh is convex.</li>
+<li>The Mesh Collider&#39;s transform is skewed or sheared (for example, when a rotated transform has a scaled parent transform).</li>
+<li>The Mesh Collider&#39;s Cooking Options flags are set to any value other than the default.</li>
+</ul>
+<p><strong>Optimization tip:</strong> If a Mesh is used only by a Mesh Collider, you can disable <strong>Normals</strong> in <strong>Import Settings</strong>, because the physics system doesn’t need them.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

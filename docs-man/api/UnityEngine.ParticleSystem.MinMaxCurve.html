@@ -1,0 +1,794 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Struct ParticleSystem.MinMaxCurve
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct ParticleSystem.MinMaxCurve
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.ParticleSystem.MinMaxCurve">
+  
+  
+  <h1 id="UnityEngine_ParticleSystem_MinMaxCurve" data-uid="UnityEngine.ParticleSystem.MinMaxCurve">Struct ParticleSystem.MinMaxCurve
+  </h1>
+  <div class="markdown level0 summary"><p>Script interface for a Min-Max Curve.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.html">UnityEngine</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_ParticleSystem_MinMaxCurve_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct MinMaxCurve</code></pre>
+  </div>
+  <h5 id="UnityEngine_ParticleSystem_MinMaxCurve_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>MinMaxCurve describes functions taking a value between a minimum and maximum limit and returning a value based on <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html#UnityEngine_ParticleSystem_MinMaxCurve_mode">ParticleSystem.MinMaxCurve.mode</a>. Depending on the mode, the value returned may be randomized.
+For modes requiring curves, the value returned is dependent on one or two curves designed in the ParticleSystem Inspector, that can be evaluated to a single value between -n and n, where n is a constant also set in the Inspector. See <a class="xref" href="UnityEngine.ParticleSystemCurveMode.html">ParticleSystemCurveMode</a> for more information.</p>
+<p>SA: <a class="xref" href="UnityEngine.ParticleSystem.html">ParticleSystem</a>.</p>
+</div>
+  <h5 id="UnityEngine_ParticleSystem_MinMaxCurve_examples"><strong>Examples</strong></h5>
+  <pre><code>
+using UnityEngine;
+
+// This example shows setting a constant rate value.
+public class ConstantRateExample : MonoBehaviour
+{
+    ParticleSystem myParticleSystem;
+    ParticleSystem.EmissionModule emissionModule;
+
+    void Start()
+    {
+        // Get the system and the emission module.
+        myParticleSystem = GetComponent&lt;ParticleSystem&gt;();
+        emissionModule = myParticleSystem.emission;
+
+        GetValue();
+        SetValue();
+    }
+
+    void GetValue()
+    {
+        print(&quot;The constant value is &quot; + emissionModule.rate.constant);
+    }
+
+    void SetValue()
+    {
+        emissionModule.rate = 10.0f;
+    }
+}
+</code></pre><pre><code>
+using UnityEngine;
+
+// This example shows using 2 constants to drive the rate.
+public class TwoConstantsRateExample : MonoBehaviour
+{
+    ParticleSystem myParticleSystem;
+    ParticleSystem.EmissionModule emissionModule;
+
+    void Start()
+    {
+        // Get the system and the emission module.
+        myParticleSystem = GetComponent&lt;ParticleSystem&gt;();
+        emissionModule = myParticleSystem.emission;
+
+        GetValue();
+        SetValue();
+    }
+
+    void GetValue()
+    {
+        print(string.Format(&quot;The constant values are: min {0} max {1}.&quot;, emissionModule.rate.constantMin, emissionModule.rate.constantMax));
+    }
+
+    void SetValue()
+    {
+        emissionModule.rate = new ParticleSystem.MinMaxCurve(0.0f, 10.0f);
+    }
+}
+</code></pre><pre><code>
+using UnityEngine;
+
+// This example shows using a curve to drive the rate.
+public class CurveRateExample : MonoBehaviour
+{
+    ParticleSystem myParticleSystem;
+    ParticleSystem.EmissionModule emissionModule;
+
+    // We can &quot;scale&quot; the curve with this value. It gets multiplied by the curve.
+    public float scalar = 1.0f;
+
+    AnimationCurve ourCurve;
+
+    void Start()
+    {
+        // Get the system and the emission module.
+        myParticleSystem = GetComponent&lt;ParticleSystem&gt;();
+        emissionModule = myParticleSystem.emission;
+
+        // A simple linear curve.
+        ourCurve = new AnimationCurve();
+        ourCurve.AddKey(0.0f, 0.0f);
+        ourCurve.AddKey(1.0f, 1.0f);
+
+        // Apply the curve.
+        emissionModule.rate = new ParticleSystem.MinMaxCurve(scalar, ourCurve);
+
+        // In 5 seconds we will modify the curve.
+        Invoke(&quot;ModifyCurve&quot;, 5.0f);
+    }
+
+    void ModifyCurve()
+    {
+        // Add a key to the current curve.
+        ourCurve.AddKey(0.5f, 0.0f);
+
+        // Apply the changed curve.
+        emissionModule.rate = new ParticleSystem.MinMaxCurve(scalar, ourCurve);
+    }
+}
+</code></pre><pre><code>
+using UnityEngine;
+
+// This example shows using 2 curves to drive the rate.
+public class TwoCurveRateExample : MonoBehaviour
+{
+    ParticleSystem myParticleSystem;
+    ParticleSystem.EmissionModule emissionModule;
+
+    AnimationCurve ourCurveMin;
+    AnimationCurve ourCurveMax;
+
+    // We can &quot;scale&quot; the curves with this value. It gets multiplied by the curves.
+    public float scalar = 1.0f;
+
+    void Start()
+    {
+        // Get the system and the emission module.
+        myParticleSystem = GetComponent&lt;ParticleSystem&gt;();
+        emissionModule = myParticleSystem.emission;
+
+        // A horizontal straight line at value 1.
+        ourCurveMin = new AnimationCurve();
+        ourCurveMin.AddKey(0.0f, 1.0f);
+        ourCurveMin.AddKey(1.0f, 1.0f);
+
+        // A horizontal straight line at value 0.5.
+        ourCurveMax = new AnimationCurve();
+        ourCurveMax.AddKey(0.0f, 0.5f);
+        ourCurveMax.AddKey(1.0f, 0.5f);
+
+        // Apply the curves.
+        emissionModule.rate = new ParticleSystem.MinMaxCurve(scalar, ourCurveMin, ourCurveMax);
+
+        // In 5 seconds we will modify the curve.
+        Invoke(&quot;ModifyCurve&quot;, 5.0f);
+    }
+
+    void ModifyCurve()
+    {
+        // Create a &quot;pinch&quot; point.
+        ourCurveMin.AddKey(0.5f, 0.7f);
+        ourCurveMax.AddKey(0.5f, 0.6f);
+
+        // Apply the changed curve.
+        emissionModule.rate = new ParticleSystem.MinMaxCurve(scalar, ourCurveMin, ourCurveMax);
+    }
+}
+</code></pre>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve__ctor_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.#ctor*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve__ctor_System_Single_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.#ctor(System.Single)">MinMaxCurve(Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MinMaxCurve(float constant)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">constant</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve__ctor_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.#ctor*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve__ctor_System_Single_System_Single_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.#ctor(System.Single,System.Single)">MinMaxCurve(Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MinMaxCurve(float min, float max)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">min</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">max</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve__ctor_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.#ctor*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve__ctor_System_Single_UnityEngine_AnimationCurve_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.#ctor(System.Single,UnityEngine.AnimationCurve)">MinMaxCurve(Single, AnimationCurve)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MinMaxCurve(float multiplier, AnimationCurve curve)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">multiplier</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AnimationCurve.html">AnimationCurve</a></td>
+        <td><span class="parametername">curve</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve__ctor_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.#ctor*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve__ctor_System_Single_UnityEngine_AnimationCurve_UnityEngine_AnimationCurve_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.#ctor(System.Single,UnityEngine.AnimationCurve,UnityEngine.AnimationCurve)">MinMaxCurve(Single, AnimationCurve, AnimationCurve)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MinMaxCurve(float multiplier, AnimationCurve min, AnimationCurve max)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">multiplier</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AnimationCurve.html">AnimationCurve</a></td>
+        <td><span class="parametername">min</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AnimationCurve.html">AnimationCurve</a></td>
+        <td><span class="parametername">max</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve_constant_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.constant*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve_constant" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.constant">constant</h4>
+  <div class="markdown level1 summary"><p>Set the constant value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float constant { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_MinMaxCurve_constant_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Useful when <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html#UnityEngine_ParticleSystem_MinMaxCurve_mode">ParticleSystem.MinMaxCurve.mode</a> is set to <a class="xref" href="UnityEngine.ParticleSystemCurveMode.html#UnityEngine_ParticleSystemCurveMode_Constant">ParticleSystemCurveMode.Constant</a>.</p>
+</div>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve_constantMax_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.constantMax*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve_constantMax" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.constantMax">constantMax</h4>
+  <div class="markdown level1 summary"><p>Set a constant for the upper bound.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float constantMax { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_MinMaxCurve_constantMax_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Useful when <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html#UnityEngine_ParticleSystem_MinMaxCurve_mode">ParticleSystem.MinMaxCurve.mode</a> is set to <a class="xref" href="UnityEngine.ParticleSystemCurveMode.html#UnityEngine_ParticleSystemCurveMode_TwoConstants">ParticleSystemCurveMode.TwoConstants</a>.</p>
+</div>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve_constantMin_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.constantMin*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve_constantMin" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.constantMin">constantMin</h4>
+  <div class="markdown level1 summary"><p>Set a constant for the lower bound.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float constantMin { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_MinMaxCurve_constantMin_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Useful when <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html#UnityEngine_ParticleSystem_MinMaxCurve_mode">ParticleSystem.MinMaxCurve.mode</a> is set to <a class="xref" href="UnityEngine.ParticleSystemCurveMode.html#UnityEngine_ParticleSystemCurveMode_TwoConstants">ParticleSystemCurveMode.TwoConstants</a>.</p>
+</div>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve_curve_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.curve*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve_curve" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.curve">curve</h4>
+  <div class="markdown level1 summary"><p>Set the curve.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AnimationCurve curve { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AnimationCurve.html">AnimationCurve</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_MinMaxCurve_curve_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Values should be set between 0 and 1. Use the curve multiplier to define the overall range of the curve.
+Useful when <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html#UnityEngine_ParticleSystem_MinMaxCurve_mode">ParticleSystem.MinMaxCurve.mode</a> is set to <a class="xref" href="UnityEngine.ParticleSystemCurveMode.html#UnityEngine_ParticleSystemCurveMode_Curve">ParticleSystemCurveMode.Curve</a>.</p>
+</div>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve_curveMax_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.curveMax*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve_curveMax" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.curveMax">curveMax</h4>
+  <div class="markdown level1 summary"><p>Set a curve for the upper bound.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AnimationCurve curveMax { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AnimationCurve.html">AnimationCurve</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_MinMaxCurve_curveMax_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Values should be set between 0 and 1. Use the curve multiplier to define the overall range of the curve.
+Useful when <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html#UnityEngine_ParticleSystem_MinMaxCurve_mode">ParticleSystem.MinMaxCurve.mode</a> is set to <a class="xref" href="UnityEngine.ParticleSystemCurveMode.html#UnityEngine_ParticleSystemCurveMode_TwoCurves">ParticleSystemCurveMode.TwoCurves</a>.
+SA: <a href="xref:UnityEngine.ParticleSystem.MinMaxCurve.curveScalar">ParticleSystem.MinMaxCurve.curveScalar</a>.</p>
+</div>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve_curveMin_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.curveMin*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve_curveMin" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.curveMin">curveMin</h4>
+  <div class="markdown level1 summary"><p>Set a curve for the lower bound.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AnimationCurve curveMin { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AnimationCurve.html">AnimationCurve</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_MinMaxCurve_curveMin_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Values should be set between 0 and 1. Use the curve multiplier to define the overall range of the curve.
+Useful when <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html#UnityEngine_ParticleSystem_MinMaxCurve_mode">ParticleSystem.MinMaxCurve.mode</a> is set to <a class="xref" href="UnityEngine.ParticleSystemCurveMode.html#UnityEngine_ParticleSystemCurveMode_TwoCurves">ParticleSystemCurveMode.TwoCurves</a>.
+SA: <a href="xref:UnityEngine.ParticleSystem.MinMaxCurve.curveScalar">ParticleSystem.MinMaxCurve.curveScalar</a>.</p>
+</div>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve_curveMultiplier_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.curveMultiplier*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve_curveMultiplier" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.curveMultiplier">curveMultiplier</h4>
+  <div class="markdown level1 summary"><p>Set a multiplier to be applied to the curves.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float curveMultiplier { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_ParticleSystem_MinMaxCurve_curveMultiplier_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>SA <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html#UnityEngine_ParticleSystem_MinMaxCurve_curve">ParticleSystem.MinMaxCurve.curve</a>, <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html#UnityEngine_ParticleSystem_MinMaxCurve_curveMin">ParticleSystem.MinMaxCurve.curveMin</a>, <a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html#UnityEngine_ParticleSystem_MinMaxCurve_curveMax">ParticleSystem.MinMaxCurve.curveMax</a>.</p>
+</div>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve_mode_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.mode*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve_mode" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.mode">mode</h4>
+  <div class="markdown level1 summary"><p>Set the mode that the min-max curve will use to evaluate values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ParticleSystemCurveMode mode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.ParticleSystemCurveMode.html">ParticleSystemCurveMode</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve_Evaluate_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.Evaluate*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve_Evaluate_System_Single_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.Evaluate(System.Single)">Evaluate(Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Evaluate(float time)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">time</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve_Evaluate_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.Evaluate*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve_Evaluate_System_Single_System_Single_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.Evaluate(System.Single,System.Single)">Evaluate(Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Evaluate(float time, float lerpFactor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">time</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">lerpFactor</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+  </h3>
+  
+  
+  <a id="UnityEngine_ParticleSystem_MinMaxCurve_op_Implicit_" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.op_Implicit*"></a>
+  <h4 id="UnityEngine_ParticleSystem_MinMaxCurve_op_Implicit_System_Single__UnityEngine_ParticleSystem_MinMaxCurve" data-uid="UnityEngine.ParticleSystem.MinMaxCurve.op_Implicit(System.Single)~UnityEngine.ParticleSystem.MinMaxCurve">Implicit(Single to ParticleSystem.MinMaxCurve)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator ParticleSystem.MinMaxCurve(float constant)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">constant</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.ParticleSystem.MinMaxCurve.html">ParticleSystem.MinMaxCurve</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

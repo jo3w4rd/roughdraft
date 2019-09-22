@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Standard Particle Shaders | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Standard Particle Shaders | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="standard-particle-shaders">Standard Particle Shaders</h1>
+
+<p>The Unity Standard Particle Shaders are built-in shaders that enable you to render a variety of Particle System effects. These shaders provide various particle-specific features that aren&#39;t available with the Standard Shader.</p>
+<p>To use a Particle Shader:</p>
+<ol>
+<li><p>Select the Material you want to apply the shader to. For example, you could apply a Flame Material to a Fire Particle System effect.</p>
+</li>
+<li><p>In the Material’s Inspector, select <strong>Shader Particles</strong>.</p>
+</li>
+<li><p>Choose the Particle Shader that you want to use, such as <strong>Standard Surface</strong>.</p>
+</li>
+<li><p>Enable and disable the various Particle Shader properties in the Inspector.</p>
+</li>
+</ol>
+<h2 id="properties">Properties</h2>
+<p>The Standard Particle Shaders have the same set of properties as the <a href="shader-StandardShader.html">Standard Shader</a> (or a subset of those properties, depending on the Shader). This page describes the properties and options that are additional to the Standard Shader properties. For information on the Standard Shader properties, see documentation on <a href="StandardShaderMaterialParameters.html">Material parameters</a>.</p>
+<h3 id="blending-options">Blending Options</h3>
+<p>All of the Standard Particle Shaders have <strong>Blending Options</strong> that enable you to blend particles with the objects surrounding them in different ways. </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property:</th>
+<th style="text-align:left">Function:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Rendering Mode</strong></td>
+<td style="text-align:left">The Standard Particle Shaders can have the following additional <a href="StandardShaderMaterialParameterRenderingMode.html">Rendering Mode</a> options:<br><br><strong>Additive</strong>: Adds the background and particle colors together. This is useful for glow effects, like those you might use for fire or magic spells.<br><br><strong>Subtractive</strong>: Subtracts particle colors from the background, which darkens the particles against the background. This is useful for foggy effects, like those you might use for steam, or thick black smoke.<br><br><strong>Modulate</strong>: Multiplies the material pixels with the background color. This is useful for portals and light-rays.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Color Mode</strong></td>
+<td style="text-align:left">Control how the albedo texture is combined with the particle color. The <strong>Color Mode</strong> options are:<br><br><strong>Multiply</strong>: Multiplies the particle color with the particle texture. <br><br><strong>Additive</strong>: Preserves a hot spot, such as a white part of the particle texture, while adding the particle color to the darker pixels of the texture. <br><br><strong>Subtractive</strong>: Subtracts the particle color from the particle texture. <br><br><strong>Overlay</strong>: Gives more contrast to the original color and adds the particle color to the gray values. This is similar to Additive, but preserves the original colors.<br><br><strong>Color</strong>: Uses the alpha channel from the particle texture and the color from the particle itself. This is useful for overwriting particles with the same color, while keeping their original &quot;shape&quot;.<br><br><strong>Difference</strong>: Subtracts the particle color from the texture, or the texture from the color, to get a positive value. This is useful for a range of effects where you want a more dynamic color change. <br><br>See image below table for a demonstration of this effect.</td>
+</tr>
+</tbody>
+</table>
+<p><img src="../uploads/Main/SPSSColorModes.png" alt="Color Modes allow for different ways of combining the particle color with the albedo texture"></p>
+<h3 id="main-options">Main Options</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Flip-Book Mode</strong></td>
+<td style="text-align:left">Render flip-books as individual frames or blend the frames together to give smoother animations. Set to either:<br><strong>Simple</strong> - Render frames in a flip-book as a sequence of individual frames.<br><strong>Blended</strong> - Blend the frames in a flip-book to render the flip-book as a smooth animation.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Two Sided</strong></td>
+<td style="text-align:left">Render both the front and back faces of the particle. When disabled, Unity only renders the front face of the geometry, which is the face in the camera’s view.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Soft Particles</strong></td>
+<td style="text-align:left">Fade out particles when they get close to the surface of objects written into the depth buffer. This is useful for avoiding hard edges when particles intersect with opaque geometry. For example, by enabling soft particles, you can make the particle system emit particles close to an opaque surface without causing harsh intersections with the surface:<br><br><img src="../uploads/Main/SPSSSoftParticles.png" alt=""></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Camera Fading</strong></td>
+<td style="text-align:left">Fade out particles when they get close to the camera. Set to:<br><strong>Near fade</strong> - The closest distance particles can get to the camera before they fade from the camera’s view.<br><strong>Far fade</strong> - The farthest distance particles can get away from the camera before they fade from the camera’s view.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Distortion</strong></td>
+<td style="text-align:left">Make particles perform fake refraction with the objects drawn before them. Distortion is ideal for creating heat haze effects for fire, for example:<br><br><img src="../uploads/Main/SPSSEnableDistortion.png" alt=""><br>This effect can be quite expensive because it captures the current frame to a texture.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="standard-particles-surface-shader">Standard Particles Surface Shader</h2>
+<p>This shader comes with functionality similar to the Standard Shader, but works especially well with particles. Like the Standard Shader, it supports Physically Based Shading. It does not include features that are unsuitable for dynamic particles, such as lightmapping.</p>
+<p><img src="../uploads/Main/SPSSStandardSurfaceShaderProperties.png" alt=""></p>
+<p><img src="../uploads/Main/SPSSBillboardParticles.png" alt="An example of billboard particles using the Standard Particle Surface Shader with a normal map"></p>
+<h2 id="standard-particles-unlit-shader">Standard Particles Unlit Shader</h2>
+<p>This simple shader is faster than the Surface Shader. It supports all of the generic particle controls, such as flipbook blending and distortion, but does not perform any lighting calculations.</p>
+<p><img src="../uploads/Main/SPSSStandardUnlitShader.png" alt=""></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

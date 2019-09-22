@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Sprites | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Sprites | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="sprites">Sprites</h1>
+
+<p><strong>Sprites</strong> are 2D Graphic objects. If you are used to working in 3D, <strong>Sprites</strong> are essentially just standard textures but there are special techniques for combining and managing sprite textures for efficiency and convenience during development.</p>
+<p>Unity provides a placeholder <a href="SpriteCreator.html">Sprite Creator</a>, a built-in <a href="SpriteEditor.html">Sprite Editor</a>, a <a href="class-SpriteRenderer.html">Sprite Renderer</a> and a <a href="SpritePacker.html">Sprite Packer</a></p>
+<p>See <strong>Importing and Setting up Sprites</strong> below for information on setting up assets as <strong>Sprites</strong> in your Unity project.</p>
+<h2 id="sprite-tools">Sprite Tools</h2>
+<h3 id="sprite-creator">Sprite Creator</h3>
+<p>Use the <a href="SpriteCreator.html">Sprite Creator</a> to create placeholder sprites in your project, so you can carry on with development without having to source or wait for graphics.</p>
+<h3 id="sprite-editor">Sprite Editor</h3>
+<p>The <a href="SpriteEditor.html">Sprite Editor</a> lets you extract sprite graphics from a larger image and edit a number of component images within a single texture in your image editor. You could use this, for example, to keep the arms, legs and body of a character as separate elements within one image.</p>
+<h3 id="sprite-renderer">Sprite Renderer</h3>
+<p>Sprites are rendered with a <a href="class-SpriteRenderer.html">Sprite Renderer</a> component rather than the <a href="class-MeshRenderer.html">Mesh Renderer</a> used with 3D objects. Use it to display images as <strong>Sprites</strong> for use in both 2D and 3D scenes.</p>
+<h3 id="sprite-packer">Sprite Packer</h3>
+<p>Use <a href="SpritePacker.html">Sprite Packer</a> to opimize the use and performance of video memory by your project.</p>
+<h2 id="importing-and-setting-up-sprites">Importing and Setting Up Sprites</h2>
+<p><strong>Sprites</strong> are a type of <strong>Asset</strong> in  Unity projects. You can see them, ready to use, via the <strong>Project</strong> view. </p>
+<p>There are two ways to bring <strong>Sprites</strong> into your project:</p>
+<ol>
+<li><p>In your computer&#39;s Finder (Mac OS X)  or File Explorer (Windows), place your image directly into your Unity Project&#39;s <strong>Assets</strong> folder. </p>
+<p> Unity detects this and displays it in your project&#39;s <strong>Project</strong> view.</p>
+</li>
+<li><p>In Unity, go to <strong>Assets</strong> &gt; <strong>Import New Asset</strong> to bring up your computer&#39;s Finder (Mac OS X)  or File Explorer (Windows). </p>
+<p> From there, select the image you want, and Unity puts it in the <strong>Project</strong> view.</p>
+</li>
+</ol>
+<p>See <a href="ImportingAssets.html">Importing</a> for more details on this and important information about organising your <strong>Assets</strong> folder.</p>
+<h3 id="setting-your--image-as-a-sprite">Setting your  Image as a Sprite</h3>
+<p>If your project mode is set to 2D, the image you import is automatically set as a <strong>Sprite</strong>. For details on setting your project mode to 2D, see <a href="2Dor3D.html">2D or 3D Projects</a>.</p>
+<p>However, if your project mode is set to 3D, your image is set as a <strong>Texture</strong>, so you need to change the asset&#39;s <strong>Texture Type</strong>:</p>
+<ol>
+<li>Click on the asset to see its <strong>Import Inspector</strong>. </li>
+<li>Set the <strong>Texture Type</strong> to <strong>Sprite (2D and UI)</strong>:</li>
+</ol>
+<p><img src="../uploads/Main/TextureTypeSprite.png" alt="Set Texture Type to Sprite (2D and UI) in the Asset&#39;s Inspector"></p>
+<p>For details on Sprite <strong>Texture Type</strong> settings, see <a href="https://docs.unity3d.com/Manual/TextureTypes.html#Sprite">Texture type: Sprite (2D and UI)</a>.</p>
+<h2 id="sorting-sprites">Sorting Sprites</h2>
+<p>Renderers in Unity are sorted by several criteria, such as their Layer order or their distance from the Camera. Unity’s GraphicsSettings (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Graphics</strong> category) provide a setting called <strong>Transparency Sort Mode</strong>, which allows you to control how Sprites are sorted depending on where they are in relation to the Camera. More specifically, it uses the Sprite’s position on an axis to determine which ones are transparent against others, and which are not. </p>
+<p>An example of when you might use this setting is to sort Sprites along the Y axis. This is quite common in 2D games, where Sprites that are higher up are sorted behind Sprites that are lower, to make them appear further away.</p>
+<p><img src="../uploads/Main/AxisDistanceSort2.png" alt=""></p>
+<p>There are four <strong>Transparency Sort Mode</strong> options available:</p>
+<p><img src="../uploads/Main/AxisDistanceSort.png" alt=""></p>
+<ul>
+<li><p><strong>Default</strong> - Sorts based on whether the Camera’s <strong>Projection</strong> mode is set to <strong>Perspective</strong> or <strong>Orthographic</strong></p>
+</li>
+<li><p><strong>Perspective</strong> - Sorts based on perspective view. Perspective view sorts Sprites based on the distance from the Camera’s position to the Sprite’s center.</p>
+</li>
+<li><p><strong>Orthographic</strong> - Sorts based on orthographic view. Orthographic view sorts Sprites based on the distance along the view direction.</p>
+</li>
+<li><p><strong>Custom Axis</strong> - Sorts based on the given axis set in Transparency Sort Axis</p>
+</li>
+</ul>
+<p>If you have set the <strong>Transparency Sort Mode</strong> to <strong>Custom</strong>, you then need to set the <strong>Transparency Sort Axis</strong>:</p>
+<p><img src="../uploads/Main/AxisDistanceSort1.png" alt=""></p>
+<p>If the <strong>Transparency Sort Mode</strong> is set to <strong>Custom Axis</strong>, renderers in the Scene view are sorted based on the distance of this axis from the camera. Use a value between -1 and 1 to define the axis. For example: X=0, Y=1, Z=0 sets the axis direction to up. X=1, Y=1, Z=0 sets the axis to a diagonal direction between X and Y.</p>
+<p>For example, if you want Sprites to behave like the ones in the image above (those higher up the y axis standing behind the Sprites that are lower on the axis), set the <strong>Transparency Sort Mode</strong> to <strong>Custom Axis</strong>, and set the <strong>Y</strong> value for the <strong>Transparency Sort Axis</strong> to a value higher than 0.</p>
+<h2 id="sorting-sprites-using-script">Sorting Sprites using script</h2>
+<p>You can also sort Sprites per camera through scripts, by modifying the following properties in Camera:</p>
+<ul>
+<li><p><a href="ScriptRef:Camera-transparencySortMode.html">TransparencySortMode</a> (corresponds with <strong>Transparency Sort Mode</strong>)</p>
+</li>
+<li><p><a href="ScriptRef:Camera-transparencySortAxis.html">TransparencySortAxis</a> (corresponds with <strong>Transparency Sort Axis</strong>)</p>
+</li>
+</ul>
+<p>For example:</p>
+<pre><code>var camera = GetComponent&lt;Camera&gt;();
+
+camera.transparencySortMode = TransparencySortMode.CustomAxis;
+
+camera.transparencySortAxis = new Vector3(0.0f, 1.0f, 0.0f);
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Limitations when importing from other applications | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Limitations when importing from other applications | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="limitations-when-importing-from-other-applications">Limitations when importing from other applications</h1>
+
+<p>When Unity imports a proprietary file, it launches the 3D modeling software in the background. Unity then communicates with that proprietary software to convert the native file into a format Unity can read. </p>
+<p>The first time you import a proprietary file into Unity, the 3D modeling software has to launch in a command-line process. This can take a while, but subsequent imports are very quick.</p>
+<p><strong>Warning:</strong> It is recommended that you <a href="HOWTO-exportFBX.html">export to FBX</a> instead of directly saving your application files in the Project. It is not recommended to use native file formats directly in production.</p>
+<h2 id="requirements">Requirements</h2>
+<p>You need to have the 3D modeling software installed to import proprietary files directly into Unity. 
+If you don&#39;t have the software installed, use the FBX format instead. 
+For more information about importing FBX files, see <a href="class-FBXImporter.html">Model Import Settings window</a>.</p>
+<h2 id="application-specific-issues">Application-specific issues</h2>
+<p>You <a href="class-FBXImporter.html">import files</a> in the same way, regardless of whether they are generic or proprietary files. However, there are some differences between which features are supported. For more information on the limitations with a specific 3D application, see:</p>
+<ul>
+<li><a href="#Maya">Importing objects from Autodesk® Maya®</a></li>
+<li><a href="#Cinema4D">Importing objects from Cinema 4D</a></li>
+<li><a href="#Max">Importing objects from Autodesk® 3ds Max®</a></li>
+<li><a href="#Cheetah3D">Importing objects from Cheetah3D</a></li>
+<li><a href="#Modo">Importing objects from Modo</a></li>
+<li><a href="#Lightwave">Importing objects from LightWave</a></li>
+<li><a href="#Blender">Importing objects from Blender</a></li>
+<li><a href="HOWTO-ImportObjectSketchUp.html">SketchUp Settings</a></li>
+</ul>
+<p><a name="Maya"></a></p>
+<h2 id="importing-objects-from-autodesk-maya">Importing objects from Autodesk® Maya®</h2>
+<p>Unity imports Autodesk® Maya® files (<em>.mb</em> and <em>.ma</em>) through the FBX format, supporting the following:</p>
+<ul>
+<li>All nodes with position, rotation and scale; pivot points and names are also imported</li>
+<li>Meshes with vertex colors, normals and up to 2 UV sets</li>
+<li>Materials with texture and diffuse color; multiple materials per mesh</li>
+<li>Animation </li>
+<li>Joints</li>
+<li>Blendshapes</li>
+<li>Lights and Cameras</li>
+<li>Visibilty</li>
+<li>Custom property animation</li>
+</ul>
+<p><em>Tip</em>: For information on how to export an FBX file from Autodesk® Maya®, see <a href="HOWTO-exportFBX.html">Exporting from other applications</a>.</p>
+<h3 id="limitations">Limitations</h3>
+<p>Unity does not support Autodesk® Maya®&#39;s <em>Rotate Axis</em> (pre-rotation).</p>
+<p>Joint limitations include: </p>
+<ul>
+<li><em>Joint Orient</em> (joint only post-rotation)</li>
+<li><em>Segment Scale Compensate</em> (joint only option)</li>
+</ul>
+<p>Unity imports and supports any <em>Rotate Order</em> you specify in Autodesk® Maya®; however, once imported, you cannot change that order again inside Unity. 
+If you import a Model that uses a different rotation order from Unity&#39;s, Unity <a href="AnimationEulerCurveImport#RotationOrder">displays that rotation order</a> in the <strong>Inspector</strong> beside the <strong>Rotation</strong> property.</p>
+<h3 id="tips-and-troubleshooting">Tips and troubleshooting</h3>
+<ul>
+<li>Keep your scene simple: only export the objects you need in Unity when exporting.</li>
+<li>Unity only supports polygons, so convert any patches or NURBS surfaces into polygons before exporting; see <a href="https://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2015/ENU/Maya/files/Polygon-selection-and-creation-Convert-NURBS-surfaces-to-a-polygon-mesh-htm.html">Autodesk® Maya® documentation</a> for instructions.</li>
+<li>If your model did not export correctly, the node history in Autodesk® Maya® might be causing a problem. In Autodesk® Maya®, select <strong>Edit</strong> &gt; <strong>Delete by Type</strong> &gt; <strong>Non-Deformer History</strong> and then re-export the model.</li>
+<li>The Autodesk® Maya® FBX Exporter bakes un-supported complex animations constraints, such as Set Driven Keys, in order to import the animation into Unity properly. If you are using Set Driven Keys in Autodesk® Maya®, make sure to set keys on your drivers in order for the animation to be baked properly. For more information, see the Autodesk® Maya® documentation on Keyframe Animation.</li>
+<li>In Autodesk® Maya®, the visibility value is present on each shape but can&#39;t be animated and is not exported to the FBX file. Always set the visibility value on a node and not on a shape. </li>
+</ul>
+<p><a name="Cinema4D"></a></p>
+<h2 id="importing-objects-from-cinema-4d">Importing objects from Cinema 4D</h2>
+<p>Unity imports Cinema 4D files (<em>.c4d</em>) through the FBX format, supporting the following:</p>
+<ul>
+<li>All objects with position, rotation and scale; pivot points and names are also imported</li>
+<li>Meshes with UVs and normals</li>
+<li>Materials with texture and diffuse color; multiple materials per mesh</li>
+<li>Animations FK (IK needs to be baked manually)</li>
+<li>Bone-based animations</li>
+</ul>
+<p><em>Tip</em>: For information on how to export an FBX file from Cinema 4D, see <a href="HOWTO-exportFBX.html">Exporting from other applications</a>.</p>
+<h3 id="limitations-1">Limitations</h3>
+<p>Unity does not import Cinema 4D&#39;s Point Level Animations (PLA). Use bone-based animations instead.</p>
+<p>Cinema 4D does not export visibility inheritance. Set the Renderer to ‘Default&#39; or ‘Off&#39; in Cinema 4D to avoid any difference in the visibility animation between Cinema4D and Unity.</p>
+<p><a name="Max"></a></p>
+<h2 id="importing-objects-from-autodesk-3ds-max">Importing Objects From Autodesk® 3ds Max®</h2>
+<p>Unity imports Autodesk® 3ds Max® files (<em>.max</em>) through the FBX format, supporting the following:</p>
+<ul>
+<li>All nodes with position, rotation and scale; pivot points and names are also imported</li>
+<li>Meshes with vertex colors, normals and one or more UV sets</li>
+<li>Materials with diffuse texture and color. Multiple materials per mesh</li>
+<li>Animations</li>
+<li>Bone-based animations</li>
+<li>Morphing (Blendshapes)</li>
+<li>Visibility</li>
+</ul>
+<p><strong>Note</strong>: Saving a Autodesk® 3ds Max® file (.max) or exporting a generic 3D file type (.fbx) each has advantages and disadvantages see <a href="class-Mesh.html">class-Mesh</a>.</p>
+<p><em>Tip</em>: For information on how to export an FBX file from Autodesk® 3ds Max®, see <a href="HOWTO-exportFBX.html">Exporting from other applications</a>.</p>
+<p><a name="Cheetah3D"></a></p>
+<h2 id="importing-objects-from-cheetah3d">Importing objects from Cheetah3D</h2>
+<p>Unity imports Cheetah3D files (<em>.jas</em>) through the FBX format, supporting the following:</p>
+<ul>
+<li>All nodes with position, rotation and scale; pivot points and names are also imported</li>
+<li>Meshes with vertices, polygons, triangles, UVs, and normals</li>
+<li>Animations</li>
+<li>Materials with diffuse color and textures</li>
+</ul>
+<p><em>Tip</em>: For information on how to export an FBX file from Cheetah3D, see <a href="HOWTO-exportFBX.html">Exporting from other applications</a>.</p>
+<p><a name="Modo"></a></p>
+<h2 id="importing-objects-from-modo">Importing objects from Modo</h2>
+<p>Unity imports Modo files (<em>.lxo</em>) through the FBX format, supporting the following:</p>
+<ul>
+<li>All nodes with position, rotation and scale; pivot points and names are also imported</li>
+<li>Meshes with vertices, normals and UVs.</li>
+<li>Materials with Texture and diffuse color; multiple Materials per mesh</li>
+<li>Animations</li>
+</ul>
+<p>To get started, save your <strong>.lxo</strong> file in your Project&#39;s Assets folder. In Unity, the file appears in the Project View.</p>
+<p>Unity re-imports the Asset when it detects a change in the .lxo file.</p>
+<p><em>Tip</em>: For information on how to export an FBX file from Modo, see <a href="HOWTO-exportFBX.html">Exporting from other applications</a>.</p>
+<p><a name="Lightwave"></a></p>
+<h2 id="importing-objects-from-lightwave">Importing objects from Lightwave</h2>
+<p>Unity imports Lightwave files through the FBX format, supporting the following:</p>
+<ul>
+<li>All nodes with position, rotation and scale; pivot points and names are also imported</li>
+<li>Meshes with up to 2 UV channels</li>
+<li>Normals</li>
+<li>Materials with Texture and diffuse color; multiple materials per mesh</li>
+<li>Animations</li>
+<li>Bone-based animations</li>
+</ul>
+<p>You can also configure the Lightwave AppLink plug-in which automatically saves the FBX export settings you use the first time you import your Lightwave scene file into Unity. 
+For more information, see the <a href="https://docs.lightwave3d.com/display/LW2018/Unity">Lightwave Unity Interchange documentation</a>.</p>
+<p><em>Tip</em>: For information on how to export an FBX file from Lightwave file, see <a href="HOWTO-exportFBX.html">Exporting from other applications</a>.</p>
+<h3 id="limitations-2">Limitations</h3>
+<p>Bake your Lightwave-specific materials as textures so that Unity can read them. For information on doing this using a non-destructive pipeline, see <a href="https://www.lightwave3d.com/learn/article/using-lightwave-to-create-uv-maps-for-military-assets/">Node system in Lightwave</a>.</p>
+<p>Unity does not support splines or patches. Convert all splines and patches to polygons before saving and exporting to Unity. For more information, see <a href="https://docs.lightwave3d.com/display/LW2018/Patch">Lightwave documentation</a>.</p>
+<p><a name="Blender"></a></p>
+<h2 id="importing-objects-from-blender">Importing objects from Blender</h2>
+<p>Unity imports <a href="https://docs.blender.org/">Blender</a> (<em>.blend</em>) files through the FBX format, supporting the following:</p>
+<ul>
+<li>All nodes with position, rotation and scale; pivot points and names are also imported</li>
+<li>Meshes with vertices, polygons, triangles, UVs, and normals</li>
+<li>Bones</li>
+<li>Skinned Meshes</li>
+<li>Animations</li>
+</ul>
+<p>For information on how to optimize importing your Blender file into Unity, see <a href="HOWTO-exportFBX.html">Exporting from other applications</a>.</p>
+<h3 id="limitations-3">Limitations</h3>
+<p>Textures and diffuse color are not assigned automatically. You can manually assign them by dragging the texture onto the mesh in the <strong>Scene View</strong> in Unity.</p>
+<p>Blender does not export the visibility value inside animations in the FBX file.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

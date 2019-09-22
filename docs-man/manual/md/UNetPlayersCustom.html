@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Custom Player Spawning | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Custom Player Spawning | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="custom-player-spawning">Custom Player Spawning</h1>
+
+<p>The Network Manager offers a built-in simple player spawning feature, however you may want to customize the player spawning process - for example to assign a colour to each new player spawned.</p>
+<p>To do this you need to override the default behaviour of the Network Manager with your own script.</p>
+<p>When the Network Manager adds a player, it also instantiates a GameObject from the Player Prefab and associates it with the connection. To do this, the Network Manager calls <a href="ScriptRef:Networking.NetworkServer.AddPlayerForConnection.html">NetworkServer.AddPlayerForConnection</a>. You can modify this behaviour by overriding <a href="ScriptRef:Networking.NetworkManager.OnServerAddPlayer.html">NetworkManager.OnServerAddPlayer</a>. The default implementation of <code>OnServerAddPlayer</code> instantiates a new player instance from the player Prefab and calls <a href="ScriptRef:Networking.NetworkServer.AddPlayerForConnection.html">NetworkServer.AddPlayerForConnection</a> to spawn the new player instance. Your custom implementation of <code>OnServerAddPlayer</code> must also call <code>NetworkServer.AddPlayerForConnection</code>, but your are free to perform any other initialization you require in that method too. </p>
+<p>The example below customizes the color of a player. First, add the color script to the player prefab:</p>
+<pre><code>using UnityEngine;
+using UnityEngine.Networking;
+class Player : NetworkBehaviour
+{
+    [SyncVar]
+    public Color color;
+}
+</code></pre><p>Next, create a <a href="ScriptRef:Networking.NetworkManager.html">NetworkManager</a> to handle spawning.</p>
+<pre><code>using UnityEngine;
+using UnityEngine.Networking;
+public class MyNetworkManager : NetworkManager
+{
+    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
+    {
+        GameObject player = (GameObject)Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        player.GetComponent&lt;Player&gt;().color = Color.red;
+        NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+    }
+}
+</code></pre><p>The function <code>NetworkServer.AddPlayerForConnection</code> does not have to be called from within <code>OnServerAddPlayer</code>. As long as the correct connection object and <code>playerControllerId</code> are passed in, it can be called after <code>OnServerAddPlayer</code> has returned. This allows asynchronous steps to happen in between, such as loading player data from a remote data source.</p>
+<p>Although in most multiplayer games, you typically want one player for each client, the <a href="UNetUsingHLAPI.html">HLAPI</a> treats players and clients as separate concepts.This is because, in some situations (for example, if you have multiple controllers connected to a console system), you might need multiple player GameObjects for a single connection. When there are multiple players on one connection, you should use the <code>playerControllerId</code> property to tell them apart. This identifier is scoped to the connection, so that it maps to the ID of the controller associated with the player on that client.</p>
+<p>The system automatically spawns the player GameObject passed to <code>NetworkServer.AddPlayerForConnection</code> on the server, so you don’t need to call <a href="ScriptRef:Networking.NetworkServer.Spawn.html">NetworkServer.Spawn</a> for the player. Once a player is ready, the active networked GameObjects (that is, GameObjects with an associated <a href="UNetSpawning.html">NetworkIdentity</a>) in the Scene spawn on the player’s client. All networked GameObjects in the game are created on that client with their latest state, so they are in sync with the other participants of the game.</p>
+<p>You don’t need to use <a href="ScriptRef:Networking.NetworkManager-playerPrefab.html">playerPrefab</a> on the <code>NetworkManager</code> to create player GameObjects. You could use different methods of creating different players.</p>
+<h2 id="ready-state">Ready state</h2>
+<p>In addition to players, client connections also have a &quot;ready&quot; state. The host sends clients that are ready information about spawned GameObjects and state synchronization updates; clients which are not ready are not sent these updates. When a client initially connects to a server, it is not ready. While in this non-ready state, the client can do things that don’t require real-time interactions with the game state on the server, such as loading Scenes, allowing the player to choose an avatar, or fill in log-in boxes. Once a client has completed all its pre-game work, and all its Assets are loaded, it can call <a href="ScriptRef:Networking.ClientScene-ready.html">ClientScene.Ready</a> to enter the “ready” state. The simple example above demonstrates implementation of ready states; because adding a player with <code>NetworkServer.AddPlayerForConnection</code> also puts the client into the ready state if it is not already in that state.</p>
+<p>Clients can send and receive network messages without being ready, which also means they can do so without having an active player GameObject. So a client at a menu or selection screen can connect to the game and interact with it, even though they have no player GameObject. See documentation on <a href="UNetMessages.html">Network messages</a> for more details about  sending messages without using commands and RPC calls.</p>
+<h2 id="switching-players">Switching players</h2>
+<p>To replace the player GameObject for a connection, use <a href="ScriptRef:Networking.NetworkServer.ReplacePlayerForConnection.html">NetworkServer.ReplacePlayerForConnection</a>. This is useful for restricting the commands that players can issue at certain times, such as in a pre-game lobby screen. This function takes the same arguments as <code>AddPlayerForConnection</code>, but allows there to already be a player for that connection. The old player GameObject does not have to be destroyed. The <a href="ScriptRef:Networking.NetworkLobbyManager.html">NetworkLobbyManager</a> uses this technique to switch from the <a href="ScriptRef:Networking.NetworkLobbyPlayer.html">NetworkLobbyPlayer</a> GameObject to a gameplay player GameObject when all the players in the lobby are ready.</p>
+<p>You can also use <code>ReplacePlayerForConnection</code> to respawn a player after their GameObject is destroyed. In some cases it is better to just disable a GameObject and reset its game attributes on respawn. The following code sample demonstrates how to actually replace the destroyed GameObject with a new GameObject:</p>
+<pre><code>class GameManager
+{
+    public void PlayerWasKilled(Player player)
+    {
+        var conn = player.connectionToClient;
+        var newPlayer = Instantiate&lt;GameObject&gt;(playerPrefab);
+        Destroy(player.gameObject);
+        NetworkServer.ReplacePlayerForConnection(conn, newPlayer, 0);
+    }
+}
+</code></pre><p>If the player GameObject for a connection is destroyed, then that client cannot execute Commands. They can, however, still send network messages.</p>
+<p>To use <code>ReplacePlayerForConnection</code> you must have the <a href="ScriptRef:Networking.NetworkConnection.html">NetworkConnection</a> GameObject for the player’s client to establish the relationship between the GameObject and the client. This is usually the property <a href="ScriptRef:Networking.NetworkBehaviour-connectionToClient.html">connectionToClient</a> on the <a href="ScriptRef:Networking.NetworkBehaviour.html">NetworkBehaviour</a> class, but if the old player has already been destroyed, then that might not be readily available.</p>
+<p>To find the connection, there are some lists available. If using the <code>NetworkLobbyManager</code>, then the lobby players are available in <a href="ScriptRef:Networking.NetworkLobbyManager-lobbySlots.html">lobbySlots</a>. The <a href="ScriptRef:Networking.NetworkServer.html">NetworkServer</a> also has lists of <a href="ScriptRef:Networking.NetworkServer-connections.html">connections</a> and <a href="ScriptRef:Networking.NetworkServer-localConnections.html">localConnections</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

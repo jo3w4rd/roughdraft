@@ -1,0 +1,679 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Struct PhysicsJobOptions2D
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct PhysicsJobOptions2D
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.PhysicsJobOptions2D">
+  
+  
+  <h1 id="UnityEngine_PhysicsJobOptions2D" data-uid="UnityEngine.PhysicsJobOptions2D">Struct PhysicsJobOptions2D
+  </h1>
+  <div class="markdown level0 summary"><p>A set of options that control how physics operates when using the job system to multithread the physics simulation.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.html">UnityEngine</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_PhysicsJobOptions2D_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct PhysicsJobOptions2D</code></pre>
+  </div>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Multithreaded physics is currently an experimental feature. As such, many options are exposed that allow performance configuration that may not be available when the feature moves out of experimental status.</p>
+<p>A physics simulation executes in the following discrete stages:</p>
+<p>• Find New Contacts</p>
+<p>• Contact Collision</p>
+<p>• Discrete Solver (Clear Island Flags -&gt; Discrete Island Traversal -&gt; Discrete Island Solver -&gt; Synchronize Fixtures -&gt; Find New Contacts)</p>
+<p>• Continuous Solver (Clear Island Flags &gt; Continuous Island Traversal -&gt; Discrete Island Solver -&gt; Synchronize Fixtures -&gt; Find New Contacts)</p>
+<p>• Clear Body Forces</p>
+<p>• Update Trigger Contacts</p>
+<p>These stages execute in the order given above. Each stage is run as a job &quot;task&quot;. Each task executes sub job tasks, which are shown in parenthesis above. When executing a job, physics simulation may process bodies, contacts, joints, and so on, across multiple job threads. You can task each of these threads with executing a specific number of items, such as bodies, contacts and joints. Many of the options provided here allow you to control the minimum number of items assigned to each job. Raising the minimum can reduce the number of jobs required. This is because running a lot of jobs, each processing only a few items, is usually not very efficient. The default settings provide a decent performance to job balance, however you are free to experiment.</p>
+<p>Additionally, prior to the simulation being run, <a class="xref" href="UnityEngine.Rigidbody2D.html">Rigidbody2D</a> interpolation/extrapolation poses are stored ready for per-frame interpolation/extrapolation.  These are also executed using the job system and are controlled here.</p>
+</div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_clearBodyForcesPerJob_" data-uid="UnityEngine.PhysicsJobOptions2D.clearBodyForcesPerJob*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_clearBodyForcesPerJob" data-uid="UnityEngine.PhysicsJobOptions2D.clearBodyForcesPerJob">clearBodyForcesPerJob</h4>
+  <div class="markdown level1 summary"><p>Controls the minimum number of bodies to be cleared in each simulation job.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int clearBodyForcesPerJob { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_clearBodyForcesPerJob_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For an overview of these properties and advice on how to use them, see <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+<p>The following job profiler names are affected by this property:</p>
+<p>• Physics2D.ClearBodyForcesJob.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_clearFlagsPerJob_" data-uid="UnityEngine.PhysicsJobOptions2D.clearFlagsPerJob*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_clearFlagsPerJob" data-uid="UnityEngine.PhysicsJobOptions2D.clearFlagsPerJob">clearFlagsPerJob</h4>
+  <div class="markdown level1 summary"><p>Controls the minimum number of flags to be cleared in each simulation job.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int clearFlagsPerJob { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_clearFlagsPerJob_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For an overview of these properties and advice on how to use them, see <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+<p>The following job profiler names are affected by this property:</p>
+<p>• Physics2D.ClearContactIslandFlagsJob</p>
+<p>• Physics2D.ClearBodyIslandFlagsJob.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_collideContactsPerJob_" data-uid="UnityEngine.PhysicsJobOptions2D.collideContactsPerJob*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_collideContactsPerJob" data-uid="UnityEngine.PhysicsJobOptions2D.collideContactsPerJob">collideContactsPerJob</h4>
+  <div class="markdown level1 summary"><p>Controls the minimum number of contacts to collide in each simulation job.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int collideContactsPerJob { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_collideContactsPerJob_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For an overview of these properties and advice on how to use them, see <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+<p>The following job profiler names are affected by this property:</p>
+<p>• Physics2D.ContactsCollideJob.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_findNearestContactsPerJob_" data-uid="UnityEngine.PhysicsJobOptions2D.findNearestContactsPerJob*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_findNearestContactsPerJob" data-uid="UnityEngine.PhysicsJobOptions2D.findNearestContactsPerJob">findNearestContactsPerJob</h4>
+  <div class="markdown level1 summary"><p>Controls the minimum number of nearest contacts to find in each simulation job.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int findNearestContactsPerJob { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_findNearestContactsPerJob_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For an overview of these properties and advice on how to use them, see <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+<p>The following job profiler names are affected by this property:</p>
+<p>• Physics2D.FindMinimumContinuousContactJob.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_interpolationPosesPerJob_" data-uid="UnityEngine.PhysicsJobOptions2D.interpolationPosesPerJob*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_interpolationPosesPerJob" data-uid="UnityEngine.PhysicsJobOptions2D.interpolationPosesPerJob">interpolationPosesPerJob</h4>
+  <div class="markdown level1 summary"><p>Controls the minimum number of <a class="xref" href="UnityEngine.Rigidbody2D.html">Rigidbody2D</a> being interpolated in each simulation job.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int interpolationPosesPerJob { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_interpolationPosesPerJob_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For an overview of these properties and advice on how to use them, see <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+<p>The following job profiler names are affected by this property:</p>
+<p>• Physics2D.StoreInterpolationPosesJob</p>
+<p>• Physics2D.InterpolationPosesJob.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_islandSolverBodiesPerJob_" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverBodiesPerJob*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_islandSolverBodiesPerJob" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverBodiesPerJob">islandSolverBodiesPerJob</h4>
+  <div class="markdown level1 summary"><p>Controls the minimum number of bodies to solve in each simulation job when performing island solving.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int islandSolverBodiesPerJob { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_islandSolverBodiesPerJob_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For an overview of these properties and advice on how to use them, see <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+<p>The following job profiler names are affected by this property:</p>
+<p>• Physics2D.SolveDiscreteIslandSyncBodiesJob</p>
+<p>• Physics2D.SolveDiscreteIslandVelocitiesJob</p>
+<p>• Physics2D.SolveContinuousIslandIntegratePositionsJob.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_islandSolverBodyCostScale_" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverBodyCostScale*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_islandSolverBodyCostScale" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverBodyCostScale">islandSolverBodyCostScale</h4>
+  <div class="markdown level1 summary"><p>Scales the cost of each body during discrete island solving.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int islandSolverBodyCostScale { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_islandSolverBodyCostScale_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>See ::ref::islandSolverCostThreshold for a full description of discrete island solving costs.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_islandSolverContactCostScale_" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverContactCostScale*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_islandSolverContactCostScale" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverContactCostScale">islandSolverContactCostScale</h4>
+  <div class="markdown level1 summary"><p>Scales the cost of each contact during discrete island solving.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int islandSolverContactCostScale { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_islandSolverContactCostScale_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>See ::ref::islandSolverCostThreshold for a full description of discrete island solving costs.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_islandSolverContactsPerJob_" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverContactsPerJob*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_islandSolverContactsPerJob" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverContactsPerJob">islandSolverContactsPerJob</h4>
+  <div class="markdown level1 summary"><p>Controls the minimum number of contacts to solve in each simulation job when performing island solving.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int islandSolverContactsPerJob { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_islandSolverContactsPerJob_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For an overview of these properties and advice on how to use them, see <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+<p>The following job profiler names are affected by this property:</p>
+<p>• Physics2D.InitializeContactSolverJob</p>
+<p>• Physics2D.WarmStartContactSolverJob.</p>
+<p>• Physics2D.InitializeVelocityConstraintsJob</p>
+<p>• Physics2D.SolvePositionConstraintsJob</p>
+<p>• Physics2D.SolveVelocityConstraintsJob</p>
+<p>• Physics2D.StoreConstraintImpulsesJob</p>
+<p>• Physics2D.SolveContinuousPositionConstraintsJob.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_islandSolverCostThreshold_" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverCostThreshold*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_islandSolverCostThreshold" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverCostThreshold">islandSolverCostThreshold</h4>
+  <div class="markdown level1 summary"><p>The minimum threshold cost of all bodies, contacts and joints in an island during discrete island solving.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int islandSolverCostThreshold { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_islandSolverCostThreshold_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The discrete island solver generates &quot;islands&quot;, which are bodies connected together by contacts. These contact islands are solved together as they all potentially affect each other when moving. The first stage is generating the contact islands. When a contact island has been created, it can then be evaluated in a job. However, executing lots of small contact islands each as a job can lead to lots of jobs, and can be very inefficient. To reduce the number of contact islands processed by each job, each job island has a cost associated with it. A job island&#39;s cost is automatically calculated by summing the cost of the island&#39;s bodies, contacts and joints. Each of these has its own scaling property, ::ref::islandSolverBodyCostScale, ::ref::islandSolverContactCostScale and ::ref::islandSolverJointCostScale respectively. The island is only processed by a job if the total cost of the island is above the ::ref::islandSolverCostThreshold.</p>
+<p>Increasing the cost threshold will increase the number of islands solved in each job.  Depending on the number and size of contact islands, this allows you to control the efficiency of discrete island solving.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_islandSolverJointCostScale_" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverJointCostScale*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_islandSolverJointCostScale" data-uid="UnityEngine.PhysicsJobOptions2D.islandSolverJointCostScale">islandSolverJointCostScale</h4>
+  <div class="markdown level1 summary"><p>Scales the cost of each joint during discrete island solving.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int islandSolverJointCostScale { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_islandSolverJointCostScale_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>See ::ref::islandSolverCostThreshold for a full description of discrete island solving costs.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_newContactsPerJob_" data-uid="UnityEngine.PhysicsJobOptions2D.newContactsPerJob*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_newContactsPerJob" data-uid="UnityEngine.PhysicsJobOptions2D.newContactsPerJob">newContactsPerJob</h4>
+  <div class="markdown level1 summary"><p>Controls the minimum number of new contacts to find in each simulation job.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int newContactsPerJob { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_newContactsPerJob_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For an overview of these properties and advice on how to use them, see <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+<p>The following job profiler names are affected by this property:</p>
+<p>• Physics2D.FindNewContactsFindJob.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_syncContinuousFixturesPerJob_" data-uid="UnityEngine.PhysicsJobOptions2D.syncContinuousFixturesPerJob*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_syncContinuousFixturesPerJob" data-uid="UnityEngine.PhysicsJobOptions2D.syncContinuousFixturesPerJob">syncContinuousFixturesPerJob</h4>
+  <div class="markdown level1 summary"><p>Controls the minimum number of fixtures to synchronize in the broadphase during continuous island solving in each simulation job.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int syncContinuousFixturesPerJob { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_syncContinuousFixturesPerJob_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For an overview of these properties and advice on how to use them, see <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+<p>The following job profiler names are affected by this property:</p>
+<p>• Physics2D.SynchronizeContinuousFixturesJob.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_syncDiscreteFixturesPerJob_" data-uid="UnityEngine.PhysicsJobOptions2D.syncDiscreteFixturesPerJob*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_syncDiscreteFixturesPerJob" data-uid="UnityEngine.PhysicsJobOptions2D.syncDiscreteFixturesPerJob">syncDiscreteFixturesPerJob</h4>
+  <div class="markdown level1 summary"><p>Controls the minimum number of fixtures to synchronize in the broadphase during discrete island solving in each simulation job.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int syncDiscreteFixturesPerJob { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_syncDiscreteFixturesPerJob_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For an overview of these properties and advice on how to use them, see <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+<p>The following job profiler names are affected by this property:</p>
+<p>• Physics2D.SynchronizeFixturesJob.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_updateTriggerContactsPerJob_" data-uid="UnityEngine.PhysicsJobOptions2D.updateTriggerContactsPerJob*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_updateTriggerContactsPerJob" data-uid="UnityEngine.PhysicsJobOptions2D.updateTriggerContactsPerJob">updateTriggerContactsPerJob</h4>
+  <div class="markdown level1 summary"><p>Controls the minimum number of trigger contacts to update in each simulation job.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int updateTriggerContactsPerJob { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_updateTriggerContactsPerJob_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For an overview of these properties and advice on how to use them, see <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+<p>The following job profiler names are affected by this property:</p>
+<p>• Physics2D.UpdateTriggerContactsJob.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_useConsistencySorting_" data-uid="UnityEngine.PhysicsJobOptions2D.useConsistencySorting*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_useConsistencySorting" data-uid="UnityEngine.PhysicsJobOptions2D.useConsistencySorting">useConsistencySorting</h4>
+  <div class="markdown level1 summary"><p>Should physics simulation sort multi-threaded results to maintain processing order consistency?</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool useConsistencySorting { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_useConsistencySorting_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When executing simulation steps on multiple CPU threads, separate batches of data are produced.  Processing these separate batches reduces determinism in processing order, although produces faster results.  If maintaining a consistent processing order becomes important to the simulation, then set this option to true. However, this involves sorting results, which can reduce overall performance.</p>
+</div>
+  
+  
+  <a id="UnityEngine_PhysicsJobOptions2D_useMultithreading_" data-uid="UnityEngine.PhysicsJobOptions2D.useMultithreading*"></a>
+  <h4 id="UnityEngine_PhysicsJobOptions2D_useMultithreading" data-uid="UnityEngine.PhysicsJobOptions2D.useMultithreading">useMultithreading</h4>
+  <div class="markdown level1 summary"><p>Should physics simulation use multithreading?</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool useMultithreading { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_PhysicsJobOptions2D_useMultithreading_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Turning on multithreading executes the simulation steps using the job system, and uses the options in <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a> to control how to achieve that. Turning off multithreading executes the simulation only on the main thread, and does not use the options in <a class="xref" href="UnityEngine.PhysicsJobOptions2D.html">PhysicsJobOptions2D</a>.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

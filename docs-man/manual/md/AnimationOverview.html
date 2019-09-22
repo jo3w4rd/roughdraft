@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Animation System Overview | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Animation System Overview | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="animation-system-overview">Animation System Overview</h1>
+
+<p>Unity has a rich and sophisticated animation system (sometimes referred to as &#39;<strong>Mecanim</strong>&#39;). It provides:</p>
+<ul>
+<li>Easy workflow and setup of animations for all elements of Unity including objects, characters, and properties.</li>
+<li>Support for <a href="class-AnimationClip.html">imported animation clips</a> and animation created within Unity</li>
+<li>Humanoid animation <a href="Retargeting.html">retargeting</a> - the ability to apply animations from one character model onto another.</li>
+<li>Simplified workflow for aligning animation clips.</li>
+<li>Convenient preview of animation clips, transitions and interactions between them. This allows animators to work more independently of programmers, prototype and preview their animations before gameplay code is hooked in.</li>
+<li>Management of complex interactions between animations with a visual programming tool.</li>
+<li>Animating different body parts with different logic.</li>
+<li>Layering and masking features</li>
+</ul>
+<p><img src="../uploads/Main/AnimationOverview-Controller.jpg" alt="Typical view of an Animation State Machine in the Animator window"> </p>
+<h2 id="animation-workflow">Animation workflow</h2>
+<p>Unity&#39;s animation system is based on the concept of <a href="AnimationClips.html">Animation Clips</a>, which contain information about how certain objects should change their position, rotation, or other properties over time. Each clip can be thought of as a single linear recording. Animation clips from external sources are created by artists or animators with 3rd party tools such as Autodesk® 3ds Max® or Autodesk® Maya®, or come from motion capture studios or other sources.</p>
+<p>Animation Clips are then organised into a structured flowchart-like system called an <a href="class-AnimatorController.html">Animator Controller</a>. The Animator Controller acts as a &quot;<a href="AnimationStateMachines.html">State Machine</a>&quot; which keeps track of which clip should currently be playing, and when the animations should change or blend together. </p>
+<p>A very simple Animator Controller might only contain one or two clips, for example to control a powerup spinning and bouncing, or to animate a door opening and closing at the correct time. A more advanced Animator Controller might contain dozens of humanoid animations for all the main character&#39;s actions, and might blend between multiple clips at the same time to provide a fluid motion as the player moves around the scene.</p>
+<p>Unity&#39;s Animation system also has numerous special features for handling humanoid characters which give you the ability to <a href="Retargeting.html">retarget</a> humanoid animation from any source (for example: motion capture; the Asset Store; or some other third-party animation library) to your own character model, as well as adjusting <a href="MuscleDefinitions.html">muscle definitions</a>. These special features are enabled by Unity&#39;s <a href="AvatarCreationandSetup.html">Avatar</a> system, where humanoid characters are mapped to a common internal format.</p>
+<p>Each of these pieces - the Animation Clips, the Animator Controller, and the Avatar, are brought together on a GameObject via the <a href="class-Animator.html">Animator Component</a>. This component has a reference to an Animator Controller, and (if required) the Avatar for this model. The Animator Controller, in turn, contains the references to the Animation Clips it uses.</p>
+<p><img src="../uploads/Main/MecanimHowItFitsTogether.jpg" alt="How the various parts of the animation system connect together"> </p>
+<p>The above diagram shows the following:</p>
+<ol>
+<li>Animation clips are <a href="class-AnimationClip.html">imported from an external source</a> or created within Unity. In this example, they are <a href="ConfiguringtheAvatar.html">imported motion captured humanoid animations</a>.</li>
+<li>The animation clips are placed and arranged in an Animator Controller. This shows a view of an Animator Controller in the Animator window. The States (which may represent animations or nested sub-state machines) appear as nodes connected by lines. This Animator Controller exists as an asset in the Project window.</li>
+<li>The rigged character model (in this case, the astronaut &quot;Astrella&quot;) has a specific configuration of bones which are mapped to Unity&#39;s common <a href="class-Avatar.html">Avatar</a> format. This mapping is stored as an Avatar asset as part of the imported character model, and also appears in the Project window as shown.</li>
+<li>When animating the character model, it has an Animator component attached. In the Inspector view shown above, you can see the <a href="class-Animator.html">Animator Component</a> which has both the <a href="class-AnimatorController.html">Animator Controller</a> and the <a href="class-Avatar.html">Avatar</a> assigned. The animator uses these together to animate the model. The Avatar reference is only necessary when animating a humanoid character. For <a href="GenericAnimations.html">other types of animation</a>, only an Animator Controller is required.</li>
+</ol>
+<p>Unity&#39;s animation system comes with a lot of concepts and terminology. If at any point, you need to find out what something means, go to our <a href="AnimationGlossary.html">Animation Glossary</a>.</p>
+<h2 id="legacy-animation-system">Legacy animation system</h2>
+<p>While Mecanim is recommended for use in most situations, Unity has retained its legacy animation system which existed before Unity 4. You may need to use when working with older content created before Unity 4. For information on the Legacy animation system, see <a href="Animations.html">this section</a></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

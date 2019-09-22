@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Shaders in Unity 5.0 | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Shaders in Unity 5.0 | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="shaders-in-unity-50">Shaders in Unity 5.0</h1>
+
+<p>These are notes to be aware of when upgrading projects from Unity 4 to Unity 5, if your project uses custom shader code.</p>
+<h3 id="shaders-no-longer-apply-a-2x-multiply-of-light-intensity">Shaders no longer apply a 2x multiply of light intensity</h3>
+<p>Shaders no longer apply a 2x multiply of light intensity. Instead lights are automatically upgraded to be twice as bright. This creates more consistency and simplicity in light rigs. For example a directional light shining on a white diffuse surface will get the exact color of the light. The upgrade does not affect animation, thus if you have an animated light intensity value you must change your animation curves or script code and make them 2x as large to get the same look.</p>
+<p>In the case of custom shaders where you define your own lighting functions, you need to remove the * 2 yourself.</p>
+<pre><code>// A common pattern in shader code that has this problem will look like this
+c.rgb = s.Albedo * _LightColor0.rgb * (diff * atten * 2);
+// You need to fix the code so it looks more like this
+c.rgb = s.Albedo * _LightColor0.rgb * (diff * atten);
+</code></pre><h3 id="increased-interpolator-and-instruction-counts-for-some-surface-shaders">Increased interpolator and instruction counts for some surface shaders</h3>
+<p>Built-in lighting pipeline in Unity 5 can in some cases use more texture coordinate interpolators or math instruction count (to get things like non-uniform mesh scale, dynamic GI etc. working). Some of your existing surface shaders might be running into texture coordinate or ALU instruction limits, especially if they were targeting shader model 2.0 (default). Adding &quot;#pragma target 3.0&quot; can work around this issue. See <a href="http://docs.unity3d.com/Manual/SL-ShaderPrograms.html">http://docs.unity3d.com/Manual/SL-ShaderPrograms.html</a> for the reference.</p>
+<h3 id="non-uniform-mesh-scale-has-to-be-taken-into-account-in-shaders">Non-uniform mesh scale has to be taken into account in shaders</h3>
+<p>In Unity 5.0, non-uniform meshes are not &quot;prescaled&quot; on the CPU anymore. This means that normal &amp; tangent vectors can be non-normalized in the vertex shader. If you&#39;re doing manual lighting calculations there, you&#39;d have to normalize them. If you&#39;re using Unity&#39;s surface shaders, then all necessary code will be generated for you.</p>
+<h3 id="fog-handling-was-changed">Fog handling was changed</h3>
+<p>Unity 5.0 makes built-in Fog work on Windows Phone and consoles, but in order to achieve that we&#39;ve changed how Fog is done a bit. For surface shaders and fixed function shaders, nothing extra needs to be done - fog will be added automatically (you can add &quot;nofog&quot; to surface shader #pragma line to explicitly make it not support fog).</p>
+<p>For manually written vertex/fragment shaders, fog does not happen automagically now. You need to add #pragma multi_compile_fog and fog handling macros to your shader code. Check out built-in shader source, for example Unlit-Normal how to do it.</p>
+<h3 id="surface-shaders-alpha-channel-change">Surface shaders alpha channel change</h3>
+<p>By default all opaque surface shaders output 1.0 (&quot;white&quot;) into alpha channel now. If you want to stop that, use &quot;keepalpha&quot; option on the #pragma surface line.</p>
+<p>All alpha blended surface shaders use alpha component computed by the lighting function as blend factor now (instead of s.Alpha). If you&#39;re using custom lighting functions, you probably want to add something like &quot;c.a = s.Alpha&quot; towards the end of it.</p>
+<h3 id="sorting-by-material-index-has-been-removed">Sorting by material index has been removed</h3>
+<p>Unity no longer sorts by material index in the forward renderloop. This improves performance because more objects can be rendered without state changes between them. This breaks compatibility for content that relies on material index as a way of sorting. In 4.x a mesh with two materials would always render the first material first, and the second material second. In Unity 5 this is not the case, the order depends on what reduces the most state changes to render the scene.</p>
+<h3 id="fixed-function-texgen-texture-matrices-and-some-settexture-combiner-modes-were-removed">Fixed function TexGen, texture matrices and some SetTexture combiner modes were removed</h3>
+<p>Unity 5.0 removed support for this fixed function shader functionality:</p>
+<ul>
+<li>UV coordinate generation (TexGen command).</li>
+<li>UV transformation matrices (Matrix command on a texture property or inside a SetTexture).</li>
+<li>Rarely used SetTexture combiner modes: signed add (a+-b), multiply signed add (a<em>b+-c), multiply subtract (a</em>b-c), dot product (dot3, dot3rgba).</li>
+</ul>
+<p>Any of the above will do nothing now, and shader inspector will show warnings about their usage. You should rewrite affected shaders using programmable vertex+fragment shaders instead. All platforms support them nowadays, and there are no advantages whatsoever to use fixed function shaders.</p>
+<p>If you have fairly old versions of Projector or Water shader packages in your project, the shaders there might be using this functionality. Upgrade the packages to 5.0 version.</p>
+<h3 id="mixing-programmable--fixed-function-shader-parts-is-not-allowed-anymore">Mixing programmable &amp; fixed function shader parts is not allowed anymore</h3>
+<p>Mixing partially fixed function &amp; partially programmable shaders (e.g. fixed function vertex lighting &amp; pixel shader; or a vertex shader and texture combiners) is not supported anymore. It was never working on mobile, consoles or DirectX 11 anyway. This required changing behavior of Legacy/Reflective/VertexLit shader to not do that - it lost per-vertex specular support; on the plus side it now behaves consistently between platforms.</p>
+<h3 id="d3d9-shader-compiler-was-switched-from-cg-22-to-hlsl">D3D9 shader compiler was switched from Cg 2.2 to HLSL</h3>
+<p>Mostly this should be transparent (just result in less codegen bugs and slightly faster shaders). However HLSL compiler can be slightly more picky about syntax. Some examples:</p>
+<ul>
+<li>You need to fully initialize output variables. Use UNITY_INITIALIZE_OUTPUT helper macro, just like you would on D3D11.</li>
+<li>&quot;float3(a_4_component_value)&quot; constructors do not work. Use &quot;a_4_component_value.xyz&quot; instead.</li>
+</ul>
+<h3 id="unityscale-shader-variable-has-been-removed">&quot;unity_Scale&quot; shader variable has been removed</h3>
+<p>The &quot;unity_Scale&quot; shader property has been removed. In 4.x unity_Scale.w was the 1 / uniform Scale of the transform, Unity 4.x only rendered non-scaled or uniformly scaled models. Other scales were performed on the CPU, which was very expensive &amp; had an unexpected memory overhead.</p>
+<p>In Unity 5.0 all this is done on the GPU by simply passing matrices with non-uniform scale to the shaders. Thus unity_Scale has been removed because it can not represent the full scale. In most cases where &quot;unity_Scale&quot; was used we recommend instead transforming to world space first. In the case of transforming normals, you always have to use normalize on the transformed normal now. In some cases this leads to slightly more expensive code in the vertex shader. </p>
+<pre><code>// Unity 4.x
+float3 norm = mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal * unity_Scale.w);
+// Becomes this in Unity 5.0
+float3 norm = normalize(mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal));
+</code></pre><pre><code>// Unity 4.x
+temp.xyzw = v.vertex.xzxz * unity_Scale.xzxz * _WaveScale4 + _WaveOffset;
+
+// Becomes this in Unity 5.0
+float4 wpos = mul (_Object2World, v.vertex);
+temp.xyzw = wpos.xzxz * _WaveScale4 + _WaveOffset;
+</code></pre><h3 id="shadows-depth-textures-and-shadowcollector-passes">Shadows, Depth Textures and ShadowCollector passes</h3>
+<p>Forward rendered directional light shadows do not do separate &quot;shadow collector&quot; pass anymore. Now they calculate screenspace shadows from a camera&#39;s depth texture (just like in deferred lighting).</p>
+<p>This means that LightMode=ShadowCollector passes in shaders aren&#39;t used for anything; you can just remove them from your shaders.</p>
+<p>Depth texture itself is not generated using shader replacement anymore; it is rendered with ShadowCaster shader passes. This means that as long as your objects can cast proper shadows, then they will also appear in camera&#39;s depth texture properly (was very hard to do before, if you wanted custom vertex animation or funky alpha testing). It also means that Camera-DepthTexture.shader is not used for anything now. And also, all built-in shadow shaders used no backface culling; that was changed to match culling mode of regular rendering.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

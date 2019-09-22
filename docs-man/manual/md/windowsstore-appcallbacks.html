@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>AppCallbacks class | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="AppCallbacks class | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="appcallbacks-class">AppCallbacks class</h1>
+
+<p>You could call the AppCallbacks class a bridge between your main application and the Unity engine. Here, we&#39;ll try to explain what every call to AppCallbacks exactly does. Let&#39;s build solution and explore App.xaml.cpp and MainPage.xaml.cpp files.</p>
+<pre><code>App::App()
+{
+    InitializeComponent();
+    SetupOrientation();
+    m_AppCallbacks = ref new AppCallbacks();
+}
+
+void App::OnLaunched(LaunchActivatedEventArgs^ e)
+{
+    m_SplashScreen = e-&gt;SplashScreen;
+    InitializeUnity(e-&gt;Arguments);
+}
+
+void App::InitializeUnity(String^ args)
+{
+    ApplicationView::GetForCurrentView()-&gt;SuppressSystemOverlays = true;
+
+    m_AppCallbacks-&gt;SetAppArguments(args);
+    auto rootFrame = safe_cast&lt;Frame^&gt;(Window::Current-&gt;Content);
+
+    // Do not repeat app initialization when the Window already has content,
+    // just ensure that the window is active
+    if (rootFrame == nullptr &amp;&amp; !m_AppCallbacks-&gt;IsInitialized())
+    {
+        rootFrame = ref new Frame();
+        Window::Current-&gt;Content = rootFrame;
+#if !UNITY_HOLOGRAPHIC
+        Window::Current-&gt;Activate();
+#endif
+
+        rootFrame-&gt;Navigate(TypeName(MainPage::typeid ));
+    }
+
+    Window::Current-&gt;Activate();
+}
+</code></pre><pre><code>MainPage::MainPage()
+{
+    m_SplashScreenRemovalEventToken.Value = 0;
+    m_OnResizeRegistrationToken.Value = 0;
+
+    InitializeComponent();
+    NavigationCacheMode = ::NavigationCacheMode::Required;
+
+    auto appCallbacks = AppCallbacks::Instance;
+
+    bool isWindowsHolographic = false;
+
+#if UNITY_HOLOGRAPHIC
+    // If application was exported as Holographic check if the device actually supports it,
+    // otherwise we treat this as a normal XAML application
+    isWindowsHolographic = AppCallbacks::IsMixedRealitySupported();
+#endif
+
+    if (isWindowsHolographic)
+    {
+        appCallbacks-&gt;InitializeViewManager(Window::Current-&gt;CoreWindow);
+    }
+    else
+    {
+        m_SplashScreenRemovalEventToken = appCallbacks-&gt;RenderingStarted += ref new RenderingStartedHandler(this, &amp;MainPage::RemoveSplashScreen);
+
+        appCallbacks-&gt;SetSwapChainPanel(m_DXSwapChainPanel);
+        appCallbacks-&gt;SetCoreWindowEvents(Window::Current-&gt;CoreWindow);
+        appCallbacks-&gt;InitializeD3DXAML();
+
+        m_SplashScreen = safe_cast&lt;App^&gt;(App::Current)-&gt;GetSplashScreen();
+
+        auto dispatcher = CoreWindow::GetForCurrentThread()-&gt;Dispatcher;
+        ThreadPool::RunAsync(ref new WorkItemHandler([this, dispatcher](IAsyncAction^.md)
+        {
+            GetSplashBackgroundColor(dispatcher);
+        }));
+
+        OnResize();
+
+        m_OnResizeRegistrationToken = Window::Current-&gt;SizeChanged += ref new WindowSizeChangedEventHandler([this](Object^, WindowSizeChangedEventArgs^.md)
+        {
+            OnResize();
+        });
+    }
+}
+</code></pre><p><strong>m_AppCallbacks = ref new AppCallbacks();</strong></p>
+<p>Let&#39;s take a closer look at AppCallbacks class. When you create it, Unity creates a new thread called &quot;AppThread&quot;. This is done because there&#39;s a restriction from Microsoft - if your application does not become responsive after 5 seconds you&#39;ll fail to pass WACK (Windows Application Certification). (You can read more here - <a href="http://msdn.microsoft.com/en-us/library/windowsphone/develop/hh184840(v=vs.105).aspx">http://msdn.microsoft.com/en-us/library/windowsphone/develop/hh184840(v=vs.105).aspx</a>) Imagine if your first level is pretty big and takes a significant amount of time to load. Because your application is running on UI thread, the UI will be unresponsive until your level is fully loaded. That&#39;s why Unity always runs your game on different thread.</p>
+<p>Read more on the UI thread here - <a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh994635.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/hh994635.aspx</a></p>
+<p>You can also pass custom command line arguments as string array into the AppCallbacks constructor.</p>
+<p><strong>Note:</strong> Code located in App.xaml.cpp, MainPage.xaml.c[[ is always running on UI thread, unless called from InvokeOnAppThread function.</p>
+<p><strong>appCallbacks-&gt;SetSwapChainPanel(m_DXSwapChainPanel);</strong></p>
+<p>This simply passes a XAML control to Unity which will be used as a render target for DirectX 11.</p>
+<p><strong>appCallbacks-&gt;SetCoreWindowEvents(Window::Current-&gt;CoreWindow);</strong></p>
+<p>Sets the core window for Unity, Unity subscribes to the following events (there may be more, depending on when this information was updated) :</p>
+<ul>
+<li>VisibilityChanged</li>
+<li>Closed</li>
+<li>PointerCursor</li>
+<li>SizeChanged</li>
+<li>Activated</li>
+<li>CharacterReceived</li>
+<li>PointerPressed</li>
+<li>PointerReleased</li>
+<li>PointerMoved</li>
+<li>PointerCaptureLost</li>
+<li>PointerWheelChanged</li>
+<li>AcceleratorKeyActivated</li>
+</ul>
+<p><strong>appCallbacks-&gt;InitializeD3DXAML();</strong></p>
+<p>This is main initialization function for Unity, it does following things:</p>
+<ul>
+<li>Initializes DirectX 11 device</li>
+<li>Loads first level</li>
+</ul>
+<p>At this point, when Unity finishes loading first level, it enters main loop.</p>
+<h2 id="other-functions">Other functions</h2>
+<ul>
+<li><p><strong>void InvokeOnAppThread(AppCallbackItem item, bool waitUntilDone)</strong></p>
+<p>Invokes a delegate on application thread, which is useful when you want to execute your script function from UI thread.</p>
+</li>
+<li><p><strong>void InvokeOnUIThread(AppCallbackItem item, bool waitUntilDone)</strong></p>
+<p>Invokes a delegate on UI thread, useful when you want to invoke something XAML specific API from your scripts.</p>
+</li>
+<li><p><strong>bool RunningOnAppThread()</strong></p>
+<p>Returns true, if you&#39;re currently running in application thread.</p>
+</li>
+<li><p><strong>bool RunningOnUIThread()</strong></p>
+<p>Returns true, if you&#39;re currently running in UI thread.</p>
+</li>
+<li><p><strong>void InitializeD3DWindow()</strong></p>
+<p>Initialization function for D3D application.</p>
+</li>
+<li><p><strong>void Run()</strong></p>
+<p>Function used by D3D application, for entering main loop.</p>
+</li>
+<li><p><strong>bool IsInitialized()</strong></p>
+<p>Returns true, when first level is fully loaded.</p>
+</li>
+<li><p><strong>void AddCommandLineArg(string arg)</strong></p>
+<p>Sets a command line argument for application, must be called before InitializeD3DWindow, InitializeD3DXAML.</p>
+</li>
+<li><p><strong>void SetAppArguments(string arg)</strong> / <strong>string GetAppArguments()</strong></p>
+<p>Sets application arguments, which can be later accessed from Unity API - <strong>UnityEngine.WSA.Application.arguments</strong>.</p>
+</li>
+<li><p><strong>void LoadGfxNativePlugin(string pluginFileName)</strong></p>
+<p>This function is obsolete and does nothing.  In previous versions of Unity, this was needed to register native plugins for callbacks such as UnityRenderEvent.  All plugins are now registered automatically.  This function will be removed in a future update.</p>
+</li>
+<li><p><strong>void ParseCommandLineArgsFromFiles(string fileName)</strong></p>
+<p>Parses command line arguments from a file, arguments must be separated by white spaces.</p>
+</li>
+<li><p><strong>bool UnityPause(int pause)</strong></p>
+<p>Pauses Unity if you pass 1, unpauses if you pass 0, useful if you want to temporary freeze your game, for ex., when your game is snapped.</p>
+</li>
+<li><p><strong>void UnitySetInput(bool enabled)</strong></p>
+<p>Enables/Disables input.</p>
+</li>
+<li><p><strong>bool UnityGetInput()</strong></p>
+<p>Returns true, if Unity will process incoming input.</p>
+</li>
+<li><p><strong>void SetKeyboardTriggerControl(Windows.UI.Xaml.Controls.Control ctrl)</strong></p>
+<p>Sets the control to be used for triggering on screen keyboard. This control will simply receive focus, when on screen keyboard is requested in scripts. Should be called with control, that does open keyboard on focus.</p>
+</li>
+<li><p><strong>Windows.UI.Xaml.Controls.Control GetKeyboardTriggerControl()</strong></p>
+<p>Returns control, currently used control for triggering keyboard input. See SetKeyboardTriggerControl.</p>
+</li>
+<li><p><strong>void SetCursor(Windows.UI.Core.CoreCursor cursor)</strong></p>
+<p>Sets system cursor. The given curosr is set for both CoreWindow and independent input source (if used).</p>
+</li>
+<li><p><strong>void SetCustomCursor(unsigned int id)</strong></p>
+<p>Sets system cursor to custom. Parameter is cursor resource ID. Cursor is set for both CoreWindow and independent input source (if used).</p>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

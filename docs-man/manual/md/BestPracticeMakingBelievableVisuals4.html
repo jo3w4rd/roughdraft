@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Modelling | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Modelling | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="modelling">Modelling</h1>
+
+<p>It’s really important to plan ahead before modeling. Quickly made models are fine during pre-production or for roughing out a space, but the moment you start finalizing an Asset to make a proper Scene, consider the following:</p>
+<ul>
+<li><a href="#polygon">Make every polygon count</a></li>
+<li><a href="#GameObject">GameObject contribution to lighting</a></li>
+<li><a href="#modelUV">Model UV layout strategy</a></li>
+<li><a href="#geometry">Details in geometry</a></li>
+<li><a href="#smoothingGroup">Smoothing groups (Hard/soft edges of polygons)</a></li>
+</ul>
+<p><a name="polygon"></a></p>
+<h2 id="make-every-polygon-count">Make every polygon count</h2>
+<p>Despite modern hardware being more capable than ever, simple geometry is always beneficial in a Scene. Unnecessary tessellation and complex geometry is difficult to manage for a real-time setup, and it can impact performance and use memory unnecessarily. The following example demonstrates how geometry that is never seen by the players wastes resources such as lightmap and overdraw, and causes light leakage:</p>
+<p><img src="../uploads/Main/BelievableVisualsInvisibleSurfaces.jpg" alt="Scene highlighting unnecessary visible surfaces"></p>
+<p><a name="GameObject"></a></p>
+<h2 id="gameobject-contribution-to-lighting">GameObject contribution to lighting</h2>
+<p>If you are using Baked lighting or Realtime GI with Light Probes, you need to decide whether a GameObject contributes to lighting in a Scene, or only receives indirect/baked lighting in the Scene. </p>
+<h3 id="gameobjects-that-contribute-to-lighting">GameObjects that contribute to lighting</h3>
+<p>To set a GameObject to contribute to lighting, make sure <strong>Lightmap Static</strong> in checked in the Inspector window. This provides simpler and smoother surface areas that produce better indirect bounces/baked lighting because of their efficiency in space usage for lightmap textures. Note that:</p>
+<ul>
+<li>You might need to author UV2 for the geometry when doing a light bake, if the auto lightmap UV provides inefficient chart or generate undesirable seams.</li>
+<li>You might need to author UV3 for the geometry for efficient results in Realtime GI.</li>
+</ul>
+<p>Sometimes, in Realtime GI, you can simplify a UV of a Mesh to make the geometry use significantly less resources, and produce the best result with fewer artifacts.</p>
+<h3 id="gameobjects-that-only-receive-lighting-in-the-scene">GameObjects that only receive lighting in the scene</h3>
+<p>When GameObjects only receive lighting from real-time lights and Light Probes, the geometry doesn’t have a lightmap UV restriction. The geometry still needs special attention if it’s large, because it might not be lit properly with a single Light Probe, and might require a <a href="class-LightProbeProxyVolume.html">Light Probe Proxy Volume component</a> to stitch together multiple probe light definitions. </p>
+<p>You don’t always need to use a lightmap or use Realtime GI for non-moving GameObjects. If a GameObject is small, or it doesn’t have surfaces that bounce much light, it probably doesn’t need to be included in the lightmap. The bench and railings shown below are a good example:</p>
+<p><img src="../uploads/Main/BelievableVisualsUVChart.jpg" alt="Only GameObjects with a UV chart need to contribute to indirect lighting"></p>
+<p><a name="modelUV"></a></p>
+<h2 id="model-uv-layout-strategy">Model UV layout strategy</h2>
+<p>The UV layout can help improve visual quality while using the same amount of memory for normal map baking (typically UV1), lightmaps baking (UV2) and real-time lightmaps (UV3), especially for geometry with non-tileable textures. </p>
+<p>Here are a few tips to consider when making a UV layout strategy:</p>
+<ul>
+<li>For UV1 charts, split the UV shell only as necessary, and try to lay out the UV chart as efficiently as possible to prevent wasting texture space for normal map baking. To put it into perspective, a 1024 square texture uses the same amount of memory whether you place details in the texture or not.</li>
+</ul>
+<p><img src="../uploads/Main/BelievableVisualsSmoothingGroup.jpg" alt="Example of how the pieces occupy the whole texture space, avoiding wasted space"></p>
+<ul>
+<li>For lightmaps (UV2), try to make unbroken lightmap charts with borders that touch but do not overlap, to avoid bleeding or seams in the light bake. Keeping a consistent scale between UV charts/shells is important for even distribution of lightmap texels across your model.</li>
+</ul>
+<p><img src="../uploads/Main/BelievableVisualsSeamless.jpg" alt="An exaggerated lightmap splitting on a simple geometry, to demonstrate issues with lightmap seams"></p>
+<ul>
+<li><p>For Realtime GI (UV3), prioritize UV space for large areas that represent big surfaces in your model to reduce memory usage and avoid seams. In many cases, the automatic UV settings in the model can really help optimize the chart. For in-depth information on chart optimization for Realtime GI, see the Unity tutorial <a href="https://unity3d.com/learn/tutorials/topics/graphics/optimizing-unitys-auto-unwrapping?playlist=17102">Optimizing Unity&#39;s auto unwrapping</a>.</p>
+</li>
+<li><p>For GameObjects that don’t require lightmaps, don’t waste memory and time by authoring additional UVs, unless custom shaders require them.</p>
+</li>
+</ul>
+<p><a name="geometry"></a></p>
+<h2 id="details-in-geometry">Details in geometry</h2>
+<p>Real world GameObjects are highly detailed. To author real-time geometry, you need to identify which details to place in geometry, and which to place in the normal map and textures. When developing Assets for real-time Scenes, it’s normal to bake high-polygon to low-polygon normal maps.</p>
+<p><img src="../uploads/Main/BelievableVisualsGeometry.jpg" alt="Example of baked tangent space normal map from High Poly mesh to Low Poly mesh"></p>
+<p>One important detail to remember is the way edges on a GameObject catch highlights. It is unusual to find a real-life object with very sharp edges, with non bevelled edges, or without detailed edge definition. Replicating realistic edge effects improves the believability of the Scene.</p>
+<p><img src="../uploads/Main/BelievableVisualsNormalMapSmooth.jpg" alt="Normal map gives a smooth flowing highlight on surfaces where it meets other geometry"></p>
+<p><a name="smoothingGroups"></a></p>
+<h2 id="smoothing-groups-hardsoft-edges-of-polygon">Smoothing groups (Hard/Soft edges of polygon)</h2>
+<p>You can improve the efficiency of models and normal maps by using proper smoothing groups. Here are some tips on using smoothing groups:</p>
+<ul>
+<li>When dealing with normal map baking from high polygon to low polygon, use a simple configuration for smoothing groups rather than multiple faceted polygons. This is because tangent normal maps need to bend the hard split of the surface normal from the low-poly geometry.</li>
+</ul>
+<p><img src="../uploads/Main/BelievableVisualsLowHighPolygon.jpg" alt="A normal map bending the low-poly normal smoothly to mimic the high polygon mesh"></p>
+<ul>
+<li><p>A smooth polygon with a good normal map saves on vertex count, which equates to more efficient geometry to render. Here’s a simple example that compares the following setups:</p>
+<ul>
+<li><p>A single plane with split smoothing groups that is equal to 36 vertices.</p>
+</li>
+<li><p>A simple 18 triangle plane in 1 smoothing group that is equal to 16 vertices.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="../uploads/Main/BelievableVisualsVertexComparison.jpg" alt=""></p>
+<p>Single plane and triangle plane vertex count comparison</p>
+<ul>
+<li>A smooth polygon saves on chart splitting in Lightmap baking and Realtime GI that produces smoother visual result.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

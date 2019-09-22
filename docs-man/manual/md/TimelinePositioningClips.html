@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Positioning clips | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Positioning clips | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h3 id="positioning-clips">Positioning clips</h3>
+
+<p>To position clips on a track, select one or more clips and drag. While dragging, black guides indicate the range of clips being positioned. The timeline shows the start time and end time of the clips being positioned.</p>
+<p><img src="../uploads/Main/timeline_clips_positioning.png" alt="Drag to position one or more selected clips"></p>
+<p>You can also position a clip by selecting the clip and changing its start time in the <a href="script-EditorClip.html">Inspector window</a>. This method only works when selecting a single clip. The Inspector window does not show properties for multiple clips.</p>
+<p>You can move a clip to another track of the same type. Drag the selection vertically and a ghost of the selected clips helps visualize the result of moving the clip.</p>
+<p>While positioning clips, if a clip overlaps another clip on the same track, either a blend or an override occurs, depending on the type of track:</p>
+<ul>
+<li><p>Activation track, Control track, or Playable track. When two clips overlap each other on these tracks, the second clip overrides the first clip. It is possible to position a clip in such a way that it hides another clip.</p>
+</li>
+<li><p>Animation tracks, Animation Override tracks, and Audio tracks: When two clips overlap each other on these tracks, the first clip blends into the second clip. This is useful, for example, to create a seamless transition between two Animation clips.</p>
+</li>
+</ul>
+<p>You can also position clips by inserting frames at the position of the Timeline Playhead. Right-click the Timeline Playhead, on the timeline above the Clips view, and choose <strong>Insert</strong> &gt; <strong>Frame</strong> and a number of frames. This inserts frames in the Timeline asset at the position of the Timeline Playhead. Inserting frames only repositions the clips that start <strong>after</strong> the position of the Timeline Playhead.</p>
+<p><img src="../uploads/Main/timeline_playhead_insert_before.png" alt="Move the Timeline Playhead to where you want to insert frames"></p>
+<p><img src="../uploads/Main/timeline_playhead_insert_menu.png" alt="Right-click the Timeline Playhead and select ***_Insert_*** &gt; ***_Frame_*** to move clips an exact number of frames"></p>
+<p><img src="../uploads/Main/timeline_playhead_insert_100_after.png" alt="Only the clips that start after the Timeline Playhead are moved. In this example, inserting 100 frames at frame 45 affects the End Move, sweep2, and run_away clips."></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

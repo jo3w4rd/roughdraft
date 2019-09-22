@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Custom Spawn Functions | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Custom Spawn Functions | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="custom-spawn-functions">Custom Spawn Functions</h1>
+
+<p>You can use spawn handler functions to customize the default behaviour when creating spawned GameObjects from prefabs on the client. Spawn handler functions ensure you have full control of how you spawn the GameObject, as well as how you destroy it.</p>
+<p>Use <a href="ScriptRef:Networking.ClientScene.RegisterSpawnHandler.html">ClientScene.RegisterSpawnHandler</a> to register functions to spawn and destroy client GameObjects. The server creates GameObjects directly, and then spawns them on the clients through this functionality. This function takes the asset ID of the GameObject and two function delegates: one to handle creating GameObjects on the client, and one to handle destroying GameObjects on the client. The asset ID can be a dynamic one, or just the asset ID found on the prefab GameObject you want to spawn (if you have one).</p>
+<p>The spawn / un-spawner need to have this GameObject signature. This is defined in the <a href="UNetUsingHLAPI.html">high level API</a>.</p>
+<pre><code>
+// Handles requests to spawn GameObjects on the client
+public delegate GameObject SpawnDelegate(Vector3 position, NetworkHash128 assetId);
+
+// Handles requests to unspawn GameObjects on the client
+public delegate void UnSpawnDelegate(GameObject spawned);
+</code></pre><p>The asset ID passed to the spawn function can be found on <a href="ScriptRef:Networking.NetworkIdentity-assetId.html">NetworkIdentity.assetId</a> for prefabs, where it is populated automatically. The registration for a dynamic asset ID is handled like this:</p>
+<pre><code>
+// generate a new unique assetId 
+NetworkHash128 creatureAssetId = NetworkHash128.Parse(&quot;e2656f&quot;);
+
+// register handlers for the new assetId
+ClientScene.RegisterSpawnHandler(creatureAssetId, SpawnCreature, UnSpawnCreature);
+
+// get assetId on an existing prefab
+NetworkHash128 coinAssetId = coinPrefab.GetComponent&lt;NetworkIdentity&gt;().assetId;
+
+// register handlers for an existing prefab you&#39;d like to custom spawn
+ClientScene.RegisterSpawnHandler(coinAssetId, SpawnCoin, UnSpawnCoin);
+
+// spawn a coin - SpawnCoin is called on client
+NetworkServer.Spawn(gameObject, coinAssetId);
+</code></pre><p>The spawn functions themselves are implemented with the delegate signature. Here is the coin spawner. The SpawnCreature would look the same, but have different spawn logic:</p>
+<pre><code>
+public GameObject SpawnCoin(Vector3 position, NetworkHash128 assetId)
+{
+    return (GameObject)Instantiate(m_CoinPrefab, position, Quaternion.identity);
+}
+public void UnSpawnCoin(GameObject spawned)
+{
+    Destroy(spawned);
+}
+</code></pre><p>When using custom spawn functions, it is sometimes useful to be able to unspawn GameObjects without destroying them. This can be done by calling <a href="ScriptRef:Networking.NetworkServer.UnSpawn.html">NetworkServer.UnSpawn</a>. This causes a message to be sent to clients to un-spawn the GameObject, so that the custom un-spawn function will be called on the clients. The GameObject is not destroyed when this function is called.</p>
+<p>Note that on the host, GameObjects are not spawned for the local client, because they already exist on the server. This also means that no spawn handler functions are called.</p>
+<h2 id="setting-up-a-gameobject-pool-with-custom-spawn-handlers">Setting up a GameObject pool with custom spawn handlers</h2>
+<p>Here is an example of how you might set up a very simple GameObject pooling system with custom spawn handlers. Spawning and unspawning then puts GameObjects in or out of the pool.</p>
+<pre><code>
+using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
+
+public class SpawnManager : MonoBehaviour
+{
+    public int m_ObjectPoolSize = 5;
+    public GameObject m_Prefab;
+    public GameObject[] m_Pool;
+
+    public NetworkHash128 assetId { get; set; }
+
+    public delegate GameObject SpawnDelegate(Vector3 position, NetworkHash128 assetId);
+    public delegate void UnSpawnDelegate(GameObject spawned);
+
+    void Start()
+    {
+        assetId = m_Prefab.GetComponent&lt;NetworkIdentity&gt; ().assetId;
+        m_Pool = new GameObject[m_ObjectPoolSize];
+        for (int i = 0; i &lt; m_ObjectPoolSize; ++i)
+        {
+            m_Pool[i] = (GameObject)Instantiate(m_Prefab, Vector3.zero, Quaternion.identity);
+            m_Pool[i].name = &quot;PoolObject&quot; + i;
+            m_Pool[i].SetActive(false);
+        }
+
+        ClientScene.RegisterSpawnHandler(assetId, SpawnObject, UnSpawnObject);
+    }
+
+    public GameObject GetFromPool(Vector3 position)
+    {
+        foreach (var obj in m_Pool)
+        {
+            if (!obj.activeInHierarchy)
+            {
+                Debug.Log(&quot;Activating GameObject &quot; + obj.name + &quot; at &quot; + position);
+                obj.transform.position = position;
+                obj.SetActive (true);
+                return obj;
+            }
+        }
+        Debug.LogError (&quot;Could not grab GameObject from pool, nothing available&quot;);
+        return null;
+    }
+
+    public GameObject SpawnObject(Vector3 position, NetworkHash128 assetId)
+    {
+        return GetFromPool(position);
+    }
+
+    public void UnSpawnObject(GameObject spawned)
+    {
+        Debug.Log (&quot;Re-pooling GameObject &quot; + spawned.name);
+        spawned.SetActive (false);
+    }
+}
+</code></pre><p>To use this manager, create a new empty GameObject and name it &quot;SpawnManager&quot;. Create a new script called <em>SpawnManager, *copy in the code sample above, and attach it to the</em> <em>new SpawnManager GameObject. Next, drag a prefab you want to spawn multiple times to the **P</em><strong><em>refab *</em>field, and set the **Object Pool Size</strong> (default is 5).</p>
+<p>Finally, set up a reference to the SpawnManager in the script you are using for player movement:</p>
+<pre><code>
+SpawnManager spawnManager;
+
+void Start()
+{
+    spawnManager = GameObject.Find(&quot;SpawnManager&quot;).GetComponent&lt;SpawnManager&gt; ();
+}
+</code></pre><p>Your player logic might contain something like this, which moves and fires coins:</p>
+<pre><code>
+void Update()
+{
+    if (!isLocalPlayer)
+        return;
+
+    var x = Input.GetAxis(&quot;Horizontal&quot;)*0.1f;
+    var z = Input.GetAxis(&quot;Vertical&quot;)*0.1f;
+
+    transform.Translate(x, 0, z);
+
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+        // Command function is called on the client, but invoked on the server
+        CmdFire();
+    }
+}
+</code></pre><p>In the fire logic on the player, make it use the GameObject pool:</p>
+<pre><code>
+[Command]
+void CmdFire()
+{
+    // Set up coin on server
+    var coin = spawnManager.GetFromPool(transform.position + transform.forward);  
+    coin.GetComponent&lt;Rigidbody&gt;().velocity = transform.forward*4;
+
+    // spawn coin on client, custom spawn handler is called
+    NetworkServer.Spawn(coin, spawnManager.assetId);
+
+    // when the coin is destroyed on the server, it is automatically destroyed on clients
+    StartCoroutine (Destroy (coin, 2.0f));
+}
+
+public IEnumerator Destroy(GameObject go, float timer)
+{
+    yield return new WaitForSeconds (timer);
+    spawnManager.UnSpawnObject(go);
+    NetworkServer.UnSpawn(go);
+}
+</code></pre><p>The automatic destruction shows how the GameObjects are returned to the pool and re-used when you fire again.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

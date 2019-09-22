@@ -1,0 +1,509 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Struct NavMeshBuildSettings
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct NavMeshBuildSettings
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.AI.NavMeshBuildSettings">
+  
+  
+  <h1 id="UnityEngine_AI_NavMeshBuildSettings" data-uid="UnityEngine.AI.NavMeshBuildSettings">Struct NavMeshBuildSettings
+  </h1>
+  <div class="markdown level0 summary"><p>The NavMeshBuildSettings struct allows you to specify a collection of settings which describe the dimensions and limitations of a particular agent type.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.AI.html">UnityEngine.AI</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_AI_NavMeshBuildSettings_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct NavMeshBuildSettings</code></pre>
+  </div>
+  <h5 id="UnityEngine_AI_NavMeshBuildSettings_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>You might want to define multiple NavMeshBuildSettings if your game involves characters with large differences in height, width or climbing ability.</p>
+<p>You can also use this struct to control the precision and granularity of the build process, by setting the voxel and tile sizes. Some of the values are coupled, meaning there are constraints on the values based on other values. For example, it’s not valid for ::ref::agentClimb to be larger than ::ref::agentHeight.
+To help diagnose violations of these rules, a special method ::ref::ValidationReport can be evaluated.</p>
+</div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_agentClimb_" data-uid="UnityEngine.AI.NavMeshBuildSettings.agentClimb*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_agentClimb" data-uid="UnityEngine.AI.NavMeshBuildSettings.agentClimb">agentClimb</h4>
+  <div class="markdown level1 summary"><p>The maximum vertical step size an agent can take.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float agentClimb { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshBuildSettings_agentClimb_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Must be less than agent height. This parameter is used to detect sharp discontinuities in the level (i.e. stairs, steps), and allow the agent to pass them.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_agentHeight_" data-uid="UnityEngine.AI.NavMeshBuildSettings.agentHeight*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_agentHeight" data-uid="UnityEngine.AI.NavMeshBuildSettings.agentHeight">agentHeight</h4>
+  <div class="markdown level1 summary"><p>The height of the agent for baking in world units.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float agentHeight { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshBuildSettings_agentHeight_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>NavMesh will be removed from areas with a ceiling  lower than this height. The build process does some quantization, so make sure that spaces you intend to be walkable have some extra head room.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_agentRadius_" data-uid="UnityEngine.AI.NavMeshBuildSettings.agentRadius*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_agentRadius" data-uid="UnityEngine.AI.NavMeshBuildSettings.agentRadius">agentRadius</h4>
+  <div class="markdown level1 summary"><p>The radius of the agent for baking in world units.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float agentRadius { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshBuildSettings_agentRadius_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The resulting NavMesh will be shrunk by this radius to make sure that agents do not clip to walls when close to obstacles, in some scenarios it can be useful to reduce this radius.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_agentSlope_" data-uid="UnityEngine.AI.NavMeshBuildSettings.agentSlope*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_agentSlope" data-uid="UnityEngine.AI.NavMeshBuildSettings.agentSlope">agentSlope</h4>
+  <div class="markdown level1 summary"><p>The maximum slope angle which is walkable (angle in degrees).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float agentSlope { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshBuildSettings_agentSlope_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The valid range is 0–60 degrees. Steep slopes will be excluded from the resulting NavMesh. Please note that setting the slope higher than 45 can give artifacts due to the voxelization process - i.e. a steep slope cannot be distinguished from a wall.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_agentTypeID_" data-uid="UnityEngine.AI.NavMeshBuildSettings.agentTypeID*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_agentTypeID" data-uid="UnityEngine.AI.NavMeshBuildSettings.agentTypeID">agentTypeID</h4>
+  <div class="markdown level1 summary"><p>The agent type ID the NavMesh will be baked for.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int agentTypeID { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshBuildSettings_agentTypeID_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Each <a class="xref" href="UnityEngine.AI.NavMeshAgent.html">NavMeshAgent</a> or <a class="xref" href="UnityEngine.AI.NavMeshQueryFilter.html">NavMeshQueryFilter</a> can only use a NavMesh which is build for its agent type; it is the ID that is matched.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_debug_" data-uid="UnityEngine.AI.NavMeshBuildSettings.debug*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_debug" data-uid="UnityEngine.AI.NavMeshBuildSettings.debug">debug</h4>
+  <div class="markdown level1 summary"><p>Options for collecting debug data during the build process.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NavMeshBuildDebugSettings debug { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AI.NavMeshBuildDebugSettings.html">NavMeshBuildDebugSettings</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshBuildSettings_debug_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>SA: <a class="xref" href="UnityEngine.AI.NavMeshBuildDebugSettings.html">NavMeshBuildDebugSettings</a>, <a href="xref:UnityEngine.AI.NavMeshEditorHelpers.DrawBuildDebug">NavMeshEditorHelpers.DrawBuildDebug</a>.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_minRegionArea_" data-uid="UnityEngine.AI.NavMeshBuildSettings.minRegionArea*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_minRegionArea" data-uid="UnityEngine.AI.NavMeshBuildSettings.minRegionArea">minRegionArea</h4>
+  <div class="markdown level1 summary"><p>The approximate minimum area of individual NavMesh regions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float minRegionArea { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshBuildSettings_minRegionArea_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property allows you to cull away small non-connected NavMesh regions. NavMesh regions whose surface area is smaller than the specified value, will be removed.</p>
+<p>Note: some regions may not get removed. The NavMesh is built in parallel as a grid of tiles. If a region straddles a tile boundary, the region is not removed. The reason for this is that the region pruning happens at a stage in the build process where surrounding tiles are not available.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_overrideTileSize_" data-uid="UnityEngine.AI.NavMeshBuildSettings.overrideTileSize*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_overrideTileSize" data-uid="UnityEngine.AI.NavMeshBuildSettings.overrideTileSize">overrideTileSize</h4>
+  <div class="markdown level1 summary"><p>Enables overriding the default tile size. SA: ::ref::tileSize.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool overrideTileSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_overrideVoxelSize_" data-uid="UnityEngine.AI.NavMeshBuildSettings.overrideVoxelSize*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_overrideVoxelSize" data-uid="UnityEngine.AI.NavMeshBuildSettings.overrideVoxelSize">overrideVoxelSize</h4>
+  <div class="markdown level1 summary"><p>Enables overriding the default voxel size. SA: ::ref::voxelSize.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool overrideVoxelSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_tileSize_" data-uid="UnityEngine.AI.NavMeshBuildSettings.tileSize*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_tileSize" data-uid="UnityEngine.AI.NavMeshBuildSettings.tileSize">tileSize</h4>
+  <div class="markdown level1 summary"><p>Sets the tile size in voxel units.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int tileSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshBuildSettings_tileSize_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The NavMesh is built in square tiles in order to build the mesh in parallel and to control maximum memory usage. It also helps to make the carving changes more local. If you plan to update NavMesh at runtime, a good tile size is around 32–128 voxels (roughly 5 to 20 meters for human size characters). 64 is good value to start, and you can use the [[wiki:Profiler|profiler window]] to find a good trade off. Default value is 256, which is good for static baking. If you use a lot of [[wiki:class-NavMeshObstacle|carving obstacles]] you can try a smaller size if you see in the profiler that a lot of time is being spent on carving.</p>
+<p>The tile size is specified in units of voxels per tile side length.</p>
+<p>Note: if you want to use this setting, you must also set ::ref::overrideTileSize to true.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_voxelSize_" data-uid="UnityEngine.AI.NavMeshBuildSettings.voxelSize*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_voxelSize" data-uid="UnityEngine.AI.NavMeshBuildSettings.voxelSize">voxelSize</h4>
+  <div class="markdown level1 summary"><p>Sets the voxel size in world length units.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float voxelSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshBuildSettings_voxelSize_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The NavMesh is built by first voxelizing the Scene, and then figuring out walkable spaces from the voxelized representation of the Scene. The voxel size controls how closely the NavMesh fits the geometry of your Scene, and is defined in world units.</p>
+<p>If you require a more detail so that the NavMesh more closely fits your Scene’s geometry, you can reduce the voxel size. An increase in detail will also cause your game to consume more memory and take more time to calculate the NavMesh data. The scaling is roughly quadratic, so doubling the resolution will result in an approximate quadrupling of the build time.</p>
+<p>In general you should aim to have 4-6 voxels per character diameter. For example, if you have a Scene with characters that have a radius of 0.3, a good voxel size is 0.1. The default value is set to a third of the agentRadius.</p>
+<p>Note: If you want to use this setting, you must also set ::ref::overrideVoxelSize to true.</p>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="UnityEngine_AI_NavMeshBuildSettings_ValidationReport_" data-uid="UnityEngine.AI.NavMeshBuildSettings.ValidationReport*"></a>
+  <h4 id="UnityEngine_AI_NavMeshBuildSettings_ValidationReport_UnityEngine_Bounds_" data-uid="UnityEngine.AI.NavMeshBuildSettings.ValidationReport(UnityEngine.Bounds)">ValidationReport(Bounds)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public String[] ValidationReport(Bounds buildBounds)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Bounds.html">Bounds</a></td>
+        <td><span class="parametername">buildBounds</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">String</span>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

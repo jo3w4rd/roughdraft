@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Environment Shadow | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Environment Shadow | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="environment-shadow">Environment Shadow</h1>
+
+<p>You can use Look Dev to simulate environmental shadows. Note that this simulation is not completely accurate, and only shows harsh shadows.</p>
+<p>To simulate environmental shadows, click the <strong>Environment Shadow</strong> button in the top menu of the Look Dev window (highlighted in the image below).</p>
+<p><img src="../uploads/Main/LookDevEnvironmentShadow-Button-0.png" alt="The top menu of the Look Dev window with the __Environment Shadow__ button highlighted"></p>
+<p>Use the HDRI view to control the direction of the shadows. When you toggle the <strong>Environment Shadow</strong> on, a sun icon appears over the selected HDRI in the browser. Click and drag this to orient the shadow, and hold Shift+left click to manipulate the shadow direction. </p>
+<p><img src="../uploads/Main/LookDevEnvironmentShadow-ShadowManipulate-1.png" alt="Manipulate the sun icon (here in the middle pane on the right-hand screen) to control shadow direction"></p>
+<p><strong>Environment Shadow</strong> works best when there is a key light source in the HDRI (like the Sun, or a lamp). To make that a light source, drag and drop the sun icon on top of it. By default, the light source is set up on the brightest texel of the HDRI. For more evenly distributed light sources (like an overcast sky), this might not give accurate or expected results.</p>
+<p>When <strong>Environment Shadow</strong> is enabled, Look Dev uses one HDRI for the Prefab when it is lit by the key light source (this is called the <strong>Lit HDRI</strong>), and one for the Prefab when it is in the shadow of the key light source (this is called the <strong>Shadow HDRI</strong>). The shadow in the <strong>Shadow HDRI</strong> is based on the light direction from the light icon. By default, the <strong>Shadow HDRI</strong> is the same as the <strong>Lit HDRI</strong>, but with reduced luminosity.</p>
+<p>To get more accurate results, provide your own <strong>Shadow HDRI</strong>. For best results, make this the same as the <strong>Lit HDRI</strong> but without the key light source (for example, by removing the Sun from the image).</p>
+<p>To pair up a <strong>Shadow HDRI</strong> and a <strong>Lit HDRI</strong>, drag and drop the <strong>Shadow HDRI</strong> onto the <strong>Lit HDRI</strong>. The <strong>Shadow HDRI</strong> appears over the <strong>Lit HDRI</strong> with a moon icon, as shown in the image below.</p>
+<p><img src="../uploads/Main/LookDevEnvironmentShadow-ShadowAndLit-2.jpg" alt="Pairing up a __Shadow HDRI__ and a __Lit HDRI__"></p>
+<p>When <strong>Environment Shadow</strong> is enabled, the <strong>Lit HDRI</strong> switches to the assigned <strong>Shadow HDRI</strong>.</p>
+<p>To remove the <strong>Shadow HDRI</strong>, click on the cross.</p>
+<p><img src="../uploads/Main/LookDevEnvironmentShadow-RemoveShadowHDRI-3.png" alt="Click on the cross to remove the __Shadow HDRI__"></p>
+<p> <strong>Note</strong>: You can manipulate <strong>Shadow HDRI</strong> like any other HDRI in the library.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

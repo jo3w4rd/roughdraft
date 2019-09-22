@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Providing vertex data to vertex programs | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Providing vertex data to vertex programs | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="providing-vertex-data-to-vertex-programs">Providing vertex data to vertex programs</h1>
+
+<p>For Cg/HLSL <a href="SL-ShaderPrograms.html">vertex programs</a>, the
+<a href="class-Mesh.html">Mesh</a> vertex data is passed as inputs to the vertex
+shader function. Each input needs to have <a href="SL-ShaderSemantics.html">semantic</a> speficied for it: for example, <code>POSITION</code> input is the vertex position, and <code>NORMAL</code> is the vertex normal.</p>
+<p>Often, vertex data inputs are declared in a structure, instead of
+listing them one by one. Several commonly used vertex structures
+are defined in <a href="SL-BuiltinIncludes.html">UnityCG.cginc include file</a>,
+and in most cases it&#39;s enough just to use those. The structures are:</p>
+<ul>
+<li><code>appdata_base</code>: position, normal and one texture coordinate.</li>
+<li><code>appdata_tan</code>: position, tangent, normal and one texture coordinate.</li>
+<li><code>appdata_full</code>: position, tangent, normal, four texture coordinates and color.</li>
+</ul>
+<p><strong>Example:</strong> This shader colors the mesh based on its normals, and uses <code>appdata_base</code> as vertex program input:</p>
+<pre><code>Shader &quot;VertexInputSimple&quot; {
+    SubShader {
+        Pass {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include &quot;UnityCG.cginc&quot;
+
+            struct v2f {
+                float4 pos : SV_POSITION;
+                fixed4 color : COLOR;
+            };
+
+            v2f vert (appdata_base v)
+            {
+                v2f o;
+                o.pos = UnityObjectToClipPos(v.vertex);
+                o.color.xyz = v.normal * 0.5 + 0.5;
+                o.color.w = 1.0;
+                return o;
+            }
+
+            fixed4 frag (v2f i) : SV_Target { return i.color; }
+            ENDCG
+        }
+    } 
+}
+</code></pre><p>To access different vertex data, you need to declare the 
+vertex structure yourself, or add input parameters to the
+vertex shader. Vertex data is identified by Cg/HLSL
+<a href="SL-ShaderSemantics.html">semantics</a>, and must be from the
+following list:</p>
+<ul>
+<li><code>POSITION</code> is the vertex position, typically a <code>float3</code> or <code>float4</code>.</li>
+<li><code>NORMAL</code> is the vertex normal, typically a <code>float3</code>.</li>
+<li><code>TEXCOORD0</code> is the first UV coordinate, typically <code>float2</code>, <code>float3</code> or <code>float4</code>.</li>
+<li><code>TEXCOORD1</code>, <code>TEXCOORD2</code> and <code>TEXCOORD3</code> are the 2nd, 3rd and 4th UV coordinates, respectively.</li>
+<li><code>TANGENT</code> is the tangent vector (used for normal mapping), typically a <code>float4</code>.</li>
+<li><code>COLOR</code> is the per-vertex color, typically a <code>float4</code>.</li>
+</ul>
+<p>When the mesh data contains fewer components than are needed by the vertex 
+shader input, the rest are filled with zeroes, except for the <code>.w</code>
+component which defaults to 1. For example, mesh texture coordinates
+are often 2D vectors with just x and y components. If a vertex
+shader declares a <code>float4</code> input with <code>TEXCOORD0</code> semantic, the
+value received by the vertex shader will contain (x,y,0,1).</p>
+<h2 id="examples">Examples</h2>
+<h3 id="visualizing-uvs">Visualizing UVs</h3>
+<p>The following shader example uses the vertex position and the first texture coordinate as the vertex shader inputs (defined in the structure <strong>appdata</strong>). This shader is very useful for debugging the UV coordinates of the mesh.</p>
+<pre><code>Shader &quot;Debug/UV 1&quot; {
+SubShader {
+    Pass {
+        CGPROGRAM
+        #pragma vertex vert
+        #pragma fragment frag
+        #include &quot;UnityCG.cginc&quot;
+
+        // vertex input: position, UV
+        struct appdata {
+            float4 vertex : POSITION;
+            float4 texcoord : TEXCOORD0;
+        };
+
+        struct v2f {
+            float4 pos : SV_POSITION;
+            float4 uv : TEXCOORD0;
+        };
+
+        v2f vert (appdata v) {
+            v2f o;
+            o.pos = UnityObjectToClipPos(v.vertex );
+            o.uv = float4( v.texcoord.xy, 0, 0 );
+            return o;
+        }
+
+        half4 frag( v2f i ) : SV_Target {
+            half4 c = frac( i.uv );
+            if (any(saturate(i.uv) - i.uv))
+                c.b = 0.5;
+            return c;
+        }
+        ENDCG
+    }
+}
+}
+</code></pre><p>Here, UV coordinates are visualized as red and green colors, while an additional blue tint has been applied to coordinates outside of the 0 to 1 range:</p>
+<p><img src="../uploads/Main/SL-DebugUV1.png" alt="Debug UV1 shader applied to a torus knot model"> </p>
+<p>Similarly, this shader vizualizes the second UV set of the model:</p>
+<pre><code>Shader &quot;Debug/UV 2&quot; {
+SubShader {
+    Pass {
+        CGPROGRAM
+        #pragma vertex vert
+        #pragma fragment frag
+        #include &quot;UnityCG.cginc&quot;
+
+        // vertex input: position, second UV
+        struct appdata {
+            float4 vertex : POSITION;
+            float4 texcoord1 : TEXCOORD1;
+        };
+
+        struct v2f {
+            float4 pos : SV_POSITION;
+            float4 uv : TEXCOORD0;
+        };
+
+        v2f vert (appdata v) {
+            v2f o;
+            o.pos = UnityObjectToClipPos(v.vertex );
+            o.uv = float4( v.texcoord1.xy, 0, 0 );
+            return o;
+        }
+
+        half4 frag( v2f i ) : SV_Target {
+            half4 c = frac( i.uv );
+            if (any(saturate(i.uv) - i.uv))
+                c.b = 0.5;
+            return c;
+        }
+        ENDCG
+    }
+}
+}
+</code></pre><h3 id="visualizing-vertex-colors">Visualizing vertex colors</h3>
+<p>The following shader uses the vertex position and the per-vertex colors as the vertex shader inputs (defined in structure <strong>appdata</strong>).</p>
+<pre><code>Shader &quot;Debug/Vertex color&quot; {
+SubShader {
+    Pass {
+        CGPROGRAM
+        #pragma vertex vert
+        #pragma fragment frag
+        #include &quot;UnityCG.cginc&quot;
+
+        // vertex input: position, color
+        struct appdata {
+            float4 vertex : POSITION;
+            fixed4 color : COLOR;
+        };
+
+        struct v2f {
+            float4 pos : SV_POSITION;
+            fixed4 color : COLOR;
+        };
+
+        v2f vert (appdata v) {
+            v2f o;
+            o.pos = UnityObjectToClipPos(v.vertex );
+            o.color = v.color;
+            return o;
+        }
+
+        fixed4 frag (v2f i) : SV_Target { return i.color; }
+        ENDCG
+    }
+}
+}
+</code></pre><p><img src="../uploads/Main/SL-DebugColors.png" alt="Debug Colors shader applied to a torus knot model that has illumination baked into colors"> </p>
+<h3 id="visualizing-normals">Visualizing normals</h3>
+<p>The following shader uses the vertex position and the normal as the vertex shader inputs (defined in the structure <strong>appdata</strong>). The normal&#39;s X,Y &amp; Z components are visualized as RGB colors. Because the normal components are in the -1 to 1 range, we scale and bias them so that the output colors are displayable in the 0 to 1 range.</p>
+<pre><code>Shader &quot;Debug/Normals&quot; {
+SubShader {
+    Pass {
+        CGPROGRAM
+        #pragma vertex vert
+        #pragma fragment frag
+        #include &quot;UnityCG.cginc&quot;
+
+        // vertex input: position, normal
+        struct appdata {
+            float4 vertex : POSITION;
+            float3 normal : NORMAL;
+        };
+
+        struct v2f {
+            float4 pos : SV_POSITION;
+            fixed4 color : COLOR;
+        };
+
+        v2f vert (appdata v) {
+            v2f o;
+            o.pos = UnityObjectToClipPos(v.vertex );
+            o.color.xyz = v.normal * 0.5 + 0.5;
+            o.color.w = 1.0;
+            return o;
+        }
+
+        fixed4 frag (v2f i) : SV_Target { return i.color; }
+        ENDCG
+    }
+}
+}
+</code></pre><p><img src="../uploads/Main/SL-DebugNormals.png" alt="Debug Normals shader applied to a torus knot model. You can see that the model has hard shading edges."> </p>
+<h3 id="visualizing-tangents-and-binormals">Visualizing tangents and binormals</h3>
+<p>Tangent and binormal vectors are used for normal mapping. In Unity only the tangent vector is stored in vertices, and the binormal is derived from the normal and tangent values.</p>
+<p>The following shader uses the vertex position and the tangent as vertex shader inputs (defined in structure <strong>appdata</strong>). Tangent&#39;s x,y and z components are visualized as RGB colors. Because the normal components are in the -1 to 1 range, we scale and bias them so that the output colors are in a displayable 0 to 1 range.</p>
+<pre><code>Shader &quot;Debug/Tangents&quot; {
+SubShader {
+    Pass {
+        CGPROGRAM
+        #pragma vertex vert
+        #pragma fragment frag
+        #include &quot;UnityCG.cginc&quot;
+
+        // vertex input: position, tangent
+        struct appdata {
+            float4 vertex : POSITION;
+            float4 tangent : TANGENT;
+        };
+
+        struct v2f {
+            float4 pos : SV_POSITION;
+            fixed4 color : COLOR;
+        };
+
+        v2f vert (appdata v) {
+            v2f o;
+            o.pos = UnityObjectToClipPos(v.vertex );
+            o.color = v.tangent * 0.5 + 0.5;
+            return o;
+        }
+
+        fixed4 frag (v2f i) : SV_Target { return i.color; }
+        ENDCG
+    }
+}
+}
+</code></pre><p><img src="../uploads/Main/SL-DebugTangents.png" alt="Debug Tangents shader applied to a torus knot model."> </p>
+<p>The following shader visualizes bitangents. It uses the vertex position, normal and tangent values as vertex inputs. The bitangent (sometimes called
+binormal) is calculated from the normal and tangent values. It needs to be scaled and biased into a displayable 0 to 1 range.</p>
+<pre><code>Shader &quot;Debug/Bitangents&quot; {
+SubShader {
+    Pass {
+        Fog { Mode Off }
+        CGPROGRAM
+        #pragma vertex vert
+        #pragma fragment frag
+        #include &quot;UnityCG.cginc&quot;
+
+        // vertex input: position, normal, tangent
+        struct appdata {
+            float4 vertex : POSITION;
+            float3 normal : NORMAL;
+            float4 tangent : TANGENT;
+        };
+
+        struct v2f {
+            float4 pos : SV_POSITION;
+            float4 color : COLOR;
+        };
+
+        v2f vert (appdata v) {
+            v2f o;
+            o.pos = UnityObjectToClipPos(v.vertex );
+            // calculate bitangent
+            float3 bitangent = cross( v.normal, v.tangent.xyz ) * v.tangent.w;
+            o.color.xyz = bitangent * 0.5 + 0.5;
+            o.color.w = 1.0;
+            return o;
+        }
+
+        fixed4 frag (v2f i) : SV_Target { return i.color; }
+        ENDCG
+    }
+}
+}
+</code></pre><p><img src="../uploads/Main/SL-DebugBinormals.png" alt="Debug Bitangents shader applied to a torus knot model."> </p>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="SL-ShaderSemantics.html">Shader Semantics</a></li>
+<li><a href="SL-VertexFragmentShaderExamples.html">Vertex and Fragment Program Examples</a></li>
+<li><a href="SL-BuiltinIncludes.html">Built-in Shader Include Files</a></li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

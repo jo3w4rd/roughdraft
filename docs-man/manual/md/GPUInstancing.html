@@ -1,0 +1,389 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>GPU instancing | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="GPU instancing | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="gpu-instancing">GPU instancing</h1>
+<!--  see https://unity3d.atlassian.net/browse/UNI-3131 -->
+
+<h2 id="introduction">Introduction</h2>
+<p>Use GPU Instancing to draw (or render) multiple copies of the same Mesh at once, using a small number of <a href="DrawCallBatching.html">draw calls</a>. It is useful for drawing objects such as buildings, trees and grass, or other things that appear repeatedly in a Scene. </p>
+<p>GPU Instancing only renders identical Meshes with each draw call, but each instance can have different parameters (for example, color or scale) to add variation and reduce the appearance of repetition. </p>
+<p>GPU Instancing can reduce the number of draw calls used per Scene. This significantly improves the rendering performance of your project.</p>
+<h2 id="adding-instancing-to-your-materials">Adding instancing to your Materials</h2>
+<p>To enable GPU Instancing on Materials, select your Material in the Project window, and in the Inspector, tick the <strong>Enable Instancing</strong> checkbox.</p>
+<p><img src="../uploads/Main/GPUInstancing-0.png" alt="The __Enable Instancing__ checkbox as it appears in the Material Inspector window"></p>
+<p>Unity only displays this checkbox if the Material Shader supports GPU Instancing. This includes Standard, StandardSpecular and all surface <a href="Shaders.html">Shaders</a>. See documentation on <a href="shader-StandardShader.html">standard Shaders</a> for more information.</p>
+<p>The screenshots below show the same Scene with multiple GameObjects; in the top image GPU Instancing is enabled, in the bottom image it is not.  Note the difference in <strong>FPS</strong>, <strong>Batches __and __Saved by batching</strong>.</p>
+<p><img src="../uploads/Main/GPUInstancing-1.jpg" alt="With GPU Instancing: A simple Scene that includes multiple identical GameObjects that have GPU Instancing enabled"></p>
+<p><img src="../uploads/Main/GPUInstancing-2.jpg" alt="No GPU Instancing: A simple Scene that includes multiple identical GameObjects that do not have GPU Instancing enabled."></p>
+<p>When you use GPU instancing, the following restrictions apply:</p>
+<ul>
+<li><p>Unity automatically picks MeshRenderer components and <code>Graphics.DrawMesh</code> calls for instancing. Note that <a href="https://docs.unity3d.com/ScriptReference/SkinnedMeshRenderer.html">SkinnedMeshRenderer</a> is not supported.</p>
+</li>
+<li><p>Unity only batches GameObjects that share the same Mesh and the same Material in a single GPU instancing draw call. Use a small number of Meshes and Materials for better instancing efficiency. To create variations, modify your shader scripts to add per-instance data (see next section to learn more about this).</p>
+</li>
+</ul>
+<p>You can also use the calls <a href="ScriptRef:Graphics.DrawMeshInstanced.html">Graphics.DrawMeshInstanced</a> and <a href="ScriptRef:Graphics.DrawMeshInstancedIndirect.html">Graphics.DrawMeshInstancedIndirect</a> to perform GPU Instancing from your scripts.</p>
+<p>GPU Instancing is available on the following platforms and APIs:</p>
+<ul>
+<li><p><strong>DirectX 11</strong> and <strong>DirectX 12</strong> on Windows</p>
+</li>
+<li><p><strong>OpenGL Core 4.1+/ES3.0+</strong> on Windows, macOS, Linux, iOS and Android</p>
+</li>
+<li><p><strong>Metal</strong> on macOS and iOS</p>
+</li>
+<li><p><strong>Vulkan</strong> on Windows and Android</p>
+</li>
+<li><p><strong>PlayStation 4</strong> and <strong>Xbox One</strong></p>
+</li>
+<li><p><strong>WebGL</strong> (requires WebGL 2.0 API)</p>
+</li>
+</ul>
+<h2 id="adding-per-instance-data">Adding per-instance data</h2>
+<p>By default, Unity only batches instances of GameObjects with different <a href="Transforms.html">Transforms</a> in each instanced draw call. To add more variance to your instanced GameObjects, modify your Shader to add per-instance properties such as Material color. </p>
+<p>The example below demonstrates how to create an instanced Shader with different colour values for each instance.</p>
+<pre><code>
+Shader &quot;Custom/InstancedColorSurfaceShader&quot; {
+    Properties {
+        _Color (&quot;Color&quot;, Color) = (1,1,1,1)
+        _MainTex (&quot;Albedo (RGB)&quot;, 2D) = &quot;white&quot; {}
+        _Glossiness (&quot;Smoothness&quot;, Range(0,1)) = 0.5
+        _Metallic (&quot;Metallic&quot;, Range(0,1)) = 0.0
+    }
+
+    SubShader {
+        Tags { &quot;RenderType&quot;=&quot;Opaque&quot; }
+        LOD 200
+        CGPROGRAM
+        // Physically based Standard lighting model, and enable shadows on all light types
+        #pragma surface surf Standard fullforwardshadows
+        // Use Shader model 3.0 target
+        #pragma target 3.0
+        sampler2D _MainTex;
+        struct Input {
+            float2 uv_MainTex;
+        };
+        half _Glossiness;
+        half _Metallic;
+        UNITY_INSTANCING_BUFFER_START(Props)
+           UNITY_DEFINE_INSTANCED_PROP(fixed4, _Color)
+        UNITY_INSTANCING_BUFFER_END(Props)
+        void surf (Input IN, inout SurfaceOutputStandard o) {
+            fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * UNITY_ACCESS_INSTANCED_PROP(Props, _Color);
+            o.Albedo = c.rgb;
+            o.Metallic = _Metallic;
+            o.Smoothness = _Glossiness;
+            o.Alpha = c.a;
+        }
+        ENDCG
+    }
+    FallBack &quot;Diffuse&quot;
+}
+</code></pre><p>When you declare <code>_Color</code> as an instanced property, Unity will gather <code>_Color</code> values from the MaterialPropertyBlock objects set on GameObjects and put them in a single draw call.</p>
+<pre><code>
+MaterialPropertyBlock props = new MaterialPropertyBlock();
+MeshRenderer renderer;
+
+foreach (GameObject obj in objects)
+{
+   float r = Random.Range(0.0f, 1.0f);
+   float g = Random.Range(0.0f, 1.0f);
+   float b = Random.Range(0.0f, 1.0f);
+   props.SetColor(&quot;_Color&quot;, new Color(r, g, b));
+
+   renderer = obj.GetComponent&lt;MeshRenderer&gt;();
+   renderer.SetPropertyBlock(props);
+}
+</code></pre><p>Note that in normal cases (where an instancing shader is not used, or <code>_Color</code> is not a per-instance property), draw call batches are broken due to different values in the MaterialPropertyBlock.</p>
+<p>For these changes to take effect, you must enable GPU Instancing. To do this, select your Shader in the Project window, and in the Inspector, tick the <strong>Enable Instancing</strong> checkbox.</p>
+<p><img src="../uploads/Main/GPUInstancing-3.png" alt="The Enable Instancing checkbox as shown in the Shader Inspector window"></p>
+<h2 id="adding-instancing-to-vertex-and-fragment-shaders">Adding instancing to vertex and fragment Shaders</h2>
+<p>The following example takes a simple unlit Shader and makes it capable of instancing with different colors:</p>
+<pre><code>
+Shader &quot;SimplestInstancedShader&quot;
+{
+    Properties
+    {
+        _Color (&quot;Color&quot;, Color) = (1, 1, 1, 1)
+    }
+
+    SubShader
+    {
+        Tags { &quot;RenderType&quot;=&quot;Opaque&quot; }
+        LOD 100
+
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile_instancing
+            #include &quot;UnityCG.cginc&quot;
+
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+            };
+
+            struct v2f
+            {
+                float4 vertex : SV_POSITION;
+                UNITY_VERTEX_INPUT_INSTANCE_ID // necessary only if you want to access instanced properties in fragment Shader.
+            };
+
+            UNITY_INSTANCING_BUFFER_START(Props)
+                UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
+            UNITY_INSTANCING_BUFFER_END(Props)
+
+            v2f vert(appdata v)
+            {
+                v2f o;
+
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_TRANSFER_INSTANCE_ID(v, o); // necessary only if you want to access instanced properties in the fragment Shader.
+
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                return o;
+            }
+
+            fixed4 frag(v2f i) : SV_Target
+            {
+                UNITY_SETUP_INSTANCE_ID(i); // necessary only if any instanced properties are going to be accessed in the fragment Shader.
+                return UNITY_ACCESS_INSTANCED_PROP(Props, _Color);
+            }
+            ENDCG
+        }
+    }
+}
+</code></pre><h2 id="shader-modifications">Shader modifications</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Addition</th>
+<th style="text-align:left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>#pragma multi_compile_instancing</code></td>
+<td style="text-align:left">Use this to instruct Unity to generate instancing variants. It is not necessary for surface Shaders.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>UNITY_VERTEX_INPUT_INSTANCE_ID</code></td>
+<td style="text-align:left">Use this in the vertex Shader input/output structure to define an instance ID. See <code>SV_InstanceID</code> for more information.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>UNITY_INSTANCING_BUFFER_START(name)</code> / <code>UNITY_INSTANCING_BUFFER_END(name)</code></td>
+<td style="text-align:left">Every per-instance property must be defined in a specially named constant buffer. Use this pair of macros to wrap the properties you want to be made unique to each instance.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>UNITY_DEFINE_INSTANCED_PROP(float4, _Color)</code></td>
+<td style="text-align:left">Use this to define a per-instance Shader property with a type and a name. In this example, the <code>_Color</code> property is unique.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>UNITY_SETUP_INSTANCE_ID(v);</code></td>
+<td style="text-align:left">Use this to make the instance ID accessible to Shader functions. It must be used at the very beginning of a vertex Shader, and is optional for fragment Shaders.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>UNITY_TRANSFER_INSTANCE_ID(v, o);</code></td>
+<td style="text-align:left">Use this to copy the instance ID from the input structure to the output structure in the vertex Shader. This is only necessary if you need to access per-instance data in the fragment Shader.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>UNITY_ACCESS_INSTANCED_PROP(arrayName, color)</code></td>
+<td style="text-align:left">Use this to access a per-instance Shader property declared in an instancing constant buffer. It uses an instance ID to index into the instance data array. The <code>arrayName</code> in the macro must match the one in <code>UNITY_INSTANCING_BUFFER_END(name)</code> macro.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes</strong>: </p>
+<ul>
+<li><p>When using multiple per-instance properties, you don’t need to fill all of them in <code>MaterialPropertyBlocks</code>.</p>
+</li>
+<li><p>If one instance lacks the property, Unity takes the default value from the referenced Material. If the material does not have a default value for the specified property, Unity sets the value to 0. Do not put non-instanced properties in the <code>MaterialPropertyBlock</code>, because this disables instancing. Instead, create different Materials for them.</p>
+</li>
+</ul>
+<h2 id="advanced-gpu-instancing-tips">Advanced GPU instancing tips</h2>
+<h3 id="batching-priority">Batching priority</h3>
+<p>When batching, Unity prioritizes <a href="DrawCallBatching.html">Static batching</a> over instancing. If you mark one of your GameObjects for static batching, and Unity successfully batches it, Unity disables instancing on that GameObject, even if its Renderer uses an instancing Shader. When this happens, the Inspector window displays a warning message suggesting that you disable Static Batching. To do this, open the <strong>Player</strong> settings (<strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category), open <strong>Other Settings</strong> for your platform, and under the <strong>Rendering</strong> section, disable the <strong>Static Batching</strong> setting.</p>
+<p>Unity prioritizes instancing over dynamic batching. If Unity can instance a Mesh, it disables dynamic batching for that Mesh.</p>
+<h3 id="graphicsdrawmeshinstanced">Graphics.DrawMeshInstanced</h3>
+<p>Some factors can prevent GameObjects from being instanced together automatically. These factors include Material changes and depth sorting. Use <a href="ScriptRef:Graphics.DrawMeshInstanced.html">Graphics.DrawMeshInstanced</a> to force Unity to draw these objects using GPU instancing. Like <a href="ScriptRef:Graphics.DrawMesh.html">Graphics.DrawMesh</a>, this function draws Meshes for one frame without creating unnecessary GameObjects. </p>
+<h3 id="graphicsdrawmeshinstancedindirect">Graphics.DrawMeshInstancedIndirect</h3>
+<p>Use <code>DrawMeshInstancedIndirect</code> in a script to read the parameters of instancing draw calls, including the number of instances, from a compute buffer. This is useful if you want to populate all of the instance data from the GPU, and the CPU does not know the number of instances to draw (for example, when performing GPU culling). See API documentation on <a href="ScriptRef:Graphics.DrawMeshInstancedIndirect.html">Graphics.DrawMeshInstancedIndirect</a> for a detailed explanation and code examples.</p>
+<h3 id="global-illumination-support">Global Illumination support</h3>
+<p>Since Unity 2018.1, Global Illumination (GI) rendering is supported by GPU Instancing in the form of light probes, occlusion probes (in <a href="LightMode-Mixed-ShadowmaskMode.html">Shadowmask</a> mode) and lightmap STs. Standard shaders and surface shaders have GI support automatically enabled.</p>
+<p>Dynamic renderers affected by light probes and occlusion probes baked in the scene, and static renderers baked to the same lightmap texture, can be automatically batched together using GPU Instancing by Forward and Deferred render loop.</p>
+<p>For Graphics.DrawMeshInstanced, you can enable light probe and occlusion probe rendering by setting the LightProbeUsage argument to CustomProvided and providing a MaterialPropertyBlock with probe data copied in. See API documentation on <a href="ScriptRef:LightProbes.CalculateInterpolatedLightAndOcclusionProbes.html">LightProbes.CalculateInterpolatedLightAndOcclusionProbes</a> for a detailed explanation and code examples.</p>
+<h3 id="global-illumination-and-gpu-instancing">Global Illumination and GPU Instancing</h3>
+<p>GPU Instancing supports Global Illumination (GI) rendering in Unity. Each GPU instance can support GI coming from either different <a href="LightProbes.html">Light Probes</a>, one <a href="Lightmapping.html">lightmap</a> (but multiple atlas regions in that lightmap), or one <a href="class-LightProbeProxyVolume.html">Light Probe Proxy Volume</a> component (baked for the space volume containing all the instances). Standard shaders and surface shaders come with this support enabled.</p>
+<p>You can use GPU Instancing to automatically batch dynamic <a href="class-MeshRenderer.html">Mesh Renderers</a> affected by baked Light Probes (including their occlusion data), or static Mesh Renderers baked to the same lightmap Texture, via a <a href="RenderTech-ForwardRendering.html">Forward</a> and <a href="RenderTech-DeferredShading.html">Deferred</a> render loop. See documentation on the <a href="Rendering-Tech.html">Rendering pipeline</a> for more information.</p>
+<p>For <a href="ScriptRef:Graphics.DrawMeshInstanced.html">Graphics.DrawMeshInstanced</a>, you can enable the rendering of Light Probes (including their occlusion data) by setting the <a href="ScriptRef:Rendering.LightProbeUsage.html">LightProbeUsage</a> argument to <a href="ScriptRef:Rendering.LightProbeUsage.CustomProvided.html">CustomProvided</a> and providing a <a href="ScriptRef:MaterialPropertyBlock.html">MaterialPropertyBlock</a> with probe data copied in. See API documentation on <a href="ScriptRef:LightProbes.CalculateInterpolatedLightAndOcclusionProbes.html">LightProbes.CalculateInterpolatedLightAndOcclusionProbes</a> for a detailed explanation and code examples.</p>
+<p>Alternatively, you can pass an LPPV component reference and <a href="ScriptRef:Rendering.LightProbeUsage.UseProxyVolume.html">LightProbeUsage.UseProxyVolume</a> to <code>Graphics.DrawMeshInstanced</code>. When you do this, all instances sample the volume for the L0 and L1 bands of the Light Probe data. Use <code>MaterialPropertyBlock</code> if you want to supplement L2 data and occlusion data. For more information, see <a href="LightProbes-TechnicalInformation.html">Light Probes: Technical Information</a>.</p>
+<h3 id="shader-warming-up">Shader warming-up</h3>
+<p>Since Unity 2017.3, you need to warm up shaders to use instancing on OpenGL if you want absolutely smooth rendering when the shader renders for the first time. If you warm up shaders for instancing on a platform that doesn&#39;t require shader warm up, nothing will happen.</p>
+<p>See <a href="ScriptRef:ShaderVariantCollection.WarmUp.html">ShaderVariantCollection.WarmUp</a> and <a href="ScriptRef:Shader.WarmupAllShaders.html">Shader.WarmupAllShaders</a> for more information.</p>
+<h3 id="pragma-instancingoptions">#pragma instancing_options</h3>
+<p>The <code>#pragma instancing_options</code> directive can use the following switches: </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Switch</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>forcemaxcount:batchSize</code> and <code>maxcount:batchSize</code></td>
+<td style="text-align:left">On most platforms, Unity automatically calculates the instancing data array size by dividing the maximum constant buffer size on the target device with the size of the structure containing all per-instance properties. Generally you don&#39;t need to worry about the batch size. However, on some platforms (Vulkan, Xbox One and Switch), a fixed array size is still required. You can specify the batch size for those platforms by using <code>maxcount</code> option. The option is completely ignored on the other platforms. If you really want to force a batch size for all platforms, use <code>forcemaxcount</code> (for example, when you know you will only issue draws with 256 instanced sprites via DrawMeshInstanced). The default value for the two options is 500.</td>
+</tr>
+</tbody>
+</table>
+<p>| <code>assumeuniformscaling</code>| Use this to instruct Unity to assume that all the instances have uniform scalings (the same scale for all X, Y and Z axes).|</p>
+<p>| <code>nolodfade</code>| Use this to prevent Unity from applying GPU Instancing to <a href="LevelOfDetail.html">LOD</a> fade values.|</p>
+<p>| <code>nolightprobe</code>| Use this to prevent Unity from applying GPU Instancing to <a href="LightProbes.html">Light Probe</a> values (including their occlusion data). This is useful for performance if you are absolutely sure that there are no GameObjects using both GPU Instancing and Light Probes.|</p>
+<p>| <code>nolightmap</code>| Use this to prevent Unity from applying GPU Instancing to Lightmap ST (atlas information) values. This is useful for performance if you are absolutely sure that there are no GameObjects using both GPU Instancing and lightmaps.|</p>
+<p>| <code>procedural:FunctionName</code>| Use this to instruct Unity to generate an additional variant for use with <a href="ScriptRef:Graphics.DrawMeshInstancedIndirect.html">Graphics.DrawMeshInstancedIndirect</a>. <br>At the beginning of the vertex Shader stage, Unity calls the function specified after the colon. To set up the instance data manually, add per-instance data to this function in the same way you would normally add per-instance data to a Shader. Unity also calls this function at the beginning of a fragment Shader if any of the fetched instance properties are included in the fragment Shader. |</p>
+<h3 id="unityobjecttoclippos">UnityObjectToClipPos</h3>
+<p>When writing shader scripts, always use <code>UnityObjectToClipPos(v.vertex)</code> instead of <code>mul(UNITY_MATRIX_MVP,v.vertex)</code>. </p>
+<p>While you can continue to use <code>UNITY_MATRIX_MVP</code> as normal in instanced Shaders, <code>UnityObjectToClipPos</code> is the most efficient way to transform vertex positions from object space into clip space. Unity also implements a Shader upgrader that scans all your Shaders in the project, and automatically replaces any occurrence of <code>mul(UNITY_MATRIX_MVP, v)</code> with <code>UnityObjectToClipPos(v)</code>.</p>
+<p>The console window (menu: <strong>Window</strong> &gt; <strong>General</strong> &gt; <strong>Console</strong>) displays performance warnings if there are still places where <code>UNITY_MATRIX_MVP</code> (along with <code>UNITY_MATRIX_MV</code>) is used.</p>
+<h2 id="further-notes">Further notes</h2>
+<ul>
+<li><p>Surface Shaders have instancing variants generated by default, unless you specify <code>noinstancing</code> in the <code>#pragma</code> surface directive. Standard and StandardSpecular Shaders are already modified to have instancing support, but with no per-instance properties defined other than the transforms. Unity ignores uses of <code>#pragma multi_compile_instancing</code> in a surface Shader.</p>
+</li>
+<li><p>Unity strips instancing variants if GPU Instancing is not enabled on any GameObject in the Scene. To override the stripping behaviour, open the <a href="class-GraphicsSettings.html">Graphics</a> settings (menu: <strong>Edit </strong>&gt; <strong>Project Settings</strong>, then select the <strong>Graphics</strong> category), navigate to the <strong>Shader stripping</strong> section and change the <strong>Instancing Variants</strong>. </p>
+</li>
+<li><p>For <code>Graphics.DrawMeshInstanced</code>, you need to enable GPU Instancing on the Material that the script is passing into this method. However, <code>Graphics.DrawMeshInstancedIndirect</code> does not require you to enable GPU Instancing. The indirect instancing keyword <code>PROCEDURAL_INSTANCING_ON</code> is not affected by stripping.</p>
+</li>
+<li><p>Instanced draw calls appear in the <a href="FrameDebugger.html">Frame Debugger</a> as <strong>Draw Mesh (instanced)</strong>.</p>
+</li>
+<li><p>You don’t always need to define per-instance properties. However, setting up an instance ID is mandatory, because world matrices need it to function correctly. Surface shaders automatically set up an instance ID. You must set up the instance ID for Custom Vertex and Fragment shaders manually. To do this, use <code>UNITY_SETUP_INSTANCE_ID</code> at the beginning of the Shader.</p>
+</li>
+<li><p>When using forward rendering, Unity cannot efficiently instance objects that are affected by multiple lights. Only the base pass can make effective use of instancing, not the added passes. For more information about lighting passes, see documentation on <a href="RenderTech-ForwardRendering.html">Forward Rendering</a> and <a href="SL-PassTags.html">Pass Tags</a></p>
+</li>
+<li><p>If you have more than two passes for multi-pass Shaders, only the first passes can be instanced. This is because Unity forces the later passes to be rendered together for each object, forcing Material changes.</p>
+</li>
+<li><p>All the Shader macros used in the above examples are defined in <em>UnityInstancing.cginc</em>. Find this file in the following directory: <em>[Unity installation folder]\Editor\Data\CGIncludes</em>.</p>
+</li>
+</ul>
+<hr>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

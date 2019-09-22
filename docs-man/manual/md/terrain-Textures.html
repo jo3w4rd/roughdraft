@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Terrain Textures | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Terrain Textures | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="terrain-textures">Terrain Textures</h1>
+
+<p>You can add texture images to the surface of a terrain to create coloration and fine detail. Since terrains are such large objects, it is standard practice to use a texture that repeats seamlessly and tile it over the surface (the repeat generally isn&#39;t noticeable from a character&#39;s viewpoint close to the ground). One texture will serve as the &quot;background&quot; image over the landscape but you can also paint areas of different textures to simulate different ground surfaces such as grass, desert and snow. The painted textures can be applied with variable transparency so you can have a gradual transition between grassy countryside and a sandy beach, for example.</p>
+<p><img src="../uploads/Main/TerrainTexSandDunes.jpg" alt="Sand dune terrain with sandy texture"></p>
+<h2 id="enabling-textures">Enabling Textures</h2>
+<p>The paintbrush button on the toolbar enables texture painting.</p>
+<p><img src="../uploads/Main/TerrainTexPaintTool.png" alt=""></p>
+<p>Initially, the terrain has no textures assigned for painting. If you click the <em>Edit Textures</em> button and select <em>Add Texture</em> from the menu, you will see the <em>Add Terrain Texture</em> window. Here you can set a texture and its properties.</p>
+<p>Depending on the material type you set in <a href="terrain-OtherSettings.html">Terrain Settings</a>, the color channels of the main texture map may have different uses. These are listed below in <em>Terrain Texture Settings</em>.</p>
+<p>Click on <em>Select</em> to see your texture assets in a separate <em>Select Texture</em> window (not shown). Click on the texture you want and it displays in the <em>Add Terrain Texture</em> window. (See <em>Add Terrain Texture</em> window, before and after, in <em>Fig 1</em> below.)</p>
+<p><img src="../uploads/Main/TerrainAddTexWindowStandard.png" alt="Fig 1: Click on _Select_ in the Add Terrain Texture window and choose a texture asset from the Select Texture window (not shown) - it then displays, ready to add to the terrain"></p>
+<h3 id="terrain-texture-settings">Terrain Texture Settings</h3>
+<p>Depending on the material type you set in <a href="terrain-OtherSettings.html">Terrain Settings</a>, the color channels of the main texture map may have different uses. The different <em>Add Terrain Texture</em> windows are listed here.</p>
+<p><strong>Standard</strong> [image above in <em>Fig 1</em>]:  RGB channels are the albedo color of the terrain surface, while alpha channel controls the smoothness. There is also a &#39;Metallic&#39; slider which controls the overall look of the surface. </p>
+<p><strong>Diffuse</strong>: RGB channels are the diffuse color. Alpha channel is not used. </p>
+<p><img src="../uploads/Main/TerrainAddTexWindowDiffuse.png" alt="Add Texture window (Diffuse)"></p>
+<p><strong>Specular</strong>: RGB channels are the diffuse color. Alpha channel is the gloss map. </p>
+<p><img src="../uploads/Main/TerrainAddTexWindowSpecular.png" alt="Add Texture window (Specular)"></p>
+<p><strong>Custom</strong>: How the splat map is used depends on your custom shader, but usually you want the RGB channels to be the base color. </p>
+<p><img src="../uploads/Main/TerrainAddTexWindowSplat2.png" alt="Add Texture window (Custom)"></p>
+<p>Besides the main texture map, you can also specify a normal texture for all of the 3 built-in material types. The texture type of the normal texture used here must be &#39;Normal Map&#39; (you can change the texture type of a texture asset in its import settings). Shader code that handles normal map will be turned on only when at least one normal texture is set for the terrain, so you don&#39;t need to pay the performance cost of normal map if you don&#39;t use them. </p>
+<p>The <em>Size</em> property (just below the texture boxes) lets you set the width and height over which the image will stretch on the terrain&#39;s surface. The <em>Offset</em> property determines how far from the terrain&#39;s anchor point the tiling will start; you can set it to zero to start the tiling right in the corner. Once you have set the texture and properties to your liking, click the <strong>_Apply</strong> button to make the texture available to the terrain.</p>
+<p>To make changes to an added terrain texture, select its thumbnail, click the &#39;Edit Textures&#39; button and select &#39;Edit Texture...&#39; from the menu. Or, you can simply double click on its thumbnail. To remove a terrain texture, select its thumbnail, click the &#39;Edit Textures&#39; button and select &#39;Remove Texture&#39; from the menu. </p>
+<p>Note that if you want to assign a Texture to a Terrain, you need to open the Texture Importer and tick the <strong>Read/Write Enabled</strong> checkbox.</p>
+<h2 id="texture-painting">Texture Painting</h2>
+<p>The first texture you add will be used as a &quot;background&quot; to cover the terrain. However, you can add as many textures as you like; the subsequent ones will be available for painting using the familiar brush tools. Below the textures in the Terrain inspector, you will see the usual <em>Brush Size</em> and <em>Opacity</em> options but also an additional option called <em>Target Strength</em>. This sets the maximum opacity value that the brush will build up even if it passes over the same point repeatedly. This can be a useful way to add subtle patches of color variation within a single terrain type to break the monotony of a large, flat area with the same texture tile repeating over and over.</p>
+<p><img src="../uploads/Main/TerrainTexCorners.jpg" alt="Grass terrain with dirt texture painted on corners"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

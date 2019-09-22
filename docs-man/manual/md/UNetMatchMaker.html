@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Matchmaker | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Matchmaker | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="matchmaker">Matchmaker</h1>
+
+<p>The multiplayer networking feature includes services for players to play with each other over the internet without needing a public IP address. Users can create games, get lists of active games; and join and leave games. When playing over the internet, network traffic goes through a relay server hosted by Unity in the cloud instead of directly between the clients. This avoids problems with firewalls and NATs, allowing play from almost anywhere.</p>
+<p>Matchmaking functionality can be utilized with a special script <a href="ScriptRef:Networking.Match.NetworkMatch.html">NetworkMatch</a>, in the UnityEngine.Networking.Match namespace. The ability to use the relay server is built into the LLAPI but the matchmaker makes it easier to use. To use it, derive a  script from NetworkMatch and attach it to a manager object. Below is an example of creating a match, listing matches, and joining a match.</p>
+<p><em>(note, the terms &quot;match&quot;, &quot;game&quot;, and &quot;room&quot; are used interchangeably to mean an individual instance of the multiuser game running on the server)</em></p>
+<pre><code>using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.Networking.Types;
+using UnityEngine.Networking.Match;
+using System.Collections.Generic;
+
+public class HostGame : MonoBehaviour
+{
+    List&lt;MatchDesc&gt; matchList = new List&lt;MatchDesc&gt;();
+    bool matchCreated;
+    NetworkMatch networkMatch;
+
+    void Awake()
+    {
+        networkMatch = gameObject.AddComponent&lt;NetworkMatch&gt;();
+    }
+
+    void OnGUI()
+    {
+        // You would normally not join a match you created yourself but this is possible here for demonstration purposes.
+        if(GUILayout.Button(&quot;Create Room&quot;))
+        {
+            CreateMatchRequest create = new CreateMatchRequest();
+            create.name = &quot;NewRoom&quot;;
+            create.size = 4;
+            create.advertise = true;
+            create.password = &quot;&quot;;
+
+            networkMatch.CreateMatch(create, OnMatchCreate);
+        }
+
+        if (GUILayout.Button(&quot;List rooms&quot;))
+        {
+            networkMatch.ListMatches(0, 20, &quot;&quot;, OnMatchList);
+        }
+
+        if (matchList.Count &gt; 0)
+        {
+            GUILayout.Label(&quot;Current rooms&quot;);
+        }
+        foreach (var match in matchList)
+        {
+            if (GUILayout.Button(match.name))
+            {
+                networkMatch.JoinMatch(match.networkId, &quot;&quot;, OnMatchJoined);
+            }
+        }
+    }
+
+    public void OnMatchCreate(CreateMatchResponse matchResponse)
+    {
+        if (matchResponse.success)
+        {
+            Debug.Log(&quot;Create match succeeded&quot;);
+            matchCreated = true;
+            Utility.SetAccessTokenForNetwork(matchResponse.networkId, new NetworkAccessToken(matchResponse.accessTokenString));
+            NetworkServer.Listen(new MatchInfo(matchResponse), 9000);
+        }
+        else
+        {
+            Debug.LogError (&quot;Create match failed&quot;);
+        }
+    }
+
+    public void OnMatchList(ListMatchResponse matchListResponse)
+    {
+        if (matchListResponse.success &amp;&amp; matchListResponse.matches != null)
+        {
+            networkMatch.JoinMatch(matchListResponse.matches[0].networkId, &quot;&quot;, OnMatchJoined);
+        }
+    }
+
+    public void OnMatchJoined(JoinMatchResponse matchJoin)
+    {
+        if (matchJoin.success)
+        {
+            Debug.Log(&quot;Join match succeeded&quot;);
+            if (matchCreated)
+            {
+                Debug.LogWarning(&quot;Match already set up, aborting...&quot;);
+                return;
+            }
+            Utility.SetAccessTokenForNetwork(matchJoin.networkId, new NetworkAccessToken(matchJoin.accessTokenString));
+            NetworkClient myClient = new NetworkClient();
+            myClient.RegisterHandler(MsgType.Connect, OnConnected);
+            myClient.Connect(new MatchInfo(matchJoin));
+        }
+        else
+        {
+            Debug.LogError(&quot;Join match failed&quot;);
+        }
+    }
+
+    public void OnConnected(NetworkMessage msg)
+    {
+        Debug.Log(&quot;Connected!&quot;);
+    }
+}
+</code></pre><p>This script sets up the matchmaker to point to the public unity matchmaker server. It calls the base class functions for creating, listing, and joining matches. <a href="ScriptRef:Networking.Match.NetworkMatch.CreateMatch.html">CreateMatch</a> to create a match, <a href="ScriptRef:Networking.Match.NetworkMatch.JoinMatch.html">JoinMatch</a> to join a match, and <a href="ScriptRef:Networking.Match.NetworkMatch.ListMatches.html">ListMatches</a> for listing matches registered on the match maker server. Internally, NetworkMatch uses web services to establish a match and the given callback function is invoked when the process is complete, like OnMatchCreate for match creation.</p>
+<p>Populating the singleton NetworkMatch.matchSingleton tells the system to use the relay server instead of a direct connection when connecting to the game. So later, when the client actually connects to the game, it will automatically use the right relay server for the match that was chosen.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

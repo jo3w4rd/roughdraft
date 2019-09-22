@@ -1,0 +1,376 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Custom Editors | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Custom Editors | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="custom-editors">Custom Editors</h1>
+
+<p>A key to increasing the speed of game creation is to create custom editors for commonly used components. For the sake of example, we&#39;ll use this very simple script that always keeps an object looking at a point. Add this script to your project, and place it onto a cube gameobject in your scene. The script should be named &quot;LookAtPoint&quot;</p>
+<pre><code>//C# Example (LookAtPoint.cs)
+using UnityEngine;
+public class LookAtPoint : MonoBehaviour
+{
+    public Vector3 lookAtPoint = Vector3.zero;
+
+    void Update()
+    {
+        transform.LookAt(lookAtPoint);
+    }
+}
+</code></pre><pre><code>//JS Example (LookAtPoint.js)
+#pragma strict
+var lookAtPoint = Vector3.zero;
+function Update()
+{
+    transform.LookAt(lookAtPoint);
+}
+</code></pre><p>This will keep an object oriented towards a world-space point. Currently this script will only become active in <strong>play mode</strong>, that is, when the game is running. When writing editor scripts it&#39;s often useful to have certain scripts execute during <strong>edit mode</strong> too, while the game is not running. You can do this by adding an ExecuteInEditMode attribute to it:</p>
+<pre><code>//C# Example (LookAtPoint.cs)
+using UnityEngine;
+[ExecuteInEditMode]
+public class LookAtPoint : MonoBehaviour
+{
+    public Vector3 lookAtPoint = Vector3.zero;
+
+    void Update()
+    {
+        transform.LookAt(lookAtPoint);
+    }
+}
+</code></pre><pre><code>//JS Example (LookAtPoint.js)
+#pragma strict
+@script ExecuteInEditMode()
+var lookAtPoint = Vector3.zero;
+function Update()
+{
+    transform.LookAt(lookAtPoint);
+}
+</code></pre><p>Now if you move the object which has this script around in the editor, or change the values of &quot;Look At Point&quot; in the inspector - even when not in play mode - the object will update its orientation correspondingly so it remains looking at the target point in world space.</p>
+<h3 id="making-a-custom-editor">Making a Custom Editor</h3>
+<p>The above demonstrates how you can get simple scripts running during edit-time, however this alone does not allow you to create your own editor tools. The next step is to create a <strong>Custom Editor</strong> for script we just created.</p>
+<p>When you create a script in Unity, by default it inherits from MonoBehaviour, and therefore is a <strong>Component</strong> which can be placed on a game object. When placed on a game object, the Inspector displays a default interface for viewing and editing all public variables that can be shown - such as integers, floats, strings, Vector3&#39;s, etc.</p>
+<p>Here&#39;s how the default inspector looks for our script above:</p>
+<p><img src="../uploads/Main/NoCustomInspector.png" alt="A default inspector with a public Vector3 field"></p>
+<p><strong>A custom editor is a separate script which <em>replaces</em> this default layout with any editor controls that you choose.</strong></p>
+<p>To begin creating the custom editor for our LookAtPoint script, you should create another script with the same name, but with &quot;Editor&quot; appended. So for our example: &quot;LookAtPointEditor&quot;.</p>
+<pre><code>//c# Example (LookAtPointEditor.cs)
+using UnityEngine;
+using UnityEditor;
+​
+[CustomEditor(typeof(LookAtPoint))]
+[CanEditMultipleObjects]
+public class LookAtPointEditor : Editor 
+{
+    SerializedProperty lookAtPoint;
+
+    void OnEnable()
+    {
+        lookAtPoint = serializedObject.FindProperty(&quot;lookAtPoint&quot;);
+    }
+​
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(lookAtPoint);
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+</code></pre><pre><code>//JS Example (LookAtPointEditor.js)
+#pragma strict
+@CustomEditor(LookAtPoint)
+@CanEditMultipleObjects
+class LookAtPointEditor extends Editor {
+
+    var lookAtPoint : SerializedProperty;
+
+    function OnEnable()
+    {
+        lookAtPoint = serializedObject.FindProperty(&quot;lookAtPoint&quot;);
+    }
+
+    function OnInspectorGUI()
+    {
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(lookAtPoint);
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+</code></pre><p>This class has to derive from <strong>Editor</strong>. The <strong>CustomEditor</strong> attribute informs Unity which component it should act as an editor for. The <strong>CanEditMultipleObjects</strong> attribute tells Unity that you can select multiple objects with this editor and change them all at the same time.</p>
+<p>The code in OnInspectorGUI is executed whenever Unity displays the editor in the Inspector. You can put any GUI code in here - it works just like OnGUI does for games, but is run inside the Inspector. Editor defines the target property that you can use to access the object being inspected. Here&#39;s what our custom inspector looks like:</p>
+<p><img src="../uploads/Main/CustomInspector.png" alt=""> </p>
+<p>It&#39;s not very interesting because all we have done so far is to recreate the Vector3 field, exactly like the default inspector shows us, so the result looks very similar (although the &quot;Script&quot; field is now not present, because we didn&#39;t add any inspector code to show it).</p>
+<p>However now that you have control over how the inspector is displayed in an Editor script, you can use any code you like to lay out the inspector fields, allow the user to adjust the values, and even display graphics or other visual elements. In fact all of the inspectors you see within the Unity Editor including the more complex inspectors such as the terrain system and animation import settings, are all made using the same API that you have access to when creating your own custom Editors.</p>
+<p>Here&#39;s a simple example which extends your editor script to display a message indicating whether the target point is above or below the gameobject:</p>
+<pre><code>//c# Example (LookAtPointEditor.cs)
+using UnityEngine;
+using UnityEditor;
+
+[CustomEditor(typeof(LookAtPoint))]
+[CanEditMultipleObjects]
+public class LookAtPointEditor : Editor
+{
+    SerializedProperty lookAtPoint;
+
+    void OnEnable()
+    {
+        lookAtPoint = serializedObject.FindProperty(&quot;lookAtPoint&quot;);
+    }
+
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(lookAtPoint);
+        serializedObject.ApplyModifiedProperties();
+        if (lookAtPoint.vector3Value.y &gt; (target as LookAtPoint).transform.position.y)
+        {
+            EditorGUILayout.LabelField(&quot;(Above this object)&quot;);
+        }
+        if (lookAtPoint.vector3Value.y &lt; (target as LookAtPoint).transform.position.y)
+        {
+            EditorGUILayout.LabelField(&quot;(Below this object)&quot;);
+        }
+    }
+}
+</code></pre><pre><code>//JS Example (LookAtPointEditor.js)
+#pragma strict
+@CustomEditor(LookAtPoint)
+@CanEditMultipleObjects
+class LookAtPointEditor extends Editor {
+
+    var lookAtPoint : SerializedProperty;
+
+    function OnEnable()
+    {
+        lookAtPoint = serializedObject.FindProperty(&quot;lookAtPoint&quot;);
+    }
+
+    function OnInspectorGUI()
+    {
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(lookAtPoint);
+        serializedObject.ApplyModifiedProperties();
+        if (lookAtPoint.vector3Value.y &gt; (target as LookAtPoint).transform.position.y)
+        {
+            EditorGUILayout.LabelField(&quot;(Above this object)&quot;);
+        }
+        if (lookAtPoint.vector3Value.y &lt; (target as LookAtPoint).transform.position.y)
+        {
+            EditorGUILayout.LabelField(&quot;(Below this object)&quot;);
+        }
+    }
+}
+</code></pre><p>So now we have an new element to our inspector which prints a message showing if the target point is above or below the gameobject.</p>
+<p><img src="../uploads/Main/CustomInspector2.png" alt=""> </p>
+<p>This is just scratching the surface of what you can do with Editor scripting. You have full access to all the IMGUI commands to draw any type of interface, including rendering scenes using a camera within editor windows.</p>
+<h3 id="scene-view-additions">Scene View Additions</h3>
+<p>You can add extra code to the Scene View by implementing an OnSceneGUI in your custom editor. </p>
+<p>OnSceneGUI works just like OnInspectorGUI - except it gets run in the scene view. To help you make your own editing controls in the scene view, you can use the functions defined in <a href="ScriptRef:Handles.html">Handles</a> class. All functions in there are designed for working in 3D Scene views.</p>
+<pre><code>//C# Example (LookAtPointEditor.cs)
+using UnityEngine;
+using UnityEditor;
+
+[CustomEditor(typeof(LookAtPoint))]
+[CanEditMultipleObjects]
+public class LookAtPointEditor : Editor
+{
+    SerializedProperty lookAtPoint;
+
+    void OnEnable()
+    {
+        lookAtPoint = serializedObject.FindProperty(&quot;lookAtPoint&quot;);
+    }
+
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(lookAtPoint);
+        if (lookAtPoint.vector3Value.y &gt; (target as LookAtPoint).transform.position.y)
+        {
+            EditorGUILayout.LabelField(&quot;(Above this object)&quot;);
+        }
+        if (lookAtPoint.vector3Value.y &lt; (target as LookAtPoint).transform.position.y)
+        {
+            EditorGUILayout.LabelField(&quot;(Below this object)&quot;);
+        }
+
+
+        serializedObject.ApplyModifiedProperties();
+    }
+
+    public void OnSceneGUI()
+    {
+        var t = (target as LookAtPoint);
+
+        EditorGUI.BeginChangeCheck();
+        Vector3 pos = Handles.PositionHandle(t.lookAtPoint, Quaternion.identity);
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(target, &quot;Move point&quot;);
+            t.lookAtPoint = pos;
+            t.Update();
+        }
+    }
+}
+</code></pre><pre><code>//JS Example (LookAtPointEditor.js)
+#pragma strict
+@CustomEditor(LookAtPointJS)
+@CanEditMultipleObjects
+class LookAtPointEditorJS extends Editor {
+
+    var lookAtPoint : SerializedProperty;
+
+    function OnEnable()
+    {
+        lookAtPoint = serializedObject.FindProperty(&quot;lookAtPoint&quot;);
+    }
+
+    function OnInspectorGUI()
+    {
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(lookAtPoint);
+        serializedObject.ApplyModifiedProperties();
+        if (lookAtPoint.vector3Value.y &gt; (target as LookAtPointJS).transform.position.y)
+        {
+            EditorGUILayout.LabelField(&quot;(Above this object)&quot;);
+        }
+        if (lookAtPoint.vector3Value.y &lt; (target as LookAtPointJS).transform.position.y)
+        {
+            EditorGUILayout.LabelField(&quot;(Below this object)&quot;);
+        }
+    }
+
+
+    function OnSceneGUI()
+    {
+        var t : LookAtPointJS = (target as LookAtPointJS);
+
+        EditorGUI.BeginChangeCheck();
+        var pos = Handles.PositionHandle(t.lookAtPoint, Quaternion.identity);
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(target, &quot;Move point&quot;);
+            t.lookAtPoint = pos;
+            t.Update();
+        }
+    }
+}
+</code></pre><p>If you want to put 2D GUI objects (GUI, EditorGUI and friends), you need to wrap them in calls to Handles.BeginGUI() and Handles.EndGUI().</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

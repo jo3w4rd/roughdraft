@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>GUI Texture (Legacy UI Component) | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="GUI Texture (Legacy UI Component) | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="gui-texture-legacy-ui-component">GUI Texture (Legacy UI Component)</h1>
+
+<p><strong>Please Note:</strong> <em>This component relates to legacy methods for drawing UI textures and images to the screen. You should use Unity&#39;s up-to-date <a href="UISystem.html">UI system</a> instead. This is also unrelated to the <a href="GUIScriptingGuide.html">IMGUI system</a>.</em></p>
+<p><strong>GUI Textures</strong> are displayed as flat images in 2D. They are made especially for user interface elements, buttons, or decorations. Their positioning and scaling is performed along the x and y axes only, and they are measured in <strong>Screen Coordinates</strong>, rather than <strong>World Coordinates</strong>.</p>
+<p><img src="../uploads/Main/Inspector-GUITexture.png" alt=""> </p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Texture</strong></td>
+<td style="text-align:left">Reference to the <a href="class-TextureImporter.html">Texture</a> that will be used as the texture&#39;s display.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Color</strong></td>
+<td style="text-align:left">Color that will tint the <strong>Texture</strong> drawn on screen.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Pixel Inset</strong></td>
+<td style="text-align:left">Used for pixel-level control of the scaling and positioning of the GUI Texture. All values are measured relative to the position of the GUI Texture&#39;s <strong>Transform</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>X</strong></td>
+<td style="text-align:left">Left-most pixel position of the texture.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Y</strong></td>
+<td style="text-align:left">Bottom-most pixel position of the texture.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Width</strong></td>
+<td style="text-align:left">Right-most pixel position of the texture.</td>
+</tr>
+<tr>
+<td style="text-align:left">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<strong>Height</strong></td>
+<td style="text-align:left">Top-most pixel position of the texture.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Left Border</strong></td>
+<td style="text-align:left">Number of pixels from the left that are not affected by scale.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Right Border</strong></td>
+<td style="text-align:left">Number of pixels from the right that are not affected by scale.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Top Border</strong></td>
+<td style="text-align:left">Number of pixels from the top that are not affected by scale.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Bottom Border</strong></td>
+<td style="text-align:left">Number of pixels from the bottom that are not affected by scale.</td>
+</tr>
+</tbody>
+</table>
+<p><img src="../uploads/Main/GUITextureWindow.png" alt="The GUI Texture Inspector"> </p>
+<h2 id="details">Details</h2>
+<p>To create a GUITexture:</p>
+<ol>
+<li>Select a Texture in the <strong>Project View</strong></li>
+<li>Choose <strong>GameObject &gt; Create General &gt; GUI Texture</strong> from the menu bar</li>
+</ol>
+<p>GUI Textures are perfect for presenting game interface backgrounds, buttons, or other elements to the player. Through scripting, you can easily provide visual feedback for different &quot;states&quot; of the texture -- when the mouse is hovering over the texture, or is actively clicking it for example. Here is the basic breakdown of how the GUI Texture is calculated:</p>
+<p><img src="../uploads/Main/GUITexture-Layout.jpg" alt="GUI Textures are laid out according to these rules"> </p>
+<p><img src="../uploads/Main/GUITexture-Example.jpg" alt="The GUI elements seen here were all created with GUI Textures"> </p>
+<h3 id="borders">Borders</h3>
+<p>The borders are the regions at each edge of the image (specified by pixel widths) that will not scale when the rest of the texture is scaled. As you rarely know the resolution your game runs in, chances are your GUI will get scaled. Some GUI textures have a border at the edge that is meant to be an exact number of pixels. In order for this to work, set the border sizes to match those from the texture.</p>
+<h3 id="pixel-inset">Pixel Inset</h3>
+<p>The purpose of the <strong>Pixel Inset</strong> is to prevent textures from scaling with screen resolution, and keeping them in a fixed pixel size. This allows you to render a texture without any scaling. This means that players who run your game in higher resolutions will see your textures in smaller areas of the screen, allowing them to have more screen real-estate for your gameplay graphics.</p>
+<p>To use it effectively, you need to set the scale of the GUI Texture&#39;s Transform to (0, 0, 0). Now, the <strong>Pixel Inset</strong> is in full control of the texture&#39;s size and you can set the <strong>Pixel Inset</strong> values to be the exact pixel size of your Texture.</p>
+<h2 id="hints">Hints</h2>
+<ul>
+<li>The depth of each layered GUI Texture is determined by its individual Z Transform position, not the global Z position.</li>
+<li>GUI Textures are great for making menu screens, or pause/escape menu screens.</li>
+<li>You should use <strong>Pixel Inset</strong> on any GUI Textures that you want to be a specific number of pixels for the width and height.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

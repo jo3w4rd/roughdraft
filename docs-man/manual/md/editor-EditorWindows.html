@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Editor Windows | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Editor Windows | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="editor-windows">Editor Windows</h1>
+
+<p>You can create any number of custom windows in your app. These behave just like the Inspector, Scene or any other built-in ones. This is a great way to add a user interface to a sub-system for your game.</p>
+<p><img src="../uploads/Main/CustomEditorWindow.jpg" alt="Custom Editor Interface by Serious Games Interactive used for scripting cutscene actions"> </p>
+<p>Making a custom Editor Window involves the following simple steps:</p>
+<ul>
+<li>Create a script that derives from EditorWindow.</li>
+<li>Use code to trigger the window to display itself.</li>
+<li>Implement the GUI code for your tool.</li>
+</ul>
+<h3 id="derive-from-editorwindow">Derive From EditorWindow</h3>
+<p>In order to make your Editor Window, your script must be stored inside a folder called &quot;Editor&quot;. Make a class in this script that derives from EditorWindow. Then write your GUI controls in the inner OnGUI function.</p>
+<pre><code>using UnityEngine;
+using UnityEditor;
+using System.Collections;
+
+public class Example : EditorWindow
+
+    {
+        void OnGUI () {
+            // The actual window code goes here
+           }
+    }
+</code></pre><p><em>MyWindow.js - placed in a folder called &#39;Editor&#39; within your project.</em></p>
+<h3 id="showing-the-window">Showing the window</h3>
+<p>In order to show the window on screen, make a menu item that displays it. This is done by creating a function which is activated by the 
+<strong>MenuItem</strong> property. </p>
+<p>The default behavior in Unity is to recycle windows (so selecting the menu item again would show existing windows. This is done by using the function <a href="ScriptRef:EditorWindow.GetWindow.html">EditorWindow.GetWindow</a> Like this:</p>
+<pre><code>using UnityEngine;
+using UnityEditor;
+using System.Collections;
+
+class MyWindow : EditorWindow {
+    [MenuItem (&quot;Window/My Window&quot;)]
+
+    public static void  ShowWindow () {
+        EditorWindow.GetWindow(typeof(MyWindow));
+    }
+
+    void OnGUI () {
+        // The actual window code goes here
+    }
+}
+</code></pre><p><em>Showing the MyWindow</em></p>
+<p>This will create a standard, dockable editor window that saves its position between invocations, can be used in custom layouts, etc. To have more control over what gets created, you can use <a href="ScriptRef:EditorWindow.GetWindowWithRect.html">GetWindowWithRect</a></p>
+<h3 id="implementing-your-windows-gui">Implementing Your Window&#39;s GUI</h3>
+<p>The actual contents of the window are rendered by implementing the OnGUI function. You can use the same UnityGUI classes you use for your ingame GUI (<strong>GUI</strong> and <strong>GUILayout</strong>). In addition we provide some additional GUI controls, located in the editor-only classes <strong>EditorGUI</strong> and <strong>EditorGUILayout</strong>. These classes add to the controls already available in the normal classes, so you can mix and match at will.</p>
+<p>The following C# code shows how you can add GUI elements to your custom EditorWindow:</p>
+<pre><code>using UnityEditor;
+using UnityEngine;
+
+public class MyWindow : EditorWindow
+{
+    string myString = &quot;Hello World&quot;;
+    bool groupEnabled;
+    bool myBool = true;
+    float myFloat = 1.23f;
+
+    // Add menu item named &quot;My Window&quot; to the Window menu
+    [MenuItem(&quot;Window/My Window&quot;)]
+    public static void ShowWindow()
+    {
+        //Show existing window instance. If one doesn&#39;t exist, make one.
+        EditorWindow.GetWindow(typeof(MyWindow));
+    }
+
+    void OnGUI()
+    {
+        GUILayout.Label (&quot;Base Settings&quot;, EditorStyles.boldLabel);
+        myString = EditorGUILayout.TextField (&quot;Text Field&quot;, myString);
+
+        groupEnabled = EditorGUILayout.BeginToggleGroup (&quot;Optional Settings&quot;, groupEnabled);
+            myBool = EditorGUILayout.Toggle (&quot;Toggle&quot;, myBool);
+            myFloat = EditorGUILayout.Slider (&quot;Slider&quot;, myFloat, -3, 3);
+        EditorGUILayout.EndToggleGroup ();
+    }
+}
+</code></pre><p>This example results in a window which looks like this:</p>
+<p><img src="../uploads/Main/ExampleEditorWindow.png" alt="Custom Editor Window created using supplied example."> </p>
+<p>For more info, take a look at the example and documentation on the <a href="ScriptRef:EditorWindow.html">EditorWindow page</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

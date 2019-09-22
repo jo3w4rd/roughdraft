@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Getting started with WebGL development | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting started with WebGL development | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started-with-webgl-development">Getting started with WebGL development</h1>
+
+<h2 id="what-is-unity-webgl">What is Unity WebGL?</h2>
+<p>The WebGL build option allows Unity to publish content as JavaScript programs which use HTML5/JavaScript, WebAssembly, WebGL rendering API and other web standards to run Unity content in a web browser. To build and test your content for WebGL, choose the WebGL build target in the <strong>Build Player</strong> window, and click <strong>Build &amp; Run</strong>.</p>
+<h2 id="technical-overview">Technical overview</h2>
+<p>We use the <a href="https://kripken.github.io/emscripten-site/">emscripten</a> compiler toolchain to cross-compile the Unity runtime code (written in C and C++) into <a href="https://webassembly.org/">WebAssembly</a> (also known as Wasm), which has been designed to be small in size, load-time and memory efficient as well as able to deliver close to native speed execution. For more information about WebAssembly in Unity, check this <a href="https://blogs.unity3d.com/2018/08/15/webassembly-is-here/">blog post</a>.</p>
+<p>To convert the .NET game code (your C# scripts) into WebAssembly, we use a technology called <a href="IL2CPP.html">IL2CPP</a>. IL2CPP takes .NET bytecode and converts it to corresponding C++ source files, which is then compiled using emscripten to convert your scripts to Wasm.</p>
+<h2 id="platform-support">Platform support</h2>
+<p>Unity WebGL content is supported in the current versions of most major browsers on the desktop, however there are <a href="webgl-browsercompatibility.html">differences in the level of support</a> offered by the different browsers. Mobile devices are not supported by Unity WebGL.</p>
+<p>Not all features of Unity are available in WebGL builds, mostly due to constraints of the platform. Specifically:</p>
+<ul>
+<li><p>Threads are not supported due to the lack of threading supporting in JavaScript. This applies to both Unity&#39;s internal use of threads to speed up performance, and to the use of threads in script code and managed dlls. Essentially, anything in the <code>System.Threading</code> namespace is not supported.</p>
+</li>
+<li><p>WebGL builds cannot be debugged in Visual Studio. See: <a href="webgl-debugging.html">Debugging and trouble shooting WebGL builds</a>.</p>
+</li>
+<li><p>Browsers do not allow direct access to IP sockets for networking, due to security concerns. See: <a href="webgl-networking.html">WebGL Networking</a>.</p>
+</li>
+<li><p>The WebGL graphics API is equivalent to OpenGL ES 2.0 and 3.0, which has some limitations. See: <a href="webgl-graphics.html">WebGL Graphics</a>.</p>
+</li>
+<li><p>WebGL builds use a custom backend for Audio, based on the <strong>Web Audio</strong> API. This supports only basic audio functionality. See: <a href="webgl-audio.html">Using Audio in WebGL</a>.</p>
+</li>
+<li><p>WebGL is an AOT platform, so it does not allow dynamic generation of code using <code>System.Reflection.Emit</code>. This is the same on all other IL2CPP platforms, iOS, and most consoles.</p>
+</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

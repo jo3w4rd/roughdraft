@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Sprite Masks | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Sprite Masks | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="sprite-masks">Sprite Masks</h1>
+
+<p>Sprite Masks are used to either hide or reveal parts of a Sprite or group of Sprites. The Sprite Mask only affects objects using the Sprite Renderer Component.</p>
+<h3 id="creating-a-sprite-mask">Creating a Sprite Mask</h3>
+<p>To create a Sprite Mask select from the main menu GameObject &gt; 2D Object &gt; Sprite Mask.</p>
+<p><img src="../uploads/Main/SpriteMask1.png" alt="Creating a Sprite Mask from the menu"></p>
+<p><img src="../uploads/Main/SpriteMask2.png" alt="A new Sprite Mask GameObject is created in the Scene"></p>
+<h3 id="properties">Properties</h3>
+<p><img src="../uploads/Main/SpriteMask3.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Sprite</td>
+<td style="text-align:left">The sprite to be used as a mask.</td>
+</tr>
+<tr>
+<td style="text-align:left">Alpha Cutoff</td>
+<td style="text-align:left">If the alpha contains a blend between transparent and opaque areas, you can manually determine the cutoff point for which areas will be shown. You change this cutoff by adjusting the Alpha Cutoff slider.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Range Start</strong></td>
+<td style="text-align:left">The Range Start is the Sorting Layer which the mask starts masking from.</td>
+</tr>
+<tr>
+<td style="text-align:left">Sorting Layer</td>
+<td style="text-align:left">The Sorting Layer for the mask.</td>
+</tr>
+<tr>
+<td style="text-align:left">Order in Layer</td>
+<td style="text-align:left">The order within the Sorting Layer.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Range End</strong></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Mask All</td>
+<td style="text-align:left">By default the mask will affect all sorting layers behind it (lower sorting order).</td>
+</tr>
+<tr>
+<td style="text-align:left">Custom</td>
+<td style="text-align:left">The range end can be set to a custom Sorting Layer and Order in Layer.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="using-sprite-masks">Using Sprite Masks</h3>
+<p><img src="../uploads/Main/SpriteMask4.png" alt="The Sprite to be used as a mask needs to be assigned to the Sprite Mask Component"></p>
+<p>The Sprite Mask GameObject itself will not be visible in scene, only the resulting interactions with Sprites. To view Sprite Masks in the scene, select the Sprite Mask option in the Scene Menu.</p>
+<p><img src="../uploads/Main/SpriteMask5.jpg" alt="Scene view with Sprite Mask view turned on in the scene"></p>
+<p>Sprite Masks are always in effect. Sprites to be affected by a Sprite Mask need to have their Mask Interaction set in the Sprite Renderer.</p>
+<p><img src="../uploads/Main/SpriteMask6.jpg" alt="The character sprites Mask Interaction is set to Visible Under Mask thus only parts of the sprite that are in the mask area are visible"></p>
+<p>By default a Sprite Mask will affect any sprite in the scene that has their Mask Interaction set to Visible or Not Visible Under Mask. Quite often we want the mask to only affect a particular sprite or a group of sprites.</p>
+<p><img src="../uploads/Main/SpriteMask7.jpg" alt="The character sprites are interacting with masks on both the cards"></p>
+<p>One method of ensuring the mask is interacting with particular sprites is to use a Sorting Group Component.</p>
+<p><img src="../uploads/Main/SpriteMask8.jpg" alt="Sorting Group Component added to the Parent GameObject ensures the mask will affect only children of that Sorting Group"></p>
+<p>An alternative method of controlling the effect of the mask is to use the Custom Range Settings of a Sprite Mask.</p>
+<p><img src="../uploads/Main/SpriteMask9.jpg" alt="A Sprite Mask with a Custom Range setting ensures the mask will affect only Sprites in the specified Sorting Layer or Order in Layer range"></p>
+<p>The Range Start and Range End provides the ability to selectively mask sprites based on their Sorting Layer or Order in Layer.</p>
+<p><img src="../uploads/Main/SpriteMask10.jpg" alt=""></p>
+<p><br><br></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

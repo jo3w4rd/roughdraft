@@ -1,0 +1,1451 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Class GL
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GL
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.GL">
+  
+  
+  <h1 id="UnityEngine_GL" data-uid="UnityEngine.GL">Class GL
+  </h1>
+  <div class="markdown level0 summary"><p>Low-level graphics library.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">GL</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.html">UnityEngine</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_GL_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class GL</code></pre>
+  </div>
+  <h5 id="UnityEngine_GL_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Use this class to manipulate active transformation matrices,
+issue rendering commands similar to OpenGL&#39;s immediate mode and do other low-level
+graphics tasks. Note that in almost all cases using <a href="xref:UnityEngine.Graphics.DrawMesh">Graphics.DrawMesh</a> or <a class="xref" href="UnityEngine.Rendering.CommandBuffer.html">Rendering.CommandBuffer</a>
+is more efficient than using immediate mode drawing.</p>
+<p>GL immediate drawing functions use whatever is the &quot;current material&quot; set up right now (see <a href="xref:UnityEngine.Material.SetPass">Material.SetPass</a>).
+The material controls how the rendering is done (blending, textures, etc.), so unless you explicitly
+set it to something before using GL draw functions, the material can happen to be anything.
+Also, if you call any other drawing commands from inside GL drawing code, they can set
+material to something else, so make sure it&#39;s under control as well.</p>
+<p>GL drawing commands execute immediately. That means if you call them in Update(), they will be executed
+before the camera is rendered (and the camera will most likely clear the screen, making the GL drawing
+not visible).</p>
+<p>The usual place to call GL drawing is most often in Camera::pref::OnPostRender() from a script attached to a
+camera, or inside an image effect function (Camera::pref::OnRenderImage).</p>
+</div>
+  <h5 id="UnityEngine_GL_examples"><strong>Examples</strong></h5>
+  <pre><code>
+using UnityEngine;
+
+public class ExampleClass : MonoBehaviour
+{
+    // When added to an object, draws colored rays from the
+    // transform position.
+    public int lineCount = 100;
+    public float radius = 3.0f;
+
+    static Material lineMaterial;
+    static void CreateLineMaterial()
+    {
+        if (!lineMaterial)
+        {
+            // Unity has a built-in shader that is useful for drawing
+            // simple colored things.
+            Shader shader = Shader.Find(&quot;Hidden/Internal-Colored&quot;);
+            lineMaterial = new Material(shader);
+            lineMaterial.hideFlags = HideFlags.HideAndDontSave;
+            // Turn on alpha blending
+            lineMaterial.SetInt(&quot;_SrcBlend&quot;, (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            lineMaterial.SetInt(&quot;_DstBlend&quot;, (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            // Turn backface culling off
+            lineMaterial.SetInt(&quot;_Cull&quot;, (int)UnityEngine.Rendering.CullMode.Off);
+            // Turn off depth writes
+            lineMaterial.SetInt(&quot;_ZWrite&quot;, 0);
+        }
+    }
+
+    // Will be called after all regular rendering is done
+    public void OnRenderObject()
+    {
+        CreateLineMaterial();
+        // Apply the line material
+        lineMaterial.SetPass(0);
+
+        GL.PushMatrix();
+        // Set transformation matrix for drawing to
+        // match our transform
+        GL.MultMatrix(transform.localToWorldMatrix);
+
+        // Draw lines
+        GL.Begin(GL.LINES);
+        for (int i = 0; i &lt; lineCount; ++i)
+        {
+            float a = i / (float)lineCount;
+            float angle = a * Mathf.PI * 2;
+            // Vertex colors change from red to green
+            GL.Color(new Color(a, 1 - a, 0, 0.8F));
+            // One vertex at transform position
+            GL.Vertex3(0, 0, 0);
+            // Another vertex at edge of circle
+            GL.Vertex3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0);
+        }
+        GL.End();
+        GL.PopMatrix();
+    }
+}
+</code></pre><pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    void OnPostRender()
+    {
+        // Set your materials
+        GL.PushMatrix();
+        // yourMaterial.SetPass( );
+        // Draw your stuff
+        GL.PopMatrix();
+    }
+}
+</code></pre>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="UnityEngine_GL_LINE_STRIP" data-uid="UnityEngine.GL.LINE_STRIP">LINE_STRIP</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int LINE_STRIP = 2</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="UnityEngine_GL_LINES" data-uid="UnityEngine.GL.LINES">LINES</h4>
+  <div class="markdown level1 summary"><p>Mode for ::ref::Begin: draw lines.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int LINES = 1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_GL_LINES_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Draws lines between each pair of vertices passed. If you pass four vertices, A, B, C and D, two lines are drawn: one between A and B, and one between C and D.</p>
+<p>To set up the screen for drawing in 2D, use <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_LoadOrtho">GL.LoadOrtho</a> or <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_LoadPixelMatrix">GL.LoadPixelMatrix</a>.
+To set up the screen for drawing in 3D, use <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_LoadIdentity">GL.LoadIdentity</a> followed by <a href="xref:UnityEngine.GL.MultMatrix">GL.MultMatrix</a> with the desired transformation matrix.</p>
+<p>SA: <a href="xref:UnityEngine.GL.Begin">GL.Begin</a>, <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_End">GL.End</a>.</p>
+</div>
+  <h5 id="UnityEngine_GL_LINES_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+
+public class Example : MonoBehaviour
+{
+    // Draws a line from &quot;startVertex&quot; var to the curent mouse position.
+    Material mat;
+    Vector3 startVertex;
+    Vector3 mousePos;
+
+    void Start()
+    {
+        startVertex = Vector3.zero;
+    }
+
+    void Update()
+    {
+        mousePos = Input.mousePosition;
+        // Press space to update startVertex
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            startVertex = new Vector3(mousePos.x / Screen.width, mousePos.y / Screen.height, 0);
+        }
+    }
+
+    void OnPostRender()
+    {
+        if (!mat)
+        {
+            Debug.LogError(&quot;Please Assign a material on the inspector&quot;);
+            return;
+        }
+        GL.PushMatrix();
+        mat.SetPass(0);
+        GL.LoadOrtho();
+
+        GL.Begin(GL.LINES);
+        GL.Color(Color.red);
+        GL.Vertex(startVertex);
+        GL.Vertex(new Vector3(mousePos.x / Screen.width, mousePos.y / Screen.height, 0));
+        GL.End();
+
+        GL.PopMatrix();
+    }
+}
+</code></pre>
+  
+  
+  <h4 id="UnityEngine_GL_QUADS" data-uid="UnityEngine.GL.QUADS">QUADS</h4>
+  <div class="markdown level1 summary"><p>Mode for ::ref::Begin: draw quads.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int QUADS = 7</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_GL_QUADS_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Draws quads using each set of 4 vertices passed. If you pass 4 vertices, one quad is drawn, where each vertex becomes one corner of the quad. If you pass 8 vertices, 2 quads will be drawn.</p>
+<p>To set up the screen for drawing in 2D, use <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_LoadOrtho">GL.LoadOrtho</a> or <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_LoadPixelMatrix">GL.LoadPixelMatrix</a>.
+To set up the screen for drawing in 3D, use <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_LoadIdentity">GL.LoadIdentity</a> followed by <a href="xref:UnityEngine.GL.MultMatrix">GL.MultMatrix</a> with the desired transformation matrix.</p>
+<p>SA: <a href="xref:UnityEngine.GL.Begin">GL.Begin</a>, <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_End">GL.End</a>.</p>
+</div>
+  <h5 id="UnityEngine_GL_QUADS_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+
+public class Example : MonoBehaviour
+{
+    // Draw red a rombus on the screen
+    // and also draw a small cyan Quad in the left corner
+    Material mat;
+    void OnPostRender()
+    {
+        if (!mat)
+        {
+            Debug.LogError(&quot;Please Assign a material on the inspector&quot;);
+            return;
+        }
+        GL.PushMatrix();
+        mat.SetPass(0);
+        GL.LoadOrtho();
+        GL.Begin(GL.QUADS);
+        GL.Color(Color.red);
+        GL.Vertex3(0, 0.5f, 0);
+        GL.Vertex3(0.5f, 1, 0);
+        GL.Vertex3(1, 0.5f, 0);
+        GL.Vertex3(0.5f, 0, 0);
+
+        GL.Color(Color.cyan);
+        GL.Vertex3(0, 0, 0);
+        GL.Vertex3(0, 0.25f, 0);
+        GL.Vertex3(0.25f, 0.25f, 0);
+        GL.Vertex3(0.25f, 0, 0);
+        GL.End();
+        GL.PopMatrix();
+    }
+}
+</code></pre>
+  
+  
+  <h4 id="UnityEngine_GL_TRIANGLE_STRIP" data-uid="UnityEngine.GL.TRIANGLE_STRIP">TRIANGLE_STRIP</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int TRIANGLE_STRIP = 5</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="UnityEngine_GL_TRIANGLES" data-uid="UnityEngine.GL.TRIANGLES">TRIANGLES</h4>
+  <div class="markdown level1 summary"><p>Mode for ::ref::Begin: draw triangles.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int TRIANGLES = 4</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_GL_TRIANGLES_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Draws triangles using each set of 3 vertices passed. If you pass 3 vertices, one triangle is drawn, where each vertex becomes one corner of the triangle. If you pass 6 vertices, 2 triangles will be drawn.</p>
+<p>To set up the screen for drawing in 2D, use <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_LoadOrtho">GL.LoadOrtho</a> or <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_LoadPixelMatrix">GL.LoadPixelMatrix</a>.
+To set up the screen for drawing in 3D, use <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_LoadIdentity">GL.LoadIdentity</a> followed by <a href="xref:UnityEngine.GL.MultMatrix">GL.MultMatrix</a> with the desired transformation matrix.</p>
+<p>SA: <a href="xref:UnityEngine.GL.Begin">GL.Begin</a>, <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_End">GL.End</a>.</p>
+</div>
+  <h5 id="UnityEngine_GL_TRIANGLES_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+
+public class Example : MonoBehaviour
+{
+    // Draws a triangle that covers the middle of the screen
+    Material mat;
+
+    void OnPostRender()
+    {
+        if (!mat)
+        {
+            Debug.LogError(&quot;Please Assign a material on the inspector&quot;);
+            return;
+        }
+        GL.PushMatrix();
+        mat.SetPass(0);
+        GL.LoadOrtho();
+        GL.Begin(GL.TRIANGLES);
+        GL.Vertex3(0, 0, 0);
+        GL.Vertex3(1, 1, 0);
+        GL.Vertex3(0, 1, 0);
+        GL.End();
+        GL.PopMatrix();
+    }
+}
+</code></pre>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_GL_invertCulling_" data-uid="UnityEngine.GL.invertCulling*"></a>
+  <h4 id="UnityEngine_GL_invertCulling" data-uid="UnityEngine.GL.invertCulling">invertCulling</h4>
+  <div class="markdown level1 summary"><p>Select whether to invert the backface culling (true) or not (false).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool invertCulling { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_GL_invertCulling_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This flag can &quot;flip&quot; the culling mode of all rendered objects. Major use case: rendering reflections for mirrors, water etc. Since virtual camera for rendering the reflection is mirrored, the culling order has to be inverted. You can see how the Water script in Effects standard package does that.</p>
+</div>
+  <h5 id="UnityEngine_GL_invertCulling_examples">Examples</h5>
+  <pre><code>
+// When attached to the camera, this script
+// will make all rendering be flipped &quot;inside out&quot;,
+// i.e. back faces of objects will be rendered instead
+// of front faces.
+using UnityEngine;
+
+[ExecuteInEditMode]
+public class ExampleScript : MonoBehaviour
+{
+    private bool oldCulling;
+    public void OnPreRender()
+    {
+        oldCulling = GL.invertCulling;
+        GL.invertCulling = true;
+    }
+
+    public void OnPostRender()
+    {
+        GL.invertCulling = oldCulling;
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_GL_modelview_" data-uid="UnityEngine.GL.modelview*"></a>
+  <h4 id="UnityEngine_GL_modelview" data-uid="UnityEngine.GL.modelview">modelview</h4>
+  <div class="markdown level1 summary"><p>The current modelview matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix4x4 modelview { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_GL_modelview_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Assigning to this variable is equivalent to @@glLoadMatrix(mat)@@ in OpenGL; in other
+graphics APIs the corresponding functionality is emulated.</p>
+<p>Changing modelview matrix overrides current camera&#39;s view parameters, so most
+often you want to save and restore matrix using <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_PushMatrix">GL.PushMatrix</a> and <a class="xref" href="UnityEngine.GL.html#UnityEngine_GL_PopMatrix">GL.PopMatrix</a>.</p>
+<p>Reading this variable returns the current modelview matrix.</p>
+</div>
+  
+  
+  <a id="UnityEngine_GL_sRGBWrite_" data-uid="UnityEngine.GL.sRGBWrite*"></a>
+  <h4 id="UnityEngine_GL_sRGBWrite" data-uid="UnityEngine.GL.sRGBWrite">sRGBWrite</h4>
+  <div class="markdown level1 summary"><p>Controls whether Linear-to-sRGB color conversion is performed while rendering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool sRGBWrite { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_GL_sRGBWrite_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property is only relevant when [[wiki:LinearLighting|Linear Color Space]] rendering is used.
+Typically when linear color space is used, non-HDR render textures are treated as sRGB data
+(i.e. &quot;regular colors&quot;), and fragment shaders outputs are treated as linear color values. So by default
+the fragment shader color value is converted into sRGB.</p>
+<p>However, if you know your fragment shader already outputs sRGB color value for some reason and want to
+temporarily turn off Linear-to-sRGB write color conversion, you can use this property to achieve that.</p>
+<p>Note that the ability to turn off sRGB writes is not supported on all platforms (typically mobile &quot;tile based&quot; GPUs
+can not do it), so this is considered a &quot;feature of last resort&quot;. Usually it is better to create <a href="xref:UnityEngine.RenderTexture|RenderTextures">RenderTexture|RenderTextures</a>
+with appropriate color space flag (linear vs sRGB) and not switch the conversions in the middle of rendering into it.</p>
+<p>SA: [[wiki:LinearLighting|Linear Color Space]], <a class="xref" href="UnityEngine.RenderTexture.html#UnityEngine_RenderTexture_sRGB">RenderTexture.sRGB</a>, <a class="xref" href="UnityEngine.RenderTextureReadWrite.html">RenderTextureReadWrite</a>, <a href="xref:UnityEngine.PlayerSettings.colorSpace">PlayerSettings.colorSpace</a>.</p>
+</div>
+  
+  
+  <a id="UnityEngine_GL_wireframe_" data-uid="UnityEngine.GL.wireframe*"></a>
+  <h4 id="UnityEngine_GL_wireframe" data-uid="UnityEngine.GL.wireframe">wireframe</h4>
+  <div class="markdown level1 summary"><p>Should rendering be done in wireframe?</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool wireframe { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_GL_wireframe_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Turning on wireframe mode will affect all objects rendered after the call, until you turn
+wireframe back off. In the Unity editor, wireframe mode is always turned off
+before repainting any window.</p>
+<p>Note that some platforms, for example mobile (OpenGL ES) does not support
+wireframe rendering.</p>
+</div>
+  <h5 id="UnityEngine_GL_wireframe_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+
+public class Example : MonoBehaviour
+{
+    // Attach this script to a camera, this will make it render in wireframe
+    void OnPreRender()
+    {
+        GL.wireframe = true;
+    }
+
+    void OnPostRender()
+    {
+        GL.wireframe = false;
+    }
+}
+</code></pre>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="UnityEngine_GL_Begin_" data-uid="UnityEngine.GL.Begin*"></a>
+  <h4 id="UnityEngine_GL_Begin_System_Int32_" data-uid="UnityEngine.GL.Begin(System.Int32)">Begin(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Begin(int mode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">mode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_Clear_" data-uid="UnityEngine.GL.Clear*"></a>
+  <h4 id="UnityEngine_GL_Clear_System_Boolean_System_Boolean_UnityEngine_Color_" data-uid="UnityEngine.GL.Clear(System.Boolean,System.Boolean,UnityEngine.Color)">Clear(Boolean, Boolean, Color)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Clear(bool clearDepth, bool clearColor, Color backgroundColor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">clearDepth</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">clearColor</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Color.html">Color</a></td>
+        <td><span class="parametername">backgroundColor</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_Clear_" data-uid="UnityEngine.GL.Clear*"></a>
+  <h4 id="UnityEngine_GL_Clear_System_Boolean_System_Boolean_UnityEngine_Color_System_Single_" data-uid="UnityEngine.GL.Clear(System.Boolean,System.Boolean,UnityEngine.Color,System.Single)">Clear(Boolean, Boolean, Color, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Clear(bool clearDepth, bool clearColor, Color backgroundColor, float depth)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">clearDepth</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">clearColor</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Color.html">Color</a></td>
+        <td><span class="parametername">backgroundColor</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">depth</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_ClearWithSkybox_" data-uid="UnityEngine.GL.ClearWithSkybox*"></a>
+  <h4 id="UnityEngine_GL_ClearWithSkybox_System_Boolean_UnityEngine_Camera_" data-uid="UnityEngine.GL.ClearWithSkybox(System.Boolean,UnityEngine.Camera)">ClearWithSkybox(Boolean, Camera)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ClearWithSkybox(bool clearDepth, Camera camera)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">clearDepth</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Camera.html">Camera</a></td>
+        <td><span class="parametername">camera</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_Color_" data-uid="UnityEngine.GL.Color*"></a>
+  <h4 id="UnityEngine_GL_Color_UnityEngine_Color_" data-uid="UnityEngine.GL.Color(UnityEngine.Color)">Color(Color)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Color(Color c)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Color.html">Color</a></td>
+        <td><span class="parametername">c</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_End_" data-uid="UnityEngine.GL.End*"></a>
+  <h4 id="UnityEngine_GL_End" data-uid="UnityEngine.GL.End">End()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void End()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_GL_Flush_" data-uid="UnityEngine.GL.Flush*"></a>
+  <h4 id="UnityEngine_GL_Flush" data-uid="UnityEngine.GL.Flush">Flush()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Flush()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_GL_GetGPUProjectionMatrix_" data-uid="UnityEngine.GL.GetGPUProjectionMatrix*"></a>
+  <h4 id="UnityEngine_GL_GetGPUProjectionMatrix_UnityEngine_Matrix4x4_System_Boolean_" data-uid="UnityEngine.GL.GetGPUProjectionMatrix(UnityEngine.Matrix4x4,System.Boolean)">GetGPUProjectionMatrix(Matrix4x4, Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Matrix4x4 GetGPUProjectionMatrix(Matrix4x4 proj, bool renderIntoTexture)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">proj</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">renderIntoTexture</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_InvalidateState_" data-uid="UnityEngine.GL.InvalidateState*"></a>
+  <h4 id="UnityEngine_GL_InvalidateState" data-uid="UnityEngine.GL.InvalidateState">InvalidateState()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void InvalidateState()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_GL_IssuePluginEvent_" data-uid="UnityEngine.GL.IssuePluginEvent*"></a>
+  <h4 id="UnityEngine_GL_IssuePluginEvent_IntPtr_System_Int32_" data-uid="UnityEngine.GL.IssuePluginEvent(IntPtr,System.Int32)">IssuePluginEvent(IntPtr, Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void IssuePluginEvent(IntPtr callback, int eventID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IntPtr</span></td>
+        <td><span class="parametername">callback</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">eventID</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_IssuePluginEvent_" data-uid="UnityEngine.GL.IssuePluginEvent*"></a>
+  <h4 id="UnityEngine_GL_IssuePluginEvent_System_Int32_" data-uid="UnityEngine.GL.IssuePluginEvent(System.Int32)">IssuePluginEvent(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void IssuePluginEvent(int eventID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">eventID</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_LoadIdentity_" data-uid="UnityEngine.GL.LoadIdentity*"></a>
+  <h4 id="UnityEngine_GL_LoadIdentity" data-uid="UnityEngine.GL.LoadIdentity">LoadIdentity()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void LoadIdentity()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_GL_LoadOrtho_" data-uid="UnityEngine.GL.LoadOrtho*"></a>
+  <h4 id="UnityEngine_GL_LoadOrtho" data-uid="UnityEngine.GL.LoadOrtho">LoadOrtho()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void LoadOrtho()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_GL_LoadPixelMatrix_" data-uid="UnityEngine.GL.LoadPixelMatrix*"></a>
+  <h4 id="UnityEngine_GL_LoadPixelMatrix" data-uid="UnityEngine.GL.LoadPixelMatrix">LoadPixelMatrix()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void LoadPixelMatrix()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_GL_LoadPixelMatrix_" data-uid="UnityEngine.GL.LoadPixelMatrix*"></a>
+  <h4 id="UnityEngine_GL_LoadPixelMatrix_System_Single_System_Single_System_Single_System_Single_" data-uid="UnityEngine.GL.LoadPixelMatrix(System.Single,System.Single,System.Single,System.Single)">LoadPixelMatrix(Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void LoadPixelMatrix(float left, float right, float bottom, float top)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">left</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">right</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">bottom</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">top</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_LoadProjectionMatrix_" data-uid="UnityEngine.GL.LoadProjectionMatrix*"></a>
+  <h4 id="UnityEngine_GL_LoadProjectionMatrix_UnityEngine_Matrix4x4_" data-uid="UnityEngine.GL.LoadProjectionMatrix(UnityEngine.Matrix4x4)">LoadProjectionMatrix(Matrix4x4)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void LoadProjectionMatrix(Matrix4x4 mat)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">mat</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_MultiTexCoord_" data-uid="UnityEngine.GL.MultiTexCoord*"></a>
+  <h4 id="UnityEngine_GL_MultiTexCoord_System_Int32_UnityEngine_Vector3_" data-uid="UnityEngine.GL.MultiTexCoord(System.Int32,UnityEngine.Vector3)">MultiTexCoord(Int32, Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void MultiTexCoord(int unit, Vector3 v)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">unit</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">v</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_MultiTexCoord2_" data-uid="UnityEngine.GL.MultiTexCoord2*"></a>
+  <h4 id="UnityEngine_GL_MultiTexCoord2_System_Int32_System_Single_System_Single_" data-uid="UnityEngine.GL.MultiTexCoord2(System.Int32,System.Single,System.Single)">MultiTexCoord2(Int32, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void MultiTexCoord2(int unit, float x, float y)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">unit</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_MultiTexCoord3_" data-uid="UnityEngine.GL.MultiTexCoord3*"></a>
+  <h4 id="UnityEngine_GL_MultiTexCoord3_System_Int32_System_Single_System_Single_System_Single_" data-uid="UnityEngine.GL.MultiTexCoord3(System.Int32,System.Single,System.Single,System.Single)">MultiTexCoord3(Int32, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void MultiTexCoord3(int unit, float x, float y, float z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">unit</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">z</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_MultMatrix_" data-uid="UnityEngine.GL.MultMatrix*"></a>
+  <h4 id="UnityEngine_GL_MultMatrix_UnityEngine_Matrix4x4_" data-uid="UnityEngine.GL.MultMatrix(UnityEngine.Matrix4x4)">MultMatrix(Matrix4x4)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void MultMatrix(Matrix4x4 m)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">m</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_PopMatrix_" data-uid="UnityEngine.GL.PopMatrix*"></a>
+  <h4 id="UnityEngine_GL_PopMatrix" data-uid="UnityEngine.GL.PopMatrix">PopMatrix()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void PopMatrix()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_GL_PushMatrix_" data-uid="UnityEngine.GL.PushMatrix*"></a>
+  <h4 id="UnityEngine_GL_PushMatrix" data-uid="UnityEngine.GL.PushMatrix">PushMatrix()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void PushMatrix()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_GL_RenderTargetBarrier_" data-uid="UnityEngine.GL.RenderTargetBarrier*"></a>
+  <h4 id="UnityEngine_GL_RenderTargetBarrier" data-uid="UnityEngine.GL.RenderTargetBarrier">RenderTargetBarrier()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RenderTargetBarrier()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_GL_SetRevertBackfacing_" data-uid="UnityEngine.GL.SetRevertBackfacing*"></a>
+  <h4 id="UnityEngine_GL_SetRevertBackfacing_System_Boolean_" data-uid="UnityEngine.GL.SetRevertBackfacing(System.Boolean)">SetRevertBackfacing(Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetRevertBackfacing(bool revertBackFaces)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">revertBackFaces</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_TexCoord_" data-uid="UnityEngine.GL.TexCoord*"></a>
+  <h4 id="UnityEngine_GL_TexCoord_UnityEngine_Vector3_" data-uid="UnityEngine.GL.TexCoord(UnityEngine.Vector3)">TexCoord(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void TexCoord(Vector3 v)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">v</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_TexCoord2_" data-uid="UnityEngine.GL.TexCoord2*"></a>
+  <h4 id="UnityEngine_GL_TexCoord2_System_Single_System_Single_" data-uid="UnityEngine.GL.TexCoord2(System.Single,System.Single)">TexCoord2(Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void TexCoord2(float x, float y)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_TexCoord3_" data-uid="UnityEngine.GL.TexCoord3*"></a>
+  <h4 id="UnityEngine_GL_TexCoord3_System_Single_System_Single_System_Single_" data-uid="UnityEngine.GL.TexCoord3(System.Single,System.Single,System.Single)">TexCoord3(Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void TexCoord3(float x, float y, float z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">z</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_Vertex_" data-uid="UnityEngine.GL.Vertex*"></a>
+  <h4 id="UnityEngine_GL_Vertex_UnityEngine_Vector3_" data-uid="UnityEngine.GL.Vertex(UnityEngine.Vector3)">Vertex(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Vertex(Vector3 v)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">v</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_Vertex3_" data-uid="UnityEngine.GL.Vertex3*"></a>
+  <h4 id="UnityEngine_GL_Vertex3_System_Single_System_Single_System_Single_" data-uid="UnityEngine.GL.Vertex3(System.Single,System.Single,System.Single)">Vertex3(Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Vertex3(float x, float y, float z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">z</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_GL_Viewport_" data-uid="UnityEngine.GL.Viewport*"></a>
+  <h4 id="UnityEngine_GL_Viewport_UnityEngine_Rect_" data-uid="UnityEngine.GL.Viewport(UnityEngine.Rect)">Viewport(Rect)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Viewport(Rect pixelRect)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Rect.html">Rect</a></td>
+        <td><span class="parametername">pixelRect</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

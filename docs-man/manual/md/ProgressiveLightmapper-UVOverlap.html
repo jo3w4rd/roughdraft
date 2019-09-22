@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>UV overlap feedback | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="UV overlap feedback | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="uv-overlap-feedback">UV overlap feedback</h1>
+
+<p>Each lightmap contains a number of <strong>charts</strong>. At run time, Unity maps these charts onto mesh faces, and uses the charts’ lighting data to calculate the final appearance. Because of the way GPU sampling works, data from one chart can bleed onto another if they are too close to each other. This usually leads to unintended aliasing, pixelation, and other graphical results (these are called artifacts).</p>
+<p><img src="../uploads/Main/ProgressiveLightmapper-UVOverlap-0.png" alt="Example of graphical artifacts due to chart bleeding"></p>
+<p>To avoid light bleeding, there must be a sufficient amount of space between charts. When a GPU samples a lightmap, the lighting system calculates the final sample value from the four texels closest to the sampled point (assuming bilinear filtering is used). These four texels are called the bilinear &quot;neighborhood&quot; of the sampled point. Charts are too close together if they overlap - that is, if the neighbourhood of any point inside a chart overlaps with the neighborhood of any point in another chart. In the image below, the white pixels indicate chart neighbourhoods, and red pixels indicate overlapping neighbourhoods.</p>
+<p><img src="../uploads/Main/ProgressiveLightmapper-UVOverlap-1.png" alt="Red pixels indicate overlapping chart neighbourhoods"></p>
+<p>Determining optimal chart placements and spacing can be difficult, because it depends on several parameters (such as lightmap resolution, mesh UVs, and Importer settings). For this reason, Unity provides the ability to identify these issues easily, as outlined in the following section.</p>
+<h2 id="identification">Identification</h2>
+<p>There are three ways to identity overlaps: </p>
+<ul>
+<li><p>Keep an eye on Unity’s console. If Unity detects overlapping UVs, it prints a warning message with a list of affected GameObjects. </p>
+</li>
+<li><p>Use the <strong>UV Overlap</strong> draw mode in the Scene View (see <a href="GIVis.html">GI visualizations in the Scene View</a> for more information). When you have this mode enabled, Unity adds a red highlight to chart texels that are too close to texels of other charts. This is especially useful if you discover an artefact in the Scene view, and want to quickly examine whether UV overlap is causing it.</p>
+</li>
+</ul>
+<p><img src="../uploads/Main/ProgressiveLightmapper-UVOverlap-2.jpg" alt="Scene View using UV Overlap draw mode (see dropdown in top left)"></p>
+<ul>
+<li>Use Object Maps in the Lighting tab. Select an object and go to the Lighting tab and then choose Object Maps. Make sure to select Baked UV Overlap in the dropdown. Problematic texels are colored red in this view.</li>
+</ul>
+<p><img src="../uploads/Main/ProgressiveLightmapper-UVOverlap-3.jpg" alt="Object Maps in the Lighting tab"></p>
+<h2 id="solutions">Solutions</h2>
+<p>There is no one single solution for UV overlap, because there are so many things that can cause it. Here are the most common solutions to consider:</p>
+<ul>
+<li><p>If Unity is automatically creating the lightmap UVs, you can increase the <strong>Pack Margin</strong>. To do this, navigate to the <a href="FBXImporter-Model.html">Model tab</a> of the Mesh’s import settings. Make sure <strong>Generate Lightmap UVs</strong> is enabled, then fold out <strong>Advanced</strong> and use the <strong>Pack Margin</strong> slider to increase the value. This creates more spacing between charts, which reduces likelihood of overlap. However, this also increase the total space requirement for the lightmap, so try to apply enough spacing to avoid artifacts, but no more. For more information on lightmap UVs that Unity creates automatically, see documentation on <a href="LightingGiUvs-GeneratingLightmappingUVs.html">Generating lightmapping UVs</a>.</p>
+</li>
+<li><p>If you provide lightmap UVs yourself, you can try adding margins using your modelling package.</p>
+</li>
+<li><p>Increase the resolution of the entire lightmap. This will increase the numbers of pixels between the charts, and therefore reduce the likelihood of bleeding. The downside is that your lightmap may become too large. You can do this in the <strong>Lighting</strong> tab under <strong>Lightmapper Settings</strong>.</p>
+</li>
+<li><p>Increase the resolution of a single GameObject. This allows you to increase lightmap resolution only for GameObjects that have overlapping UVs. Though less likely, this can also increase your lightmap size. You can change a GameObject’s lightmap resolution inside its Mesh Renderer under <strong>Lightmap Settings</strong>.</p>
+</li>
+</ul>
+<p><img src="../uploads/Main/ProgressiveLightmapper-UVOverlap-4.jpg" alt="Same mesh as before, but without bleeding artifacts"></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Legacy Deferred Lighting Rendering Path | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Legacy Deferred Lighting Rendering Path | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="legacy-deferred-lighting-rendering-path">Legacy Deferred Lighting Rendering Path</h1>
+
+<p>This page details the <em>Legacy Deferred Lighting (light prepass)</em> <a href="RenderingPaths.html">rendering path</a>. See <a href="http://www.realtimerendering.com/blog/deferred-lighting-approaches/">this article</a> for a technical overview of deferred lighting.</p>
+<p><strong>Note</strong>: Deferred Lighting is considered a legacy feature starting with Unity 5.0, as it does not support some of the rendering features (e.g. Standard shader, reflection probes). New projects should consider using <a href="RenderTech-DeferredShading.html">Deferred Shading</a> rendering path instead.</p>
+<p><strong>NOTE:</strong> <em>Deferred rendering is not supported when using Orthographic projection. If the camera&#39;s projection mode is set to Orthographic, the camera will always use Forward rendering.</em></p>
+<h2 id="overview">Overview</h2>
+<p>When using Deferred Lighting, there is no limit on the number of lights that can affect an object. All lights are evaluated per-pixel, which means that they all interact correctly with normal maps, etc. Additionally, all lights can have cookies and shadows.</p>
+<p>Deferred lighting has the advantage that the processing overhead of lighting is proportional to the number of pixels the light shines on. This is determined by the size of the light volume in the scene regardless of how many objects it illuminates. Therefore, performance can be improved by keeping lights small. Deferred lighting also has highly consistent and predictable behaviour. The effect of each light is computed per-pixel, so there are no lighting computations that break down on large triangles.</p>
+<p>On the downside, deferred lighting has no real support for anti-aliasing and can&#39;t handle semi-transparent objects (these will be rendered using <a href="RenderTech-ForwardRendering.html">forward</a> rendering). There is also no support for the Mesh Renderer&#39;s Receive Shadows flag and culling masks are only supported in a limited way. You can only use up to four culling masks. That is, your culling layer mask must at least contain all layers minus four arbitrary layers, so 28 of the 32 layers must be set. Otherwise you will get graphical artefacts.</p>
+<h2 id="requirements">Requirements</h2>
+<p>It requires a graphics card with Shader Model 3.0 (or later), support for Depth render textures and two-sided stencil buffers.
+Most PC graphics cards made after 2004 support deferred lighting, including GeForce FX and later, Radeon X1300 and later,
+Intel 965 / GMA X3100 and later. On mobile, all OpenGL ES 3.0 capable GPUs support deferred lighting, and some of
+OpenGL ES 2.0 capable ones support it too (the ones that do support depth textures).</p>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<p>The rendering overhead of realtime lights in deferred lighting is proportional to the number of pixels illuminated by the light and is <em>not</em> dependent on scene complexity. So small point or spot lights are very cheap to render and if they are fully or partially occluded by scene objects then they are even cheaper.</p>
+<p>Of course, lights with shadows are much more expensive than lights without shadows. In deferred lighting, shadow-casting objects still need to be rendered once or more for each shadow-casting light. Furthermore, the lighting shader that applies shadows has a higher rendering overhead than the one used when shadows are disabled.</p>
+<h2 id="implementation-details">Implementation Details</h2>
+<p>When Deferred Lighting is used, the rendering process in Unity happens in three passes:</p>
+<ol>
+<li>Base Pass: objects are rendered to produce screen-space buffers with depth, normals, and specular power.</li>
+<li>Lighting pass: the previously generated buffers are used to compute lighting into another screen-space buffer.</li>
+<li>Final pass: objects are rendered again. They fetch the computed lighting, combine it with color textures and add any ambient/emissive lighting.</li>
+</ol>
+<p>Objects with shaders that can&#39;t handle deferred lighting are rendered after this process is complete, using the <a href="RenderTech-ForwardRendering.html">forward rendering</a> path.</p>
+<h3 id="base-pass">Base Pass</h3>
+<p>The base pass renders each object once. View space normals and specular power are rendered into a single ARGB32 <a href="class-RenderTexture.html">Render Texture</a> (with normals in RGB channels and specular power in A). If the platform and hardware allow the Z buffer to be read as a texture then depth is not explicitly rendered. If the Z buffer can&#39;t be accessed as a texture then depth is rendered in an additional rendering pass using <a href="SL-ShaderReplacement.html">shader replacement</a>.</p>
+<p>The result of the base pass is a Z buffer filled with the scene contents and a Render Texture with normals and specular power.</p>
+<h3 id="lighting-pass">Lighting Pass</h3>
+<p>The lighting pass computes lighting based on depth, normals and specular power. Lighting is computed in screen space, so the time it takes to process is independent of scene complexity. The lighting buffer is a single ARGB32 Render Texture, with diffuse lighting in the RGB channels and monochrome specular lighting in the A channel. Lighting values are logarithmically encoded to provide greater dynamic range than is usually possible with an ARGB32 texture. When a camera has HDR rendering enabled, then lighting buffer is of ARGBHalf format, and logarithmic encoding is not performed.</p>
+<p>Point and spot lights that do not cross the camera&#39;s near plane are rendered as (front faces of) 3D shapes, with the depth test against the scene enabled. Lights crossing the near plane are also rendered using 3D shapes, but as back faces with inverted depth test instead. This makes partially or fully occluded lights very cheap to render. If a light intersects both far and near camera planes at the same time, the above optimizations cannot be used, and the light is drawn as a tight quad with no depth testing.</p>
+<p>The above doesn&#39;t apply to directional lights, which are always rendered as fullscreen quads.</p>
+<p>If a light has shadows enabled then they are also rendered and applied in this pass. Note that shadows do not come for &quot;free&quot;; shadow casters need to be rendered and a more complex light shader must be applied.</p>
+<p>The only lighting model available is Blinn-Phong. If a different model is wanted you can modify the lighting pass shader, by placing the modified version of the Internal-PrePassLighting.shader file from the <a href="http://unity3d.com/support/resources/assets/built-in-shaders">Built-in shaders</a> into a folder named &quot;Resources&quot; in your &quot;Assets&quot; folder. Then go to the Edit-&gt;Project Settings-&gt;Graphics window.  Changed the &quot;Legacy Deferred&quot; dropdown to &quot;Custom Shader&quot;.  Then change the Shader option which appears to the lighting shader you are using.</p>
+<h3 id="final-pass">Final Pass</h3>
+<p>The final pass produces the final rendered image. Here all objects are rendered again with shaders that fetch the lighting, combine it with textures and add any emissive lighting. Lightmaps are also applied in the final pass. Close to the camera, realtime lighting is used, and only baked indirect lighting is added. This crossfades into fully baked lighting further away from the camera.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

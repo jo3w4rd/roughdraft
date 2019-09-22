@@ -1,0 +1,479 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Preferences | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Preferences | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="preferences">Preferences</h1>
+
+<p>Unity provides a number of preferences that allow you to customize the behavior of the Unity Editor. </p>
+<p><img src="../uploads/Main/Preferences.png" alt="Unity Preferences window"></p>
+<p><img src="../uploads/Main/LetterCircle_A.png" alt="A"> The <em>search box</em> allows you to enter keywords so you can filter the list on the left by category and highlight keywords on the right. For more information, see <a href="comp-ManagerGroup#find-settings">Finding settings</a>.</p>
+<p><img src="../uploads/Main/LetterCircle_B.png" alt="B"> Preferences are grouped by category. The <em>category list</em> displays a list of available categories. When you click on a preference category, all preferences matching that category appear in the details pane.</p>
+<p><img src="../uploads/Main/LetterCircle_C.png" alt="C"> The <em>details pane</em> displays the list of preferences for each category.</p>
+<p>To access the <strong>Preferences</strong> window, go to <strong>Edit</strong> &gt; <strong>Preferences</strong> (Windows) or <strong>Unity</strong> &gt; <strong>Preferences</strong> (Mac) from the main menu in Unity. The following preference categories are available:</p>
+<ul>
+<li><a href="#General">General</a></li>
+<li><a href="#2D">2D</a><ul>
+<li><a href="#2D-Brush">Grid Brush</a></li>
+<li><a href="#2D-Palette">Tile Palette</a></li>
+</ul>
+</li>
+<li><a href="#Cache-Server">Cache Server</a></li>
+<li><a href="#Colors">Colors</a></li>
+<li><a href="#External-Tools">External Tools</a></li>
+<li><a href="#GI-Cache">GI Cache</a></li>
+<li><a href="#Keys">Keys</a></li>
+</ul>
+<h2 id="package-custom-preferences">Package custom preferences</h2>
+<p>Some AssetStore or Unity packages add their own custom preferences to the <strong>Preferences</strong> window. Generally these use the package name as the preferences category. In this example, you can see the <a href="https://docs.unity3d.com/Packages/com.unity.cinemachine@latest">Cinemachine package</a> preferences:</p>
+<p><img src="../uploads/Main/PrefsPackages.png" alt="Package-specific preferences appear in the scope list"></p>
+<p>For information about a specific package&#39;s preferences, see the documentation for that package. This section contains documentation only for standard Unity preferences.</p>
+<p><a name="General"></a></p>
+<h2 id="general">General</h2>
+<p><img src="../uploads/Main/PrefsGeneral.png" alt="General scope on the Preferences window"> </p>
+<p><strong>General</strong> preferences allow you to customize working in Unity overall. </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Auto Refresh</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option to update Assets automatically as they change.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Load Previous Project on Startup</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option to always load the previous Project at startup.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Compress Assets on Import</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option to automatically compress Assets during import.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>macOS Color Picker</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option to use the native macOS color picker instead of Unity&#39;s own.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Disable Editor Analytics</strong> (Pro only)</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option to stop the Editor automatically sending information back to Unity.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Show Asset Store search hits</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option to show the number of free/paid Assets from the Asset Store in the Project Browser.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Verify Saving Assets</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option if you wish to verify which Assets to save individually on quitting Unity.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Script Changes While Playing</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Choose Unity’s behavior when scripts change while your game is running in the Editor.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Recompile And Continue Playing</em></td>
+<td style="text-align:left">Recompile your scripts and keep running the Scene. This is the default behaviour, but you might want to change it if your scripts rely on any non-serializable data.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Recompile After Finished Playing</em></td>
+<td style="text-align:left">Defer recompilation until you manually stop your Scene, avoiding any interruption.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Stop Playing And Recompile</em></td>
+<td style="text-align:left">Immediately stop your Scene for recompilation, allowing you to quickly restart testing.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Editor Skin</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Choose which skin to use in the Unity Editor. This is only available for Plus and Pro Unity subscriptions.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Personal</em></td>
+<td style="text-align:left">Use the light grey background with black text.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><em>Professional</em></td>
+<td style="text-align:left">Use the dark grey background with white text.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Enable Alpha Numeric Sorting</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Enable this option to display a button in the top-right corner of the <a href="Hierarchy.html">Hierarchy</a> window, which toggles between Transform sort (the default) and Alphanumeric sort.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Asynchronous Shader Compilation</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Check this box to make Unity compile shaders in the background. While compiling, the Unity engine uses a dummy shader to render geometry in the Editor. When shader compilation has finished, the engine swaps your shader variant back in. This means the Editor runs seamlessly, without having to wait for the Unity engine to compile every single shader before rendering.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Device To Use</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Choose which of your computer’s graphics devices Unity should use. You can leave this on Automatic unless you want Unity to use a specific device. This setting overrides any device specified in command line options.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="2D"></a></p>
+<h2 id="2d">2D</h2>
+<p><img src="../uploads/Main/Prefs2D.png" alt="2D scope on the Preferences window"></p>
+<p>Use the <strong>Max Sprite Atlas Cache Size (GB)</strong> preference to set the maximum size of the <a href="SpriteAtlas.html">Sprite Atlas</a> cache folder. Whenever possible, Unity keeps the size of this folder below this level.</p>
+<p><a name="2D-Brush"></a></p>
+<h3 id="grid-brush">Grid Brush</h3>
+<p><img src="../uploads/Main/Prefs2D-GridBrush.png" alt="Grid Brush scope on the Preferences window"></p>
+<p>Enable the <strong>Show Flood Fill Preview</strong> to preview the Tilemap you are painting in Flood Fill mode. This option is enabled by default, but you can disable it to improve performance for large fill areas.</p>
+<p><a name="2D-Palette"></a></p>
+<h3 id="tile-palette">Tile Palette</h3>
+<p><img src="../uploads/Main/Prefs2D-TilePalette.png" alt="Tile Palette scope on the Preferences window"></p>
+<p>Choose a behavior from the <strong>Tile Palette Target Edit Mode</strong> drop-down menu to determine how to edit a Prefab instance in the <a href="Tilemap-Palette.html">Tile Palette</a> when that instance is selected as the Active Target.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Behavior</strong></th>
+<th style="text-align:left"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Enable Dialog</strong></td>
+<td style="text-align:left">Always ask how to edit the instance (either in Prefab Mode or in the Scene). This is the default.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Edit in Prefab Mode</strong></td>
+<td style="text-align:left">Edit the Paint target <a href="EditingInPrefabMode.html">in Prefab mode</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Edit in Scene</strong></td>
+<td style="text-align:left">Edit the Prefab instance <a href="EditingPrefabViaInstance.html">directly in the Scene</a>.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Cache-Server"></a></p>
+<h2 id="cache-server">Cache Server</h2>
+<p>Any time an Asset changes, Unity automatically re-imports it. Setting up a Cache Server drastically reduces the time it takes to import Assets. You can set up a Cache Server using remote hosting or stored on your local computer. </p>
+<p><img src="../uploads/Main/PrefsCacheServer.png" alt="Default Cache Server scope on the Preferences window"> </p>
+<p>By default, the <a href="CacheServer.html">Cache Server</a> is disabled. </p>
+<p>To enable it, choose one of the other options from the <strong>Cache Server Mode</strong> drop-down menu:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Local</strong></td>
+<td style="text-align:left">Use a local Cache Server on this computer. The preferences for <a href="#remote">Remote hosting</a> appear.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Remote</strong></td>
+<td style="text-align:left">Use a Cache Server hosted on a remote computer. The preferences for <a href="#local">Local storage</a> appear.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="remote"></a></p>
+<h3 id="remote-hosting">Remote hosting</h3>
+<p><img src="../uploads/Main/PrefsCacheServer-Remote.png" alt="Remote Cache Server preferences"> </p>
+<p>These preferences are only available when the <strong>Use Cache Server</strong> is set to <strong>Remote</strong>. </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>IP Address</strong></td>
+<td style="text-align:left">Enter the IP address of the dedicated cache server that <a href="CacheServer#admin-setup">an administrator set up</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Check Connection</strong></td>
+<td style="text-align:left">Click this button to attempt to connect to the remote Cache Server.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="local"></a></p>
+<h3 id="local-storage">Local storage</h3>
+<p><img src="../uploads/Main/PrefsCacheServer-Local.png" alt="Local Cache Server preferences"> </p>
+<p>These preferences are only available when the <strong>Use Cache Server</strong> is set to <strong>Local</strong>. </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Maximum Cache Size (GB)</strong></td>
+<td style="text-align:left">Specify the maximum size in gigabytes for the Cache Server on this computer’s storage. The minimum size is 1GB. The maximum size is 200GB. <br>The default cache size is 10GB.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Custom cache location</strong></td>
+<td style="text-align:left">Enable this option to specify a location where you want to store the cache.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cache Folder Location</strong></td>
+<td style="text-align:left">Click the <strong>Browse</strong> button to specify a location for the cache.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cache size is</strong> ...</td>
+<td style="text-align:left">Message displaying the current size of the cache. Before clicking the <strong>Check Cache Size</strong> button, this appears as <strong>Cache size is unknown</strong>. After clicking the button, the calculated cache size appears in the message.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Check Cache Size</strong></td>
+<td style="text-align:left">Click this to find out how much storage the Local Cache Server is using. This operation can take some time to complete if you have a large project.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Clean Cache</strong></td>
+<td style="text-align:left">Delete the contents of the cache.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Colors"></a></p>
+<h2 id="colors">Colors</h2>
+<p><img src="../uploads/Main/PrefsColors.png" alt="Colors scope on the Preferences window"> </p>
+<p>The <strong>Colors</strong> preferences allow you to choose the colors that Unity uses when displaying various user interface elements.</p>
+<p><a name="External-Tools"></a></p>
+<h2 id="external-tools">External Tools</h2>
+<p><img src="../uploads/Main/PrefsExtTools.png" alt="External Tools scope on the Preferences window"> </p>
+<p>The <strong>External Tools</strong> preferences allow you to set up external applications for scripting, working with images, and source control.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>External Script Editor</strong></td>
+<td style="text-align:left">Choose which application Unity should use to open script files. Unity automatically passes the correct arguments to script editors it has built-in support for. Unity has built-in support for Visual Studio (Express), Visual Studio Code, Xamarin Studio, MonoDevelop and JetBrains Rider.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>External Script Editor Args</strong></td>
+<td style="text-align:left">Set the arguments to pass to the external script editor.<br><code>$(File)</code> is replaced with a path to a file being opened.<br><code>$(Line)</code> is replaced with a line number that editor should jump to.<br><code>$(ProjectPath)</code> is replaced with the path to the open project.<br> If not set on macOS, then the default mechanism for opening files is used. Otherwise, the external script editor is only launched with the arguments without trying to open the script file using the default mechanism. <br> See below for examples of external script editor arguments.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Add .unityproj&#39;s to .sln</strong></td>
+<td style="text-align:left">Enable this option to add UnityScript (.unityproj) projects to the generated solution (.sln) file. This is enabled by default for MonoDevelop and Xamarin Studio, and disabled by default for Visual Studio (Express) and Visual Studio Code.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Editor Attaching</strong></td>
+<td style="text-align:left">Enable this option to allow debugging of scripts in the Unity Editor. If this option is disabled, it is not possible to attach a script debugger to Unity to debug your scripts.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Image application</strong></td>
+<td style="text-align:left">Choose which application you want Unity to use to open image files.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Revision Control Diff/Merge</strong></td>
+<td style="text-align:left">Choose which application you want Unity to use to resolve file differences with the Asset server. Unity detects these tools in their default installation locations (and checks registry keys for TortoiseMerge, WinMerge, PlasticSCM Merge, and Beyond Compare 4 on Windows).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="examples-of-script-editor-arguments">Examples of script editor arguments</h3>
+<ul>
+<li><strong>Gvim/Vim</strong>: <code>--remote-tab-silent +$(Line) &quot;$File&quot;</code></li>
+<li><strong>Notepad2</strong>: <code>-g $(Line) &quot;$(File)&quot;</code></li>
+<li><strong>Sublime Text 2</strong>: <code>&quot;$(File)&quot;:$(Line)</code></li>
+<li><strong>Notepad++</strong>: <code>-n$(Line) &quot;$(File)&quot;</code></li>
+</ul>
+<p><a name="GI-Cache"></a></p>
+<h2 id="gi-cache">GI Cache</h2>
+<p><img src="../uploads/Main/PrefsGICache.png" alt="GI Cache scope on the Preferences window"></p>
+<p>The <a href="GIIntro.html">Global Illumination</a> (GI) system uses <a href="GICache.html">a cache on each computer</a> to store intermediate files used to pre-compute real-time Global Illumination. All projects on the computer share the cache.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Maximum Cache Size (GB)</strong></td>
+<td style="text-align:left">Use the slider to set the maximum GI cache folder size. Unity keeps the GI cache folder size below this number whenever possible. Unity periodically deletes unused files to create more space (deleting the oldest files first). This is an automatic process, and doesn&#39;t require you to do anything. <br><strong>Note:</strong> If the current Scene is using all the files in the GI cache, increase your cache size. Otherwise, resource-intensive recomputation occurs when baking. This can happen when the Scene is very large or the cache size is too small.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Custom cache location</strong></td>
+<td style="text-align:left">Enable this option to allow a custom location for the GI cache folder. By default, the GI cache is stored in the <em>Caches</em> folder. All Projects share the cache folder.<br><strong>Tip:</strong> Storing the GI Cache on an SSD drive can speed up baking in cases where the baking process is I/O bound.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cache Folder Location</strong></td>
+<td style="text-align:left">Click the <strong>Browse</strong> button to specify a location for the cache.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cache compression</strong></td>
+<td style="text-align:left">Enable this option to allow Unity to compress files in the GI cache and reduce the size of the generated data. The files are LZ4-compressed by default, and the naming scheme is a hash and a file extension. The hashes are computed based on the inputs to the lighting system, so changing any of the following can lead to recomputation of lighting:<br>- Materials (Textures, Albedo, Emission)<br>- Lights<br>- Geometry<br>- Static flags<br>- Light Probe groups<br>- Reflection probes<br>- Lightmap Parameters<br><strong>Tip:</strong> If you need to access the raw Enlighten data, disable Cache Compression and clean the cache.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Clean Cache</strong></td>
+<td style="text-align:left">Use this button to clear the cache directory. <br>It is not safe to delete the GI Cache directory manually while the Editor is running. This is because the Editor creates the <em>GiCache</em> folder when it starts and maintains a set of references to those files. The <strong>Clean Cache</strong> button ensures that the Editor releases all references to the files on disk before they are deleted.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Keys"></a></p>
+<h2 id="keys">Keys</h2>
+<p><img src="../uploads/Main/PrefsKeys.png" alt="Keys scope on the Preferences window"> </p>
+<p>This <strong>Keys</strong> preferences allow you to set the hotkeys that activate various commands in Unity.</p>
+<p>When you select one of the <strong>Actions</strong> from the list on the left, Unity displays any current key assignments in the <strong>Key</strong> and indicates when to use any key <strong>Modifiers</strong> by showing or hiding a checkmark: </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Command</strong></td>
+<td style="text-align:left">When enabled, hold down the Control button (Windows) or the Command button (Mac).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shift</strong></td>
+<td style="text-align:left">When enabled, hold down the Shift button.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Alt</strong></td>
+<td style="text-align:left">When enabled, hold down the Alt button (Windows) or the Option button (Mac).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> Modifying a hotkey assignment is immediate, but you can revert all hotkey assignment changes by clicking the <strong>Use Defaults</strong> button.</p>
+<hr>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

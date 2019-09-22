@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Memory | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Memory | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="memory">Memory</h1>
+
+<p>Memory consumption is a critical performance indicator, and is especially important on platforms with limited memory resources, such as low-end mobile devices.</p>
+<h2 id="profiling-memory-consumption">Profiling memory consumption</h2>
+<p>Diagnosing memory issues in Unity is best performed with <a href="https://bitbucket.org/Unity-Technologies/memoryprofiler">an open-source memory visualization tool</a> available from Unity’s Bitbucket. Integration of this tool is as simple as downloading the linked repository and dropping the included <em>Editor</em> folder into a project.</p>
+<p>The tool can be used with any version of Unity from 5.3 onwards. It can capture a wealth of information on native- and managed-code memory consumption when attached to an application built with IL2CPP.</p>
+<p>To use the tool, simply build a project with an IL2CPP scripting backend and deploy it to the appropriate device. Attach Unity’s regular in-editor CPU profiler, then open the Memory Profiler window (menu: <strong>Window</strong> &gt; <strong>MemoryProfilerWindow</strong>) and selet <strong>Take Snapshot</strong>.</p>
+<p>The application on device pauses for a short time as data is gathered and transmitted to the Unity Editor. Then, the Unity Editor pauses to parse the received data; this can require a significant amount of time. For very memory-intensive applications, a trace might require 10-30 minutes to be parsed.</p>
+<p>During this parse-and-load operation, patience is recommended.</p>
+<p><img src="../uploads/Main/UnderstandingPerformanceinUnity-MemorySection_image_0.jpg" alt=""></p>
+<p>This screenshot is from a Standard Assets Scene running on an iOS device, and shows that over three-quarters of memory usage is attributable to four very large Textures, all related to the aircraft’s fuselage.</p>
+<p>This visualization can be zoomed. Click each box in the application to see more information about it.</p>
+<h3 id="identifying-duplicated-textures">Identifying duplicated Textures</h3>
+<p>One common memory problem is the duplication of Assets in memory. As Textures are often the most memory-intensive Assets in a project, Texture duplication is one of the most common memory problems found in Unity projects.</p>
+<p>Duplicated Assets can be identified by locating two objects of the same type and same size, which appear to have been loaded from the same Asset. In the detail pane of the new Memory Profiler, examine the <strong>Name</strong> and <strong>InstanceID</strong> fields of the seemingly-identical objects.</p>
+<p>The <strong>Name</strong> field is based on the name of the Asset file from which the object was loaded; generally, it is the file name without the file’s path or extension. The <strong>InstanceID</strong> field indicates the internal identification number assigned by the Unity runtime; this number is unique during a single run of a Unity game(1).</p>
+<p><img src="../uploads/Main/UnderstandingPerformanceinUnity-MemorySection_image_1.png" alt=""></p>
+<p>This diagram demonstrates a simple example of this problem. On the left and right sides of the diagram are screenshots taken from the Detail pane of the 5.4 Memory Profiler. The Assets shown in these screenshots are two Textures loaded separately in memory. The Textures have identical names and sizes, suggesting that they may be duplicates. By examining the project’s &quot;Assets&quot; folder, it can be determined that there is only one Asset file named <em>wood-floorboards-texture</em>, which very strongly points towards asset duplication.</p>
+<p>Each individual UnityEngine.Object in memory has a unique instance ID, assigned to it when the object is created. As these two Textures have different instance IDs, it is certain that they represent two different sets of Texture data that are loaded into memory.</p>
+<p>As the file names and Asset sizes are identical, while the instance IDs are different, it is certain that these two objects represent a Texture that has been duplicated in memory (NOTE: 
+     If there are Textures with identical filenames in the project, then this judgment is not absolute, but still strongly suggestive when correlated with the identical file sizes.).</p>
+<h4 id="assetbundles-and-asset-duplication">AssetBundles and Asset duplication</h4>
+<p>The most common cause of Texture and Asset duplication in memory is the improper unloading of AssetBundles. See Unity’s <a href="http://unity3d.com/learn/tutorials/topics/best-practices/guide-assetbundles-and-resources?playlist=30089">Best Practice Guide on AssetBundles</a> for a description of this problem. The key section is <a href="http://unity3d.com/learn/tutorials/topics/best-practices/assetbundle-usage-patterns?playlist=30089">Managing Loaded Assets</a>.</p>
+<h3 id="examining-image-buffer-image-effect--rendertexture-memory-usage">Examining image buffer, Image Effect &amp; RenderTexture memory usage</h3>
+<p>It is also possible to visualize the memory required to provide render buffers to Image Effects and RenderTexture objects in the memory visualizer.</p>
+<p><img src="../uploads/Main/UnderstandingPerformanceinUnity-MemorySection_image_2.png" alt=""></p>
+<p>The above screenshot demonstrates a simple Scene with a handful of Unity’s Cinematic Image Effects applied to it. The Image Effects allocate temporary render buffers in order to perform their computations; in particular, the Bloom effect allocates several buffers of decreasing size. Due to the high resolution of Retina iOS devices, these temporary buffers consume significantly more memory than the rest of the project combined.</p>
+<p>Consider that an iPad Air 2 renders at 2048x1536 – this is beyond the 1080p resolution often targeted on modern consoles and PCs, but is running on a tablet device. A full-screen temporary render buffer consumes a full 24 or 36 megabytes of memory, depending on the format of the buffer. This can be reduced by 75% by halving the pixel dimensions of the render buffer. This often does not significantly degrade the visual quality of the result.</p>
+<p>One way to optimize Image Effects’ use of temporary render buffers and other GPU resources is to create a single &quot;uber&quot; Image Effect that performs all of the disparate calculations at once.  When using Unity 5.5 or newer, it is possible to use the new <a href="https://github.com/Unity-Technologies/PostProcessing">UberFX</a> (available from <a href="https://github.com/Unity-Technologies/PostProcessing">github</a> package; this package provides a configurable “uber” Image Effect that can perform all of the operations provided by the Cinematic Image Effects with less overhead than individual Image Effects.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

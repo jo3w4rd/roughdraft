@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Sprite Atlas | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Sprite Atlas | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="sprite-atlas">Sprite Atlas</h1>
+
+<!-- when improving page see notes in case 991954 -->
+<p>When designing Sprites and other graphic elements graphics for a 2D project, many separate texture files eventually become included in the project. However, a significant portion of Sprite textures may be taken up by empty spaces between each of these graphic elements.  These additional empty spaces result in wasted video memory at runtime. </p>
+<p>For optimal performance, it is recommended to pack graphics from several Sprite textures tightly together within a single Asset, known as the Sprite Atlas.</p>
+<h2 id="creating-a-sprite-atlas">Creating a Sprite Atlas</h2>
+<p>Create a Sprite Atlas from the main menu (menu: <strong>Asset &gt; Create &gt; Sprite Atlas</strong>)</p>
+<p>Once created, the Sprite Atlas is placed in the Project&#39;s Asset folder like other Assets, but with its own unique file extension (*.spriteatlas).</p>
+<h2 id="properties">Properties</h2>
+<p><img src="../uploads/Main/SpriteAtlasWindow.png" alt=""></p>
+<p>The Sprite Atlas Asset provides a set of unified Texture settings for all packed Sprite Textures packed in it. Regardless of the original texture settings of the packed Sprites, the resulting single Atlas texture only reflects the settings defined in the Sprite Atlas Asset properties.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Type</strong></td>
+<td style="text-align:left">Sets the type of Atlas to Master or Variant.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Include in Build</strong></td>
+<td style="text-align:left">Check to include the Atlas Asset in the build. Note that unchecking this option causes any packed Assets to not be rendered during Play Mode.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Allow Rotation</strong></td>
+<td style="text-align:left">Allow Sprites to be rotated for packing.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Tight Packing</strong></td>
+<td style="text-align:left">Use the Sprite outlines to fit them during packing instead of rectangle mesh outlines.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Padding</strong></td>
+<td style="text-align:left">Amount of extra padding between packed Sprite textures.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Read/Write Enabled</strong></td>
+<td style="text-align:left">Set to true to allow texture data to be readable/writeable by scripts. Set to false to prevent scripts from reading/writing texture data.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Generate Mip Maps</strong></td>
+<td style="text-align:left">Select this to enable mipmap generation.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>sRGB</strong></td>
+<td style="text-align:left">Textures are stored in gamma space.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Filter Mode</strong></td>
+<td style="text-align:left">Select how the Texture is filtered. This overrides the packed Sprites&#39; original texture settings.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Default Texture settings panel</strong></td>
+<td style="text-align:left">Set default options (using Default), and then override them for a specific platform using the buttons along the top of the panel.  <a href="class-TextureImporterOverride.html">https://docs.unity3d.com/Manual/class-TextureImporterOverride.html</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Objects For Packing</strong></td>
+<td style="text-align:left">Select objects to be packed into the Atlas. Eligible objects can be Folders, Textures, and Sprites.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sprite-packer-mode-settings">Sprite Packer Mode Settings</h2>
+<p>The Sprite Packer mode settings are found under the Editor settings (menu: <strong>Edit &gt; Project Settings &gt; Editor</strong>). The select Mode determines how Textures from the Sprite Atlas are used within the Editor.  </p>
+<ul>
+<li><strong>Enabled for Builds</strong>: Sprites are packed into the Sprite Atlas for builds only, and not for Play mode.</li>
+<li><strong>Always Enabled</strong>: Sprites are packed for Play Mode and Sprites resolve textures from the Sprite Atlas. However, Sprites resolve their textures from the original unpacked Texture during Edit Mode.</li>
+</ul>
+<p><strong>Always Enabled</strong> is enabled by default to allow the testing of packed Sprites loaded from an Asset Bundle during Play Mode.</p>
+<h2 id="selecting-assets-for-packing">Selecting Assets for Packing</h2>
+<p>The object types that can be assigned and packed into a Sprite Atlas Asset are folders, Texture2D, and Sprites.</p>
+<p>Assigning a folder to the Sprite Atlas Asset includes all Sprites and Texture2Ds within that folder and its subfolders for packing. Assigning a Texture2D to the Atlas affects <strong>all</strong> instances of Sprites that references the same Texture2D. However, textures that are <strong>not</strong> referenced by a Sprite are not packed, and are not included in the <strong>Pack Preview</strong>.</p>
+<p>To select Assets for packing:</p>
+<ol>
+<li>Select the Sprite Atlas Asset. The list under <em>Objects For Packing</em> shows the currently assigned Assets to the selected Atlas. add them by either adding new entry to the list or dragging and dropping them from the Project onto the list area in the inspector. You can add the folders, textures, sprites to the atlas.<br><img src="../uploads/Main/ObjectsForPacking.png" alt=""></li>
+<li>Add Assets by selecting the + icon at the lower right of the list. The <em>Select Object</em> window appears and shows the available Assets in the current Project that can be packed into ths Sprite Atlas.</li>
+<li>You can replace any assigned object in the list by selecting the circle icon to the right. This opens the <em>Select Object</em> window.</li>
+<li><p>Click &quot;Pack Preview&quot; below the list to preview the packed Sprite Atlas texture that includes all objects in the list.</p>
+</li>
+<li><p>All Sprite Atlases are packed before entering Play Mode (unless <em>Include in Build</em> is unchecked)</p>
+</li>
+</ol>
+<h2 id="creating-a-sprite-atlas-variant">Creating a Sprite Atlas Variant</h2>
+<p>Declaring a Sprite Atlas as a Variant of another allows you to create a duplicate but resized version of the Master Atlas&#39; texture. This is useful if you want to have both a Standard and High Definition version of the same texture for example.</p>
+<ol>
+<li><p>Set the Type for the Sprite Atlas to Variant.<br><img src="../uploads/Main/SpriteAtlas4.png" alt=""></p>
+</li>
+<li><p>Assign an atlas to the Master Atlas slot.<br><img src="../uploads/Main/SpriteAtlas5.png" alt=""></p>
+</li>
+<li><p>Set the scaling factor for the Variant. Value can be from 0.1 to 1.<br><img src="../uploads/Main/SpriteAtlas6.png" alt=""></p>
+</li>
+<li><p>To bind the Variant Sprite Atlas as the project&#39;s default instead of the Master Atlas, check the <em>Include in build</em> option in the Variant and uncheck that option in the Master. Checking both to be included in the build is not recommended.</p>
+</li>
+</ol>
+<h2 id="runtime-sprites-enumeration">Runtime Sprites enumeration</h2>
+<p>The Sprite Atlas Asset has a runtime representation which can be accessed during Runtime.</p>
+<ol>
+<li><p>Create a custom component that takes a &quot;SpriteAtlas&quot; as a variable.</p>
+</li>
+<li><p>Assign any of your existing Sprite Atlas to the field.</p>
+</li>
+<li><p>Enter play mode or run the player.</p>
+</li>
+<li><p>Access the variable and notice you can now call the property &quot;.GetSprites&quot; to get the array of Sprites packed in this atlas.</p>
+</li>
+</ol>
+<h2 id="late-binding">Late Binding</h2>
+<p>A Sprite can be started in runtime as &quot;packed; but not referencing an Atlas&quot;. It appears blank until an Atlas is bound to it. The <em>late binding</em> of the Sprite is useful if the source Atlas is not available during start-up, for example if the referenced Asset bundles are downloaded later. </p>
+<h3 id="late-binding-via-callback">Late Binding via callback</h3>
+<ol>
+<li><p>If a Sprite is packed into a Sprite Atlas that is not bound by default (e.g. <em>Include in build</em> is unchecked), then the Sprite appears invisible in the Scene.</p>
+</li>
+<li><p>User can listen to callback SpriteAtlasManager.atlasRequested.</p>
+</li>
+<li><p>This delegate method provides a tag of the Atlas which is to be bound, and a System.Action which takes in a SpriteAtlas Asset. The user is expected to load the Sprite Atlas Asset (e.g. by script references, Resources.load, Asset bundle etc.) and supply the Asset to the System.Action.</p>
+</li>
+</ol>
+<p><br></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

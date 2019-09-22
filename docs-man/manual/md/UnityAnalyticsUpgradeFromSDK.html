@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Upgrade Unity Analytics 4.x-5.1 (SDK) to 5.2 onwards | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Upgrade Unity Analytics 4.x-5.1 (SDK) to 5.2 onwards | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="upgrade-unity-analytics-4x-51-sdk-to-52-onwards">Upgrade Unity Analytics 4.x-5.1 (SDK) to 5.2 onwards</h1>
+
+<p>The process is divided into three general steps: </p>
+<ol>
+<li>Removal of existing Unity Analytics SDK components  </li>
+<li>Re-integration of Unity Analytics  </li>
+<li>Updating of Advanced Integration events  </li>
+</ol>
+<h2 id="1-removal-of-existing-unity-analytics-sdk">1. Removal of existing Unity Analytics SDK</h2>
+<p>Version 5.2 onwards of the Unity Editor comes with Unity Analytics built-in. We advise you to remove existing Unity Analytics SDK components to ensure no conflicts and to help you maintain a cleaner project.</p>
+<p>Locate the existing Unity Analytics SDK components in your Project folder. Most likely they will have been saved to Assets &gt; Plugins. <strong>Be sure to only select analytics-specific assets.</strong>  </p>
+<p><img src="../uploads/Main/AnalyticsUpgradeDeleteSDK.gif" alt=""></p>
+<p>Delete all components.</p>
+<p><img src="../uploads/Main/AnalyticsUpgradeDeleteComponents.png" alt=""></p>
+<p>You can confirm that you successfully removed the Unity Analytics SDK if you close and re-open your project, and then don&#39;t see the following message prompt.  If you continue to see the prompt confirm all the Unity Analytics SDK components have been removed.</p>
+<p><img src="../uploads/Main/AnalyticsUpgradeConfirmationSDKRemoved.jpg" alt=""></p>
+<h2 id="2-re-integration-of-unity-analytics">2. Re-integration of Unity Analytics</h2>
+<p>Follow the instructions in <a href="UnityAnalyticsOverview.html">Setting Up Analytics</a>.</p>
+<p>You can determine that you successfully completed the upgrade by checking the SDK version in Play to Validate step and confirming that the correct Editor version (ie: u5.2 or u5.3) is displayed in Validator. </p>
+<p><img src="../uploads/Main/AnalyticsValidate52.png" alt=""></p>
+<h2 id="3-updating-advanced-integration-events">3. Updating Advanced Integration events</h2>
+<p>If you did any existing Advanced Integration previously, you will also need to update the namespace and the calls to use the 5.2 and up syntax. Follow <a href="UnityAnalyticsAdvancedSDK.html">5.2 onwards Advanced Integration instructions</a> to update.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

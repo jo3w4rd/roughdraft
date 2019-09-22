@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Texture arrays | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Texture arrays | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="texture-arrays">Texture arrays</h1>
+
+<p>Similar to regular 2D textures (<a href="class-TextureImporter.html">Texture2D</a> class, <strong>sampler2D</strong> in shaders), cube maps (<a href="class-Cubemap.html">Cubemap</a> class, <strong>samplerCUBE</strong> in shaders), and 3D textures (<a href="class-Texture3D.html">Texture3D</a> class, <strong>sampler3D</strong> in shaders), Unity also supports 2D texture arrays.</p>
+<p>A texture array is a collection of same size/format/flags 2D textures that look like a single object to the GPU, and can be sampled in the shader with a texture element index. They are useful for implementing custom terrain rendering systems or other special effects where you need an efficient way of accessing many textures of the same size and format. Elements of a 2D texture array are also known as slices, or layers.</p>
+<h2 id="platform-support">Platform Support</h2>
+<p>Texture arrays need to be supported by the underlying graphics API and the GPU. They are available on:</p>
+<ul>
+<li>Direct3D 11/12 (Windows, Xbox One)</li>
+<li>OpenGL Core (Mac OS X, Linux)</li>
+<li>Metal (iOS, Mac OS X)</li>
+<li>OpenGL ES 3.0 (Android, iOS, WebGL 2.0)</li>
+<li>PlayStation 4</li>
+</ul>
+<p>Other platforms do not support texture arrays (OpenGL ES 2.0 or WebGL 1.0). Use <a href="ScriptRef:SystemInfo-supports2DArrayTextures.html">SystemInfo.supports2DArrayTextures</a> to determine texture array support at runtime.</p>
+<h2 id="creating-and-manipulating-texture-arrays">Creating and manipulating texture arrays</h2>
+<p>As there is no texture import pipeline for texture arrays, they must be created from within your scripts. Use the <a href="ScriptRef:Texture2DArray.html">Texture2DArray</a> class to create and manipulate them. Note that texture arrays can be serialized as assets, so it is possible to create and fill them with data from editor scripts.</p>
+<p>Normally, texture arrays are used purely within GPU memory, but you can use <a href="ScriptRef:Graphics.CopyTexture.html">Graphics.CopyTexture</a>, <a href="ScriptRef:Texture2DArray.GetPixels.html">Texture2DArray.GetPixels</a> and <a href="ScriptRef:Texture2DArray.SetPixels.html">Texture2DArray.SetPixels</a> to transfer pixels to and from system memory.</p>
+<h2 id="using-texture-arrays-as-render-targets">Using texture arrays as render targets</h2>
+<p>Texture array elements may also be used as render targets. Use <a href="ScriptRef:RenderTexture-dimension.html">RenderTexture.dimension</a> to specify in advance whether the render target is to be a 2D texture array. The <strong>depthSlice</strong> argument to <a href="ScriptRef:Graphics.SetRenderTarget.html">Graphics.SetRenderTarget</a> specifies which mipmap level or cube map face to render to. On platforms that support “layered rendering” (i.e. geometry shaders), you can set the <strong>depthSlice</strong> argument to -1 to set the whole texture array as a render target. You can also use a geometry shader to render into individual elements.</p>
+<h2 id="using-texture-arrays-in-shaders">Using texture arrays in shaders</h2>
+<p>Since texture arrays do not work on all platforms, shaders need to use an appropriate <a href="SL-ShaderCompileTargets.html">compilation target</a> or feature requirement to access them. The minimum shader model compilation target that supports texture arrays is <code>3.5</code>, and the feature name is <code>2darray</code>.</p>
+<p>Use these <a href="SL-BuiltinMacros.html">macros</a> to declare and sample texture arrays:</p>
+<ul>
+<li>UNITY_DECLARE_TEX2DARRAY(name) declares a texture array sampler variable inside HLSL code.</li>
+<li>UNITY_SAMPLE_TEX2DARRAY(name,uv) samples a texture array with a <strong>float3</strong> UV; the z component of the coordinate is an array element index.</li>
+<li>UNITY_SAMPLE_TEX2DARRAY_LOD(name,uv,lod) samples a texture array with an explicit mipmap level.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<p>The following shader example samples a texture array using object space vertex positions as coordinates:</p>
+<pre><code>Shader &quot;Example/Sample2DArrayTexture&quot;
+{
+    Properties
+    {
+        _MyArr (&quot;Tex&quot;, 2DArray) = &quot;&quot; {}
+        _SliceRange (&quot;Slices&quot;, Range(0,16)) = 6
+        _UVScale (&quot;UVScale&quot;, Float) = 1.0
+    }
+    SubShader
+    {
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            // texture arrays are not available everywhere,
+            // only compile shader on platforms where they are
+            #pragma require 2darray
+
+            #include &quot;UnityCG.cginc&quot;
+
+            struct v2f
+            {
+                float3 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
+            };
+
+            float _SliceRange;
+            float _UVScale;
+
+            v2f vert (float4 vertex : POSITION)
+            {
+                v2f o;
+                o.vertex = mul(UNITY_MATRIX_MVP, vertex);
+                o.uv.xy = (vertex.xy + 0.5) * _UVScale;
+                o.uv.z = (vertex.z + 0.5) * _SliceRange;
+                return o;
+            }
+
+            UNITY_DECLARE_TEX2DARRAY(_MyArr);
+
+            half4 frag (v2f i) : SV_Target
+            {
+                return UNITY_SAMPLE_TEX2DARRAY(_MyArr, i.uv);
+            }
+            ENDCG
+        }
+    }
+}
+</code></pre><h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff476906.aspx#Texture2D_Resource">Introduction To Textures</a> in Direct3D documentation.</li>
+<li><a href="https://www.opengl.org/wiki/Array_Texture">Array Textures</a> in OpenGL Wiki.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

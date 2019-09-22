@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>ShaderLab Syntax | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="ShaderLab Syntax | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="shaderlab-syntax">ShaderLab Syntax</h1>
+
+<p>All <a href="class-Shader.html">Shaders</a> files in Unity are written in a declarative language called &quot;ShaderLab&quot;. In the file, a nested-braces
+syntax declares various things that describe the shader -- for example which shader properties should be shown in material inspector;
+what kind of hardware fallbacks to do; what kind of blending modes to use etc.; and actual &quot;shader code&quot; is written in
+<code>CGPROGRAM</code> snippets inside the same shader file (see <a href="SL-SurfaceShaders.html">surface shaders</a> and <a href="SL-ShaderPrograms.html">vertex and fragment shaders</a>).</p>
+<p>This page and the child pages describes the nested-braces &quot;ShaderLab&quot; syntax. The <code>CGPROGRAM</code> snippets are written in regular
+HLSL/Cg shading language, see <a href="SL-ShaderPrograms.html">their documentation pages</a>.</p>
+<p><strong>Shader</strong> is the root command of a shader file. Each file must define one (and only one) Shader. It specifies how any objects whose material uses this shader are rendered.</p>
+<h2 id="syntax">Syntax</h2>
+<pre><code>Shader &quot;name&quot; { [Properties] Subshaders [Fallback] [CustomEditor] }
+</code></pre><p>Defines a shader. It will appear in the material inspector listed under <strong>name</strong>. Shaders optionally can define a list of <strong>properties</strong> that show up in material inspector. After this comes a list of SubShaders, and optionally a fallback and/or a custom editor declaration.</p>
+<h2 id="details">Details</h2>
+<h3 id="properties">Properties</h3>
+<p>Shaders can have a list of <a href="SL-Properties.html">properties</a>. Any properties declared in a shader are shown in the <a href="class-Material.html">material inspector</a> inside Unity. Typical properties are the object color, textures, or just arbitrary values to be used by the shader.</p>
+<h3 id="subshaders--fallback">SubShaders &amp; Fallback</h3>
+<p>Each shader is comprised of a list of <a href="SL-SubShader.html">sub-shaders</a>. You must have at least one. When loading a shader, Unity will go through the list of subshaders, and pick the first one that is supported by the end user&#39;s machine. If no subshaders are supported, Unity will try to use <a href="SL-Fallback.html">fallback shader</a>.</p>
+<p>Different graphic cards have different capabilities. This raises an eternal issue for game developers; you want your game to look great on the latest hardware, but don&#39;t want it to be available only to those 3% of the population. This is where subshaders come in. Create one subshader that has all the fancy graphic effects you can dream of, then add more subshaders for older cards. These subshaders may implement the effect you want in a slower way, or they may choose not to implement some details.</p>
+<p>Shader &quot;level of detail&quot; (LOD) and &quot;shader replacement&quot; are two techniques that also build upon subshaders, see <a href="SL-ShaderLOD.html">Shader LOD</a> and <a href="SL-ShaderReplacement.html">Shader Replacemement</a> for details.</p>
+<h2 id="examples">Examples</h2>
+<p>Here is one of the simplest shaders possible:</p>
+<pre><code>// colored vertex lighting
+Shader &quot;Simple colored lighting&quot;
+{
+    // a single color property
+    Properties {
+        _Color (&quot;Main Color&quot;, Color) = (1,.5,.5,1)
+    }
+    // define one subshader
+    SubShader
+    {
+        // a single pass in our subshader
+        Pass
+        {
+            // use fixed function per-vertex lighting
+            Material
+            {
+                Diffuse [_Color]
+            }
+            Lighting On
+        }
+    }
+}
+</code></pre><p>This shader defines a color property <strong>_Color</strong> (that shows up in material inspector as <em>Main Color</em>) with a default value of <strong>(1,0.5,0.5,1)</strong>. Then a single subshader is defined. The subshader consists of one <a href="SL-Pass.html">Pass</a> that turns on fixed-function vertex lighting and sets up basic material for it.</p>
+<p>See more complex examples at <a href="SL-SurfaceShaderExamples.html">Surface Shader Examples</a> or
+<a href="SL-VertexFragmentShaderExamples.html">Vertex and Fragment Shader Examples</a>.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="SL-Properties.html">Properties Syntax</a>.</li>
+<li><a href="SL-SubShader.html">SubShader Syntax</a>.</li>
+<li><a href="SL-Pass.html">Pass Syntax</a>.</li>
+<li><a href="SL-Fallback.html">Fallback Syntax</a>.</li>
+<li><a href="SL-CustomEditor.html">CustomEditor Syntax</a>.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

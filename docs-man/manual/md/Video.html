@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Video sources | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Video sources | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="video-sources">Video sources</h1>
+
+<p>The <a href="class-VideoPlayer.html">Video Player component</a> can play content imported from a variety of sources.</p>
+<h2 id="video-clip">Video Clip</h2>
+<p>To create and use a Video Clip Asset, you must first import a video file.</p>
+<p>Dragging and dropping a video file into the Project window creates a Video Clip.</p>
+<p><img src="../uploads/Main/Video-7.jpg" alt="A Video Clip created by dragging and dropping a video file into the Project window"></p>
+<p>Another way to create a Video Clip is to navigate to <strong>Assets</strong> &gt; <strong>Import New Asset...</strong> to import a video file. </p>
+<p>Once imported, the newly created Video Clip can be selected in the Video Player component using either the <strong>Select VideoClip</strong> window (accessible by clicking the circle select button to the right of the Video Clip field) or by dragging and dropping the Video Clip Asset into the corresponding Video Player component field.</p>
+<p><img src="../uploads/Main/Video-8.png" alt="A **Video Player** component"></p>
+<h2 id="urls">URLs</h2>
+<p><img src="../uploads/Main/Video-9.png" alt="The Source field in the Video Player component"></p>
+<p>Use the drop-down <strong>Source</strong> menu to set the video source to <strong>URL</strong> (this property is set to <strong>Video Clip</strong> by default). Setting <strong>Source</strong> to <strong>URL</strong> makes it possible to directly use files in the filesystem, with or without a <em>file://</em> prefix. </p>
+<p>The <strong>URL</strong> source option bypasses Asset management, meaning you must manually ensure that the source video can be found by Unity. For example, a web URL needs a web server to host the source video, while a normal file must be located somewhere where Unity can find it, indicated with scripting. However, this can be useful for situations where the content is not under Unity’s direct control, or if you want to avoid storing large video files locally.</p>
+<p>Setting the Video Player component source to <strong>URL</strong> can also be used to read videos from web sources via <em>http://</em> and <em>https://</em>. In these cases, Unity performs the necessary pre-buffering and error management.</p>
+<h2 id="asset-bundles">Asset Bundles</h2>
+<p>Video Clips can also be read from <a href="AssetBundlesIntro.html">Asset Bundles</a>. </p>
+<p>Once imported, these Video Clips can be used by assigning it to the Video Player component’s <strong>Video Clip</strong> field. </p>
+<h2 id="streaming-assets">Streaming Assets</h2>
+<p>Files placed in Unity’s <a href="StreamingAssets.html">StreamingAssets</a> folder can be used via the Video Player component’s <strong>URL</strong> option (see above), or by using the platform-specific path (<em>Application.streamingAssetsPath</em>).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

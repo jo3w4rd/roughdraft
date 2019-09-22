@@ -409,6 +409,7 @@ $(function () {
       renderBreadcrumb();
     }
 
+
     function registerTocEvents() {
       $('.toc .nav > li > .expand-stub').click(function (e) {
         $(e.target).parent().toggleClass(expanded);
@@ -418,12 +419,18 @@ $(function () {
       });
       $('#toc_filter_input').on('input', function (e) {
         var val = this.value;
+        //Save filter string to session storage
+        if (typeof(Storage) !== "undefined") {
+          sessionStorage.filterString = val;
+        }
         if (val === '') {
           // Clear 'filtered' class
           $('#toc li').removeClass(filtered).removeClass(hide);
+          $('#toc_filter_clear').hide();
           return;
         }
-
+        $('#toc_filter_clear').show();
+        
         // Get leaf nodes
         $('#toc li>a').filter(function (i, e) {
           return $(e).siblings().length === 0
@@ -464,6 +471,22 @@ $(function () {
           return false;
         }
       });
+      
+      // toc filter clear button
+      $('#toc_filter_clear').hide();
+      $('#toc_filter_clear').on("click", function(e){
+          $('#toc_filter_input').val("");
+          $('#toc_filter_input').trigger('input');
+          if (typeof(Storage) !== "undefined") {
+              sessionStorage.filterString = "";
+          }
+      });
+      
+      //Set toc filter from session storage on page load
+      if (typeof(Storage) !== "undefined") {
+          $('#toc_filter_input').val(sessionStorage.filterString);
+          $('#toc_filter_input').trigger('input');
+      }
     }
 
     function loadToc() {
@@ -502,6 +525,10 @@ $(function () {
 
   function renderBreadcrumb() {
     var breadcrumb = [];
+    
+    //Added to push the package name and version at the head of the breadcrumb trail
+    breadcrumb.push({href:"",name:"<b>"+$("meta[property='unity\\:packageTitle']").attr("content")+"</b>"});
+    
     $('#navbar a.active').each(function (i, e) {
       breadcrumb.push({
         href: e.href,

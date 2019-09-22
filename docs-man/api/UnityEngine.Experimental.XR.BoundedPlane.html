@@ -1,0 +1,528 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Struct BoundedPlane
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct BoundedPlane
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.Experimental.XR.BoundedPlane">
+  
+  
+  <h1 id="UnityEngine_Experimental_XR_BoundedPlane" data-uid="UnityEngine.Experimental.XR.BoundedPlane">Struct BoundedPlane
+  </h1>
+  <div class="markdown level0 summary"><p>Structure describing a bounded plane representing a real-world surface.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.Experimental.XR.html">UnityEngine.Experimental.XR</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_Experimental_XR_BoundedPlane_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct BoundedPlane</code></pre>
+  </div>
+  <h5 id="UnityEngine_Experimental_XR_BoundedPlane_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><pre><code>            Unlike a [Plane](xref:UnityEngine.Experimental.XR.Plane), which is infinite, a [BoundedPlane](xref:UnityEngine.Experimental.XR.BoundedPlane) has a size and a more detailed shape.
+            A [BoundedPlane](xref:UnityEngine.Experimental.XR.BoundedPlane) can change from frame to frame (see [XRPlaneSubsystem.PlaneUpdated](xref:UnityEngine.Experimental.XR.XRPlaneSubsystem.PlaneUpdated)). Typically, this
+            means the current understanding of the plane has changed, rather than the real-world geometry. This can
+            happen as the device explores the physical space and is able to perceive more detail.
+</code></pre></div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_Alignment_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Alignment*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_Alignment" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Alignment">Alignment</h4>
+  <div class="markdown level1 summary"><p>The alignment of the plane, e.g., horizontal or vertical.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlaneAlignment Alignment { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Experimental.XR.PlaneAlignment.html">PlaneAlignment</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_Center_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Center*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_Center" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Center">Center</h4>
+  <div class="markdown level1 summary"><p>Center point of the plane in device space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Center { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Experimental_XR_BoundedPlane_Center_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The center can change every frame as the dimensions of the plane are explored.</p>
+</div>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_Height_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Height*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_Height" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Height">Height</h4>
+  <div class="markdown level1 summary"><p>Current height of the plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Height { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Experimental_XR_BoundedPlane_Height_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><pre><code>                The &quot;height&quot; of the plane is the length of the Z axis of the smallest bounding
+                box which fully contains the plane in the plane&#39;s local (unrotated) space.
+</code></pre></div>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_Id_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Id*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_Id" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Id">Id</h4>
+  <div class="markdown level1 summary"><p>A session-unique identifier for the plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TrackableId Id { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Experimental.XR.TrackableId.html">TrackableId</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_Normal_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Normal*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_Normal" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Normal">Normal</h4>
+  <div class="markdown level1 summary"><p>Normal vector of the plane in device space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Normal { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_Plane_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Plane*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_Plane" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Plane">Plane</h4>
+  <div class="markdown level1 summary"><p>Returns the infinite <a href="xref:UnityEngine.Experimental.XR.Plane">Plane</a> associated with this <a class="xref" href="UnityEngine.Experimental.XR.BoundedPlane.html">BoundedPlane</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Plane Plane { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Plane.html">Plane</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_Pose_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Pose*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_Pose" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Pose">Pose</h4>
+  <div class="markdown level1 summary"><p>Pose of the plane in device space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Pose Pose { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Pose.html">Pose</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Experimental_XR_BoundedPlane_Pose_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><pre><code>                The position of the plane generally stays the same between frames, unless the
+                understanding of where the plane is changes. For example, the device&#39;s plane
+                detection algorithm may determine that the surface associated with the plane
+                is actualy lower than it originally thought. In this case, the position&#39;s Y
+                value might change. But if the dimensions of the plane change as the surface
+                is explored, the position will likely stay the same. This is different than
+                the [Center](xref:UnityEngine.Experimental.XR.Center) which can change frequently.
+
+                Thus, the /Pose.position/ provides a stable reference point to which you could make other [GameObject](xref:UnityEngine.Experimental.XR.GameObject)s relative.
+
+                A rotation of identity means the plane is horizontal, with its normal pointing up
+                (positive along the Y axis). The [BoundedPlane.Width](xref:UnityEngine.Experimental.XR.BoundedPlane.Width) corresponds to its size in the X direction, and its [BoundedPlane.Height](xref:UnityEngine.Experimental.XR.BoundedPlane.Height) corresponds to its size in the Z direction.
+</code></pre></div>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_Size_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Size*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_Size" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Size">Size</h4>
+  <div class="markdown level1 summary"><p>Current size of the plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 Size { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Experimental_XR_BoundedPlane_Size_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><pre><code>                The size is the dimensions of the smallest bounding box that fully encloses the plane.
+</code></pre></div>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_SubsumedById_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.SubsumedById*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_SubsumedById" data-uid="UnityEngine.Experimental.XR.BoundedPlane.SubsumedById">SubsumedById</h4>
+  <div class="markdown level1 summary"><p>A session-unique identifier for the <a class="xref" href="UnityEngine.Experimental.XR.BoundedPlane.html">BoundedPlane</a> that subsumed this plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TrackableId SubsumedById { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Experimental.XR.TrackableId.html">TrackableId</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Experimental_XR_BoundedPlane_SubsumedById_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><pre><code>                If /SubsumedById/ is not [TrackableId.InvalidId](xref:UnityEngine.Experimental.XR.TrackableId.InvalidId), then this [BoundedPlane](xref:UnityEngine.Experimental.XR.BoundedPlane) has been merged into the [BoundedPlane](xref:UnityEngine.Experimental.XR.BoundedPlane) with the [TrackableId](xref:UnityEngine.Experimental.XR.TrackableId) specified by /SubsumedById/. This can happen, for example, when two parts of the same surface are initially detected as separate planes. As the physical space is explored, the device may determine that the two planes actually represent the same surface.
+
+                Note: Not all platforms support this feature. Unity provides the information where available.
+
+                SA: [BoundedPlane](xref:UnityEngine.Experimental.XR.BoundedPlane), [XRPlaneSubsystem](xref:UnityEngine.Experimental.XR.XRPlaneSubsystem), [XRPlaneSubsystem.TryGetPlane](xref:UnityEngine.Experimental.XR.XRPlaneSubsystem.TryGetPlane)
+</code></pre></div>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_Width_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Width*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_Width" data-uid="UnityEngine.Experimental.XR.BoundedPlane.Width">Width</h4>
+  <div class="markdown level1 summary"><p>Current width of the plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Width { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_Experimental_XR_BoundedPlane_Width_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><pre><code>                The &quot;width&quot; of the plane is the length of the X axis of the smallest bounding
+                box which fully contains the plane in the plane&#39;s local (unrotated) space.
+</code></pre></div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_GetCorners_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.GetCorners*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_GetCorners_UnityEngine_Vector3__UnityEngine_Vector3__UnityEngine_Vector3__UnityEngine_Vector3__" data-uid="UnityEngine.Experimental.XR.BoundedPlane.GetCorners(UnityEngine.Vector3@,UnityEngine.Vector3@,UnityEngine.Vector3@,UnityEngine.Vector3@)">GetCorners(out Vector3, out Vector3, out Vector3, out Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCorners(out Vector3 p0, out Vector3 p1, out Vector3 p2, out Vector3 p3)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">p0</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">p1</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">p2</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">p3</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_Experimental_XR_BoundedPlane_TryGetBoundary_" data-uid="UnityEngine.Experimental.XR.BoundedPlane.TryGetBoundary*"></a>
+  <h4 id="UnityEngine_Experimental_XR_BoundedPlane_TryGetBoundary_List_UnityEngine_Vector3__" data-uid="UnityEngine.Experimental.XR.BoundedPlane.TryGetBoundary(List{UnityEngine.Vector3})">TryGetBoundary(List&lt;Vector3&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetBoundary(List&lt;Vector3&gt; boundaryOut)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">List</span>&lt;<a class="xref" href="UnityEngine.Vector3.html">Vector3</a>&gt;</td>
+        <td><span class="parametername">boundaryOut</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

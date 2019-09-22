@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Spatial Mapping Renderer | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Spatial Mapping Renderer | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="spatial-mapping-renderer">Spatial Mapping Renderer</h1>
+
+<p>The <strong>Spatial Mapping Renderer</strong> component provides a visual representation of Spatial Mapping Surfaces. This is useful for visually debugging Surfaces and adding visual effects to the environment.</p>
+<p>The system periodically sends data to the <strong>Spatial Mapping Renderer</strong> component about changes in physical space. Each time the component is notified of these changes by the Spatial Mapping system, it bakes the returned Surface data into GameObjects that contain both <a href="class-MeshFilter.html">Mesh Filter</a> and <a href="class-MeshRenderer.html">Mesh Renderer</a> components. The Spatial Mapping Renderer component manages the lifetime of these Surface GameObjects. This means that it handles creating, updating, and destroying the Surface GameObject Mesh Renderers in the Scene. </p>
+<p><img src="../uploads/Main/spatial_mapping_renderer.png" alt="Spatial Mapping Renderer component as it appears in the Unity Editor"></p>
+<h2 id="render-settings">Render Settings</h2>
+<p>The table below lists all unique Render Settings available for the <strong>Spatial Mapping Renderer</strong> component.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Setting</strong></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Render State</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">All Surface GameObjects take their material from the <strong>Render State</strong> setting. When you change the <strong>Render State</strong> setting (for example, by script during run time), all Surface GameObjects’ render Materials change to those of the chosen <strong>Render State</strong> setting. This reduces the number of draw calls, which in turn improves the rendering performance. Using a shared material also reduces the amount of memory used by the application during rendering. Select one of the three options to render Surfaces. <br><br>See <a href="#RenderState">Render State</a>, below, for more information.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Occlusion</strong></td>
+<td style="text-align:left">Apply the Material defined in <strong>Occlusion Material</strong>. This is a transparent Material which hides GameObjects behind real world Surfaces. See <a href="#VisualOcclusionMaterials">Visual and Occlusion Materials</a>, below, for more information.<br><br><strong>Note:</strong> This enables all of a Surface’s Mesh Renderers, overriding any other setting.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Visualisation</strong></td>
+<td style="text-align:left">Apply the Material defined in <strong>Visualization Material</strong> for visualizing the Spatial Mapping Surfaces (usually a wireframe Material) in your environment. See <a href="#VisualOcclusionMaterials">Visual and Occlusion Materials</a>, below, for more information.<br><br><strong>Note</strong>: This enables all of a Surface’s Mesh Renderers, overriding any other setting.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>None</strong></td>
+<td style="text-align:left">Choose to disable all the Mesh Renderers assigned to the Spatial Mapping Surfaces.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Occlusion Material</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">The material you select here applies when the Spatial Mapping Renderer’s <strong>Render State</strong> is set to <strong>Occlusion</strong>. The default is the built-in <strong>SpatialMappingOcclusion</strong> material.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Visual Material</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">The material you select here is the Visual Material that applies when the Spatial Mapping Renderer <strong>Render State</strong> is set to <strong>Visualization</strong>. The default is the built-in <strong>SpatialMappingWireframe</strong> material.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="general-settings">General Settings</h2>
+<!-- include SpatialMappingComponentsGeneralSettings -->
+<h2 id="using-the-spatial-mapping-renderer">Using the Spatial Mapping Renderer</h2>
+<p><a name="RenderState"></a></p>
+<h3 id="render-state">Render State</h3>
+<p>This component provides an easy way to change the material on all generated Surfaces dynamically. Unity provides two pre-built Material types for you to use:</p>
+<p><strong>Occlusion Material</strong></p>
+<p>This makes the GameObject appear transparent, but holograms are not visible through the GameObject. For example, this might be useful if you require a real-world desk to conceal an in-game holographic object placed underneath it.</p>
+<p><strong>Visual Material</strong></p>
+<p>This is a wireframe Material that Unity applies to all Surfaces in the Spatial Mapping Renderer component. With the default Wireframe Shader, the colors of the wireframe represent real-world distances. This is usually the most useful option for debugging, but you can also use it for visual effects. The Shader uses color mapping to indicate distance; the table below shows this color mapping:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Distance from HoloLens</strong></th>
+<th style="text-align:left"><strong>Color</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0 to 1 meters</td>
+<td style="text-align:left">Black</td>
+</tr>
+<tr>
+<td style="text-align:left">1 to 2 meters</td>
+<td style="text-align:left">Red</td>
+</tr>
+<tr>
+<td style="text-align:left">2 to 3 meters</td>
+<td style="text-align:left">Green</td>
+</tr>
+<tr>
+<td style="text-align:left">3 to 4 meters</td>
+<td style="text-align:left">Blue</td>
+</tr>
+<tr>
+<td style="text-align:left">4 to 5 meters</td>
+<td style="text-align:left">Yellow</td>
+</tr>
+<tr>
+<td style="text-align:left">5 to 6 meters</td>
+<td style="text-align:left">Cyan</td>
+</tr>
+<tr>
+<td style="text-align:left">6 to 7 meters</td>
+<td style="text-align:left">Magenta</td>
+</tr>
+<tr>
+<td style="text-align:left">7 to 8 meters</td>
+<td style="text-align:left">Maroon</td>
+</tr>
+<tr>
+<td style="text-align:left">8 to 9 meters</td>
+<td style="text-align:left">Teal</td>
+</tr>
+<tr>
+<td style="text-align:left">9 to 10 meters</td>
+<td style="text-align:left">Orange</td>
+</tr>
+<tr>
+<td style="text-align:left">10 meters or greater</td>
+<td style="text-align:left">White</td>
+</tr>
+</tbody>
+</table>
+<p><img src="../uploads/Main/visualization_shader_preview.jpg" alt="The default wireframe Shader used as the Visualization Material in the __Spatial Mapping Renderer__ component (colors in the wireframe represent distances)"></p>
+<p>When you assign a new Material to either the <strong>Visual Material</strong> or <strong>Occlusion Material, __the Material of your Surface GameObjects does not automatically change. To apply the new Material to all Surfaces, you need to set the __Render State</strong> to the Material you have changed (<strong>Visual Material</strong> or <strong>Occlusion Material)</strong>.</p>
+<p>If you only assign the <strong>Occlusion Material</strong> or <strong>Visual Material</strong> properties in <strong>Render State</strong> from the Unity Editor (directly on the GameObject in your scene), Spatial Mapping destroys them at the same time as the <strong>Spatial Mapping Renderer</strong> component. However, Spatial Mapping doesn’t destroy any <strong>Occlusion __or __Visual Materials</strong> assigned or changed through script with the component, so you will need to destroy them manually.</p>
+<p>The code snippet below changes the Material that Spatial Mapping applies to all Surface GameObjects dynamically at run time.</p>
+<pre><code>
+SpatialMappingRenderer renderer = spatialMappingGameObject.AddComponent&lt;SpatialMappingRenderer&gt;();
+renderer.visualMaterial = new Material(Shader.Find(&quot;VR/SpatialMapping/Wireframe&quot;));
+renderer.renderState = SpatialMappingRenderer.RenderState.Visualization;
+</code></pre><h3 id="surface-gameobjects">Surface GameObjects</h3>
+<p>The <strong>Spatial Mapping Renderer</strong> component creates its own separate set of Surface GameObjects during run time. These appear in your Scene parented to a Surface Parent GameObject:</p>
+<p><img src="../uploads/Main/surface_parent.png" alt="Example Surface Parent GameObject and Surface GameObject children
+"></p>
+<p>When a <strong>Spatial Mapping Renderer</strong> generates Surface GameObjects, they contain the following component</p>
+<ul>
+<li><p><a href="class-MeshFilter.html">Mesh Filter</a></p>
+</li>
+<li><p><a href="wmr_input_types.html">World Anchor</a></p>
+</li>
+<li><p><a href="class-MeshRenderer.html">Mesh Renderer</a></p>
+</li>
+<li><p>A shared <a href="class-Material.html">Material</a> (this is either a Visualization or Occlusion Material, depending on the Render State setting) </p>
+</li>
+</ul>
+<p><img src="../uploads/Main/surface_gameobject_with_renderer.png" alt="Inspector view of a Surface GameObject generated by a __Spatial Mapping Renderer__"></p>
+<p>If you add multiple __Spatial Mapping Renderer __components to your Scene, each component generates its own set of Surface GameObjects. For example, if you have two GameObjects with __Spatial Mapping Renderer __components, then your Scene contains two sets of Surface GameObjects: one generated by each component at run time. This is important to keep in mind for optimization purposes.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

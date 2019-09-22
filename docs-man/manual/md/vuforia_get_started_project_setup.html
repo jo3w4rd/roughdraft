@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Setting up your Project for Vuforia | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Setting up your Project for Vuforia | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="setting-up-your-project-for-vuforia">Setting up your Project for Vuforia</h1>
+
+<p>Setting up your project to develop Vuforia AR or MR mobile applications is very similar to the set-up process for building with Unity for a mobile platform. The Unity Installer includes the Vuforia SDK. Follow the instructions for downloading and installing Unity on the <a href="InstallingUnity.html">InstallingUnity</a> manual page. Vuforia provides a selection of Prefabs designed to be dropped into a Scene to provide feature functionality to your application. These are all available from inside the Unity Editor.</p>
+<p>You should adhere to the same performance considerations as required for developing regular mobile games. For information on optimising for mobile devices, see Unity documentation on <a href="MobileOptimisation.html">mobile optimisation</a>.</p>
+<p>To get Vuforia set up with Unity:</p>
+<ul>
+<li>Install the <a href="https://unity3d.com/get-unity/download">latest version of Unity</a>, and in the Unity component selection section of the installer, select <strong>Vuforia Augmented Reality Support</strong>, along with either the <strong>iOS Build Support</strong> or <strong>Android Build Support</strong> packages.</li>
+</ul>
+<p><img src="../uploads/Main/installing_vuforia.jpg" alt="Installing Vuforia Augmented Reality support through Unity Installer"></p>
+<p><strong>Note:</strong> Most AR and MR applications target mobile devices, so the focus of this guide is development for Android and iOS. See guides for enabling build support for Android and iOS devices in the Getting Started documentation for <a href="android-GettingStarted.html">Android</a> and <a href="iphone-GettingStarted.html">iOS</a>.</p>
+<ul>
+<li><p>Create a Vuforia developer account from the <a href="https://developer.vuforia.com/user/register">Vuforia registration page</a>. This account gives you access to the tools you need to make AR and MR applications with Vuforia in Unity.</p>
+</li>
+<li><p>If you have not already created a Unity ID, then do so from the <a href="https://id.unity.com/en/conversations/8c075ba1-a442-41b1-b64d-ad4fb3c56073008f?view=register">Unity registration page</a>. You need a Unity ID to download any packages from the Unity Asset Store.</p>
+</li>
+<li><p>Open Unity and create a new 3D Project (make sure the <strong>3D</strong> option is selected next to the <strong>Add Asset Package</strong> button). Name your Project, then click the <strong>Create project</strong> button.</p>
+</li>
+</ul>
+<p><img src="../uploads/Main/new_project.png" alt="Creating a new 3D project"></p>
+<p><strong>Tip:</strong> Download the <a href="https://www.assetstore.unity3d.com/en/#!/content/101547">Vuforia AR+VR Sample package</a> from the Unity Asset Store. This package provides useful example Scenes demonstrating important features. You will not need this for following this guide, but it is useful to have for further learning later.</p>
+<h2 id="activating-vuforia-in-unity">Activating Vuforia in Unity</h2>
+<p>To activate Vuforia in your Unity project, access the <strong>Player</strong> settings from <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category, and select the tab for the mobile device you are building to. Under the <strong>XR Settings</strong> panel, enable the <strong>Vuforia Augmented Reality Support</strong> property.</p>
+<p><img src="../uploads/Main/vuforia_ar_support.png" alt="Enabling Vuforia Augmented Reality Support in Unity Player settings"></p>
+<p>Your Scene now contains two GameObjects: a main Camera, and a directional light. You need to add a new AR Camera to the Scene in order to enable AR functionality, and you need to delete the current <strong>Main Camera</strong> GameObject from the Scene. </p>
+<p>To delete the Camera GameObject, select it in the <strong>Hierarchy window</strong> and press the delete key on your keyboard, or right click it and select <strong>Delete</strong>.</p>
+<p>For more information on the individual settings under the <strong>XR Settings</strong> panel, see the <a href="vuforia_configuration.html">Vuforia Platform Configuration</a> page of this manual.</p>
+<h2 id="adding-a-vuforia-ar-camera-and-other-gameobjects">Adding a Vuforia AR Camera and other GameObjects</h2>
+<p>To add an AR Camera to your scene, go to <strong>GameObject</strong> &gt; <strong>Vuforia</strong> &gt; <strong>AR Camera</strong>. </p>
+<p>If this is the first Vuforia GameObject added to your Scene then Unity also prompts to import your Vuforia Assets. Select <strong>Import</strong>, and Unity imports all necessary Vuforia files into your project.</p>
+<p>The <strong>Project window</strong> displays 4 new folders, one of which is called <strong>Vuforia</strong>. The code and Assets in this folder provide the main AR and MR functionality. The other folders provide sample Scenes, resources, tools, and plugins so that you can develop AR and MR applications for a variety of devices.</p>
+<p><img src="../uploads/Main/Importing_assets.png" alt="Empty project with all imported Vuforia assets"></p>
+<p>Create a new folder in your project. To do this, navigate to the Project window, click the <strong>Create</strong> button, and select <strong>Folder</strong>. Name this new folder <em>Scenes</em> and save a <a href="CreatingScenes.html">new Scene</a> inside this folder.</p>
+<p><img src="../uploads/Main/New_folder.png" alt="Creating an empty folder and naming it Scenes"></p>
+<p>This process also adds a new ARCamera GameObject in your Scene hierarchy.</p>
+<h2 id="creating-a-vuforia-license-key">Creating a Vuforia license key</h2>
+<p>The last step in the setup process is to create a license key from the <a href="https://developer.vuforia.com/Targetmanager/licenseManager/licenseListing">License Manager section</a> of the Vuforia Developer Portal. You need to enter this into Unity&#39;s Vuforia configuration settings in order to build and test your application with Unity. </p>
+<p>Visit the <a href="https://developer.vuforia.com/user/login">Vuforia Developer Portal</a> and log in (or create a new account). Navigate to the <strong>License Manager</strong> in the <strong>Develop</strong> section and click the <strong>Get Development Key</strong> button to open the <strong>Add License Key</strong> page.</p>
+<p><img src="../uploads/Main/creating_dev_key.png" alt="Creating a Vuforia Development Key"></p>
+<p>On the <strong>Add License Key</strong> page, enter a name for your app. Accept the terms and conditions, then click the <strong>Confirm</strong> button to generate a new license key.</p>
+<p><img src="../uploads/Main/vuforia_dev_key_details.png" alt="Confirming Vuforia development key details"></p>
+<p>On the next page, agree to the Vuforia Developer conditions (tick the box) and then click the <strong>Confirm</strong> button. This brings you back to the <strong>Licence Manager</strong> page where you can see your newly created license in a list where its status is <strong>Active</strong>. Click on the name of your App to view the license details. This allows you to retrieve your development license key.</p>
+<p><img src="../uploads/Main/license_manager.png" alt="License Manager"></p>
+<p>Copy the license key to the clipboard and navigate back to your Unity Project.</p>
+<p><img src="../uploads/Main/copying_license_key.png" alt="Copying your Vuforia License key"></p>
+<p>Select the <strong>ARCamera</strong> GameObject from the <strong>Hierarchy window</strong> and, in the Inspector window, navigate to the the <strong>Vuforia Behaviour(Script)</strong> component and click the <strong>Open Vuforia configuration</strong> button. </p>
+<p><img src="../uploads/Main/config_settings.jpg" alt="Accessing Vuforia configuration settings"></p>
+<p>The <strong>Inspector window</strong> displays a list of <strong>Vuforia Configuration</strong> options. Paste your Vuforia Development key into the <strong>App License Key</strong> text box under the Vuforia section and then click the <strong>Add License</strong> button.</p>
+<p><img src="../uploads/Main/entering_key.png" alt="Entering your Vuforia development key in the Vuforia Configuration settings"></p>
+<h2 id="testing-your-set-up">Testing your set-up</h2>
+<p>To test Vuforia apps in the Unity Editor, you need to have a webcam connected to your PC or laptop. As a final step to make sure Vuforia is now installed properly in your Unity Project, press the <strong>Play</strong> button to test your Scene. If Vuforia is set up correctly, a video feed from your webcam appears in the Editor Game View. </p>
+<p>Now you are ready to set up Image Targets and add AR functionality to your Project.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

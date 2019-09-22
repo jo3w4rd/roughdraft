@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Model import workflows | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Model import workflows | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="model-import-workflows">Model import workflows</h1>
+
+<p><strong>Note:</strong> This workflow assumes you already have a Model file to import. If you don&#39;t have a file already, you can read the <a href="HOWTO-exportFBX.html">guidelines on how to export an FBX file</a> before exporting it from your 3D modeling software. For guidelines on how to export <em>Humanoid</em> animation from your 3D modeling software, see <a href="UsingHumanoidChars.html">Humanoid Asset preparation</a>.</p>
+<p>Model files can contain a variety of data, such as character Meshes, Animation Rigs and Clips, as well as Materials and Textures. Most likely, your file does not contain all of these elements at once, but you can follow any portion of the workflow that you need to.</p>
+<p><strong>Accessing the Import Settings window</strong></p>
+<p>No matter what kind of data you want to extract from the Model file, you always start the same way:</p>
+<ol>
+<li>Open the <strong>Project</strong> window and the <strong>Inspector</strong> so that you can see both at once.</li>
+<li>Select the <strong>Model</strong> file you want to import from the <strong>Asset</strong> folder in the <strong>Project</strong> window. The <strong>Import Settings</strong> window opens in the <strong>Inspector</strong> showing the <strong>Model tab</strong> by default.</li>
+</ol>
+<p><strong>Setting Model-specific and general importer options</strong></p>
+<p>Then you can set any of these options on <a href="FBXImporter-Model.html">the Model tab</a>:</p>
+<ul>
+<li>Use the <strong>Scale Factor</strong> and <strong>Convert Units</strong> properties to adjust how Unity interprets units. For example, 3ds Max uses 1 unit to represent 10 centimeters, whereas Unity uses 1 unit to represent 1 meter.</li>
+<li>Use the <strong>Mesh Compression</strong>, <strong>Read/Write Enabled</strong>, <strong>Optimize Mesh</strong>, <strong>Keep Quads</strong>, <strong>Index Format</strong>, or <strong>Weld Vertices</strong> properties to reduce resources and save memory.</li>
+<li>You can enable the <strong>Import BlendShapes</strong> option if the Model file came from Maya or 3ds Max, or any other 3d modeling application that supports morph target animation. </li>
+<li>You can enable the <strong>Generate Colliders</strong> option for environment geometry.</li>
+<li>You can enable specific FBX settings, such as <strong>Import Visibility</strong>, or <strong>Import Cameras</strong> and <strong>Import Lights</strong>.</li>
+<li>For Model files that contain only Animation, you can enable the <strong>Preserve Hierarchy</strong> option to prevent hierarchy mismatch in your skeleton.</li>
+<li>You can set the <strong>Swap UVs</strong> and <strong>Generate Lightmap UVs</strong> if you are using a <strong>Lightmap</strong>.</li>
+<li>You can exercise control over how Unity handles the Normals and Tangents in your Model with the <strong>Normals</strong>, <strong>Normals Mode</strong>, <strong>Tangents</strong>, or <strong>Smoothing Angle</strong> options.</li>
+</ul>
+<p><strong>Setting options for importing Rigs and Animation</strong></p>
+<p>If your file contains Animation data, you can follow the guidelines for setting up the Rig using the <a href="FBXImporter-Rig.html">Rig tab</a> and then extracting or defining Animation Clips using the <a href="class-AnimationClip.html">Animation tab</a>. The workflow differs between Humanoid and Generic (non-Humanoid) animation types because Unity needs the Humanoid&#39;s bone structure to be very specific, but only needs to know which bone is the root node for the Generic type:</p>
+<ul>
+<li><a href="ConfiguringtheAvatar.html">Humanoid-type workflow</a> </li>
+<li><a href="GenericAnimations.html">Generic-type workflow</a></li>
+</ul>
+<p><strong>Dealing with Materials and Textures</strong></p>
+<p>If your file contains <strong>Material</strong> or <strong>Texture</strong>, you can define how you want to deal with them:</p>
+<ol>
+<li>Click <a href="FBXImporter-Materials.html">the Materials tab</a> in the <strong>Import Settings</strong> window.</li>
+<li>Enable the <strong>Import Materials</strong> option. Several options appear in the <strong>Materials</strong> tab, including the <strong>Location</strong> option, whose value determines what the other options are.</li>
+<li>Choose the <strong>Use Embedded Materials</strong> option to <a href="FBXImporter-Materials#Embedded">keep the imported Materials inside the imported Asset</a>.</li>
+</ol>
+<p>When you have finished setting the options, click the <strong>Apply</strong> button at the bottom of the <strong>Import Settings</strong> window to save them or click the <strong>Revert</strong> button to cancel.</p>
+<p>Finally, you can import the file into your scene:</p>
+<ul>
+<li>If it contains a Mesh, drag the file into the <strong>Scene</strong> view to instantiate it as a <strong>Prefab</strong> for a <strong>GameObject</strong>.</li>
+<li>If it contains Animation Clips, you can drag the file into <a href="AnimatorWindow.html">the Animator window</a> to use in <a href="StateMachineBasics.html">the State Machine</a> or onto an <strong>Animation track</strong> on <a href="TimelineEditorWindow.html">the Timeline window</a>. You can also drag the Animation take directly onto an instantiated Prefab in the Scene view. This automatically creates an Animation Controller and connects the animation to the Model.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

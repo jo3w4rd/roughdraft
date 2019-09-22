@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Vuforia platform configuration settings | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Vuforia platform configuration settings | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="vuforia-platform-configuration-settings">Vuforia platform configuration settings</h1>
+
+<p>This section provides information about the important XR platform settings affecting development of Vuforia Augmented/Mixed Reality applications with Unity.</p>
+<p>Here is a list of important <strong>XR Settings</strong> used in Vuforia&#39;s Unity integration. To access these, open the <strong>Player</strong> settings (<strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category), then select the tab for the device you are building to):</p>
+<ul>
+<li><p><strong>Vuforia Augmented Reality support</strong>: Enables Vuforia Augmented Reality support in your application</p>
+</li>
+<li><p><strong>Virtual Reality SDKs</strong>: Allows Vuforia features to be integrated into VR applications. This menu is displayed when you select the Virtual Reality Supported checkbox.</p>
+</li>
+</ul>
+<p><img src="../uploads/Main/vuforia_ar_support.png" alt="Vuforia Augmented Reality Support and Virtual Reality SDKs list in XR Settings"></p>
+<p>Vuforia supports the following XR SDKs:</p>
+<ul>
+<li><p><a href="https://developers.google.com/vr/cardboard/overview">Google Cardboard through Google VR SDK</a></p>
+</li>
+<li><p><a href="https://developers.google.com/vr/cardboard/overview">Google Daydream through Google VR SDK</a></p>
+</li>
+<li><p><a href="https://developer.microsoft.com/en-us/windows/mixed-reality/install_the_tools">Microsoft HoloLens through Windows 10 SDK</a></p>
+</li>
+<li><p><a href="https://library.vuforia.com/content/vuforia-library/en/articles/Best_Practices/Best-practices-for-hybrid-VRAR-experiences.html">Vuforia SDK</a></p>
+</li>
+</ul>
+<p>The <strong>Vuforia VR SDK</strong> (in the <strong>Virtual Reality SDKs</strong> list) is a stand-alone VR configuration with no external dependencies. It provides stereo rendering and distortion correction, along with head and hand tracking (with positional tracking available for Tango), and viewer profile support to define parameters of various VR headwear.</p>
+<h2 id="stereo-rendering-method">Stereo rendering method</h2>
+<p>The stereo rendering method is only relevant when using the Vuforia Virtual Reality SDK. Android, iOS, and Windows Mixed Reality devices support Multi-Pass instancing, Single-Pass Instancing and non-instancing.</p>
+<p>When using Vuforia Augmented Reality with another Virtual Reality SDK, stereo rendering support is determined by the Virtual Reality SDK being used.</p>
+<h2 id="supported-graphics-apis">Supported graphics APIs</h2>
+<p><strong>Recommendation:</strong> In Unity&#39;s <strong>Player</strong> settings (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category), select the tab for the device you are building to open the <strong>Other Settings</strong> panel and enable <strong>Use Auto Graphics API</strong>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Android</strong></th>
+<th style="text-align:left"><strong>iOS</strong></th>
+<th style="text-align:left"><strong>Windows</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">OpenGL ES 2.0<br>OpenGL ES 3.x</td>
+<td style="text-align:left">OpenGL ES 2.0<br>OpenGL ES 3.x <br>Metal (iOS 8+)</td>
+<td style="text-align:left">DirectX 11 on Windows 10</td>
+</tr>
+</tbody>
+</table>
+<h2 id="supported-features">Supported features</h2>
+<p>Vuforia provides a number of features to allow development of AR/MR applications.</p>
+<p>The table below lists these features along with the OS and device types supporting them.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Feature</strong></th>
+<th style="text-align:left"><strong>Description</strong></th>
+<th style="text-align:left"><strong>OS</strong></th>
+<th style="text-align:left"><strong>Handhelds</strong></th>
+<th style="text-align:left"><strong>Eyewear</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Image Targets</td>
+<td style="text-align:left">Tracks planar images</td>
+<td style="text-align:left">Android, iOS, UPW</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">Yes</td>
+</tr>
+<tr>
+<td style="text-align:left">Multi Targets</td>
+<td style="text-align:left">Tracks geometric arrangements of images</td>
+<td style="text-align:left">Android, iOS, UPW</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">Yes</td>
+</tr>
+<tr>
+<td style="text-align:left">Cylinder Targets</td>
+<td style="text-align:left">Tracks images wrapped on cylinders and cones</td>
+<td style="text-align:left">Android, iOS, UPW</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">Yes</td>
+</tr>
+<tr>
+<td style="text-align:left">User Defined Targets</td>
+<td style="text-align:left">Tracks images captured by users at runtime</td>
+<td style="text-align:left">Android, iOS, UPW</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">Not recommended</td>
+</tr>
+<tr>
+<td style="text-align:left">Cloud Recognition</td>
+<td style="text-align:left">Cloud-based Image Targets</td>
+<td style="text-align:left">Android, iOS, UPW</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">Yes</td>
+</tr>
+<tr>
+<td style="text-align:left">Device Tracking</td>
+<td style="text-align:left">3 DoF &amp; 6 DoF positional tracking*</td>
+<td style="text-align:left">Android, iOS, UPW</td>
+<td style="text-align:left">Yes ( Limited to 6 DoF )</td>
+<td style="text-align:left">Yes ( Limited to 6 DoF )</td>
+</tr>
+<tr>
+<td style="text-align:left">VuMark</td>
+<td style="text-align:left">Customizable encodable AR markers</td>
+<td style="text-align:left">Android, iOS, UPW</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">Yes</td>
+</tr>
+<tr>
+<td style="text-align:left">Object Reco</td>
+<td style="text-align:left">Tracks 3D objects from scans</td>
+<td style="text-align:left">Android, iOS, UPW</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">Yes</td>
+</tr>
+<tr>
+<td style="text-align:left">Model Targets**</td>
+<td style="text-align:left">Track 3D objects from 3D models</td>
+<td style="text-align:left">Android, iOS, UPW</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">Yes</td>
+</tr>
+<tr>
+<td style="text-align:left">Smart Terrain</td>
+<td style="text-align:left">Track surfaces and geometry in the user’s environment</td>
+<td style="text-align:left">Android, iOS, UPW</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">Limited</td>
+</tr>
+<tr>
+<td style="text-align:left">AR + VR</td>
+<td style="text-align:left">AR feature support for VR apps</td>
+<td style="text-align:left">Android, iOS, UPW</td>
+<td style="text-align:left">Yes</td>
+<td style="text-align:left">Yes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>*</strong> 6 degrees of freedom tracking is available for Tango and HoloLens devices</p>
+<p><strong>**</strong> Model Targets are available through the Vuforia Early Access Program and public in Unity 2017.3</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

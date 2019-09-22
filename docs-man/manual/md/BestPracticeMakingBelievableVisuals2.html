@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Preparing render settings in Unity | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Preparing render settings in Unity | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="preparing-render-settings-in-unity">Preparing render settings in Unity</h1>
+
+<p>The following advice helps you understand how to use Unity’s rendering features to realistically mimic the real world, and quickly achieve your project’s believable visual goal. This covers:</p>
+<ul>
+<li><a href="#linear">Linear rendering mode</a></li>
+<li><a href="#rendering">Rendering mode</a></li>
+<li><a href="#enablePP">Enabling post-processing</a></li>
+<li><a href="#hdrCamera">High Dynamic Range (HDR) Camera</a></li>
+<li><a href="#hdrLightmap">HDR Light map encoding (optional)</a></li>
+<li><a href="#imageEffects">Enabling Image Effects for viewport</a></li>
+</ul>
+<p>For more in-depth information, see Unity’s <a href="https://unity3d.com/learn/tutorials/topics/graphics/introduction-lighting-and-rendering">lighting and rendering tutorial</a>.</p>
+<p><a name="linear"></a></p>
+<h2 id="linear-rendering-mode">Linear rendering mode</h2>
+<p>In simple terms, the linear rendering mode prepares Unity to do lighting and shading calculations using physically accurate mathematics before transforming the final output into the format that works best for monitors. </p>
+<p>To specify a gamma or linear workflow: </p>
+<ol>
+<li><p>In Unity, navigate to <strong>Edit</strong> &gt; <strong>Project Settings</strong> from the main menu, and then select the <strong>Player</strong> category. </p>
+</li>
+<li><p>Go to <strong>Other Settings</strong> &gt; <strong>Rendering</strong> and change the <strong>Color Space</strong> to <strong>Linear</strong>.</p>
+</li>
+</ol>
+<p>Defining your color space should be one of the earliest decisions in your project because of the drastic impact on the final shading and lighting results. For more advice on each workflow, see <a href="LinearRendering-LinearOrGammaWorkflow.html">Linear or gamma workflow</a>.</p>
+<p><a name="rendering"></a></p>
+<h2 id="rendering-mode">Rendering mode</h2>
+<p>The Spotlight Tunnel Sample Scene uses the deferred shading rendering path. This allows you to:</p>
+<ul>
+<li><p>Work with multiple dynamic lights efficiently</p>
+</li>
+<li><p>Combine multiple reflection cubemaps</p>
+</li>
+<li><p>Use the existing Screen Space Reflection features in Unity 2017+</p>
+</li>
+</ul>
+<p>To set the rendering path in the Editor, select <strong>Edit</strong> &gt; <strong>Project Settings</strong>, and then select the <strong>Graphics</strong> category. Alternatively, you can select the <strong>Main Camera</strong> in your Scene, and then set the <strong>Rendering Path</strong> in the Inspector window.</p>
+<p>For more information on the rendering mode, see <a href="Rendering-Tech.html">Rendering Pipeline Details</a>.</p>
+<p><a name="enablePP"></a></p>
+<h2 id="enabling-post-processing">Enabling post-processing</h2>
+<p>To display HDR lighting properly, install the <a href="https://assetstore.unity.com/packages/essentials/post-processing-stack-83912">Unity post-processing stack V1</a> in your project, and follow these steps to set it up and enable tonemapping:</p>
+<ol>
+<li><p>Create a <strong>Post-Processing Profile</strong> Asset in your project and configure it:</p>
+<ul>
+<li>Enable <strong>Color Grading</strong> &gt; <strong>Tonemapper</strong> &gt; <strong>Filmic (ACES)</strong> (Academy Color Encoding Standards). For advice on using ACES tonemapping to handle high intensity color values, such as colored light or fire, see <a href="BestPracticeMakingBelievableVisuals8.html#highIntensityColor">High intensity color</a>.</li>
+<li><strong>Enable Dithering</strong>. Dithering allows the Scene to alleviate banding artifacts introduced by 8 Bit/channel output from an HDR Scene. Modern engines use this technique to circumvent the limitation of 16M color output.</li>
+<li>Leave the rest of the <strong>Tonemapper</strong> settings with their default values.</li>
+</ul>
+</li>
+<li><p>Select the <strong>Main Camera</strong> in your Scene, click <strong>Add Component</strong> in the Inspector window, and choose <strong>Post-Processing Behaviour</strong>.</p>
+</li>
+<li><p>In the <strong>Profile</strong> field, enter the post-processing profile you created.</p>
+</li>
+</ol>
+<p>The Spotlight Tunnel sample scene uses the post-processing stack V1. For advice on using post-processing stack V2, refer to the <a href="https://github.com/Unity-Technologies/PostProcessing">package readme</a>.</p>
+<p><a name="hdrCamera"></a></p>
+<h2 id="high-dynamic-range-hdr-camera">High Dynamic Range (HDR) Camera</h2>
+<p>When rendering believable lighting, you’re dealing with lighting values and emissive surfaces that have a brightness higher than 1 (high dynamic range), much like real life. You then need to remap these values to the proper screen range (see <a href="PostProcessing-ColorGrading.html">tonemapping</a>). The high dynamic range setting is crucial because it allows the Unity camera to process high values, rather than clip them. 
+To enable HDR, select the <strong>Main Camera</strong> in your Scene and ensure that <strong>Allow HDR</strong> is checked in the Inspector window.</p>
+<p><a name="hdrLightmap"></a></p>
+<h2 id="hdr-lightmap-encoding-optional">HDR Lightmap encoding (optional)</h2>
+<p>The Spotlight Tunnel Sample Scene doesn’t use baked lighting. However, if you’re planning to use HDR baked lighting, set the light map encoding to HDR light map for consistent results.</p>
+<p>To set lightmap encoding in Unity, go to <strong>Edit</strong> &gt; <strong>Project Settings</strong>, and then select the <strong>Player</strong> category, expand the <strong>Other Settings</strong> panel, and navigate to <strong>Lightmap Encoding</strong>. For more information, see <a href="Lightmaps-TechnicalInformation.html">Lightmaps: Technical information</a>.</p>
+<p><a name="imageEffects"></a></p>
+<h2 id="enabling-image-effects-in-the-viewport">Enabling image effects in the viewport</h2>
+<p>To see the tonemapper while working with the Scene, enable <strong>Image Effects</strong> in the drop-down toolbar menu at the top of the Scene view. In the following image, notice the highlight rendition and the dark tunnel value separation improvements in the tonemapped Scene. If you look at the non-tonemapped Scene, you can see how the highlights didn’t converge to a unified color (the yellowish burning sun in this case).</p>
+<p><img src="../uploads/Main/BelievableVisualsACESTonemapping.jpg" alt="Comparison between non-tonemapped scene and ACES-tonemapped Scene"></p>
+<p>This setup essentially tries to replicate how a digital camera captures a Scene with a fixed exposure (without exposure adaptation/eye adaptation features enabled).</p>
+<p>At this point, you have a proper foundational Scene rendering setup that should give believable results with a wide range of content:</p>
+<p><img src="../uploads/Main/BelievableVisualsRenderSetup.png" alt=""></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

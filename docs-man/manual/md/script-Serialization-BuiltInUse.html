@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Built-in serialization | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Built-in serialization | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="built-in-serialization">Built-in serialization</h1>
+
+<p>Some of the built-in features of Unity automatically use serialization. These are outlined below. </p>
+<p>See the documentation on <a href="script-Serialization.html">Script Serialization</a> for further information.</p>
+<h4 id="saving-and-loading">Saving and loading</h4>
+<p>Unity uses serialization to load and save <a href="CreatingScenes.html">Scenes</a>, <a href="AssetWorkflow.html">Assets</a>, and <a href="AssetBundlesIntro.html">AssetBundles</a> to and from your computer’s hard drive. This includes data saved in your own scripting API objects such as <a href="ScriptRef:MonoBehaviour.html">MonoBehaviour</a> components and <a href="class-ScriptableObject.html">ScriptableObjects</a>.</p>
+<p>This happens in the Editor’s Play Mode and Edit Mode.</p>
+<h4 id="inspector-window">Inspector window</h4>
+<p>When you view or change the value of a GameObject’s component field in the <a href="UsingTheInspector.html">Inspector window</a>, Unity serializes this data and then displays it in the Inspector window. The Inspector window does not communicate with the Unity Scripting API when it displays the values of a field. If you use properties in your script, any of the property getters and setters are never called when you view or change values in the Inspector windows as Unity serializes the Inspector window fields directly.</p>
+<h4 id="reloading-scripts-in-the-unity-editor">Reloading scripts in the Unity Editor</h4>
+<p>When you change and save a script, Unity reloads all the currently loaded script data. It first stores all serializable variables in all loaded scripts, and after loading the scripts restores them. All data that is not serializable is lost after the script is reloaded.</p>
+<p>This affects all Editor windows, as well as all MonoBehaviours in the project. Unlike other cases of serialization in Unity, private fields are serialized by default when reloading, even if they don&#39;t have the &#39;SerializeField&#39; attribute.</p>
+<h4 id="prefabs">Prefabs</h4>
+<p>In the context of serialization, a <a href="Prefabs.html">Prefab</a> is the serialized data of one or more <a href="GameObjects.html">GameObjects</a> and <a href="Components.html">components</a>. A Prefab instance contains a reference to both the Prefab source and a list of modifications to it. The modifications are what Unity needs to do to the Prefab source to create that particular Prefab instance.</p>
+<p>The Prefab instance only exists while you edit your project in the Unity Editor. During the project build, the Unity Editor instantiates a GameObject from its two sets of serialization data: the Prefab source and the Prefab instance’s modifications.</p>
+<h4 id="instantiation">Instantiation</h4>
+<p>When you call <a href="ScriptRef:Object.Instantiate.html">Instantiate</a> on anything that exists in a <a href="CreatingScenes.html">Scene</a>, such as a <a href="Prefabs.html">Prefab</a> or a <a href="GameObjects.html">GameObjects</a>, Unity serializes it. This happens both at runtime and in the Editor. Everything that derives from <a href="ScriptRef:Object.html">UnityEngine.Object</a> can be serialized.</p>
+<p>Unity then creates a new GameObject and deserializes the data onto the new GameObject. Next, Unity runs the same serialization code in a different variant to report which other <code>UnityEngine.Objects</code> are being referenced. It checks all referenced <code>UnityEngine.Objects</code> to see if they are part of the data being instantiated.  If the reference points to something &quot;external&quot;, such as a Texture, Unity keeps that reference as it is. If the reference points to something &quot;internal&quot;, such as a child GameObject, Unity patches the reference to the corresponding copy.</p>
+<h4 id="unloading-unused-assets">Unloading unused assets</h4>
+<p><code>Resource.GarbageCollectSharedAssets()</code> is the native Unity garbage collector and performs a different function to the standard C# garbage collector. It runs after you load a Scene and checks for objects (like textures) that are no longer referenced and unloads them safely. The native Unity garbage collector runs the serializer in a variation in which objects report all references to external <code>UnityEngine.Objects</code>.  This is how Textures that were used by one scene are unloaded in the next.
+<br><br></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

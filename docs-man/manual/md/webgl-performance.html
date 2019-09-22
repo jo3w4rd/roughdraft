@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>WebGL performance considerations | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="WebGL performance considerations | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="webgl-performance-considerations">WebGL performance considerations</h1>
+
+<h2 id="what-kind-of-performance-can-you-expect-on-webgl">What kind of performance can you expect on WebGL?</h2>
+<p>This is a bit difficult to answer, as it depends on many factors. </p>
+<p>In general, you can assume that you will get performance close to native apps for the GPU side, as the WebGL graphics API uses your GPU for hardware accelerated rendering - there is just a little overhead for translating WebGL API calls and shaders to your OS graphics API (typically DirectX on Windows or OpenGL on Mac or Linux).</p>
+<p>For the CPU side, all your code is translated into asm.js JavaScript. So what kind of performance you can expect depends a lot on the JavaScript engine of the web browser used, and there are some pretty significant differences there currently. At the point of this writing (November 2015), Microsoft Edge and Mozilla Firefox deliver the best performance on Unity code, as these are currently the only browsers which make use of the asm.js spec to use an optimized AOT compilation path of JavaScript code for that case, which delivers performance within a factor of less then 2x slowdown compared to native code for many programming benchmarks - and that factor also matches results we&#39;ve seen from different unity content we deployed to WebGL and ran in Firefox and Edge.</p>
+<p>There are some other considerations, though. Currently, the JavaScript language does neither support multi-threading, nor SIMD. So, any code which benefits from these features will see bigger slowdowns then other code. You cannot write threading or SIMD code in WebGL in your scripts, but some engine parts are normally multi-threaded or SIMD optimized, and will run less performant on WebGL because of this. An example is the skinning code, which is both multi-threaded and SIMD-optimized. You can use the new timeline <a href="Profiler.html">profiler</a> in Unity to see how Unity distributes work to different threads on non-WebGL platforms. Longer term, we are hoping that these features will become available on WebGL as well.</p>
+<h2 id="webgl-specific-settings-which-affect-performance">WebGL-specific settings which affect performance</h2>
+<p>For best performance, set the optimization level to <strong>Fastest</strong> in the Build Player dialog, and set <strong>Exception support</strong> to <strong>None</strong> in the <strong>Player</strong> settings for WebGL.</p>
+<h2 id="profiling-webgl">Profiling WebGL</h2>
+<p>The Unity profiler is supported in WebGL, see <a href="Profiler.html">here</a> how to set it up.</p>
+<h2 id="webgl-content-in-background-tabs">WebGL content in background tabs</h2>
+<p>If <strong>Run in background</strong> is enabled in the <a href="class-PlayerSettingsWebGL.html">Player settings for the WebGL platform</a>, or if you enable <a href="ScriptRef:Application-runInBackground.html">Application.runInBackground</a>, your content continues to run when the canvas or the browser window loses focus.</p>
+<p>However, it should be noted that browsers may throttle content running in background tabs. If the tab with your content is not visible, your content will only be updated once a second in most browsers. Note that this will cause <a href="ScriptRef:Time-time.html">Time.time</a> to progress slower than usual with the default settings, as the default value of <a href="ScriptRef:Time-maximumDeltaTime.html">Time.maximumDeltaTime</a> is lower than one second.</p>
+<h2 id="throttling-webgl-performance">Throttling WebGL performance</h2>
+<p>You may want to run your WebGL content at a lower frame rate in some situations to reduce CPU usage. Like on other platforms, you can use the <a href="ScriptRef:Application-targetFrameRate.html">Application.targetFrameRate</a> API to do so.</p>
+<p>When you don&#39;t want to throttle performance, set this API to the default value of -1, rather then to a high value. This allows the browser to adjust the frame rate for the smoothest animation in the browser&#39;s render loop, and may produce better results than Unity trying to do its own main loop timing to match a target frame rate.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

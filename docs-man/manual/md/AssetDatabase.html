@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>AssetDatabase | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="AssetDatabase | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="assetdatabase">AssetDatabase</h1>
+
+<p>AssetDatabase is an API which allows you to access the assets contained in your project. Among other things, it provides methods to find and load assets and also to create, delete and modify them. The Unity Editor uses the AssetDatabase internally to keep track of asset files and maintain the linkage between assets and objects that reference them. Since Unity needs to keep track of all changes to the project folder, you should always use the AssetDatabase API rather than the filesystem if you want to access or modify asset data.</p>
+<p>The AssetDatabase interface is only available in the editor and has no function in the built player. Like all other editor classes, it is only available to scripts placed in the Editor folder (just create a folder named &quot;Editor&quot; in the main Assets folder of your project if there isn&#39;t one already).</p>
+<h2 id="importing-an-asset">Importing an Asset</h2>
+<p>Unity normally imports assets automatically when they are dragged into the project but it is also possible to import them under script control. To do this you can use the <a href="ScriptRef:AssetDatabase.ImportAsset.html">AssetDatabase.ImportAsset</a> method as in the example below.</p>
+<pre><code>using UnityEngine;
+using UnityEditor;
+
+public class ImportAsset {
+    [MenuItem (&quot;AssetDatabase/ImportExample&quot;)]
+    static void ImportExample ()
+    {
+        AssetDatabase.ImportAsset(&quot;Assets/Textures/texture.jpg&quot;, ImportAssetOptions.Default);
+    }
+}
+</code></pre><p>You can also pass an extra parameter of type <a href="ScriptRef:ImportAssetOptions.html">AssetDatabase.ImportAssetOptions</a> to the AssetDatabase.ImportAsset call. The scripting reference page documents the different options and their effects on the function&#39;s behaviour.</p>
+<h2 id="loading-an-asset">Loading an Asset</h2>
+<p>The editor loads assets only as needed, say if they are added to the scene or edited from the Inspector panel. However, you can load and access assets from a script using <a href="ScriptRef:AssetDatabase.LoadAssetAtPath.html">AssetDatabase.LoadAssetAtPath</a>, <a href="ScriptRef:AssetDatabase.LoadMainAssetAtPath.html">AssetDatabase.LoadMainAssetAtPath</a>, <a href="ScriptRef:AssetDatabase.LoadAllAssetRepresentationsAtPath.html">AssetDatabase.LoadAllAssetRepresentationsAtPath</a> and <a href="ScriptRef:AssetDatabase.LoadAllAssetsAtPath.html">AssetDatabase.LoadAllAssetsAtPath</a>. See the scripting documentation for further details.</p>
+<pre><code>using UnityEngine;
+using UnityEditor;
+
+public class ImportAsset {
+    [MenuItem (&quot;AssetDatabase/LoadAssetExample&quot;)]
+    static void ImportExample ()
+    {
+        Texture2D t = AssetDatabase.LoadAssetAtPath(&quot;Assets/Textures/texture.jpg&quot;, typeof(Texture2D)) as Texture2D;
+    }
+}
+</code></pre><h2 id="file-operations-using-the-assetdatabase">File Operations using the AssetDatabase</h2>
+<p>Since Unity keeps metadata about asset files, you should never create, move or delete them using the filesystem. Instead, you can use <a href="ScriptRef:AssetDatabase.Contains.html">AssetDatabase.Contains</a>, <a href="ScriptRef:AssetDatabase.CreateAsset.html">AssetDatabase.CreateAsset</a>, <a href="ScriptRef:AssetDatabase.CreateFolder.html">AssetDatabase.CreateFolder</a>, <a href="ScriptRef:AssetDatabase.RenameAsset.html">AssetDatabase.RenameAsset</a>, <a href="ScriptRef:AssetDatabase.CopyAsset.html">AssetDatabase.CopyAsset</a>, <a href="ScriptRef:AssetDatabase.MoveAsset.html">AssetDatabase.MoveAsset</a>, <a href="ScriptRef:AssetDatabase.MoveAssetToTrash.html">AssetDatabase.MoveAssetToTrash</a> and <a href="ScriptRef:AssetDatabase.DeleteAsset.html">AssetDatabase.DeleteAsset</a>.</p>
+<pre><code>public class AssetDatabaseIOExample {
+    [MenuItem (&quot;AssetDatabase/FileOperationsExample&quot;)]
+    static void Example ()
+    {
+        string ret;
+
+        // Create
+        Material material = new Material (Shader.Find(&quot;Specular&quot;));
+        AssetDatabase.CreateAsset(material, &quot;Assets/MyMaterial.mat&quot;);
+        if(AssetDatabase.Contains(material))
+            Debug.Log(&quot;Material asset created&quot;);
+
+        // Rename
+        ret = AssetDatabase.RenameAsset(&quot;Assets/MyMaterial.mat&quot;, &quot;MyMaterialNew&quot;);
+        if(ret == &quot;&quot;)
+            Debug.Log(&quot;Material asset renamed to MyMaterialNew&quot;);
+        else
+            Debug.Log(ret);
+
+        // Create a Folder
+        ret = AssetDatabase.CreateFolder(&quot;Assets&quot;, &quot;NewFolder&quot;);
+        if(AssetDatabase.GUIDToAssetPath(ret) != &quot;&quot;)
+            Debug.Log(&quot;Folder asset created&quot;);
+        else
+            Debug.Log(&quot;Couldn&#39;t find the GUID for the path&quot;);
+
+        // Move
+        ret = AssetDatabase.MoveAsset(AssetDatabase.GetAssetPath(material), &quot;Assets/NewFolder/MyMaterialNew.mat&quot;);
+        if(ret == &quot;&quot;)
+            Debug.Log(&quot;Material asset moved to NewFolder/MyMaterialNew.mat&quot;);
+        else
+            Debug.Log(ret);
+
+        // Copy
+        if(AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(material), &quot;Assets/MyMaterialNew.mat&quot;))
+            Debug.Log(&quot;Material asset copied as Assets/MyMaterialNew.mat&quot;);
+        else
+            Debug.Log(&quot;Couldn&#39;t copy the material&quot;);
+        // Manually refresh the Database to inform of a change
+        AssetDatabase.Refresh();
+        Material MaterialCopy = AssetDatabase.LoadAssetAtPath(&quot;Assets/MyMaterialNew.mat&quot;, typeof(Material)) as Material;
+
+        // Move to Trash
+        if(AssetDatabase.MoveAssetToTrash(AssetDatabase.GetAssetPath(MaterialCopy)))
+            Debug.Log(&quot;MaterialCopy asset moved to trash&quot;);
+
+        // Delete
+        if(AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(material)))
+            Debug.Log(&quot;Material asset deleted&quot;);
+        if(AssetDatabase.DeleteAsset(&quot;Assets/NewFolder&quot;))
+            Debug.Log(&quot;NewFolder deleted&quot;);
+
+        // Refresh the AssetDatabase after all the changes
+        AssetDatabase.Refresh();
+    }
+}
+</code></pre><h2 id="using-assetdatabaserefresh">Using AssetDatabase.Refresh</h2>
+<p>When you have finished modifying assets, you should call AssetDatabase.Refresh to commit your changes to the database and make them visible in the project.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

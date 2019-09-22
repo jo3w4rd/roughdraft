@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Writing vertex and fragment shaders | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Writing vertex and fragment shaders | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="writing-vertex-and-fragment-shaders">Writing vertex and fragment shaders</h1>
+
+<p><strong>ShaderLab</strong> shaders encompass more than just &quot;hardware shaders&quot;. They do many things. They describe properties that are displayed in the Material Inspector, contain multiple shader implementations for different graphics hardware, configure fixed function hardware state and so on. The actual programmable shaders - like vertex and fragment programs - are just a part of the whole ShaderLab&#39;s &quot;shader&quot; concept. Take a look at <a href="ShaderTut2.html">shader tutorial</a> for a basic introduction. Here we&#39;ll call the low-level hardware shaders <strong>shader programs</strong>.</p>
+<p><strong>If you want to write shaders that interact with lighting, take a look at <a href="SL-SurfaceShaders.html">Surface Shaders</a> documentation</strong>. For some examples, take a look at <a href="SL-VertexFragmentShaderExamples.html"><strong>Vertex and Fragment Shader Examples</strong></a>. The rest of this page assumes shaders do not interact with Unity lights (for example special effects, <a href="PostProcessingOverview.html">post-processed effects</a> etc.)</p>
+<p>Shader programs are written in <a href="SL-ShadingLanguage.html">HLSL language</a>, by embedding &quot;snippets&quot; in the shader text, somewhere inside the <a href="SL-Pass.html">Pass</a> command. They usually look like this:</p>
+<pre><code>  Pass {
+      // ... the usual pass state setup ...
+
+      CGPROGRAM
+      // compilation directives for this snippet, e.g.:
+      #pragma vertex vert
+      #pragma fragment frag
+
+      // the Cg/HLSL code itself
+
+      ENDCG
+      // ... the rest of pass setup ...
+  }
+</code></pre><h2 id="hlsl-snippets">HLSL snippets</h2>
+<p>HLSL program snippets are written between <strong>CGPROGRAM</strong> and <strong>ENDCG</strong> keywords, or alternatively between <strong>HLSLPROGRAM</strong> and <strong>ENDHLSL</strong>. The latter form does <em>not</em> automatically include HLSLSupport and UnityShaderVariables <a href="SL-BuiltinIncludes.html">built-in header files</a>.</p>
+<p>At the start of the snippet compilation directives can be given as <strong>#pragma</strong> statements. Directives indicating which shader functions to compile:</p>
+<ul>
+<li><strong>#pragma vertex</strong> <em>name</em> - compile function <em>name</em> as the vertex shader.</li>
+<li><strong>#pragma fragment</strong> <em>name</em> - compile function <em>name</em> as the fragment shader.</li>
+<li><strong>#pragma geometry</strong> <em>name</em> - compile function <em>name</em> as DX10 geometry shader. Having this option automatically turns on <strong>#pragma target 4.0</strong>, described below.</li>
+<li><strong>#pragma hull</strong> <em>name</em> - compile function <em>name</em> as DX11 hull shader. Having this option automatically turns on <strong>#pragma target 5.0</strong>, described below.</li>
+<li><strong>#pragma domain</strong> <em>name</em> - compile function <em>name</em> as DX11 domain shader. Having this option automatically turns on <strong>#pragma target 5.0</strong>, described below.</li>
+</ul>
+<p>Other compilation directives:</p>
+<ul>
+<li><strong>#pragma target</strong> <em>name</em> - which shader target to compile to. See <a href="SL-ShaderCompileTargets.html">Shader Compilation Targets</a> page for details.</li>
+<li><strong>#pragma require</strong> <em>feature</em> ... - fine grained control on which GPU features a shader needs, see <a href="SL-ShaderCompileTargets.html">Shader Compilation Targets</a> page for details.</li>
+<li><strong>#pragma only_renderers</strong> <em>space separated names</em> - compile shader only for given renderers. By default shaders are compiled for all renderers. See <em>Renderers</em> below for details.</li>
+<li><strong>#pragma exclude_renderers</strong> <em>space separated names</em> - do not compile shader for given renderers. By default shaders are compiled for all renderers. See <em>Renderers</em> below for details.</li>
+<li><strong>#pragma multi_compile ...</strong>  - for working with <a href="SL-MultipleProgramVariants.html">multiple shader variants</a>.</li>
+<li><strong>#pragma enable_d3d11_debug_symbols</strong> - generate debug information for shaders compiled for DirectX 11, this will allow you to debug shaders via Visual Studio 2012 (or higher) Graphics debugger.</li>
+<li><strong>#pragma hardware_tier_variants</strong> <em>renderer name</em> - generate <a href="SL-MultipleProgramVariants.html">multiple shader hardware variants</a> of each compiled shader, for each hardware tier that could run the selected renderer. See <em>Renderers</em> below for details.</li>
+</ul>
+<p>Each snippet must contain at least a vertex program and a fragment program. Thus <strong>#pragma vertex</strong> and <strong>#pragma fragment</strong> directives are required.</p>
+<p>Compilation directives that don&#39;t do anything starting with Unity 5.0 and can be safely removed: <code>#pragma glsl</code>, <code>#pragma glsl_no_auto_normalization</code>, <code>#pragma profileoption</code>, <code>#pragma fragmentoption</code>.</p>
+<p>Unity only supports <strong>#pragma</strong> directives in the shader files, and not in the includes.</p>
+<h2 id="rendering-platforms">Rendering platforms</h2>
+<p>Unity supports several rendering APIs (e.g. Direct3D 11 and OpenGL), and by default all shader programs are compiled into all supported renderers. You can indicate which renderers to compile to using <strong>#pragma only_renderers</strong> or <strong>#pragma exclude_renderers</strong> directives. This is mostly useful in cases where you are explicitly using some shader language features that you know aren&#39;t possible on some platforms. Supported renderer names are:</p>
+<ul>
+<li><strong>d3d11</strong> - Direct3D 11/12</li>
+<li><strong>glcore</strong> - OpenGL 3.x/4.x</li>
+<li><strong>gles</strong> - OpenGL ES 2.0</li>
+<li><strong>gles3</strong> - OpenGL ES 3.x</li>
+<li><strong>metal</strong> - iOS/Mac Metal</li>
+<li><strong>vulkan</strong> - Vulkan</li>
+<li><strong>d3d11_9x</strong> - Direct3D 11 9.x feature level, as commonly used on WSA platforms</li>
+<li><strong>xboxone</strong> - Xbox One</li>
+<li><strong>ps4</strong> - PlayStation 4</li>
+<li><strong>n3ds</strong> - Nintendo 3DS</li>
+<li><strong>wiiu</strong> - Nintendo Wii U</li>
+</ul>
+<p>For example, this line would only compile shader into D3D11 mode:</p>
+<pre><code>#pragma only_renderers d3d11
+</code></pre><h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="SL-PropertiesInPrograms.html">Accessing Material Properties</a>.</li>
+<li><a href="SL-MultipleProgramVariants.html">Writing Multiple Shader Program Variants</a>.</li>
+<li><a href="SL-ShaderCompileTargets.html">Shader Compilation Targets</a>.</li>
+<li><a href="SL-ShadingLanguage.html">Shading Language Details</a>.</li>
+<li><a href="SL-BuiltinMacros.html">Shader Preprocessor Macros</a>.</li>
+<li><a href="SL-PlatformDifferences.html">Platform Specific Rendering Differences</a>.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

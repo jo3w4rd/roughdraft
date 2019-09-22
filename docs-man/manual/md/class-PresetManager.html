@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Preset Manager | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Preset Manager | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="preset-manager">Preset Manager</h1>
+
+<p>Use <a href="Presets.html">Presets</a> to specify default properties for new components and Assets. You cannot set the default properties for Settings windows.</p>
+<p>When you add a component to a GameObject or a new Asset to your Project, Unity uses a default Preset to set the properties of the new item. Default Presets override the Unity factory default settings.</p>
+<p>Unity also uses default Presets when you use the <strong>Reset</strong> command in the Component Context Menu in the <a href="UsingTheInspector.html">Inspector</a> window.</p>
+<p>For <a href="class-Transform.html">Transform components</a>, Unity does not use the position in a default Preset when you add a new GameObject to a scene. In this case, the default position is the middle of the <a href="UsingTheSceneView.html">Scene</a> view. Use the <strong>Reset</strong> command to apply the position, as well as the rotation and scale, of a default Preset for a Transform.</p>
+<h2 id="specifying-a-preset-to-use-for-default-settings">Specifying a Preset to use for default settings</h2>
+<p>You can specify a Preset to use for default settings with the <strong>Inspector</strong> window, the <strong>Preset Manager</strong>, or by dragging and dropping.</p>
+<p>To specify default settings with the <strong>Inspector</strong> window:</p>
+<ol>
+<li><p>Select a Preset in the <strong>Project</strong> window.</p>
+</li>
+<li><p>In the <strong>Inspector</strong> window, click <strong>Set as Default</strong>.</p>
+</li>
+</ol>
+<p><img src="../uploads/Main/PresetSetAsDefault.png" alt="__Set as Default__ (red) in the __Inspector__ window"></p>
+<p>To specify default settings with the <strong>Preset Manager</strong>:</p>
+<ol>
+<li><p>If you don’t already have a Preset in your project to use for default settings, <a href="Presets.html">create one</a>.</p>
+</li>
+<li><p>Open the Preset Manager by choosing <strong>Edit &gt; Project Settings</strong>, then selecting the <strong>Preset Manager</strong> category.</p>
+</li>
+<li><p>Click <strong>+</strong> and select the item that you want to use with a default Preset.<br>A default Preset for the selected item appears in the <strong>Preset Manager</strong> list.</p>
+</li>
+</ol>
+<p><img src="../uploads/Main/PresetManagerSetDefault.png" alt="Click + and select CrouchImporter to specify it as the default for imported Models"></p>
+<p>Drag and drop a Preset from the <strong>Project</strong> window to the <strong>Preset Manager</strong> to add a new default Preset or change an existing default Preset.</p>
+<h2 id="changing-and-removing-default-presets">Changing and removing default Presets</h2>
+<p>Use <strong>Preset Manager</strong> to change a default Preset. You can also drag and drop a Preset from the <strong>Project</strong> window to the <strong>Preset Manager</strong> to change an existing default Preset.</p>
+<p>There are two ways to remove a default Preset: from <strong>Preset Manager</strong> or from the <a href="UsingTheInspector.html">Inspector</a> window.</p>
+<p>To change a default Preset in <strong>Preset Manager</strong>:</p>
+<ol>
+<li>Open the Preset Manager by choosing <strong>Edit &gt; Project Settings</strong>, then selecting the <strong>Preset Manager</strong> category.</li>
+<li>Click the drop-down menu next to the default Preset of an object type to select a Preset.<br>The selected Preset becomes the new default Preset. </li>
+</ol>
+<p>To remove a default Preset in the <strong>Inspector</strong>:</p>
+<ol>
+<li>Select a Preset in the Project window.</li>
+<li>In the Inspector window, click <strong>Remove From</strong>.</li>
+</ol>
+<p>To remove a default Preset in <strong>Preset Manager</strong>:</p>
+<ol>
+<li>Open the Preset Manager by choosing <strong>Edit &gt; Project Settings</strong>, then select the <strong>Preset Manager</strong> category.</li>
+<li>Select the default Preset that you want to remove from the list of default Presets.</li>
+<li>Click <strong>-</strong> to remove the selected default Preset.</li>
+</ol>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

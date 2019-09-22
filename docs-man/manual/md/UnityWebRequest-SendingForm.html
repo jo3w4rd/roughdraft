@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Sending a form to an HTTP server (POST) | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Sending a form to an HTTP server (POST) | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="sending-a-form-to-an-http-server-post">Sending a form to an HTTP server (POST)</h1>
+
+<p>There are two primary functions for sending data to a server formatted as a HTML form. If you are migrating over from the WWW system, see <a href="#UsingWWWForm">Using WWWForm</a>, below.</p>
+<h2 id="using-imultipartformsection">Using IMultipartFormSection</h2>
+<p>To provide greater control over how you specify your form data, the <code>UnityWebRequest</code> system contains a user-implementable <code>IMultipartFormSection</code> interface. For standard applications, Unity also provides default implementations for data and file sections: <code>MultipartFormDataSection</code> and <code>MultipartFormFileSection</code>.</p>
+<p>An overload of <code>UnityWebRequest.POST</code> accepts, as a second parameter, a List argument, whose members must all be <code>IMultipartFormSections</code>. The function signature is:</p>
+<pre><code>WebRequest.Post(string url, List&lt;IMultipartFormSection&gt; formSections);
+</code></pre><h3 id="details">Details</h3>
+<ul>
+<li>This function creates a <code>UnityWebRequest</code> and sets the target URL to the first string parameter. It also sets the Content-Type header of the <code>UnityWebRequest</code> appropriately for the form data specified in the list of <code>IMultipartFormSection</code> objects.</li>
+<li>This function, by default, attaches a <code>DownloadHandlerBuffer</code> to the <code>UnityWebRequest</code>. This is for convenience - you can use this to check your server&#39;s replies.</li>
+<li>Similar to the <code>WWWForm POST</code> function, this HLAPI function calls each supplied <code>IMultipartFormSection</code> in turn and formats them into a standard multipart form as specified in RFC 2616.</li>
+<li>The preformatted form data is stored in a standard <code>UploadHandlerRaw</code> object, which is then attached to the <code>UnityWebRequest</code>. As a result, changes to the <code>IMultipartFormSection</code> objects performed after the <code>UnityWebRequest.POST</code> call are not reflected in the data sent to the server.</li>
+</ul>
+<h3 id="example">Example</h3>
+<pre><code>using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
+
+public class MyBehavior : MonoBehaviour {
+    void Start() {
+        StartCoroutine(Upload());
+    }
+
+    IEnumerator Upload() {
+        List&lt;IMultipartFormSection&gt; formData = new List&lt;IMultipartFormSection&gt;();
+        formData.Add( new MultipartFormDataSection(&quot;field1=foo&amp;field2=bar&quot;) );
+        formData.Add( new MultipartFormFileSection(&quot;my file data&quot;, &quot;myfile.txt&quot;) );
+
+        UnityWebRequest www = UnityWebRequest.Post(&quot;http://www.my-server.com/myform&quot;, formData);
+        yield return www.SendWebRequest();
+
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else {
+            Debug.Log(&quot;Form upload complete!&quot;);
+        }
+    }
+}
+</code></pre><p><a name="UsingWWWForm"></a></p>
+<h2 id="using-wwwform-legacy-function">Using WWWForm (Legacy function)</h2>
+<p>To help migrate from the WWW system, the UnityWebRequest system permits you to use the old WWWForm object to provide form data.</p>
+<p>In this case, the function signature is:</p>
+<pre><code>WebRequest.Post(string url, WWWForm formData);
+</code></pre><h3 id="details-1">Details</h3>
+<ul>
+<li>This function creates a new <code>UnityWebRequest</code> and sets the target URL to the first string argument&#39;s value. It also reads any custom headers generated by the <code>WWWForm</code> argument (such as Content-Type) and copies them into the <code>UnityWebRequest</code>.</li>
+<li>This function, by default, attaches a <code>DownloadHandlerBuffer</code> to the <code>UnityWebRequest</code>. This is for convenience - you can use this to check your server&#39;s replies.</li>
+<li>This function reads the raw data generated by the <code>WWWForm object</code> and buffers it in an <code>UploadHandlerRaw</code> object, which is attached to the <code>UnityWebRequest</code>. Therefore, changes to the <code>WWWForm</code> object after calling <code>UnityWebRequest.POST</code> do not alter the contents of the <code>UnityWebRequest</code>.</li>
+</ul>
+<h3 id="example-1">Example</h3>
+<pre><code>using UnityEngine;
+using System.Collections;
+
+public class MyBehavior : public MonoBehaviour {
+    void Start() {
+        StartCoroutine(Upload());
+    }
+
+    IEnumerator Upload() {
+        WWWForm form = new WWWForm();
+        form.AddField(&quot;myField&quot;, &quot;myData&quot;);
+
+        UnityWebRequest www = UnityWebRequest.Post(&quot;http://www.my-server.com/myform&quot;, form);
+        yield return www.SendWebRequest();
+
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else {
+            Debug.Log(&quot;Form upload complete!&quot;);
+        }
+    }
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

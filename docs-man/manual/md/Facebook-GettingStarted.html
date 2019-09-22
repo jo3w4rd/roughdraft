@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Getting started with Facebook development | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting started with Facebook development | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started-with-facebook-development">Getting started with Facebook development</h1>
+
+<h2 id="what-is-the-facebook-build-target">What is the Facebook build target?</h2>
+<p>The Facebook build target makes it easy to publish Unity games to Facebook and to use Facebook functionality in your games. Using the Facebook build target, you can build your content either as a <a href="webgl-gettingstarted.html">WebGL</a> player, which you can then publish to <a href="http://facebook.com">facebook.com</a>, or as a custom native <a href="class-PlayerSettingsStandalone.html">Windows Standalone</a> player, which you can the publish to the <a href="https://www.facebook.com/gameroom/">Facebook Gameroom</a> client.</p>
+<p>When the Facebook build target is selected, you automatically have access to the <a href="https://developers.facebook.com/docs/unity/"> Facebook SDK</a> in your scripts, which lets you interact with Facebook and access it’s social features.</p>
+<h2 id="publishing-your-game-to-facebook">Publishing your game to Facebook</h2>
+<h3 id="configuration">Configuration</h3>
+<p>To publish your game to Facebook, you first need to<a href="https://developers.facebook.com/?advanced_app_create=true"> create a new App on the Facebook developer page</a>. Once completed, this will give you an AppID, which you should paste into your <a href="class-PlayerSettingsFacebook.html">Facebook Player</a> settings. Now, you can get an <em>Upload access token</em> from Facebook, on your app configuration page, under the <strong>Web Hosting</strong> tab. Also paste this into your Facebook Player settings. This will allow you to upload your game to Facebook directly from the Unity Editor.</p>
+<h3 id="building">Building</h3>
+<p>Access the Facebook Build Settings via the in the <strong>Build Settings</strong> dialog box (menu: <strong>File</strong> &gt; <strong>Build Settings…</strong>). In the dialog box, select <strong>Facebook</strong> from the <strong>Platform</strong> list.</p>
+<p><img src="../uploads/Main/Facebook-GettingStarted-0.png" alt=""></p>
+<p>Here you can choose to build your content as WebGL or as a Windows Standalone for Gameroom. If you plan to upload your game, choose <strong>Package build for uploading</strong>, which generates a compressed package, which can be uploaded to facebook.</p>
+<p>After making a build, the <strong>Upload last build to Facebook</strong> button becomes available. If you have correctly configured your AppID and Upload access token, you can click this button to upload your build to facebook. The <strong>Enter Comment for upload</strong> field lets you specify an optional comment to identify your build.</p>
+<p>Once you have uploaded a build to Facebook, it will appear on your your app configuration page on Facebook, under the <strong>Web Hosting</strong> tab. Here you can choose to push your build to production or to stage partial rollouts to smaller percentages of your users.</p>
+<h2 id="using-the-facebook-sdk">Using the Facebook SDK</h2>
+<p>When the Facebook build target is active, you can use the Facebook SDK in your scripts. This lets you share content on Facebook, track analytics events, use Facebook Payments and more. For more information on how to use the SDK, see <a href="https://developers.facebook.com/docs/unity/reference/current">Facebook’s documentation</a>.</p>
+<p>Select which version of the SDK you want to use in the Unity Editor&#39;s <a href="class-PlayerSettingsFacebook.html">Facebook Player</a> settings (click the <strong>Player Settings</strong> button in the Build Settings window, or select menu: <strong>Edit &gt; Project Settings</strong>, then select the <strong>Player</strong> category). These settings show all the versions that Facebook has made available for your version of Unity.</p>
+<h3 id="using-a-custom-facebook-sdk">Using a custom Facebook SDK</h3>
+<p>If you want to use a different build of the Facebook SDK then the one included by Unity by default, you can do that, as long as it at least version 7.9.1 (so it supports the Facebook build target). Just<a href="https://developers.facebook.com/docs/unity/downloads/"> download</a> a build of the SDK from Facebook, and drop it into your Assets Folder. Unity will detect this, and disable the built-in SDK. This will allow you to use the Facebook SDK outside of the Facebook build target, which you want to use Facebook features on other platforms facebook supports.</p>
+<p><br></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

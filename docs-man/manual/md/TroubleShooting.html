@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Troubleshooting | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Troubleshooting | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="troubleshooting">Troubleshooting</h1>
+
+<p>This section addresses common problems that can arise when using Unity. Each platform is dealt with separately below.</p>
+<h2 id="platform-specific-troubleshooting">Platform-specific troubleshooting</h2>
+<h3 id="geforce-7300gt-on-osx-1064">Geforce 7300GT on OSX 10.6.4</h3>
+<p>Deferred rendering is disabled because materials are not displayed correctly for Geforce 7300GT on OX 10.6.4; This happens because of buggy video drivers.</p>
+<h3 id="on-windows-x64-unity-crashes-when-script-throws-a-nullreferenceexception">On Windows x64, Unity crashes when script throws a NullReferenceException</h3>
+<p>You need to apply <a href="http://support.microsoft.com/kb/976038">Windows hotfix #976038</a>.</p>
+<h2 id="script-editing">Script editing</h2>
+<h3 id="script-opens-in-default-system-text-editor-even-when-visual-studio-is-set-as-the-script-editor">Script opens in default system text editor, even when Visual Studio is set as the script editor</h3>
+<p>This happens when Visual Studio reports that it failed to open your script. The most common cause for this is an external plugin (such as Resharper) displaying a dialog at startup, requesting input from the user. This causes Visual Studio to report that it failed to open.</p>
+<h2 id="graphics">Graphics</h2>
+<h3 id="slow-framerate-andor-visual-artifacts">Slow framerate and/or visual artifacts</h3>
+<p>This may occur if your video card drivers are not up to date. Make sure you have the latest official drivers from your card vendor.</p>
+<h2 id="shadows">Shadows</h2>
+<ul>
+<li>Shadows require certain graphics hardware support. See <a href="LightPerformance.html">Light Performance</a> page for details.</li>
+<li>Make sure shadows are enabled in the <a href="class-QualitySettings.html">Quality</a> window.</li>
+<li>Shadows on Android and iOS have limitations: soft shadows are not available, and in forward rendering path only a single directional light can cast shadows. There is no limit to the number of lights casting shadows in the deferred rendering path.</li>
+</ul>
+<h3 id="some-gameobjects-do-not-cast-or-receive-shadows">Some GameObjects do not cast or receive shadows</h3>
+<p>An object&#39;s <a href="class-MeshRenderer.html">Renderer</a> must have <strong>Receive Shadows</strong> enabled for shadows to be rendered onto it. Also, an object must have <strong>Cast Shadows</strong> enabled in order to cast shadows on other objects (both are on by default).</p>
+<p>Only opaque objects cast and receive shadows. This means that objects using the built-in <a href="shader-TransparentFamily.html">Transparent</a> or Particle shaders will not cast shadows. In most cases it is possible to use <a href="shader-TransparentCutoutFamily.html">Transparent Cutout</a> shaders for objects like fences, vegetation, etc. If you use custom written <a href="Shaders.html">Shaders</a>, they have to be pixel-lit and use the <a href="SL-SubShaderTags.html">Geometry render queue</a>. Objects using <strong>VertexLit</strong> shaders do not receive shadows but are able to cast them.</p>
+<p>Only <strong>Pixel lights</strong> cast shadows. If you want to make sure that a light always casts shadows no matter how many other lights are in the scene, then you can set it to <strong>Force Pixel</strong> render mode (see the <a href="class-Light.html">Light</a> reference page).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

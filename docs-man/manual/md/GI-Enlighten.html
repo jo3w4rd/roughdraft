@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Enlighten | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Enlighten | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="enlighten">Enlighten</h1>
+
+<p>Unity provides two distinct techniques for precomputing global illumination (GI) and bounced lighting. These are <strong>Baked Global Illumination</strong> and <strong>Precomputed Realtime Global Illumination</strong>. The Enlighten lighting system provides solutions for both.</p>
+<p>To find the following settings, navigate to Unity&#39;s top menu and go to <strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Lighting</strong>.</p>
+<p><img src="../uploads/Main/GI-Enlighten-LightingWindow.jpg" alt=""></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property:</strong></th>
+<th style="text-align:left"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Realtime Global Illumination</strong></td>
+<td style="text-align:left">Makes Unity calculate and update lighting in real time. For more information, see documentation on <a href="LightMode-Realtime.html">Realtime Global Illumination</a>, and the Unity tutorial on <a href="https://unity3d.com/learn/tutorials/topics/graphics/introduction-precomputed-realtime-gi?playlist=17102">Precomputed Realtime GI</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Lighting Mode</strong></td>
+<td style="text-align:left">Specifies which lighting mode to use for all mixed lights in the Scene. Options are <a href="LightMode-Mixed-BakedIndirect.html">Baked Indirect</a>, <a href="LightMode-Mixed-DistanceShadowmask.html">Distance Shadowmask</a>, <a href="LightMode-Mixed-Shadowmask.html">Shadowmask</a>, and <a href="LightMode-Mixed-Subtractive.html">Subtractive</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Lightmapper</strong></td>
+<td style="text-align:left">Specifies which internal lighting calculation software to use to calculate lightmaps in the Scene. The options are <strong>Progressive __and __Enlighten</strong>. The default value is <strong>Progressive</strong>; set it to <strong>Enlighten</strong> to use the system described in this page.  If you want to use the <strong>Progressive</strong> system, see documentation on the <a href="ProgressiveLightmapper.html">Progressive Lightmapper</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Indirect Resolution</strong></td>
+<td style="text-align:left">This property is only available when <strong>Realtime Global Illumination</strong> is enabled. Use this value to specify the number of texels per unit to use for indirect lighting calculations. Increasing this value improves the visual quality of indirect light, but also increases the time it takes to bake lightmaps. The default value is 2. See the Unity tutorial on <a href="https://unity3d.com/learn/tutorials/topics/graphics/realtime-resolution?playlist=17102">Realtime Resolution</a> for details about Indirect Resolution.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Lightmap Resolution</strong></td>
+<td style="text-align:left">Specifies the number of texels per unit to use for lightmaps. Increasing this value improves lightmap quality, but also increases bake times. The default value in a new Scene is 40.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Lightmap Padding</strong></td>
+<td style="text-align:left">Specifies the separation (in texel units) between separate shapes in the baked lightmap. The default value is 2.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Lightmap Size</strong></td>
+<td style="text-align:left">The size (in pixels) of the full lightmap texture, which incorporates separate regions for the individual object textures. The default value is 1024.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Compress Lightmaps</strong></td>
+<td style="text-align:left">Compresses lightmaps so that they require less storage space. However, the compression process can introduce unwanted visual effects into the texture. This property is checked by default.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ambient Occlusion</strong></td>
+<td style="text-align:left">Opens a group of settings which allow you to control the relative brightness of surfaces in <a href="LightingBakedAmbientOcclusion.html">ambient occlusion</a>. Higher values indicate a greater contrast between the occluded and fully lit areas. This only applies to the indirect lighting calculated by the GI system. This property is enabled by default.</td>
+</tr>
+<tr>
+<td style="text-align:left">Max Distance</td>
+<td style="text-align:left">Sets a value to control how far the lighting system casts rays in order to determine whether or not to apply occlusion to an object. A larger value produces longer rays and contributes more shadows to the lightmap, while a smaller value produces shorter rays that contribute shadows only when objects are very close to one another. A value of 0 casts an infinitely long ray that has no maximum distance. The default value is 1.</td>
+</tr>
+<tr>
+<td style="text-align:left">Indirect Contribution</td>
+<td style="text-align:left">Use the slider to scale the brightness of indirect light (that is, ambient light, or light bounced and emitted from objects) in the final lightmap, from a value between 0 and 10. The default value is 1. Values less than 1 reduce the intensity, and values greater than 1 increase it.</td>
+</tr>
+<tr>
+<td style="text-align:left">Direct Contribution</td>
+<td style="text-align:left">Use the slider to scale the brightness of direct light from a value between 0 and 10. The default value is 0. The higher this value is, the greater the contrast applied to the direct lighting.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Final Gather</strong></td>
+<td style="text-align:left">Enable this if you want Unity to calculate the final light bounce in the GI calculation at the same resolution as the baked lightmap. This improves the visual quality of the lightmap, but at the cost of additional baking time in the Editor.</td>
+</tr>
+<tr>
+<td style="text-align:left">Ray Count</td>
+<td style="text-align:left">Defines the number of rays emitted for each final gather point. The default value is 256.</td>
+</tr>
+<tr>
+<td style="text-align:left">Denoising</td>
+<td style="text-align:left">Applies a de-noising filter to the <strong>Final Gather</strong> output. This property is checked by default.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Directional Mode</strong></td>
+<td style="text-align:left">You can set up the lightmap to store information about the dominant incoming light at each point on the surfaces of your GameObjects. See documentation on <a href="LightmappingDirectional.html">Directional Lightmapping</a> for further details. The default mode is <strong>Directional</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left">Directional</td>
+<td style="text-align:left">In <strong>Directional</strong> mode, Unity generates a second lightmap to store the dominant direction of incoming light. This allows diffuse normal-mapped materials to work with the GI. Directional mode requires about twice as much storage space for the additional lightmap data. Unity cannot decode directional lightmaps on SM2.0 hardware or when using GLES2.0. They fall back to non-directional lightmaps.</td>
+</tr>
+<tr>
+<td style="text-align:left">Non-directional</td>
+<td style="text-align:left">In <strong>Non-directional</strong> mode, Unity does not generate a second lightmap for the dominant direction of incoming light, and instead stores all lighting information in the same place.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Indirect Intensity</strong></td>
+<td style="text-align:left">Controls the brightness of the indirect light that Unity stores in real-time and baked lightmaps, from a value between 0 and 5. A value above 1 increases the intensity of indirect light, and a value of less than 1 reduces indirect light intensity. The default value is 1.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Albedo Boost</strong></td>
+<td style="text-align:left">Controls the amount of light Unity bounces between surfaces by intensifying the albedo of Materials in the Scene, from a value between 1 and 10. Increasing this draws the albedo value towards white for indirect light computation. The default value is 1, which is physically accurate.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Lightmap Parameters</strong></td>
+<td style="text-align:left">Unity uses a set of general parameters for the lightmapping in addition to Lighting window properties of the. A few defaults are available from the menu for this property, but you can also use the <strong>Create New</strong> option to create your own lightmap parameter file. See the <a href="class-LightmapParameters.html">Lightmap Parameters</a> page for further details. The default value is <strong>Default-Medium</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p>See the <a href="https://unity3d.com/learn/tutorials/topics/graphics/introduction-precomputed-realtime-gi?playlist=17102">Precomputed Realtime GI tutorial</a> to learn more about Enlighten optimizations. </p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

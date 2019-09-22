@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Using sampler states | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using sampler states | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-sampler-states">Using sampler states</h1>
+
+<h2 id="coupled-textures-and-samplers">Coupled textures and samplers</h2>
+<p>Most of the time when sampling textures in shaders, the texture sampling state should come form <a href="class-TextureImporter.html">texture settings</a> -- essentially, textures and samplers are coupled together. This is default behavior when using DX9-style shader syntax:</p>
+<pre><code>sampler2D _MainTex;
+// ...
+half4 color = tex2D(_MainTex, uv);
+</code></pre><p>Using sampler2D, sampler3D, samplerCUBE HLSL keywords declares both texture and sampler.</p>
+<p>Most of the time this is what you want, and is the only supported option on older graphics APIs (OpenGL ES).</p>
+<h2 id="separate-textures-and-samplers">Separate textures and samplers</h2>
+<p>Many graphics APIs and GPUs allow using fewer samplers than textures, and coupled texture+sampler syntax might not allow more complex shaders to be written. For example Direct3D 11 allows using up to 128 textures in a single shader, but only up to 16 samplers.</p>
+<p>Unity allows declaring textures and samplers using DX11-style HLSL syntax, with a special naming convention to match them up: samplers that have names in the form of &quot;sampler&quot;+TextureName will take sampling states from that texture.</p>
+<p>The shader snippet from section above could be rewritten in DX11-style HLSL syntax, and it would do the same thing:</p>
+<pre><code>Texture2D _MainTex;
+SamplerState sampler_MainTex; // &quot;sampler&quot; + “_MainTex”
+// ...
+half4 color = _MainTex.Sample(sampler_MainTex, uv);
+</code></pre><p>However, this way a shader could be written to &quot;reuse&quot; samplers from other textures, while sampling more than one texture. In the example below, three textures are sampled, but only one sampler is used for all of them:</p>
+<pre><code>Texture2D _MainTex;
+Texture2D _SecondTex;
+Texture2D _ThirdTex;
+SamplerState sampler_MainTex; // &quot;sampler&quot; + “_MainTex”
+// ...
+half4 color = _MainTex.Sample(sampler_MainTex, uv);
+color += _SecondTex.Sample(sampler_MainTex, uv);
+color += _ThirdTex.Sample(sampler_MainTex, uv);
+</code></pre><p>Note however that DX11-style HLSL syntax does not work on some older platforms (e.g. OpenGL ES 2.0), see <a href="SL-ShadingLanguage.html">shading language</a> for details. You might want to specify <code>#pragma target 3.5</code> (see <a href="SL-ShaderCompileTargets.html">shader compilation targets</a> to skip older platforms from using the shader.</p>
+<p>Unity provides several shader macros to help with declaring and sampling textures using this &quot;separate samplers&quot; approach, see <a href="SL-BuiltinMacros.html">built-in macros</a>. The example above could be rewritten this way, using said macros:</p>
+<pre><code>UNITY_DECLARE_TEX2D(_MainTex);
+UNITY_DECLARE_TEX2D_NOSAMPLER(_SecondTex);
+UNITY_DECLARE_TEX2D_NOSAMPLER(_ThirdTex);
+// ...
+half4 color = UNITY_SAMPLE_TEX2D(_MainTex, uv);
+color += UNITY_SAMPLE_TEX2D_SAMPLER(_SecondTex, _MainTex, uv);
+color += UNITY_SAMPLE_TEX2D_SAMPLER(_ThirdTex, _MainTex, uv);
+</code></pre><p>The above would compile on all platforms supported by Unity, but would fallback to using three samplers on older platforms like DX9.</p>
+<h2 id="inline-sampler-states">Inline sampler states</h2>
+<p>In addition to recognizing HLSL SamplerState objects named as &quot;sampler&quot;+TextureName, Unity also recognizes some other patterns in sampler names. This is useful for declaring simple hardcoded sampling states directly in the shaders. An example:</p>
+<pre><code>Texture2D _MainTex;
+SamplerState my_point_clamp_sampler;
+// ...
+half4 color = _MainTex.Sample(my_point_clamp_sampler, uv);
+</code></pre><p>The name &quot;my_point_clamp_sampler&quot; will be recognized as a sampler that should use Point (nearest) texture filtering, and Clamp texture wrapping mode.</p>
+<p>Sampler names recognized as &quot;inline&quot; sampler states (all case insensitive):</p>
+<ul>
+<li><p>&quot;Point&quot;, “Linear” or “Trilinear” (required) set up texture filtering mode.</p>
+</li>
+<li><p>&quot;Clamp&quot;, “Repeat”, “Mirror” or “MirrorOnce” (required) set up texture wrap mode.</p>
+<ul>
+<li>Wrap modes can be specified per-axis (UVW), e.g. &quot;ClampU_RepeatV&quot;.</li>
+</ul>
+</li>
+<li><p>&quot;Compare&quot; (optional) set up sampler for depth comparison; use with HLSL SamplerComparisonState type and SampleCmp / SampleCmpLevelZero functions.</p>
+</li>
+</ul>
+<p>Here’s an example of sampling texture with <code>sampler_linear_repeat</code> and <code>sampler_point_repeat</code> SamplerStates respectively, illustrating how the name controls filtering mode:</p>
+<p><img src="../uploads/Main/SamplerStates1.jpg" alt=""></p>
+<p>Here’s an example with <code>SmpClampPoint</code>, <code>SmpRepeatPoint</code>, <code>SmpMirrorPoint</code>, <code>SmpMirrorOncePoint</code>, <code>Smp_ClampU_RepeatV_Point</code> SamplerStates respectively, illustrating how the name controls wrapping mode. In the last example, different wrap modes are set for horizontal (U) and vertical (V) axes. In all cases texture coordinates go from -2.0 to +2.0.</p>
+<p><img src="../uploads/Main/SamplerStates2.png" alt=""></p>
+<p>Just like separate texture + sampler syntax, inline sampler states are not supported on some platforms. Currently they are implemented on Direct3D 11/12, PS4, XboxOne and Metal.</p>
+<p>Note that &quot;MirrorOnce&quot; texture wrapping mode is not supported on most mobile GPUs/APIs, and will fallback to Mirror mode when support is not present.
+<br>
+<br></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

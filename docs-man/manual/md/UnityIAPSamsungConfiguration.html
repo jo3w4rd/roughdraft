@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Samsung Galaxy IAP configuration | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Samsung Galaxy IAP configuration | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="samsung-galaxy-iap-configuration">Samsung Galaxy IAP configuration</h1>
+
+<p>This guide describes the process of establishing the digital records and relationships necessary for a Unity app to interact with an in-app purchase store. The <a href="UnityIAP.html">Unity IAP</a> purchasing API is targeted.</p>
+<p>In-app purchasing (IAP) is the process of transacting money for digital goods. A platform’s store allows the purchase of products, representing digital goods. These products have an identifier, typically of string datatype. Products have types to represent their durability: the most common are subscription (capable of being subscribed to), consumable (capable of being rebought), and non-consumable (capable of being bought once).</p>
+<h3 id="cross-store-implementation-of-in-app-purchases">Cross-store implementation of in-app purchases</h3>
+<p>Note that there are cross-store installation issues when using shared Android bundle identifiers to publish to multiple Android in-app purchase stores (such as Samsung and Google) simultaneously.  See documentation on <a href="UnityIAPCrossStoreInstallationIssues.html">Cross-store installation issues with Android in-app purchasing</a> for more information.</p>
+<h2 id="samsung-galaxy-apps">Samsung Galaxy apps</h2>
+<h3 id="getting-started">Getting started</h3>
+<ol>
+<li><p>Write an app implementing Unity IAP. See <a href="UnityIAPInitialization.html">Unity IAP initialization</a> and <a href="https://unity3d.com/learn/tutorials/topics/analytics/integrating-unity-iap-your-game">Integrating Unity IAP with your app</a>.</p>
+</li>
+<li><p>Keep the app’s product identifiers on-hand for use with the <a href="http://seller.samsungapps.com/">Samsung Apps Seller Office</a> later. </p>
+</li>
+</ol>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-0.png" alt=""></p>
+<ol>
+<li>To set the IAP target store in the Unity Editor, go to <strong>Window</strong> &gt; <strong>Unity IAP</strong> &gt; <strong>Android</strong> &gt; <strong>Target Samsung Galaxy Apps</strong>.</li>
+</ol>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-1.jpg" alt=""></p>
+<p>Alternatively, call the Editor API:</p>
+<p><code>UnityPurchasingEditor.TargetAndroidStore(AndroidStore.SamsungApps</code></p>
+<ol>
+<li>Build a signed non-Development Build Android APK from your app. See documentation on <a href="android-GettingStarted.html">Getting started with Android development</a> to learn more. </li>
+</ol>
+<p><strong>Tip</strong>: Take special precautions to safely store your keystore file. The original keystore is always required to update a published application. </p>
+<h3 id="register-the-application">Register the application</h3>
+<p>Register the Android application with the <a href="http://seller.samsungapps.com/">Samsung Galaxy Apps Seller Office</a>.</p>
+<ol>
+<li>Choose <strong>Add New Application</strong>.</li>
+</ol>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-2.png" alt=""></p>
+<ol>
+<li>Choose the <strong>Android</strong> option and select a <strong>Default Language</strong>.</li>
+</ol>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-3.jpg" alt=""></p>
+<ol>
+<li>To enable in-app purchasing, first register a binary APK. Go to <strong>In App Purchase</strong> and click <strong>GO</strong>.</li>
+</ol>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-4.png" alt=""></p>
+<p>In the App Store Developer Console, go to <strong>Binary</strong> and select <strong>Add binary</strong>. </p>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-5.png" alt=""></p>
+<p>Populate the device characteristics in <strong>Resolution(s)</strong> and <strong>Google Mobile Service</strong>, upload your APK (the one you created above in the &quot;Getting Started&quot; section) in <strong>Binary upload</strong>, then click <strong>Save</strong>.</p>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-6.png" alt=""></p>
+<p>Wait for the APK upload to complete, then click <strong>Save</strong>.</p>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-7.png" alt=""></p>
+<h3 id="add-in-app-purchases">Add in-app purchases</h3>
+<p>In the Seller Office, add one or more in-app purchases for the app.</p>
+<ol>
+<li>Go to <strong>In App Purchase</strong> and choose <strong>Add Item</strong>.</li>
+</ol>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-8.png" alt=""></p>
+<ol>
+<li>Define the <strong>Item ID</strong>. The Item ID here is the same identifier used in the app source code, added to the Unity IAP <a href="ScriptRef:Purchasing.ConfigurationBuilder.html">ConfigurationBuilder</a> instance via <code>AddProduct()</code> or <code>AddProducts()</code>. For debugging purposes, it&#39;s best practise to use <a href="https://en.wikipedia.org/wiki/Reverse_domain_name_notation">reverse-DNS</a> for your Item ID. Click <strong>Check</strong> to ensure the Item ID is valid and unique, then populate <strong>Item Type</strong> and all other elements and click <strong>Save</strong>.</li>
+</ol>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-9.png" alt=""></p>
+<ol>
+<li>View the result in <strong>In App Purchase</strong>:</li>
+</ol>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-10.png" alt=""></p>
+<h3 id="testing-an-iap-implementation">Testing an IAP implementation</h3>
+<p>The Samsung Galaxy App Store supports testing via the <strong>Developer mode</strong> value in the app before making purchases. This special build of the app connects with Samsung’s billing servers and performs fake purchases. This does not incur real-world monetary costs related to the product, and allows you to test the app’s purchasing logic.</p>
+<ol>
+<li><p>Modify the app’s Unity IAP integration, adding the following line after creating the <code>ConfigurationBuilder</code> instance:
+<code>builder.Configure&lt;ISamsungAppsConfiguration&gt;().SetMode(SamsungAppsMode.AlwaysSucceed); // TESTING: auto-approves all transactions by Samsung</code>.
+You can also configure this to fail all transactions via the <code>SamsungAppsMode.AlwaysFail</code> enumeration, enabling you to test all your error code.</p>
+</li>
+<li><p>Build and run the app, testing its in-app purchasing logic. As long as developer mode is implemented, this does not incur real-world monetary costs.</p>
+</li>
+</ol>
+<p><img src="../uploads/Main/SamsungGalaxyIAP-11.png" alt=""></p>
+<ol>
+<li><strong>IMPORTANT</strong>: When testing is complete, make sure you remove the <code>SetMode</code> line. This ensures users pay real-world money when tha app is in use.</li>
+</ol>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

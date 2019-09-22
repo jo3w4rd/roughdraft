@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Panoramic video | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Panoramic video | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="panoramic-video">Panoramic video</h1>
+
+<p>Unity&#39;s panoramic video feature enables you to:</p>
+<ul>
+<li>Easily include real-world video shot in 360 degrees. </li>
+<li>Reduce Scene complexity in VR by including a pre-rendered backdrop video instead of real geometry.</li>
+</ul>
+<p>Unity supports 180 and 360 degree videos in either an <a href="https://en.wikipedia.org/wiki/Equirectangular_projection">equirectangular</a> layout (longitude and latitude) or a <a href="https://docs.unity3d.com/2017.2/Documentation/Manual/class-Cubemap.html">cubemap</a> layout (6 frames). </p>
+<p>Equirectangular 2D videos should have an aspect ratio of exactly 2:1 for 360 content, or 1:1 for 180 content.</p>
+<p><img src="../uploads/Main/Equirectangular2D.jpg" alt="Equirectangular 2D video"></p>
+<p>Cubemap 2D videos should have an aspect ratio of 1:6, 3:4, 4:3, or 6:1, depending on face layout:</p>
+<p><img src="../uploads/Main/Cubemap2D.jpg" alt="Cubemap 2D video"></p>
+<p>To use the panoramic video features in the Unity Editor, you must have access to panoramic video clips, or know how to author them.</p>
+<p>This page describes the following steps to display any panoramic video in the Editor:</p>
+<ol>
+<li><p>Set up a <a href="class-VideoPlayer.html">Video Player</a> to play the video source to a <a href="class-RenderTexture.html">Render Texture</a>.</p>
+</li>
+<li><p>Set up a <a href="class-Skybox.html">Skybox</a> Material that receives the Render Texture.</p>
+</li>
+<li><p>Set the Scene to use the Skybox Material.</p>
+</li>
+</ol>
+<p><strong>Note</strong>: This is a resource-intensive feature. For best visual results, use panoramic videos in the highest possible resolution (often 4K or 8K). Large videos require more computing power and resources for decoding. Most systems have specific limits on maximum video decoding resolutions (for example, many mobiles are limited to HD or 2K, and older desktops might be limited to 2K or 4K).</p>
+<h2 id="1-video-player-setup">1. Video player setup</h2>
+<p>Import your video into Unity as an <a href="ImportingAssets.html">Asset</a>. To create a Video Player, drag the video Asset from the Project view to an empty area of Unity&#39;s Hierarchy view. By default, this sets up the component to play the video full-screen for the default Camera. Press <strong>Play</strong> to view this.</p>
+<p>You should change this behaviour so that it renders to a Render Texture. That way, you can control exactly how it is displayed. To do this, go to <strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>Render Texture</strong>. </p>
+<p>Set the Render Texture’s <strong>Size</strong> to match your video exactly. To check the dimensions of your video, select the video in your Assets folder and view the Inspector window. Scroll to the section where Unity previews your video, select your video’s name in the preview window, and change it to <strong>Source Info</strong>.</p>
+<p>Next, set your Render Texture’s <strong>Depth Buffer</strong> option to <strong>No depth buffer</strong>.</p>
+<p><img src="../uploads/Main/DepthBuffer.jpg" alt="Render Texture set to **No depth buffer**"></p>
+<p>Now, open the <strong>Video Player</strong> Inspector and switch the <strong>Render Mode</strong> to <strong>Render Texture</strong>. Drag your new Render Texture from the Asset view to the <strong>Target Texture</strong> slot.</p>
+<p>Enter Play mode to verify that this is functioning correctly.</p>
+<p>The video doesn’t render in the <strong>Game</strong> window, but you can select the Render Texture Asset to see that its content updating with each video frame. </p>
+<p><img src="../uploads/Main/RenderTextureAsset.jpg" alt=""></p>
+<h2 id="2-create-a-skybox-material">2. Create a Skybox Material</h2>
+<p>You need to replace the default Skybox with your video content to render the panoramic video as a backdrop to your Scene.</p>
+<p>To do this, create a new Material (<strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>Material</strong>). Go to your new Material’s Inspector and set the Material’s Shader to Skybox/Panoramic (go to <strong>Shader</strong> &gt; <strong>Skybox</strong> &gt; <strong>Panoramic</strong>).</p>
+<p>Drag the Render Texture from the Asset view to the Texture slot in the new Material’s Inspector.</p>
+<p>You must correctly identify the type of content in the video (cubemap or equirectangular) for the panoramic video to display properly. For cubemap content (such as a cross and strip layout, as is common for static Skybox Textures), set <strong>Mapping</strong> to <strong>6 Frames Layout</strong>.</p>
+<p>For equirectangular content, set <strong>Mapping</strong> to <strong>Latitude Longitude Layout</strong>, and then either the <strong>360 degree</strong> or <strong>180 degree</strong> sub-option. Choose the <strong>360 degree</strong> option if the video covers a full 360-degree view. Choose <strong>180 degree</strong> if the video is just a front-facing 180-degree view.</p>
+<p>Look at the <strong>Preview</strong> at the bottom of the Material Inspector. Pan around and check that the content looks correct. </p>
+<h2 id="3-render-the-panoramic-video-to-the-skybox">3. Render the panoramic video to the Skybox</h2>
+<p>Finally, you must connect your new Skybox Material to the Scene.</p>
+<ol>
+<li><p>Open up the Lighting window (menu: <strong>Window</strong> &gt; <strong>General</strong> &gt; <strong>Lighting Settings</strong>).</p>
+</li>
+<li><p>Drag and drop the new Skybox Material Asset to the first slot under <strong>Environment</strong>. </p>
+</li>
+<li><p>Press Play to show the video as a Scene backdrop on the Skybox.</p>
+</li>
+<li><p>Change the Scene Camera orientation to show a different portion of the Skybox (and therefore a different portion of the panoramic video).</p>
+</li>
+</ol>
+<h2 id="3d-panoramic-video">3D panoramic video</h2>
+<p>Turn on Virtual Reality Support in the <strong>Player</strong> settings (menu: <strong>Edit</strong> &gt; <strong>Project Settings</strong>, then select the <strong>Player</strong> category, and open the <strong>XR Settings</strong> panel), especially if your source video has stereo content. This unlocks an extra <strong>3D Layout</strong> option in the Skybox/Panoramic Material. The 3D Layout has three options : <strong>Side by Side</strong>, <strong>Over</strong> <strong>Under</strong>, and <strong>None</strong> (default value). </p>
+<p>Use the <strong>Side by Side</strong> settings if the video contains the left eye&#39;s content on the left and the right eye&#39;s content on the right. Choose <strong>Over Under</strong> if the left and right content are positioned above and below one another in the video. Unity detects which eye is currently being rendered and sends this information to the Skybox/Panoramic shader using <a href="https://docs.unity3d.com/Manual/SinglePassStereoRendering.html">Single Pass Stereo rendering</a>. The shader contains the logic to select the correct half of the video based on this information when Unity renders each eye’s content in VR.</p>
+<p><img src="../uploads/Main/3dPanoramicVideo.jpg" alt="3D panoramic video"></p>
+<p>For non-360 3D video (where you shouldn’t use a Skybox Material), the same <strong>3D Layout</strong> is available directly in the Video Player component when using the Camera <strong>Near/Far</strong> Plane Render Modes.</p>
+<h2 id="alternate-render-texture-type-for-cubemap-videos">Alternate Render Texture type for cubemap videos</h2>
+<p>When working with cubemap videos, instead of the Video Player rendering to a 2D Render Texture and preserving the exact cube map layout, you can render the Video Player directly to a Render Texture Cube.</p>
+<p>To achieve this, change the Render Texture Asset’s <strong>Dimension</strong> from <strong>2D</strong> to <strong>Cube and set the Render Texture’s __Size</strong> to be exactly the dimensions of the individual faces of the source video. </p>
+<p>For example, if you have a 4 x 3 horizontal cross cubemap layout video with dimensions 4096 x 3072, set the Render Texture’s <strong>Size</strong> to 1024 x 1024 (4096 / 4 and 3072 / 3).</p>
+<p>While rendering to a Cube Target Texture, the Video Player assumes that the source video contains a cube map in either a cross or a strip layout (which it determines using the video aspect ratio). The Video Player then fills out the Render Texture’s faces with the correct cube faces.</p>
+<p>Use the resulting Render Texture Cube as a Skybox. To do this, create a Material and assign <strong>Skybox/Cubemap</strong> as the <strong>Shader</strong>(<strong>Shader</strong> &gt; <strong>Skybox</strong> &gt; <strong>Cubemap</strong>) instead of the Skybox/Panoramic Material described above.</p>
+<h2 id="video-dimensions-and-transcoding">Video dimensions and transcoding</h2>
+<p>Including 3D content requires double either the width or the height of the video (corresponding to <strong>Side-by-Side</strong> or <strong>Over-Under</strong> layouts). </p>
+<p>Keep in mind that many desktop hardware video decoders are limited to 4K resolutions and mobile hardware video decoders are often limited to 2K or less which limits the resolution of playback in real-time on those platforms.</p>
+<p>You can use video transcoding to produce lower resolution versions of panoramic videos, but take precautions to avoid introducing bleeding at the edge between left and right 3D content, or,
+between cube map faces and adjacent black areas. In general, you should author video in power-of-two dimensions and transcoding to other power-of-two dimensions to reduce visual artifacts.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

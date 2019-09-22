@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Struct RenderMesh
+   | Unity Hybrid Renderer | test </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct RenderMesh
+   | Unity Hybrid Renderer | test ">
+    <meta name="generator" content="docfx 2.40.12.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Unity Hybrid Renderer | test">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Unity.Rendering.RenderMesh">
+  
+  
+  <h1 id="Unity_Rendering_RenderMesh" data-uid="Unity.Rendering.RenderMesh">Struct RenderMesh
+  </h1>
+  <div class="markdown level0 summary"><p>Defines the mesh and rendering properties of an entity.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unity.Rendering.html">Unity.Rendering</a></h6>
+  <!--h6><strong>Assembly</strong>: solution.dll</h6-->
+  <h5 id="Unity_Rendering_RenderMesh_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Serializable]
+public struct RenderMesh : ISharedComponentData, IEquatable&lt;RenderMesh&gt;</code></pre>
+  </div>
+  <h5 id="Unity_Rendering_RenderMesh_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Add a RenderMesh component to an entity to define its graphical attributes. The entity must also have a
+LocalToWorld component from the Unity.Transforms namespace.</p>
+<p>The standard ECS conversion systems add RenderMesh components to entities created from GameObjects that contain
+<a href="https://docs.unity3d.com/ScriptReference/MeshRenderer.html">UnityEngine.MeshRenderer</a> and
+<a href="https://docs.unity3d.com/ScriptReference/MeshFilter.html">UnityEngine.MeshFilter</a> components.</p>
+<p>RenderMesh is a shared component, which means all entities of the same Archetype and same RenderMesh settings
+are stored together in the same chunks of memory. The rendering system batches the entities together to reduce
+the number of draw calls.</p>
+</div>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="Unity_Rendering_RenderMesh_castShadows" data-uid="Unity.Rendering.RenderMesh.castShadows">castShadows</h4>
+  <div class="markdown level1 summary"><p>How shadows are cast.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ShadowCastingMode castShadows</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ShadowCastingMode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unity_Rendering_RenderMesh_castShadows_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>See <a href="https://docs.unity3d.com/ScriptReference/Rendering.ShadowCastingMode.html">ShadowCastingMode</a>.
+For entities converted from GameObjects, this value is copied from the Cast Shadows property of the source
+Mesh Renderer Component.</p>
+</div>
+  
+  
+  <h4 id="Unity_Rendering_RenderMesh_layer" data-uid="Unity.Rendering.RenderMesh.layer">layer</h4>
+  <div class="markdown level1 summary"><p>The <a href="https://docs.unity3d.com/ScriptReference/LayerMask.html">LayerMask</a> index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int layer</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unity_Rendering_RenderMesh_layer_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For entities converted from GameObjects, this value is copied from the Layer setting of the source
+GameObject.</p>
+</div>
+  
+  
+  <h4 id="Unity_Rendering_RenderMesh_material" data-uid="Unity.Rendering.RenderMesh.material">material</h4>
+  <div class="markdown level1 summary"><p>A reference to a <a href="https://docs.unity3d.com/ScriptReference/Material.html">UnityEngine.Material</a> object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Material material</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Material</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unity_Rendering_RenderMesh_material_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>For efficient rendering, the material should enable GPU instancing.
+For entities converted from GameObjects, this value is derived from the Materials array of the source
+Mesh Renderer Component.</p>
+</div>
+  
+  
+  <h4 id="Unity_Rendering_RenderMesh_mesh" data-uid="Unity.Rendering.RenderMesh.mesh">mesh</h4>
+  <div class="markdown level1 summary"><p>A reference to a <a href="https://docs.unity3d.com/ScriptReference/Mesh.html">UnityEngine.Mesh</a> object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Mesh mesh</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Mesh</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="Unity_Rendering_RenderMesh_receiveShadows" data-uid="Unity.Rendering.RenderMesh.receiveShadows">receiveShadows</h4>
+  <div class="markdown level1 summary"><p>Whether shadows should be cast onto the object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool receiveShadows</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unity_Rendering_RenderMesh_receiveShadows_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p><a href="https://docs.unity3d.com/Manual/ProgressiveLightmapper.html">Progressive Lightmappers</a> only.
+For entities converted from GameObjects, this value is copied from the Receive Shadows property of the source
+Mesh Renderer Component.</p>
+</div>
+  
+  
+  <h4 id="Unity_Rendering_RenderMesh_subMesh" data-uid="Unity.Rendering.RenderMesh.subMesh">subMesh</h4>
+  <div class="markdown level1 summary"><p>The submesh index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int subMesh</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Unity_Rendering_RenderMesh_Equals_" data-uid="Unity.Rendering.RenderMesh.Equals*"></a>
+  <h4 id="Unity_Rendering_RenderMesh_Equals_Unity_Rendering_RenderMesh_" data-uid="Unity.Rendering.RenderMesh.Equals(Unity.Rendering.RenderMesh)">Equals(RenderMesh)</h4>
+  <div class="markdown level1 summary"><p>Two RenderMesh objects are equal if their respective property values are equal.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(RenderMesh other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Unity.Rendering.RenderMesh.html">RenderMesh</a></td>
+        <td><span class="parametername">other</span></td>
+        <td><p>Another RenderMesh.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><p>True, if the properties of both RenderMeshes are equal.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Unity_Rendering_RenderMesh_GetHashCode_" data-uid="Unity.Rendering.RenderMesh.GetHashCode*"></a>
+  <h4 id="Unity_Rendering_RenderMesh_GetHashCode" data-uid="Unity.Rendering.RenderMesh.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"><p>A representative hash code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>A number that is guaranteed to be the same when generated from two objects that are the same.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.valuetype.gethashcode#System_ValueType_GetHashCode">ValueType.GetHashCode()</a></div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

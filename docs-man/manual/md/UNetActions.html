@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Remote Actions | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Remote Actions | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="remote-actions">Remote Actions</h1>
+
+<p>The network system has ways to perform actions across the network. These type of actions are sometimes called Remote Procedure Calls. There are two types of RPCs in the network system, Commands - which are called from the client and run on the server; and ClientRpc calls -  which are called on the server and run on clients.</p>
+<p>The diagram below shows the directions that remote actions take:</p>
+<p><img src="../uploads/Main/UNetDirections.jpg" alt=""> </p>
+<h2 id="commands">Commands</h2>
+<p>Commands are sent from player objects on the client to player objects on the server. For security, Commands can only be sent from YOUR player object, so you cannot control the objects of other players. To make a function into a command, add the [Command] custom attribute to it, and add the &quot;Cmd&quot; prefix.  This function will now be run on the server when it is called on the client. Any arguments will automatically be passed to the server with the command.</p>
+<p>Commands functions must have the prefix &quot;Cmd&quot;. This is a hint when reading code that calls the command - this function is special and is not invoked locally like a normal function.</p>
+<pre><code>class Player : NetworkBehaviour
+{
+
+    public GameObject bulletPrefab;
+
+    [Command]
+    void CmdDoFire(float lifeTime)
+    {
+        GameObject bullet = (GameObject)Instantiate(
+            bulletPrefab, 
+            transform.position + transform.right,
+            Quaternion.identity);
+
+        var bullet2D = bullet.GetComponent&lt;Rigidbody2D&gt;();
+        bullet2D.velocity = transform.right * bulletSpeed;
+        Destroy(bullet, lifeTime);
+
+        NetworkServer.Spawn(bullet);
+    }
+
+    void Update()
+    {
+        if (!isLocalPlayer)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CmdDoFire(3.0f);
+        }
+
+    }
+}
+</code></pre><p>Be careful of sending commands from the client every frame! This can cause a lot of network traffic.</p>
+<p>By default, Commands are sent on channel zero - the default reliable channel. So by default all commands are reliably sent to the server. This can be customized with the &quot;Channel&quot; parameter of the [Command] custom attribute. This parameter should be an integer, representing the channel number.</p>
+<p>Channel 1 is also set up by default to be an unreliable channel, so to use this, use the value 1 for the parameter in the Command attribute, like this:</p>
+<pre><code>    [Command(channel=1)]
+</code></pre><p>Starting with Unity release 5.2 it is possible to send commands from non-player objects that have client authority. These objects must have been spawned with <a href="ScriptRef:Networking.NetworkServer.SpawnWithClientAuthority">NetworkServer.SpawnWithClientAuthority</a> or have authority set with <a href="ScriptRef:Networking.NetworkIdentity.AssignClientAuthority">NetworkIdentity.AssignClientAuthority</a>. Commands sent from these object are run on the server instance of the object, not on the associated player object for the client.</p>
+<p><a name="ClientRPC"></a></p>
+<h2 id="clientrpc-calls">ClientRpc Calls</h2>
+<p>ClientRpc calls are sent from objects on the server to objects on clients. They can be sent from any server object with a NetworkIdentity that has been spawned. Since the server has authority, then there no security issues with server objects being able to send these calls. To make a function into a ClientRpc call, add the [ClientRpc] custom attribute to it, and add the &quot;Rpc&quot; prefix. This function will now be run on clients when it is called on the server. Any arguments will automatically be passed to the clients with the ClientRpc call..</p>
+<p>ClientRpc functions must have the prefix &quot;Rpc&quot;. This is a hint when reading code that calls the method - this function is special and is not invoked locally like a normal function.</p>
+<pre><code>class Player : NetworkBehaviour
+{
+
+    [SyncVar]
+    int health;
+
+    [ClientRpc]
+    void RpcDamage(int amount)
+    {
+        Debug.Log(&quot;Took damage:&quot; + amount);
+    }
+
+    public void TakeDamage(int amount)
+    {
+        if (!isServer)
+            return;
+
+        health -= amount;
+        RpcDamage(amount);
+    }
+}
+</code></pre><p>When running a game as a host with a LocalClient, ClientRpc calls will be invoked on the LocalClient - even though it is in the same process as the server. So the behaviour of LocalClients and RemoteClients is the same for ClientRpc calls.</p>
+<h2 id="arguments-to-remote-actions">Arguments to Remote Actions</h2>
+<p>The arguments passed to commands and ClientRpc calls are serialized and sent over the network. These arguments can be:</p>
+<ul>
+<li>basic types (byte, int, float, string, UInt64, etc)</li>
+<li>arrays of basic types</li>
+<li>structs containing allowable types</li>
+<li>built-in unity math types (Vector3, Quaternion, etc)</li>
+<li>NetworkIdentity</li>
+<li>NetworkInstanceId</li>
+<li>NetworkHash128</li>
+<li>GameObject with a NetworkIdentity component attached</li>
+</ul>
+<p>Arguments to remote actions cannot be subcomponents of GameObjects, such as script instances or Transforms. They cannot be other types that cannot be serialized across the network.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

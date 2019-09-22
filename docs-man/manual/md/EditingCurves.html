@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Editing Curves | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Editing Curves | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="editing-curves">Editing Curves</h1>
+
+<p>There are several different features and windows in the Unity Editor which use <strong>Curves</strong> to display and edit data. The methods you can use to view and manipulate curves is largely the same across all these areas, although there are some exceptions.</p>
+<ul>
+<li>The <a href="AnimationEditorGuide.html">Animation Window</a> uses curves to display and edit the values of animated properties over time in an <strong>Animation Clip</strong>.</li>
+</ul>
+<p><img src="../uploads/Main/AnimationEditorCurve.png" alt="The Animation Window."> </p>
+<ul>
+<li>Script components can have member variables of type <a href="EditingValueProperties.html">Animation Curve</a> that can be used for all kinds of things. Clicking on those in the Inspector will open up the <strong>Curve Editor</strong>.</li>
+</ul>
+<p><img src="../uploads/Main/CurveEditorPopup.png" alt="The Curve Editor."> </p>
+<ul>
+<li>The <a href="class-AudioSource.html">Audio Source</a> component uses curves to control roll-off and other properties as a function of distance to the Audio Source.</li>
+</ul>
+<p><img src="../uploads/Main/AudioSourceCurve.png" alt="Distance function curves in the AudioSource component in the Inspector."> </p>
+<ul>
+<li>The <a href="PartSysUsage.html">Particle System</a> uses curves to vary particle properties over time.</li>
+</ul>
+<p><img src="../uploads/Main/ParticleSystemCurve.png" alt="Particle System curves editor."> </p>
+<p>While these controls have subtle differences, the <strong>curves</strong> can be edited in exactly the same way in all of them. This page explains how to navigate and edit curves in those controls. </p>
+<h2 id="adding-and-moving-keys-on-a-curve">Adding and Moving Keys on a Curve</h2>
+<p>A key can be added to a curve by double-clicking on the curve at the point where the <strong>key</strong> should be placed. It is also possible to add a <strong>key</strong> by right-clicking on a curve and select <strong>Add Key</strong> from the context menu.</p>
+<p>Once placed, <strong>keys</strong> can be dragged around with the mouse:</p>
+<ul>
+<li>Click on a <strong>key</strong> to select it. Drag the selected <strong>key</strong> with the mouse.</li>
+<li>To snap the <strong>key</strong> to the grid while dragging it around, hold down <strong>Command</strong> on Mac / <strong>Control</strong> on Windows while dragging.</li>
+</ul>
+<p>It is also possible to select multiple <strong>keys</strong> at once:</p>
+<ul>
+<li>To select multiple <strong>keys</strong> at once, hold down <strong>Shift</strong> while clicking the keys.</li>
+<li>To deselect a selected <strong>key</strong>, click on it again while holding down <strong>Shift</strong>.</li>
+<li>To select all <strong>keys</strong> within a rectangular area, click on an empty spot and drag to form the rectangle selection.</li>
+<li>The rectangle selection can also be added to existing selected keys by holding down <strong>Shift</strong>.</li>
+</ul>
+<p><strong>Keys</strong> can be deleted by selecting them and pressing <strong>Delete</strong>, or by right-clicking on them and selecting <strong>Delete Key</strong> from the context menu.</p>
+<h2 id="editing-keys">Editing Keys</h2>
+<p>Direct editing of key values in curve editors is a new feature in Unity 5.1. Use <strong>Enter/Return</strong> or context menu to start editing selected keys, <strong>Tab</strong> to switch between fields, <strong>Enter/Return</strong> to commit, and <strong>Escape</strong> to cancel editing.</p>
+<h2 id="navigating-the-curve-view">Navigating the Curve View</h2>
+<p>When working with the <strong>Animation View</strong> you can easily zoom in on details of the curves you want to work with or zoom out to get the full picture.</p>
+<p>You can always press <strong>F</strong> to frame-select the shown curves or selected keys in their entirely.</p>
+<h3 id="zooming">Zooming</h3>
+<p>You can <strong>zoom</strong> the Curve View using the scroll-wheel of your mouse, the zoom functionality of your trackpad, or by holding <strong>Alt</strong> while right-dragging with your mouse. </p>
+<p>You can zoom on only the horizontal or vertical axis:</p>
+<ul>
+<li><strong>zoom</strong> while holding down <strong>Command</strong> on Mac / <strong>Control</strong> on Windows to zoom horizontally.</li>
+<li><strong>zoom</strong> while holding down <strong>Shift</strong> to zoom vertically.</li>
+</ul>
+<p>Furthermore, you can drag the end caps of the scrollbars to shrink or expand the area shown in the Curve View.</p>
+<h3 id="panning">Panning</h3>
+<p>You can <strong>pan</strong> the Curve View by middle-dragging with your mouse or by holding <strong>Alt</strong> while left-dragging with your mouse.</p>
+<h2 id="editing-tangents">Editing Tangents</h2>
+<p>A key has two <strong>tangents</strong> - one on the left for the incoming slope and one on the right for the outgoing slope. The tangents control the shape of the curve between the keys. You can select from a number of different tangent types to control how your curve leaves one key and arrives at the next key. Right-click a key to select the tangent type for that key.</p>
+<p><img src="../uploads/Main/AnimationCurveTangentMenu.png" alt=""> </p>
+<p>For animated values to change smoothly when passing a key, the left and right tangent must be co-linear. The following tangent types ensure smoothness:</p>
+<ul>
+<li><strong>Clamped Auto</strong>: This is the default tangent mode. The tangents are automatically set to make the curve pass smoothly through the key. When editing the key&#39;s position or time, the tangent adjusts to prevent the curve from &quot;overshooting&quot; the target value. If you manually adjust the tangents of a key in Clamped Auto mode, it is switched to <strong>Free Smooth</strong> mode. In the example below, the tangent automatically goes into a slope and levels out while the key is being moved:</li>
+</ul>
+<p><img src="../uploads/Main/AnimationClampedAutoTangents.gif" alt=""> </p>
+<ul>
+<li><strong>Auto</strong>: This is a <a href="UpgradeGuide55.html">Legacy tangent mode</a>, and remains an option to be backward compatible with older projects. Unless you have a specific reason to use this mode, use the default <strong>Clamped Auto</strong>. When a key is set to this mode, the tangents are automatically set to make the curve pass smoothly through the key. However, there are two differences compared with <strong>Clamped Auto</strong> mode:<ol>
+<li>The tangents do not adjust automatically when the key&#39;s position or time is edited; they only adjust when initially setting the key to this mode.</li>
+<li>When Unity calculates the tangent, it does not take into account avoiding &quot;overshoot&quot; of the target value of the key.</li>
+</ol>
+</li>
+</ul>
+<p><img src="../uploads/Main/AnimationAuto.png" alt=""> </p>
+<ul>
+<li><strong>Free Smooth</strong>: Drag the tangent handles to freely set the tangents. They are locked to be co-linear to ensure smoothness.</li>
+</ul>
+<p><img src="../uploads/Main/AnimationFreeSmooth.png" alt=""> </p>
+<ul>
+<li><strong>Flat</strong>: The tangents are set to be horizontal (this is a special case of <strong>Free Smooth</strong>).</li>
+</ul>
+<p><img src="../uploads/Main/AnimationFlat.png" alt=""> </p>
+<p>Sometimes you might not want the curve to be smooth when passing through a key. To create sharp changes in the curve, choose one of the <strong>Broken</strong> tangent modes.</p>
+<p><img src="../uploads/Main/AnimationCurveTangentTypes.png" alt=""> </p>
+<p>When using broken tangents, the left and right tangent can be set individually. Each of the left and right tangents can be set to one of the following types:</p>
+<ul>
+<li><strong>Broken - Free</strong>: Drag the tangent handle to freely set the tangents.</li>
+</ul>
+<p><img src="../uploads/Main/AnimationBrokenFree.png" alt=""> </p>
+<ul>
+<li><strong>Broken - Linear</strong>: The tangent points towards the neighboring key. To make a linear curve segment, set the tangents at both ends to be <strong>Linear</strong>. In the example below, all three keys have been set to <strong>Broken - Linear</strong>, to achieve straight lines from key to key.</li>
+</ul>
+<p><img src="../uploads/Main/AnimationBrokenLinear.png" alt=""> </p>
+<ul>
+<li><strong>Broken - Constant</strong>: The curve retains a constant value between two keys. The value of the left key determines the value of the curve segment.</li>
+</ul>
+<p><img src="../uploads/Main/AnimationBrokenConstant.png" alt=""> </p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

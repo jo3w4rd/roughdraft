@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Composite Collider 2D | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Composite Collider 2D | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="composite-collider-2d">Composite Collider 2D</h1>
+
+<p>The Composite Collider 2D <a href="UsingComponents.html">component</a> is a <a href="CollidersOverview.html">Collider</a> for use with 2D physics. Unlike most colliders, it does not define an inherent shape. Instead, it merges the shapes of any <a href="class-BoxCollider2D.html">Box Collider 2D</a> or <a href="class-PolygonCollider2D.html">Polygon Collider 2D</a> that you set it up to use. The Composite Collider 2D uses the vertices (geometry) from any of these Colliders, and merges them together into new geometry controlled by the Composite Collider 2D itself.</p>
+<p>The Box Collider 2D and Polygon Collider 2D components have a <strong>Used By Composite</strong> checkbox.   Tick this checkbox to attach them to the Composite Collider 2D. These Colliders also have to be attached to the same <a href="class-Rigidbody2D.html">Rigidbody 2D</a> as the Composite Collider 2D. When you enable <strong>Used by Composite</strong>, other properties disappear from that component, because they are now controlled by the attached Composite Collider 2D.</p>
+<p>See API documentation on <a href="ScriptRef:CompositeCollider2D.html">Composite Collider 2D</a> for more information about scripting with the Composite Collider 2D. </p>
+<p><img src="../uploads/Main/class-CompositeCollider2D.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Density</strong></td>
+<td style="text-align:left">Change the density to change the mass calculations of the <a href="GameObjects.html">GameObject’s</a> associated Rigidbody 2D. If you set the value to 0, its associated Rigidbody 2D ignores the Collider 2D for all mass calculations, including centre of mass calculations. Note that this option is only available if you have enabled <strong>Use Auto Mass</strong> in the associated Rigidbody 2D component.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Material</strong></td>
+<td style="text-align:left">A <a href="class-PhysicsMaterial2D.html">Physics Material 2D</a> that determines the properties of collisions, such as friction and bounce.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Is Trigger</strong></td>
+<td style="text-align:left">Check this box if you want the Composite Collider 2D to behave as a trigger (see overview documentation on <a href="CollidersOverview.html">Colliders</a> to learn more about triggers).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Used by Effector</strong></td>
+<td style="text-align:left">Check this box if you want the Composite Collider 2D to be used by an attached <a href="Effectors2D.html">Effector 2D</a> component.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Offset</strong></td>
+<td style="text-align:left">Set the local offset of the Collider 2D geometry.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Geometry Type</strong></td>
+<td style="text-align:left">When merging Colliders, the vertices from the selected Colliders are composed into one of two different geometry types. Use this drop-down to set the geometry type to either <strong>Outlines</strong> or <strong>Polygons</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Outlines</td>
+<td style="text-align:left">Produces a Collider 2D with hollow outlines, identical to what the <a href="class-EdgeCollider2D.html">Edge Collider 2D</a> produces.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Polygons</td>
+<td style="text-align:left">Produces a Collider 2D with solid polygons, identical to what the <a href="class-PolygonCollider2D.html">Polygon Collider 2D</a> produces.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Generation Type</strong></td>
+<td style="text-align:left">The method used to control when geometry is generated when either the Composite Collider 2D is changed, or any of the Colliders it is composing is changed.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Synchronous</td>
+<td style="text-align:left">When a change is made to the Composite Collider 2D or any of the colliders it is using, Unity generates new geometry immediately.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Manual</td>
+<td style="text-align:left">New geometry generation happens only when you request it. To request generation, either call the <a href="ScriptRef:CompositeCollider2D.GenerateGeometry.html">CompositeCollider2D.GenerateGeometry</a> script API, or click the <strong>Regenerate Geometry</strong> button that appears under the selection.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Vertex Distance</strong></td>
+<td style="text-align:left">Set a value for the minimum spacing allowed for any vertices gathered from Colliders being composed. Any vertex closer than this limit is removed. This allows control over the effective resolution of the vertex compositing.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Edge Radius</strong></td>
+<td style="text-align:left">Controls a radius around edges, so that vertices are circular. This results in a larger Collider 2D with rounded convex corners. The default value for this setting is 0 (no radius). This only works when the <strong>Geometry Type</strong> is set to <strong>Outlines</strong>.</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

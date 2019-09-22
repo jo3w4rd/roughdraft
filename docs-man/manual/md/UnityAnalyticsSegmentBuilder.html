@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Segment Builder | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Segment Builder | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="segment-builder">Segment Builder</h1>
+
+<p>Segments are subsets of your player base, split apart by key differentiators, such as country, platform, experience level, or spending patterns. View existing segments and create new ones on the <strong>Segment Builder</strong> page.</p>
+<p>Use segments in the <strong>Data Explorer</strong> and <strong>Funnel Analyzer</strong> to compare metrics across segments. For example, if you publish your game on both Android and iOS, you can use segments to compare player behavior by platform.</p>
+<p><img src="../uploads/Main/UnityAnalyticsSegmentBuilder1.png" alt="Using segments to compare DAU by platform in the Data Explorer"></p>
+<p>Unity Analytics defines the following categories of segments:</p>
+<p>|:---|:---|
+|<strong>Life Cycle</strong>| Segments based on the number of calendar days since a player first used your app. These segments are automatically populated based on core analytics events. |
+|<strong>Geography</strong> | Segments based on where the player is located in the world. These segments are automatically populated based on analysis of the player’s IP address and other geolocation techniques. |
+|<strong>Monetization</strong> | Segments based on a player’s verified in-app purchases (IAP). These segments are automatically populated if you use Unity’s IAP service. Otherwise, you can report verified IAP purchases using the <a href="ScriptRef:Analytics.Analytics.Transaction.html">Analytics.Transaction function</a>. <br><br> Note that IAP verification is only supported by the Apple App store and Google Play store.|
+|<strong>Platform</strong> | Segments based on the player’s platform. These segments are populated automatically based on the Unity build. |
+|<strong>Custom</strong> | Any segments you define. |</p>
+<p>The <strong>Segment Builder</strong> page lists all the existing segments and shows the current segment population.</p>
+<p><img src="../uploads/Main/UnityAnalyticsSegmentBuilder2.png" alt="The Segment Builder page"></p>
+<p>You can change the name or delete existing segments, but you cannot change the rules that make up the segment definition. (To use different rules, create a new segment.)</p>
+<h2 id="create-a-new-segment">Create a new segment</h2>
+<p>Create your own segments on the <strong>Segment Builder</strong> page of your Analytics dashboard.</p>
+<p><strong>Important:</strong> Unity Analytics evaluates the rules defined in a segment as it processes incoming data.
+Existing data is not re-evaluated when you create a new segment. Only data received after you create it appears in that segment in <strong>Data Explorer</strong> and <strong>Funnel Analyzer</strong> reports.  </p>
+<p>To create a segment:</p>
+<ol>
+<li>On the Analytics dashboard, click the <strong>Segment Builder</strong> page.</li>
+<li>Click the <strong>+ New Segment</strong> button.
+<img src="../uploads/Main/UnityAnalyticsSegmentBuilder3.png" alt=""></li>
+<li>Define one or more rules that incoming events must satisfy in order for a user to be included in the segment.</li>
+<li>Click the <strong>Save</strong> button.</li>
+</ol>
+<h4 id="segment-rules">Segment Rules</h4>
+<p>For each custom segment, define one or more rules to determine whether a player is included in a segment. Once a player is included in a custom segment, they are considered part of that segment for up to 90 days even if no further qualifying events are received. When designing segments, take into consideration that there is no way for a player to leave a segment. For example, avoid creating a segment like “Players who have played fewer than 5 levels.” Because players do not leave the segment, they will still be included when they have played more than 5. A better approach might be a set of segments like “Players who have played 1, 2, …, n levels” (at whatever level of detail you find useful). </p>
+<p>You can define multiple rules for a segment. You can combine the rules such that <strong>ALL</strong> the rules must apply, <strong>ANY</strong> rule must apply, or <strong>NONE</strong> of the rules can apply for a player to join a segment. </p>
+<p>The rules themselves can be derived from core, session-based Analytics events (similar to the standard segments) or can be based on Standard and Custom Events.</p>
+<h4 id="core-analytics-segment-rules">Core Analytics segment rules</h4>
+<p>The standard segments use rules based on the core Analytics events. You can create segment rules using these same criteria by setting the <strong>Rule</strong> type to any option other than <strong>Event</strong>. For example, if you wanted platform-based segments beyond the standard Android and iOS segments, you could choose the rule type, <strong>User platform is_</strong> and then choose one of the available platforms: </p>
+<p><img src="../uploads/Main/UnityAnalyticsSegmentBuilder4.png" alt="A rule defining a custom platform segment"></p>
+<p>Each of the rule types has its own set of options.</p>
+<h4 id="standard-and-custom-event-segment-rules">Standard and Custom Event segment rules</h4>
+<p>To create a segment based on <strong>Standard</strong> and <strong>Custom Events</strong>, leave the <strong>Rule</strong> type as <strong>Event</strong> and choose the event name from the <strong>Event name</strong> list. Only events that have already been received from your game appear in the list. Thus, before creating event-based segments, you should dispatch at least one instance of the event (which you can do while running your game in the Unity Editor). Remember that events dispatched by your game do not show up in the dashboard for several hours.</p>
+<p>In addition to the event name, you can set one or more restrictions on the allowed parameter values. If you do not specify any parameter restrictions, then dispatching the event with any parameter values, or no parameters at all, is enough to satisfy the rule.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

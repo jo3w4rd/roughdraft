@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Unity Analytics DataPrivacy API | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Unity Analytics DataPrivacy API | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="unity-analytics-dataprivacy-api">Unity Analytics DataPrivacy API</h1>
+
+<p>The <code>DataPrivacy</code> class configures the Unity Analytics service based on the player&#39;s data privacy management choices.</p>
+<p>NAMESPACE: <code>UnityEngine.Analytics</code></p>
+<pre><code>    public class DataPrivacy
+</code></pre><p>The <code>DataPrivacy</code> class automatically fetches the player&#39;s data privacy status and configures the Analytics service accordingly.</p>
+<p>Use the <code>FetchPrivacyUrl()</code> function to fetch the the URL of the player&#39;s personal data management page. Open the URL to give the player the option to manage their data privacy settings.</p>
+<p>This page details the following functions:</p>
+<ul>
+<li><a href="#init">Initialize()</a> - Prepares the Data Privacy API for use (for Unity 5.1 or earlier).</li>
+<li><a href="#privacyurl">FetchPrivacyUrl(Action&lt;String&gt;, Action&lt;String&gt;)</a> - Gets the URL of the player&#39;s personal data management page.</li>
+</ul>
+<p><a name="init"></a></p>
+<h2 id="initialize">Initialize()</h2>
+<p>Prepares the Data Privacy API for use.</p>
+<h3 id="declaration">Declaration</h3>
+<pre><code>    public static void Initialize()
+</code></pre><h3 id="details">Details</h3>
+<p>This function creates a hidden GameObject and adds an instance of the <code>DataPrivacy</code> class to it as a component.</p>
+<p>On Unity 5.1 or earlier, call <code>Initialize()</code> early in your application startup (ideally, right after you call <code>UnityAnalytics.StartSDK (projectId)</code>. Newer versions of Unity call <code>Initialize()</code> automatically. </p>
+<p><a name="privacyurl"></a></p>
+<h2 id="fetchprivacyurlactionltstringgt-actionltstringgt">FetchPrivacyUrl(Action&lt;String&gt;, Action&lt;String&gt;)</h2>
+<p>Gets the URL of the player&#39;s personal data management page.</p>
+<h3 id="declaration-1">Declaration</h3>
+<pre><code>    public static void FetchPrivacyUrl(Action&lt;string&gt; success, Action&lt;string&gt; failure = null)
+</code></pre><h3 id="parameters">Parameters</h3>
+<ul>
+<li><p><code>Action&lt;String&gt; success</code> — The Action object to invoke when the URL is successfully retrieved. The string passed to the Action contains the URL.</p>
+</li>
+<li><p>[optional] <code>Action&lt;String&gt; failure</code> — The Action object to invoke when Unity cannot retrieve the URL. The string passed to the Action contains the reason for the failure.</p>
+</li>
+</ul>
+<h3 id="details-1">Details</h3>
+<p>Open the URL passed to your <code>success</code> function in a browser or webview to give the player the opportunity to manage their data protection options. You can use <code>Application.OpenURL()</code> to open the page.</p>
+<p>The URL is valid for a short period of time. Always fetch the URL immediately before opening it.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

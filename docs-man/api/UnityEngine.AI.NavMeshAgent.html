@@ -1,0 +1,2081 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Class NavMeshAgent
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class NavMeshAgent
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.AI.NavMeshAgent">
+  
+  
+  <h1 id="UnityEngine_AI_NavMeshAgent" data-uid="UnityEngine.AI.NavMeshAgent">Class NavMeshAgent
+  </h1>
+  <div class="markdown level0 summary"><p>Navigation mesh agent.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="UnityEngine.Object.html">Object</a></div>
+    <div class="level2"><a class="xref" href="UnityEngine.Component.html">Component</a></div>
+    <div class="level3"><a class="xref" href="UnityEngine.Behaviour.html">Behaviour</a></div>
+    <div class="level4"><span class="xref">NavMeshAgent</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="UnityEngine.Behaviour.html#UnityEngine_Behaviour_enabled">Behaviour.enabled</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Behaviour.html#UnityEngine_Behaviour_isActiveAndEnabled">Behaviour.isActiveAndEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_transform">Component.transform</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_gameObject">Component.gameObject</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponent_Type_">Component.GetComponent(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponent__1">Component.GetComponent&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_TryGetComponent_Type_UnityEngine_Component__">Component.TryGetComponent(Type, Component)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_TryGetComponent__1___0__">Component.TryGetComponent&lt;T&gt;(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponent_System_String_">Component.GetComponent(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentInChildren_Type_System_Boolean_">Component.GetComponentInChildren(Type, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentInChildren_Type_">Component.GetComponentInChildren(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentInChildren__1_System_Boolean_">Component.GetComponentInChildren&lt;T&gt;(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentInChildren__1">Component.GetComponentInChildren&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentsInChildren_Type_System_Boolean_">Component.GetComponentsInChildren(Type, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentsInChildren_Type_">Component.GetComponentsInChildren(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentsInChildren__1_System_Boolean_">Component.GetComponentsInChildren&lt;T&gt;(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentsInChildren__1_System_Boolean_List___0__">Component.GetComponentsInChildren&lt;T&gt;(Boolean, List&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentsInChildren__1">Component.GetComponentsInChildren&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentsInChildren__1_List___0__">Component.GetComponentsInChildren&lt;T&gt;(List&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentInParent_Type_">Component.GetComponentInParent(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentInParent__1">Component.GetComponentInParent&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentsInParent_Type_System_Boolean_">Component.GetComponentsInParent(Type, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentsInParent_Type_">Component.GetComponentsInParent(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentsInParent__1_System_Boolean_">Component.GetComponentsInParent&lt;T&gt;(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentsInParent__1_System_Boolean_List___0__">Component.GetComponentsInParent&lt;T&gt;(Boolean, List&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponentsInParent__1">Component.GetComponentsInParent&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponents_Type_">Component.GetComponents(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponents_Type_List_UnityEngine_Component__">Component.GetComponents(Type, List&lt;Component&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponents__1_List___0__">Component.GetComponents&lt;T&gt;(List&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_tag">Component.tag</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_GetComponents__1">Component.GetComponents&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_CompareTag_System_String_">Component.CompareTag(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_SendMessageUpwards_System_String_System_Object_UnityEngine_SendMessageOptions_">Component.SendMessageUpwards(String, Object, SendMessageOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_SendMessageUpwards_System_String_System_Object_">Component.SendMessageUpwards(String, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_SendMessageUpwards_System_String_">Component.SendMessageUpwards(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_SendMessageUpwards_System_String_UnityEngine_SendMessageOptions_">Component.SendMessageUpwards(String, SendMessageOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_SendMessage_System_String_System_Object_">Component.SendMessage(String, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_SendMessage_System_String_">Component.SendMessage(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_SendMessage_System_String_System_Object_UnityEngine_SendMessageOptions_">Component.SendMessage(String, Object, SendMessageOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_SendMessage_System_String_UnityEngine_SendMessageOptions_">Component.SendMessage(String, SendMessageOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_BroadcastMessage_System_String_System_Object_UnityEngine_SendMessageOptions_">Component.BroadcastMessage(String, Object, SendMessageOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_BroadcastMessage_System_String_System_Object_">Component.BroadcastMessage(String, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_BroadcastMessage_System_String_">Component.BroadcastMessage(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Component.html#UnityEngine_Component_BroadcastMessage_System_String_UnityEngine_SendMessageOptions_">Component.BroadcastMessage(String, SendMessageOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_GetInstanceID">Object.GetInstanceID()</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_name">Object.name</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Instantiate_UnityEngine_Object_UnityEngine_Vector3_UnityEngine_Quaternion_">Object.Instantiate(Object, Vector3, Quaternion)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Instantiate_UnityEngine_Object_UnityEngine_Vector3_UnityEngine_Quaternion_Transform_">Object.Instantiate(Object, Vector3, Quaternion, Transform)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Instantiate_UnityEngine_Object_">Object.Instantiate(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Instantiate_UnityEngine_Object_Transform_">Object.Instantiate(Object, Transform)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Instantiate_UnityEngine_Object_Transform_System_Boolean_">Object.Instantiate(Object, Transform, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Instantiate__1___0_">Object.Instantiate&lt;T&gt;(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Instantiate__1___0_UnityEngine_Vector3_UnityEngine_Quaternion_">Object.Instantiate&lt;T&gt;(T, Vector3, Quaternion)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Instantiate__1___0_UnityEngine_Vector3_UnityEngine_Quaternion_Transform_">Object.Instantiate&lt;T&gt;(T, Vector3, Quaternion, Transform)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Instantiate__1___0_Transform_">Object.Instantiate&lt;T&gt;(T, Transform)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Instantiate__1___0_Transform_System_Boolean_">Object.Instantiate&lt;T&gt;(T, Transform, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Destroy_UnityEngine_Object_System_Single_">Object.Destroy(Object, Single)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_Destroy_UnityEngine_Object_">Object.Destroy(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_DestroyImmediate_UnityEngine_Object_System_Boolean_">Object.DestroyImmediate(Object, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_DestroyImmediate_UnityEngine_Object_">Object.DestroyImmediate(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_FindObjectsOfType_Type_">Object.FindObjectsOfType(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_DontDestroyOnLoad_UnityEngine_Object_">Object.DontDestroyOnLoad(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_hideFlags">Object.hideFlags</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_DestroyObject_UnityEngine_Object_System_Single_">Object.DestroyObject(Object, Single)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_DestroyObject_UnityEngine_Object_">Object.DestroyObject(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_FindSceneObjectsOfType_Type_">Object.FindSceneObjectsOfType(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_FindObjectsOfTypeIncludingAssets_Type_">Object.FindObjectsOfTypeIncludingAssets(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_FindObjectsOfType__1">Object.FindObjectsOfType&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_FindObjectOfType__1">Object.FindObjectOfType&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_FindObjectsOfTypeAll_Type_">Object.FindObjectsOfTypeAll(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_FindObjectOfType_System_Type_">Object.FindObjectOfType(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="UnityEngine.Object.html#UnityEngine_Object_ToString">Object.ToString()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.AI.html">UnityEngine.AI</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_AI_NavMeshAgent_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class NavMeshAgent : Behaviour</code></pre>
+  </div>
+  <h5 id="UnityEngine_AI_NavMeshAgent_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>This component is attached to a mobile character in the game to allow it to navigate the Scene using the NavMesh. See the [[wiki:Navigation|Navigation]] section of the manual for further details.</p>
+</div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_acceleration_" data-uid="UnityEngine.AI.NavMeshAgent.acceleration*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_acceleration" data-uid="UnityEngine.AI.NavMeshAgent.acceleration">acceleration</h4>
+  <div class="markdown level1 summary"><p>The maximum acceleration of an agent as it follows a path, given in units / sec^2.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float acceleration { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_acceleration_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>An agent does not follow precisely the line segments of the path calculated by the navigation system but rather uses the waypoints along the path as intermediate destinations. This value is the maximum amount by which the agent can accelerate while moving towards the next waypoint.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_agentTypeID_" data-uid="UnityEngine.AI.NavMeshAgent.agentTypeID*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_agentTypeID" data-uid="UnityEngine.AI.NavMeshAgent.agentTypeID">agentTypeID</h4>
+  <div class="markdown level1 summary"><p>The type ID for the agent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int agentTypeID { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_agentTypeID_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This identifier determines which NavMeshes are available for the Agent to move on. See also <a class="xref" href="UnityEngine.AI.NavMeshBuildSettings.html#UnityEngine_AI_NavMeshBuildSettings_agentTypeID">NavMeshBuildSettings.agentTypeID</a>. Changing this ID will reset the Agent&#39;s current path.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_angularSpeed_" data-uid="UnityEngine.AI.NavMeshAgent.angularSpeed*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_angularSpeed" data-uid="UnityEngine.AI.NavMeshAgent.angularSpeed">angularSpeed</h4>
+  <div class="markdown level1 summary"><p>Maximum turning speed in (deg/s) while following a path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float angularSpeed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_angularSpeed_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is the maximum rate at which the agent can turn as it rounds the &quot;corner&quot; defined by a waypoint. The actual turning circle is also influenced by the speed of the agent on approach and also the maximum acceleration.</p>
+<p>SA: acceleration, velocity.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_areaMask_" data-uid="UnityEngine.AI.NavMeshAgent.areaMask*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_areaMask" data-uid="UnityEngine.AI.NavMeshAgent.areaMask">areaMask</h4>
+  <div class="markdown level1 summary"><p>Specifies which NavMesh areas are passable. Changing /areaMask/ will make the path stale (see ::ref::isPathStale).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int areaMask { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_areaMask_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is a bitfield.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_autoBraking_" data-uid="UnityEngine.AI.NavMeshAgent.autoBraking*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_autoBraking" data-uid="UnityEngine.AI.NavMeshAgent.autoBraking">autoBraking</h4>
+  <div class="markdown level1 summary"><p>Should the agent brake automatically to avoid overshooting the destination point?</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool autoBraking { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_autoBraking_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If the agent needs to land close to the destination point then it will typically need to brake to avoid overshooting or endless &quot;orbiting&quot; around the target zone. If this property is set to true, the agent will brake automatically as it nears the destination.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_autoRepath_" data-uid="UnityEngine.AI.NavMeshAgent.autoRepath*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_autoRepath" data-uid="UnityEngine.AI.NavMeshAgent.autoRepath">autoRepath</h4>
+  <div class="markdown level1 summary"><p>Should the agent attempt to acquire a new path if the existing path becomes invalid?</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool autoRepath { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_autoRepath_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A new path calculation is also attempted aquired if the agent reaches the end of a partial and stale path.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_autoTraverseOffMeshLink_" data-uid="UnityEngine.AI.NavMeshAgent.autoTraverseOffMeshLink*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_autoTraverseOffMeshLink" data-uid="UnityEngine.AI.NavMeshAgent.autoTraverseOffMeshLink">autoTraverseOffMeshLink</h4>
+  <div class="markdown level1 summary"><p>Should the agent move across OffMeshLinks automatically?</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool autoTraverseOffMeshLink { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_autoTraverseOffMeshLink_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Off-mesh links are used to connect disjoint regions of the NavMesh. Usually, a character should be able to pass through or &#39;&#39;traverse&#39;&#39; a link automatically, which will happen if this property is set to true. However, it can also be set to false in cases where special control over movement is needed.</p>
+<p>SA: ::ref::isOnOffMeshLink, ::ref::CompleteOffMeshLink.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_avoidancePriority_" data-uid="UnityEngine.AI.NavMeshAgent.avoidancePriority*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_avoidancePriority" data-uid="UnityEngine.AI.NavMeshAgent.avoidancePriority">avoidancePriority</h4>
+  <div class="markdown level1 summary"><p>The avoidance priority level.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int avoidancePriority { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_avoidancePriority_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When the agent is performing avoidance, agents of lower priority are ignored.
+The valid range is from 0 to 99 where:
+Most important = 0. Least important = 99. Default = 50.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_baseOffset_" data-uid="UnityEngine.AI.NavMeshAgent.baseOffset*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_baseOffset" data-uid="UnityEngine.AI.NavMeshAgent.baseOffset">baseOffset</h4>
+  <div class="markdown level1 summary"><p>The relative vertical displacement of the owning <a href="xref:UnityEngine.AI.GameObject">GameObject</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float baseOffset { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_currentOffMeshLinkData_" data-uid="UnityEngine.AI.NavMeshAgent.currentOffMeshLinkData*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_currentOffMeshLinkData" data-uid="UnityEngine.AI.NavMeshAgent.currentOffMeshLinkData">currentOffMeshLinkData</h4>
+  <div class="markdown level1 summary"><p>The current <a class="xref" href="UnityEngine.AI.OffMeshLinkData.html">OffMeshLinkData</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OffMeshLinkData currentOffMeshLinkData { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AI.OffMeshLinkData.html">OffMeshLinkData</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_currentOffMeshLinkData_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>In the case that this agent is not on an OffMeshLink the <a class="xref" href="UnityEngine.AI.OffMeshLinkData.html">OffMeshLinkData</a> is marked as invalid. See also ::ref::isOnOffMeshLink</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_desiredVelocity_" data-uid="UnityEngine.AI.NavMeshAgent.desiredVelocity*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_desiredVelocity" data-uid="UnityEngine.AI.NavMeshAgent.desiredVelocity">desiredVelocity</h4>
+  <div class="markdown level1 summary"><p>The desired velocity of the agent including any potential contribution from avoidance. (RO)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 desiredVelocity { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_destination_" data-uid="UnityEngine.AI.NavMeshAgent.destination*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_destination" data-uid="UnityEngine.AI.NavMeshAgent.destination">destination</h4>
+  <div class="markdown level1 summary"><p>Gets or attempts to set the destination of the agent in world-space units.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 destination { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_destination_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Getting:</p>
+<p>Returns the destination set for this agent.</p>
+<p>• If a destination is set but the path is not yet processed the position returned will be valid navmesh position that&#39;s closest to the previously set position.<br>
+• If the agent has no path or requested path - returns the agents position on the navmesh.<br>
+• If the agent is not mapped to the navmesh (e.g. Scene has no navmesh) - returns a position at infinity.</p>
+<p>Setting:</p>
+<p>Requests the agent to move to the valid navmesh position that&#39;s closest to the requested destination.</p>
+<p>• The path result may not become available until after a few frames. Use ::ref::pathPending to query for outstanding results.<br>
+• If it&#39;s not possible to find a valid nearby navmesh position (e.g. Scene has no navmesh) no path is requested. Use ::ref::SetDestination and check return value if you need to handle this case explicitly.</p>
+</div>
+  <h5 id="UnityEngine_AI_NavMeshAgent_destination_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using UnityEngine.AI;
+
+[RequireComponent(typeof(NavMeshAgent))]
+public class FollowTarget : MonoBehaviour
+{
+    public Transform target;
+    Vector3 destination;
+    NavMeshAgent agent;
+
+    void Start()
+    {
+        // Cache agent component and destination
+        agent = GetComponent&lt;NavMeshAgent&gt;();
+        destination = agent.destination;
+    }
+
+    void Update()
+    {
+        // Update destination if the target moves one unit
+        if (Vector3.Distance(destination, target.position) &gt; 1.0f)
+        {
+            destination = target.position;
+            agent.destination = destination;
+        }
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_hasPath_" data-uid="UnityEngine.AI.NavMeshAgent.hasPath*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_hasPath" data-uid="UnityEngine.AI.NavMeshAgent.hasPath">hasPath</h4>
+  <div class="markdown level1 summary"><p>Does the agent currently have a path? (RO)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool hasPath { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_hasPath_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property will be true if the agent has a path calculated to the desired destination and false otherwise.</p>
+<p>SA: pathPending.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_height_" data-uid="UnityEngine.AI.NavMeshAgent.height*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_height" data-uid="UnityEngine.AI.NavMeshAgent.height">height</h4>
+  <div class="markdown level1 summary"><p>The height of the agent for purposes of passing under obstacles, etc.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float height { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_isOnNavMesh_" data-uid="UnityEngine.AI.NavMeshAgent.isOnNavMesh*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_isOnNavMesh" data-uid="UnityEngine.AI.NavMeshAgent.isOnNavMesh">isOnNavMesh</h4>
+  <div class="markdown level1 summary"><p>Is the agent currently bound to the navmesh? (RO)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool isOnNavMesh { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_isOnNavMesh_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property is false if the agent, for some reason, could not bind to the navmesh. E.g. if Scene has no navmesh.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_isOnOffMeshLink_" data-uid="UnityEngine.AI.NavMeshAgent.isOnOffMeshLink*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_isOnOffMeshLink" data-uid="UnityEngine.AI.NavMeshAgent.isOnOffMeshLink">isOnOffMeshLink</h4>
+  <div class="markdown level1 summary"><p>Is the agent currently positioned on an OffMeshLink? (RO)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool isOnOffMeshLink { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_isOnOffMeshLink_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property is useful when ::ref::autoTraverseOffMeshLink is false and custom movement is needed when crossing the link.</p>
+<p>SA: ::ref::autoTraverseOffMeshLink, ::ref::CompleteOffMeshLink.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_isPathStale_" data-uid="UnityEngine.AI.NavMeshAgent.isPathStale*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_isPathStale" data-uid="UnityEngine.AI.NavMeshAgent.isPathStale">isPathStale</h4>
+  <div class="markdown level1 summary"><p>Is the current path stale. (RO)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool isPathStale { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_isPathStale_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When true, the path may no longer be valid or optimal.
+This flag will be set if: there are any changes to the ::ref::areaMask, if any <a class="xref" href="UnityEngine.AI.OffMeshLink.html">OffMeshLink</a> is enabled or disabled, or if the costs for the NavMeshAreas have been changed.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_isStopped_" data-uid="UnityEngine.AI.NavMeshAgent.isStopped*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_isStopped" data-uid="UnityEngine.AI.NavMeshAgent.isStopped">isStopped</h4>
+  <div class="markdown level1 summary"><p>This property holds the stop or resume condition of the NavMesh agent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool isStopped { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_isStopped_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If set to True, the NavMesh agent&#39;s movement will be stopped along its current path. If set to False after the NavMesh agent has stopped, it will resume moving along its current path.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_navMeshOwner_" data-uid="UnityEngine.AI.NavMeshAgent.navMeshOwner*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_navMeshOwner" data-uid="UnityEngine.AI.NavMeshAgent.navMeshOwner">navMeshOwner</h4>
+  <div class="markdown level1 summary"><p>Returns the owning object of the NavMesh the agent is currently placed on (RO).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Object navMeshOwner { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Object.html">Object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_navMeshOwner_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If no owner is set for a NavMesh or link instance the return value is null. See also: <a class="xref" href="UnityEngine.AI.NavMeshDataInstance.html#UnityEngine_AI_NavMeshDataInstance_owner">NavMeshDataInstance.owner</a> and <a class="xref" href="UnityEngine.AI.NavMeshLinkInstance.html#UnityEngine_AI_NavMeshLinkInstance_owner">NavMeshLinkInstance.owner</a>.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_nextOffMeshLinkData_" data-uid="UnityEngine.AI.NavMeshAgent.nextOffMeshLinkData*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_nextOffMeshLinkData" data-uid="UnityEngine.AI.NavMeshAgent.nextOffMeshLinkData">nextOffMeshLinkData</h4>
+  <div class="markdown level1 summary"><p>The next <a class="xref" href="UnityEngine.AI.OffMeshLinkData.html">OffMeshLinkData</a> on the current path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OffMeshLinkData nextOffMeshLinkData { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AI.OffMeshLinkData.html">OffMeshLinkData</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_nextOffMeshLinkData_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>In the case that the current path does not contain an OffMeshLink the <a class="xref" href="UnityEngine.AI.OffMeshLinkData.html">OffMeshLinkData</a> is marked as invalid.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_nextPosition_" data-uid="UnityEngine.AI.NavMeshAgent.nextPosition*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_nextPosition" data-uid="UnityEngine.AI.NavMeshAgent.nextPosition">nextPosition</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the simulation position of the navmesh agent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 nextPosition { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_nextPosition_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The position vector is in world space coordinates and units.</p>
+<p>The nextPosition is coupled to <a href="xref:UnityEngine.AI.Transform.position">Transform.position</a>. In the default case the navmesh agent&#39;s Transform position will match the internal simulation position at the time the script Update function is called. This coupling can be turned on and off by setting ::ref::updatePosition.</p>
+<p>When ::ref::updatePosition is true, the <a href="xref:UnityEngine.AI.Transform.position">Transform.position</a> reflects the simulated position, when false the position of the transform and the navmesh agent is not synchronized, and you&#39;ll see a difference between the two in general. When ::ref::updatePosition is turned back on, the <a href="xref:UnityEngine.AI.Transform.position">Transform.position</a> will be immediately move to match nextPosition.</p>
+<p>By setting nextPosition you can directly control where the internal agent position should be. The agent will be moved towards the position, but is constrained by the navmesh connectivity and boundaries. As such it will be useful only if the positions are continuously updated and assessed.
+SA: ::ref::Warp for teleporting a navmesh agent.</p>
+</div>
+  <h5 id="UnityEngine_AI_NavMeshAgent_nextPosition_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using UnityEngine.AI;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    void Start()
+    {
+        // Update the transform position explicitly in the OnAnimatorMove callback
+        GetComponent&lt;NavMeshAgent&gt;().updatePosition = false;
+    }
+
+    void OnAnimatorMove()
+    {
+        transform.position = GetComponent&lt;NavMeshAgent&gt;().nextPosition;
+    }
+}
+</code></pre><pre><code>
+using UnityEngine;
+using UnityEngine.AI;
+using System.Collections;
+
+public class ExampleClass : MonoBehaviour
+{
+    public bool agentIsControlledByOther;
+    void Update()
+    {
+        var agent = GetComponent&lt;NavMeshAgent&gt;();
+        agent.updatePosition = !agentIsControlledByOther;
+        if (agentIsControlledByOther)
+        {
+            GetComponent&lt;NavMeshAgent&gt;().nextPosition = transform.position;
+        }
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_obstacleAvoidanceType_" data-uid="UnityEngine.AI.NavMeshAgent.obstacleAvoidanceType*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_obstacleAvoidanceType" data-uid="UnityEngine.AI.NavMeshAgent.obstacleAvoidanceType">obstacleAvoidanceType</h4>
+  <div class="markdown level1 summary"><p>The level of quality of avoidance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ObstacleAvoidanceType obstacleAvoidanceType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AI.ObstacleAvoidanceType.html">ObstacleAvoidanceType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_obstacleAvoidanceType_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property lets you trade off the precision of obstacle avoidance againt the processor load required to achieve it. The exact quality/performance values will depend heavily on the complexity of the Scene but as a general rule, faster performance can be achieved at the cost of quality and vice versa.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_path_" data-uid="UnityEngine.AI.NavMeshAgent.path*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_path" data-uid="UnityEngine.AI.NavMeshAgent.path">path</h4>
+  <div class="markdown level1 summary"><p>Property to get and set the current path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NavMeshPath path { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AI.NavMeshPath.html">NavMeshPath</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_path_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This property can be useful for GUI, debugging and other purposes to get the points of the path calculated by the navigation system. Additionally, a path created from user code can be set for the agent to follow in the usual way. An example of this might be a patrol route designed for coverage rather than optimal distance between two points.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_pathEndPosition_" data-uid="UnityEngine.AI.NavMeshAgent.pathEndPosition*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_pathEndPosition" data-uid="UnityEngine.AI.NavMeshAgent.pathEndPosition">pathEndPosition</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 pathEndPosition { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_pathPending_" data-uid="UnityEngine.AI.NavMeshAgent.pathPending*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_pathPending" data-uid="UnityEngine.AI.NavMeshAgent.pathPending">pathPending</h4>
+  <div class="markdown level1 summary"><p>Is a path in the process of being computed but not yet ready? (RO)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool pathPending { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_pathStatus_" data-uid="UnityEngine.AI.NavMeshAgent.pathStatus*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_pathStatus" data-uid="UnityEngine.AI.NavMeshAgent.pathStatus">pathStatus</h4>
+  <div class="markdown level1 summary"><p>The status of the current path (complete, partial or invalid).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NavMeshPathStatus pathStatus { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AI.NavMeshPathStatus.html">NavMeshPathStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_radius_" data-uid="UnityEngine.AI.NavMeshAgent.radius*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_radius" data-uid="UnityEngine.AI.NavMeshAgent.radius">radius</h4>
+  <div class="markdown level1 summary"><p>The avoidance radius for the agent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float radius { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_radius_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is the agent&#39;s &quot;personal space&quot; within which obstacles and other agents should not pass.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_remainingDistance_" data-uid="UnityEngine.AI.NavMeshAgent.remainingDistance*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_remainingDistance" data-uid="UnityEngine.AI.NavMeshAgent.remainingDistance">remainingDistance</h4>
+  <div class="markdown level1 summary"><p>The distance between the agent&#39;s position and the destination on the current path. (RO)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float remainingDistance { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_remainingDistance_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If the remaining distance is unknown then this will have a value of infinity.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_speed_" data-uid="UnityEngine.AI.NavMeshAgent.speed*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_speed" data-uid="UnityEngine.AI.NavMeshAgent.speed">speed</h4>
+  <div class="markdown level1 summary"><p>Maximum movement speed when following a path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float speed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_speed_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>An agent will typically need to speed up and slow down as it follows a path (eg, it will slow down to make a tight turn). The speed is often limited by the length of a path segment and the time taken to accelerate and brake, but the speed will not exceed the value set by this property even on a long, straight path.</p>
+<p>SA: desiredVelocity.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_steeringTarget_" data-uid="UnityEngine.AI.NavMeshAgent.steeringTarget*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_steeringTarget" data-uid="UnityEngine.AI.NavMeshAgent.steeringTarget">steeringTarget</h4>
+  <div class="markdown level1 summary"><p>Get the current steering target along the path. (RO)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 steeringTarget { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_steeringTarget_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is typically the next corner along the path or the end point of the path.</p>
+<p>Unless the agent is moving on an <a class="xref" href="UnityEngine.AI.OffMeshLink.html">OffMeshLink</a>, there is a straight path between the agent and the steeringTarget.</p>
+<p>When approaching an <a class="xref" href="UnityEngine.AI.OffMeshLink.html">OffMeshLink</a> for traversal - the value is the position where the agent will enter the link.
+While agent is traversing an <a class="xref" href="UnityEngine.AI.OffMeshLink.html">OffMeshLink</a> the value is the position where the agent will leave the link.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_stoppingDistance_" data-uid="UnityEngine.AI.NavMeshAgent.stoppingDistance*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_stoppingDistance" data-uid="UnityEngine.AI.NavMeshAgent.stoppingDistance">stoppingDistance</h4>
+  <div class="markdown level1 summary"><p>Stop within this distance from the target position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float stoppingDistance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_stoppingDistance_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>It is seldom possible to land &#39;&#39;exactly&#39;&#39; at the target point, so this property can be used to set an acceptable radius within which the agent should stop. A larger stopping distance will give the agent more room for manoeuvre at the end of the path and might avoid sudden braking, turning or other unconvincing AI behaviour.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_updatePosition_" data-uid="UnityEngine.AI.NavMeshAgent.updatePosition*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_updatePosition" data-uid="UnityEngine.AI.NavMeshAgent.updatePosition">updatePosition</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether the transform position is synchronized with the simulated agent position. The default value is true.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool updatePosition { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_updatePosition_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When true: changing the transform position will affect the simulated position and vice-versa.</p>
+<p>When false: the simulated position will not be applied to the transform position and vice-versa.</p>
+<p>Setting ::ref::updatePosition to false can be used to enable explicit control of the transform position via script.
+This allows you to use the agent&#39;s simulated position to drive another component, which in turn sets the transform position (eg. animation with root motion or physics).</p>
+<p>When enabling the ::ref::updatePosition (from previously being disabled), the transform will be moved to the simulated position. This way the agent stays constrained to the navmesh surface.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_updateRotation_" data-uid="UnityEngine.AI.NavMeshAgent.updateRotation*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_updateRotation" data-uid="UnityEngine.AI.NavMeshAgent.updateRotation">updateRotation</h4>
+  <div class="markdown level1 summary"><p>Should the agent update the transform orientation?</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool updateRotation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_updateUpAxis_" data-uid="UnityEngine.AI.NavMeshAgent.updateUpAxis*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_updateUpAxis" data-uid="UnityEngine.AI.NavMeshAgent.updateUpAxis">updateUpAxis</h4>
+  <div class="markdown level1 summary"><p>Allows you to specify whether the agent should be aligned to the up-axis of the NavMesh or link that it is placed on.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool updateUpAxis { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_updateUpAxis_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When this value is set to true, the agent will always be aligned to the local up-axis of the NavMesh or link that it is currently on. When set to false, the agent’s orientation is unaffected by the orientation of the NavMesh.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_velocity_" data-uid="UnityEngine.AI.NavMeshAgent.velocity*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_velocity" data-uid="UnityEngine.AI.NavMeshAgent.velocity">velocity</h4>
+  <div class="markdown level1 summary"><p>Access the current velocity of the <a class="xref" href="UnityEngine.AI.NavMeshAgent.html">NavMeshAgent</a> component, or set a velocity to control the agent manually.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 velocity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="UnityEngine_AI_NavMeshAgent_velocity_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Reading the variable will return the current velocity of the agent based on the crowd simulation.</p>
+<p>Setting the variable will override the simulation (including: moving towards destination, collision avoidance, and acceleration control) and command the NavMesh Agent to move using the specific velocity directly. When the agent is controlled using a velocity, its movement is still constrained on the NavMesh.</p>
+<p>Setting the velocity directly, can be used for implementing player characters, which are moving on NavMesh and affecting the rest of the simulated crowd. In addition, setting priority to high (a small value is higher priority), will make other simulated agents to avoid the player controlled agent even more eagerly.</p>
+<p>It is recommended to set the velocity each frame when controlling the agent manually, and if releasing the control to the simulation, set the velocity to zero. If agent’s velocity is set to some value and then stopped updating it, the simulation will pick up from there and the agent will slowly decelerate (assuming no destination is set).</p>
+<p>Note that reading the velocity will always return value from the simulation. If you set the value, the effect will show up in the next update. Since the returned velocity comes from the simulation (including avoidance and collision handling), it can be different than the one you set.</p>
+<p>The velocity is specified in distance units per second (same as physics), and represented in global coordinate system.</p>
+</div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_walkableMask_" data-uid="UnityEngine.AI.NavMeshAgent.walkableMask*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_walkableMask" data-uid="UnityEngine.AI.NavMeshAgent.walkableMask">walkableMask</h4>
+  <div class="markdown level1 summary"><p>Specifies which NavMesh layers are passable (bitfield). Changing /walkableMask/ will make the path stale (see ::ref::isPathStale).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int walkableMask { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_ActivateCurrentOffMeshLink_" data-uid="UnityEngine.AI.NavMeshAgent.ActivateCurrentOffMeshLink*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_ActivateCurrentOffMeshLink_System_Boolean_" data-uid="UnityEngine.AI.NavMeshAgent.ActivateCurrentOffMeshLink(System.Boolean)">ActivateCurrentOffMeshLink(Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ActivateCurrentOffMeshLink(bool activated)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">activated</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_CalculatePath_" data-uid="UnityEngine.AI.NavMeshAgent.CalculatePath*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_CalculatePath_UnityEngine_Vector3_UnityEngine_AI_NavMeshPath_" data-uid="UnityEngine.AI.NavMeshAgent.CalculatePath(UnityEngine.Vector3,UnityEngine.AI.NavMeshPath)">CalculatePath(Vector3, NavMeshPath)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CalculatePath(Vector3 targetPosition, NavMeshPath path)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">targetPosition</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AI.NavMeshPath.html">NavMeshPath</a></td>
+        <td><span class="parametername">path</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_CompleteOffMeshLink_" data-uid="UnityEngine.AI.NavMeshAgent.CompleteOffMeshLink*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_CompleteOffMeshLink" data-uid="UnityEngine.AI.NavMeshAgent.CompleteOffMeshLink">CompleteOffMeshLink()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CompleteOffMeshLink()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_FindClosestEdge_" data-uid="UnityEngine.AI.NavMeshAgent.FindClosestEdge*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_FindClosestEdge_UnityEngine_AI_NavMeshHit__" data-uid="UnityEngine.AI.NavMeshAgent.FindClosestEdge(UnityEngine.AI.NavMeshHit@)">FindClosestEdge(out NavMeshHit)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool FindClosestEdge(out NavMeshHit hit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AI.NavMeshHit.html">NavMeshHit</a></td>
+        <td><span class="parametername">hit</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_GetAreaCost_" data-uid="UnityEngine.AI.NavMeshAgent.GetAreaCost*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_GetAreaCost_System_Int32_" data-uid="UnityEngine.AI.NavMeshAgent.GetAreaCost(System.Int32)">GetAreaCost(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float GetAreaCost(int areaIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">areaIndex</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_GetLayerCost_" data-uid="UnityEngine.AI.NavMeshAgent.GetLayerCost*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_GetLayerCost_System_Int32_" data-uid="UnityEngine.AI.NavMeshAgent.GetLayerCost(System.Int32)">GetLayerCost(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float GetLayerCost(int layer)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">layer</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_Move_" data-uid="UnityEngine.AI.NavMeshAgent.Move*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_Move_UnityEngine_Vector3_" data-uid="UnityEngine.AI.NavMeshAgent.Move(UnityEngine.Vector3)">Move(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Move(Vector3 offset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">offset</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_Raycast_" data-uid="UnityEngine.AI.NavMeshAgent.Raycast*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_Raycast_UnityEngine_Vector3_UnityEngine_AI_NavMeshHit__" data-uid="UnityEngine.AI.NavMeshAgent.Raycast(UnityEngine.Vector3,UnityEngine.AI.NavMeshHit@)">Raycast(Vector3, out NavMeshHit)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Raycast(Vector3 targetPosition, out NavMeshHit hit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">targetPosition</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AI.NavMeshHit.html">NavMeshHit</a></td>
+        <td><span class="parametername">hit</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_ResetPath_" data-uid="UnityEngine.AI.NavMeshAgent.ResetPath*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_ResetPath" data-uid="UnityEngine.AI.NavMeshAgent.ResetPath">ResetPath()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResetPath()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_Resume_" data-uid="UnityEngine.AI.NavMeshAgent.Resume*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_Resume" data-uid="UnityEngine.AI.NavMeshAgent.Resume">Resume()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Resume()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_SamplePathPosition_" data-uid="UnityEngine.AI.NavMeshAgent.SamplePathPosition*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_SamplePathPosition_System_Int32_System_Single_UnityEngine_AI_NavMeshHit__" data-uid="UnityEngine.AI.NavMeshAgent.SamplePathPosition(System.Int32,System.Single,UnityEngine.AI.NavMeshHit@)">SamplePathPosition(Int32, Single, out NavMeshHit)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SamplePathPosition(int areaMask, float maxDistance, out NavMeshHit hit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">areaMask</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AI.NavMeshHit.html">NavMeshHit</a></td>
+        <td><span class="parametername">hit</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_SetAreaCost_" data-uid="UnityEngine.AI.NavMeshAgent.SetAreaCost*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_SetAreaCost_System_Int32_System_Single_" data-uid="UnityEngine.AI.NavMeshAgent.SetAreaCost(System.Int32,System.Single)">SetAreaCost(Int32, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetAreaCost(int areaIndex, float areaCost)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">areaIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">areaCost</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_SetDestination_" data-uid="UnityEngine.AI.NavMeshAgent.SetDestination*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_SetDestination_UnityEngine_Vector3_" data-uid="UnityEngine.AI.NavMeshAgent.SetDestination(UnityEngine.Vector3)">SetDestination(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SetDestination(Vector3 target)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">target</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_SetLayerCost_" data-uid="UnityEngine.AI.NavMeshAgent.SetLayerCost*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_SetLayerCost_System_Int32_System_Single_" data-uid="UnityEngine.AI.NavMeshAgent.SetLayerCost(System.Int32,System.Single)">SetLayerCost(Int32, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetLayerCost(int layer, float cost)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">layer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">cost</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_SetPath_" data-uid="UnityEngine.AI.NavMeshAgent.SetPath*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_SetPath_UnityEngine_AI_NavMeshPath_" data-uid="UnityEngine.AI.NavMeshAgent.SetPath(UnityEngine.AI.NavMeshPath)">SetPath(NavMeshPath)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SetPath(NavMeshPath path)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.AI.NavMeshPath.html">NavMeshPath</a></td>
+        <td><span class="parametername">path</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_Stop_" data-uid="UnityEngine.AI.NavMeshAgent.Stop*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_Stop" data-uid="UnityEngine.AI.NavMeshAgent.Stop">Stop()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Stop()</code></pre>
+  </div>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_Stop_" data-uid="UnityEngine.AI.NavMeshAgent.Stop*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_Stop_System_Boolean_" data-uid="UnityEngine.AI.NavMeshAgent.Stop(System.Boolean)">Stop(Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Stop(bool stopUpdates)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">stopUpdates</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="UnityEngine_AI_NavMeshAgent_Warp_" data-uid="UnityEngine.AI.NavMeshAgent.Warp*"></a>
+  <h4 id="UnityEngine_AI_NavMeshAgent_Warp_UnityEngine_Vector3_" data-uid="UnityEngine.AI.NavMeshAgent.Warp(UnityEngine.Vector3)">Warp(Vector3)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Warp(Vector3 newPosition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">newPosition</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

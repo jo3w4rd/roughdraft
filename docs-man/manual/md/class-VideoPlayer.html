@@ -1,0 +1,377 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Video Player component | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Video Player component | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="video-player-component">Video Player component</h1>
+
+<p>Use the Video Player <a href="Components.html">component</a> to attach <a href="Video.html">video files</a> to <a href="GameObjects.html">GameObjects</a>, and play them on the GameObject’s <a href="Textures.html">Texture</a> at run time.</p>
+<p>The screenshot below shows a Video Player component attached to a spherical GameObject. </p>
+<p>By default, the <strong>Material Property</strong> of a Video Player component is set to <strong>_MainTex</strong>, which means that when the Video Player component is attached to a GameObject that has a Renderer, it automatically assigns itself to the Texture on that Renderer (because this is the main Texture for the GameObject). Here, the GameObject has a Mesh Renderer component, so the Video Player automatically assigns it to the Renderer field, which means the Video Clip plays on the Mesh Renderer’s Texture.</p>
+<p><img src="../uploads/Main/Video-1.jpg" alt="A Video Player component attached to a spherical GameObject, playing the Video Clip on the GameObject’s main Texture (in this case, the Texture of the Mesh Renderer)"></p>
+<p>You can also set a specific target for the video to play on, including:</p>
+<ul>
+<li><p>A <a href="class-Camera.html">Camera</a> plane</p>
+</li>
+<li><p>A <a href="class-RenderTexture.html">Render Texture</a></p>
+</li>
+<li><p>A <a href="Materials.html">Material</a> Texture parameter</p>
+</li>
+<li><p>Any <a href="class-TextureImporter.html">Texture</a> field in a component</p>
+</li>
+</ul>
+<h2 id="videoplayer-component-reference">VideoPlayer component Reference</h2>
+<p><img src="../uploads/Main/Video-2.png" alt="The Video Player component"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property</em></strong></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"><strong><em>Function</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Source</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Choose the type of source for your video.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Video Clip</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Assign a <a href="class-VideoClip.html">Video Clip</a> to the Video Player.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Video Clip</strong></td>
+<td style="text-align:left">Use this field to define the Video Clip assigned to the Video Player component. Drag-and-drop the video file into this field, or click the circle to the right of the field and choose it from a list of Assets if it is in your Project folder.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>URL</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Assign a video from a URL (for example, http:// or file://). Unity reads the video from this URL at run time.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>URL</strong></td>
+<td style="text-align:left">Enter the URL of the video you want to assign to the Video Player.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Browse...</strong></td>
+<td style="text-align:left">Click this to quickly navigate your the local file system and open URLs that begin file://.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Play On Awake</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Tick the <strong>Play On Awake</strong> checkbox to play the video the moment the Scene launches. Untick it if you want to trigger the video playback at another point during run time. Trigger it via scripting with the <code>Play()</code> command.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Wait For First Frame</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">If you tick the <strong>Wait For First Frame</strong> checkbox, Unity waits for the first frame of the source video to be ready for display before the game starts. If you untick it, the first few frames might be discarded to keep the video time in sync with the rest of the game.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Loop</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Ticking the <strong>Loop</strong> checkbox to make the Video Player component loop the source video when it reaches its end. If this is unticked, the video stops playing when it reaches the end.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Playback Speed</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">This slider and numerical field represent a multiplier for the playback speed, as a value between 0 and 10. This is set to 1 (normal speed) by default. If the field is set to 2, the video plays at two times its normal speed.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Render Mode</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Use the drop-down to define how the video is rendered.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Camera Far Plane</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Render the video on the Camera’s <a href="class-Camera.html">far plane</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Camera Near Plane</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Render the video on the Camera’s <a href="class-Camera.html">near plane</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Camera</strong></td>
+<td style="text-align:left">Define the <a href="class-Camera.html">Camera</a> receiving the video.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Alpha</strong></td>
+<td style="text-align:left">The global transparency level added to the source video. This allows elements behind the plane to be visible through it. See documentation on <a href="VideoTransparency.html">video transparency support</a> for more information about alpha channels.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Render Texture</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Render the video into a <a href="class-RenderTexture.html">Render Texture</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Target Texture</strong></td>
+<td style="text-align:left">Define the Render Texture where the Video Player component renders its images.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Material Override</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Render the video into a selected Texture property of a GameObject through its Renderer’s <a href="ScriptRef:Material.html">Material</a>.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Renderer</strong></td>
+<td style="text-align:left">The <a href="ScriptRef:Renderer.html">Renderer</a> where the Video Player component renders its images. When set to <strong>None</strong>, the <strong>Renderer</strong> on the same GameObject as the Video Player component is used.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Material Property</strong></td>
+<td style="text-align:left">The name of the <a href="ScriptRef:Material.SetTexture.html">Material Texture property</a> that receives the Video Player component images.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>API Only</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Render the video into the <a href="ScriptRef:Video.VideoPlayer-texture.html">VideoPlayer.texture</a> Scripting API property. You must use scripting to assign the Texture to its intended destination.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Aspect Ratio</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">The aspect ratio of the images that fill the <strong>Camera Near Plane</strong>, <strong>Camera Far Plane</strong> or <strong>Render Texture</strong> when the corresponding <strong>Render Mode</strong> is used.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>No Scaling</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">No scaling is used. The video is centered on the destination rectangle.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Fit Vertically</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Scale the source to fit the destination rectangle vertically, cropping the left and right sides or leaving black areas on each side if necessary. The source aspect ratio is preserved.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Fit Horizontally</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Scale the source to fit the destination rectangle horizontally, cropping the top and bottom regions or leaving black areas above and below if needed. The source aspect ratio is preserved.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Fit Inside</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Scale the source to fit the destination rectangle without having to crop. Leaves black areas on the left and right or above and below as needed. The source aspect ratio is preserved.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Fit Outside</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Scale the source to fit the destination rectangle without leaving black areas on the left and right or above and below, cropping as required. The source aspect ratio is preserved.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Stretch</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Scale both horizontally or vertically to fit the destination rectangle. The source aspect ratio is not preserved.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Audio Output Mode</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Define how the source’s audio tracks are output.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>None</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Audio is not be played.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Audio Source</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Audio samples are sent to selected <a href="class-AudioSource.html">audio sources</a>, enabling Unity’s audio processing to be applied.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Direct</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Audio samples are sent directly to the audio output hardware, bypassing Unity’s audio processing.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Controlled Tracks</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">The number of audio tracks in the video.<br><br>Only shown when <strong>Source</strong> is <strong>URL</strong>. When <strong>Source</strong> is <strong>Video Clip</strong>, the number of tracks is determined by examining the video file.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Track Enabled</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">When enabled by ticking the relevant checkbox, the associated audio track is used for playback. This must be set prior to playback.<br><br>The text to the left of the checkbox provides information about the audio track, specifically the track number, language, and number of channels.<br><br>For example, in the screenshot above, this text is Track 0 [und. 1 ch]. This means it is the first track (Track 0), the language is undefined (und.), and the track has one channel (1 ch), meaning it is a mono track.<br><br>When the source is a URL, this information is only available during playback.<br><br>This property only appears if your source is a Video Clip that has an audio track (or tracks), or your source is a URL (allowing you to indicate how many tracks are expected from the URL during playback).</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Audio Source</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">The <a href="class-AudioSource.html">audio source</a> through which the audio track is played. The targeted audio source can also play Audio Clips.<br><br>The audio source’s playback controls (<code>Play On Awake</code> and <code>Play()</code> in scripting API) do not apply to the video source’s audio track.<br><br>This property only appears when the <strong>Audio Output Mode</strong> is set to <strong>Audio Source</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Mute</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Mute the associated audio track. In <strong>Audio Source</strong> mode, the audio source’s control is used.<br><br>This property only appears when the <strong>Audio Output Mode</strong> is set to <strong>Direct</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><strong>Volume</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Volume of the associated audio track. In <strong>Audio Source</strong> mode, the audio source’s volume is used.<br><br>This property only appears when the <strong>Audio Output Mode</strong> is set to <strong>Direct</strong>.</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

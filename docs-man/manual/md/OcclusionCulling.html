@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Occlusion Culling | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Occlusion Culling | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="occlusion-culling">Occlusion Culling</h1>
+
+<p>Occlusion Culling is a feature that disables rendering of objects when they are not currently seen by the camera because they are obscured (occluded) by other objects. This does not happen automatically in 3D computer graphics since most of the time objects farthest away from the camera are drawn first and closer objects are drawn over the top of them (this is called &quot;overdraw&quot;). Occlusion Culling is different from Frustum Culling. Frustum Culling only disables the renderers for objects that are outside the camera&#39;s viewing area but does not disable anything hidden from view by overdraw. Note that when you use Occlusion Culling you will still benefit from Frustum Culling.</p>
+<p><img src="../uploads/Main/OcclusionNoCulling.jpg" alt="A maze-like indoor level. This normal scene view shows all visible Game Objects."> </p>
+<p><img src="../uploads/Main/OcclusionFrustumCulling.jpg" alt="Regular frustum culling only renders objects within the camera&#39;s view. This is automatic and always happens."> </p>
+<p><img src="../uploads/Main/OcclusionFullCulling.jpg" alt="Occlusion culling removes additional objects from within the camera rendering work if they are entirely obscured by nearer objects."> </p>
+<p>The occlusion culling process will go through the scene using a virtual camera to build a hierarchy of potentially visible sets of objects. This data is used at runtime by each camera to identify what is visible and what is not. Equipped with this information, Unity will ensure only visible objects get sent to be rendered. This reduces the number of draw calls and increases the performance of the game.</p>
+<p>The data for occlusion culling is composed of cells. Each cell is a subdivision of the entire bounding volume of the scene. More specifically the cells form a binary tree. Occlusion Culling uses two trees, one for View Cells (Static Objects) and the other for Target Cells (Moving Objects). View Cells map to a list of indices that define the visible static objects which gives more accurate culling results for static objects.</p>
+<p>It is important to keep this in mind when creating your objects because you need a good balance between the size of your objects and the size of the cells. Ideally, you shouldn&#39;t have cells that are too small in comparison with your objects but equally you shouldn&#39;t have objects that cover many cells. You can sometimes improve the culling by breaking large objects into smaller pieces. However, you can still merge small objects together to reduce draw calls and, as long as they all belong to the same cell, occlusion culling will not be affected.</p>
+<p>You can use the &#39;overdraw&#39; scene rendering mode to see the amount of overdraw that is occuring, and the stats information pane in the game view to see the amount of triangles, verts, and batches that are being rendered. Below is a comparison of these before and after applying occlusion culling.</p>
+<p><img src="../uploads/Main/OcclusionCullingOverdrawNoCulling.jpg" alt="Notice in the Overdraw scene view, a high density of overdraw as many rooms beyond the visible walls are rendered. These aren&#39;t visible in the game view, but nonetheless time is being taken to render them."> </p>
+<p><img src="../uploads/Main/OcclusionCullingOverdrawReduced.jpg" alt="With occlusion culling applied, the distant rooms are not rendered, the overdraw is much less dense, and the number of triangles and batches being rendered has dropped dramatically, without any change to how the game view looks."> </p>
+<h2 id="setting-up-occlusion-culling">Setting up Occlusion Culling</h2>
+<p>In order to use Occlusion Culling, there is some manual setup involved. First, your level geometry must be broken into sensibly sized pieces. It is also helpful to lay out your levels into small, well defined areas that are occluded from each other by large objects such as walls, buildings, etc. The idea here is that each individual mesh will be turned on or off based on the occlusion data. So if you have one object that contains all the furniture in your room then either all or none of the entire set of furniture will be culled. This doesn&#39;t make nearly as much sense as making each piece of furniture its own mesh, so each can individually be culled based on the camera&#39;s view point.</p>
+<p>You need to tag all scene objects that you want to be part of the occlusion to <strong>Occluder Static</strong> in the <strong>Inspector</strong>. The fastest way to do this is to multi-select the objects you want to be included in occlusion calculations, and mark them as <strong>Occluder Static</strong> and <strong>Occludee Static</strong>. </p>
+<p><img src="../uploads/Main/OcclusionStaticDropdown.png" alt="Marking an object for Occlusion"> </p>
+<p>When should you use <strong>Occludee Static</strong>? Completely transparent or translucent objects that do not occlude, as well as small objects that are unlikely to occlude other things, should be marked as <strong>Occludees</strong>, but not <strong>Occluders</strong>. This means they will be considered in occlusion by other objects, but will not be considered as occluders themselves, which will help reduce computation. </p>
+<p>When using LOD groups, only the base level object (LOD0) may be used as an Occluder.</p>
+<h2 id="occlusion-culling-window">Occlusion Culling Window</h2>
+<p>For most operations dealing with Occlusion Culling, you should use the Occlusion Culling Window (<strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Occlusion Culling</strong>)</p>
+<p>In the Occlusion Culling Window, you can work with occluder meshes, and <a href="class-OcclusionArea.html">Occlusion Areas</a>. </p>
+<p>If you are in the <strong>Object</strong> tab of the <strong>Occlusion Culling Window</strong> and have a <a href="class-MeshRenderer.html">Mesh Renderer</a> selected in the scene, you can modify the relevant Static flags:</p>
+<p><img src="../uploads/Main/OcclusionCullingInspectorObject.png" alt="Occlusion Culling Window for a Mesh Renderer"> </p>
+<p>If you are in the <strong>Object</strong> tab of the <strong>Occlusion Culling Window</strong> and have an <a href="class-OcclusionArea.html">Occlusion Area</a> selected, you can work with relevant OcclusionArea properties (for more details go to the <a href="class-OcclusionArea.html">Occlusion Area</a> section)</p>
+<p><img src="../uploads/Main/OcclusionCullingInspectorOcclusionArea.png" alt="Occlusion Culling Window for the Occlusion Area"> </p>
+<p><strong>NOTE:</strong> By default if you don&#39;t create any occlusion areas, occlusion culling will be applied to the whole scene.</p>
+<p><strong>NOTE:</strong> Whenever your camera is outside occlusion areas, occlusion culling will not be applied. It is important to set up your Occlusion Areas to cover the places where the camera can potentially be, but making the areas too large incurs a cost during baking. </p>
+<h2 id="occlusion-culling---bake">Occlusion Culling - Bake</h2>
+<p><img src="../uploads/Main/OcclusionCullingInspectorBake.png" alt="Occlusion culling inspector bake tab."> </p>
+<p>The occlusion culling bake window has a &quot;Set Default Parameters&quot; button, which allows you to reset the bake values to Unity&#39;s default values. These are good for many typical scenes, however you&#39;ll often be able to get better results by adjusting the values to suit the particular contents of your scene.</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Smallest Occluder</strong></td>
+<td>The size of the smallest object that will be used to hide other objects when doing occlusion culling. Any objects smaller than this size will never cause objects occluded by them to be culled. For example, with a value of 5, all objects that are higher or wider than 5 meters will cause hidden objects behind them to be culled (not rendered, saving render time). Picking a good value for this property is a balance between occlusion accuracy and storage size for the occlusion data.</td>
+</tr>
+<tr>
+<td><strong>Smallest Hole</strong></td>
+<td>This value represents the smallest gap between geometry through which the camera is supposed to see. The value represents the diameter of an object that could fit through the hole. If your scene has very small cracks through which the camera should be able to see, the Smallest Hole value must be smaller than the narrowest dimension of the gap.</td>
+</tr>
+<tr>
+<td><strong>Backface Threshold</strong></td>
+<td>Unity&#39;s occlusion uses a data size optimization which reduces unnecessary details by testing backfaces. The default value of 100 is robust and never removes backfaces from the dataset. A value of 5 would aggressively reduce the data based on locations with visible backfaces. The idea is that typically, valid camera positions would not normally see many backfaces - for example, the view of the underside of a terrain, or the view from within a solid object that you should not be able to reach. With a threshold lower than 100, Unity will remove these areas from the dataset entirely, thereby reducing the data size for the occlusion.</td>
+</tr>
+</tbody>
+</table>
+<p>At the bottom of the bake tab is are the Clear and Bake buttons. Click on the <strong>Bake</strong> Button to start generating the Occlusion Culling data. Once the data is generated, you can use the Visualization tab to preview and test the occlusion culling. If you are not satisfied with the results, click on the <strong>Clear</strong> button to remove previously calculated data, adjust the settings, and bake again.</p>
+<h2 id="occlusion-culling---visualization">Occlusion Culling - Visualization</h2>
+<p><img src="../uploads/Main/OcclusionCullingInspectorVisualization.png" alt="Occlusion culling inspector visualization tab."> </p>
+<p>All the objects in the scene affect the size of the bounding volume so try to keep them all within the visible bounds of the scene.</p>
+<p>When you&#39;re ready to generate the occlusion data, click the <strong>Bake</strong> button. Remember to choose the <strong>Memory Limit</strong> in the <strong>Bake</strong> tab. Lower values make the generation quicker and less precise, higher values are to be used for production quality closer to release. </p>
+<p>Bear in mind that the time taken to build the occlusion data will depend on the cell levels, the data size and the quality you have chosen.</p>
+<p>After the processing is done, you should see some colorful cubes in the View Area. The colored areas are regions that share the same occlusion data.</p>
+<p>Click on <strong>Clear</strong> if you want to remove all the pre-calculated data for Occlusion Culling.</p>
+<!-- include class-OcclusionArea -->
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

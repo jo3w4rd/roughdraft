@@ -1,0 +1,947 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Class Logger
+   | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Logger
+   | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="UnityEngine.Logger">
+  
+  
+  <h1 id="UnityEngine_Logger" data-uid="UnityEngine.Logger">Class Logger
+  </h1>
+  <div class="markdown level0 summary"><p>Initializes a new instance of the Logger.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">Logger</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="UnityEngine.html">UnityEngine</a></h6>
+  <!--h6><strong>Assembly</strong>: cs.temp.dll.dll</h6-->
+  <h5 id="UnityEngine_Logger_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Logger : ILogger, ILogHandler</code></pre>
+  </div>
+  <h5 id="UnityEngine_Logger_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Create a new instance or use default <a class="xref" href="UnityEngine.Debug.html#UnityEngine_Debug_unityLogger">Debug.unityLogger</a>.
+SA: <a class="xref" href="UnityEngine.ILogger.html">ILogger</a>, <a class="xref" href="UnityEngine.ILogHandler.html">ILogHandler</a>.</p>
+</div>
+  <h5 id="UnityEngine_Logger_examples"><strong>Examples</strong></h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+using System.IO;
+using System;
+
+public class MyLogHandler : ILogHandler
+{
+    public void LogFormat(LogType logType, UnityEngine.Object context, string format, params object[] args)
+    {
+        Debug.unityLogger.logHandler.LogFormat(logType, context, format, args);
+    }
+
+    public void LogException(Exception exception, UnityEngine.Object context)
+    {
+        Debug.unityLogger.LogException(exception, context);
+    }
+}
+
+public class MyGameClass : MonoBehaviour
+{
+    private static string kTAG = &quot;MyGameTag&quot;;
+    private Logger myLogger;
+
+    void Start()
+    {
+        myLogger = new Logger(new MyLogHandler());
+
+        myLogger.Log(kTAG, &quot;MyGameClass Start.&quot;);
+    }
+}
+</code></pre>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="UnityEngine_Logger__ctor_" data-uid="UnityEngine.Logger.#ctor*"></a>
+  <h4 id="UnityEngine_Logger__ctor_UnityEngine_ILogHandler_" data-uid="UnityEngine.Logger.#ctor(UnityEngine.ILogHandler)">Logger(ILogHandler)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Logger(ILogHandler logHandler)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.ILogHandler.html">ILogHandler</a></td>
+        <td><span class="parametername">logHandler</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="UnityEngine_Logger_filterLogType_" data-uid="UnityEngine.Logger.filterLogType*"></a>
+  <h4 id="UnityEngine_Logger_filterLogType" data-uid="UnityEngine.Logger.filterLogType">filterLogType</h4>
+  <div class="markdown level1 summary"><p>To selective enable debug log message.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LogType filterLogType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.LogType.html">LogType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_filterLogType">ILogger.filterLogType</a></div>
+  <h5 id="UnityEngine_Logger_filterLogType_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>By settings filterLogType to</p>
+<pre><code>[LogType.Log](xref:UnityEngine.LogType.Log)  (default setting) will display all log messages.
+
+[LogType.Warning](xref:UnityEngine.LogType.Warning) will display Warning, Assert, Error and Exception log messages.
+
+[LogType.Assert](xref:UnityEngine.LogType.Assert) will display Assert, Error and Exception log messages.
+
+[LogType.Error](xref:UnityEngine.LogType.Error) will display Error and Exception log messages.
+
+[LogType.Exception](xref:UnityEngine.LogType.Exception) will display Exception log messages.
+</code></pre></div>
+  <h5 id="UnityEngine_Logger_filterLogType_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class MyGameClass : MonoBehaviour
+{
+    private static ILogger logger = Debug.unityLogger;
+    private static string kTAG = &quot;MyGameTag&quot;;
+
+    void Start()
+    {
+        if (Debug.isDebugBuild)
+            logger.filterLogType = LogType.Log;
+        else
+            logger.filterLogType = LogType.Warning;
+
+        logger.Log(kTAG, &quot;This log will be displayed only in debug build&quot;);
+        logger.LogError(kTAG, &quot;This log will be displayed in debug and release build&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_Logger_logEnabled_" data-uid="UnityEngine.Logger.logEnabled*"></a>
+  <h4 id="UnityEngine_Logger_logEnabled" data-uid="UnityEngine.Logger.logEnabled">logEnabled</h4>
+  <div class="markdown level1 summary"><p>To runtime toggle debug logging [ON/OFF].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool logEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_logEnabled">ILogger.logEnabled</a></div>
+  <h5 id="UnityEngine_Logger_logEnabled_examples">Examples</h5>
+  <pre><code>
+using UnityEngine;
+using System.Collections;
+
+public class MyGameClass : MonoBehaviour
+{
+    private static ILogger logger = Debug.unityLogger;
+    private static string kTAG = &quot;MyGameTag&quot;;
+
+    void Start()
+    {
+        logger.logEnabled = Debug.isDebugBuild;
+
+        logger.Log(kTAG, &quot;This log will be displayed only in debug build&quot;);
+    }
+}
+</code></pre>
+  
+  
+  <a id="UnityEngine_Logger_logHandler_" data-uid="UnityEngine.Logger.logHandler*"></a>
+  <h4 id="UnityEngine_Logger_logHandler" data-uid="UnityEngine.Logger.logHandler">logHandler</h4>
+  <div class="markdown level1 summary"><p>Set  <a class="xref" href="UnityEngine.Logger.html">Logger</a>.ILogHandler.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ILogHandler logHandler { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.ILogHandler.html">ILogHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_logHandler">ILogger.logHandler</a></div>
+  <h5 id="UnityEngine_Logger_logHandler_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>SA: <a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_logHandler">ILogger.logHandler</a>.</p>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="UnityEngine_Logger_IsLogTypeAllowed_" data-uid="UnityEngine.Logger.IsLogTypeAllowed*"></a>
+  <h4 id="UnityEngine_Logger_IsLogTypeAllowed_UnityEngine_LogType_" data-uid="UnityEngine.Logger.IsLogTypeAllowed(UnityEngine.LogType)">IsLogTypeAllowed(LogType)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsLogTypeAllowed(LogType logType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.LogType.html">LogType</a></td>
+        <td><span class="parametername">logType</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_IsLogTypeAllowed_UnityEngine_LogType_">ILogger.IsLogTypeAllowed(LogType)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_Log_" data-uid="UnityEngine.Logger.Log*"></a>
+  <h4 id="UnityEngine_Logger_Log_System_Object_" data-uid="UnityEngine.Logger.Log(System.Object)">Log(Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Log(object message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_Log_System_Object_">ILogger.Log(Object)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_Log_" data-uid="UnityEngine.Logger.Log*"></a>
+  <h4 id="UnityEngine_Logger_Log_System_String_System_Object_" data-uid="UnityEngine.Logger.Log(System.String,System.Object)">Log(String, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Log(string tag, object message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_Log_System_String_System_Object_">ILogger.Log(String, Object)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_Log_" data-uid="UnityEngine.Logger.Log*"></a>
+  <h4 id="UnityEngine_Logger_Log_System_String_System_Object_UnityEngine_Object_" data-uid="UnityEngine.Logger.Log(System.String,System.Object,UnityEngine.Object)">Log(String, Object, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Log(string tag, object message, Object context)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Object.html">Object</a></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_Log_System_String_System_Object_UnityEngine_Object_">ILogger.Log(String, Object, Object)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_Log_" data-uid="UnityEngine.Logger.Log*"></a>
+  <h4 id="UnityEngine_Logger_Log_UnityEngine_LogType_System_Object_" data-uid="UnityEngine.Logger.Log(UnityEngine.LogType,System.Object)">Log(LogType, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Log(LogType logType, object message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.LogType.html">LogType</a></td>
+        <td><span class="parametername">logType</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_Log_UnityEngine_LogType_System_Object_">ILogger.Log(LogType, Object)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_Log_" data-uid="UnityEngine.Logger.Log*"></a>
+  <h4 id="UnityEngine_Logger_Log_UnityEngine_LogType_System_Object_UnityEngine_Object_" data-uid="UnityEngine.Logger.Log(UnityEngine.LogType,System.Object,UnityEngine.Object)">Log(LogType, Object, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Log(LogType logType, object message, Object context)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.LogType.html">LogType</a></td>
+        <td><span class="parametername">logType</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Object.html">Object</a></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_Log_UnityEngine_LogType_System_Object_UnityEngine_Object_">ILogger.Log(LogType, Object, Object)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_Log_" data-uid="UnityEngine.Logger.Log*"></a>
+  <h4 id="UnityEngine_Logger_Log_UnityEngine_LogType_System_String_System_Object_" data-uid="UnityEngine.Logger.Log(UnityEngine.LogType,System.String,System.Object)">Log(LogType, String, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Log(LogType logType, string tag, object message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.LogType.html">LogType</a></td>
+        <td><span class="parametername">logType</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_Log_UnityEngine_LogType_System_String_System_Object_">ILogger.Log(LogType, String, Object)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_Log_" data-uid="UnityEngine.Logger.Log*"></a>
+  <h4 id="UnityEngine_Logger_Log_UnityEngine_LogType_System_String_System_Object_UnityEngine_Object_" data-uid="UnityEngine.Logger.Log(UnityEngine.LogType,System.String,System.Object,UnityEngine.Object)">Log(LogType, String, Object, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Log(LogType logType, string tag, object message, Object context)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.LogType.html">LogType</a></td>
+        <td><span class="parametername">logType</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Object.html">Object</a></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_Log_UnityEngine_LogType_System_String_System_Object_UnityEngine_Object_">ILogger.Log(LogType, String, Object, Object)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_LogError_" data-uid="UnityEngine.Logger.LogError*"></a>
+  <h4 id="UnityEngine_Logger_LogError_System_String_System_Object_" data-uid="UnityEngine.Logger.LogError(System.String,System.Object)">LogError(String, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LogError(string tag, object message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_LogError_System_String_System_Object_">ILogger.LogError(String, Object)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_LogError_" data-uid="UnityEngine.Logger.LogError*"></a>
+  <h4 id="UnityEngine_Logger_LogError_System_String_System_Object_UnityEngine_Object_" data-uid="UnityEngine.Logger.LogError(System.String,System.Object,UnityEngine.Object)">LogError(String, Object, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LogError(string tag, object message, Object context)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Object.html">Object</a></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_LogError_System_String_System_Object_UnityEngine_Object_">ILogger.LogError(String, Object, Object)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_LogException_" data-uid="UnityEngine.Logger.LogException*"></a>
+  <h4 id="UnityEngine_Logger_LogException_Exception_" data-uid="UnityEngine.Logger.LogException(Exception)">LogException(Exception)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LogException(Exception exception)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">exception</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_LogException_Exception_">ILogger.LogException(Exception)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_LogException_" data-uid="UnityEngine.Logger.LogException*"></a>
+  <h4 id="UnityEngine_Logger_LogException_Exception_UnityEngine_Object_" data-uid="UnityEngine.Logger.LogException(Exception,UnityEngine.Object)">LogException(Exception, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LogException(Exception exception, Object context)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Exception</span></td>
+        <td><span class="parametername">exception</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Object.html">Object</a></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogHandler.html#UnityEngine_ILogHandler_LogException_Exception_UnityEngine_Object_">ILogHandler.LogException(Exception, Object)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_LogFormat_" data-uid="UnityEngine.Logger.LogFormat*"></a>
+  <h4 id="UnityEngine_Logger_LogFormat_UnityEngine_LogType_System_String_System_Object___" data-uid="UnityEngine.Logger.LogFormat(UnityEngine.LogType,System.String,System.Object[])">LogFormat(LogType, String, Object[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LogFormat(LogType logType, string format, params object[] args)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.LogType.html">LogType</a></td>
+        <td><span class="parametername">logType</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">format</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>[]</td>
+        <td><span class="parametername">args</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_LogFormat_UnityEngine_LogType_System_String_System_Object___">ILogger.LogFormat(LogType, String, Object[])</a></div>
+  
+  
+  <a id="UnityEngine_Logger_LogFormat_" data-uid="UnityEngine.Logger.LogFormat*"></a>
+  <h4 id="UnityEngine_Logger_LogFormat_UnityEngine_LogType_UnityEngine_Object_System_String_System_Object___" data-uid="UnityEngine.Logger.LogFormat(UnityEngine.LogType,UnityEngine.Object,System.String,System.Object[])">LogFormat(LogType, Object, String, Object[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LogFormat(LogType logType, Object context, string format, params object[] args)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="UnityEngine.LogType.html">LogType</a></td>
+        <td><span class="parametername">logType</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Object.html">Object</a></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">format</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a>[]</td>
+        <td><span class="parametername">args</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogHandler.html#UnityEngine_ILogHandler_LogFormat_UnityEngine_LogType_UnityEngine_Object_System_String_System_Object___">ILogHandler.LogFormat(LogType, Object, String, Object[])</a></div>
+  
+  
+  <a id="UnityEngine_Logger_LogWarning_" data-uid="UnityEngine.Logger.LogWarning*"></a>
+  <h4 id="UnityEngine_Logger_LogWarning_System_String_System_Object_" data-uid="UnityEngine.Logger.LogWarning(System.String,System.Object)">LogWarning(String, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LogWarning(string tag, object message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_LogWarning_System_String_System_Object_">ILogger.LogWarning(String, Object)</a></div>
+  
+  
+  <a id="UnityEngine_Logger_LogWarning_" data-uid="UnityEngine.Logger.LogWarning*"></a>
+  <h4 id="UnityEngine_Logger_LogWarning_System_String_System_Object_UnityEngine_Object_" data-uid="UnityEngine.Logger.LogWarning(System.String,System.Object,UnityEngine.Object)">LogWarning(String, Object, Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LogWarning(string tag, object message, Object context)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">tag</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="UnityEngine.Object.html">Object</a></td>
+        <td><span class="parametername">context</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="UnityEngine.ILogger.html#UnityEngine_ILogger_LogWarning_System_String_System_Object_UnityEngine_Object_">ILogger.LogWarning(String, Object, Object)</a></div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

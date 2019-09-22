@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Baked ambient occlusion | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Baked ambient occlusion | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="baked-ambient-occlusion">Baked ambient occlusion</h1>
+
+<p><strong>Ambient occlusion</strong> (AO) approximates how much ambient lighting (lighting not coming from a specific direction) can hit a point on a surface. It darkens creases, holes and surfaces that are close to each other. These areas occlude (block out) ambient light, so they appear darker.</p>
+<p>When using only precomputed real-time GI (see documentation on <a href="UsingPrecomputedLighting.html">Using precomputed lighting</a>), the resolution for indirect lighting doesn’t capture fine details or dynamic objects. We recommend using a real-time ambient occlusion post effect, which has much more detail and results in higher quality lighting.</p>
+<p>To view and enable baked AO, open the <strong>Lighting</strong> window (menu: <strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Lighting Settings</strong>) and navigate to the <strong>Baked GI</strong> section. Tick the <strong>Baked GI</strong> checkbox if it is unchecked, then tick the <strong>Ambient Occlusion</strong> checkbox to enable baked AO.</p>
+<p>To view and enable baked AO, open the <strong>Lighting</strong> window (menu: <strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Lighting Settings</strong>) and navigate to the <strong>Mixed Lighting</strong> section. Tick the <strong>Baked Global Illumination</strong> checkbox if it is unchecked, then in <strong>Lightmapping Settings</strong> tick the <strong>Ambient Occlusion</strong> checkbox to enable baked AO.</p>
+<p><img src="../uploads/Main/BakedAO56.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Max Distance</strong></td>
+<td style="text-align:left">Use this to set a value for how far the rays are traced before they are terminated.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Indirect</strong></td>
+<td style="text-align:left">Use this to control how much the AO affects indirect light. The higher you set the slider value, the darker the appearance of the creases, holes, and close surfaces are when lit by indirect light. <br><br>It’s more realistic to only apply AO to indirect lighting.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Direct</strong></td>
+<td style="text-align:left">Use this to control how much the AO affects direct light. The higher you set the slider value, the darker the appearance of the Scene’s creases, holes, and close surfaces are when lit by direct light.<br><br>By default, AO does not affect direct lighting. Use this slider to enable it. It is not realistic, but it can be useful for artistic purposes.</td>
+</tr>
+</tbody>
+</table>
+<p>For a modern implementation of real-time ambient occlusion, see documentation on the <a href="PostProcessing-AmbientOcclusion.html">Ambient Occlusion</a> post-processing effect.</p>
+<p>To learn more about AO, see <a href="http://en.wikipedia.org/wiki/Ambient_occlusion">Wikipedia: Ambient Occlusion</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

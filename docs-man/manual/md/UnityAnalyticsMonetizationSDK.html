@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Monetization | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Monetization | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="monetization">Monetization</h1>
+
+<p>Unity Analytics allows you to monitor your in-game revenue. By implementing receipt verification you&#39;ll quickly see legitimate or fraudulent transactions.</p>
+<p>Unity Analytics provides a flexible method for tracking monetization events through in-app purchases. This method should be called every time a player triggers a monetization event. The Transaction method requires a price parameter, a currency and an optional Apple iTunes / Google Play receipt string.</p>
+<p>Unity Analytics provides the <strong>UnityAnalytics.Transaction</strong> method for tracking monetization events through in-app purchases. This method should be called every time a player triggers a monetization event. The <strong>UnityAnalytics.Transaction</strong> method requires a price parameter, a currency and an optional Apple iTunes / Google Play receipt string.</p>
+<pre><code>  // Reference the Unity Analytics SDK package
+  using UnityEngine.Cloud.Analytics;
+
+  // Use this call for each and every place that a player triggers a monetization event
+  UnityAnalytics.Transaction(string productId, decimal price,
+  string currency, string receipt,
+  string signature);
+</code></pre><p>|<strong><em>UnityAnalytics.Transaction Input Parameters</em></strong>|||
+|<strong><em>Name</em></strong> |<strong><em>Type</em></strong> |<strong><em>Description</em></strong> |
+|:---|:---|
+|<strong>productId</strong> |string |The id of the purchased item. |
+|<strong>price</strong> |decimal |The price of the item. |
+|<strong>currency</strong> |string |Abbreviation of the currency used for the transaction. For example &quot;USD&quot; (United States Dollars). See <a href="http://en.wikipedia.org/wiki/ISO_4217">here</a> for a standardized list of currency abbreviations. |
+|<strong>receipt</strong> |string |Receipt data (iOS) or receipt ID (Android) for in-app purchases to verify purchases with Apple iTunes or Google play.  Use <strong>null</strong> in the absence of receipts. For more details see <a href="UnityAnalyticsReceiptVerificationSDK.html">Receipt Verification</a>. |
+|<strong>signature</strong> |string | Android receipt signature.  If using native Android use the <strong>INAPP_DATA_SIGNATURE</strong> string containing the signature of the purchase data that was signed with the private key of the developer.  The data signature uses the RSASSA-PKCS1-v1_5 scheme. Pass in <strong>null</strong> in the absence of a signature. |</p>
+<p>The example below is for a $0.99 transaction in USD without receipt validation.</p>
+<pre><code>UnityAnalytics.Transaction(&quot;12345abcde&quot;, 0.99m, &quot;USD&quot;, null, null);
+</code></pre><h2 id="press-play-">Press Play </h2>
+<p>To send test Monetization data to our servers and validate your integration, trigger a purchase during Editor Play mode. If integration is successful, your test data will display in the table below.</p>
+<p><img src="../uploads/Main/AnalyticsPlayGame.gif" alt=""></p>
+<h2 id="validate">Validate</h2>
+<p><img src="../uploads/Main/AnalyticsValidate.jpg" alt=""></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

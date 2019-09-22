@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Particle System Main module | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Particle System Main module | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="particle-system-main-module">Particle System Main module</h1>
+
+<p>The Particle System module contains global properties that affect the whole system. Most of these properties control the initial state of newly created particles. To expand and collapse the main module, click the Particle System bar in the Inspector window.</p>
+<p><img src="../uploads/Main/PartSysPartSysInsp.png" alt=""></p>
+<p>The name of the module appears in the inspector as the name of the GameObject that the <a href="class-ParticleSystem.html">Particle System component</a> is attached to.</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>Property</strong></th>
+<th style="text-align:left"><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Duration</strong></td>
+<td style="text-align:left">The length of time the system runs.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Looping</strong></td>
+<td style="text-align:left">If enabled, the system starts again at the end of its duration time and continues to repeat the cycle.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Prewarm</strong></td>
+<td style="text-align:left">If enabled, the system is initialized as though it had already completed a full cycle (only works if <strong>Looping</strong> is also enabled).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Start Delay</strong></td>
+<td style="text-align:left">Delay in seconds before the system starts emitting once enabled.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Start Lifetime</strong></td>
+<td style="text-align:left">The initial lifetime for particles.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Start Speed</strong></td>
+<td style="text-align:left">The initial speed of each particle in the appropriate direction.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>3D Start Size</strong></td>
+<td style="text-align:left">Enable this if you want to control the size of each axis separately.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Start Size</strong></td>
+<td style="text-align:left">The initial size of each particle.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>3D Start Rotation</strong></td>
+<td style="text-align:left">Enable this if you want to control the rotation of each axis separately.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Start Rotation</strong></td>
+<td style="text-align:left">The initial rotation angle of each particle.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Randomize Rotation Direction</strong></td>
+<td style="text-align:left">Causes some particles to spin in the opposite direction.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Start Color</strong></td>
+<td style="text-align:left">The initial color of each particle.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Gravity Modifier</strong></td>
+<td style="text-align:left">Scales the gravity value set in the <a href="class-PhysicsManager.html">Physics</a> window. A value of zero switches gravity off.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Simulation Space</strong></td>
+<td style="text-align:left">Controls whether particles are animated in the parent object’s local space (therefore moving with the parent object), in the world space, or relative to a custom object (moving with a custom object of your choosing).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Simulation Speed</strong></td>
+<td style="text-align:left">Adjust the speed at which the entire system updates.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Delta Time</strong></td>
+<td style="text-align:left">Choose between <strong>Scaled</strong> and <strong>Unscaled</strong>, where <strong>Scaled</strong> uses the <strong>Time Scale</strong> value in the <a href="class-TimeManager.html">Time</a> window, and <strong>Unscaled</strong> ignores it. This is useful for Particle Systems that appear on a Pause Menu, for example.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Scaling Mode</strong></td>
+<td style="text-align:left">Choose how to use the scale from the transform. Set to <strong>Hierarchy</strong>, <strong>Local</strong> or <strong>Shape</strong>. Local applies only the Particle System transform scale, ignoring any parents. Shape mode applies the scale to the start positions of the particles, but does not affect their size.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Play on Awake</strong></td>
+<td style="text-align:left">If enabled, the Particle System starts automatically when the object is created.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Emitter Velocity</strong></td>
+<td style="text-align:left">Choose how the Particle System calculates the velocity used by the Inherit Velocity and Emission modules. The system can calculate the velocity using a Rigidbody component, if one exists, or by tracking the movement of the Transform component.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Max Particles</strong></td>
+<td style="text-align:left">The maximum number of particles in the system at once. If the limit is reached, some particles are removed.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Auto Random Seed</strong></td>
+<td style="text-align:left">If enabled, the Particle System looks different each time it is played. When set to false, the system is exactly the same every time it is played.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Random Seed</strong></td>
+<td style="text-align:left">When disabling the automatic random seed, this value is used to create a unique repeatable effect.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Stop Action</strong></td>
+<td style="text-align:left">When all the particles belonging to the system have finished, it is possible to make the system perform an action. A system is determined to have stopped when all its particles have died, and its age has exceeded its Duration. For looping systems, this only happens if the system is stopped via script.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Disable</td>
+<td style="text-align:left">The GameObject is disabled.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Destroy</td>
+<td style="text-align:left">The GameObject is destroyed.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Callback</td>
+<td style="text-align:left">The OnParticleSystemStopped callback is sent to any scripts attached to the GameObject.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Culling Mode</strong></td>
+<td style="text-align:left">Choose whether to pause Particle System simulation when particles are offscreen. Culling when offscreen is most efficient, but you may want to continue simulation for off-one effects.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Automatic</td>
+<td style="text-align:left">Looping systems use <strong>Pause</strong>, and all other system use <strong>Always Simulate</strong>.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Pause And Catch-up</td>
+<td style="text-align:left">The system stops simulating while offscreen. When re-entering the view, the simulation performs a large step to reach the point where it would have been had it not paused. In complex systems, this option can cause performance spikes.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Pause</td>
+<td style="text-align:left">The system stops simulating while offscreen.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Always Simulate</td>
+<td style="text-align:left">The system processes its simulation on each frame, regardless of whether it is on screen or not. This can be useful for one-shot effects such as fireworks, where during the simulation would be obvious.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ring Buffer Mode</strong></td>
+<td style="text-align:left">Keeps particles alive until they reach the <strong>Max Particles</strong> count, at which point new particles recycle the oldest ones, instead of removing particles when their lifetimes elapse.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Disabled</td>
+<td style="text-align:left">Disable <strong>Ring Buffer Mode</strong>, so the system removes particles when their lifetime elapses.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Pause Until Replaced</td>
+<td style="text-align:left">Pauses old particles at the end of their lifetime until the <strong>Max Particle</strong> limit is reached, at which point the system recycles them, so they reappear as new particles.</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;Loop Until Replaced</td>
+<td style="text-align:left">At the end of their lifetime, particles rewind back to the specified proportion of their lifetime until the <strong>Max Particle</strong> limit is reached, at which point the system recycles them, so they reappear as new particles.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="property-details">Property details</h2>
+<p>The system emits particles for a specific duration, and can be set to emit continuously using the <strong>Looped</strong> property. This allows you to set particles to be emitted intermittently or continuously; for example, an object may emit smoke in short puffs or in a steady stream.</p>
+<p>The <strong>Start</strong> properties (<strong>lifetime</strong>, <strong>speed</strong>, <strong>size</strong>, <strong>rotation</strong> and <strong>color</strong>) specify the state of a particle on emission. You can specify a particle’s width, height and depth independently, using the <strong>3D Start Size</strong> property (see <a href="#scaling">Non-uniform particle scaling</a>, below).</p>
+<p>All Particle Systems use the same gravity vector specified in the <strong>Physics</strong> settings. The Gravity Multiplier value can be used to scale the gravity, or switch it off if set to zero.</p>
+<p><a name="scaling"></a></p>
+<h2 id="non-uniform-particle-scaling">Non-uniform particle scaling</h2>
+<p>The 3D Start Size property allows you to specify a particle’s width, height and depth independently. In the Particle System <strong>Main</strong> module, check the <strong>3D Start Size</strong> checkbox, and enter the values for the initial x (width), y (height) and z (depth) of the particle. Note that z (depth) only applies to 3D Mesh particles. You can also set randomised values for these properties, in a range between two constants or curves.</p>
+<p>You can set the particle’s initial size in the Particle System <strong>Main</strong> module, and its size over the particle’s lifetime using the <strong>Separate Axes</strong> option in the <strong>Size over Lifetime</strong> module. You can also set the particle’s size in relation to its speed using the <strong>Separate Axes</strong> option in the <strong>Size by Speed</strong> module.</p>
+<h2 id="simulation-space">Simulation Space</h2>
+<p>The <strong>Simulation Space</strong> property determines whether the particles move with the Particle System parent object, a custom object, or independently in the game world. For example, systems like clouds, hoses and flamethrowers need to be set independently of their parent GameObject, as they tend to leave trails that persist in the world space even if the object producing them moves around. On the other hand, if particles are used to create a spark between two electrodes, the particles should move along with the parent object. For more advanced control over how particles follow their Transform, see documentation on the <a href="PartSysInheritVelocity.html">Inherit Velocity module</a>.</p>
+<p>When set to Custom, particles no longer move relative to their own Transform component. Instead, they all move relative to the movement of the specified Transform component. The Particle System uses the Custom Transform to calculate emitter velocity, which the Inherit Velocity module and <strong>Rate over Distance</strong> property of the Emission module use to control particle velocity and emission.</p>
+<p><br></p>
+<hr>
+<ul>
+<li></li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

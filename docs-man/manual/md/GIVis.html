@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>GI visualizations in the Scene view | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="GI visualizations in the Scene view | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="gi-visualizations-in-the-scene-view">GI visualizations in the Scene view</h1>
+
+<p>The Scene view has a number of <a href="ViewModes.html">Draw Modes</a> to help you visualize different aspects of the Scene’s content. Among these are a set of modes to let you see exactly how global illumination (GI) is affecting your Scene. This page goes into more detail about the visualisation modes that are most relevant to GI. </p>
+<p>Note that, in the <a href="GlobalIllumination.html">Lighting window</a>, the <strong>Object</strong> tab displays some of the different modes for the selected GameObject, with its UV channel rendered in Texture space as a wireframe Mesh. Tick the <strong>Show Lightmap Resolution</strong> checkbox to apply a checkerboard texture on top of each view, scaled to show the resolution.</p>
+<p>GI visualizations are not designed to work in Play Mode.</p>
+<p><img src="../uploads/Main/GIVis.png" alt=""></p>
+<h2 id="shading-mode">Shading Mode</h2>
+<h3 id="shaded">Shaded</h3>
+<p>The default <strong>Shading Mode</strong> is <strong>Shaded</strong>. This shows the Scene fully lit according to the current lighting setup.</p>
+<p><img src="../uploads/Main/GIVis2.png" alt=""></p>
+<h2 id="global-illumination">Global Illumination</h2>
+<h3 id="systems">Systems</h3>
+<p>The precompute stage will automatically subdivide the scene into systems (i.e. groups of objects sharing the same realtime lightmap) based on proximity and Lightmap Parameters. This is done to allow multithreading and optimizations when updating indirect lighting. This visualization shows the systems with different colors.</p>
+<p><img src="../uploads/Main/GIVis4.png" alt=""></p>
+<h3 id="clustering">Clustering</h3>
+<p>This shows the clusters that Enlighten generates from the lightmap static geometry. Enlighten calculates indirect lighting using clusters that are generated in the Clustering step. Resulting clusters should be larger than lightmap texels (the ratio is controlled by the Cluster Resolution parameter in <a href="class-LightmapParameters.html">Lightmap Parameters</a>. The step where geometry is converted to clusters can be quite memory intensive if the scale isn&#39;t set correctly.
+If you are seeing high memory usage or long baking times it could be because the static geometry in your scene is getting cut up into many more clusters than what is actually needed. The clustering scene view mode can help you identify the geometry that needs to have UVs or Realtime Resolution tweaked.</p>
+<p><img src="../uploads/Main/GIVis10.png" alt=""></p>
+<h3 id="lit-clustering">Lit Clustering</h3>
+<p>Those are the same clusters as seen in the Clustering view, but with realtime GI applied.</p>
+<p><img src="../uploads/Main/GIVis11.png" alt=""></p>
+<h3 id="uv-charts">UV Charts</h3>
+<p>This shows the optimized UV layout used when calculating precomputed realtime GI. It is automatically generated during the precompute process. It is available as soon as the Instance precompute stage is completed. The UV Charts scene view mode can help you identify the geometry that needs to have UVs or scale adjusted (use the Resolution parameter in Lightmap Parameters to change scale). This view is also useful when adjusting the Realtime Resolution. Each chart has a different color.</p>
+<p><img src="../uploads/Main/GIVis3.png" alt=""></p>
+<h2 id="realtime-global-illumination">Realtime Global Illumination</h2>
+<h3 id="albedo">Albedo</h3>
+<p>This shows the albedo used when calculating GI. The albedo is generated from the material information and can be customized fully by adding a custom meta pass. The checkered overlay shows the resolution of the albedo texture that is passed to Enlighten.</p>
+<p><img src="../uploads/Main/GIVis5.png" alt=""></p>
+<h3 id="emissive">Emissive</h3>
+<p>Shows the emission used when calculating the GI. It is generated from the material information and can be fully customized by adding a custom meta pass. The checkered overlay shows the resolution of the emission texture that is passed into Enlighten.</p>
+<p><img src="../uploads/Main/GIVis6.png" alt=""></p>
+<h3 id="indirect">Indirect</h3>
+<p>This shows the indirect lighting only (the contents of realtime GI lightmaps generated by Enlighten). The checkered overlay shows the resolution of the irradiance texture. If Realtime GI is disabled, this view mode isn’t selectable.</p>
+<p><img src="../uploads/Main/GIVis7.png" alt=""></p>
+<h3 id="directionality">Directionality</h3>
+<p>This view shows the most dominant light direction vector. Please refer to the <a href="LightmappingDirectional.html">Directional Lightmapping</a> page for more info. The checkered overlay shows the resolution of the directionality texture.</p>
+<p><img src="../uploads/Main/GIVis8.png" alt=""></p>
+<h2 id="baked-global-illumination">Baked Global Illumination</h2>
+<h3 id="baked-lightmap">Baked Lightmap</h3>
+<p>This shows the baked lightmaps applied to the scene geometry. The checkered overlay shows the baked lightmap resolution.</p>
+<p><img src="../uploads/Main/GIVis9.jpg" alt=""></p>
+<h3 id="shadowmask">Shadowmask</h3>
+<p>This displays the shadowmask texture occlusion values. It colors the mesh and the light gizmo in the same color so one can verify that the light occlusion factors have been baked as expected.</p>
+<p><img src="../uploads/Main/GIVis12.jpg" alt=""></p>
+<h3 id="texel-validity">Texel Validity</h3>
+<p>This mode shows which texels are marked invalid because they mostly &quot;see&quot; backfaces. During lightmap baking, Unity emits rays from each texel. If a significant portion of a texel&#39;s rays are hitting backface geometry, this texel is marked invalid. This is because the texel should not be able to see the backfaces in the first place. Unity handles this by replacing invalid texels with valid neighbors. You can adjust this behaviour using the <strong>Backface Tolerance</strong> parameter (<strong>LightmapParameters</strong> &gt; <strong>General GI</strong>).</p>
+<p><img src="../uploads/Main/GIVis14.jpg" alt=""></p>
+<h3 id="uv-overlap">UV Overlap</h3>
+<p>If lightmap charts are too close together in UV space, the pixel values inside them might bleed into one another when the lightmap is sampled by the GPU. This can lead to unexpected artifacts. This mode allows you to identify texels that are too close to texels in other charts. This is useful when you want to troubleshoot your UV issues.</p>
+<p><img src="../uploads/Main/GIVis15.jpg" alt=""></p>
+<h2 id="light-overlap">Light Overlap</h2>
+<p>This mode allows you to see if all static lights have been baked to the shadowmask. If an area of the level is lit by more than four static lights, the exceeding lights will fallback to fully baked and be displayed in red. Relevant for this calculation is not the actual lit surface, but the intersection of the light sources’ volumes. So even though in the screenshot below it looks as if the colored spots on the mesh do not overlap, the cones of the four spotlights end up overlapping below the ground plane along with the directional light.</p>
+<p><img src="../uploads/Main/GIVis13.jpg" alt=""></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Optimizing graphics performance | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Optimizing graphics performance | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="optimizing-graphics-performance">Optimizing graphics performance</h1>
+
+<p>Good performance is critical to the success of many games. Below are some simple guidelines for maximizing the speed of your game&#39;s rendering.</p>
+<h2 id="locate-high-graphics-impact">Locate high graphics impact</h2>
+<p>The graphical parts of your game can primarily impact on two systems of the computer: the GPU and the CPU. The first rule of any optimization is to find <strong>where</strong> the performance problem is, because strategies for optimizing for GPU vs. CPU are quite different (and can even be opposite - for example, it&#39;s quite common to make the GPU do more work while optimizing for CPU, and vice versa).</p>
+<p>Common bottlenecks and ways to check for them:</p>
+<ul>
+<li>GPU is often limited by <strong>fillrate</strong> or memory bandwidth.<ul>
+<li>Lower the display resolution and run the game. If a lower display resolution makes the game run faster, you may be limited by fillrate on the GPU.</li>
+</ul>
+</li>
+<li>CPU is often limited by the number of batches that need to be rendered.<ul>
+<li>Check &quot;batches&quot; in the <a href="RenderingStatistics.html">Rendering Statistics</a> window. The more batches are being rendered, the higher the cost to the CPU.</li>
+</ul>
+</li>
+</ul>
+<p>Less-common bottlenecks:</p>
+<ul>
+<li>The GPU has too many vertices to process. The number of vertices that is acceptable to ensure good performance depends on the GPU and the complexity of vertex shaders. Generally speaking, aim for no more than 100,000 vertices on mobile. A PC manages well even with several million vertices, but it is still good practice to keep this number as low as possible through optimization.</li>
+<li>The CPU has too many vertices to process. This could be in skinned meshes, cloth simulation, particles, or other game objects and meshes. As above, it is generally good practice to keep this number as low as possible without compromising game quality. See the section on <a href="#CPU-optimization">CPU optimization</a> below for guidance on how to do this.</li>
+<li>If rendering is not a problem on the GPU or the CPU, there may be an issue elsewhere - for example, in your script or physics. Use the <a href="Profiler.html">Unity Profiler</a> to locate the problem.</li>
+</ul>
+<p><a name="CPU-optimization"></a></p>
+<h2 id="cpu-optimization">CPU optimization</h2>
+<p>To render objects on the screen, the CPU has a lot of processing work to do: working out which lights affect that object, setting up the shader and shader parameters, and sending drawing commands to the graphics driver, which then prepares the commands to be sent off to the graphics card. </p>
+<p>All this &quot;per object&quot; CPU usage is resource-intensive, so if you have lots of visible objects, it can add up. For example, if you have a thousand triangles, it is much easier on the CPU if they are all in one mesh, rather than in one mesh per triangle (adding up to 1000 meshes). The cost of both scenarios on the GPU is very similar, but the work done by the CPU to render a thousand objects (instead of one) is significantly higher.</p>
+<p>Reduce the visible object count. To reduce the amount of work the CPU needs to do:</p>
+<ul>
+<li>Combine close objects together, either manually or using Unity&#39;s <a href="DrawCallBatching.html">draw call batching</a>.</li>
+<li>Use fewer materials in your objects by putting separate textures into a larger texture atlas.</li>
+<li>Use fewer things that cause objects to be rendered multiple times (such as reflections, shadows and per-pixel lights).</li>
+</ul>
+<p>Combine objects together so that each mesh has at least several hundred triangles and uses only one <strong>Material</strong> for the entire mesh. Note that combining two objects which don&#39;t share a material does not give you any performance increase at all. The most common reason for requiring multiple materials is that two meshes don&#39;t share the same textures; to optimize CPU performance, ensure that any objects you combine share the same textures.</p>
+<p>When using many pixel lights in the <a href="RenderTech-ForwardRendering.html">Forward rendering path</a>, there are situations where combining objects may not make sense. See the <a href="#LightingPerformance">Lighting performance</a> section below to learn how to manage this.</p>
+<h2 id="gpu-optimizing-model-geometry">GPU: Optimizing model geometry</h2>
+<p>There are two basic rules for optimizing the geometry of a model:</p>
+<ul>
+<li>Don&#39;t use any more triangles than necessary</li>
+<li>Try to keep the number of UV mapping seams and hard edges (doubled-up vertices) as low as possible</li>
+</ul>
+<p>Note that the actual number of vertices that graphics hardware has to process is usually not the same as the number reported by a 3D application. Modeling applications usually display the number of distinct corner points that make up a model (known as the geometric vertex count). For a graphics card, however, some geometric vertices need to be split into two or more logical vertices for rendering purposes. A vertex must be split if it has multiple normals, UV coordinates or vertex colors. Consequently, the vertex count in Unity is usually higher than the count given by the 3D application.</p>
+<p>While the amount of geometry in the models is mostly relevant for the GPU, some features in Unity also process models on the CPU (for example, mesh skinning).</p>
+<p><a name="LightingPerformance"></a></p>
+<h2 id="lighting-performance">Lighting performance</h2>
+<p>The fastest option is always to create lighting that doesn&#39;t need to be computed at all. To do this, use <a href="GIIntro.html">Lightmapping</a> to &quot;bake&quot; static lighting just once, instead of computing it each frame. The process of generating a lightmapped environment takes only a little longer than just placing a light in the scene in Unity, <strong>but</strong>:</p>
+<ul>
+<li>It runs a lot faster (2-3 times faster for 2-per-pixel lights)</li>
+<li>It looks a lot better, as you can bake global illumination and the lightmapper can smooth the results</li>
+</ul>
+<p>In many cases you can apply simple tricks instead of adding multiple extra lights. For example, instead of adding a light that shines straight into the camera to give a <strong>Rim Lighting</strong> effect,  add a dedicated <code>Rim Lighting</code> computation directly into your shaders (see <a href="SL-SurfaceShaderExamples.html">Surface Shader Examples</a> to learn how to do this).</p>
+<h4 id="lights-in-forward-rendering">Lights in forward rendering</h4>
+<p>Also see: <a href="RenderTech-ForwardRendering.html">Forward rendering</a></p>
+<p>Per-pixel dynamic lighting adds significant rendering work to every affected pixel, and can lead to objects being rendered in multiple passes. Avoid having more than one <strong>Pixel Light</strong> illuminating any single object on less powerful devices, like mobile or low-end PC GPUs, and use lightmaps to light static objects instead of calculating their lighting every frame. Per-vertex dynamic lighting can add significant work to vertex transformations, so try to avoid situations where multiple lights illuminate a single object.</p>
+<p>Avoid combining meshes that are far enough apart to be affected by different sets of pixel lights. When you use pixel lighting, each mesh has to be rendered as many times as there are pixel lights illuminating it. If you combine two meshes that are very far apart, it increase the effective size of the combined object. All pixel lights that illuminate any part of this combined object are taken into account during rendering, so the number of rendering passes that need to be made could be increased. Generally, the number of passes that must be made to render the combined object is the <strong>sum of the number of passes for each of the separate objects</strong>, so nothing is gained by combining meshes.</p>
+<p>During rendering, Unity finds all lights surrounding a mesh and calculates which of those lights affect it most. The settings on the <a href="class-QualitySettings.html">Quality</a> window are used to modify how many of the lights end up as pixel lights, and how many as vertex lights. Each light calculates its importance based on how far away it is from the mesh and how intense its illumination is - and some lights are more important than others purely from the game context. For this reason, every light has a <strong>Render Mode</strong> setting which can be set to <strong>Important</strong> or <strong>Not Important</strong>; lights marked as <strong>Not Important</strong> have a lower rendering overhead.</p>
+<p><strong>Example</strong>: Consider a driving game in which the player&#39;s car is driving in the dark with headlights switched on. The headlights are probably the most visually significant light source in the game, so their <strong>Render Mode</strong> should be set to <strong>Important</strong>. There may be other lights in the game that are less important, like other cars&#39; rear lights or distant lampposts, and which don&#39;t improve the visual effect much by being pixel lights. The <strong>Render Mode</strong> for such lights can safely be set to <strong>Not Important</strong> to avoid wasting rendering capacity in places where it has little benefit.</p>
+<p>Optimizing per-pixel lighting saves both the CPU and GPU work: the CPU has fewer draw calls to do, and the GPU has fewer vertices to process and pixels to rasterize for all the additional object renders.</p>
+<h2 id="gpu-texture-compression-and-mipmaps">GPU: Texture compression and mipmaps</h2>
+<p>Use <a href="class-TextureImporter.html">Compressed textures</a> to decrease the size of your textures. This can result in faster load times, a smaller memory footprint, and dramatically increased rendering performance. Compressed textures only use a fraction of the memory bandwidth needed for uncompressed 32-bit RGBA textures.</p>
+<h4 id="texture-mipmaps">Texture mipmaps</h4>
+<p>Always enable <a href="class-TextureImporter.html">Generate mipmaps</a> for textures used in a 3D scene. A mipmap texture enables the GPU to use a lower resolution texture for smaller triangles.This is similar to how texture compression can help limit the amount of texture data transfered when the GPU is rendering.</p>
+<p>The only exception to this rule is when a texel (texture pixel) is known to map 1:1 to the rendered screen pixel, as with UI elements or in a 2D game.</p>
+<h2 id="lod-and-per-layer-cull-distances">LOD and per-layer cull distances</h2>
+<p>Culling objects involves making objects invisible. This is an effective way to reduce both the CPU and GPU load.</p>
+<p>In many games, a quick and effective way to do this without compromising the player experience is to cull small objects more aggressively than large ones. For example, small rocks and debris could be made invisible at long distances, while large buildings would still be visible.</p>
+<p>There are a number of ways you can achieve this:</p>
+<ul>
+<li><p>Use the <a href="LevelOfDetail.html">Level Of Detail</a> system</p>
+</li>
+<li><p>Manually set per-layer culling distances on the camera </p>
+</li>
+<li><p>Put small objects into a <a href="Layers.html">separate layer</a> and set up per-layer cull distances using the <a href="ScriptRef:Camera-layerCullDistances.html">Camera.layerCullDistances</a> script function</p>
+</li>
+</ul>
+<h2 id="realtime-shadows">Realtime shadows</h2>
+<p>Realtime shadows are nice, but they can have a high impact on performance, both in terms of extra draw calls for the CPU and extra processing on the GPU. For further details, see the <a href="LightPerformance.html">Light Performance</a> page.</p>
+<h2 id="gpu-tips-for-writing-high-performance-shaders">GPU: Tips for writing high-performance shaders</h2>
+<p>Different platforms have vastly different performance capabilities; a high-end PC GPU can handle much more in terms of graphics and shaders than a low-end mobile GPU. The same is true even on a single platform; a fast GPU is dozens of times faster than a slow integrated GPU.</p>
+<p>GPU performance on mobile platforms and low-end PCs is likely to be much lower than on your development machine. It&#39;s recommended that you manually optimize your shaders to reduce calculations and texture reads, in order to get good performance across low-end GPU machines. For example, some built-in Unity shaders have &quot;mobile&quot; equivalents that are much faster, but have some limitations or approximations.</p>
+<p>Below are some guidelines for mobile and low-end PC graphics cards:</p>
+<h4 id="complex-mathematical-operations">Complex mathematical operations</h4>
+<p>Transcendental mathematical functions (such as <code>pow</code>, <code>exp</code>, <code>log</code>, <code>cos</code>,
+<code>sin</code>, <code>tan</code>) are quite resource-intensive, so avoid using them where possible. Consider using lookup textures as an alternative to complex math calculations if applicable.</p>
+<p>Avoid writing your own operations (such as <code>normalize</code>, <code>dot</code>, <code>inversesqrt</code>). Unity&#39;s built-in options ensure that the driver can generate much better code. Remember that the Alpha Test (<code>discard</code>) operation often makes your fragment shader slower.</p>
+<h4 id="floating-point-precision">Floating point precision</h4>
+<p>While the precision (<code>float</code> vs <code>half</code> vs <code>fixed</code>) of floating point
+variables is largely ignored on desktop GPUs, it is quite 
+important to get a good performance on mobile GPUs. See the
+<a href="SL-DataTypesAndPrecision.html">Shader Data Types and Precision</a>
+page for details.</p>
+<p>For further details about shader performance, see the <a href="SL-ShaderPerformance.html">Shader Performance</a> page.</p>
+<h2 id="simple-checklist-to-make-your-game-faster">Simple checklist to make your game faster</h2>
+<ul>
+<li>Keep the vertex count below 200K and 3M per frame when building for PC (depending on the target GPU).</li>
+<li>If you&#39;re using built-in shaders, pick ones from the <strong>Mobile</strong> or <strong>Unlit</strong> categories. They work on non-mobile platforms as well, but are simplified and approximated versions of the more complex shaders.</li>
+<li>Keep the number of different materials per scene low, and share as many materials between different objects as possible.</li>
+<li>Set the <code>Static</code> property on a non-moving object to allow internal optimizations like <a href="DrawCallBatching.html">static batching</a>.</li>
+<li>Only have a single (preferably directional) <code>pixel light</code> affecting your geometry, rather than multiples.</li>
+<li>Bake lighting rather than using dynamic lighting.</li>
+<li>Use compressed texture formats when possible, and use 16-bit textures over 32-bit textures.</li>
+<li>Avoid using fog where possible.</li>
+<li>Use <a href="OcclusionCulling.html">Occlusion Culling</a> to reduce the amount of visible geometry and draw-calls in cases of complex static scenes with lots of occlusion. Design your levels with occlusion culling in mind.</li>
+<li>Use skyboxes to &quot;fake&quot; distant geometry.</li>
+<li>Use pixel shaders or texture combiners to mix several textures instead of a multi-pass approach.</li>
+<li>Use <code>half</code> precision variables where possible.</li>
+<li>Minimize use of complex mathematical operations such as <code>pow</code>, <code>sin</code> and <code>cos</code> in pixel shaders.</li>
+<li>Use fewer textures per fragment.</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="Profiler.html">Unity Profiler Window</a>.</li>
+<li><a href="LightPerformance.html">Light Performance</a>.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

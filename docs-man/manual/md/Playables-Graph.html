@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>The PlayableGraph | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="The PlayableGraph | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="the-playablegraph">The PlayableGraph</h1>
+
+<p>The PlayableGraph defines a set of playable outputs that are bound to a GameObject or  <a href="Components.html">component</a>. The PlayableGraph also defines a set of playables and their relationships. Figure 1 provides an example. </p>
+<p>The PlayableGraph is responsible for the life cycle of its playables and their outputs. Use the PlayableGraph to create, connect, and destroy playables.</p>
+<p><img src="../uploads/Main/PlayablesGraph0.png" alt="Figure 1: A sample PlayableGraph"></p>
+<p>In Figure 1, when displaying a PlayableGraph, the term &quot;Playable&quot; is removed from the names of graph nodes to make it more compact. For example, the node named &quot;AnimationClipPlayable&quot; is shown as &quot;AnimationClip.&quot;</p>
+<p><img src="../uploads/Main/PlayablesGraphWarning.png" alt=""></p>
+<p>A playable is a C# struct that implements the IPlayable interface. It is used to define its relationship with other playables. Likewise, a playable output is a C# struct that implements IPlayableOutput and is used to define the output of a PlayableGraph.</p>
+<p>Figure 2 shows the most common core playable types. Figure 3 shows the core playable output types.</p>
+<p><img src="../uploads/Main/PlayablesGraph1.png" alt="Figure 2: Core playable types"></p>
+<p><img src="../uploads/Main/PlayablesGraph2.png" alt="Figure 3: Core playable output types"></p>
+<p>The playable core types and playable output types are implemented as C# structs to avoid allocating <a href="UnderstandingAutomaticMemoryManagement.html">memory for garbage collection</a>.</p>
+<p>‘Playable’ is the base type for all playables, meaning that you can always implicitly cast a playable to it. The opposite is not true, and an exception will be thrown if a ‘Playable’ is explicitly casted into an incompatible type. It also defines all the basic methods that can be executed on a playable. To access type-specific methods, you need to cast our playable to the appropriate type.</p>
+<p>The same thing is true for ‘PlayableOutput’, it is the base type for all playable outputs and it defines the basic methods.</p>
+<p>Note: <code>Playable</code> and <code>PlayableOutput</code> do not expose a lot of methods. Instead, the &#39;PlayableExtensions’ and ‘PlayableOutputExtensions&#39; static classes provide extension methods.</p>
+<p>All non-abstract playables have a public static method <code>Create()</code> that creates a playable of the corresponding type. The &#39;Create()&#39; method always takes a PlayableGraph as its first parameter, and that graph owns the newly created playable. Additional parameters may be required for some type of playables. Non-abstract playable outputs also expose a <code>Create()</code> method.</p>
+<p>A valid playable output should be linked to a playable. If a playable output is not linked to a playable, the playable output does nothing. To link a playable output to a playable, use the <code>PlayableOutput.SetSourcePlayable()</code> method. The linked playable acts as the root of the playable tree, for that specific playable output.</p>
+<p>To connect two playables together, use the <code>PlayableGraph.Connect()</code> method. Note that some playables cannot have inputs.</p>
+<p>Use the <code>PlayableGraph.Create()</code> static method to create a PlayableGraph.</p>
+<p>Play a PlayableGraph with the <code>PlayableGraph.Play()</code> method.</p>
+<p>Stop a playing PlayableGraph with the<code>PlayableGraph.Stop()</code> method.</p>
+<p>Evaluate the state of a PlayableGraph, at a specific time, with the <code>PlayableGraph.Evaluate()</code> method.</p>
+<p>Destroy a PlayableGraph manually with the <code>PlayableGraph.Destroy()</code> method. This method automatically destroys all playables and playable outputs that were created by the PlayableGraph. You must manually call this destroy method to destroy a PlayableGraph, otherwise Unity issues an error message.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

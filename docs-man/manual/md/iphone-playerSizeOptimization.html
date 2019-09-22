@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Optimizing the size of the built iOS Player | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Optimizing the size of the built iOS Player | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="optimizing-the-size-of-the-built-ios-player">Optimizing the size of the built iOS Player</h1>
+
+<p>The two main ways of reducing the size of the Player are by making a proper <strong>Release build</strong> within Xcode and by changing the <strong>Stripping Level</strong> within Unity.</p>
+<h2 id="building-for-distribution">Building for distribution</h2>
+<p>It is expected that final release builds are made using the Xcode command <strong>Product</strong> &gt; <strong>Archive</strong>. Using this command ensures that build is made with release configuration <strong>and</strong> all the debug symbols are stripped.
+After issuing this command, Xcode switches to the Organizer window <strong>Archives</strong> tab. For guidelines on how to calculate app size and other size-reducing tips, see Apple’s Technical Q&amp;A on <a href="https://developer.apple.com/library/content/qa/qa1795/_index.html">Reducing the size of my App</a>.</p>
+<p><strong>Note</strong>: We recommend you have some small extra margin for error when aiming for an over-the-air download limit (which currently is 150MB).</p>
+<h2 id="ios-stripping-level">iOS stripping level</h2>
+<p>Activate the size optimizations for Mono scripting backend builds by stripping work in the following way:</p>
+<ol>
+<li><p><strong>Strip assemblies</strong> level: the scripts&#39; bytecode is analyzed so that classes and methods that are not referenced from the scripts can be removed from the DLLs and thereby excluded from the AOT compilation phase. This optimization reduces the size of the main binary and accompanying DLLs and is safe as long as no reflection is used.</p>
+</li>
+<li><p><strong>Strip ByteCode</strong> level: any .NET DLLs (stored in the Data folder) are stripped down to metadata only. This is possible because all the code is already precompiled during the AOT phase and linked into the main binary.</p>
+</li>
+<li><p><strong>Use micro mscorlib</strong> level: a special, smaller version of mscorlib is used. Some components are removed from this library, for example, Security, Reflection.Emit, Remoting, non Gregorian calendars, etc. Also, interdependencies between internal components are minimized. This optimization reduces the main binary and mscorlib.dll size but it is not compatible with some System and System.Xml assembly classes, so use it with care.</p>
+</li>
+</ol>
+<p>These levels are cumulative, so level 3 optimization implicitly includes levels 2 and 1, while level 2 optimization includes level 1.</p>
+<p>Note that <strong>Micro mscorlib</strong> is a heavily stripped-down version of the core library. Only those items that are required by the Mono runtime in Unity remain. Best practice for using micro mscorlib is not to use any classes or other features of .NET that are not required by your application. GUIDs are a good example of something you could omit; they can easily be replaced with custom made pseudo GUIDs and doing this would result in better performance and app size. </p>
+<h2 id="stripping-with-il2cpp">Stripping with IL2CPP</h2>
+<p>Refer to documentation on <a href="IL2CPP-BytecodeStripping.html">managed bytecode stripping with IL2CPP</a> for more information</p>
+<p><strong>Note:</strong> Tt can sometimes be difficult to determine which classes are getting stripped in error even though the application requires them. You can often get useful information about this by running the stripped application on the simulator and checking the Xcode console for error messages.</p>
+<h3 id="simple-checklist-for-making-your-distribution-as-small-as-possible">Simple checklist for making your distribution as small as possible</h3>
+<ol>
+<li>Minimize your assets: enable compression for textures and reduce their resolution as far as possible. Also, minimize the number of uncompressed sounds. There are some additional tips for file size reduction <a href="ReducingFilesize.html">here</a>.</li>
+<li>On Mono, set the <strong>iOS Stripping Level</strong> to <strong>Use micro mscorlib</strong>, or on IL2CPP enable <strong>Strip Engine Code</strong>.</li>
+<li>Set the script call optimization level to <strong>Fast but no exceptions</strong>.</li>
+<li>Don&#39;t use anything that lives in System.dll or System.Xml.dll in your code. These libraries are <strong>not</strong> compatible with micro mscorlib.</li>
+<li>Remove unnecessary code dependencies.</li>
+<li>Set the API Compatibility Level to <strong>.Net 2.0 subset</strong>. Note that .Net 2.0 subset has limited compatibility with other libraries.</li>
+<li>Avoid generic containers in combination with value types, including structs.</li>
+</ol>
+<h3 id="how-small-can-an-app-be-made-with-unity">How small can an app be made with Unity?</h3>
+<p>An empty project would take less than 22 MB in the App Store if all the size optimizations were turned off. With code stripping, the empty scene with just the main camera can be reduced to less than 12 MB in the App Store (zipped and DRM attached). </p>
+<h3 id="why-did-my-app-increase-in-size-after-being-released-to-the-app-store">Why did my app increase in size after being released to the App Store?</h3>
+<p>When publishing your app, Apple App Store service first encrypts the binary file and then compresses it via zip. Encryption increases &#39;&#39;randomness&#39; of the code segment and thus makes it worse for compression. Check &quot;Building for distribution&quot; chapter above how to estimate App Store size before submission.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

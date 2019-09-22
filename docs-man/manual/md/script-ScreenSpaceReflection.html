@@ -1,0 +1,384 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Screen Space Raytrace Reflection (SSRR) | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Screen Space Raytrace Reflection (SSRR) | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="screen-space-raytrace-reflection-ssrr">Screen Space Raytrace Reflection (SSRR)</h1>
+
+<p>SSRR allows shiny objects to reflect their surroundings more accurately than with reflection probes in some cases. SSRR reflections are dynamic, so moving objects appear in reflections. They also line up better at contact locations.</p>
+<p><img src="../uploads/Main/ssrr-onlyrefprobe.jpg" alt="A scene with only using reflection probes"></p>
+<p><img src="../uploads/Main/ssrr-withrefprobe.jpg" alt="Using SSRR along with reflection probes"></p>
+<p>SSRR requires Deferred Shading to be used (since it needs information from the g-buffer: depth, normals, specular, smoothness, occlusion). If you are using SSAO effect too, then add it after the SSRR effect.</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><em>Property:</em></strong></th>
+<th style="text-align:left"><strong><em>Function:</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Velocity Scale</strong></td>
+<td style="text-align:left">Higher scale makes image more likely to blur.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ray Pixels Step</strong></td>
+<td style="text-align:left">Maximum error tolerated on a reflected object&#39;s silhouette. Decrease if you&#39;re seeing jagged edges on reflections seen in very smooth objects. The value shown in the GUI is actually the log of the real value used, so you&#39;ll see a speedup of about 2^r for setting this to r. larger = faster, smaller = better.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Max Steps</strong></td>
+<td style="text-align:left">Maximum number of steps to use when computing reflections. Increase if reflections are fading out too soon. Max Distance and Ray Pixels Step are better controls to use for adjusting performance and quality. Use Max Steps only to limit worst case performance in scenes with many shiny objects. smaller = faster, larger = better.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Half Resolution</strong></td>
+<td style="text-align:left">Should reflections be computed at half the resolution of the screen? Works best when surfaces are rough. Uncheck if reflections look too blurry or are showing bright lines at corners. check = faster, unchecked = better.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Expected Object Thickness</strong></td>
+<td style="text-align:left">How thick objects should appear in reflections, in world units. Increase if reflections are missing, decrease if characters, columns, or thin objects are casting reflections that appear too thick</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Screen Edge Fading</strong></td>
+<td style="text-align:left">Amount to fade out SSRR near the edge of the screen. Lower= better for still cameras, 1 = better for moving cameras.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Max Distance</strong></td>
+<td style="text-align:left">Farthest away object that can be reflected, in world units. Increase if reflections are fading out too soon. smaller = faster, larger = better (but off-screen objects can&#39;t be reflected no matter what -- tune your reflection probe boxes to make sure that they appear)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fade Distance</strong></td>
+<td style="text-align:left">Begin fading out SSR for reflections this far from the max distance in world units. Increase to fade reflections out faster.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Reflection Multiplier</strong></td>
+<td style="text-align:left">Non-physical multiplier for SSR. Use values &lt; 1 to artificially knock down the contribution of SSR. This will darken the scene and may make some artifacts harder to see.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Treat Backface Hit as Miss</strong></td>
+<td style="text-align:left">Occasionally reflection rays will hit objects facing away from the camera. By default SSR will guess that the back of the object looks like the front, which can look decent, especially on rough surfaces. However it can also lead to obvious artifacts. Tick this checkbox to simply fall back to the reflection probes at pixels where the ray hits a backfacing surface.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Suppress Backwards Rays</strong></td>
+<td style="text-align:left">Flag for disabling tracing rays back towards the camera. Enable for a performance gain in scenes where most glossy objects are horizontal, like floors, water, and tables. Leave off for scenes with glossy vertical objects.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Use HDR Intermediates</strong></td>
+<td style="text-align:left">Use high-dynamic range buffers when calculating the mirror reflection and roughness convolved buffers. Enable for better reflections of very bright objects at a performance cost, if you are using an HDR GBuffer. If you are not, enabling this will bring no quality improvement.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Min Smoothness</strong></td>
+<td style="text-align:left">Very rough surfaces can flicker using SSR, due to the heavy filtering we must do to convolve the information in realtime. Increase min smoothness to have these surfaces fallback to reflection probes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Smoothness Falloff Range</strong></td>
+<td style="text-align:left">How soon before we reach min smoothness to start falling back to reflection probes. We start falling back to non-SSR value solution at minSmoothness - smoothnessFalloffRange, with full fallback occuring at minSmoothness.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Distance Blur</strong></td>
+<td style="text-align:left">Physically correct reflections will have a smaller lobe of contributions in screen space as the reflection hit point increases in distance from the camera. Conversely, the farther from the initial surface the reflected surface is, the larger the cone of contribution. When distance blur is 0, we ignore both of these effects (which cancel out in certain cases), and when distance blur is 1 we fully take into account both effects. Intermediate values blend between both methods.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fresnel Fade</strong></td>
+<td style="text-align:left">Amplify Fresnel fade out. Increase if floor reflections look good close to the surface and bad farther &#39;under&#39; the floor.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fresnel Fade Power</strong></td>
+<td style="text-align:left">Higher values correspond to a faster Fresnel fade as the reflection changes from the grazing angle.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Bilateral Upsample</strong></td>
+<td style="text-align:left">Content-aware upsampling for rough reflection information (and sharp reflections when doing a low-resolution trace). Improves quality significantly, especially for half-resolution tracing, at the expense of some computation time.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Full Resolution Resolve</strong></td>
+<td style="text-align:left">Compute the final reflection buffer at full resolution, even if half resolution ray tracing is enabled. This drastically increases quality on mixed-smoothness scenes when half resolution tracing is used, at the expense of some computation time.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Trace Everywhere</strong></td>
+<td style="text-align:left">When enabled, trace rays even from surfaces too rough to receive screen space reflections. Then the results can be used by neighboring pixels with smoother materials. enabled = potentially better on mixed-smoothness scenes, disabled = faster.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Improve Corners</strong></td>
+<td style="text-align:left">Avoid blurring reflections between objects and across corners in the 3D scene. enabled = better, disabled = faster.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Reduce Banding</strong></td>
+<td style="text-align:left">Smooth out the reflections of individual objects when using large steps. Does nothing when Ray Pixels Step is 1. enabled = better for smooth objects, disabled = faster.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Additive Reflection</strong></td>
+<td style="text-align:left">Add the reflections from both probes and SSRR. This gives an image that is too bright and that has ghost reflections on very smooth objects. enable = if you like the result or encounter too many motion artifacts. disable = more physically correct.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="recommended-settings">Recommended Settings</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>&nbsp;</strong></th>
+<th style="text-align:left"><strong><em>Performance</em></strong></th>
+<th style="text-align:left"><strong><em>Default</em></strong></th>
+<th style="text-align:left"><strong><em>Quality</em></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Max Steps</td>
+<td style="text-align:left">64</td>
+<td style="text-align:left">128</td>
+<td style="text-align:left">512</td>
+</tr>
+<tr>
+<td style="text-align:left">Ray Pixels Step</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">Wall Thickness</td>
+<td style="text-align:left">0.5m</td>
+<td style="text-align:left">0.5m</td>
+<td style="text-align:left">0.5m</td>
+</tr>
+<tr>
+<td style="text-align:left">Screen Edge Fading</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0.03</td>
+<td style="text-align:left">0.03</td>
+</tr>
+<tr>
+<td style="text-align:left">Max Distance</td>
+<td style="text-align:left">10m</td>
+<td style="text-align:left">100m</td>
+<td style="text-align:left">100m</td>
+</tr>
+<tr>
+<td style="text-align:left">Fade Distance</td>
+<td style="text-align:left">10m</td>
+<td style="text-align:left">100m</td>
+<td style="text-align:left">100m</td>
+</tr>
+<tr>
+<td style="text-align:left">Reflection Multiplier</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">Treat Backface Hit as Miss</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">n</td>
+</tr>
+<tr>
+<td style="text-align:left">Suppress Backwards Rays</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">n</td>
+</tr>
+<tr>
+<td style="text-align:left">Use HDR Intermediates</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Y</td>
+</tr>
+<tr>
+<td style="text-align:left">Min Smoothness</td>
+<td style="text-align:left">0.4</td>
+<td style="text-align:left">0.2</td>
+<td style="text-align:left">0.2</td>
+</tr>
+<tr>
+<td style="text-align:left">Trace Everywhere</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Y</td>
+</tr>
+<tr>
+<td style="text-align:left">Distance Blur</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+</tr>
+<tr>
+<td style="text-align:left">Fresnel Fade</td>
+<td style="text-align:left">0.2</td>
+<td style="text-align:left">0.2</td>
+<td style="text-align:left">0.2</td>
+</tr>
+<tr>
+<td style="text-align:left">Half Resolution</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">n</td>
+</tr>
+<tr>
+<td style="text-align:left">Full Resolution Resolve</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Y</td>
+</tr>
+<tr>
+<td style="text-align:left">Bilateral Upsample</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Y</td>
+</tr>
+<tr>
+<td style="text-align:left">Fresnel Fade Power</td>
+<td style="text-align:left">2.0</td>
+<td style="text-align:left">2.0</td>
+<td style="text-align:left">2.0</td>
+</tr>
+<tr>
+<td style="text-align:left">Smoothness Falloff Range</td>
+<td style="text-align:left">0.05</td>
+<td style="text-align:left">0.05</td>
+<td style="text-align:left">0.05</td>
+</tr>
+<tr>
+<td style="text-align:left">Improve Corners</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Y</td>
+</tr>
+<tr>
+<td style="text-align:left">Reduce Banding</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Y</td>
+</tr>
+<tr>
+<td style="text-align:left">Additive Reflection</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">n</td>
+</tr>
+</tbody>
+</table>
+<p>You can achieve even higher quality or performance than these presets by extending some values outside of the ranges used above.</p>
+<h2 id="limitations">Limitations</h2>
+<p>SSRR is limited to reflecting objects that appear on the screen. It cannot reflect objects that are off the screen to the top, bottom, or sides, or that are hidden behind other objects.</p>
+<p>The SSRR effect replaces the reflection probes in locations where it is able to find the reflected object on screen. For the best result, combine SSRR with reflection probes. Place probes within convex areas in a scene and tune their box sizes to match the major pieces of scene geometry. This is necessary to make the transitions between SSRR and reflection probes seamless.</p>
+<p>In the real world, reflections seen in rough objects become blurrier when they are more distant from the reflector. Reflection probes do not model this behavior. SSRR blends in this feature as distanceBlur is increased from 0 to 1. </p>
+<p>Rougher surfaces need to convolve incoming light over a large glossy lobe, which, when approximated by SSRR in screen-space, can mean filtering over hundreds of pixels. In order to make this viable for real-time, rough reflections are computed at low resolution, which can lead to some flicker with camera movement (though our bilateral filter and upsampling can suppress this in many cases). Counter this by setting the minimum smoothness higher to fallback to the more stable reflection probe solution.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Spatial Mapping basic low level API usage | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Spatial Mapping basic low level API usage | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="spatial-mapping-basic-low-level-api-usage">Spatial Mapping basic low level API usage</h1>
+
+<!-- https://trello.com/c/Qw7imxOL -->
+<p>The low level API provided for <strong>Spatial Mapping</strong> offers very fine-grained control over a complicated system. </p>
+<p>The common usage patterns listed below may be useful:</p>
+<h2 id="surfaceobserver">SurfaceObserver</h2>
+<p>The most important member of <strong>Spatial Mapping</strong> low level API is the <a href="ScriptRef:XR.WSA.SurfaceObserver.html">SurfaceObserver</a>. This offers an insight into the device&#39;s understanding of the real world.</p>
+<p>A <strong>SurfaceObserver</strong> describes a volume in the world and reports which <strong>Surfaces</strong> have been added, updated, or removed. Applications can then asynchronously request Mesh data with or without physics collision data. When the request has been filled, another callback informs the application that the data is ready.</p>
+<p><strong>SurfaceObserver</strong> provides the following basic functionality:</p>
+<ol>
+<li>It issues callbacks on-demand for <strong>Surface</strong> changes like additions, removals, and updates.</li>
+<li>It provides an interface for requesting Mesh data corresponding to a known <strong>Surface</strong>.</li>
+<li>It issues callbacks when the requested Mesh data is available for use.</li>
+<li>It provides ways of defining the location and volume of the <strong>SurfaceObserver</strong>.</li>
+</ol>
+<h2 id="surfacedata">SurfaceData</h2>
+<p>The other significant moving part is the <a href="ScriptRef:XR.WSA.SurfaceData.html">SurfaceData</a> object. This contains all the information required to build and report on a <strong>Surface&#39;s</strong> Mesh data. </p>
+<p>A filled-out <strong>SurfaceData</strong> is passed to the system in a <a href="ScriptRef:XR.WSA.SurfaceObserver.RequestMeshAsync.html">RequestMeshAsync</a> call. When the Mesh data is ready, a matching <strong>SurfaceData</strong> is returned in the &quot;data ready&quot; callback supplied at request time. This allows the application to determine precisely which <strong>Surface</strong> the data corresponds to, with no ambiguity.</p>
+<p>You should fill out the <strong>SurfaceData</strong> based on the information your application needs. This includes passing in:</p>
+<ul>
+<li><a href="ScriptRef:XR.WSA.WorldAnchor.html">WorldAnchor</a></li>
+<li><a href="ScriptRef:MeshFilter.html">MeshFilter</a></li>
+<li><a href="ScriptRef:MeshCollider.html">MeshCollider</a> (if physics data is required)</li>
+<li>the triangles per cubic meter of the generated Mesh that you want</li>
+<li>the Surface ID </li>
+</ul>
+<p>The system throws argument exceptions when calling <code>RequestMeshAsync</code> with an incorrectly configured <strong>SurfaceData</strong>. Note that even if a <code>RequestMeshAsync</code> does not throw argument exceptions, there is no guarantee that Mesh data is created and returned.</p>
+<h2 id="a-simple-use-case">A simple use case</h2>
+<p>This sample outlines a basic use of this API.</p>
+<pre><code>using UnityEngine;
+using UnityEngine.XR;
+using UnityEngine.XR.WSA;
+using UnityEngine.Rendering;
+using UnityEngine.Assertions;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+public enum BakedState {
+    NeverBaked = 0,
+    Baked = 1,
+    UpdatePostBake = 2
+}
+
+// Data that is kept to prioritize surface baking.
+class SurfaceEntry {
+    public GameObject  m_Surface; // the GameObject corresponding to this surface
+    public int         m_Id; // ID for this surface
+    public DateTime    m_UpdateTime; // update time as reported by the system
+    public BakedState  m_BakedState;
+    public const float c_Extents = 5.0f;
+}
+
+public class SMSample : MonoBehaviour {
+    // This observer is the window into the spatial mapping world.  
+    SurfaceObserver m_Observer;
+
+    // This dictionary contains the set of known spatial mapping surfaces.
+    // Surfaces are updated, added, and removed on a regular basis.
+    Dictionary&lt;int, SurfaceEntry&gt; m_Surfaces;
+
+    // This is the material with which the baked surfaces are drawn.  
+    public Material m_drawMat;
+
+    // This flag is used to postpone requests if a bake is in progress.  Baking mesh
+    // data can take multiple frames.  This sample prioritizes baking request
+    // order based on surface data surfaces and will only issue a new request
+    // if there are no requests being processed.
+    bool m_WaitingForBake;
+
+    // This is the last time the SurfaceObserver was updated.  It is updated no 
+    // more than every two seconds because doing so is potentially time-consuming.
+    float m_lastUpdateTime;
+
+    void Start () {
+        m_Observer = new SurfaceObserver ();
+        m_Observer.SetVolumeAsAxisAlignedBox (new Vector3(0.0f, 0.0f, 0.0f), 
+            new Vector3 (SurfaceEntry.c_Extents, SurfaceEntry.c_Extents, SurfaceEntry.c_Extents));
+        m_Surfaces = new Dictionary&lt;int, SurfaceEntry&gt; ();
+        m_WaitingForBake = false;
+        m_lastUpdateTime = 0.0f;
+    }
+
+    void Update () {
+        // Avoid calling Update on a SurfaceObserver too frequently.
+        if (m_lastUpdateTime + 2.0f &lt; Time.realtimeSinceStartup) {
+            // This block makes the observation volume follow the camera.
+            Vector3 extents;
+            extents.x = SurfaceEntry.c_Extents;
+            extents.y = SurfaceEntry.c_Extents;
+            extents.z = SurfaceEntry.c_Extents;
+            m_Observer.SetVolumeAsAxisAlignedBox (Camera.main.transform.position, extents);
+
+            try {
+                m_Observer.Update (SurfaceChangedHandler);
+            } catch {
+                // Update can throw an exception if the specified callback was bad.
+                Debug.Log (&quot;Observer update failed unexpectedly!&quot;);
+            }
+
+            m_lastUpdateTime = Time.realtimeSinceStartup;
+        }
+
+
+        if (!m_WaitingForBake) {
+            // Prioritize older adds over other adds over updates.
+            SurfaceEntry bestSurface = null;
+            foreach (KeyValuePair&lt;int, SurfaceEntry&gt; surface in m_Surfaces) {
+                if (surface.Value.m_BakedState != BakedState.Baked) {
+                    if (bestSurface == null) {
+                        bestSurface = surface.Value;
+                    } else {
+                        if (surface.Value.m_BakedState &lt; bestSurface.m_BakedState) {
+                            bestSurface = surface.Value;
+                        } else if (surface.Value.m_UpdateTime &lt; bestSurface.m_UpdateTime) {
+                            bestSurface = surface.Value;
+                        }
+                    }
+                }
+            }
+            if (bestSurface != null) {
+                // Fill out and dispatch the request.
+                SurfaceData sd;
+                sd.id.handle = bestSurface.m_Id;
+                sd.outputMesh = bestSurface.m_Surface.GetComponent&lt;MeshFilter&gt; ();
+                sd.outputAnchor = bestSurface.m_Surface.GetComponent&lt;WorldAnchor&gt; ();
+                sd.outputCollider = bestSurface.m_Surface.GetComponent&lt;MeshCollider&gt; ();
+                sd.trianglesPerCubicMeter = 300.0f;
+                sd.bakeCollider = true;
+                try {
+                    if (m_Observer.RequestMeshAsync(sd, SurfaceDataReadyHandler)) {
+                        m_WaitingForBake = true;
+                    } else {
+                        // A return value of false when requesting meshes 
+                        // typically indicates that the specified surface
+                        // ID specified was invalid.
+                        Debug.Log(System.String.Format (&quot;Bake request for {0} failed.  Is {0} a valid Surface ID?&quot;, bestSurface.m_Id));
+                    }
+                }
+                catch {
+                    // Requests can fail if the data struct is not filled out
+                    // properly.  
+                    Debug.Log (System.String.Format(&quot;Bake for id {0} failed unexpectedly!&quot;, bestSurface.m_Id));
+                }
+            }
+        }
+    }
+
+    // This handler receives surface changed events and is propagated by the 
+    // Update method on SurfaceObserver.  
+    void SurfaceChangedHandler (SurfaceId id, SurfaceChange changeType, Bounds bounds, DateTime updateTime) {
+        SurfaceEntry entry;
+        switch (changeType) {
+            case SurfaceChange.Added:
+            case SurfaceChange.Updated:
+            if (m_Surfaces.TryGetValue(id.handle, out entry)) {
+                // If this surface has already been baked, mark it as needing bake
+                // in addition to the update time so the &quot;next surface to bake&quot; 
+                // logic will order it correctly.  
+                if (entry.m_BakedState == BakedState.Baked) {
+                    entry.m_BakedState = BakedState.UpdatePostBake;
+                    entry.m_UpdateTime = updateTime;
+                }
+            } else {
+                // This is a brand new surface so create an entry for it.
+                entry = new SurfaceEntry ();
+                entry.m_BakedState = BakedState.NeverBaked;
+                entry.m_UpdateTime = updateTime;
+                entry.m_Id = id.handle;
+                entry.m_Surface = new GameObject (System.String.Format(&quot;Surface-{0}&quot;, id.handle));
+                entry.m_Surface.AddComponent&lt;MeshFilter&gt; ();
+                entry.m_Surface.AddComponent&lt;MeshCollider&gt; ();
+                MeshRenderer mr = entry.m_Surface.AddComponent&lt;MeshRenderer&gt; ();
+                mr.shadowCastingMode = ShadowCastingMode.Off;
+                mr.receiveShadows = false;
+                entry.m_Surface.AddComponent&lt;WorldAnchor&gt; ();
+                entry.m_Surface.GetComponent&lt;MeshRenderer&gt; ().sharedMaterial = m_drawMat;
+                m_Surfaces[id.handle] = entry;
+            }
+            break;
+
+            case SurfaceChange.Removed:
+            if (m_Surfaces.TryGetValue(id.handle, out entry)) {
+                m_Surfaces.Remove (id.handle);
+                Mesh mesh = entry.m_Surface.GetComponent&lt;MeshFilter&gt; ().mesh;
+                if (mesh) {
+                    Destroy (mesh);
+                }
+                Destroy (entry.m_Surface);
+            }
+            break;
+        }
+    }
+
+    void SurfaceDataReadyHandler(SurfaceData sd, bool outputWritten, float elapsedBakeTimeSeconds) {
+        m_WaitingForBake = false;
+        SurfaceEntry entry;
+        if (m_Surfaces.TryGetValue(sd.id.handle, out entry)) {
+            // These two asserts are checking that the returned filter and WorldAnchor
+            // are the same ones that the data was requested with.  That should always
+            // be true here unless code has been changed to replace or destroy them.
+            Assert.IsTrue (sd.outputMesh == entry.m_Surface.GetComponent&lt;MeshFilter&gt;());
+            Assert.IsTrue (sd.outputAnchor == entry.m_Surface.GetComponent&lt;WorldAnchor&gt;());
+            entry.m_BakedState = BakedState.Baked;
+        } else {
+            Debug.Log (System.String.Format(&quot;Paranoia:  Couldn&#39;t find surface {0} after a bake!&quot;, sd.id.handle));
+            Assert.IsTrue (false);
+        }
+    }
+}
+</code></pre><p>Note that call <a href="ScriptRef:XR.WSA.SurfaceObserver.Update.html">Update</a> can be resource-intensive and should not be called more often than an application requires. Calling <strong>Update</strong> once every three seconds should be sufficient for most use cases.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

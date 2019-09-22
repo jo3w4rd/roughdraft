@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-MC35ML');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>WebGL Graphics | Unity Technologies Developer Guide </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="WebGL Graphics | Unity Technologies Developer Guide ">
+    <meta name="generator" content="docfx 2.40.7.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MC35ML" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="webgl-graphics">WebGL Graphics</h1>
+
+<p><a href="https://www.khronos.org/webgl/">WebGL</a> is an API for rendering graphics in web browsers, which is based on the functionality of the OpenGL ES graphics library. WebGL 1.0 roughly matches OpenGL ES 2.0 functionality, and WebGL 2.0 roughly matches OpenGL ES 3.0 functionality.</p>
+<h2 id="deferred-rendering">Deferred Rendering</h2>
+<p>Unity WebGL only supports <a href="RenderTech-DeferredShading.html">Deferred Rendering Path</a> if WebGL2.0 is available. On WebGL1.0, Unity WebGL runtime will fallback to <a href="RenderTech-ForwardRendering.html">Forward Rendering</a>.</p>
+<h2 id="global-illumination">Global Illumination</h2>
+<p>Unity WebGL only supports <a href="GIIntro.html">baked GI</a>. Realtime GI is not currently supported in WebGL. Furthermore, only Non-Directional lightmaps are supported.</p>
+<h2 id="linear-rendering">Linear Rendering</h2>
+<p>Unity WebGL only supports <a href="LinearLighting.html">linear color space rendering</a> with WebGL 2.0. Linear color space rendering doesn&#39;t have fallback support for WebGL 1.0. To build a WebGL player using linear color space rendering, you need to remove WebGL 1.0 API in the <strong>Player</strong> settings, open the <strong>Other Settings</strong> panel, disable the <strong>Automatic Graphics API</strong> setting.</p>
+<p>Some web browsers don&#39;t support <a href="class-TextureImporterOverride.html">sRGB DXT texture compression</a>. This can decrease the quality of rendering performance when using linear rendering, due to runtime decompression of all the DXT textures.</p>
+<h2 id="movietextures">MovieTextures</h2>
+<p>WebGL does not support playing Video using the MovieTexture class. However, you can efficiently play back video in your WebGL content using the HTML5 video element. Download this <a href="https://www.assetstore.unity3d.com/en/#!/content/38369">Asset Store package</a> for an example of how to do so.</p>
+<h2 id="webgl-shader-code-restrictions">WebGL Shader code restrictions</h2>
+<p>The <a href="https://www.khronos.org/registry/webgl/specs/1.0/">WebGL 1.0 specification</a> imposes some limitations on GLSLS shader code, which are more restrictive than many OpenGL ES 2.0 implementations. This is mostly relevant when you write your own shaders.</p>
+<p>Specifically, WebGL has restriction on which values can be used to index arrays or matrices: WebGL only allows dynamic indexing with constant expressions, loop indices or a combination. The only exception is for uniform access in vertex shaders, which can be indexed using any expression.</p>
+<p>Also, restrictions apply on control structures. The only type of loops which are allowed are counting <em>for</em> loops, where the initializer initializes a variable to a constant, the update adds a constant to or subtracts a constant from the variable, and the continuation test compares the variable to a constant. <em>for</em> loops which don&#39;t match those criteria and <em>while</em> loops are not allowed.</p>
+<h2 id="font-rendering">Font rendering</h2>
+<p>Unity WebGL supports dynamic font rendering like all Unity platforms. However, it does not have access to the fonts installed on the user&#39;s machine, so any fonts used must be included in the project folder (including any fallback fonts for international characters, or bold/italic versions of fonts), and <a href="class-Font.html">set up as fallback font names</a>.</p>
+<h2 id="anti-aliasing">Anti-Aliasing</h2>
+<p>WebGL supports anti-aliasing on most (but not on all) combinations of browsers and GPUs. To use it, anti-aliasing must be enabled in the default <a href="class-QualitySettings.html">Quality</a> setting for the WebGL platform.</p>
+<p>Note that on WebGL1.0 there are several limitations:</p>
+<ul>
+<li><p>Switching <strong>Quality</strong> settings at runtime will not enable or disable anti-aliasing. It has to be set up in the default <strong>Quality</strong> setting loaded at player start up. </p>
+</li>
+<li><p>The different multi sampling levels (2x, 4x, etc..) have no effect in WebGL, it&#39;s either on or off.</p>
+</li>
+<li><p>Any <a href="PostProcessingOverview.html">post-processing effect</a> applied to the camera disables the built-in Anti-Aliasing.</p>
+</li>
+<li><p>HDR is not compatible with anti-aliasing so make sure the <strong>Allow HDR</strong> camera option is disabled.</p>
+</li>
+</ul>
+<p>There are no such limitations on WebGL2.0.</p>
+<h2 id="reflection-probes">Reflection Probes</h2>
+<p>Reflection probes are supported in WebGL, but due to limitations in the WebGL specification about rendering to specific mipmaps, smooth realtime reflection probes are not supported (so realtime reflection probes will always generate sharp reflections, which may appear very low-resolution). Smooth realtime reflection probes will require WebGL 2.0.</p>
+<h2 id="webgl-20-support">WebGL 2.0 support</h2>
+<p>Unity includes support for the <a href="https://www.khronos.org/registry/webgl/specs/latest/2.0/">WebGL 2.0 API</a>, which brings OpenGL ES 3.0-level rendering capabilities to the web. </p>
+<p>By default, Unity WebGL builds support both WebGL 1.0 and WebGL 2.0 APIs, This can be configured in the WebGL <strong>Player</strong> settings under the <strong>Other Settings</strong> panel by disabling the <strong>Automatic Graphics API</strong> property.</p>
+<p>When WebGL 2.0 is supported in browsers, content can benefit from a better quality in the Standard Shader, <a href="GPUInstancing.html">GPU Instancing</a> support, directional lightmap support, no restrictions on indexing and loops in shader code, and better performance.</p>
+<p>You can use <a href="ScriptRef:SystemInfo-graphicsDeviceType.html">SystemInfo.graphicsDeviceType</a> at run time to determine whether the Unity instance is rendering with OpenGLES3 (WebGL2.0) or OpenGLES2 (WebGL1.0).</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

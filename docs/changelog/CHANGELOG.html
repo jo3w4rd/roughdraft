@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Change log | Unity Hybrid Renderer | test </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Change log | Unity Hybrid Renderer | test ">
+    <meta name="generator" content="docfx 2.40.12.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Unity Hybrid Renderer | test">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="change-log">Change log</h1>
+
+<h2 id="020-preview0---2019-09-19">[0.2.0-preview.0] - 2019-09-19</h2>
+<p><strong>This version requires Unity 2019.3 (0b3+)</strong></p>
+<h3 id="fixes">Fixes</h3>
+<ul>
+<li>Fixed an issue where disabled UnityEngine Components were not getting ignored when converted via <code>ConvertToEntity</code> (it only was working for subscenes).</li>
+</ul>
+<h3 id="changes">Changes</h3>
+<ul>
+<li>Removed LightSystem and light conversion.</li>
+<li>Updated dependencies for this package.</li>
+</ul>
+<h3 id="upgrade-guide">Upgrade guide</h3>
+<ul>
+<li>LightSystem was removed<ul>
+<li>Lightsystem was not performance by default and the concept of driving a game object from a component turned out to be not performance by default. It was also not maintainable because every property added to lights has to be reflected in this package.</li>
+<li>LightSystem will be replaced with hybrid entities in the future. This will be a more clean uniform API for graphics related functionalities. </li>
+</ul>
+</li>
+</ul>
+<h2 id="011-preview---2019-08-06">[0.1.1-preview] - 2019-08-06</h2>
+<h3 id="fixes-1">Fixes</h3>
+<ul>
+<li>Adding a disabled tag component, now correctly disables the light.</li>
+</ul>
+<h3 id="changes-1">Changes</h3>
+<ul>
+<li>Updated dependencies for this package.</li>
+</ul>
+<h2 id="010-preview---2019-07-30">[0.1.0-preview] - 2019-07-30</h2>
+<h3 id="new-features">New Features</h3>
+<ul>
+<li>New <code>GameObjectConversionSettings</code> class that we are using to help manage the various and growing settings that can tune a GameObject conversion.</li>
+<li>New ability to convert and export Assets, which is initially needed for Tiny.<ul>
+<li>Assets are discovered via <code>DeclareReferencedAsset</code> in the <code>GameObjectConversionDeclareObjectsGroup</code> phase and can then be converted by a System during normal conversion phases.</li>
+<li>Assets can be marked for export and assigned a guid via <code>GameObjectConversionSystem.GetGuidForAssetExport</code>. During the System <code>GameObjectExportGroup</code> phase, the converted assets can be exported via <code>TryCreateAssetExportWriter</code>.</li>
+</ul>
+</li>
+<li><code>GetPrimaryEntity</code>, <code>HasPrimaryEntity</code>, and the new <code>TryGetPrimaryEntity</code> all now work on <code>UnityEngine.Object</code> instead of <code>GameObject</code> so that they can also query against Unity Assets.</li>
+</ul>
+<h3 id="upgrade-guide-1">Upgrade guide</h3>
+<ul>
+<li>Various GameObject conversion-related methods now receive a <code>GameObjectConversionSettings</code> object rather than a set of misc config params.<ul>
+<li><code>GameObjectConversionSettings</code> has implicit constructors for common parameters such as <code>World</code>, so much existing code will likely just work.</li>
+<li>Otherwise construct a <code>GameObjectConversionSettings</code>, configure it with the parameters you used previously, and send it in.</li>
+</ul>
+</li>
+<li><code>GameObjectConversionSystem</code>: <code>AddLinkedEntityGroup</code> is now <code>DeclareLinkedEntityGroup</code> (should auto-upgrade).</li>
+<li>The System group <code>GameObjectConversionDeclarePrefabsGroup</code> is now <code>GameObjectConversionDeclareObjectsGroup</code>. This cannot auto-upgrade but a global find&amp;replace will fix it.</li>
+<li><code>GameObjectConversionUtility.ConversionFlags.None</code> is gone, use 0 instead.</li>
+</ul>
+<h3 id="changes-2">Changes</h3>
+<ul>
+<li>Changing <code>entities</code> dependency to latest version (<code>0.1.0-preview</code>).</li>
+</ul>
+<h2 id="001-preview13---2019-05-24">[0.0.1-preview.13] - 2019-05-24</h2>
+<h3 id="changes-3">Changes</h3>
+<ul>
+<li>Changing <code>entities</code> dependency to latest version (<code>0.0.12-preview.33</code>). </li>
+</ul>
+<h2 id="001-preview12---2019-05-16">[0.0.1-preview.12] - 2019-05-16</h2>
+<h3 id="fixes-2">Fixes</h3>
+<ul>
+<li>Adding/fixing <code>Equals</code> and <code>GetHashCode</code> for proxy components. </li>
+</ul>
+<h2 id="001-preview11---2019-05-01">[0.0.1-preview.11] - 2019-05-01</h2>
+<p>Change tracking started with this version.</p>
+<!-- Template for version sections
+## [0.0.0-preview.0]
+
+### New Features
+
+
+### Upgrade guide
+
+
+### Changes
+
+
+### Fixes
+-->
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
