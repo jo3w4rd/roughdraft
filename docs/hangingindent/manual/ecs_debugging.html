@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Debugging ECS | Unity Entities Documentation | 0.2.0-preview.12 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Debugging ECS | Unity Entities Documentation | 0.2.0-preview.12 ">
+    <meta name="generator" content="docfx 2.40.12.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.2.0-preview.12">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ecs-debugging">
+<h1 id="debugging-ecs">Debugging ECS</h1>
+
+<blockquote><p>Synopsis: All about debugging ECS
+Outline:
+Entity Debugger
+Inspecting an Entity
+Live-link</p>
+</blockquote>
+<p><a name="entity_debugger"></a></p>
+<h2 id="entity-debugger">Entity Debugger</h2>
+<p>The Entity Debugger allows you to visualize your entities, systems, and components </p>
+<p>Open the entity Debugger window using the menu: Window &gt; Analysis &gt; Entity Debugger.</p>
+<p><a name="systems_list"></a></p>
+<h3 id="systems-list">Systems list</h3>
+<p>The Systems list shows the systems in your project and how much time a system takes to run each frame. You can turn systems on and off from the list using the checkbox provided for each system.</p>
+<p>Use the System Display control drop down at the top of the list to control what to display in the System list. The System Display control contains:</p>
+<ul>
+<li>Worlds — Choose the World containing the entities and ComponentSystems to display. By default, an <strong>Editor World</strong> exists when not in play mode and a <strong>Default World</strong> exists in play mode. </li>
+<li><strong>Show Full Player Loop</strong> option — Choose to display the systems of all Worlds and show all of the Unity execution phases (not just those containing systems).</li>
+<li><strong>Show Inactive Systems</strong> option — Choose to show systems that are not currently running in addition to the running systems.</li>
+</ul>
+<p>Select a system to view its details.</p>
+<p><strong>Note:</strong> If you select the EntityManager entry in the System list, then you have different options on the System details section.</p>
+<p><a name="system_details"></a></p>
+<h3 id="system-details">System details</h3>
+<p>The System details section shows the groups of components that a System operates on and the list of entities associated with those component groups.</p>
+<p> Each component group shows the components in the group along with the number of entities associated with it. Select a component group  to view information about the Chunks containing the data for the components in the group.</p>
+<p> When you select the EntityManager entry in the system list, the details section shows all of the entities in the displayed World. When you display a World (rather than the full player loop), you can also filter the list of entities by component</p>
+<p> To filter the Entity list:</p>
+<ol>
+<li>Select a World in the System Display control.</li>
+<li>Select the EntityManager for that World.</li>
+<li>At the top of the System details section, click <strong>Edit</strong>.</li>
+<li>In the <strong>Choose Component</strong> window, check the components whose entities you want to view.</li>
+</ol>
+<p><a name="chunk_information"></a></p>
+<h3 id="chunk-information">Chunk information</h3>
+<p>The Chunk information section shows the Chunks containing data for the components and entities selected in the details section.</p>
+<h2 id="inspecting-an-entity">Inspecting an Entity</h2>
+<p>Select an entity in the Entity Debugger to view its data in the Unity Inspector window.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

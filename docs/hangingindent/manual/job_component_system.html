@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>JobComponentSystem | Unity Entities Documentation | 0.2.0-preview.12 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="JobComponentSystem | Unity Entities Documentation | 0.2.0-preview.12 ">
+    <meta name="generator" content="docfx 2.40.12.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.2.0-preview.12">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ecs-job-component-system">
+<h1 id="jobcomponentsystem">JobComponentSystem</h1>
+
+<h2 id="automatic-job-dependency-management">Automatic job dependency management</h2>
+<p>Managing dependencies is hard. This is why in <code>JobComponentSystem</code> we are doing it automatically for you. The rules are simple: jobs from different systems can read from <code>IComponentData</code> of the same type in parallel. If one of the jobs is writing to the data then they can&#39;t run in parallel and will be scheduled with a dependency between the jobs.</p>
+<pre><code class="lang-cs">public class RotationSpeedSystem : JobComponentSystem
+{
+    [BurstCompile]
+    struct RotationSpeedRotation : IJobForEach&lt;Rotation, RotationSpeed&gt;
+    {
+        public float dt;
+
+        public void Execute(ref Rotation rotation, [ReadOnly]ref RotationSpeed speed)
+        {
+            rotation.value = math.mul(math.normalize(rotation.value), quaternion.axisAngle(math.up(), speed.speed * dt));
+        }
+    }
+
+    // Any previously scheduled jobs reading/writing from Rotation or writing to RotationSpeed 
+    // will automatically be included in the inputDeps dependency.
+    protected override JobHandle OnUpdate(JobHandle inputDeps)
+    {
+        var job = new RotationSpeedRotation() { dt = Time.deltaTime };
+        return job.Schedule(this, inputDeps);
+    } 
+}
+</code></pre><h2 id="how-does-this-work">How does this work?</h2>
+<p>All jobs and thus systems declare what ComponentTypes they read or write to. As a result when a JobComponentSystem returns a <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a> it is automatically registered with the <code>EntityManager</code> and all the types including the information about if it is reading or writing.</p>
+<p>Thus if a system writes to component <code>A</code>, and another system later on reads from component <code>A</code>, then the <code>JobComponentSystem</code> looks through the list of types it is reading from and thus passes you a dependency against the job from the first system.</p>
+<p><code>JobComponentSystem</code> simply chains jobs as dependencies where needed and thus causes no stalls on the main thread. But what happens if a non-job <code>ComponentSystem</code> accesses the same data? Because all access is declared, the <code>ComponentSystem</code> automatically completes all jobs running against component types that the system uses before invoking <code>OnUpdate</code>.</p>
+<h2 id="dependency-management-is-conservative--deterministic">Dependency management is conservative &amp; deterministic</h2>
+<p>Dependency management is conservative. <code>ComponentSystem</code> simply tracks all <code>EntityQuery</code>objects ever used and stores which types are being written or read based on that. </p>
+<!-- TODO non-injection example
+(So if you inject an `ComponentDataArray` or use `IJobForEach` once but skip using it sometimes, then we will create dependencies against all `EntityQuery` objects that have ever been used by that `ComponentSystem`.)
+-->
+<p>Also when scheduling multiple jobs in a single system, dependencies must be passed to all jobs even though different jobs may need less dependencies. If that proves to be a performance issue the best solution is to split a system into two.</p>
+<p>The dependency management approach is conservative. It allows for deterministic and correct behaviour while providing a very simple API.</p>
+<h2 id="sync-points">Sync points</h2>
+<p>All structural changes have hard sync points. <code>CreateEntity</code>, <code>Instantiate</code>, <code>Destroy</code>, <code>AddComponent</code>, <code>RemoveComponent</code>, <code>SetSharedComponentData</code> all have a hard sync point. Meaning all jobs scheduled through <code>JobComponentSystem</code> will be completed before creating the entity, for example. This happens automatically. So for instance: calling <code>EntityManager.CreateEntity</code> in the middle of the frame might result in a large stall waiting for all previously scheduled jobs in the <code>World</code> to complete.</p>
+<p>See <a href="entity_command_buffer.html">EntityCommandBuffer</a> for more on avoiding sync points when creating entities during game play.</p>
+<h2 id="multiple-worlds">Multiple Worlds</h2>
+<p>Every <code>World</code> has its own <code>EntityManager</code> and thus a separate set of <code>JobHandle</code> dependency management. A hard sync point in one world will not affect the other <code>World</code>. As a result, for streaming and procedural generation scenarios, it is useful to create entities in one <code>World</code> and then move them to another <code>World</code> in one transaction at the beginning of the frame. </p>
+<p>See <a href="exclusive_entity_transaction.html">ExclusiveEntityTransaction</a> for more on avoiding sync points for procedural generation &amp; streaming scenarios and <a href="system_update_order.html">System update order</a>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

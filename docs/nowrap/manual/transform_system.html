@@ -1,0 +1,1609 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>TransformSystem | Unity Entities Documentation | 0.2.0-preview.12 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="TransformSystem | Unity Entities Documentation | 0.2.0-preview.12 ">
+    <meta name="generator" content="docfx 2.40.12.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.2.0-preview.12">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="gameplay-transform-system">
+<h1 id="transformsystem">TransformSystem</h1>
+
+<hr>
+<h2 id="section-1-non-hierarchical-transforms-basic">Section 1: Non-hierarchical Transforms (Basic)</h2>
+<p>LocalToWorld (float4x4) represents the transform from local space to world space. It is the canonical representation and is the only component and can be relied upon to communicate local space among systems. </p>
+<ul>
+<li>Some DOTS features may rely on the existence of LocalToWorld in order to function. </li>
+<li>For example, the RenderMesh component relies on the LocalToWorld component to exist for rendering an instance.</li>
+<li>If only the LocalToWorld transform component exists, no transform system will write or affect the LocalToWorld data.</li>
+<li>User code may write directly to LocalToWorld to define the transform for an instance, if no other transform components are associated with the same entity.</li>
+</ul>
+<p>The purpose of all transform systems and all other transform components is to provide interfaces to write to LocalToWorld.</p>
+<p>LocalToWorld = Translation * Rotation * Scale</p>
+<p>If any combination of Translation (float3), Rotation (quaternion), or Scale (float) components are present along with a LocalToWorld component, a transform system will combine those components and write to LocalToWorld. </p>
+<p>Concretely, each of these component combinations will write to LocalToWorld as:</p>
+<ul>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation * Rotation</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation * Rotation * Scale</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Rotation</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Rotation * Scale</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Scale</li>
+</ul>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+</tr>
+<tr>
+<td>Rotation</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ul>
+<li>[TRSToLocalToWorldSystem] Write LocalToWorld &lt;= Translation * Rotation </li>
+</ul>
+<p><img src="images/sec1-1.png" alt=""></p>
+<p>Or, if the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+</tr>
+<tr>
+<td>Rotation</td>
+</tr>
+<tr>
+<td>Scale</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ul>
+<li>[TRSToLocalToWorldSystem] Write LocalToWorld &lt;= Translation * Rotation * Scale</li>
+</ul>
+<p><img src="images/sec1-2.png" alt=""></p>
+<hr>
+<h2 id="section-2-hierarchical-transforms-basic">Section 2: Hierarchical Transforms (Basic)</h2>
+<p>LocalToParent and Parent components are required for the transform system to write a LocalToWorld based on a hierarchical transform.</p>
+<ul>
+<li>LocalToParent (float4x4) represents the transform from local space to parent local space. </li>
+<li>Parent (Entity) references the parent&#39;s LocalToWorld.</li>
+<li>User code may write directly to LocalToParent, if no other transform system is defined as writing to it.</li>
+</ul>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>Parent (Entity)</th>
+<th>Child (Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>LocalToParent</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>Parent</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[TRSToLocalToWorldSystem] Parent: Write LocalToWorld as defined above in &quot;Non-hierarchical Transforms (Basic)&quot;</li>
+<li>[LocalToParentSystem]     Child: Write LocalToWorld &lt;= LocalToWorld[Parent] * LocalToParent</li>
+</ol>
+<p><img src="images/sec2-1.png" alt=""></p>
+<p>LocalToWorld components associated with Parent Entity IDs are guaranteed to be computed before multiplies with LocalToParent associated with Child Entity ID.</p>
+<p>Note: Cyclical graph relationships are invalid. Results are undefined.</p>
+<p>When the hierarchy (topology) is changed (i.e. Any Parent component is added, removed or changed) internal state is added as SystemStateComponentData as:</p>
+<ul>
+<li>Child component (ISystemStateBufferElementData of Entity) associated with the Parent Entity ID </li>
+<li>PreviousParent component (ISystemStateComponentData of Entity) associated with the Child Entity ID</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Parent (Entity)</th>
+<th>Child (Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>LocalToParent</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>Parent</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>PreviousParent*</td>
+</tr>
+<tr>
+<td>Child*</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Adding, removing, and updating of these components is handled by the [ParentSystem]. It is not expected that systems external to transform systems will read or write to these components.</p>
+<p>LocalToParent = Translation * Rotation * Scale</p>
+<p>If any combination of Translation (float3), Rotation (quaternion), or Scale (float) components are present along with a LocalToParent component, a transform system will combine those components and write to LocalToParent. </p>
+<p>Concretely, each of these component combinations will write to LocalToParent as:</p>
+<ul>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * Rotation</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * Rotation * Scale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Rotation</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Rotation * Scale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Scale</li>
+</ul>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>Parent (Entity)</th>
+<th>Child (Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>LocalToParent</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>Parent</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>PreviousParent*</td>
+</tr>
+<tr>
+<td>Child*</td>
+<td>Translation</td>
+</tr>
+<tr>
+<td></td>
+<td>Rotation</td>
+</tr>
+<tr>
+<td></td>
+<td>Scale</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[TRSToLocalToWorldSystem]  Parent: Write LocalToWorld as defined above in &quot;Non-hierarchical Transforms (Basic)&quot;</li>
+<li>[TRSToLocalToParentSystem] Child:  Write LocalToParent &lt;= Translation * Rotation * Scale</li>
+<li>[LocalToParentSystem]      Child:  Write LocalToWorld &lt;= LocalToWorld[Parent] * LocalToParent</li>
+</ol>
+<p><img src="images/sec2-2.png" alt=""></p>
+<p>Parents may of course themselves be children of other LocalToWorld components. </p>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>Parent (Entity)</th>
+<th>Child (Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>LocalToParent</td>
+<td>LocalToParent</td>
+</tr>
+<tr>
+<td>Parent</td>
+<td>Parent</td>
+</tr>
+<tr>
+<td>PreviousParent*</td>
+<td>PreviousParent*</td>
+</tr>
+<tr>
+<td>Child*</td>
+<td>Translation</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>Rotation</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>Scale</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[TRSToLocalToParentSystem] Parent: Write LocalToParent &lt;= Translation * Rotation * Scale</li>
+<li>[TRSToLocalToParentSystem] Child:  Write LocalToParent &lt;= Translation * Rotation * Scale</li>
+<li>[LocalToParentSystem]      Parent: Write LocalToWorld &lt;= LocalToWorld[Parent] * LocalToParent</li>
+<li>[LocalToParentSystem]      Child:  Write LocalToWorld &lt;= LocalToWorld[Parent] * LocalToParent</li>
+</ol>
+<p><img src="images/sec2-3.png" alt=""></p>
+<hr>
+<h2 id="section-3-default-conversion-basic">Section 3: Default Conversion (Basic)</h2>
+<p>Hybrid Conversion:</p>
+<p>UnityEngine.Transform MonoBehaviours which are part of GameObjects and are included in Sub Scenes or are on GameObjects with &quot;Convert To Entity&quot; Monobehaviours attached, have a default conversion to Transform system components. That conversion can be found in TransformConversion system in the Unity.Transforms.Hybrid assembly.</p>
+<ol>
+<li>Entities associated with the GameObject being transformed which have a Static component, only have LocalToWorld added to the resulting entity. So in the case of static instances, no transform system update will happen at runtime.</li>
+<li>For non-Static entities,
+a. Translation component will be added with the Transform.position value.
+b. Rotation component will be added with the Transform.rotation value.
+c. Transform.parent == null<ul>
+<li>For non-unit Transform.localScale, NonUniformScale component will be added with the Transform.localScale value.
+d. If Transform.parent != null, but at the start of the (partial) hierarchy being converted:</li>
+<li>For non-unit Transform.lossyScale, NonUniformScale component will be added with the Transform.lossyScale value.
+e. For other cases where Transform.parent != null,</li>
+<li>Parent component will be added with the Entity referring to the converted Transform.parent GameObject.</li>
+<li>LocalToParent component will be added.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="section-4-non-hierarchical-transforms-advanced">Section 4: Non-hierarchical Transforms (Advanced)</h2>
+<p>NonUniformScale (float3) as an alternative to Scale to specify scale per-axis. Note that not all DOTS features fully support non-uniform scale. Be sure to check those features’ documentation to understand their limitations.</p>
+<ul>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation * Rotation</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation * Rotation * NonUniformScale</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Rotation</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Rotation * NonUniformScale</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= NonUniformScale</li>
+</ul>
+<p>The presence of both Scale and NonUniform scale is not a valid case, but the result is defined. Scale will be used, NonUniformScale will be ignored.</p>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+</tr>
+<tr>
+<td>Rotation</td>
+</tr>
+<tr>
+<td>NonUniformScale</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ul>
+<li>[TRSToLocalToWorldSystem] Write LocalToWorld &lt;= Translation * Rotation * NonUniformScale</li>
+</ul>
+<p><img src="images/sec4-1.png" alt=""></p>
+<p>The Rotation component may be written to directly as a quaternion by user code. However, if an Euler interface is preferred, components are available for each rotation order which will cause a write to the Rotation component if present. </p>
+<ul>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerXYZ</li>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerXZY</li>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerYXZ</li>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerYZX</li>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerZXY</li>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerZYX</li>
+</ul>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+</tr>
+<tr>
+<td>Rotation</td>
+</tr>
+<tr>
+<td>RotationEulerXYZ</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[RotationEulerSystem]     Write Rotation &lt;= RotationEulerXYZ</li>
+<li>[TRSToLocalToWorldSystem] Write LocalToWorld &lt;= Translation * Rotation * Scale</li>
+</ol>
+<p><img src="images/sec4-2.png" alt=""></p>
+<p>It is a setup error to have more than one RotationEuler*** component is associated with the same Entity, however the result is defined. The first to be found in the order of precedence will be applied. That order is:</p>
+<ol>
+<li>RotationEulerXYZ</li>
+<li>RotationEulerXZY</li>
+<li>RotationEulerYXZ</li>
+<li>RotationEulerYZX</li>
+<li>RotationEulerZXY</li>
+<li>RotationEulerZYX</li>
+</ol>
+<p>For more complex Rotation requirements, a CompositeRotation (float4x4) component may be used as an alternative to Rotation.</p>
+<p>All of the combinations which are valid for Rotation are also valid for CompositeRotation. i.e.</p>
+<ul>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation * CompositeRotation</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation * CompositeRotation * Scale</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= CompositeRotation</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= CompositeRotation * Scale</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation * CompositeRotation</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation * CompositeRotation * NonUniformScale</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= CompositeRotation</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= CompositeRotation * NonUniformScale</li>
+</ul>
+<p>The CompositeRotation component may be written to directly as a float4x4 by user code. However, if a Maya/FBX-style interface is preferred, components are available which will write to the CompositeRotation component if present.</p>
+<p>CompositeRotation = RotationPivotTranslation * RotationPivot * Rotation * PostRotation * RotationPivot^-1</p>
+<p>If any combination of RotationPivotTranslation (float3), RotationPivot (float3), Rotation (quaternion), or PostRotation (quaternion) components are present along with a CompositeRotation component, a transform system will combine those components and write to CompositeRotation. </p>
+<p>Concretely, each of these component combinations will write to CompositeRotation as:</p>
+<ul>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * Rotation * RotationPivot^-1</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * Rotation * PostRotation * RotationPivot^-1</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * PostRotation * RotationPivot^-1</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * Rotation</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * Rotation * PostRotation</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * PostRotation </li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivot * Rotation * RotationPivot^-1</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivot * Rotation * PostRotation * RotationPivot^-1</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= PostRotation</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= Rotation </li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= Rotation * PostRotation</li>
+</ul>
+<p>Cases where RotationPivot is specified without either of Rotation, PostRotation have no additional affect on CompositeRotation.</p>
+<p>Note that since Rotation is re-used as a source for CompositeRotation, the alternative data interfaces to Rotation are still available.</p>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+</tr>
+<tr>
+<td>CompositeRotation</td>
+</tr>
+<tr>
+<td>Rotation</td>
+</tr>
+<tr>
+<td>RotationPivotTranslation</td>
+</tr>
+<tr>
+<td>RotationPivot</td>
+</tr>
+<tr>
+<td>PostRotation</td>
+</tr>
+<tr>
+<td>RotationEulerXYZ</td>
+</tr>
+<tr>
+<td>Scale</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[CompositeRotationSystem] Write CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * Rotation * PostRotation * RotationPivot^-1</li>
+<li>[TRSToLocalToWorldSystem] Write LocalToWorld &lt;= Translation * CompositeRotation * Scale</li>
+</ol>
+<p><img src="images/sec4-3.png" alt=""></p>
+<p>The PostRotation component may be written to directly as a quaternion by user code. However, if an Euler interface is preferred, components are available for each rotation order which will cause a write to the PostRotation component if present. </p>
+<ul>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerXYZ</li>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerXZY</li>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerYXZ</li>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerYZX</li>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerZXY</li>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerZYX</li>
+</ul>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+</tr>
+<tr>
+<td>CompositeRotation</td>
+</tr>
+<tr>
+<td>Rotation</td>
+</tr>
+<tr>
+<td>RotationPivotTranslation</td>
+</tr>
+<tr>
+<td>RotationPivot</td>
+</tr>
+<tr>
+<td>RotationEulerXYZ</td>
+</tr>
+<tr>
+<td>PostRotation</td>
+</tr>
+<tr>
+<td>PostRotationEulerXYZ</td>
+</tr>
+<tr>
+<td>Scale</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[RotationEulerSystem]     Write Rotation &lt;= RotationEulerXYZ</li>
+<li>[PostRotationEulerSystem] Write PostRotation &lt;= PostRotationEulerXYZ</li>
+<li>[CompositeRotationSystem] Write CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * Rotation * PostRotation * RotationPivot^-1</li>
+<li>[TRSToLocalToWorldSystem] Write LocalToWorld &lt;= Translation * CompositeRotation * Scale</li>
+</ol>
+<p><img src="images/sec4-4.png" alt=""></p>
+<p>For more complex Scale requirements, a CompositeScale (float4x4) component may be used as an alternative to Scale (or NonUniformScale).</p>
+<p>All of the combinations which are valid for Scale or NonUniformScale are also valid for CompositeScale. i.e.</p>
+<ul>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation * Rotation * CompositeScale</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Rotation * CompositeScale</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= CompositeScale</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= Translation * CompositeRotation * CompositeScale</li>
+<li>[TRSToLocalToWorldSystem] LocalToWorld &lt;= CompositeRotation * CompositeScale</li>
+</ul>
+<p>The CompositeScale component may be written to directly as a float4x4 by user code. However, if a Maya/FBX-style interface is preferred, components are available which will write to the CompositeScale component if present.</p>
+<p>CompositeScale = ScalePivotTranslation * ScalePivot * Scale * ScalePivot^-1
+CompositeScale = ScalePivotTranslation * ScalePivot * NonUniformScale * ScalePivot^-1</p>
+<p>If any combination of ScalePivotTranslation (float3), ScalePivot (float3), Scale (float) components are present along with a CompositeScale component, a transform system will combine those components and write to CompositeScale. </p>
+<p>Alternatively, if any combination of ScalePivotTranslation (float3), ScalePivot (float3), NonUniformScale (float3) components are present along with a CompositeScale component, a transform system will combine those components and write to CompositeScale. </p>
+<p>Concretely, each of these component combinations will write to CompositeRotation as:</p>
+<ul>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivotTranslation</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivotTranslation * ScalePivot * Scale * ScalePivot^-1</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivotTranslation * Scale</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivot * Scale * ScalePivot^-1</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= Scale </li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivotTranslation * ScalePivot * NonUniformScale * ScalePivot^-1</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivotTranslation * Scale</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivot * NonUniformScale * ScalePivot^-1</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= NonUniformScale </li>
+</ul>
+<p>Cases where ScalePivot is specified without either of Scale, NonUniformScale have no additional effect have no additional affect on CompositeScale.</p>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+</tr>
+<tr>
+<td>CompositeRotation</td>
+</tr>
+<tr>
+<td>Rotation</td>
+</tr>
+<tr>
+<td>RotationPivotTranslation</td>
+</tr>
+<tr>
+<td>RotationPivot</td>
+</tr>
+<tr>
+<td>RotationEulerXYZ</td>
+</tr>
+<tr>
+<td>PostRotation</td>
+</tr>
+<tr>
+<td>PostRotationEulerXYZ</td>
+</tr>
+<tr>
+<td>CompositeScale</td>
+</tr>
+<tr>
+<td>Scale</td>
+</tr>
+<tr>
+<td>ScalePivotTranslation</td>
+</tr>
+<tr>
+<td>ScalePivot</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[RotationEulerSystem]     Write Rotation &lt;= RotationEulerXYZ</li>
+<li>[PostRotationEulerSystem] Write PostRotation &lt;= PostRotationEulerXYZ</li>
+<li>[CompositeScaleSystem]    Write CompositeScale &lt;= ScalePivotTranslation * ScalePivot * Scale * ScalePivot^-1</li>
+<li>[CompositeRotationSystem] Write CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * Rotation * PostRotation * RotationPivot^-1</li>
+<li>[TRSToLocalToWorldSystem] Write LocalToWorld &lt;= Translation * CompositeRotation * CompositeScale</li>
+</ol>
+<p><img src="images/sec4-5.png" alt=""></p>
+<hr>
+<h2 id="section-5-hierarchical-transforms-advanced">Section 5: Hierarchical Transforms (Advanced)</h2>
+<p>Note: Advanced Hierarchical transform component rules largely mirror the use of the non-hierarchical components, except that they are writing to LocalToParent (instead of LocalToWorld.) The main additional component unique to hierarchical transforms is ParentScaleInverse.</p>
+<hr>
+<p>NonUniformScale (float3) as an alternative to Scale to specify scale per-axis. Note that not all DOTS features fully support non-uniform scale. Be sure to check those features’ documentation to understand their limitations.</p>
+<ul>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * Rotation</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * Rotation * NonUniformScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Rotation</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Rotation * NonUniformScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= NonUniformScale</li>
+</ul>
+<p>The presence of both Scale and NonUniform scale is not a valid case, but the result is defined. Scale will be used, NonUniformScale will be ignored.</p>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>Parent (Entity)</th>
+<th>Child (Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>LocalToParent</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>Parent</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>PreviousParent*</td>
+</tr>
+<tr>
+<td>Child*</td>
+<td>Translation</td>
+</tr>
+<tr>
+<td></td>
+<td>Rotation</td>
+</tr>
+<tr>
+<td></td>
+<td>NonUniformScale</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[TRSToLocalToWorldSystem]  Parent: Write LocalToWorld as defined above in &quot;Non-hierarchical Transforms (Basic)&quot;</li>
+<li>[TRSToLocalToParentSystem] Child:  Write LocalToParent &lt;= Translation * Rotation * NonUniformScale</li>
+<li>[LocalToParentSystem]      Child:  Write LocalToWorld &lt;= LocalToWorld[Parent] * LocalToParent</li>
+</ol>
+<p><img src="images/sec5-1.png" alt=""></p>
+<p>Parent LocalToWorld is multiplied with the Child LocalToWorld, which includes any scaling. However, if removing Parent scale is preferred (AKA Scale Compensate), ParentScaleInverse is available for that purpose.</p>
+<ul>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse </li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse </li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * Rotation </li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * Rotation * NonUniformScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * CompositeRotation </li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * CompositeRotation * NonUniformScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * Rotation * Scale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * CompositeRotation * Scale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * Rotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * CompositeRotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * Rotation </li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * Rotation * NonUniformScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * CompositeRotation * NonUniformScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * Rotation * Scale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * CompositeRotation </li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * CompositeRotation * Scale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * Rotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * CompositeRotation * CompositeScale</li>
+</ul>
+<p>Inverse of any explicitly assigned parent scale values if present are written to ParentScaleInverse, as:</p>
+<ul>
+<li>[ParentScaleInverseSystem] ParentScaleInverse &lt;= CompositeScale[Parent]^-1</li>
+<li>[ParentScaleInverseSystem] ParentScaleInverse &lt;= Scale[Parent]^-1</li>
+<li>[ParentScaleInverseSystem] ParentScaleInverse &lt;= NonUniformScale[Parent]^-1</li>
+</ul>
+<p>If LocalToWorld[Parent] is written directly by the user, or scaling is otherwise applied in a way that is not explicitly using the scale components, then nothing is written to the ParentScaleInverse. It is the responsibility of the system applying that scaling to write inverse to ParentScaleInverse. The results of a system not updating ParentScaleInverse in this case are undefined. </p>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>Parent (Entity)</th>
+<th>Child (Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>LocalToParent</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>Parent</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>PreviousParent*</td>
+</tr>
+<tr>
+<td>Child*</td>
+<td>Translation</td>
+</tr>
+<tr>
+<td></td>
+<td>Rotation</td>
+</tr>
+<tr>
+<td></td>
+<td>ParentScaleInverse</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[TRSToLocalToWorldSystem]  Parent: Write LocalToWorld as defined above in &quot;Non-hierarchical Transforms (Basic)&quot;</li>
+<li>[ParentScaleInverseSystem] Child:  ParentScaleInverse &lt;= Scale[Parent]^-1</li>
+<li>[TRSToLocalToParentSystem] Child:  Write LocalToParent &lt;= Translation * ParentScaleInverse * Rotation </li>
+<li>[LocalToParentSystem]      Child:  Write LocalToWorld &lt;= LocalToWorld[Parent] * LocalToParent</li>
+</ol>
+<p><img src="images/sec5-2.png" alt=""></p>
+<p>The Rotation component may be written to directly as a quaternion by user code. However, if an Euler interface is preferred, components are available for each rotation order which will cause a write to the Rotation component if present. </p>
+<ul>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerXYZ</li>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerXZY</li>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerYXZ</li>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerYZX</li>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerZXY</li>
+<li>[RotationEulerSystem] Rotation &lt;= RotationEulerZYX</li>
+</ul>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>Parent (Entity)</th>
+<th>Child (Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>LocalToParent</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>Parent</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>PreviousParent*</td>
+</tr>
+<tr>
+<td>Child*</td>
+<td>Translation</td>
+</tr>
+<tr>
+<td></td>
+<td>Rotation</td>
+</tr>
+<tr>
+<td></td>
+<td>RotationEulerXYZ</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[TRSToLocalToWorldSystem]  Parent: Write LocalToWorld as defined above in &quot;Non-hierarchical Transforms (Basic)&quot;</li>
+<li>[RotationEulerSystem]      Child:  Write Rotation &lt;= RotationEulerXYZ</li>
+<li>[TRSToLocalToParentSystem] Child:  Write LocalToParent &lt;= Translation * Rotation </li>
+<li>[LocalToParentSystem]      Child:  Write LocalToWorld &lt;= LocalToWorld[Parent] * LocalToParent</li>
+</ol>
+<p><img src="images/sec5-3.png" alt=""></p>
+<p>For more complex Rotation requirements, a CompositeRotation (float4x4) component may be used as an alternative to Rotation.</p>
+<p>All of the combinations which are valid for Rotation are also valid for CompositeRotation. i.e.</p>
+<ul>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * CompositeRotation</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * CompositeRotation * Scale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * CompositeRotation * NonUniformScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * CompositeRotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * CompositeRotation </li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * CompositeRotation * Scale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * CompositeRotation * NonUniformScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * CompositeRotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * CompositeRotation </li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * CompositeRotation * Scale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * CompositeRotation * NonUniformScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * CompositeRotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= CompositeRotation</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= CompositeRotation * Scale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= CompositeRotation * NonUniformScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= CompositeRotation * CompositeScale</li>
+</ul>
+<p>The CompositeRotation component may be written to directly as a float4x4 by user code. However, if a Maya/FBX-style interface is preferred, components are available which will write to the CompositeRotation component if present.</p>
+<p>CompositeRotation = RotationPivotTranslation * RotationPivot * Rotation * PostRotation * RotationPivot^-1</p>
+<p>If any combination of RotationPivotTranslation (float3), RotationPivot (float3), Rotation (quaternion), or PostRotation (quaternion) components are present along with a CompositeRotation component, a transform system will combine those components and write to CompositeRotation. </p>
+<p>Concretely, each of these component combinations will write to CompositeRotation as:</p>
+<ul>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * Rotation * RotationPivot^-1</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * Rotation * PostRotation * RotationPivot^-1</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * PostRotation * RotationPivot^-1</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * Rotation</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * Rotation * PostRotation</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivotTranslation * PostRotation </li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivot * Rotation * RotationPivot^-1</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= RotationPivot * Rotation * PostRotation * RotationPivot^-1</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= PostRotation</li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= Rotation </li>
+<li>[CompositeRotationSystem] CompositeRotation &lt;= Rotation * PostRotation</li>
+</ul>
+<p>Cases where RotationPivot is specified without either of Rotation, PostRotation have no additional affect on CompositeRotation.</p>
+<p>Note that since Rotation is re-used as a source for CompositeRotation, the alternative data interfaces to Rotation are still available.</p>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>Parent (Entity)</th>
+<th>Child (Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>LocalToParent</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>Parent</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>PreviousParent*</td>
+</tr>
+<tr>
+<td>Child*</td>
+<td>Translation</td>
+</tr>
+<tr>
+<td></td>
+<td>CompositeRotation</td>
+</tr>
+<tr>
+<td></td>
+<td>Rotation</td>
+</tr>
+<tr>
+<td></td>
+<td>RotationPivotTranslation</td>
+</tr>
+<tr>
+<td></td>
+<td>RotationPivot</td>
+</tr>
+<tr>
+<td></td>
+<td>PostRotation</td>
+</tr>
+<tr>
+<td></td>
+<td>RotationEulerXYZ</td>
+</tr>
+<tr>
+<td></td>
+<td>Scale</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[TRSToLocalToWorldSystem]  Parent: Write LocalToWorld as defined above in &quot;Non-hierarchical Transforms (Basic)&quot;</li>
+<li>[RotationEulerSystem]      Child:  Write Rotation &lt;= RotationEulerXYZ</li>
+<li>[CompositeRotationSystem]  Child:  Wirte CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * Rotation * PostRotation * RotationPivot^-1</li>
+<li>[TRSToLocalToParentSystem] Child:  Write LocalToParent &lt;= Translation * CompositeRotation * Scale</li>
+<li>[LocalToParentSystem]      Child:  Write LocalToWorld &lt;= LocalToWorld[Parent] * LocalToParent</li>
+</ol>
+<p><img src="images/sec5-4.png" alt=""></p>
+<p>The PostRotation component may be written to directly as a quaternion by user code. However, if an Euler interface is preferred, components are available for each rotation order which will cause a write to the PostRotation component if present. </p>
+<ul>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerXYZ</li>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerXZY</li>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerYXZ</li>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerYZX</li>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerZXY</li>
+<li>[PostRotationEulerSystem] PostRotation &lt;= PostRotationEulerZYX</li>
+</ul>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>Parent (Entity)</th>
+<th>Child (Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>LocalToParent</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>Parent</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>PreviousParent*</td>
+</tr>
+<tr>
+<td>Child*</td>
+<td>Translation</td>
+</tr>
+<tr>
+<td></td>
+<td>CompositeRotation</td>
+</tr>
+<tr>
+<td></td>
+<td>Rotation</td>
+</tr>
+<tr>
+<td></td>
+<td>RotationPivotTranslation</td>
+</tr>
+<tr>
+<td></td>
+<td>RotationPivot</td>
+</tr>
+<tr>
+<td></td>
+<td>PostRotation</td>
+</tr>
+<tr>
+<td></td>
+<td>RotationEulerXYZ</td>
+</tr>
+<tr>
+<td></td>
+<td>Scale</td>
+</tr>
+<tr>
+<td></td>
+<td>PostRotationEulerXYZ</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[TRSToLocalToWorldSystem]  Parent: Write LocalToWorld as defined above in &quot;Non-hierarchical Transforms (Basic)&quot;</li>
+<li>[PostRotationEulerSystem]  Child:  Write PostRotation &lt;= PostRotationEulerXYZ</li>
+<li>[RotationEulerSystem]      Child:  Write Rotation &lt;= RotationEulerXYZ</li>
+<li>[CompositeRotationSystem]  Child:  Wirte CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * Rotation * PostRotation * RotationPivot^-1</li>
+<li>[TRSToLocalToParentSystem] Child:  Write LocalToParent &lt;= Translation * CompositeRotation * Scale</li>
+<li>[LocalToParentSystem]      Child:  Write LocalToWorld &lt;= LocalToWorld[Parent] * LocalToParent</li>
+</ol>
+<p><img src="images/sec5-5.png" alt=""></p>
+<p>It is a setup error to have more than one PostRotationEuler*** component is associated with the same Entity, however the result is defined. The first to be found in the order of precedence will be applied. That order is:</p>
+<ol>
+<li>PostRotationEulerXYZ</li>
+<li>PostRotationEulerXZY</li>
+<li>PostRotationEulerYXZ</li>
+<li>PostRotationEulerYZX</li>
+<li>PostRotationEulerZXY</li>
+<li>PostRotationEulerZYX</li>
+</ol>
+<p>For more complex Scale requirements, a CompositeScale (float4x4) component may be used as an alternative to Scale (or NonUniformScale).</p>
+<p>All of the combinations which are valid for Scale or NonUniformScale are also valid for CompositeScale. i.e.</p>
+<ul>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * Rotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Rotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * CompositeRotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= CompositeRotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * Rotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= Translation * ParentScaleInverse * CompositeRotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * Rotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * CompositeRotation * CompositeScale</li>
+<li>[TRSToLocalToParentSystem] LocalToParent &lt;= ParentScaleInverse * CompositeScale</li>
+</ul>
+<p>The CompositeScale component may be written to directly as a float4x4 by user code. However, if a Maya/FBX-style interface is preferred, components are available which will write to the CompositeScale component if present.</p>
+<p>CompositeScale = ScalePivotTranslation * ScalePivot * Scale * ScalePivot^-1
+CompositeScale = ScalePivotTranslation * ScalePivot * NonUniformScale * ScalePivot^-1</p>
+<p>If any combination of ScalePivotTranslation (float3), ScalePivot (float3), Scale (float) components are present along with a CompositeScale component, a transform system will combine those components and write to CompositeScale. </p>
+<p>Alternatively, if any combination of ScalePivotTranslation (float3), ScalePivot (float3), NonUniformScale (float3) components are present along with a CompositeScale component, a transform system will combine those components and write to CompositeScale. </p>
+<p>Concretely, each of these component combinations will write to CompositeRotation as:</p>
+<ul>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivotTranslation</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivotTranslation * ScalePivot * Scale * ScalePivot^-1</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivotTranslation * Scale</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivot * Scale * ScalePivot^-1</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= Scale </li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivotTranslation * ScalePivot * NonUniformScale * ScalePivot^-1</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivotTranslation * Scale</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= ScalePivot * NonUniformScale * ScalePivot^-1</li>
+<li>[CompositeScaleSystem] CompositeScale &lt;= NonUniformScale </li>
+</ul>
+<p>Cases where ScalePivot is specified without either of Scale, NonUniformScale have no additional effect have no additional affect on CompositeScale.</p>
+<p>e.g. If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>Parent (Entity)</th>
+<th>Child (Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+<td>LocalToParent</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>Parent</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>PreviousParent*</td>
+</tr>
+<tr>
+<td>Child*</td>
+<td>Translation</td>
+</tr>
+<tr>
+<td></td>
+<td>CompositeRotation</td>
+</tr>
+<tr>
+<td></td>
+<td>Rotation</td>
+</tr>
+<tr>
+<td></td>
+<td>RotationPivotTranslation</td>
+</tr>
+<tr>
+<td></td>
+<td>RotationPivot</td>
+</tr>
+<tr>
+<td></td>
+<td>PostRotation</td>
+</tr>
+<tr>
+<td></td>
+<td>RotationEulerXYZ</td>
+</tr>
+<tr>
+<td></td>
+<td>Scale</td>
+</tr>
+<tr>
+<td></td>
+<td>PostRotationEulerXYZ</td>
+</tr>
+<tr>
+<td></td>
+<td>CompositeScale</td>
+</tr>
+<tr>
+<td></td>
+<td>ScalePivotTranslation</td>
+</tr>
+<tr>
+<td></td>
+<td>ScalePivot</td>
+</tr>
+</tbody>
+</table>
+<p>...then the transform system will:</p>
+<ol>
+<li>[TRSToLocalToWorldSystem]  Parent: Write LocalToWorld as defined above in &quot;Non-hierarchical Transforms (Basic)&quot;</li>
+<li>[PostRotationEulerSystem]  Child:  Write PostRotation &lt;= PostRotationEulerXYZ</li>
+<li>[RotationEulerSystem]      Child:  Write Rotation &lt;= RotationEulerXYZ</li>
+<li>[CompositeRotationSystem]  Child:  Wirte CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * Rotation * PostRotation * RotationPivot^-1</li>
+<li>[TRSToLocalToParentSystem] Child:  Write LocalToParent &lt;= Translation * CompositeRotation * Scale</li>
+<li>[LocalToParentSystem]      Child:  Write LocalToWorld &lt;= LocalToWorld[Parent] * LocalToParent</li>
+</ol>
+<p><img src="images/sec5-6.png" alt=""></p>
+<p>...then the transform system will:</p>
+<ol>
+<li>[TRSToLocalToWorldSystem]  Parent: Write LocalToWorld as defined above in &quot;Non-hierarchical Transforms (Basic)&quot;</li>
+<li>[PostRotationEulerSystem]  Child:  Write PostRotation &lt;= PostRotationEulerXYZ</li>
+<li>[RotationEulerSystem]      Child:  Write Rotation &lt;= RotationEulerXYZ</li>
+<li>[CompositeScaleSystem]     Child:  Write CompositeScale &lt;= ScalePivotTranslation * ScalePivot * Scale * ScalePivot^-1</li>
+<li>[CompositeRotationSystem]  Child:  Wirte CompositeRotation &lt;= RotationPivotTranslation * RotationPivot * Rotation * PostRotation * RotationPivot^-1</li>
+<li>[TRSToLocalToParentSystem] Child:  Write LocalToParent &lt;= Translation * CompositeRotation * Scale</li>
+<li>[LocalToParentSystem]      Child:  Write LocalToWorld &lt;= LocalToWorld[Parent] * LocalToParent</li>
+</ol>
+<p><img src="images/sec5-7.png" alt=""></p>
+<hr>
+<h2 id="section-6-custom-transforms-advanced">Section 6: Custom Transforms (Advanced)</h2>
+<p>There are two methods for writing user-defined transforms that are fully compatible with the transform system.</p>
+<ol>
+<li>Overriding transform components</li>
+<li>Extending transform components</li>
+</ol>
+<h2 id="overriding-transform-components">Overriding transform components</h2>
+<p>A user component (UserComponent) is defined and added to the LocalToWorld WriteGroup, as in:</p>
+<p>[Serializable]
+[WriteGroup(typeof(LocalToWorld))]
+struct UserComponent : IComponentData
+{
+}</p>
+<p>Overriding transform components means that no additional extensions are possible. The user defined transform is the only transform that can occur with the specified user component.</p>
+<p>In the UserTransformSystem, use the default query method to request write access to LocalToWorld.</p>
+<p>e.g.</p>
+<pre><code>public class UserTransformSystem : JobComponentSystem
+{
+    [BurstCompile]
+    struct UserTransform : IJobForEach&lt;LocalToWorld, UserComponent&gt;
+    {
+        public void Execute(ref LocalToWorld localToWorld, [ReadOnly] ref UserComponent userComponent)
+        {
+            localToWorld.Value = ... // Assign localToWorld as needed for UserTransform
+        }
+    }
+
+    protected override JobHandle OnUpdate(JobHandle inputDependencies)
+    {
+        var job = new UserTransform()
+        {
+        };
+        return job.Schedule(this, inputDependencies);
+    }
+}
+</code></pre><p>All other transform components which write to LocalToWorld will be ignored by the transform system where UserComponent is included.</p>
+<p>e.g.
+If the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+</tr>
+<tr>
+<td>Rotation</td>
+</tr>
+<tr>
+<td>Scale</td>
+</tr>
+<tr>
+<td>UserComponent</td>
+</tr>
+</tbody>
+</table>
+<p>...then:</p>
+<ul>
+<li>[TRSToLocalToWorldSystem] Will not run on this Entity</li>
+<li>[UserTransformSystem] Will run on this Entity</li>
+</ul>
+<p>However, unexpected behavior may result if two different systems both override LocalToWorld and both components are present. e.g. </p>
+<p>e.g. If there is an additional:</p>
+<pre><code>[Serializable]
+[WriteGroup(typeof(LocalToWorld))]
+struct UserComponent2 : IComponentData
+{
+}
+</code></pre><p>And the equivalent system:</p>
+<pre><code>public class UserTransformSystem2 : JobComponentSystem
+{
+    [BurstCompile]
+    struct UserTransform2 : IJobForEach&lt;LocalToWorld, UserComponent2&gt;
+    {
+        public void Execute(ref LocalToWorld localToWorld, [ReadOnly] ref UserComponent2 userComponent2)
+        {
+            localToWorld.Value = ... // Assign localToWorld as needed for UserTransform
+        }
+    }
+
+    protected override JobHandle OnUpdate(JobHandle inputDependencies)
+    {
+        var job = new UserTransform()
+        {
+        };
+        return job.Schedule(this, inputDependencies);
+    }
+}
+</code></pre><p>Then if the following components are present...</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+</tr>
+<tr>
+<td>Rotation</td>
+</tr>
+<tr>
+<td>Scale</td>
+</tr>
+<tr>
+<td>UserComponent</td>
+</tr>
+<tr>
+<td>UserComponent2</td>
+</tr>
+</tbody>
+</table>
+<p>Both systems will attempt to write to LocalToWorld, likely resulting in unexpected behavior. This may not be an issue in context.</p>
+<h2 id="extending-transform-components">Extending transform components</h2>
+<p>In order to ensure that multiple overridden transform components can interact in a way which is well-defined, a WriteGroup query can be used to only explicitly match the requested components.</p>
+<p>e.g. If there is a:</p>
+<pre><code>[Serializable]
+[WriteGroup(typeof(LocalToWorld))]
+struct UserComponent : IComponentData
+{
+}
+</code></pre><p>And a system which filters based on the WriteGroup of LocalToWorld:</p>
+<pre><code>public class UserTransformSystem : JobComponentSystem
+{
+    private EntityQuery m_Query;
+
+    protected override void OnCreate()
+    {
+        m_Query = GetEntityQuery(new EntityQueryDesc()
+        {
+            All = new ComponentType[]
+            {
+                ComponentType.ReadWrite&lt;LocalToWorld&gt;(),
+                ComponentType.ReadOnly&lt;UserComponent&gt;(),
+            },
+            Options = EntityQueryDescOptions.FilterWriteGroup
+        });
+    }
+
+    [BurstCompile]
+    struct UserTransform : IJobForEach&lt;LocalToWorld, UserComponent&gt;
+    {
+        public void Execute(ref LocalToWorld localToWorld, [ReadOnly] ref UserComponent userComponent)
+        {
+            localToWorld.Value = ... // Assign localToWorld as needed for UserTransform
+        }
+    }
+
+    protected override JobHandle OnUpdate(JobHandle inputDependencies)
+    {
+        var job = new UserTransform()
+        {
+        };
+        return job.ScheduleGroup(m_Query, inputDependencies);
+    }
+}
+</code></pre><p>m_Query in UserTransformSystem will only match the explicitly mentioned components.</p>
+<p>For instance, the following with match and be included in the EntityQuery:</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>UserComponent</td>
+</tr>
+</tbody>
+</table>
+<p>But this will not:</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>Translation</td>
+</tr>
+<tr>
+<td>Rotation</td>
+</tr>
+<tr>
+<td>Scale</td>
+</tr>
+<tr>
+<td>UserComponent</td>
+</tr>
+</tbody>
+</table>
+<p>The implicit expectation is that UserComponent is a completely orthogonal set of requirements to write to LocalToWorld, so no other (unstated) components which are in the same WriteGroup should be present.</p>
+<p>However, they may be explicitly supported by UserComponent systems by adding to the queries, as:</p>
+<pre><code>public class UserTransformExtensionSystem : JobComponentSystem
+{
+    private EntityQuery m_Query;
+
+    protected override void OnCreate()
+    {
+        m_Query = GetEntityQuery(new EntityQueryDesc()
+        {
+            All = new ComponentType[]
+            {
+                ComponentType.ReadWrite&lt;LocalToWorld&gt;(),
+                ComponentType.ReadOnly&lt;UserComponent&gt;(),
+                ComponentType.ReadOnly&lt;Translation&gt;(),
+                ComponentType.ReadOnly&lt;Rotation&gt;(),
+                ComponentType.ReadOnly&lt;Scale&gt;(),
+            },
+            Options = EntityQueryDescOptions.FilterWriteGroup
+        });
+    }
+
+    [BurstCompile]
+    struct UserTransform : IJobForEach&lt;LocalToWorld, UserComponent&gt;
+    {
+        public void Execute(ref LocalToWorld localToWorld, [ReadOnly] ref UserComponent userComponent,
+            [ReadOnly] ref Translation translation,
+            [ReadOnly] ref Rotation rotation,
+            [ReadOnly] ref Scale scale)
+        {
+            localToWorld.Value = ... // Assign localToWorld as needed for UserTransform
+        }
+    }
+
+    protected override JobHandle OnUpdate(JobHandle inputDependencies)
+    {
+        var job = new UserTransform()
+        {
+        };
+        return job.ScheduleGroup(m_Query, inputDependencies);
+    }
+}
+</code></pre><p>In the same way, if there is an additional:</p>
+<pre><code>[Serializable]
+[WriteGroup(typeof(LocalToWorld))]
+struct UserComponent2 : IComponentData
+{
+}
+</code></pre><p>And there is:</p>
+<table>
+<thead>
+<tr>
+<th>(Entity)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LocalToWorld</td>
+</tr>
+<tr>
+<td>UserComponent</td>
+</tr>
+<tr>
+<td>UserComponent2</td>
+</tr>
+</tbody>
+</table>
+<p>The UserTransformSystem defined above would not match, since UserComponent2 is not explicitly mentioned and it is in the LocalToWorld WriteGroup.</p>
+<p>However, an explicit query can be created which can resolve the case and ensure the behavior is well defined. As in:</p>
+<pre><code>public class UserTransformComboSystem : JobComponentSystem
+{
+    private EntityQuery m_Query;
+
+    protected override void OnCreate()
+    {
+        m_Query = GetEntityQuery(new EntityQueryDesc()
+        {
+            All = new ComponentType[]
+            {
+                ComponentType.ReadWrite&lt;LocalToWorld&gt;(),
+                ComponentType.ReadOnly&lt;UserComponent&gt;(),
+                ComponentType.ReadOnly&lt;UserComponent2&gt;(),
+            },
+            Options = EntityQueryDescOptions.FilterWriteGroup
+        });
+    }
+
+    [BurstCompile]
+    struct UserTransform : IJobForEach&lt;LocalToWorld, UserComponent&gt;
+    {
+        public void Execute(ref LocalToWorld localToWorld, 
+            [ReadOnly] ref UserComponent userComponent,
+            [ReadOnly] ref UserComponent2 userComponent2
+        {
+            localToWorld.Value = ... // Assign localToWorld as needed for UserTransform
+        }
+    }
+
+    protected override JobHandle OnUpdate(JobHandle inputDependencies)
+    {
+        var job = new UserTransform()
+        {
+        };
+        return job.ScheduleGroup(m_Query, inputDependencies);
+    }
+}
+</code></pre><p>Then the following systems (or equivalents):</p>
+<ul>
+<li>UserTransformSystem (LocalToWorld FilterWriteGroup:UserComponent) </li>
+<li>UserTransformSystem2 (LocalToWorld FilterWriteGroup:UserComponent2) </li>
+<li>UserTransformComboSystem (LocalToWorld FilterWriteGroup:UserComponent, UserComponent2) </li>
+</ul>
+<p>Will all run side-by-side, query and run on their respective component archetypes, and have well-defined behavior.</p>
+<hr>
+<h2 id="section-7-relationship-to-maya-transform-nodes">Section 7: Relationship to Maya transform nodes</h2>
+<p>For reference on Maya transform nodes, see: <a href="https://download.autodesk.com/us/maya/2010help/Nodes/transform.html">https://download.autodesk.com/us/maya/2010help/Nodes/transform.html</a></p>
+<p>Maya Transformation Matrix is defined as:</p>
+<blockquote><p>matrix = SP^-1 * S * SH * SP * ST * RP^-1 * RA * R * RP * RT * T</p>
+</blockquote>
+<p>These can be mapped to transform components as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Maya</th>
+<th>Unity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T</td>
+<td>Translation</td>
+</tr>
+<tr>
+<td>(RT * RP * R * RA * RP^-1)</td>
+<td>CompositeRotation</td>
+</tr>
+<tr>
+<td>RT</td>
+<td>RotationPivotTranslation</td>
+</tr>
+<tr>
+<td>RP</td>
+<td>RotationPivot</td>
+</tr>
+<tr>
+<td>R</td>
+<td>Rotation</td>
+</tr>
+<tr>
+<td>RA</td>
+<td>PostRotation</td>
+</tr>
+<tr>
+<td>(ST * SP * S * SP^-1)</td>
+<td>CompositeScale</td>
+</tr>
+<tr>
+<td>ST</td>
+<td>ScalePivotTranslation</td>
+</tr>
+<tr>
+<td>SP</td>
+<td>ScalePivot</td>
+</tr>
+<tr>
+<td>SH</td>
+<td>--- Unused ---</td>
+</tr>
+<tr>
+<td>S</td>
+<td>NonUniformScale</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>System State Components | Unity Entities Documentation | 0.2.0-preview.12 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="System State Components | Unity Entities Documentation | 0.2.0-preview.12 ">
+    <meta name="generator" content="docfx 2.40.12.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.2.0-preview.12">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ecs-system-state-component-data">
+<h1 id="system-state-components">System State Components</h1>
+
+<p>The purpose of <code>SystemStateComponentData</code> is to allow you to track resources internal to a system and have the opportunity to appropriately create and destroy those resources as needed without relying on individual callbacks.</p>
+<p><code>SystemStateComponentData</code> and <code>SystemStateSharedComponentData</code> are exactly like <code>ComponentData</code> and <code>SharedComponentData</code>, respectively, except in one important respect:</p>
+<ol>
+<li><code>SystemStateComponentData</code> is not deleted when an entity is destroyed.</li>
+</ol>
+<p><code>DestroyEntity</code> is shorthand for</p>
+<ol>
+<li>Find all components which reference this particular entity ID.</li>
+<li>Delete those components.</li>
+<li>Recycle the entity id for reuse.</li>
+</ol>
+<p>However, if <code>SystemStateComponentData</code> is present, it is not removed. This gives a system the opportunity to cleanup any resources or state associated with an entity ID. The entity ID will only be reused once all <code>SystemStateComponentData</code> has been removed.</p>
+<h2 id="motivation">Motivation</h2>
+<ul>
+<li>Systems may need to keep an internal state based on <code>ComponentData</code>. For instance, resources may be allocated. </li>
+<li>Systems need to be able to manage that state as values and state changes are made by other systems. For example, when values in components change, or when relevant components are added or deleted.</li>
+<li>&quot;No callbacks&quot; is an important element of the ECS design rules.</li>
+</ul>
+<h2 id="concept">Concept</h2>
+<p>The general use of  <code>SystemStateComponentData</code> is expected to mirror a user component, providing the internal state.</p>
+<p>For instance, given:</p>
+<ul>
+<li>FooComponent (<code>ComponentData</code>, user assigned)</li>
+<li>FooStateComponent (<code>SystemComponentData</code>, system assigned)</li>
+</ul>
+<h3 id="detecting-component-add">Detecting Component Add</h3>
+<p>When user adds FooComponent, FooStateComponent does not exist. The FooSystem update queries for FooComponent without FooStateComponent and can infer that they have been added. At that point, the FooSystem will add the FooStateComponent and any needed internal state. </p>
+<h3 id="detecting-component-remove">Detecting Component Remove</h3>
+<p>When user removes FooComponent, FooStateComponent still exists. The FooSystem update queries for FooStateComponent without FooComponent and can infer that they have been removed. At that point, the FooSystem will remove the FooStateComponent and fix up any needed internal state. </p>
+<h3 id="detecting-destroy-entity">Detecting Destroy Entity</h3>
+<p><code>DestroyEntity</code> is actually a shorthand utility for:</p>
+<ul>
+<li>Find components which reference given entity ID.</li>
+<li>Delete components found.</li>
+<li>Recycle entity ID.</li>
+</ul>
+<p>However, <code>SystemStateComponentData</code> are not removed on <code>DestroyEntity</code> and the entity ID is not recycled until the last component is deleted. This gives the system the opportunity to clean up the internal state in the exact same way as with component removal.</p>
+<h2 id="systemstatecomponent">SystemStateComponent</h2>
+<p>A <code>SystemStateComponentData</code> is analogous to a <code>ComponentData</code> and used similarly.</p>
+<pre><code>struct FooStateComponent : ISystemStateComponentData
+{
+}
+</code></pre><p>Visibility of a <code>SystemStateComponentData</code> is also controlled in the same way as a component (using <code>private</code>, <code>public</code>, <code>internal</code>) However, it&#39;s expected, as a general rule, that a <code>SystemStateComponentData</code> will be <code>ReadOnly</code> outside the system that creates it.</p>
+<h2 id="systemstatesharedcomponent">SystemStateSharedComponent</h2>
+<p>A <code>SystemStateSharedComponentData</code> is analogous to a <code>SharedComponentData</code> and used similarly.</p>
+<pre><code>struct FooStateSharedComponent : ISystemStateSharedComponentData
+{
+  public int Value;
+}
+</code></pre><h2 id="example-system-using-state-components">Example system using state components</h2>
+<p>The following example shows a simplified system that illustrates how to manage entities with system state components. The example defines a general-purpose IComponentData instance and a system state, ISystemStateComponentData instance. It also defines three queries based on those entities:</p>
+<ul>
+<li>m_newEntities selects entities that have the general-purpose, but not the system state component. This query finds new entities that the system has not seen before. The system runs a job using the new entities query that adds the system state component.</li>
+<li>m_activeEntities selects entities that have both the general-purpose and the system state component. In a real application, other systems could be the ones that process or destroy the entities.</li>
+<li>m_destroyedEntities selects entities that have the system state, but not the general-purpose component. Since the system state component is never added to an entity by itself, the entities selected by this query must have been deleted, either by this system or another system. The system runs a job using the destroyed entities query to remove the system state component from the entities, which allows the ECS code to recycle the Entity identifier. </li>
+</ul>
+<p>Note that this simplified example does not maintain any state within the system. One purpose for system state components is to track when persistent resources need to be allocated or cleaned up.</p>
+<!-- DocCodeSamples.Tests.StatefulSystem.cs-->
+<pre><code>using Unity.Collections;
+using Unity.Entities;
+using Unity.Jobs;
+using UnityEngine;
+
+public struct GeneralPurposeComponentA : IComponentData
+{
+    public bool IsAlive;
+}
+
+public struct StateComponentB : ISystemStateComponentData
+{
+    public int State;
+}
+
+public class StatefulSystem : JobComponentSystem
+{
+    private EntityQuery m_newEntities;
+    private EntityQuery m_activeEntities;
+    private EntityQuery m_destroyedEntities;
+    private EntityCommandBufferSystem m_ECBSource;
+
+    protected override void OnCreate()
+    {
+        // Entities with GeneralPurposeComponentA but not StateComponentB
+        m_newEntities = GetEntityQuery(new EntityQueryDesc()
+        {
+            All = new ComponentType[] {ComponentType.ReadOnly&lt;GeneralPurposeComponentA&gt;()},
+            None = new ComponentType[] {ComponentType.ReadWrite&lt;StateComponentB&gt;()}
+        });
+
+        // Entities with both GeneralPurposeComponentA and StateComponentB
+        m_activeEntities = GetEntityQuery(new EntityQueryDesc()
+        {
+            All = new ComponentType[]
+            {
+                ComponentType.ReadWrite&lt;GeneralPurposeComponentA&gt;(),
+                ComponentType.ReadOnly&lt;StateComponentB&gt;()
+            }
+        });
+
+        // Entities with StateComponentB but not GeneralPurposeComponentA
+        m_destroyedEntities = GetEntityQuery(new EntityQueryDesc()
+        {
+            All = new ComponentType[] {ComponentType.ReadWrite&lt;StateComponentB&gt;()},
+            None = new ComponentType[] {ComponentType.ReadOnly&lt;GeneralPurposeComponentA&gt;()}
+        });
+
+        m_ECBSource = World.GetOrCreateSystem&lt;EndSimulationEntityCommandBufferSystem&gt;();
+    }
+
+    struct NewEntityJob : IJobForEachWithEntity&lt;GeneralPurposeComponentA&gt;
+    {
+        public EntityCommandBuffer.Concurrent ConcurrentECB;
+
+        public void Execute(Entity entity, int index, [ReadOnly] ref GeneralPurposeComponentA gpA)
+        {
+            // Add an ISystemStateComponentData instance
+            ConcurrentECB.AddComponent&lt;StateComponentB&gt;(index, entity, new StateComponentB() {State = 1});
+        }
+    }
+
+    struct ProcessEntityJob : IJobForEachWithEntity&lt;GeneralPurposeComponentA&gt;
+    {
+        public EntityCommandBuffer.Concurrent ConcurrentECB;
+
+        public void Execute(Entity entity, int index, ref GeneralPurposeComponentA gpA)
+        {
+            // Process entity, possibly setting IsAlive false --
+            // In which case, destroy the entity
+            if (!gpA.IsAlive)
+            {
+                ConcurrentECB.DestroyEntity(index, entity);
+            }
+        }
+    }
+
+    struct CleanupEntityJob : IJobForEachWithEntity&lt;StateComponentB&gt;
+    {
+        public EntityCommandBuffer.Concurrent ConcurrentECB;
+
+        public void Execute(Entity entity, int index, [ReadOnly] ref StateComponentB state)
+        {
+            // This system is responsible for removing any ISystemStateComponentData instances it adds
+            // Otherwise, the entity is never truly destroyed.
+            ConcurrentECB.RemoveComponent&lt;StateComponentB&gt;(index, entity);
+        }
+    }
+
+    protected override JobHandle OnUpdate(JobHandle inputDependencies)
+    {
+        var newEntityJob = new NewEntityJob()
+        {
+            ConcurrentECB = m_ECBSource.CreateCommandBuffer().ToConcurrent()
+        };
+        var newJobHandle = newEntityJob.ScheduleSingle(m_newEntities, inputDependencies);
+        m_ECBSource.AddJobHandleForProducer(newJobHandle);
+
+        var processEntityJob = new ProcessEntityJob()
+            {ConcurrentECB = m_ECBSource.CreateCommandBuffer().ToConcurrent()};
+        var processJobHandle = processEntityJob.Schedule(m_activeEntities, newJobHandle);
+        m_ECBSource.AddJobHandleForProducer(processJobHandle);
+
+        var cleanupEntityJob = new CleanupEntityJob()
+        {
+            ConcurrentECB = m_ECBSource.CreateCommandBuffer().ToConcurrent()
+        };
+        var cleanupJobHandle = cleanupEntityJob.ScheduleSingle(m_destroyedEntities, processJobHandle);
+        m_ECBSource.AddJobHandleForProducer(cleanupJobHandle);
+
+        return cleanupJobHandle;
+    }
+
+    protected override void OnDestroy()
+    {
+        // Implement OnDestroy to cleanup any resources allocated by this system.
+        // (This simplified example does not allocate any resources.)
+    }
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

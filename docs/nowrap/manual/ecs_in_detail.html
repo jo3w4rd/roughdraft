@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>ECS features in detail | Unity Entities Documentation | 0.2.0-preview.12 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="ECS features in detail | Unity Entities Documentation | 0.2.0-preview.12 ">
+    <meta name="generator" content="docfx 2.40.12.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.2.0-preview.12">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="ecs-in-detail">
+<h1 id="ecs-features-in-detail">ECS features in detail</h1>
+
+<blockquote><p><strong>Note</strong>: The main content of this page has migrated to the Unity Data-Oriented reference. ECS related features are listed below in alphabetical order, with a short description and links to further information about it. This page is not an exhaustive list and can be added to over time as ECS, and its related documentation expands. If you spot something that is out-of-date or broken links, then make sure to let us know in the <a href="http://unity3d.com/performance-by-default">forums</a> or as an <a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/issues/new">issue</a> in the repository.</p>
+</blockquote>
+<h2 id="entitycommandbuffersystem">EntityCommandBufferSystem</h2>
+<p>When using jobs, you must request command buffers from an entity command buffer system on the main thread, and pass them to the jobs. When the <code>EntityCommandBufferSystem</code> updates, the command buffers playback on the main thread in the order they were created. This extra step is required so that memory management can be centralized and determinism of the generated entities and components can be guaranteed.</p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.EntityCommandBuffer.html">EntityCommandBuffer</a> reference page.</p>
+<h2 id="chunk">Chunk</h2>
+<p>A <code>Chunk</code> contains the <code>ComponentData</code> for each entity. All entities in one <code>Chunk</code> follow the same memory layout. When iterating over components, memory access of components within a <code>Chunk</code> is always completely linear, with no waste loaded into cache lines. This is a hard guarantee.</p>
+<p>For more information, see the <a href="chunk_iteration.html">Chunk</a> reference page.</p>
+<h2 id="componentdatafromentity">ComponentDataFromEntity</h2>
+<p>If you need to access <code>ComponentData</code> on another entity, the only stable way of referencing that component data is via the entity ID. <code>EntityManager</code> provides a simple get &amp; set <code>ComponentData</code> API for it. However, you can&#39;t use the <code>EntityManager</code> in a C# job. <code>ComponentDataFromEntity</code> gives you a simple API that you can also safely use in a job.</p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.ComponentDataFromEntity-1.html">ComponentDataFromEntity</a> reference page.</p>
+<h2 id="entityquery">EntityQuery</h2>
+<p>The <code>EntityQuery</code> is the foundation class on top of which all iteration methods are built <code>foreach</code>, <code>IJobForEach</code>, etc.). Essentially a <code>EntityQuery</code> is constructed with a set of required components and or subtractive components. <code>EntityQuery</code> lets you extract individual arrays of entities based on their components.</p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> reference page.</p>
+<h2 id="entity">Entity</h2>
+<p>An entity is an ID. You can think of it as a super lightweight <a href="https://docs.unity3d.com/Manual/GameObjects.html">GameObject</a> that does not even have a name by default.</p>
+<p>You can add and remove components from entities at runtime. entity ID&#39;s are stable. They are the only stable way to store a reference to another component or entity.</p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.Entity.html">Entity</a> reference page.</p>
+<h2 id="entityarchetype">EntityArchetype</h2>
+<p>An <code>EntityArchetype</code> is a unique array of <code>ComponentType</code> structs. The <code>EntityManager</code> uses <code>EntityArchetype</code>structs to group all entities using the same <code>ComponentType</code> structs into <code>Chunks</code>.</p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.EntityArchetype.html">EntityArchetype</a> reference page.</p>
+<h2 id="entitycommandbuffer">EntityCommandBuffer</h2>
+<p>The <code>EntityCommandBuffer</code> abstraction allows you to queue up changes (from either a job or from the main thread) so that they can take effect later on the main thread. </p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.EntityCommandBuffer.html">EntityCommandBuffer</a> reference page.</p>
+<h2 id="entitymanager">EntityManager</h2>
+<p><code>EntityManager</code> is where you find APIs to create entities, check if an entity is still alive, instantiate entities and add or remove components.</p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.EntityManager.html">EntityManager</a> reference page.</p>
+<h2 id="exclusiveentitytransaction">ExclusiveEntityTransaction</h2>
+<p><code>ExclusiveEntityTransaction</code> is an API to create &amp; destroy entities from a job. The purpose is to enable procedural generation scenarios where instantiation on a big scale must happen in jobs. As the name implies, it is exclusive to any other access to the <code>EntityManager</code>.</p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.ExclusiveEntityTransaction.html">ExclusiveEntityTransaction</a> reference page.</p>
+<h2 id="icomponentdata">IComponentData</h2>
+<p><code>IComponentData</code> is a pure ECS-style component, meaning that it defines no behavior, only data. <code>IComponentData</code> is a struct rather than a class, meaning that it is copied <a href="https://stackoverflow.com/questions/373419/whats-the-difference-between-passing-by-reference-vs-passing-by-value?answertab=votes#tab-top">by value instead of by reference</a> by default. </p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.IComponentData.html">ComponentData</a> reference page - see &quot;IComponentData.&quot;</p>
+<h2 id="jobcomponentsystem-automatic-job-dependency-management">JobComponentSystem (Automatic job dependency management)</h2>
+<p>Managing dependencies is hard, which is why the <code>JobComponentSystem</code> does it automatically for you.  The rules are simple: jobs from different systems can read from IComponentData of the same type in parallel. If one of the jobs is writing to the data, then they can&#39;t run in parallel and will be scheduled with a dependency between the jobs.</p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.JobComponentSystem.html">JobComponentSystem</a> reference page.</p>
+<h2 id="shared-componentdata">Shared ComponentData</h2>
+<p><code>ISharedComponentData</code> is useful when many entities have something in common, for example in the <code>Boid</code> demo we instantiate many entities from the same <a href="https://docs.unity3d.com/Manual/Prefabs.html">Prefab</a>, and thus the <code>RenderMesh</code> between many <code>Boid</code> entities is the same. </p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.ISharedComponentData.html">SharedComponentData</a> reference page.</p>
+<h2 id="systemstatecomponentdata">SystemStateComponentData</h2>
+<p>The purpose of <code>SystemStateComponentData</code> is to allow you to track resources internal to a system and have the opportunity to appropriately create and destroy those resources as needed without relying on individual callbacks.</p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.ISystemStateComponentData.html">SystemStateComponent</a> reference page.</p>
+<h2 id="system-update-order">System update order</h2>
+<p>In ECS all systems are updated on the main thread. Systems update based on a set of constraints and an optimization pass, which tries to order the systems in a way so that the time between scheduling a job and waiting for it is as long as possible.</p>
+<p>For more information, see the <a href="system_update_order.html">System update order</a> reference page.</p>
+<h2 id="world">World</h2>
+<p>A <code>World</code> owns both an <code>EntityManager</code> and a set of <code>ComponentSystems</code>. You can create as many <code>World</code> objects as you like. Commonly you would create a simulation <code>World</code> and rendering or presentation <code>World</code>.</p>
+<p>For more information, see the <a class="xref" href="../api/Unity.Entities.World.html">World</a> reference page.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2019 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
