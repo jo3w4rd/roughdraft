@@ -6,6 +6,7 @@ Table of Contents
   - Section 5: Custom Transforms (Advanced)
   - Section 6: Relationship to Maya transform nodes
 
+<!-- Can this be read? -->
 ----------------------------------------------
 Section 1: Non-hierarchical Transforms (Basic)
 ----------------------------------------------
