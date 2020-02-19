@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Creating gameplay | Unity Entities Documentation | 0.7.0-preview.8 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Creating gameplay | Unity Entities Documentation | 0.7.0-preview.8 ">
+    <meta name="generator" content="docfx 2.40.12.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="gameplay-overview">
+<h1 id="creating-gameplay">Creating gameplay</h1>
+
+<p>This section contains information on how to create DOTS-based games and other applications in the Unity Editor. It also covers the systems and components that ECS provides to help you implement game features.</p>
+<p>The systems include:</p>
+<ul>
+<li><a class="xref" href="../api/Unity.Transforms.html">Unity.Transforms</a>: Provides components to define world-space transforms, 3D object hierarchies, and systems to manage them.</li>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.rendering.hybrid@latest">Unity.Hybrid.Renderer</a>: Provides components and systems to render ECS entities in the Unity runtime.</li>
+</ul>
+<h2 id="authoring-overview">Authoring overview</h2>
+<p>You can use the Unity Editor (with the required DOTS packages) to create DOTS-based games. In the Editor, you use GameObjects as normal to author a Scene and the ECS code converts the GameObjects to entities. </p>
+<p>The biggest difference when you use DOTS is that instead of writing your own <a href="https://docs.unity3d.com/ScriptReference/MonoBehaviour.html">MonoBehaviours</a> to store instance data and implement custom game logic, you define <a href="ecs_components">ECS components</a> to store the data at runtime, and write <a href="ecs_systems">systems</a> for the custom logic. </p>
+<h3 id="gameobject-conversion">GameObject conversion</h3>
+<p>During GameObject conversion, various conversion systems handle the MonoBehaviour components that they recognize and then convert them into ECS-based components. For example, one of the the Unity.Transforms conversion systems examines the <code>UnityEngine.Transform</code> component and adds ECS components, such as <a class="xref" href="../api/Unity.Transforms.LocalToWorld.html">LocalToWorld</a>, to replace it. </p>
+<p>You can implement an <a class="xref" href="../api/Unity.Entities.IConvertGameObjectToEntity.html">IConvertGameObjectToEntity</a> MonoBehaviour component to specify custom conversion steps. There often isn&#39;t a one-to-one relationship between the number of GameObjects ECS converts and the number of entities it creates; nor between the number of MonoBehaviours on a GameObject and the number of ECS components it adds to an entity. </p>
+<p><img src="images/CreatingGameplay.png" alt=""></p>
+<p>The ECS conversion code converts a GameObject if it either has a <a href="xref:Unity.Entities.Hybrid.ConvertToEntity">ConvertToEntity</a> MonoBehaviour component, or if it is part of a SubScene. In either case, the conversion systems provided for various DOTS features, such as Unity.Transforms and Unity.Hybrid.Render, process the GameObject or the Scene Asset and any of their child GameObjects. </p>
+<p>One difference between converting GameObjects with ConvertToEntity and converting with a SubScene is that ECS serializes and saves to disk the entity data it generates from converting a SubScene. You can load or stream this serialized data very quickly at run time. In contrast, ECS always converts GameObjects with ConvertToEntity MonoBehaviours at runtime.</p>
+<p>It&#39;s best practice to use standard MonoBehaviours to author, and use <code>IConvertGameObjectToEntity</code> to apply the values of those authoring components to <a class="xref" href="../api/Unity.Entities.IComponentData.html">IComponentData</a> structs for runtime use. Often, the most convenient data layout to use to author is not the most efficient data layout at runtime. </p>
+<p>You can use <a class="xref" href="../api/Unity.Entities.IConvertGameObjectToEntity.html">IConvertGameObjectToEntity</a> to customize the conversion of any GameObject in a SubScene, or a GameObject that has a <code>ConvertToEntity</code> MonoBehaviour, or one that is a child of a GameObject that has a <code>ConvertToEntity</code> MonoBehaviour.</p>
+<p><strong>Note:</strong> The authoring workflow for DOTS-based applications is an area of active development. The general outlines are in place, but you should anticipate many changes in this area in the near future.</p>
+<h2 id="generated-authoring-components">Generated authoring components</h2>
+<p>Unity can automatically generate authoring components for simple runtime ECS components. When Unity generates an authoring component, you can add an add the script containing the ECS component directly to a GameObject within the Editor. You can then use the <strong>Inspector</strong> window to set the initial values for the component.</p>
+<h3 id="for-icomponentdata">For IComponentData</h3>
+<p>Unity can automatically generate authoring components for simple <a class="xref" href="../api/Unity.Entities.IComponentData.html">IComponentData</a> components. When Unity generates an authoring component, you can add an <code>IComponentData</code> directly to a GameObject in a Scene within the Unity Editor. You can then use the <strong>Inspector</strong> window to set the initial values for the component.</p>
+<p>To indicate that you want to generate an authoring component, add the <code>[GenerateAuthoringComponent]</code> attribute to the IComponentData declaration.  Unity automatically generates a MonoBehaviour class that contains the public fields of the component and provides a Conversion method that converts those fields over into runtime component data.</p>
+<pre><code class="lang-c#">[GenerateAuthoringComponent]
+public struct RotationSpeed_ForEach : IComponentData
+{
+    public float RadiansPerSecond;
+}
+</code></pre><p>Note the following restrictions:</p>
+<ul>
+<li>Only one component in a single C# file can have a generated authoring component, and the C# file must not have another MonoBehaviour in it.</li>
+<li>ECS only reflects public fields and they have the same name as that specified in the component.</li>
+<li>ECS reflects fields of an Entity type in the IComponentData as fields of GameObject types in the MonoBehaviour it generates. ECS converts the GameObjects or Prefabs you assign to these fields as referenced Prefabs. </li>
+<li>Only public fields are reflected and they will have the same name as that specified in the component.</li>
+<li>Fields of an Entity type in the IComponentData are reflected as fields of GameObject types in the generated MonoBehaviour. GameObjects or Prefabs you assign to these fields are converted as referenced prefabs.</li>
+</ul>
+<h3 id="for-ibufferelementdata">For IBufferElementData</h3>
+<p>You can also generate authoring components for types that implement <code>IBufferElementData</code> by adding the <code>[GenerateAuthoringComponent]</code> attribute: </p>
+<pre><code>[GenerateAuthoringComponent]
+public struct IntBufferElement: IBufferElementData
+{
+    public int Value;
+}
+</code></pre><p>In this example, a class named <code>IntBufferElementAuthoring</code> (which inherits from <code>MonoBehaviour</code>) is generated, exposing a public field of <code>List&lt;int&gt;</code> type. During conversion, this list will be converted into <code>DynamicBuffer&lt;IntBufferElement&gt;</code>, and then added to the converted entity.</p>
+<p>Note the following restrictions:</p>
+<ul>
+<li>Only one component in a single C# file can have a generated authoring component, and the C# file must not have another MonoBehaviour in it.</li>
+<li><code>IBufferElementData</code> authoring components cannot be automatically generated for types that contain 2 or more fields.</li>
+<li><code>IBufferElementData</code> authoring components cannot be automatically generated for types that have an explicit layout.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/manual/gp_overview.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+  </body>
+</html>

@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Using Entities.ForEach | Unity Entities Documentation | 0.7.0-preview.8 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Entities.ForEach | Unity Entities Documentation | 0.7.0-preview.8 ">
+    <meta name="generator" content="docfx 2.40.12.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="manual">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="ecs-entities-foreach">
+<h1 id="using-entitiesforeach">Using Entities.ForEach</h1>
+
+<p>The <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> construction provided by the [SystemBase] class is a concise way to define and execute your algorithms over entities, their components, or over native containers. <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> executes a lambda function you define over all the entities selected by an [entity query]. </p>
+<p>To execute a job lambda function, you either schedule the job using <code>ScheduleSingle()</code> and <code>ScheduleParallel()</code>, or execute it immediately (on the main thread) with <code>Run()</code>. You can use additional methods defined on <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> to set the entity query as well as various job options.</p>
+<p>The following example illustrates a simple [SystemBase] implementation that uses <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> to read one component (Velocity in this case) and write to another (Translation):</p>
+<pre><code class="lang-cs" name="entities-foreach-example">class ApplyVelocitySystem : SystemBase
+{
+    protected override void OnUpdate()
+    {
+        Entities
+            .ForEach((ref Translation translation,
+                      in Velocity velocity) =&gt;
+            {
+                translation.Value += velocity.Value;
+            })
+            .Schedule();
+    }
+}
+</code></pre><p>Note the use of the keywords <code>ref</code> and <code>in</code> on the parameters of the ForEach lambda function. Use <code>ref</code> for components that you write to, and <code>in</code> for components that you only read. Marking components as read-only helps the job scheduler execute your jobs more efficiently.</p>
+<h2 id="selecting-entities">Selecting entities</h2>
+<p><a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> provides its own mechanism for defining the entity query used to select the entites to process. The query automatically includes any components you use as parameters of your lambda function. You can also use the <code>WithAll</code>, <code>WithAny</code>, and <code>WithNone</code> clauses to further refine which entities are selected. See <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">SystemBase.Entities</a> for the complete list of query options. </p>
+<p>The following example selects entities that have the components, Destination, Source, and LocalToWorld; and have at least one of the components, Rotation, Translation, or Scale; but which do not have a LocalToParent component.</p>
+<pre><code class="lang-cs" name="entity-query">Entities.WithAll&lt;LocalToWorld&gt;()
+    .WithAny&lt;Rotation, Translation, Scale&gt;()
+    .WithNone&lt;LocalToParent&gt;()
+    .ForEach((ref Destination outputData, in Source inputData) =&gt;
+    {
+        /* do some work */
+    })
+    .Schedule();
+</code></pre><p>In this example, only the Destination and Source components can be accessed inside the lambda function since they are the only components in the parameter list.</p>
+<h3 id="accessing-the-entityquery-object">Accessing the EntityQuery object</h3>
+<p>In some circumstances, it can be helpful to have a reference to the <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> instance that <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> creates. To access this object, use <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">WithStoreEntityQueryInField(out query)</a>, which assigns a reference to the query instance to the field that you provide (use the <code>out</code> parameter modifier). </p>
+<p>The following example illustrates how to access the EntityQuery object implicitly created for an <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> construction. In this case, the example uses the EntityQuery object to invoke the <a class="xref" href="../api/Unity.Entities.EntityQuery.html#Unity_Entities_EntityQuery_CalculateEntityCount_">CalculateEntityCount()</a> method. The example uses this count to create a native array with enough space to store one value per entity selected by the query:</p>
+<pre><code class="lang-cs" name="store-query">private EntityQuery query;
+protected override void OnUpdate()
+{
+    int dataCount = query.CalculateEntityCount();
+    NativeArray&lt;float&gt; dataSquared
+        = new NativeArray&lt;float&gt;(dataCount, Allocator.Temp);
+    Entities
+        .WithStoreEntityQueryInField(ref query)
+        .ForEach((int entityInQueryIndex, in Data data) =&gt;
+            {
+                dataSquared[entityInQueryIndex] = data.Value * data.Value;
+            })
+        .ScheduleParallel();
+
+    Job
+        .WithCode(() =&gt;
+        {
+            //Use dataSquared array...
+            var v = dataSquared[dataSquared.Length -1];
+        })
+        .WithDeallocateOnJobCompletion(dataSquared)
+        .Schedule();
+}
+</code></pre><p><a name="optional-components"></a></p>
+<h3 id="optional-components">Optional components</h3>
+<p>You cannot create a query specifying optional components (using WithAny&lt;T,U&gt;) and also access those components in the lambda function. If you need to read or write to a component that is optional, you can split the Entities.ForEach construction into multiple jobs, one for each combination of the optional components. For example, if you had two optional components, you would need three ForEach constructions: one including the first optional component, one including the second, and one including both components. Another alternative is to iterate by chunk using IJobChunk.</p>
+<p><a name="change-filtering"></a></p>
+<h3 id="change-filtering">Change filtering</h3>
+<p>In cases where you only want to process an entity component when another entity of that component has changed since the last time the current [SystemBase] instance has run, you can enable change filtering using WithChangeFilter&lt;T&gt;. The component type used in the change filter must either be in the lambda function parameter list or part of a WithAll&lt;T&gt; statement.</p>
+<pre><code class="lang-cs" name="with-change-filter">Entities
+    .WithChangeFilter&lt;Source&gt;()
+    .ForEach((ref Destination outputData,
+        in Source inputData) =&gt;
+    {
+        /* Do work */
+    })
+    .ScheduleParallel();
+</code></pre><p>An entity query supports change filtering on up to two component types.</p>
+<p>Note that change filtering is applied at the chunk level. If any code accesses a component in a chunk with write access, then that component type in that chunk is marked as changed -- even if the code didn’t actually change any data. </p>
+<p><a name="shared-component-filtering"></a></p>
+<h3 id="shared-component-filtering">Shared component filtering</h3>
+<p>Entities with shared components are grouped into chunks with other entities having the same value for their shared components. You can select groups of entities that have specific shared component values using the WithSharedComponentFilter() function.</p>
+<p>The following example selects entities grouped by a Cohort ISharedComponentData. The lambda function in this example sets a DisplayColor IComponentData component based on the entity’s cohort:</p>
+<pre><code class="lang-cs" name="with-shared-component">public class ColorCycleJob : SystemBase
+{
+    protected override void OnUpdate()
+    {
+        List&lt;Cohort&gt; cohorts = new List&lt;Cohort&gt;();
+        EntityManager.GetAllUniqueSharedComponentData&lt;Cohort&gt;(cohorts);
+        foreach (Cohort cohort in cohorts)
+        {
+            DisplayColor newColor = ColorTable.GetNextColor(cohort.Value);
+            Entities.WithSharedComponentFilter(cohort)
+                .ForEach((ref DisplayColor color) =&gt; { color = newColor; })
+                .ScheduleParallel();
+        }
+    }
+}
+</code></pre><p>The example uses the EntityManager to get all the unique cohort values. It then schedules a lambda job for each cohort, passing the new color to the lambda function as a captured variable. </p>
+<p><a name="lambda-function"></a></p>
+<h2 id="defining-the-foreach-function">Defining the ForEach function</h2>
+<p>When you define the lambda function to use with <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a>, you can declare parameters that the [SystemBase] class uses to pass in information about the current entity when it executes the function.</p>
+<p>A typical lambda function looks like:</p>
+<pre><code class="lang-cs" name="lambda-params">Entities.ForEach(
+    (Entity entity,
+     int entityInQueryIndex,
+     ref Translation translation,
+     in Movement move) =&gt; {/* .. */})
+</code></pre><p>You can pass up to eight parameters to an Entities.ForEach lambda function. The parameters must be grouped in the following order:</p>
+<pre><code>1. Parameters passed-by-value first (no parameter modifiers)
+2. Writable parameters second (`ref` parameter modifier)
+3. Read-only parameters last (`in` parameter modifier)
+</code></pre><p>All components should use either the <code>ref</code> or the <code>in</code> parameter modifier keywords.</p>
+<p>If your function does not obey these rules, the compiler provides an error similar to:</p>
+<p><code>error CS1593: Delegate &#39;Invalid_ForEach_Signature_See_ForEach_Documentation_For_Rules_And_Restrictions&#39; does not take N arguments</code></p>
+<p>(Note that the error message cites the number of arguments as the issue even when the problem is the parameter order.)</p>
+<p><a name="component-parameters"></a></p>
+<h3 id="component-parameters">Component parameters</h3>
+<p>To access a component associated with an entity, you must pass a parameter of that component type to the lambda function. The compiler automatically adds all components passed to the function to the entity query as required components. </p>
+<p>To update a component value, you must pass it to the lambda function by reference using the <code>ref</code> keyword in the parameter list. (Without the <code>ref</code> keyword, any modifications would be made to a temporary copy of the component since it would be passed by value.) </p>
+<p>To designate a component passed to the lambda function as read-only, use the <code>in</code> keyword in the parameter list.</p>
+<p><strong>Note:</strong> Using <code>ref</code> means that the components in the current chunk are marked as changed, even if the lambda function does not actually modify them. For efficiency, always designate components that your lambda function does not modify as read only using the <code>in</code> keyword.</p>
+<p>The following example passes a Source component parameter to the job as read-only, and a Destination component parameter as writable: </p>
+<pre><code class="lang-cs" name="read-write-modifiers">Entities.ForEach(
+        (ref Destination outputData,
+            in Source inputData) =&gt;
+        {
+            outputData.Value = inputData.Value;
+        })
+    .ScheduleParallel();
+</code></pre><p><strong>Note:</strong> Currently, you cannot pass chunk components to the Entities.ForEach lambda function.</p>
+<p>For dynamic buffers, use DynamicBuffer&lt;T&gt; rather than the Component type stored in the buffer:</p>
+<pre><code class="lang-cs" name="dynamicbuffer">public class BufferSum : SystemBase
+{
+    private EntityQuery query;
+
+    //Schedules the two jobs with a dependency between them
+    protected override void OnUpdate()
+    {
+        //The query variable can be accessed here because we are
+        //using WithStoreEntityQueryInField(query) in the entities.ForEach below
+        int entitiesInQuery = query.CalculateEntityCount();
+
+        //Create a native array to hold the intermediate sums
+        //(one element per entity)
+        NativeArray&lt;int&gt; intermediateSums
+            = new NativeArray&lt;int&gt;(entitiesInQuery, Allocator.TempJob);
+
+        //Schedule the first job to add all the buffer elements
+        Entities
+            .ForEach((int entityInQueryIndex, in DynamicBuffer&lt;IntBufferData&gt; buffer) =&gt;
+            {
+                for (int i = 0; i &lt; buffer.Length; i++)
+                {
+                    intermediateSums[entityInQueryIndex] += buffer[i].Value;
+                }
+            })
+            .WithStoreEntityQueryInField(ref query)
+            .WithName(&quot;IntermediateSums&quot;)
+            .ScheduleParallel(); // Execute in parallel for each chunk of entities
+
+        //Schedule the second job, which depends on the first
+        Job
+            .WithCode(() =&gt;
+            {
+                int result = 0;
+                for (int i = 0; i &lt; intermediateSums.Length; i++)
+                {
+                    result += intermediateSums[i];
+                }
+                //Not burst compatible:
+                Debug.Log(&quot;Final sum is &quot; + result);
+            })
+            .WithDeallocateOnJobCompletion(intermediateSums)
+            .WithoutBurst()
+            .WithName(&quot;FinalSum&quot;)
+            .Schedule(); // Execute on a single, background thread
+    }
+}
+</code></pre><p><a name="named-parameters"></a></p>
+<h3 id="special-named-parameters">Special, named parameters</h3>
+<p>In addition to components, you can pass the following special, named parameters to the Entities.ForEach lambda function, which are assigned values based on the entity the job is currently processing:</p>
+<ul>
+<li><strong><code>Entity entity</code></strong> — the Entity instance of the current entity. (The parameter can be named anything as long as the type is Entity.)</li>
+<li><strong><code>int entityInQueryIndex</code></strong> — the index of the entity in the list of all entities selected by the query. Use the entity index value when you have a <a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html">native array</a> that you need to fill with a unique value for each entity. You can use the entityInQueryIndex as the index in that array. The entityInQueryIndex should also be used as the jobIndex for adding commands to a concurrent <a class="xref" href="../api/Unity.Entities.EntityCommandBuffer.html">EntityCommandBuffer</a>.</li>
+<li><strong><code>int nativeThreadIndex</code></strong> — a unique index for the thread executing the current iteration of the lambda function. When you execute the lambda function using Run(), nativeThreadIndex is always zero.</li>
+</ul>
+<p><a name="capturing-variables"></a></p>
+<h2 id="capturing-variables">Capturing variables</h2>
+<p>You can capture local variables for Entities.ForEach lambda functions. When you execute the function using a job (by calling one of the Schedule functions instead of Run) there are some restrictions on the captured variables and how you use them:</p>
+<ul>
+<li>Only native containers and blittable types can be captured.</li>
+<li>A job can only write to captured variables that are native containers. (To “return” a single value, create a <a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html">native array</a> with one element.)</li>
+</ul>
+<p>If you read a [native container], but don&#39;t write to it, always specify read-only access using <code>WithReadOnly(variable)</code>. 
+See <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">SystemBase.Entities</a> for more information about setting attributes for captured variables. The attributes you can specify include, <code>DeallocateOnJobCompletion</code>, <code>NativeDisableParallelForRestriction</code>, and others. <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> provides these as functions because the C# language doesn&#39;t allow attibutes on local variables.</p>
+<h2 id="dependencies">Dependencies</h2>
+<p>By default, a system manages its ECS-related dependencies using its <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property. By default, the system adds each job created with <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> and [Job.WithCode] to the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> job handle in the order that they appear in the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a> function. You can also manage job dependencies manually by passing a [JobHandle] to your <code>Schedule</code> functions, which then return the resulting dependency. See <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> for more information.</p>
+<p>See <a class="xref" href="ecs_job_dependencies.html">Job dependencies</a> for more general information about job dependencies.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/manual/ecs_entities_foreach.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+  </body>
+</html>

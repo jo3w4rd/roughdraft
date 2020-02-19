@@ -1,0 +1,417 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Class JobComponentSystem
+   | Unity Entities Documentation | 0.7.0-preview.8 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class JobComponentSystem
+   | Unity Entities Documentation | 0.7.0-preview.8 ">
+    <meta name="generator" content="docfx 2.40.12.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="Unity.Entities.JobComponentSystem">
+  
+  
+  <h1 id="Unity_Entities_JobComponentSystem" data-uid="Unity.Entities.JobComponentSystem">Class JobComponentSystem
+  </h1>
+  <div class="markdown level0 summary"><p>An abstract class to implement in order to create a system that uses ECS-specific Jobs.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Unity.Entities.ComponentSystemBase.html">ComponentSystemBase</a></div>
+    <div class="level2"><span class="xref">JobComponentSystem</span></div>
+  </div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.CompositeRotationSystem.html">CompositeRotationSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.CompositeScaleSystem.html">CompositeScaleSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.CopyInitialTransformFromGameObjectSystem.html">CopyInitialTransformFromGameObjectSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.CopyTransformFromGameObjectSystem.html">CopyTransformFromGameObjectSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.CopyTransformToGameObjectSystem.html">CopyTransformToGameObjectSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.LocalToParentSystem.html">LocalToParentSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.ParentScaleInverseSystem.html">ParentScaleInverseSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.ParentSystem.html">ParentSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.PostRotationEulerSystem.html">PostRotationEulerSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.RotationEulerSystem.html">RotationEulerSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.TRSToLocalToParentSystem.html">TRSToLocalToParentSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.TRSToLocalToWorldSystem.html">TRSToLocalToWorldSystem</a></div>
+      <div class="level3"><a class="xref" href="Unity.Transforms.WorldToLocalSystem.html">WorldToLocalSystem</a></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_Enabled">ComponentSystemBase.Enabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_EntityQueries">ComponentSystemBase.EntityQueries</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GlobalSystemVersion">ComponentSystemBase.GlobalSystemVersion</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_LastSystemVersion">ComponentSystemBase.LastSystemVersion</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_EntityManager">ComponentSystemBase.EntityManager</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_World">ComponentSystemBase.World</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_Time">ComponentSystemBase.Time</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnCreateForCompiler">ComponentSystemBase.OnCreateForCompiler()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnCreate">ComponentSystemBase.OnCreate()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnDestroyManager">ComponentSystemBase.OnDestroyManager()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnCreateManager">ComponentSystemBase.OnCreateManager()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnStartRunning">ComponentSystemBase.OnStartRunning()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnStopRunning">ComponentSystemBase.OnStopRunning()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnDestroy">ComponentSystemBase.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_ShouldRunSystem">ComponentSystemBase.ShouldRunSystem()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetArchetypeChunkComponentType__1_System_Boolean_">ComponentSystemBase.GetArchetypeChunkComponentType&lt;T&gt;(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetArchetypeChunkComponentTypeDynamic_Unity_Entities_ComponentType_">ComponentSystemBase.GetArchetypeChunkComponentTypeDynamic(ComponentType)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetArchetypeChunkBufferType__1_System_Boolean_">ComponentSystemBase.GetArchetypeChunkBufferType&lt;T&gt;(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetArchetypeChunkSharedComponentType__1">ComponentSystemBase.GetArchetypeChunkSharedComponentType&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetArchetypeChunkEntityType">ComponentSystemBase.GetArchetypeChunkEntityType()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetComponentDataFromEntity__1_System_Boolean_">ComponentSystemBase.GetComponentDataFromEntity&lt;T&gt;(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetBufferFromEntity__1_System_Boolean_">ComponentSystemBase.GetBufferFromEntity&lt;T&gt;(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_RequireForUpdate_Unity_Entities_EntityQuery_">ComponentSystemBase.RequireForUpdate(EntityQuery)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_RequireSingletonForUpdate__1">ComponentSystemBase.RequireSingletonForUpdate&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_HasSingleton__1">ComponentSystemBase.HasSingleton&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetSingleton__1">ComponentSystemBase.GetSingleton&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_SetSingleton__1___0_">ComponentSystemBase.SetSingleton&lt;T&gt;(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetSingletonEntity__1">ComponentSystemBase.GetSingletonEntity&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_ComponentType___">ComponentSystemBase.GetEntityQuery(ComponentType[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetEntityQuery_NativeArray_Unity_Entities_ComponentType__">ComponentSystemBase.GetEntityQuery(NativeArray&lt;ComponentType&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_EntityQueryDesc___">ComponentSystemBase.GetEntityQuery(EntityQueryDesc[])</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unity.Entities.html">Unity.Entities</a></h6>
+  <!--h6><strong>Assembly</strong>: solution.dll</h6-->
+  <h5 id="Unity_Entities_JobComponentSystem_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class JobComponentSystem : ComponentSystemBase</code></pre>
+  </div>
+  <h5 id="Unity_Entities_JobComponentSystem_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Implement a JobComponentSystem subclass for systems that perform their work using
+<a class="xref" href="Unity.Entities.IJobForEach-1.html">IJobForEach&lt;T0&gt;</a> or <a class="xref" href="Unity.Entities.IJobChunk.html">IJobChunk</a>.</p>
+</div>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/JobComponentSystem.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_JobComponentSystem_Entities_" data-uid="Unity.Entities.JobComponentSystem.Entities*"></a>
+  <h4 id="Unity_Entities_JobComponentSystem_Entities" data-uid="Unity.Entities.JobComponentSystem.Entities">Entities</h4>
+  <div class="markdown level1 summary"><p>Use Entities.ForEach((ref Translation translation, in Velocity velocity) =&gt; { translation.Value += velocity.Value * dt; }).Schedule(inputDependencies);</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ForEachLambdaJobDescriptionJCS Entities { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Unity.Entities.CodeGeneratedJobForEach.ForEachLambdaJobDescriptionJCS</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/JobComponentSystem.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_JobComponentSystem_Job_" data-uid="Unity.Entities.JobComponentSystem.Job*"></a>
+  <h4 id="Unity_Entities_JobComponentSystem_Job" data-uid="Unity.Entities.JobComponentSystem.Job">Job</h4>
+  <div class="markdown level1 summary"><p>Use Job.WithCode(() =&gt; { YourCodeGoesHere(); }).Schedule(inputDependencies);</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected LambdaSingleJobDescriptionJCS Job { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Unity.Entities.CodeGeneratedJobForEach.LambdaSingleJobDescriptionJCS</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/JobComponentSystem.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_JobComponentSystem_OnUpdate_" data-uid="Unity.Entities.JobComponentSystem.OnUpdate*"></a>
+  <h4 id="Unity_Entities_JobComponentSystem_OnUpdate_JobHandle_" data-uid="Unity.Entities.JobComponentSystem.OnUpdate(JobHandle)">OnUpdate(JobHandle)</h4>
+  <div class="markdown level1 summary"><p>Implement OnUpdate to perform the major work of this system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract JobHandle OnUpdate(JobHandle inputDeps)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">JobHandle</span></td>
+        <td><span class="parametername">inputDeps</span></td>
+        <td><p>Existing dependencies for this system.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">JobHandle</span></td>
+        <td><p>A Job handle that contains the dependencies of the Jobs in this system.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Unity_Entities_JobComponentSystem_OnUpdate_JobHandle__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The system invokes OnUpdate once per frame on the main thread when any of this system&apos;s
+EntityQueries match existing entities, or if the system has the AlwaysUpdate
+attribute.</p>
+<p>To run a Job, create an instance of the Job struct, assign appropriate values to the struct fields and call
+one of the Job schedule functions. The system passes any current dependencies between Jobs -- which can include Jobs
+internal to this system, such as gathering entities or chunks, as well as Jobs external to this system,
+such as Jobs that write to the components read by this system -- in the <code>inputDeps</code> parameter. Your function
+must combine the input dependencies with any dependencies of the Jobs created in OnUpdate and return the
+combined <see cref="!:JobHandle"></see> object.</p>
+</div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/JobComponentSystem.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_JobComponentSystem_Update_" data-uid="Unity.Entities.JobComponentSystem.Update*"></a>
+  <h4 id="Unity_Entities_JobComponentSystem_Update" data-uid="Unity.Entities.JobComponentSystem.Update">Update()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override sealed void Update()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_Update">ComponentSystemBase.Update()</a></div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBaseManagedComponentExtensions.html#Unity_Entities_ComponentSystemBaseManagedComponentExtensions_HasSingleton__1_Unity_Entities_ComponentSystemBase_">ComponentSystemBaseManagedComponentExtensions.HasSingleton&lt;T&gt;(ComponentSystemBase)</a>
+  </div>
+  <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBaseManagedComponentExtensions.html#Unity_Entities_ComponentSystemBaseManagedComponentExtensions_GetSingleton__1_Unity_Entities_ComponentSystemBase_">ComponentSystemBaseManagedComponentExtensions.GetSingleton&lt;T&gt;(ComponentSystemBase)</a>
+  </div>
+  <div>
+      <a class="xref" href="Unity.Entities.ComponentSystemBaseManagedComponentExtensions.html#Unity_Entities_ComponentSystemBaseManagedComponentExtensions_SetSingleton__1_Unity_Entities_ComponentSystemBase___0_">ComponentSystemBaseManagedComponentExtensions.SetSingleton&lt;T&gt;(ComponentSystemBase, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Unity.Entities.JobForEachExtensions.html#Unity_Entities_JobForEachExtensions_GetEntityQueryForIJobForEach_Unity_Entities_ComponentSystemBase_System_Type_">JobForEachExtensions.GetEntityQueryForIJobForEach(ComponentSystemBase, Type)</a>
+  </div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Unity.Entities.ComponentSystem.html">ComponentSystem</a></div>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/JobComponentSystem.cs" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+  </body>
+</html>

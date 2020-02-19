@@ -1,0 +1,635 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Struct NativeArraySharedValues&lt;S&gt;
+   | Unity Entities Documentation | 0.7.0-preview.8 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct NativeArraySharedValues&lt;S&gt;
+   | Unity Entities Documentation | 0.7.0-preview.8 ">
+    <meta name="generator" content="docfx 2.40.12.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="Unity.Entities.NativeArraySharedValues`1">
+  
+  
+  <h1 id="Unity_Entities_NativeArraySharedValues_1" data-uid="Unity.Entities.NativeArraySharedValues`1">Struct NativeArraySharedValues&lt;S&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Merge sort index list referencing NativeArray values.
+Provide list of shared values, indices to shared values, and lists of source i
+value indices with identical shared value.
+As an example:
+Given Source NativeArray: [A,A,A,B,B,C,C,A,B]
+Provides:
+Shared value indices: [0,0,0,1,1,2,2,0,1]
+Shared value counts: [4,3,2] (number of occurrences of a shared value)
+Shared values: [A,B,C] (not stored in this structure)
+Sorted indices: [0,1,2,7,3,4,8,5,6] (using these indices to look up values in the source array would give you [A,A,A,A,B,B,B,C,C])
+Shared value start offsets (into sorted indices): [0,4,7]</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unity.Entities.html">Unity.Entities</a></h6>
+  <!--h6><strong>Assembly</strong>: solution.dll</h6-->
+  <h5 id="Unity_Entities_NativeArraySharedValues_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct NativeArraySharedValues&lt;S&gt; : IDisposable where S : struct, IComparable&lt;S&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">S</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1__ctor_" data-uid="Unity.Entities.NativeArraySharedValues`1.#ctor*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1__ctor_NativeArray__0__Allocator_" data-uid="Unity.Entities.NativeArraySharedValues`1.#ctor(NativeArray{`0},Allocator)">NativeArraySharedValues(NativeArray&lt;S&gt;, Allocator)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArraySharedValues(NativeArray&lt;S&gt; sourceBuffer, Allocator allocator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;S&gt;</td>
+        <td><span class="parametername">sourceBuffer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Allocator</span></td>
+        <td><span class="parametername">allocator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1_SharedValueCount_" data-uid="Unity.Entities.NativeArraySharedValues`1.SharedValueCount*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1_SharedValueCount" data-uid="Unity.Entities.NativeArraySharedValues`1.SharedValueCount">SharedValueCount</h4>
+  <div class="markdown level1 summary"><p>Number of shared (unique) values in source NativeArray</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SharedValueCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1_SourceBuffer_" data-uid="Unity.Entities.NativeArraySharedValues`1.SourceBuffer*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1_SourceBuffer" data-uid="Unity.Entities.NativeArraySharedValues`1.SourceBuffer">SourceBuffer</h4>
+  <div class="markdown level1 summary"><p>Original Source Values (passed into constructor)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;S&gt; SourceBuffer { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;S&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1_Dispose_" data-uid="Unity.Entities.NativeArraySharedValues`1.Dispose*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1_Dispose" data-uid="Unity.Entities.NativeArraySharedValues`1.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1_GetSharedIndexArray_" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedIndexArray*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1_GetSharedIndexArray" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedIndexArray">GetSharedIndexArray()</h4>
+  <div class="markdown level1 summary"><p>Indices into shared values.
+For example, given source array: [A,A,A,B,B,C,C,A,B]
+shared values are: [A,B,C]
+shared index array would contain: [0,0,0,1,1,2,2,0,1]</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;int&gt; GetSharedIndexArray()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><p>Index NativeArray where each element refers to the index of a shared value in a list of shared (unique) values.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1_GetSharedIndexBySourceIndex_" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedIndexBySourceIndex*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1_GetSharedIndexBySourceIndex_System_Int32_" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedIndexBySourceIndex(System.Int32)">GetSharedIndexBySourceIndex(Int32)</h4>
+  <div class="markdown level1 summary"><p>Index of shared value associated with an element in the source buffer.
+For example, given source array: [A,A,A,B,B,C,C,A,B]
+shared values are: [A,B,C]
+Given the index 2 into the source array (A), the return value would be 0 (A in shared values).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetSharedIndexBySourceIndex(int indexIntoSourceBuffer)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">indexIntoSourceBuffer</span></td>
+        <td><p>Index of source value</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>Index into the list of shared values</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1_GetSharedValueIndexCountArray_" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedValueIndexCountArray*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1_GetSharedValueIndexCountArray" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedValueIndexCountArray">GetSharedValueIndexCountArray()</h4>
+  <div class="markdown level1 summary"><p>Array of number of occurrences of all shared values.
+For example, given source array: [A,A,A,B,B,C,C,A,B]
+shared values are: [A,B,C]
+Shared value counts: [4,3,2] (number of occurrences of a shared value)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;int&gt; GetSharedValueIndexCountArray()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><p>Count NativeArray where each element refers to the number of occurrences of each shared value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1_GetSharedValueIndexCountBySourceIndex_" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedValueIndexCountBySourceIndex*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1_GetSharedValueIndexCountBySourceIndex_System_Int32_" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedValueIndexCountBySourceIndex(System.Int32)">GetSharedValueIndexCountBySourceIndex(Int32)</h4>
+  <div class="markdown level1 summary"><p>Number of occurrences of a shared (unique) value shared by a given a source index.
+For example, given source array: [A,A,A,B,B,C,C,A,B]
+shared values are: [A,B,C]
+Shared value counts: [4,3,2] (number of occurrences of a shared value)
+Given the index 2 into the source array (A), the return value would be 4 (for 4 occurrences of A in the source buffer).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetSharedValueIndexCountBySourceIndex(int indexIntoSourceBuffer)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">indexIntoSourceBuffer</span></td>
+        <td><p>Index of source value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><p>Count of total occurrences of the shared value at a source buffer index in the source buffer.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1_GetSharedValueIndicesBySharedIndex_" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedValueIndicesBySharedIndex*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1_GetSharedValueIndicesBySharedIndex_System_Int32_" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedValueIndicesBySharedIndex(System.Int32)">GetSharedValueIndicesBySharedIndex(Int32)</h4>
+  <div class="markdown level1 summary"><p>Array of indices into source NativeArray which share the same shared value
+For example, given source array: [A,A,A,B,B,C,C,A,B]
+shared values are: [A,B,C]
+Shared value counts: [4,3,2] (number of occurrences of a shared value)
+Shared value start offsets (into sorted indices): [0,4,7]
+Given the index 0 into the shared value array (A), the returned array would contain [0,1,2,7] (indices into the source array which point to the shared value A).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;int&gt; GetSharedValueIndicesBySharedIndex(int sharedValueIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">sharedValueIndex</span></td>
+        <td><p>Index of shared value</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><p>Index NativeArray where each element refers to an index into the source array.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1_GetSharedValueIndicesBySourceIndex_" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedValueIndicesBySourceIndex*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1_GetSharedValueIndicesBySourceIndex_System_Int32_" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSharedValueIndicesBySourceIndex(System.Int32)">GetSharedValueIndicesBySourceIndex(Int32)</h4>
+  <div class="markdown level1 summary"><p>Array of indices into shared value indices NativeArray which share the same source value
+For example, given Source NativeArray: [A,A,A,B,B,C,C,A,B]
+shared values are: [A,B,C]
+Shared value indices: [0,0,0,1,1,2,2,0,1]
+Given the index 2 into the source array (A),
+the returned array would contain: [0,1,2,7] (indices in SharedValueIndices that have a value of 0, i.e. where A is in the shared values)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;int&gt; GetSharedValueIndicesBySourceIndex(int indexIntoSourceBuffer)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">indexIntoSourceBuffer</span></td>
+        <td><p>Index of source value</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><p>Index NativeArray where each element refers to an index into the shared value indices array.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1_GetSortedIndices_" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSortedIndices*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1_GetSortedIndices" data-uid="Unity.Entities.NativeArraySharedValues`1.GetSortedIndices">GetSortedIndices()</h4>
+  <div class="markdown level1 summary"><p>Indices into source NativeArray sorted by value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NativeArray&lt;int&gt; GetSortedIndices()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</td>
+        <td><p>Index NativeArray where each element refers to an element in the source NativeArray</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs">Improve this Doc</a>
+  </span>
+  
+  <a id="Unity_Entities_NativeArraySharedValues_1_Schedule_" data-uid="Unity.Entities.NativeArraySharedValues`1.Schedule*"></a>
+  <h4 id="Unity_Entities_NativeArraySharedValues_1_Schedule_JobHandle_" data-uid="Unity.Entities.NativeArraySharedValues`1.Schedule(JobHandle)">Schedule(JobHandle)</h4>
+  <div class="markdown level1 summary"><p>Schedule jobs to collect and sort shared values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public JobHandle Schedule(JobHandle inputDeps)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">JobHandle</span></td>
+        <td><span class="parametername">inputDeps</span></td>
+        <td><p>Dependent JobHandle</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">JobHandle</span></td>
+        <td><p>JobHandle</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SortingUtilities.cs" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+  </body>
+</html>
