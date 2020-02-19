@@ -298,7 +298,7 @@ your intent and translate it into efficient (optionally) job-based code.  </p>
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SystemBase.cs">Improve this Doc</a>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/SystemBase.cs">Improve this Doc</a>
   </span>
   
   <a id="Unity_Entities_SystemBase_Dependency_" data-uid="Unity.Entities.SystemBase.Dependency*"></a>
@@ -415,7 +415,7 @@ You must manage the dependencies for IJobChunk explicitly.</p>
 </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SystemBase.cs">Improve this Doc</a>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/SystemBase.cs">Improve this Doc</a>
   </span>
   
   <a id="Unity_Entities_SystemBase_Entities_" data-uid="Unity.Entities.SystemBase.Entities*"></a>
@@ -583,7 +583,7 @@ for compilation later.</li>
 </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SystemBase.cs">Improve this Doc</a>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/SystemBase.cs">Improve this Doc</a>
   </span>
   
   <a id="Unity_Entities_SystemBase_Job_" data-uid="Unity.Entities.SystemBase.Job*"></a>
@@ -705,7 +705,7 @@ application. See <a href="https://docs.unity3d.com/ScriptReference/Unity.Collect
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SystemBase.cs">Improve this Doc</a>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/SystemBase.cs">Improve this Doc</a>
   </span>
   
   <a id="Unity_Entities_SystemBase_CompleteDependency_" data-uid="Unity.Entities.SystemBase.CompleteDependency*"></a>
@@ -718,7 +718,7 @@ application. See <a href="https://docs.unity3d.com/ScriptReference/Unity.Collect
   </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SystemBase.cs">Improve this Doc</a>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/SystemBase.cs">Improve this Doc</a>
   </span>
   
   <a id="Unity_Entities_SystemBase_GetComponent_" data-uid="Unity.Entities.SystemBase.GetComponent*"></a>
@@ -813,7 +813,7 @@ data to minimize the need for indirect lookups.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SystemBase.cs">Improve this Doc</a>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/SystemBase.cs">Improve this Doc</a>
   </span>
   
   <a id="Unity_Entities_SystemBase_HasComponent_" data-uid="Unity.Entities.SystemBase.HasComponent*"></a>
@@ -895,12 +895,12 @@ data to minimize the need for indirect lookups.</p>
 </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SystemBase.cs">Improve this Doc</a>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/SystemBase.cs">Improve this Doc</a>
   </span>
   
   <a id="Unity_Entities_SystemBase_OnUpdate_" data-uid="Unity.Entities.SystemBase.OnUpdate*"></a>
   <h4 id="Unity_Entities_SystemBase_OnUpdate" data-uid="Unity.Entities.SystemBase.OnUpdate">OnUpdate()</h4>
-  <div class="markdown level1 summary"><p>Implement OnUpdate to perform the major work of this system.</p>
+  <div class="markdown level1 summary"><p>Implement <code>OnUpdate()</code> to perform the major work of this system.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -908,22 +908,21 @@ data to minimize the need for indirect lookups.</p>
     <pre><code class="lang-csharp hljs">protected abstract void OnUpdate()</code></pre>
   </div>
   <h5 id="Unity_Entities_SystemBase_OnUpdate_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>The system invokes OnUpdate once per frame on the main thread when any of this system&apos;s
+  <div class="markdown level1 remarks"><p>The system invokes <code>OnUpdate()</code> once per frame on the main thread when any of this system&apos;s
 <a class="xref" href="Unity.Entities.EntityQuery.html">EntityQueries</a> match existing entities, the system has the [AlwaysUpdateSystem] 
-attribute, or the system has no queries at all. OnUpdate is triggered by the system&apos;s
+attribute, or the system has no queries at all. <code>OnUpdate()</code> is triggered by the system&apos;s
 parent system group, which calls the <a class="xref" href="Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Update">Update()</a> method of all its child
-systems in its own OnUpdate function. The Update function evaluates whether a system
-should, in fact, update before calling OnUpdate.</p>
+systems in its own <code>OnUpdate()</code> function. The <code>Update()</code> function evaluates whether a system
+should, in fact, update before calling <code>OnUpdate()</code>.</p>
 <p>The <a class="xref" href="Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> and <a class="xref" href="Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> constructions provide convenient mechanisms for defining jobs.
-You can also instantiated and schedule an <a class="xref" href="Unity.Entities.IJobChunk.html">IJobChunk</a> instance. You can also use the
-[C# JobSystem] or perform work on the main thread. If you call <a class="xref" href="Unity.Entities.EntityManager.html">EntityManager</a> methods that
+You can also instantiate and schedule an <a class="xref" href="Unity.Entities.IJobChunk.html">IJobChunk</a> instance; you can use the
+[C# JobSystem] or you can perform work on the main thread. If you call <a class="xref" href="Unity.Entities.EntityManager.html">EntityManager</a> methods that
 perform structural changes on the main thread, be sure to arrange the system order to minimize the
-performance impact of the resulting [sync points].</p>
-<p>[sync points] xref:sync-points</p>
+performance impact of the resulting <a class="xref" href="../manual/sync_points.html">sync points</a>.</p>
 </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SystemBase.cs">Improve this Doc</a>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/SystemBase.cs">Improve this Doc</a>
   </span>
   
   <a id="Unity_Entities_SystemBase_SetComponent_" data-uid="Unity.Entities.SystemBase.SetComponent*"></a>
@@ -1008,7 +1007,7 @@ data to minimize the need for indirect lookups.</p>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SystemBase.cs">Improve this Doc</a>
+    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/SystemBase.cs">Improve this Doc</a>
   </span>
   
   <a id="Unity_Entities_SystemBase_Update_" data-uid="Unity.Entities.SystemBase.Update*"></a>
@@ -1047,7 +1046,7 @@ cannot override <code>Update()</code>. Instead, implement system behavior in <a 
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/package/Unity.Entities/SystemBase.cs" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/SystemBase.cs" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
