@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,9 +12,9 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Using IJobChunk jobs | Unity Entities Documentation | 0.7.0-preview.8 </title>
+    <title>Using IJobChunk jobs | Unity Entities Documentation | 0.7.0-preview.13 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Using IJobChunk jobs | Unity Entities Documentation | 0.7.0-preview.8 ">
+    <meta name="title" content="Using IJobChunk jobs | Unity Entities Documentation | 0.7.0-preview.13 ">
     <meta name="generator" content="docfx 2.40.12.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../styles/version-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -89,7 +89,7 @@
             <article class="content wrap" id="_content" data-uid="ecs-ijobchunk">
 <h1 id="using-ijobchunk-jobs">Using IJobChunk jobs</h1>
 
-<p>You can implement <a class="xref" href="../api/Unity.Entities.IJobChunk.html">IJobChunk</a> inside a system to iterate through your data by chunk. When you schedule an IJobChunk job in the OnUpdate() function of a system, your <code>Execute()</code> function is invoked once for each chunk that matches the entity query passed to the job&#39;s Schedule method. You can then process the data inside each chunk, entity by entity.</p>
+<p>You can implement <a class="xref" href="../api/Unity.Entities.IJobChunk.html">IJobChunk</a> inside a system to iterate through your data by chunk. When you schedule an IJobChunk job in the <code>OnUpdate()</code> function of a system, the job invokes your <code>Execute()</code> function once for each chunk that matches the entity query passed to the job&#39;s <code>Schedule()</code> method. You can then iterate over the data inside each chunk, entity by entity.</p>
 <p>Iterating with IJobChunk requires more code setup than does Entities.ForEach, but is also more explicit and represents the most direct access to the data, as it is actually stored. </p>
 <p>Another benefit of iterating by chunks is that you can check whether an optional component is present in each chunk with <code>Archetype.Has&lt;T&gt;()</code>, and then process all of the entities in the chunk accordingly.</p>
 <p>To implement an IJobChunk job, use the following steps:</p>
@@ -280,7 +280,7 @@ protected override void OnUpdate()
 </code></pre><p><strong>Note:</strong> For efficiency, the change version applies to whole chunks not individual entities. If another job which has the ability to write to that type of component accesses a chunk, then ECS increments the change version for that component and the <code>DidChange()</code> function returns true. ECS increments the change version even if the job that declares write access to a component does not actually change the component value. </p>
 <p><a name="schedule"></a></p>
 <h2 id="instantiate-and-schedule-the-job">Instantiate and schedule the job</h2>
-<p>To run an IJobChunk Job, you must create an instance of your Job struct, setting the struct fields, and then schedule the Job. When you do this in the <code>OnUpdate()</code> function of a SystemBase implementation, the system schedules the job to run every frame.</p>
+<p>To run an IJobChunk job, you must create an instance of your job struct, setting the struct fields, and then schedule the job. When you do this in the <code>OnUpdate()</code> function of a SystemBase implementation, the system schedules the job to run every frame.</p>
 <pre><code class="lang-cs" name="schedulequery">
 protected override void OnUpdate()
 {
@@ -293,7 +293,7 @@ protected override void OnUpdate()
     this.Dependency =  job.ScheduleParallel(m_Query, this.Dependency);
 }
 
-</code></pre><p>When you call the <code>GetArchetypeChunkComponentType&lt;T&gt;()</code> function to set your component type variables, make sure that you set the <code>isReadOnly</code> parameter to true for components that the Job reads, but doesn’t write. Setting these parameters correctly can have a significant impact on how efficiently the ECS framework can schedule your Jobs. These access mode settings must match their equivalents in both the struct definition, and the EntityQuery. </p>
+</code></pre><p>When you call the <code>GetArchetypeChunkComponentType&lt;T&gt;()</code> function to set your component type variables, make sure that you set the <code>isReadOnly</code> parameter to true for components that the job reads, but doesn’t write. Setting these parameters correctly can have a significant impact on how efficiently the ECS framework can schedule your jobs. These access mode settings must match their equivalents in both the struct definition, and the EntityQuery. </p>
 <p>Do not cache the return value of <code>GetArchetypeChunkComponentType&lt;T&gt;()</code> in a system class variable. You must call the function every time the system runs, and pass the updated value to the job.</p>
 </article>
           </div>

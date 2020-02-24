@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,9 +12,9 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Write groups | Unity Entities Documentation | 0.7.0-preview.8 </title>
+    <title>Write groups | Unity Entities Documentation | 0.7.0-preview.13 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Write groups | Unity Entities Documentation | 0.7.0-preview.8 ">
+    <meta name="title" content="Write groups | Unity Entities Documentation | 0.7.0-preview.13 ">
     <meta name="generator" content="docfx 2.40.12.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../styles/version-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -127,7 +127,7 @@ protected override void OnUpdate() {
       .WithEntityQueryOptions(EntityQueryOptions.FilterWriteGroup) // support write groups
       .ForEach((ref ColorComponent color, in HealthComponent health) =&gt; {
          // compute color here
-      }).Schedule();
+      }).ScheduleParallel();
 }
 ...
 </code></pre><p>When this executes, the following happens:</p>
@@ -164,10 +164,11 @@ public struct B : IComponentData
 {
    protected override void OnUpdate() {
       Entities
-         .WithEntityQueryOptions(EntityQueryOptions.FilterWriteGroup) // support write groups
+          // support write groups by setting EntityQueryOptions
+         .WithEntityQueryOptions(EntityQueryOptions.FilterWriteGroup) 
          .ForEach((ref W w, in B b) =&gt; {
             // perform computation here
-         }).Schedule();}
+         }).ScheduleParallel();}
 }
 </code></pre><p>For query description objects, set the flag when you create the query:</p>
 <pre><code class="lang-csharp">public class AddingSystem : SystemBase
@@ -224,8 +225,9 @@ public class RotationAngleAxisSystem : SystemBase
    {
       Entities.ForEach((ref Rotation destination, in RotationAngleAxis source) =&gt;
       {
-         destination.Value = quaternion.AxisAngle(math.normalize(source.Axis), source.Angle);
-      }).Schedule();
+         destination.Value 
+             = quaternion.AxisAngle(math.normalize(source.Axis), source.Angle);
+      }).ScheduleParallel();
    }
 }
 </code></pre><h2 id="extending-another-system-that-uses-write-groups">Extending another system that uses write groups</h2>
@@ -233,9 +235,15 @@ public class RotationAngleAxisSystem : SystemBase
 <p>In the previous example, it defined a write group that contains components <code>A</code> and <code>B</code> that targets component <code>W</code>. If you add a new component, called <code>C</code>, to the write group, then the new system that knows about <code>C</code> can query for entities that contain <code>C</code> and it does not matter if those entities also have components <code>A</code> or <code>B</code>. However, if the new system also enables write group filtering, that is no longer true. If you only require component <code>C</code>, then write group filtering excludes any entities with either <code>A</code> or <code>B</code>. Instead, you must explicitly query for each combination of components that make sense. <strong>Note:</strong> You can use the <code>Any</code> clause of the query when appropriate.</p>
 <pre><code class="lang-csharp">var query = new EntityQueryDesc
 {
-   All = new ComponentType[] {ComponentType.ReadOnly&lt;C&gt;(), ComponentType.ReadWrite&lt;W&gt;()},
-   Any = new ComponentType[] {ComponentType.ReadOnly&lt;A&gt;(), ComponentType.ReadOnly&lt;B&gt;()},
-   Options = EntityQueryOptions.FilterWriteGroup
+    All = new ComponentType[] {
+       ComponentType.ReadOnly&lt;C&gt;(), 
+       ComponentType.ReadWrite&lt;W&gt;()
+    },
+    Any = new ComponentType[] {
+       ComponentType.ReadOnly&lt;A&gt;(), 
+       ComponentType.ReadOnly&lt;B&gt;()
+    },
+    Options = EntityQueryOptions.FilterWriteGroup
 };
 </code></pre><p>If you have any entities that contain combinations of components in the write group that are not explicitly mentioned, then the system that writes to the target of the write group, and its filters, does not handle them. However, if you have any if these type of entities, it is most likely a logical error in the program, and they should not exist.</p>
 </article>

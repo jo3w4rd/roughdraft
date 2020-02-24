@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -13,10 +13,10 @@
     <meta http-equiv="Expires" content="0">
   
     <title>Class SystemBase
-   | Unity Entities Documentation | 0.7.0-preview.8 </title>
+   | Unity Entities Documentation | 0.7.0-preview.13 </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class SystemBase
-   | Unity Entities Documentation | 0.7.0-preview.8 ">
+   | Unity Entities Documentation | 0.7.0-preview.13 ">
     <meta name="generator" content="docfx 2.40.12.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="../styles/version-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -208,7 +208,7 @@
   <div class="markdown level0 remarks"><h3 id="systems-in-ecs">Systems in ECS</h3>
 <p>A typical system operates on a set of entities that have specific components. The system identifies
 the components of interest, reading and writing data, and performing other entity operations as appropriate.</p>
-<p>The following example shows a basic system that iterates over entities using a <a class="xref" href="../manual/entities_job_foreach.html">Entities.ForEach</a> construction.
+<p>The following example shows a basic system that iterates over entities using a <a class="xref" href="../manual/ecs_entities_foreach.html">Entities.ForEach</a> construction.
 In this  example, the system iterates over all entities with both a Displacement and a Velocity component and
 updates the Displacement based on the delta time elapsed since the last frame.</p>
 <example>
@@ -226,7 +226,8 @@ public class ECSSystem : SystemBase
 {
    protected override void OnUpdate()
    {
-       float dT = Time.DeltaTime; // Captured variable
+       // Local variable captured in ForEach
+       float dT = Time.DeltaTime; 
 
        Entities
            .WithName(&quot;Update_Displacement&quot;)
@@ -268,20 +269,20 @@ in a group using <a class="xref" href="Unity.Entities.UpdateInGroupAttribute.htm
 default World. You can use the <a class="xref" href="Unity.Entities.DisableAutoCreationAttribute.html">DisableAutoCreationAttribute</a> to prevent a system from being
 created automatically.</p>
 <h4 id="entity-queries">Entity queries</h4>
-<p>A system caches all queries created through an <a class="xref" href="../manual/entities_job_foreach.html">Entities.ForEach</a> construction, through
+<p>A system caches all queries created through an <a class="xref" href="../manual/ecs_entities_foreach.html">Entities.ForEach</a> construction, through
 <a href="xref:Unity.entities.ComponentSystemBase.GetEntityQuery*">ComponentSystemBase.GetEntityQuery</a>, or through <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_RequireForUpdate_">ComponentSystemBase.RequireForUpdate</a>. By default,
 the runtime only calls a system&apos;s <code>OnUpdate()</code> function when one of these cached queries finds entities. You
 can use the <a class="xref" href="Unity.Entities.AlwaysUpdateSystemAttribute.html">AlwaysUpdateSystemAttribute</a> to have the system always update. Note that a system
 with no queries is also updated every frame.</p>
 <h4 id="entitiesforeach-and-jobwithcode-constructions">Entities.ForEach and Job.WithCode constructions</h4>
 <p>The <a class="xref" href="Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities</a> property provides a convenient mechanism for iterating over entity
-data. Using an <a class="xref" href="../manual/entities_job_foreach.html">Entities.ForEach</a> construction, you can define your entity query, specify a lambda function
+data. Using an <a class="xref" href="../manual/ecs_entities_foreach.html">Entities.ForEach</a> construction, you can define your entity query, specify a lambda function
 to run for each entity, and either schedule the work to be done on a background thread or execute the work
 immediately on the main thread. </p>
-<p>The <a class="xref" href="../manual/entities_job_foreach.html">Entities.ForEach</a> construction uses a C# compiler extension to take a Linq-like syntax that describes
+<p>The <a class="xref" href="../manual/ecs_entities_foreach.html">Entities.ForEach</a> construction uses a C# compiler extension to take a data query syntax that describes
 your intent and translate it into efficient (optionally) job-based code.  </p>
 <p>The <a class="xref" href="Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job</a> property provides a similar mechanism for defining a <a href="https://docs.unity3d.com/2019.2/Documentation/Manual/JobSystem.html">C# Job</a>. You can only use
-<code>Schedule()</code>to run a <a class="xref" href="../manual/entities_job_foreach.html">Job.WithCode</a> construction, which executes the lambda function as a single job.</p>
+<code>Schedule()</code>to run a <a class="xref" href="../manual/ecs_entities_foreach.html">Job.WithCode</a> construction, which executes the lambda function as a single job.</p>
 <h4 id="system-attributes">System attributes</h4>
 <p>You can use a number of attributes on your SystemBase implementation to control when it updates:</p>
 <ul>
@@ -328,7 +329,7 @@ your intent and translate it into efficient (optionally) job-based code.  </p>
   <h5 id="Unity_Entities_SystemBase_Dependency_remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>Before <a class="xref" href="Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate">OnUpdate()</a>, the Dependency property represents the combined job handles of any job that
 writes to the same components that the current system reads -- or reads the same components that the current
-system writes to. When you use <a class="xref" href="../manual/entities_job_foreach.html">Entities.ForEach</a> or <a class="xref" href="../manual/entities_job_foreach.html">Job.WithCode</a>, the system uses the Dependency property
+system writes to. When you use <a class="xref" href="../manual/ecs_entities_foreach.html">Entities.ForEach</a> or <a class="xref" href="../manual/ecs_entities_foreach.html">Job.WithCode</a>, the system uses the Dependency property
 to specify a job’s dependencies when scheduling it. The system also combines the new job&apos;s <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a>
 with Dependency so that any subsequent job scheduled in the system depends on the earlier jobs (in sequence).</p>
 <p>The following example illustrates an <code>OnUpdate()</code> implementation that relies on implicit dependency
@@ -363,13 +364,13 @@ management. The function schedules three jobs, each depending on the previous on
 </example>
 
 <p>You can opt out of this default dependency management by explicitly passing a <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a> to
-<a class="xref" href="../manual/entities_job_foreach.html">Entities.ForEach</a> or <a class="xref" href="../manual/entities_job_foreach.html">Job.WithCode</a>. When you pass in a <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a>, these constructions also return a
+<a class="xref" href="../manual/ecs_entities_foreach.html">Entities.ForEach</a> or <a class="xref" href="../manual/ecs_entities_foreach.html">Job.WithCode</a>. When you pass in a <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a>, these constructions also return a
 <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a> representing the input dependencies combined with the new job. The <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a> objects of any
 jobs scheduled with explicit dependencies are not combined with the system’s Dependency property. You must set the Dependency
 property manually to make sure that later systems receive the correct job dependencies.</p>
 <p>The following <a class="xref" href="Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate">OnUpdate()</a> function illustrates manual dependency management. The function uses
 two [Entity.ForEach] constructions that schedule jobs which do not depend upon each other, only the incoming
-dependencies of the system. Then a <a class="xref" href="../manual/entities_job_foreach.html">Job.WithCode</a> construction schedules a job that depends on both of the
+dependencies of the system. Then a <a class="xref" href="../manual/ecs_entities_foreach.html">Job.WithCode</a> construction schedules a job that depends on both of the
 prior jobs, who’s dependencies are combined using [JobHandle.CombineDependencies]. Finally, the <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a>
 of the last job is assigned to the Dependency property so that the ECS safety manager can propagate the
 dependencies to subsequent systems.</p>
@@ -451,7 +452,7 @@ Unity uses a compiler extension to convert the description into efficient, (opti
 executable code.</p>
 <example>
 <pre><code source="../DocCodeSamples.Tests/SystemBaseExamples.cs" region="entities-foreach-basic">       Entities
-           .WithName(&quot;Update_Position&quot;) // Visible in error messages
+           .WithName(&quot;Update_Position&quot;) // Shown in error messages and profiler
            .WithAll&lt;LocalToWorld>() // Require the LocalToWorld component
            .ForEach(
                // Write to Displacement (ref), read Velocity (in)
@@ -550,7 +551,7 @@ variables, including <a href="https://docs.unity3d.com/ScriptReference/Unity.Col
 parallel job instance processes at least one chunk of entities at a time. In other words, if all the
 selected entities are in the same chunk, then only one job instance is spawned.</p>
 </li>
-<li><p><strong><code>ScheduleSingle()</code></strong> -- schedules the work to be done in a single job (no matter how many entities are
+<li><p><strong><code>Schedule()</code></strong> -- schedules the work to be done in a single job (no matter how many entities are
 selected).</p>
 </li>
 <li><p><strong><code>Run()</code></strong> -- evaluates the entity query and invokes the lambda function for each selected entity
@@ -558,7 +559,7 @@ immediately on the main thread. Calling <code>Run()</code> completes the system 
 before running, blocking the main thread, if necessary, while it waits for those jobs to finish.</p>
 </li>
 </ul>
-<p>When you call ScheduleSingle() or ScheduleParallel() without parameters, then the scheduled jobs use the current
+<p>When you call Schedule() or ScheduleParallel() without parameters, then the scheduled jobs use the current
 value of <a class="xref" href="Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a>. You can also pass a <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a> to these functions to define the dependencies
 of the scheduled job. In this case, the Entities.forEach construction returns a new <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a> that adds the
 scheduled job to the passed in <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a>. See <a class="xref" href="Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> for more information.</p>
@@ -570,7 +571,7 @@ a name is optional, but can help identify the function when debugging and profil
 that you can make structural changes to your entity data within the function. For better performance, use
 an <a class="xref" href="Unity.Entities.EntityCommandBuffer.html">EntityCommandBuffer</a> instead.</li>
 <li><strong><code>WithoutBurst()</code></strong> —- disables Burst compilation. Use this function when your lambda function contains
-code not supported by Burst.</li>
+code not supported by Burst or while debugging.</li>
 <li><strong><code>WithBurst(FloatMode, FloatPrecision, bool)</code></strong> — sets options for the Burst compiler:<ul>
 <li><strong>floatMode</strong> —- sets the floating point math optimization mode.Fast mode executes faster, but
 produces larger floating point error than Strict mode.Defaults to Strict. See <a href="https://docs.unity3d.com/Packages/com.unity.burst@latest?subfolder=/api/Unity.Burst.FloatMode.html">Burst FloatMode</a>.</li>
@@ -621,7 +622,7 @@ extension to convert the job description you create with Job.WithCode into effic
 
    protected override void OnUpdate()
    {
-       Random randomGen = new Random(seed++ * 100000);
+       Random randomGen = new Random(seed++);
        NativeArray&lt;float> randomNumbers
            = new NativeArray&lt;float>(500, Allocator.TempJob);
 
@@ -646,6 +647,9 @@ extension to convert the job description you create with Job.WithCode into effic
            }
        }).Schedule();
 
+       // This completes the scheduled jobs to get the result immediately, but for
+       // better efficiency you should schedule jobs early in the frame with one 
+       // system and get the results late in the frame with a different system.
        this.CompleteDependency();
        UnityEngine.Debug.Log(&quot;The sum of &quot;
                              + randomNumbers.Length + &quot; numbers is &quot; + result[0]);

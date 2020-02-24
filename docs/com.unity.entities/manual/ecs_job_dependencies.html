@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,9 +12,9 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Job dependencies | Unity Entities Documentation | 0.7.0-preview.8 </title>
+    <title>Job dependencies | Unity Entities Documentation | 0.7.0-preview.13 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Job dependencies | Unity Entities Documentation | 0.7.0-preview.8 ">
+    <meta name="title" content="Job dependencies | Unity Entities Documentation | 0.7.0-preview.13 ">
     <meta name="generator" content="docfx 2.40.12.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../styles/version-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -90,8 +90,9 @@
 <h1 id="job-dependencies">Job dependencies</h1>
 
 <p>Unity analyzes the data dependencies of each system based on the ECS components that the system reads and writes. If a system that updates earlier in the frame reads data that a later system writes, or writes data that a later system reads, then the second system depends on the first. To prevent <a href="https://en.wikipedia.org/wiki/Race_condition">race conditions</a>, the job scheduler makes sure that all the jobs a system depends on have finished before it runs that system&#39;s jobs. </p>
-<p>A system&#39;s <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property is a <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a> that represents the ECS-related dependencies of the system. Before <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a> the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property reflects the incoming dependencies the system has on prior jobs. By default, the system updates the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property based on the components each job reads and writes as you schedule jobs in a system. To override this default behavior, you can use the overloaded versions of <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> and <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> that take job dependencies as an parameter and return the updated dependencies as a <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a>. When you use the explicit versions of these constructions, the job handles are not automatically combined with the system&#39;s <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property. You must combine them manually when required. </p>
-<p>Note that the system <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property does not track the dependencies a job might have on data passed through <a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html">NativeArrays</a> or other similar containers. If you write a NativeArray in one job, and read that array in another, you must manually add the JobHandle of the first job as a dependency of the second (typically by using <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.CombineDependencies.html">JobHandle.CombineDependencies</a>).</p>
+<p>A system&#39;s <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property is a <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a> that represents the ECS-related dependencies of the system. Before <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a>, the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property reflects the incoming dependencies that the system has on prior jobs. By default, the system updates the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property based on the components each job reads and writes as you schedule jobs in a system. </p>
+<p>To override this default behavior, use the overloaded versions of <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> and <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> that take job dependencies as an parameter and return the updated dependencies as a <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a>. When you use the explicit versions of these constructions, ECS does not automatically combine the job handles with the system&#39;s <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property. You must combine them manually when required. </p>
+<p>Note that the system <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property does not track the dependencies that a job might have on data passed through <a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html">NativeArrays</a> or other similar containers. If you write a NativeArray in one job, and read that array in another, you must manually add the JobHandle of the first job as a dependency of the second (typically by using <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.CombineDependencies.html">JobHandle.CombineDependencies</a>).</p>
 <p>When you call <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach.Run()</a> the job scheduler completes all scheduled jobs that the system depends on before starting the ForEach iteration. If you also use <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">WithStructuralChanges()</a> as part of the construction, then the job scheduler completes all running and scheduled jobs. Structural changes also invalidate any direct references to component data. See <a href="xref:ecs-sync-points">sync points</a> for more information.</p>
 <p>See <a href="https://docs.unity3d.com/Manual/JobSystemJobDependencies.html">JobHandle and dependencies</a> for more information.</p>
 </article>

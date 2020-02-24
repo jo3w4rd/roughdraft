@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,9 +12,9 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Using a EntityQuery to query data | Unity Entities Documentation | 0.7.0-preview.8 </title>
+    <title>Using a EntityQuery to query data | Unity Entities Documentation | 0.7.0-preview.13 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Using a EntityQuery to query data | Unity Entities Documentation | 0.7.0-preview.8 ">
+    <meta name="title" content="Using a EntityQuery to query data | Unity Entities Documentation | 0.7.0-preview.13 ">
     <meta name="generator" content="docfx 2.40.12.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../styles/version-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -101,7 +101,8 @@
 <h2 id="defining-a-query">Defining a query</h2>
 <p>An EntityQuery query defines the set of component types that an archetype must contain for ECS to include its chunks and entities in the view. You can also exclude archetypes that contain specific types of components.  </p>
 <p>For simple queries, you can create a EntityQuery based on an array of component types. The following example defines a EntityQuery that finds all entities with both RotationQuaternion and RotationSpeed components. </p>
-<pre><code class="lang-c#">EntityQuery m_Query = GetEntityQuery(typeof(RotationQuaternion), ComponentType.ReadOnly&lt;RotationSpeed&gt;());
+<pre><code class="lang-c#">EntityQuery m_Query = GetEntityQuery(typeof(RotationQuaternion), 
+    ComponentType.ReadOnly&lt;RotationSpeed&gt;());
 </code></pre><p>The query uses <code>ComponentType.ReadOnly&lt;T&gt;</code> instead of the simpler <code>typeof</code> expression to designate that the system does not write to RotationSpeed. Always specify read only when possible, because there are fewer constraints on read access to data, which can help the job scheduler execute the jobs more efficiently. </p>
 <h3 id="entityquerydesc">EntityQueryDesc</h3>
 <p>For more complex queries, you can use an EntityQueryDesc object to create the EntityQuery. An EntityQueryDesc provides a flexible query mechanism to specify which archetypes to select based on the following sets of components:</p>
@@ -114,7 +115,8 @@
 <pre><code class="lang-c#">var query = new EntityQueryDesc
 {
    None = new ComponentType[]{ typeof(Frozen) },
-   All = new ComponentType[]{ typeof(RotationQuaternion), ComponentType.ReadOnly&lt;RotationSpeed&gt;() }
+   All = new ComponentType[]{ typeof(RotationQuaternion), 
+       ComponentType.ReadOnly&lt;RotationSpeed&gt;() }
 }
 EntityQuery m_Query = GetEntityQuery(query);
 </code></pre><p><strong>Note:</strong> Do not include optional components in the EntityQueryDesc. To handle optional components, use the <code>ArchetypeChunk.Has&lt;T&gt;()</code> method to determine whether a chunk contains the optional component or not. Because all entities within the same chunk have the same components, you only need to check whether an optional component exists once per chunk: not once per entity.</p>
@@ -157,17 +159,20 @@ var query1 = new EntityQueryDesc
    All = new ComponentType[] {typeof(RotationSpeed)}
 };
 
-EntityQuery m_Query = GetEntityQuery(new EntityQueryDesc[] {query0, query1});
+EntityQuery m_Query 
+    = GetEntityQuery(new EntityQueryDesc[] {query0, query1});
 </code></pre><h2 id="creating-a-entityquery">Creating a EntityQuery</h2>
 <p>Outside of a system class, you can create a EntityQuery with the <code>EntityManager.CreateEntityQuery()</code> function as follows:</p>
-<pre><code class="lang-c#">EntityQuery m_Query = CreateEntityQuery(typeof(RotationQuaternion), ComponentType.ReadOnly&lt;RotationSpeed&gt;());
+<pre><code class="lang-c#">EntityQuery m_Query = CreateEntityQuery(typeof(RotationQuaternion), 
+    ComponentType.ReadOnly&lt;RotationSpeed&gt;());
 </code></pre><p>However, in a system class, you must use the <code>GetEntityQuery()</code> function for use with an IJobChunk job: </p>
 <pre><code class="lang-c#">public class RotationSpeedSystem : SystemBase
 {
    private EntityQuery m_Query;
    protected override void OnCreate()
    {
-       m_Query = GetEntityQuery(typeof(RotationQuaternion), ComponentType.ReadOnly&lt;RotationSpeed&gt;());
+       m_Query = GetEntityQuery(typeof(RotationQuaternion), 
+           ComponentType.ReadOnly&lt;RotationSpeed&gt;());
    }
    //…
 }
@@ -195,7 +200,9 @@ class ImpulseSystem : SystemBase
 
     protected override void OnCreate(int capacity)
     {
-        m_Query = GetEntityQuery(typeof(Position), typeof(Displacement), typeof(SharedGrouping));
+        m_Query = GetEntityQuery(typeof(Position), 
+            typeof(Displacement), 
+            typeof(SharedGrouping));
     }
 
     protected override void OnUpdate()
@@ -214,10 +221,11 @@ class ImpulseSystem : SystemBase
 <p>If you only need to update entities when a component value has changed, you can add that component to the EntityQuery filter using the <code>SetFilterChanged()</code> function. For example, the following EntityQuery only includes entities from chunks that another system has already written to the Translation component: </p>
 <pre><code class="lang-c#">protected override void OnCreate(int capacity)
 {
-    m_Query = GetEntityQuery(typeof(LocalToWorld), ComponentType.ReadOnly&lt;Translation&gt;());
+    m_Query = GetEntityQuery(typeof(LocalToWorld), 
+        ComponentType.ReadOnly&lt;Translation&gt;());
     m_Query.SetFilterChanged(typeof(Translation));
 }
-</code></pre><p><strong>Note:</strong> For efficiency, the change filter applies to whole chunks, not individual entities. The change filter also only checks whether a system has run that declared write access to the component, not whether it actually changed any data. In other words, if another Job which had the ability to write to that type of component accesses the chunk, then the change filter includes all entities in that chunk. This is why you should always declare read only access to components that you do not need to modify.</p>
+</code></pre><p><strong>Note:</strong> For efficiency, the change filter applies to whole chunks, not individual entities. The change filter also only checks whether a system has run that declared write access to the component, not whether it actually changed any data. In other words, if another job which had the ability to write to that type of component accesses the chunk, then the change filter includes all entities in that chunk. This is why you should always declare read only access to components that you do not need to modify.</p>
 <h2 id="executing-the-query">Executing the query</h2>
 <p>An EntityQuery executes its query when you use the EntityQuery in a job or you call one of the EntityQuery methods that returns arrays of entities, components, or chunks in the view:</p>
 <ul>
@@ -227,12 +235,14 @@ class ImpulseSystem : SystemBase
 </ul>
 <!-- TODO: Discuss using the Job versions of these functions. -->
 <h3 id="in-jobs">In jobs</h3>
-<p>In a system that schedules an IJobChunk job, pass the EntityQuery object to the job&#39;s <code>ScheduleParallel()</code> or <code>Schedule()</code> methods. In the following example, from the HelloCube IJobChunk sample, the <code>m_Query</code> argument is the EntityQuery object </p>
+<p>In a system that schedules an IJobChunk job, pass the EntityQuery object to the job&#39;s <code>ScheduleParallel()</code> or <code>ScheduleSingle()</code> methods. In the following example, from the HelloCube IJobChunk sample, the <code>m_Query</code> argument is the EntityQuery object </p>
 <pre><code class="lang-c#">// OnUpdate runs on the main thread.
-protected override JobHandle OnUpdate(JobHandle inputDependencies)
+protected override void OnUpdate()
 {
-    var rotationType = GetArchetypeChunkComponentType&lt;Rotation&gt;(false); 
-    var rotationSpeedType = GetArchetypeChunkComponentType&lt;RotationSpeed&gt;(true);
+    var rotationType 
+        = GetArchetypeChunkComponentType&lt;Rotation&gt;(false); 
+    var rotationSpeedType 
+        = GetArchetypeChunkComponentType&lt;RotationSpeed&gt;(true);
 
     var job = new RotationSpeedJob()
     {
@@ -241,9 +251,9 @@ protected override JobHandle OnUpdate(JobHandle inputDependencies)
         DeltaTime = Time.deltaTime
     };
 
-    return job.Schedule(m_Query, inputDependencies);
+    return job.ScheduleParallel(m_Query, this.Dependency);
 }
-</code></pre><p>An EntityQuery uses jobs internally to create the required arrays. When you pass the group to the <code>Schedule()</code> method, ECS schedules the EntityQuery jobs along with the system&#39;s own jobs and as such you can take advantage of parallel processing. </p>
+</code></pre><p>An EntityQuery uses jobs internally to create the required arrays. When you pass the group to one of the <code>Schedule()</code> methods, ECS schedules the EntityQuery jobs along with the system&#39;s own jobs and as such you can take advantage of parallel processing. </p>
 </article>
           </div>
           

@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,9 +12,9 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Version numbers | Unity Entities Documentation | 0.7.0-preview.8 </title>
+    <title>Version numbers | Unity Entities Documentation | 0.7.0-preview.13 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Version numbers | Unity Entities Documentation | 0.7.0-preview.8 ">
+    <meta name="title" content="Version numbers | Unity Entities Documentation | 0.7.0-preview.13 ">
     <meta name="generator" content="docfx 2.40.12.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../styles/version-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -109,7 +109,7 @@
 <h2 id="chunkchangeversion">Chunk.ChangeVersion</h2>
 <p>For each component type in the archetype, this array contains the value of <code>EntityDataManager.GlobalVersion</code> at the time the component array was last accessed as writeable within this chunk. This does not guarantee that anything has changed, only that it might have changed.</p>
 <p>You can never access shared components as writeable, even if there is a version number stored for those too: it serves no purpose.</p>
-<p>When you use the <code>[ChangedFilter]</code> attribute in an <code>IJobForEach</code>, ECS compares the <code>Chunk.ChangeVersion</code> for that specific component to <code>System.LastSystemVersion</code>, and it only processes chunks whose component arrays have been accessed as writeable after the system last started running.</p>
+<p>When you use the <code>WithChangeFilter()</code> function in an <code>Entitis.ForEach</code> construction, ECS compares the <code>Chunk.ChangeVersion</code> for that specific component to <code>System.LastSystemVersion</code>, and it only processes chunks whose component arrays have been accessed as writeable after the system last started running.</p>
 <p>For example, if the amount of health points of a group of units is guaranteed not to have changed since the previous frame, you can skip checking if those units should update their damage model.</p>
 <h2 id="entitymanagermcomponenttypeorderversion">EntityManager.m_ComponentTypeOrderVersion[]</h2>
 <p>For each non-shared component type, ECS increases the version number every time an iterator involving that type becomes invalid. In other words, anything that might modify arrays of that type (not instances).</p>

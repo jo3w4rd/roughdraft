@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,9 +12,9 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>ECS concepts | Unity Entities Documentation | 0.7.0-preview.8 </title>
+    <title>ECS concepts | Unity Entities Documentation | 0.7.0-preview.13 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="ECS concepts | Unity Entities Documentation | 0.7.0-preview.8 ">
+    <meta name="title" content="ECS concepts | Unity Entities Documentation | 0.7.0-preview.13 ">
     <meta name="generator" content="docfx 2.40.12.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../styles/version-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -114,9 +114,9 @@
 <li><strong>Any</strong> — the archetype must contain at least one of the component types in the <strong>Any</strong> category.</li>
 <li><strong>None</strong> — the archetype must not contain any of the component types in the <strong>None</strong> category.</li>
 </ul>
-<p>An entity query provides a list of the chunks containing the types of components required by the query. You can then iterate over the components in those chunks directly with <a href="chunk_iteration_job.html">IJobChunk</a>. </p>
+<p>An entity query provides a list of the chunks that contain the types of components the query requires. You can then iterate over the components in those chunks directly with <a href="chunk_iteration_job.html">IJobChunk</a>. </p>
 <h2 id="jobs">Jobs</h2>
-<p>To take advantage of multiple threads, you can use the [C# Job system]. ECS provides the <a href="xref:Unity.Entites.SystemBase">SystemBase</a> class, along with the <code>Entities.ForEach</code> and <a href="chunk_iteration_job.html">IJobChunk</a> <code>Schedule()</code> and <code>ScheduleParallel()</code> methods, to transform data outside the main thread. <code>Entities.ForEach</code> is the simplest to use and typically requires fewer lines of code to implement. IJobChunk can be used for more complex situations that <code>Entities.ForEach</code> does not handle.</p>
+<p>To take advantage of multiple threads, you can use the [C# Job system]. ECS provides the <a href="xref:Unity.Entites.SystemBase">SystemBase</a> class, along with the <code>Entities.ForEach</code> and <a href="chunk_iteration_job.html">IJobChunk</a> <code>Schedule()</code> and <code>ScheduleParallel()</code> methods, to transform data outside the main thread. <code>Entities.ForEach</code> is the simplest to use and typically requires fewer lines of code to implement. You can use IJobChunk for more complex situations that <code>Entities.ForEach</code> does not handle.</p>
 <p>ECS schedules jobs on the main thread in the <a href="#system-organization">order that your systems are arranged</a>. As jobs are scheduled, ECS keeps track of which jobs read and write which components. A job that reads a component is dependent on any prior scheduled job that writes to the same component and vice versa. The job scheduler uses job dependencies to determine which jobs it can run in parallel and which must run in sequence.  </p>
 <p><a name="system-organization"></a></p>
 <h2 id="system-organization">System organization</h2>

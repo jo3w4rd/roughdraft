@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.8", displayTitle:"Unity Entities Documentation 0.7.0-preview.8" };</script>
+    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,9 +12,9 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Using Job.WithCode | Unity Entities Documentation | 0.7.0-preview.8 </title>
+    <title>Using Job.WithCode | Unity Entities Documentation | 0.7.0-preview.13 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Using Job.WithCode | Unity Entities Documentation | 0.7.0-preview.8 ">
+    <meta name="title" content="Using Job.WithCode | Unity Entities Documentation | 0.7.0-preview.13 ">
     <meta name="generator" content="docfx 2.40.12.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../styles/version-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.8">
+    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -89,7 +89,7 @@
             <article class="content wrap" id="_content" data-uid="ecs-job-withcode">
 <h1 id="using-jobwithcode">Using Job.WithCode</h1>
 
-<p>The <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> construction provided by the [SystemBase] class is an easy way to run a function as a single background job. </p>
+<p>The <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> construction provided by the [SystemBase] class is an easy way to run a function as a single background job. You can also run <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> on the main thread and still take advantage of [Burst] compilation to speed up execution.</p>
 <p>The following example illustrates a simple example that uses one <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> lambda function to fill a <a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html">native array</a> with random numbers and another job to add those numbers together:</p>
 <pre><code class="lang-cs" name="job-with-code-example">public class RandomSumJob : SystemBase
 {
@@ -97,7 +97,7 @@
 
     protected override void OnUpdate()
     {
-        Random randomGen = new Random(seed++ * 100000);
+        Random randomGen = new Random(seed++);
         NativeArray&lt;float&gt; randomNumbers
             = new NativeArray&lt;float&gt;(500, Allocator.TempJob);
 
@@ -122,6 +122,9 @@
             }
         }).Schedule();
 
+        // This completes the scheduled jobs to get the result immediately, but for
+        // better efficiency you should schedule jobs early in the frame with one 
+        // system and get the results late in the frame with a different system.
         this.CompleteDependency();
         UnityEngine.Debug.Log(&quot;The sum of &quot;
                               + randomNumbers.Length + &quot; numbers is &quot; + result[0]);
@@ -131,23 +134,29 @@
     }
 }
 
-</code></pre><p><strong>Note:</strong> To run a parallel job, implement <a href="https://docs.unity3d.com/Manual/JobSystemParallelForJobs.html">IJobParallelFor</a>, which you can schedule in the system <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a> function.</p>
+</code></pre><p><strong>Note:</strong> To run a parallel job, implement <a href="https://docs.unity3d.com/Manual/JobSystemCreatingJobs.html">IJobFor</a>, which you can schedule using <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobForExtensions.ScheduleParallel.html">ScheduleParallel()</a> in the system <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a> function.</p>
 <h2 id="variables">Variables</h2>
 <p>You cannot pass parameters to the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> lambda function or return a value. Instead, you can capture local variables in your <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a> function. </p>
 <p>When you schedule your job to run in the [C# Job System] using <code>Schedule()</code>, there are additional restrictions:</p>
 <ul>
 <li>Captured variables must be declared as  <a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html">NativeArray</a> -- or other <a href="https://docs.unity3d.com/Manual/JobSystemNativeContainer.html">native container</a> -- or a <a href="https://docs.microsoft.com/en-us/dotnet/framework/interop/blittable-and-non-blittable-types">blittable</a> type.  </li>
-<li>To return data,  you must write the return value to a captured <a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html">native array</a>, even if the data is a single value.</li>
+<li>To return data,  you must write the return value to a captured <a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html">native array</a>, even if the data is a single value. (Note that you can write to any captured variable when executing with <code>Run()</code>.)</li>
 </ul>
 <p><a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> provides a set of functions to apply read-only and safety attributes to your captured <a href="https://docs.unity3d.com/Manual/JobSystemNativeContainer.html">native container</a> variables. For example, you can use <code>WithReadOnly</code> to designate that you don&#39;t update the container and <code>WithDeallocateOnJobCompletion</code> to automatically dispose a container after the job finshes. (<a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> provides the same functions.)</p>
 <p>See <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> for more information about these modifiers and attributes.</p>
 <h2 id="executing-the-function">Executing the function</h2>
-<p>You have two options to execute your lambda function. You can call <code>Schedule()</code> to run the function as a single job or you can use <code>Run()</code> to run the function on the main thread. Scheduling a job runs the code on a background thread and thus can take better advantage of available CPU resources. </p>
+<p>You have two options to execute your lambda function:</p>
+<ul>
+<li><code>Schedule()</code> -- executes the function as a single, non-parallel job.
+ Scheduling a job runs the code on a background thread and thus can take better advantage of available CPU resources. </li>
+<li><code>Run()</code> -- executes the function immediately on the main thread.
+ In most cases the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> can be [Burst] compiled so executing code can be faster inside <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> even though it is still run on the main thread.</li>
+</ul>
 <p>Note that calling <code>Run()</code> automatically completes all the dependencies of the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> construction. If you do not explicitly pass a <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a> object to <code>Run()</code> the system assumes that the current <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property represents the function&#39;s dependencies. (Pass in a new <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a> if the function has no dependencies.)</p>
-<p>If your function makes structural changes, you must call <code>WithStructuralChanges()</code> and execute the function with <code>Run()</code>. Making structural changes incurs a <a href="xref:sync-point">sync point</a> and completes all scheduled jobs (not just those that the function depends upon).</p>
 <h2 id="dependencies">Dependencies</h2>
 <p>By default, a system manages its ECS-related dependencies using its <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> property. By default, the system adds each job created with <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> and <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> to the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> job handle in the order that they appear in the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a> function. You can also manage job dependencies manually by passing a <a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html">JobHandle</a> to your <code>Schedule</code> functions, which then return the resulting dependency. See <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Dependency">Dependency</a> for more information.</p>
 <p>See <a class="xref" href="ecs_job_dependencies.html">Job dependencies</a> for more general information about job dependencies.</p>
+<p>[Burst]: </p>
 </article>
           </div>
           
