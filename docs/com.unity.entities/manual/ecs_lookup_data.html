@@ -93,7 +93,7 @@
 <p>Given an Entity object, you can look up data in its <a class="xref" href="component_data.html">IComponentData</a> and <a class="xref" href="dynamic_buffers.html">dynamic buffers</a>. The method varies depending on whether your code executes in a system using <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> or using an <a class="xref" href="../api/Unity.Entities.IJobChunk.html">IJobChunk</a> job, or elsewhere on the main thread.</p>
 <h2 id="looking-up-entity-data-in-a-system">Looking up entity data in a system</h2>
 <p>Use <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_GetComponent__1_Unity_Entities_Entity_">GetComponent&lt;T&gt;(Entity)</a> to look up data stored in a component of an arbitrary entity from inside a system&#39;s <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> or [Job.WithCode] function.</p>
-<p>For example, if you had Target components with an Entity field identifying the entity to target, you could use the following code to rotate the tracking entities toward their target:</p>
+<p>For example, if you have Target components with an Entity field identifying the entity to target, you can use the following code to rotate the tracking entities toward their target:</p>
 <pre><code class="lang-cs" name="lookup-foreach">public class TrackingSystem : SystemBase
 {
     protected override void OnUpdate()

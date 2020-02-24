@@ -89,9 +89,9 @@
             <article class="content wrap" id="_content" data-uid="ecs-entities-foreach">
 <h1 id="using-entitiesforeach">Using Entities.ForEach</h1>
 
-<p>The <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> construction provided by the [SystemBase] class is a concise way to define and execute your algorithms over entities, their components, or over native containers. <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> executes a lambda function you define over all the entities selected by an [entity query]. </p>
+<p>Use the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> construction provided by the <a class="xref" href="../api/Unity.Entities.SystemBase.html">SystemBase</a> class as a concise way to define and execute your algorithms over entities and their components. <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> executes a lambda function you define over all the entities selected by an <a class="xref" href="../api/Unity.Entities.EntityQuery.html">entity query</a>. </p>
 <p>To execute a job lambda function, you either schedule the job using <code>Schedule()</code> and <code>ScheduleParallel()</code>, or execute it immediately (on the main thread) with <code>Run()</code>. You can use additional methods defined on <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> to set the entity query as well as various job options.</p>
-<p>The following example illustrates a simple [SystemBase] implementation that uses <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> to read one component (Velocity in this case) and write to another (Translation):</p>
+<p>The following example illustrates a simple <a class="xref" href="../api/Unity.Entities.SystemBase.html">SystemBase</a> implementation that uses <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> to read one component (Velocity in this case) and write to another (Translation):</p>
 <pre><code class="lang-cs" name="entities-foreach-example">class ApplyVelocitySystem : SystemBase
 {
     protected override void OnUpdate()
@@ -119,7 +119,7 @@
     .Schedule();
 </code></pre><p>In this example, only the Destination and Source components can be accessed inside the lambda function since they are the only components in the parameter list.</p>
 <h3 id="accessing-the-entityquery-object">Accessing the EntityQuery object</h3>
-<p>In some circumstances, it can be helpful to have a reference to the <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> instance that <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> creates. To access this object, use <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">WithStoreEntityQueryInField(out query)</a>, which assigns a reference to the query instance to the field that you provide (use the <code>out</code> parameter modifier). </p>
+<p>To access the <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> object created by <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a>, use [WithStoreEntityQueryInField(ref query)] with the ref parameter modifier. This function assigns a reference to the query to the field you provide. </p>
 <p>The following example illustrates how to access the EntityQuery object implicitly created for an <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> construction. In this case, the example uses the EntityQuery object to invoke the <a class="xref" href="../api/Unity.Entities.EntityQuery.html#Unity_Entities_EntityQuery_CalculateEntityCount_">CalculateEntityCount()</a> method. The example uses this count to create a native array with enough space to store one value per entity selected by the query:</p>
 <pre><code class="lang-cs" name="store-query">private EntityQuery query;
 protected override void OnUpdate()
@@ -149,7 +149,7 @@ protected override void OnUpdate()
 <p>You cannot create a query specifying optional components (using WithAny&lt;T,U&gt;) and also access those components in the lambda function. If you need to read or write to a component that is optional, you can split the Entities.ForEach construction into multiple jobs, one for each combination of the optional components. For example, if you had two optional components, you would need three ForEach constructions: one including the first optional component, one including the second, and one including both components. Another alternative is to iterate by chunk using IJobChunk.</p>
 <p><a name="change-filtering"></a></p>
 <h3 id="change-filtering">Change filtering</h3>
-<p>In cases where you only want to process an entity component when another entity of that component has changed since the last time the current [SystemBase] instance has run, you can enable change filtering using WithChangeFilter&lt;T&gt;. The component type used in the change filter must either be in the lambda function parameter list or part of a WithAll&lt;T&gt; statement.</p>
+<p>In cases where you only want to process an entity component when another entity of that component has changed since the last time the current <a class="xref" href="../api/Unity.Entities.SystemBase.html">SystemBase</a> instance has run, you can enable change filtering using WithChangeFilter&lt;T&gt;. The component type used in the change filter must either be in the lambda function parameter list or part of a WithAll&lt;T&gt; statement.</p>
 <pre><code class="lang-cs" name="with-change-filter">Entities
     .WithChangeFilter&lt;Source&gt;()
     .ForEach((ref Destination outputData,
@@ -182,7 +182,7 @@ protected override void OnUpdate()
 </code></pre><p>The example uses the EntityManager to get all the unique cohort values. It then schedules a lambda job for each cohort, passing the new color to the lambda function as a captured variable. </p>
 <p><a name="lambda-function"></a></p>
 <h2 id="defining-the-foreach-function">Defining the ForEach function</h2>
-<p>When you define the lambda function to use with <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a>, you can declare parameters that the [SystemBase] class uses to pass in information about the current entity when it executes the function.</p>
+<p>When you define the lambda function to use with <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a>, you can declare parameters that the <a class="xref" href="../api/Unity.Entities.SystemBase.html">SystemBase</a> class uses to pass in information about the current entity when it executes the function.</p>
 <p>A typical lambda function looks like:</p>
 <pre><code class="lang-cs" name="lambda-params">Entities.ForEach(
     (Entity entity,
@@ -193,7 +193,7 @@ protected override void OnUpdate()
 <pre><code>1. Parameters passed-by-value first (no parameter modifiers)
 2. Writable parameters second (`ref` parameter modifier)
 3. Read-only parameters last (`in` parameter modifier)
-</code></pre><p>All components should use either the <code>ref</code> or the <code>in</code> parameter modifier keywords.</p>
+</code></pre><p>All components should use either the <code>ref</code> or the <code>in</code> parameter modifier keywords. Otherwise, the component struct passed to your function is a copy instead of a reference. This means an extra memory copy for read-only parameters and means that any changes to components you intended to update are silently thrown when the copied struct goes out of scope after the function returns.</p>
 <p>If your function does not obey these rules, the compiler provides an error similar to:</p>
 <p><code>error CS1593: Delegate &#39;Invalid_ForEach_Signature_See_ForEach_Documentation_For_Rules_And_Restrictions&#39; does not take N arguments</code></p>
 <p>(Note that the error message cites the number of arguments as the issue even when the problem is the parameter order.)</p>

@@ -260,8 +260,7 @@ chunks.Dispose();
 };
 </code></pre><p><a name="chunk-by-chunk"></a></p>
 <h2 id="iterating-over-chunks-to-set-chunk-components">Iterating over chunks to set chunk components</h2>
-<p>To iterate over all chunks for which you want to set a chunk component, you can create an entity query that selects the correct chunks and then use the EntityQuery object to get a list of the ArchetypeChunk instances as a native array. </p>
-<p>The ArchetypeChunk object allows you to write a new value to the chunk component. You should perform this work by scheduling a job so that other jobs can safely access the data.</p>
+<p>To iterate over all chunks for which you want to set a chunk component, you can create an entity query that selects the correct chunks and then use the EntityQuery object to get a list of the ArchetypeChunk instances as a native array. The ArchetypeChunk object allows you to write a new value to the chunk component. </p>
 <pre><code class="lang-cs" name="full-chunk-example">public class ChunkComponentExamples : SystemBase
 {
     private EntityQuery ChunksWithChunkComponentA;
@@ -297,7 +296,7 @@ chunks.Dispose();
         this.Dependency = job.Schedule(ChunksWithChunkComponentA, this.Dependency);
     }
 }
-</code></pre><p>Note that if you need to read the components in a chunk to determine the proper value of a chunk component, you should use <a href="#read-and-write-jcs">IJobChunk</a>.  The following example calculates the axis-aligned bounding box for all chunks containing entities that have LocalToWorld components:</p>
+</code></pre><p>Note that if you need to read the components in a chunk to determine the proper value of a chunk component, you should use <a href="#read-and-write-jcs">IJobChunk</a>.  For example, the following code calculates the axis-aligned bounding box for all chunks containing entities that have LocalToWorld components:</p>
 <pre><code class="lang-cs" name="aabb-chunk-component">public struct ChunkAABB : IComponentData
 {
     public AABB Value;
