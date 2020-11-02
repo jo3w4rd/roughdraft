@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,23 +12,24 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Accessing entity data | Unity Entities Documentation | 0.7.0-preview.13 </title>
+    <title>Accessing entity data | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Accessing entity data | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="title" content="Accessing entity data | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
-  <body data-spy="scroll" data-target="#affix" class="manual">
+  <body data-spy="scroll" data-target="#affix" class="">
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="wrapper">
       <header>
@@ -95,7 +96,7 @@
 <ul>
 <li><p><a href="entities_job_foreach.html">SystemBase.Entities.ForEach</a> — the simplest efficient way to process component data entity by entity.</p>
 </li>
-<li><p><a href="chunk_iteration_job.html">IJobChunk</a> — iterates over the eligible blocks of memory (called a <strong><a class="xref" href="../api/Unity.Entities.ArchetypeChunk.html">chunk</a></strong>) that contain matching entities. The job <code>Execute()</code> function can use a for loop to iterate over the elements inside each chunk. You can use <a href="chunk_iteration_job.html">IJobChunk</a> for more complex situations than <a href="entities_job_foreach.html">Entities.ForEach</a> supports, while maintaining maximum efficiency. </p>
+<li><p><a href="ecs_ijobentitybatch.html">IJobEntityBatch</a> — iterates over the eligible blocks of memory (called a <strong><a class="xref" href="../api/Unity.Entities.ArchetypeChunk.html">chunk</a></strong>) that contain matching entities. The job <code>Execute()</code> function can use a for loop to iterate over batches of the elements inside each chunk. You can use <a href="ecs_ijobentitybatch.html">IJobEntityBatch</a> for more complex situations than <a href="entities_job_foreach.html">Entities.ForEach</a> supports, while maintaining maximum efficiency. </p>
 </li>
 <li><p>[Manual iteration] — if the previous methods are insufficient, you can manually iterate over entities or Chunks. For example, you can use a job such as <code>IJobParallelFor</code> to get a <code>NativeArray</code> that contains entities or the Chunks of the entities that you want to process and iterate over.</p>
 </li>
@@ -103,12 +104,14 @@
 <p>The <a href="ecs_entity_query.html">EntityQuery</a> class provides a way to construct a view of your data that contains only the specific data you need for a given algorithm or process. Many of the iteration methods in the list above use an <a href="ecs_entity_query.html">EntityQuery</a>, either explicitly or internally.</p>
 <p><strong>Important:</strong> The following iteration types should not be used in new code: </p>
 <ul>
+<li>IJobChunk</li>
 <li>IJobForEach</li>
 <li>IJobForEachWithEntity</li>
 <li>ComponentSystem</li>
 <li>JobComponentSystem</li>
 </ul>
-<p>These types are being phased out in preference to <a href="entities_job_foreach.html">SystemBase</a> and will become obsolete once they have gone through a deprecation cycle. Use <a href="entities_job_foreach.html">SystemBase</a> and <a href="entities_job_foreach.html">SystemBase.Entities.ForEach</a> or <a href="chunk_iteration_job.html">IJobChunk</a> to replace them.</p>
+<p>These types are being phased out in preference to <a href="entities_job_foreach.html">SystemBase</a> and will become obsolete once they have gone through a deprecation cycle. Use <a href="entities_job_foreach.html">SystemBase</a> and <a href="entities_job_foreach.html">SystemBase.Entities.ForEach</a> or [IJobChunk] to replace them.</p>
+<p>[Manual iteration] : manual_iteration.md</p>
 </article>
           </div>
           
@@ -116,9 +119,6 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Documentation~/chunk_iteration.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -137,7 +137,7 @@
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -148,5 +148,6 @@
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

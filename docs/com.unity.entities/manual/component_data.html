@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,23 +12,24 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>General purpose components | Unity Entities Documentation | 0.7.0-preview.13 </title>
+    <title>General-purpose components | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="General purpose components | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="title" content="General-purpose components | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
-  <body data-spy="scroll" data-target="#affix" class="manual">
+  <body data-spy="scroll" data-target="#affix" class="">
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="wrapper">
       <header>
@@ -87,9 +88,9 @@
           <div class="col-md-10" id="main_content">
           <div id="breadcrumb_placeholder"></div>
             <article class="content wrap" id="_content" data-uid="ecs-component-data">
-<h1 id="general-purpose-components">General purpose components</h1>
+<h1 id="general-purpose-components">General-purpose components</h1>
 
-<p><code>ComponentData</code> in Unity (also known as a component in standard ECS terms) is a struct that contains only the instance data for an <a href="entities.md">entity</a>. <code>ComponentData</code> should not contain methods beyond utility functions to access the data in the struct. You should implement all of your game logic and behavior in systems. To put this in terms of the object-oriented Unity system, this is somewhat similar to a Component class, but one that <strong>only contains variables</strong>.</p>
+<p>An ECS component (not an instance of the managed <code>UnityEngine.Component</code> class) is a struct that contains only the instance data for an <a href="ecs_entities.html">entity</a>. ECS components should not contain methods beyond utility functions to access the data in the struct. You should implement all of your game logic and behavior in systems. To put this in terms of the object-oriented Unity system, this is similar to a Component class, but one that <strong>only contains variables</strong>.</p>
 <p>The Unity ECS API provides an interface called <a class="xref" href="../api/Unity.Entities.IComponentData.html">IComponentData</a> that you can implement in your code to declare a general-purpose component type.</p>
 <h2 id="icomponentdata">IComponentData</h2>
 <p>Traditional Unity components (including <code>MonoBehaviour</code>) are <a href="https://en.wikipedia.org/wiki/Object-oriented_programming">object-oriented</a> classes that contain data and methods for behavior. <code>IComponentData</code> is a pure ECS-style component, which means that it defines no behavior, only data. You should implement <code>IComponentData</code> as struct rather than a class, which means that it is copied <a href="https://stackoverflow.com/questions/373419/whats-the-difference-between-passing-by-reference-vs-passing-by-value?answertab=votes#tab-top">by value instead of by reference</a> by default. You usually need to use the following pattern to modify data:</p>
@@ -103,7 +104,7 @@ group.transform[index] = transform; // Write
 <h3 id="managed-icomponentdata">Managed IComponentData</h3>
 <p>It is helpful to use a managed <code>IComponentData</code> (that is, <code>IComponentData</code> declared using a <code>class</code> rather than <code>struct</code>) to help port existing code over to ECS in a piecemeal fashion, interoperate with managed data not suitable in <code>ISharedComponentData</code>, or to prototype a data layout. </p>
 <p>These components are used the same way as value type <code>IComponentData</code>. However, ECS handles them internally in a much different (and slower) way. If you don&#39;t need managed component support, define <code>UNITY_DISABLE_MANAGED_COMPONENTS</code> in your application&#39;s <strong>Player Settings</strong> (menu: <strong>Edit &gt; Project Settings &gt; Player &gt; Scripting Define Symbols</strong>) to prevent accidental usage.</p>
-<p>Because managed <code>IComponentData</code> is a managed type, it has the following performance drawbacks compared to valuetype <code>IComponentData</code>:</p>
+<p>Because managed <code>IComponentData</code> is a managed type, it has the following performance drawbacks compared to value-type <code>IComponentData</code>:</p>
 <ul>
 <li>It cannot be used with the Burst Compiler</li>
 <li>It cannot be used in job structs </li>
@@ -122,9 +123,6 @@ group.transform[index] = transform; // Write
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Documentation~/component_data.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -143,7 +141,7 @@ group.transform[index] = transform; // Write
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -154,5 +152,6 @@ group.transform[index] = transform; // Write
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

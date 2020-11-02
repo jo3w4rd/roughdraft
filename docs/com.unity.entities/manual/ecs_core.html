@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,23 +12,24 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>ECS concepts | Unity Entities Documentation | 0.7.0-preview.13 </title>
+    <title>ECS concepts | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="ECS concepts | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="title" content="ECS concepts | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
-  <body data-spy="scroll" data-target="#affix" class="manual">
+  <body data-spy="scroll" data-target="#affix" class="">
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="wrapper">
       <header>
@@ -96,16 +97,18 @@
 <p>The fact that entities A and B have a <code>Renderer</code> component and entity C does not, doesn&#39;t affect the system, because the system does not care about <code>Renderer</code> components. </p>
 <p>You can set up a system so that it requires a <code>Renderer</code> component, in which case, the system ignores the components of entity C; or, alternately, you can set up a system to exclude entities with <code>Renderer</code> components, which then ignores the components of entities A and B.</p>
 <h2 id="archetypes">Archetypes</h2>
-<p>A unique combination of component types is called an <a href="xref:Unity.Entities.Archetype">Archetype</a>. For example, a 3D object might have a component for its world transform, one for its linear movement, one for rotation, and one for its visual representation. Each instance of one of these 3D objects corresponds to a single entity, but because they share the same set of components, ECS classifies them as a single archetype: </p>
+<p>A unique combination of component types is called an <a class="xref" href="../api/Unity.Entities.EntityArchetype.html">EntityArchetype</a>. For example, a 3D object might have a component for its world transform, one for its linear movement, one for rotation, and one for its visual representation. Each instance of one of these 3D objects corresponds to a single entity, but because they share the same set of components, ECS classifies them as a single archetype: </p>
 <p><img src="images/ArchetypeDiagram.png" alt=""></p>
 <p>In this diagram, entities A and B share archetype M, while entity C has archetype N. </p>
 <p>To smoothly change the archetype of an entity, you can add or remove components at runtime. For example, if you remove the <code>Renderer</code> component from entity B, it then moves to archetype N.</p>
+<p><a name="chunk"></a></p>
 <h2 id="memory-chunks">Memory Chunks</h2>
 <p>The archetype of an entity determines where ECS stores the components of that entity. ECS allocates memory in &quot;chunks&quot;, each represented by an <a class="xref" href="../api/Unity.Entities.ArchetypeChunk.html">ArchetypeChunk</a> object. A chunk always contains entities of a single archetype. When a chunk of memory becomes full, ECS allocates a new chunk of memory for any new entities created with the same archetype. If you add or remove components, which then changes an entity archetype, ECS moves the components for that entity to a different chunk. </p>
 <p><img src="images/ArchetypeChunkDiagram.png" alt=""></p>
 <p>This organizational scheme provides a one-to-many relationship between archetypes and chunks. It also means that finding all the entities with a given set of components only requires searching through the existing archetypes, which are typically small in number, rather than all of the entities, which are typically much larger in number. </p>
 <p>ECS does not store the entities that are in a chunk in a specific order. When an entity is created or changed to a new archetype, ECS puts it into the first chunk that stores the archetype, and that has space. Chunks remain tightly packed, however; when an entity is removed from an archetype, ECS moves the components of the last entity in the chunk into the newly vacated slots in the component arrays.</p>
-<p><strong>Note:</strong> The values of shared components in an archetype also determine which entities are stored in which chunk. All of the entities in a given chunk have the exact same values for any shared components. If you change the value of any field in a shared component, the modified entity moves to a different chunk, just as it would if you changed that entity&#39;s archetype. A new chunk is allocated, if necessary. </p>
+<div class="NOTE"><h5>Note</h5><p>The values of shared components in an archetype also determine which entities are stored in which chunk. All of the entities in a given chunk have the exact same values for any shared components. If you change the value of any field in a shared component, the modified entity moves to a different chunk, just as it would if you changed that entity&#39;s archetype. A new chunk is allocated, if necessary. </p>
+</div>
 <p>Use shared components to group entities within an archetype when it is more efficient to process them together. For example, the Hybrid Renderer defines its <a href="https://docs.unity3d.com/Packages/com.unity.rendering.hybrid@latest?subfolder=/api/Unity.Rendering.RenderMesh.html">RenderMesh component</a> to achieve this.</p>
 <h2 id="entity-queries">Entity queries</h2>
 <p>To identify which entities a system should process, use an <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a>. An entity query searches the existing archetypes for those that have the components that match your requirements. You can specify the following component requirements with a query:</p>
@@ -114,15 +117,15 @@
 <li><strong>Any</strong> — the archetype must contain at least one of the component types in the <strong>Any</strong> category.</li>
 <li><strong>None</strong> — the archetype must not contain any of the component types in the <strong>None</strong> category.</li>
 </ul>
-<p>An entity query provides a list of the chunks that contain the types of components the query requires. You can then iterate over the components in those chunks directly with <a href="chunk_iteration_job.html">IJobChunk</a>. </p>
+<p>An entity query provides a list of the chunks that contain the types of components the query requires. You can then iterate over the components in those chunks directly with <a href="ecs_ijobentitybatch.html">IJobEntityBatch</a>. </p>
 <h2 id="jobs">Jobs</h2>
-<p>To take advantage of multiple threads, you can use the [C# Job system]. ECS provides the <a href="xref:Unity.Entites.SystemBase">SystemBase</a> class, along with the <code>Entities.ForEach</code> and <a href="chunk_iteration_job.html">IJobChunk</a> <code>Schedule()</code> and <code>ScheduleParallel()</code> methods, to transform data outside the main thread. <code>Entities.ForEach</code> is the simplest to use and typically requires fewer lines of code to implement. You can use IJobChunk for more complex situations that <code>Entities.ForEach</code> does not handle.</p>
+<p>To take advantage of multiple threads, you can use the <a class="xref" href="https://docs.unity3d.com/2020.1/Documentation/Manual/JobSystem.html">C# Job system</a>. ECS provides the <a class="xref" href="../api/Unity.Entities.SystemBase.html">SystemBase</a> class, along with the <code>Entities.ForEach</code> and <a href="ecs_ijobentitybatch.html">IJobEntityBatch</a> <code>Schedule()</code> and <code>ScheduleParallel()</code> methods, to transform data outside the main thread. <code>Entities.ForEach</code> is the simplest to use and typically requires fewer lines of code to implement. You can use IJobChunk for more complex situations that <code>Entities.ForEach</code> does not handle.</p>
 <p>ECS schedules jobs on the main thread in the <a href="#system-organization">order that your systems are arranged</a>. As jobs are scheduled, ECS keeps track of which jobs read and write which components. A job that reads a component is dependent on any prior scheduled job that writes to the same component and vice versa. The job scheduler uses job dependencies to determine which jobs it can run in parallel and which must run in sequence.  </p>
 <p><a name="system-organization"></a></p>
 <h2 id="system-organization">System organization</h2>
-<p>ECS organizes systems by <a class="xref" href="../api/Unity.Entities.World.html">World</a> and then by <a href="xref:Unity.Enties.ComponentSystemGroup">group</a>. By default, ECS creates a default World with a predefined set of groups. It finds all available systems, instantiates them, and adds them to the predefined <a class="xref" href="../api/Unity.Entities.SimulationSystemGroup.html">simulation group</a> in the default World.</p>
-<p>You can specify the update order of systems within the same group. A group is a kind of system, so you can add a group to another group and specify its order just like any other system. All systems within a group update before the next system or group. If you do not specify an order, ECS inserts systems into the update order in a deterministic way that does not depend on creation order. In other words, the same set of systems always updates in the same order within their group even when you don&#39;t explicitly specify an order. <a href="xref:Unity.Entities.EntityComponentBufferSystem">Entity component buffer systems</a> </p>
-<p>System updates happen on the main thread. However, systems can use jobs to offload work to other threads. <a href="xref:Unity.entities.SystemBase">SystemBase</a> provide a straightforward way to create and schedule Jobs. </p>
+<p>ECS organizes systems by <a class="xref" href="../api/Unity.Entities.World.html">World</a> and then by <a class="xref" href="../api/Unity.Entities.ComponentSystemGroup.html">group</a>. By default, ECS creates a default World with a predefined set of groups. It finds all available systems, instantiates them, and adds them to the predefined <a class="xref" href="../api/Unity.Entities.SimulationSystemGroup.html">simulation group</a> in the default World.</p>
+<p>You can specify the update order of systems within the same group. A group is a kind of system, so you can add a group to another group and specify its order just like any other system. All systems within a group update before the next system or group. If you do not specify an order, ECS inserts systems into the update order in a deterministic way that does not depend on creation order. In other words, the same set of systems always updates in the same order within their group even when you don&#39;t explicitly specify an order.</p>
+<p>System updates happen on the main thread. However, systems can use jobs to offload work to other threads. <a class="xref" href="../api/Unity.Entities.SystemBase.html">SystemBase</a> provide a straightforward way to create and schedule Jobs. </p>
 <p>For more information about system creation, update order, and the attributes you can use to organize your systems, see the documentation on <a href="system_update_order.html">System Update Order</a> .</p>
 <h2 id="ecs-authoring">ECS authoring</h2>
 <p>When you create your game or application in the Unity Editor, you can use GameObjects and MonoBehaviours to create a conversion system to map those UnityEngine objects and components to entities. For more information, see <a href="gp_overview.html">Creating Gameplay</a>.</p>
@@ -133,9 +136,6 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Documentation~/ecs_core.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -154,7 +154,7 @@
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -165,5 +165,6 @@
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

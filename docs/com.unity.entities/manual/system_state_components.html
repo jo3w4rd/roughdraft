@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,23 +12,24 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>System State Components | Unity Entities Documentation | 0.7.0-preview.13 </title>
+    <title>System State Components | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="System State Components | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="title" content="System State Components | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
-  <body data-spy="scroll" data-target="#affix" class="manual">
+  <body data-spy="scroll" data-target="#affix" class="">
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="wrapper">
       <header>
@@ -139,16 +140,16 @@
 <li><code>m_activeEntities</code> selects entities that have both the general-purpose and the system state component. In a real application, other systems might be the ones that process or destroy the entities.</li>
 <li><code>m_destroyedEntities</code> selects entities that have the system state, but not the general-purpose component. Since the system state component is never added to an entity by itself, the entities that this query selects must have been deleted, either by this system or another system. The system reuses the destroyed entities query to run a job and remove the system state component from the entities, which allows the ECS code to recycle the entity identifier. </li>
 </ul>
-<p><strong>Note:</strong> This simplified example does not maintain any state within the system. One purpose for system state components is to track when persistent resources need to be allocated or cleaned up.</p>
-<pre><code class="lang-cs" name="stateful-example">using Unity.Collections;
+<div class="NOTE"><h5>Note</h5><p>This simplified example does not maintain any state within the system. One purpose for system state components is to track when persistent resources need to be allocated or cleaned up.</p>
+</div>
+<pre><code class="lang-cs" name="stateful-example">
 using Unity.Entities;
 using Unity.Jobs;
-using UnityEngine;
-
+using Unity.Collections;
 
 public struct GeneralPurposeComponentA : IComponentData
 {
-    public bool IsAlive;
+    public int Lifetime;
 }
 
 public struct StateComponentB : ISystemStateComponentData
@@ -156,108 +157,98 @@ public struct StateComponentB : ISystemStateComponentData
     public int State;
 }
 
-public class StatefulSystem : JobComponentSystem
+public class StatefulSystem : SystemBase
 {
-    private EntityQuery m_newEntities;
-    private EntityQuery m_activeEntities;
-    private EntityQuery m_destroyedEntities;
-    private EntityCommandBufferSystem m_ECBSource;
+    private EntityCommandBufferSystem ecbSource;
 
     protected override void OnCreate()
     {
-        // Entities with GeneralPurposeComponentA but not StateComponentB
-        m_newEntities = GetEntityQuery(new EntityQueryDesc()
+        ecbSource = World.GetExistingSystem&lt;EndSimulationEntityCommandBufferSystem&gt;();
+
+        // Create some test entities
+        // This runs on the main thread, but it is still faster to use a command buffer
+        EntityCommandBuffer creationBuffer = new EntityCommandBuffer(Allocator.Temp);
+        EntityArchetype archetype = EntityManager.CreateArchetype(typeof(GeneralPurposeComponentA));
+        for (int i = 0; i &lt; 10000; i++)
         {
-            All = new ComponentType[] {ComponentType.ReadOnly&lt;GeneralPurposeComponentA&gt;()},
-            None = new ComponentType[] {ComponentType.ReadWrite&lt;StateComponentB&gt;()}
-        });
+            Entity newEntity = creationBuffer.CreateEntity(archetype);
+            creationBuffer.SetComponent&lt;GeneralPurposeComponentA&gt;
+            (
+                newEntity,
+                new GeneralPurposeComponentA() { Lifetime = i }
+            );
+        }
+        //Execute the command buffer
+        creationBuffer.Playback(EntityManager);
+    }
+
+    protected override void OnUpdate()
+    {
+        EntityCommandBuffer.ParallelWriter parallelWriterECB = ecbSource.CreateCommandBuffer().AsParallelWriter();
+
+        // Entities with GeneralPurposeComponentA but not StateComponentB
+        Entities
+            .WithNone&lt;StateComponentB&gt;()
+            .ForEach(
+                (Entity entity, int entityInQueryIndex, in GeneralPurposeComponentA gpA) =&gt;
+                {
+                // Add an ISystemStateComponentData instance
+                parallelWriterECB.AddComponent&lt;StateComponentB&gt;
+                    (
+                        entityInQueryIndex,
+                        entity,
+                        new StateComponentB() { State = 1 }
+                    );
+                })
+            .ScheduleParallel();
+        ecbSource.AddJobHandleForProducer(this.Dependency);
+
+        // Create new command buffer
+        parallelWriterECB = ecbSource.CreateCommandBuffer().AsParallelWriter();
 
         // Entities with both GeneralPurposeComponentA and StateComponentB
-        m_activeEntities = GetEntityQuery(new EntityQueryDesc()
-        {
-            All = new ComponentType[]
-            {
-                ComponentType.ReadWrite&lt;GeneralPurposeComponentA&gt;(),
-                ComponentType.ReadOnly&lt;StateComponentB&gt;()
-            }
-        });
+        Entities
+            .WithAll&lt;StateComponentB&gt;()
+            .ForEach(
+                (Entity entity,
+                 int entityInQueryIndex,
+                 ref GeneralPurposeComponentA gpA) =&gt;
+                {
+                // Process entity, in this case by decrementing the Lifetime count
+                gpA.Lifetime--;
+
+                // If out of time, destroy the entity
+                if (gpA.Lifetime &lt;= 0)
+                    {
+                        parallelWriterECB.DestroyEntity(entityInQueryIndex, entity);
+                    }
+                })
+            .ScheduleParallel();
+        ecbSource.AddJobHandleForProducer(this.Dependency);
+
+        // Create new command buffer
+        parallelWriterECB = ecbSource.CreateCommandBuffer().AsParallelWriter();
 
         // Entities with StateComponentB but not GeneralPurposeComponentA
-        m_destroyedEntities = GetEntityQuery(new EntityQueryDesc()
-        {
-            All = new ComponentType[] {ComponentType.ReadWrite&lt;StateComponentB&gt;()},
-            None = new ComponentType[] {ComponentType.ReadOnly&lt;GeneralPurposeComponentA&gt;()}
-        });
+        Entities
+            .WithAll&lt;StateComponentB&gt;()
+            .WithNone&lt;GeneralPurposeComponentA&gt;()
+            .ForEach(
+                (Entity entity, int entityInQueryIndex) =&gt;
+                {
+                // This system is responsible for removing any ISystemStateComponentData instances it adds
+                // Otherwise, the entity is never truly destroyed.
+                parallelWriterECB.RemoveComponent&lt;StateComponentB&gt;(entityInQueryIndex, entity);
+                })
+            .ScheduleParallel();
+        ecbSource.AddJobHandleForProducer(this.Dependency);
 
-        m_ECBSource = World.GetOrCreateSystem&lt;EndSimulationEntityCommandBufferSystem&gt;();
-    }
-
-    struct NewEntityJob : IJobForEachWithEntity&lt;GeneralPurposeComponentA&gt;
-    {
-        public EntityCommandBuffer.Concurrent ConcurrentECB;
-
-        public void Execute(Entity entity, int jobIndex, [ReadOnly] ref GeneralPurposeComponentA gpA)
-        {
-            // Add an ISystemStateComponentData instance
-            ConcurrentECB.AddComponent&lt;StateComponentB&gt;(jobIndex, entity, new StateComponentB() {State = 1});
-        }
-    }
-
-    struct ProcessEntityJob : IJobForEachWithEntity&lt;GeneralPurposeComponentA&gt;
-    {
-        public EntityCommandBuffer.Concurrent ConcurrentECB;
-
-        public void Execute(Entity entity, int jobIndex, ref GeneralPurposeComponentA gpA)
-        {
-            // Process entity, possibly setting IsAlive false --
-            // In which case, destroy the entity
-            if (!gpA.IsAlive)
-            {
-                ConcurrentECB.DestroyEntity(jobIndex, entity);
-            }
-        }
-    }
-
-    struct CleanupEntityJob : IJobForEachWithEntity&lt;StateComponentB&gt;
-    {
-        public EntityCommandBuffer.Concurrent ConcurrentECB;
-
-        public void Execute(Entity entity, int jobIndex, [ReadOnly] ref StateComponentB state)
-        {
-            // This system is responsible for removing any ISystemStateComponentData instances it adds
-            // Otherwise, the entity is never truly destroyed.
-            ConcurrentECB.RemoveComponent&lt;StateComponentB&gt;(jobIndex, entity);
-        }
-    }
-
-    protected override JobHandle OnUpdate(JobHandle inputDependencies)
-    {
-        var newEntityJob = new NewEntityJob()
-        {
-            ConcurrentECB = m_ECBSource.CreateCommandBuffer().ToConcurrent()
-        };
-        var newJobHandle = newEntityJob.ScheduleSingle(m_newEntities, inputDependencies);
-        m_ECBSource.AddJobHandleForProducer(newJobHandle);
-
-        var processEntityJob = new ProcessEntityJob()
-            {ConcurrentECB = m_ECBSource.CreateCommandBuffer().ToConcurrent()};
-        var processJobHandle = processEntityJob.Schedule(m_activeEntities, newJobHandle);
-        m_ECBSource.AddJobHandleForProducer(processJobHandle);
-
-        var cleanupEntityJob = new CleanupEntityJob()
-        {
-            ConcurrentECB = m_ECBSource.CreateCommandBuffer().ToConcurrent()
-        };
-        var cleanupJobHandle = cleanupEntityJob.ScheduleSingle(m_destroyedEntities, processJobHandle);
-        m_ECBSource.AddJobHandleForProducer(cleanupJobHandle);
-
-        return cleanupJobHandle;
     }
 
     protected override void OnDestroy()
     {
         // Implement OnDestroy to cleanup any resources allocated by this system.
-        // (This simplified example does not allocate any resources.)
+        // (This simplified example does not allocate any resources, so there is nothing to clean up.)
     }
 }
 </code></pre></article>
@@ -267,9 +258,6 @@ public class StatefulSystem : JobComponentSystem
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Documentation~/system_state_components.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -288,7 +276,7 @@ public class StatefulSystem : JobComponentSystem
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -299,5 +287,6 @@ public class StatefulSystem : JobComponentSystem
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

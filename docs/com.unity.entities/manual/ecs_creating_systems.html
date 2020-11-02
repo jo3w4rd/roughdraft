@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,23 +12,24 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Creating a system | Unity Entities Documentation | 0.7.0-preview.13 </title>
+    <title>Creating a system | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Creating a system | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="title" content="Creating a system | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
-  <body data-spy="scroll" data-target="#affix" class="manual">
+  <body data-spy="scroll" data-target="#affix" class="">
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="wrapper">
       <header>
@@ -91,25 +92,25 @@
 
 <p>Implement the abstract class <a class="xref" href="../api/Unity.Entities.SystemBase.html">SystemBase</a> to create an ECS system.</p>
 <p>To create a system, you program the necessary system event callbacks. 
-Use the <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">SystemBase OnUpdate()</a> function to perform the work your system must do every frame. The other callback functions are optional; for example, you can use <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnCreate_">OnCreate()</a> to initialize a system, but not every system requires initialization code.</p>
+Use the <a class="xref" href="../api/Unity.Entities.SystemBase.OnUpdate.html">SystemBase OnUpdate()</a> function to perform the work your system must do every frame. The other callback functions are optional; for example, you can use <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.OnCreate.html">OnCreate()</a> to initialize a system, but not every system requires initialization code.</p>
 <p>The system callback functions are invoked in the following order:</p>
 <p><img src="images/SystemEventOrder.png" alt=""></p>
 <ul>
-<li><a class="xref" href="../api/Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnCreate_">OnCreate()</a> -- called when the system is created.</li>
-<li><a class="xref" href="../api/Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnStartRunning_">OnStartRunning()</a> -- before the first <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a> and whenever the system resumes running.</li>
-<li><a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a> -- every frame as long as the system has work to do (see <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_ShouldRunSystem_">ShouldRunSystem()</a>) and the system is <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a>.</li>
-<li><a class="xref" href="../api/Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnStopRunning_">OnStopRunning()</a> -- whenever the system stops updating, which can be because you set <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a> to false or because it finds no entities matching its queries. Also called before <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnDestroy_">OnDestroy()</a>.</li>
-<li><a class="xref" href="../api/Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnDestroy_">OnDestroy()</a> -- when the system is destroyed.</li>
+<li><a class="xref" href="../api/Unity.Entities.ComponentSystemBase.OnCreate.html">OnCreate()</a> -- called when the system is created.</li>
+<li><a class="xref" href="../api/Unity.Entities.ComponentSystemBase.OnStartRunning.html">OnStartRunning()</a> -- before the first <a class="xref" href="../api/Unity.Entities.SystemBase.OnUpdate.html">OnUpdate()</a> and whenever the system resumes running.</li>
+<li><a class="xref" href="../api/Unity.Entities.SystemBase.OnUpdate.html">OnUpdate()</a> -- every frame as long as the system has work to do (see <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.ShouldRunSystem.html">ShouldRunSystem()</a>) and the system is <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.Enabled.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a>.</li>
+<li><a class="xref" href="../api/Unity.Entities.ComponentSystemBase.OnStopRunning.html">OnStopRunning()</a> -- whenever the system stops updating, which can be because you set <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.Enabled.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a> to false or because it finds no entities matching its queries. Also called before <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.OnDestroy.html">OnDestroy()</a>.</li>
+<li><a class="xref" href="../api/Unity.Entities.ComponentSystemBase.OnDestroy.html">OnDestroy()</a> -- when the system is destroyed.</li>
 </ul>
-<p>A system&#39;s <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a> function is triggered by its parent <a href="system_update_order.html#groups">system group&#39;s</a> own <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a> function. Likewise, when a group changes state, for example if you set the group&#39;s <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a> property, it changes the state of its child systems. However, children can also change state independently from their parent groups. See <a href="system_update_order.html">System update order</a> for more information.</p>
-<p>All the system events run on the main thread. Ideally, your <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_OnUpdate_">OnUpdate()</a> function schedules jobs to perform most of the work. To schedule a job from a system, you can use one of the following mechanisms:</p>
+<p>A system&#39;s <a class="xref" href="../api/Unity.Entities.SystemBase.OnUpdate.html">OnUpdate()</a> function is triggered by its parent <a href="system_update_order.html#groups">system group&#39;s</a> own <a class="xref" href="../api/Unity.Entities.SystemBase.OnUpdate.html">OnUpdate()</a> function. Likewise, when a group changes state, for example if you set the group&#39;s <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.Enabled.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a> property, it changes the state of its child systems. However, children can also change state independently from their parent groups. See <a href="system_update_order.html">System update order</a> for more information.</p>
+<p>All the system events run on the main thread. Ideally, your <a class="xref" href="../api/Unity.Entities.SystemBase.OnUpdate.html">OnUpdate()</a> function schedules jobs to perform most of the work. To schedule a job from a system, you can use one of the following mechanisms:</p>
 <ul>
-<li><a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> -- the simplest way to iterate over ECS component data.</li>
-<li><a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> -- execute a lambda function as a single, background job.</li>
-<li><a href="xref:Unity.Entities.IJobChunk)">IJobChunk</a> -- a &quot;lower level&quot; mechanism for iterating over ECS component data chunk-by-chunk.</li>
+<li><a class="xref" href="../api/Unity.Entities.SystemBase.Entities.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> -- the simplest way to iterate over ECS component data.</li>
+<li><a class="xref" href="../api/Unity.Entities.SystemBase.Job.html#Unity_Entities_SystemBase_Job">Job.WithCode</a> -- execute a lambda function as a single, background job.</li>
+<li><a class="xref" href="../api/Unity.Entities.IJobEntityBatch.html">IJobEntityBatch</a> -- a &quot;lower level&quot; mechanism for iterating over ECS component data chunk-by-chunk.</li>
 <li><a href="https://docs.unity3d.com/Manual/JobSystem.html">C# Job System</a> -- create and schedule general purpose C# jobs.</li>
 </ul>
-<p>The following example illustrates using <a class="xref" href="../api/Unity.Entities.SystemBase.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> to implement a system that updates one component based on the value of another:</p>
+<p>The following example illustrates using <a class="xref" href="../api/Unity.Entities.SystemBase.Entities.html#Unity_Entities_SystemBase_Entities">Entities.ForEach</a> to implement a system that updates one component based on the value of another:</p>
 <pre><code class="lang-cs" name="basic-system">
 public struct Position : IComponentData
 {
@@ -126,7 +127,7 @@ public class ECSSystem : SystemBase
     protected override void OnUpdate()
     {
         // Local variable captured in ForEach
-        float dT = Time.DeltaTime; 
+        float dT = Time.DeltaTime;
 
         Entities
             .WithName(&quot;Update_Displacement&quot;)
@@ -143,17 +144,13 @@ public class ECSSystem : SystemBase
     }
 }
 
-</code></pre><!--Note the following links are intentionally pointing to an old version-->
-</article>
+</code></pre></article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Documentation~/ecs_creating_systems.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -172,7 +169,7 @@ public class ECSSystem : SystemBase
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -183,5 +180,6 @@ public class ECSSystem : SystemBase
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,23 +12,24 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Write groups | Unity Entities Documentation | 0.7.0-preview.13 </title>
+    <title>Write groups | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Write groups | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="title" content="Write groups | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
-  <body data-spy="scroll" data-target="#affix" class="manual">
+  <body data-spy="scroll" data-target="#affix" class="">
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="wrapper">
       <header>
@@ -90,7 +91,7 @@
 <h1 id="write-groups">Write groups</h1>
 
 <p>A common ECS pattern is for a system to read one set of <strong>input</strong> components and write to another component as its <strong>output</strong>. However, in some cases, you might want to override the output of a system, and use a different system based on a different set of inputs to update the output component. Write groups provide a mechanism for one system to override another, even when you cannot change the other system.</p>
-<p>The write group of a target component type consists of all other component types that ECS applies the <a href="xref:Unity.Entities.WriteGroupAttributes"><code>WriteGroup</code> attribute</a> to, with that target component type as the argument. As a system creator, you can use write groups so that your system&#39;s users can exclude entities that your system would otherwise select and process. This filtering mechanism lets system users update components for the excluded entities based on their own logic, while letting your system operate normally on the rest.</p>
+<p>The write group of a target component type consists of all other component types that ECS applies the <a class="xref" href="../api/Unity.Entities.WriteGroupAttribute.html"><code>WriteGroup</code> attribute</a> to, with that target component type as the argument. As a system creator, you can use write groups so that your system&#39;s users can exclude entities that your system would otherwise select and process. This filtering mechanism lets system users update components for the excluded entities based on their own logic, while letting your system operate normally on the rest.</p>
 <p>To make use of write groups, you must use the <a class="xref" href="../api/Unity.Entities.EntityQueryOptions.html">write group filter option</a> on the queries in your system. This excludes all entities from the query that have a component from a write group of any of the components that are marked as writable in the query.</p>
 <p>To override a system that uses write groups, mark your own component types as part of the write group of the output component type of that system. The original system ignores any entities that have your components and you can update the data of those entities with your own systems. </p>
 <h2 id="write-groups-example">Write groups example</h2>
@@ -137,7 +138,8 @@ protected override void OnUpdate() {
 <li>It excludes all entities that have an <code>InvincibleTagComponent</code></li>
 </ol>
 <p>The benefit is that this allows the system to exclude entities based on a type that is unknown to the system and might live in a different package.</p>
-<p><strong>Note:</strong> For more examples, see the <code>Unity.Transforms</code> code, which uses write groups for every component it updates, including <code>LocalToWorld</code>.</p>
+<div class="NOTE"><h5>Note</h5><p>For more examples, see the <code>Unity.Transforms</code> code, which uses write groups for every component it updates, including <code>LocalToWorld</code>.</p>
+</div>
 <h2 id="creating-write-groups">Creating write groups</h2>
 <p>To create write groups, add the <code>WriteGroup</code> attribute to the declarations of each component type in the write group. The <code>WriteGroup</code> attribute takes one parameter, which is the type of component that the components in the group uses to update. A single component can be a member of more than one write group.</p>
 <p>For example, if you have a system that writes to component <code>W</code> whenever there are components <code>A</code> or <code>B</code> on an entity, then you can define a write group for <code>W</code> as follows:</p>
@@ -157,7 +159,8 @@ public struct B : IComponentData
 {
    public int Value;
 }
-</code></pre><p><strong>Note:</strong> You do not add the target of the write group (component <code>W</code> in the example above) to its own write group.</p>
+</code></pre><div class="NOTE"><h5>Note</h5><p>You do not add the target of the write group (component <code>W</code> in the example above) to its own write group.</p>
+</div>
 <h2 id="enabling-write-group-filtering">Enabling write group filtering</h2>
 <p>To enable write group filtering, set the <code>FilterWriteGroups</code> flag on your job:</p>
 <pre><code class="lang-csharp">public class AddingSystem : SystemBase
@@ -232,7 +235,9 @@ public class RotationAngleAxisSystem : SystemBase
 }
 </code></pre><h2 id="extending-another-system-that-uses-write-groups">Extending another system that uses write groups</h2>
 <p>If you want to extend another system rather than override it, or if you want to allow future systems to override or extend your system, then you can enable write group filtering on your own system. However, when you do this, neither system handles no combinations of components by default. You must explicitly query for and process each combination.</p>
-<p>In the previous example, it defined a write group that contains components <code>A</code> and <code>B</code> that targets component <code>W</code>. If you add a new component, called <code>C</code>, to the write group, then the new system that knows about <code>C</code> can query for entities that contain <code>C</code> and it does not matter if those entities also have components <code>A</code> or <code>B</code>. However, if the new system also enables write group filtering, that is no longer true. If you only require component <code>C</code>, then write group filtering excludes any entities with either <code>A</code> or <code>B</code>. Instead, you must explicitly query for each combination of components that make sense. <strong>Note:</strong> You can use the <code>Any</code> clause of the query when appropriate.</p>
+<p>In the previous example, it defined a write group that contains components <code>A</code> and <code>B</code> that targets component <code>W</code>. If you add a new component, called <code>C</code>, to the write group, then the new system that knows about <code>C</code> can query for entities that contain <code>C</code> and it does not matter if those entities also have components <code>A</code> or <code>B</code>. However, if the new system also enables write group filtering, that is no longer true. If you only require component <code>C</code>, then write group filtering excludes any entities with either <code>A</code> or <code>B</code>. Instead, you must explicitly query for each combination of components that make sense. </p>
+<div class="NOTE"><h5>Note</h5><p>You can use the <code>Any</code> clause of the query when appropriate.</p>
+</div>
 <pre><code class="lang-csharp">var query = new EntityQueryDesc
 {
     All = new ComponentType[] {
@@ -253,9 +258,6 @@ public class RotationAngleAxisSystem : SystemBase
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Documentation~/ecs_write_groups.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -274,7 +276,7 @@ public class RotationAngleAxisSystem : SystemBase
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -285,5 +287,6 @@ public class RotationAngleAxisSystem : SystemBase
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

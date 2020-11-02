@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,23 +12,24 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Entity Command Buffers | Unity Entities Documentation | 0.7.0-preview.13 </title>
+    <title>Entity Command Buffers | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Entity Command Buffers | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="title" content="Entity Command Buffers | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
-  <body data-spy="scroll" data-target="#affix" class="manual">
+  <body data-spy="scroll" data-target="#affix" class="">
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="wrapper">
       <header>
@@ -100,7 +101,8 @@
 <p>The default World initialization provides three system groups, for initialization, simulation, and presentation, that are updated in order each frame. Within a group, there is an entity command buffer system that runs before any other system in the group and another that runs after all other systems in the group. Preferably, you should use one of the existing command buffer systems rather than creating your own in order to minimize synchronization points. See <a href="system_update_order.html">Default System Groups</a> for a list of the default groups and command buffer systems.</p>
 <p>If you want to use an ECB from a parallel job (e.g. in an <code>Entities.ForEach</code>), you must ensure that you convert it to a concurrent ECB first by calling <code>ToConcurrent</code> on it. To ensure that the sequence of the commands in the ECB does not depend on how the work is distributed across jobs, you must also pass the index of the entity in the current query to each operation.</p>
 <p>You can acquire and use an ECB like this:</p>
-<pre><code class="lang-cs" name="ecb_concurrent">struct Lifetime : IComponentData
+<pre><code class="lang-cs" name="ecb_concurrent">
+struct Lifetime : IComponentData
 {
     public byte Value;
 }
@@ -120,25 +122,25 @@ class LifetimeSystem : SystemBase
     {
         // Acquire an ECB and convert it to a concurrent one to be able
         // to use it from a parallel job.
-        var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
+        var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().AsParallelWriter();
         Entities
             .ForEach((Entity entity, int entityInQueryIndex, ref Lifetime lifetime) =&gt;
+        {
+            // Track the lifetime of an entity and destroy it once
+            // the lifetime reaches zero
+            if (lifetime.Value == 0)
             {
-                // Track the lifetime of an entity and destroy it once
-                // the lifetime reaches zero
-                if (lifetime.Value == 0)
-                {
-                    // pass the entityInQueryIndex to the operation so
-                    // the ECB can play back the commands in the right
-                    // order
-                    ecb.DestroyEntity(entityInQueryIndex, entity);
-                }
-                else
-                {
-                    lifetime.Value -= 1;
-                }
-            }).ScheduleParallel();
-        
+                // pass the entityInQueryIndex to the operation so
+                // the ECB can play back the commands in the right
+                // order
+                ecb.DestroyEntity(entityInQueryIndex, entity);
+            }
+            else
+            {
+                lifetime.Value -= 1;
+            }
+        }).ScheduleParallel();
+
         // Make sure that the ECB system knows about our job
         m_EndSimulationEcbSystem.AddJobHandleForProducer(this.Dependency);
     }
@@ -150,9 +152,6 @@ class LifetimeSystem : SystemBase
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Documentation~/entity_command_buffer.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -171,7 +170,7 @@ class LifetimeSystem : SystemBase
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -182,5 +181,6 @@ class LifetimeSystem : SystemBase
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Interface IJobEntityBatch
+   | Entities | 0.17.0-preview.18 </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IJobEntityBatch
+   | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="Unity.Entities.IJobEntityBatch">
+  
+  
+  <h1 id="Unity_Entities_IJobEntityBatch" data-uid="Unity.Entities.IJobEntityBatch">Interface IJobEntityBatch
+  </h1>
+  <div class="markdown level0 summary"><p>IJobEntityBatch is a type of <a class="xref" href="https://docs.unity3d.com/2020.1/Documentation/ScriptReference/Unity.Jobs.IJob.html">IJob</a> that iterates over a set of <a class="xref" href="Unity.Entities.ArchetypeChunk.html">ArchetypeChunk</a> instances,
+where each instance represents a contiguous batch of entities within a <a class="xref" href="../manual/ecs_core.html#chunk">chunk</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Unity.Entities.html">Unity.Entities</a></h6>
+  <!--h6><strong>Assembly</strong>: solution.dll</h6-->
+  <h5 id="Unity_Entities_IJobEntityBatch_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JobProducerType(typeof(JobEntityBatchExtensions.JobEntityBatchProducer&lt;&gt;))]
+public interface IJobEntityBatch</code></pre>
+  </div>
+  <h5 id="Unity_Entities_IJobEntityBatch_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Schedule or run an IJobEntityBatch job inside the <a class="xref" href="Unity.Entities.SystemBase.OnUpdate.html#Unity_Entities_SystemBase_OnUpdate">OnUpdate()</a> function of a
+<a class="xref" href="Unity.Entities.SystemBase.html">SystemBase</a> implementation. When the system schedules or runs an IJobEntityBatch job, it uses
+the specified <a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a> to select a set of <a class="xref" href="../manual/ecs_core.html#chunk">chunks</a>. These selected chunks are divided into
+batches of entities. A batch is a contiguous set of entities, always stored in the same chunk. The job
+struct&apos;s <code>Execute</code> function is called for each batch.</p>
+<p>When you schedule or run the job with one of the following methods:</p>
+<ul>
+<li><a class="xref" href="Unity.Entities.JobEntityBatchExtensions.Schedule.html#Unity_Entities_JobEntityBatchExtensions_Schedule__1___0_Unity_Entities_EntityQuery_Unity_Jobs_JobHandle_">Schedule&lt;T&gt;(T, EntityQuery, JobHandle)</a>,</li>
+<li><a class="xref" href="Unity.Entities.JobEntityBatchExtensions.ScheduleParallel.html#Unity_Entities_JobEntityBatchExtensions_ScheduleParallel__1___0_Unity_Entities_EntityQuery_System_Int32_Unity_Jobs_JobHandle_">ScheduleParallel&lt;T&gt;(T, EntityQuery, Int32, JobHandle)</a>,</li>
+<li>or <a class="xref" href="Unity.Entities.JobEntityBatchExtensions.Run.html#Unity_Entities_JobEntityBatchExtensions_Run__1___0_Unity_Entities_EntityQuery_">Run&lt;T&gt;(T, EntityQuery)</a></li>
+</ul>
+<p>all the entities of each chunk are processed as
+a single batch. The <a class="xref" href="Unity.Entities.ArchetypeChunk.html">ArchetypeChunk</a> object passed to the <code>Execute</code> function of your job struct provides access
+to the components of all the entities in the chunk.</p>
+<p>Use <a class="xref" href="Unity.Entities.JobEntityBatchExtensions.ScheduleParallel.html#Unity_Entities_JobEntityBatchExtensions_ScheduleParallel__1___0_Unity_Entities_EntityQuery_System_Int32_Unity_Jobs_JobHandle_">ScheduleParallel&lt;T&gt;(T, EntityQuery, Int32, JobHandle)</a> to divide
+each chunk selected by your query into (approximately) equal batches of contiguous entities. For example,
+if you use a batch count of two, one batch provides access to the first half of the component arrays in a chunk and the other
+provides access to the second half. When you use batching, the <a class="xref" href="Unity.Entities.ArchetypeChunk.html">ArchetypeChunk</a> object only
+provides access to the components in the current batch of entities -- not those of all entities in a chunk.</p>
+<p>In general, processing whole chunks at a time (setting batch count to one) is the most efficient. However, in cases
+where the algorithm itself is relatively expensive for each entity, executing smaller batches in parallel can provide
+better overall performance, especially when the entities are contained in a small number of chunks. As always, you
+should profile your job to find the best arrangement for your specific application.</p>
+<p>To pass data to your Execute function (beyond the <code>Execute</code> parameters), add public fields to the IJobEntityBatch
+struct declaration and set those fields immediately before scheduling the job. You must always pass the
+component type information for any components that the job reads or writes using a field of type,
+<a class="xref" href="Unity.Entities.ComponentTypeHandle-1.html">ComponentTypeHandle&lt;T&gt;</a>. Get this type information by calling the appropriate
+<a class="xref" href="Unity.Entities.ComponentSystemBase.GetComponentTypeHandle.html#Unity_Entities_ComponentSystemBase_GetComponentTypeHandle__1_System_Boolean_">GetComponentTypeHandle&lt;T&gt;(Boolean)</a> function for the type of
+component.</p>
+<p>For more information see <a class="xref" href="../manual/ecs_ijobentitybatch.html">Using IJobEntityBatch</a>.
+<example><p>
+<pre><code source="../DocCodeSamples.Tests/IJobEntityBatchExamples.cs" region="basic-ijobentitybatch">[GenerateAuthoringComponent]
+public struct ExpensiveTarget : IComponentData
+{
+   public Entity entity;
+}
+
+public class BatchedChaserSystem : SystemBase
+{
+   private EntityQuery query; // Initialized in Oncreate()
+
+   [BurstCompile]
+   private struct BatchedChaserSystemJob : IJobEntityBatch
+   {
+       // Read-write data in the current chunk
+       public ComponentTypeHandle&lt;Translation> PositionTypeHandleAccessor;
+
+       // Read-only data in the current chunk
+       [ReadOnly]
+       public ComponentTypeHandle&lt;Target> TargetTypeHandleAccessor;
+
+       // Read-only data stored (potentially) in other chunks
+       [ReadOnly]
+       //[NativeDisableParallelForRestriction]
+       public ComponentDataFromEntity&lt;LocalToWorld> EntityPositions;
+
+       // Non-entity data
+       public float deltaTime;
+
+       public void Execute(ArchetypeChunk batchInChunk, int batchIndex)
+       {
+           // Within Execute(), the scope of the ArchetypeChunk is limited to the current batch.
+           // For example, these NativeArrays will have Length = batchInChunk.BatchEntityCount,
+           // where batchInChunk.BatchEntityCount is roughly batchInChunk.Capacity divided by the
+           // batchesInChunk parameter passed to ScheduleParallelBatched().
+           NativeArray&lt;Translation> positions = batchInChunk.GetNativeArray&lt;Translation>(PositionTypeHandleAccessor);
+           NativeArray&lt;Target> targets = batchInChunk.GetNativeArray&lt;Target>(TargetTypeHandleAccessor);
+
+           for (int i = 0; i &lt; positions.Length; i++)
+           {
+               Entity targetEntity = targets[i].entity;
+               float3 targetPosition = EntityPositions[targetEntity].Position;
+               float3 chaserPosition = positions[i].Value;
+
+               float3 displacement = (targetPosition - chaserPosition);
+               positions[i] = new Translation { Value = chaserPosition + displacement * deltaTime };
+           }
+       }
+   }
+
+   protected override void OnCreate()
+   {
+       query = this.GetEntityQuery(typeof(Translation), ComponentType.ReadOnly&lt;Target>());
+   }
+
+   protected override void OnUpdate()
+   {
+       var job = new BatchedChaserSystemJob();
+       job.PositionTypeHandleAccessor = this.GetComponentTypeHandle&lt;Translation>(false);
+       job.TargetTypeHandleAccessor = this.GetComponentTypeHandle&lt;Target>(true);
+
+       job.EntityPositions = this.GetComponentDataFromEntity&lt;LocalToWorld>(true);
+       job.deltaTime = this.Time.DeltaTime;
+
+       int batchesPerChunk = 4; // Partition each chunk into this many batches. Each batch will be processed concurrently.
+       this.Dependency = job.ScheduleParallel(query, batchesPerChunk, this.Dependency);
+   }
+}</code></pre>
+<p></example></p>
+</div>
+  <h3 id="methods">Methods
+  </h3>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="Unity_Entities_IJobEntityBatch_Execute_Unity_Entities_ArchetypeChunk_System_Int32_" data-uid="Unity.Entities.IJobEntityBatch.Execute(Unity.Entities.ArchetypeChunk,System.Int32)">
+          <a class="xref" href="Unity.Entities.IJobEntityBatch.Execute.html#Unity_Entities_IJobEntityBatch_Execute_Unity_Entities_ArchetypeChunk_System_Int32_">Execute(ArchetypeChunk, Int32)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Implement the <code>Execute</code> function to perform a unit of work on an <a class="xref" href="Unity.Entities.ArchetypeChunk.html">ArchetypeChunk</a> representing
+a contiguous batch of entities within a chunk.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Unity.Entities.JobEntityBatchExtensions.html">JobEntityBatchExtensions</a></div>
+      <div><a class="xref" href="Unity.Entities.IJobEntityBatchWithIndex.html">IJobEntityBatchWithIndex</a></div>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

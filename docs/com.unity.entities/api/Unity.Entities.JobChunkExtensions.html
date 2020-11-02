@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -13,20 +13,21 @@
     <meta http-equiv="Expires" content="0">
   
     <title>Class JobChunkExtensions
-   | Unity Entities Documentation | 0.7.0-preview.13 </title>
+   | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class JobChunkExtensions
-   | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+   | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -96,7 +97,7 @@
   <div class="markdown level0 summary"><p>Extensions for scheduling and running IJobChunk Jobs.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
+  <div class="inheritance collapsible show-bottom">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><span class="xref">JobChunkExtensions</span></div>
@@ -109,46 +110,6 @@
   </div>
   <h3 id="methods">Methods
   </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/IJobChunk.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_JobChunkExtensions_Run_" data-uid="Unity.Entities.JobChunkExtensions.Run*"></a>
-  <h4 id="Unity_Entities_JobChunkExtensions_Run__1___0_Unity_Entities_EntityQuery_" data-uid="Unity.Entities.JobChunkExtensions.Run``1(``0,Unity.Entities.EntityQuery)">Run&lt;T&gt;(T, EntityQuery)</h4>
-  <div class="markdown level1 summary"><p>Runs the Job immediately on the current thread.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void Run&lt;T&gt;(this T jobData, EntityQuery query)
-    where T : struct, IJobChunk</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">jobData</span></td>
-        <td><p>An IJobChunk instance.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a></td>
-        <td><span class="parametername">query</span></td>
-        <td><p>The query selecting chunks with the necessary components.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -158,304 +119,39 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The specific IJobChunk implementation type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/IJobChunk.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_JobChunkExtensions_RunWithoutJobs_" data-uid="Unity.Entities.JobChunkExtensions.RunWithoutJobs*"></a>
-  <h4 id="Unity_Entities_JobChunkExtensions_RunWithoutJobs__1___0__Unity_Entities_ArchetypeChunkIterator__" data-uid="Unity.Entities.JobChunkExtensions.RunWithoutJobs``1(``0@,Unity.Entities.ArchetypeChunkIterator@)">RunWithoutJobs&lt;T&gt;(ref T, ref ArchetypeChunkIterator)</h4>
-  <div class="markdown level1 summary"><p>Runs the job using an ArchetypeChunkIterator instead of the jobs API.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void RunWithoutJobs&lt;T&gt;(this ref T jobData, ref ArchetypeChunkIterator chunkIterator)
-    where T : struct, IJobChunk</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">jobData</span></td>
-        <td><p>The job to execute.</p>
+        <td id="Unity_Entities_JobChunkExtensions_Run__1___0_Unity_Entities_EntityQuery_" data-uid="Unity.Entities.JobChunkExtensions.Run``1(``0,Unity.Entities.EntityQuery)">
+          <a class="xref" href="Unity.Entities.JobChunkExtensions.Run.html#Unity_Entities_JobChunkExtensions_Run__1___0_Unity_Entities_EntityQuery_">Run&lt;T&gt;(T, EntityQuery)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Runs the Job immediately on the current thread.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="Unity.Entities.ArchetypeChunkIterator.html">ArchetypeChunkIterator</a></td>
-        <td><span class="parametername">chunkIterator</span></td>
-        <td><p>The ArchetypeChunkIterator of the EntityQuery to run over.</p>
+        <td id="Unity_Entities_JobChunkExtensions_RunWithoutJobs__1___0__Unity_Entities_ArchetypeChunkIterator__" data-uid="Unity.Entities.JobChunkExtensions.RunWithoutJobs``1(``0@,Unity.Entities.ArchetypeChunkIterator@)">
+          <a class="xref" href="Unity.Entities.JobChunkExtensions.RunWithoutJobs.html#Unity_Entities_JobChunkExtensions_RunWithoutJobs__1___0__Unity_Entities_ArchetypeChunkIterator__">RunWithoutJobs&lt;T&gt;(ref T, ref ArchetypeChunkIterator)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Runs the job using an ArchetypeChunkIterator instead of the jobs API.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The specific IJobChunk implementation type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/IJobChunk.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_JobChunkExtensions_Schedule_" data-uid="Unity.Entities.JobChunkExtensions.Schedule*"></a>
-  <h4 id="Unity_Entities_JobChunkExtensions_Schedule__1___0_Unity_Entities_EntityQuery_JobHandle_" data-uid="Unity.Entities.JobChunkExtensions.Schedule``1(``0,Unity.Entities.EntityQuery,JobHandle)">Schedule&lt;T&gt;(T, EntityQuery, JobHandle)</h4>
-  <div class="markdown level1 summary"><p>Adds an IJobChunk instance to the Job scheduler queue for parallel execution.
+        <td id="Unity_Entities_JobChunkExtensions_Schedule__1___0_Unity_Entities_EntityQuery_Unity_Jobs_JobHandle_" data-uid="Unity.Entities.JobChunkExtensions.Schedule``1(``0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)">
+          <a class="xref" href="Unity.Entities.JobChunkExtensions.Schedule.html#Unity_Entities_JobChunkExtensions_Schedule__1___0_Unity_Entities_EntityQuery_Unity_Jobs_JobHandle_">Schedule&lt;T&gt;(T, EntityQuery, JobHandle)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Adds an IJobChunk instance to the Job scheduler queue for parallel execution.
 Note: This method is being replaced with use of ScheduleParallel to make non-sequential execution explicit.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static JobHandle Schedule&lt;T&gt;(this T jobData, EntityQuery query, JobHandle dependsOn = null)
-    where T : struct, IJobChunk</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">jobData</span></td>
-        <td><p>An IJobChunk instance.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a></td>
-        <td><span class="parametername">query</span></td>
-        <td><p>The query selecting chunks with the necessary components.</p>
+        <td id="Unity_Entities_JobChunkExtensions_ScheduleParallel__1___0_Unity_Entities_EntityQuery_Unity_Jobs_JobHandle_" data-uid="Unity.Entities.JobChunkExtensions.ScheduleParallel``1(``0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)">
+          <a class="xref" href="Unity.Entities.JobChunkExtensions.ScheduleParallel.html#Unity_Entities_JobChunkExtensions_ScheduleParallel__1___0_Unity_Entities_EntityQuery_Unity_Jobs_JobHandle_">ScheduleParallel&lt;T&gt;(T, EntityQuery, JobHandle)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Adds an IJobChunk instance to the Job scheduler queue for parallel execution.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">JobHandle</span></td>
-        <td><span class="parametername">dependsOn</span></td>
-        <td><p>The handle identifying already scheduled Jobs that could constrain this Job.
-A Job that writes to a component must run before other Jobs that read or write that component. Jobs that
-only read the same components can run in parallel.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">JobHandle</span></td>
-        <td><p>A handle that combines the current Job with previous dependencies identified by the <code>dependsOn</code>
-parameter.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The specific IJobChunk implementation type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/IJobChunk.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_JobChunkExtensions_ScheduleParallel_" data-uid="Unity.Entities.JobChunkExtensions.ScheduleParallel*"></a>
-  <h4 id="Unity_Entities_JobChunkExtensions_ScheduleParallel__1___0_Unity_Entities_EntityQuery_JobHandle_" data-uid="Unity.Entities.JobChunkExtensions.ScheduleParallel``1(``0,Unity.Entities.EntityQuery,JobHandle)">ScheduleParallel&lt;T&gt;(T, EntityQuery, JobHandle)</h4>
-  <div class="markdown level1 summary"><p>Adds an IJobChunk instance to the Job scheduler queue for parallel execution.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static JobHandle ScheduleParallel&lt;T&gt;(this T jobData, EntityQuery query, JobHandle dependsOn = null)
-    where T : struct, IJobChunk</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">jobData</span></td>
-        <td><p>An IJobChunk instance.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a></td>
-        <td><span class="parametername">query</span></td>
-        <td><p>The query selecting chunks with the necessary components.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">JobHandle</span></td>
-        <td><span class="parametername">dependsOn</span></td>
-        <td><p>The handle identifying already scheduled Jobs that could constrain this Job.
-A Job that writes to a component must run before other Jobs that read or write that component. Jobs that
-only read the same components can run in parallel.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">JobHandle</span></td>
-        <td><p>A handle that combines the current Job with previous dependencies identified by the <code>dependsOn</code>
-parameter.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The specific IJobChunk implementation type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/IJobChunk.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_JobChunkExtensions_ScheduleSingle_" data-uid="Unity.Entities.JobChunkExtensions.ScheduleSingle*"></a>
-  <h4 id="Unity_Entities_JobChunkExtensions_ScheduleSingle__1___0_Unity_Entities_EntityQuery_JobHandle_" data-uid="Unity.Entities.JobChunkExtensions.ScheduleSingle``1(``0,Unity.Entities.EntityQuery,JobHandle)">ScheduleSingle&lt;T&gt;(T, EntityQuery, JobHandle)</h4>
-  <div class="markdown level1 summary"><p>Adds an IJobChunk instance to the Job scheduler queue for sequential (non-parallel) execution.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static JobHandle ScheduleSingle&lt;T&gt;(this T jobData, EntityQuery query, JobHandle dependsOn = null)
-    where T : struct, IJobChunk</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">jobData</span></td>
-        <td><p>An IJobChunk instance.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a></td>
-        <td><span class="parametername">query</span></td>
-        <td><p>The query selecting chunks with the necessary components.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">JobHandle</span></td>
-        <td><span class="parametername">dependsOn</span></td>
-        <td><p>The handle identifying already scheduled Jobs that could constrain this Job.
-A Job that writes to a component must run before other Jobs that read or write that component. Jobs that
-only read the same components can run in parallel.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">JobHandle</span></td>
-        <td><p>A handle that combines the current Job with previous dependencies identified by the <code>dependsOn</code>
-parameter.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The specific IJobChunk implementation type.</p>
+        <td id="Unity_Entities_JobChunkExtensions_ScheduleSingle__1___0_Unity_Entities_EntityQuery_Unity_Jobs_JobHandle_" data-uid="Unity.Entities.JobChunkExtensions.ScheduleSingle``1(``0,Unity.Entities.EntityQuery,Unity.Jobs.JobHandle)">
+          <a class="xref" href="Unity.Entities.JobChunkExtensions.ScheduleSingle.html#Unity_Entities_JobChunkExtensions_ScheduleSingle__1___0_Unity_Entities_EntityQuery_Unity_Jobs_JobHandle_">ScheduleSingle&lt;T&gt;(T, EntityQuery, JobHandle)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Adds an IJobChunk instance to the Job scheduler queue for sequential (non-parallel) execution.</p>
 </td>
       </tr>
     </tbody>
@@ -467,9 +163,6 @@ parameter.</p>
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/IJobChunk.cs" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -488,7 +181,7 @@ parameter.</p>
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -499,5 +192,6 @@ parameter.</p>
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

@@ -1,3 +1,6 @@
+const packagePathRegex = /.*?(?:@|(?:%40)).*?\/(?<path>.*)/;
+const pagePath = location.pathname.match(packagePathRegex).groups.path;
+
 let versionsAdded = 0;
 let versionsToAdd = [];
 
@@ -7,57 +10,56 @@ function populateVersionSwitcher(metadata){
     let numberToPopulate = 0;
     let populatedCounter = 0;
 
-    for (var version in versionsInfo){
+    for (let version in versionsInfo){
         let versionSplit = version.split('.');
         let versionTrimmed = versionSplit[0] + '.' + versionSplit[1];
         let currentVersionSplit = thisPackageMetaData.version.split('.');
         let currentVersionTrimmed = currentVersionSplit[0] + '.' + currentVersionSplit[1];
-
+        let unityVersion = "";
+        if(versionsInfo[version].unity)
+            unityVersion += versionsInfo[version].unity;
+        if(versionsInfo[version].unityRelease)
+            unityVersion += "." + versionsInfo[version].unityRelease;
+        
         if (!versionsToPopulate[versionTrimmed] && versionTrimmed != currentVersionTrimmed){
-            versionsToPopulate[versionTrimmed] = {versionTrimmed: versionTrimmed};
+            versionsToPopulate[versionTrimmed] = {versionTrimmed: versionTrimmed, unityVersion:unityVersion};
             numberToPopulate++;
         }
     }
 
-    var versionsToPopulateLength = 0;
+    let versionsToPopulateLength = 0;
 
-    for (var versionTrimmed in versionsToPopulate){
+    for (let versionTrimmed in versionsToPopulate){
         versionsToPopulateLength++;
+        // Ajax call, if success, add, else use fallback
         (function(version){
-            let gotoUrl = getPageUrlFromVersion(version);
+            let gotoUrl = getRedirectUrl(version);
 
-        $.ajax( gotoUrl )
+            $.ajax( gotoUrl )
             .done(function() {
-                addToList(version, gotoUrl);
+                addToList(version, gotoUrl, versionsToPopulate[versionTrimmed].unityVersion);
                 versionsAdded++;
                 if (++populatedCounter >= numberToPopulate){
                     onLastPopulate();
                 }
             })
             .fail(function() {
-                let indexUrl = getIndexURL(version);
+                let indexUrl = getFallbackRedirectUrl(version);
+                addToList(version, indexUrl, versionsToPopulate[versionTrimmed].unityVersion);
+                versionsAdded++;
 
-                $.ajax( indexUrl )
-                    .done(function() {
-                        addToList(version, indexUrl);
-                        versionsAdded++;
-                        if (++populatedCounter >= numberToPopulate){
-                            onLastPopulate();
-                        }
-                    })
-                    .fail(function() {
-                        if (++populatedCounter >= numberToPopulate){
-                            onLastPopulate();
-                        }
-                    });  
+                if (++populatedCounter >= numberToPopulate){
+                    onLastPopulate();
+                }
             });        
         })(versionTrimmed);
     }
 
+    
+
     if (versionsToPopulateLength <= 0){
         onLastPopulate();
     }
-    
 }
 
 function onLastPopulate(){
@@ -66,34 +68,45 @@ function onLastPopulate(){
         $('#breadcrumb').append($('<p style="margin: 10px 0;"><b>' + thisPackageMetaData.displayTitle + '</b></p>'));
     }
     else {
-        versionsToAdd.sort((a,b) => (Number(a.version) < Number(b.version)) ? 1 : ((Number(b.version) < Number(a.version)) ? -1 : 0));
-        console.log(versionsToAdd);
+        versionsToAdd = versionsToAdd.sort( 
+            (a, b) => -a.version.localeCompare(b.version, "en-US", { numeric:true }) 
+        );
 
         for (var i = 0; i < versionsToAdd.length; i++){
-            createVersionOption(versionsToAdd[i].version, versionsToAdd[i].gotoUrl);
+            createVersionOption(versionsToAdd[i].version, versionsToAdd[i].gotoUrl, versionsToAdd[i].unityVersion);
         }
 
         onVersionSwitcherClick();
     }
 }
 
-function addToList(version, gotoUrl){
-    versionsToAdd.push({version:version, gotoUrl:gotoUrl});
+function addToList(version, gotoUrl, unityVersion){
+    versionsToAdd.push({version:version, gotoUrl:gotoUrl, unityVersion:unityVersion});
+    ++versionsAdded;
 }
 
-function createVersionOption(version, gotoUrl){
-    let item = $(`<a style="color:#000;" href="` + gotoUrl + `"><li class="component-select__option">
-                    ` +version + `
-                </li></a>`);
+function createVersionOption(version, gotoUrl, unityVersion){
+    let item ="";
+    if(unityVersion)
+        item = $(`<a style="color:#000;" href="${gotoUrl}"><li class="component-select__option" style='justify-content:space-between;'>${version} <span style="color:#aaa;">${unityVersion}+</span></li></a>`);
+    else
+        item = $(`<a style="color:#000;" href="${gotoUrl}"><li class="component-select__option">${version}</li></a>`);
     $('#version-switcher-ul').append(item);
 }
 
-function getPageUrlFromVersion(versionTrimmed){
-    return location.protocol + "//" + location.host + "/" + location.pathname.split('/')[1] + "/" + packageName + "@" + versionTrimmed + "/" + location.pathname.split('/').splice(3).join('/');
+function getRedirectUrl(versionTrimmed){
+    let output = `/Packages/${packageName}@${versionTrimmed}/`;
+    if (currentLang && currentLang !== 'en')
+        output = `/${currentLang}${output}`;
+    output += `${pagePath}`;
+    return output;
 }
 
-function getIndexURL(versionTrimmed){
-    return location.protocol + "//" + location.host + "/" + location.pathname.split('/')[1] + "/" + packageName + "@" + versionTrimmed + "/index.html";
+function getFallbackRedirectUrl(versionTrimmed) {
+    let output = `/Packages/${packageName}@${versionTrimmed}/`;
+    if (currentLang && currentLang !== 'en')
+        output = `/${currentLang}${output}`;
+    return output;
 }
 
 function onVersionSwitcherClick(){
@@ -103,7 +116,6 @@ function onVersionSwitcherClick(){
 }
 
 $(document).click(function(e){
-    console.log(!(e.target.id == 'component-select-current-display'));
     if (!(e.target.id == 'component-select-current-display'))
         $('#component-select-current-display').removeClass('component-select__current--is-active');
 });

@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,23 +12,24 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Dynamic buffer components | Unity Entities Documentation | 0.7.0-preview.13 </title>
+    <title>Dynamic buffer components | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Dynamic buffer components | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="title" content="Dynamic buffer components | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
-  <body data-spy="scroll" data-target="#affix" class="manual">
+  <body data-spy="scroll" data-target="#affix" class="">
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="wrapper">
       <header>
@@ -100,7 +101,8 @@ public struct IntBufferElement : IBufferElementData
 </code></pre><p>To associate a dynamic buffer with an entity, add an <a class="xref" href="../api/Unity.Entities.IBufferElementData.html">IBufferElementData</a> component directly to the entity rather than adding the <a class="xref" href="../api/Unity.Entities.DynamicBuffer-1.html">dynamic buffer container</a> itself. </p>
 <p>ECS manages the container. For most purposes, you can use a declared <code>IBufferElementData</code> type to treat a dynamic buffer the same as any other ECS component. For example, you can use the <code>IBufferElementData</code> type in <a class="xref" href="../api/Unity.Entities.EntityQuery.html">entity queries</a> as well as when you add or remove the buffer component. However, you must use different functions to access a buffer component and those functions provide the <a class="xref" href="../api/Unity.Entities.DynamicBuffer-1.html">DynamicBuffer</a> instance, which gives an array-like interface to the buffer data.</p>
 <p>To specify an “internal capacity&quot; for a dynamic buffer component, use the <a class="xref" href="../api/Unity.Entities.InternalBufferCapacityAttribute.html">InternalBufferCapacity attribute</a>. The internal capacity defines the number of elements the dynamic buffer stores in the <a class="xref" href="../api/Unity.Entities.ArchetypeChunk.html">ArchetypeChunk</a> along with the other components of an entity. If you increase the size of a buffer beyond the internal capacity, the buffer allocates a heap memory block outside the current chunk and moves all existing elements. ECS manages this external buffer memory automatically, and frees the memory when the buffer component is removed. </p>
-<p><strong>Note:</strong> If the data in a buffer is not dynamic, you can use a <a class="xref" href="../api/Unity.Entities.BlobBuilder.html">blob asset</a> instead of a dynamic buffer. Blob assets can store structured data, including arrays. Multiple entities can share blob assets.</p>
+<div class="NOTE"><h5>Note</h5><p>If the data in a buffer is not dynamic, you can use a <a class="xref" href="../api/Unity.Entities.BlobBuilder.html">blob asset</a> instead of a dynamic buffer. Blob assets can store structured data, including arrays. Multiple entities can share blob assets.</p>
+</div>
 <h2 id="declaring-buffer-element-types">Declaring buffer element types</h2>
 <p>To declare a buffer, declare a struct that defines the type of element that you want to put into the buffer. The struct must implement <a class="xref" href="../api/Unity.Entities.IBufferElementData.html">IBufferElementData</a>, like so:</p>
 <pre><code class="lang-cs" name="declare-element-full">
@@ -127,7 +129,7 @@ public struct MyBufferElement : IBufferElementData
 </code></pre><h2 id="adding-buffer-types-to-entities">Adding buffer types to entities</h2>
 <p>To add a buffer to an entity, add the <code>IBufferElementData</code> struct that defines the data type of the buffer element, and then add that type directly to an entity or to an <a class="xref" href="../api/Unity.Entities.EntityArchetype.html">archetype</a>:</p>
 <h3 id="using-entitymanageraddbuffer">Using EntityManager.AddBuffer()</h3>
-<p>For more information, see the documentation on <a href="xref:Unity.Enities.EntityManager.AddBuffer`1(Unity.Entities.Entity)">EntityManager.AddBuffer()</a>.</p>
+<p>For more information, see the documentation on <a class="xref" href="../api/Unity.Entities.EntityManager.AddBuffer.html">EntityManager.AddBuffer()</a>.</p>
 <pre><code class="lang-cs" name="declare">
 EntityManager.AddBuffer&lt;MyBufferElement&gt;(entity);
 
@@ -152,42 +154,61 @@ public struct IntBufferElement: IBufferElementData
 </ul>
 <h3 id="using-an-entitycommandbufferxrefunityentitiesentitycommandbuffer">Using an <a class="xref" href="../api/Unity.Entities.EntityCommandBuffer.html">EntityCommandBuffer</a></h3>
 <p>You can add or set a buffer component when you add commands to an entity command buffer. </p>
-<p>Use <a class="xref" href="../api/Unity.Entities.EntityCommandBuffer.html#Unity_Entities_EntityCommandBuffer_AddBuffer__1_Unity_Entities_Entity_">AddBuffer</a> to create a new buffer for the entity, which changes the entity&#39;s archetype. Use <a class="xref" href="../api/Unity.Entities.EntityCommandBuffer.html#Unity_Entities_EntityCommandBuffer_SetBuffer__1_Unity_Entities_Entity_">SetBuffer</a> to wipe out the existing buffer (which must exist) and create a new, empty buffer in its place. Both functions return a <a class="xref" href="../api/Unity.Entities.DynamicBuffer-1.html">DynamicBuffer</a> instance that you can use to populate the new buffer. You can add elements to the buffer immediately, but they are not otherwise accessible until the buffer is added to the entity when the command buffer is executed.</p>
-<p>The following job creates a new entity using a command buffer and then adds a dynamic buffer component using <a class="xref" href="../api/Unity.Entities.EntityCommandBuffer.html#Unity_Entities_EntityCommandBuffer_AddBuffer__1_Unity_Entities_Entity_">EntityCommandBuffer.AddBuffer</a>. The job also adds a number of elements to the dynamic buffer. </p>
+<p>Use <a class="xref" href="../api/Unity.Entities.EntityCommandBuffer.AddBuffer.html#Unity_Entities_EntityCommandBuffer_AddBuffer__1_Unity_Entities_Entity_">AddBuffer</a> to create a new buffer for the entity, which changes the entity&#39;s archetype. Use <a class="xref" href="../api/Unity.Entities.EntityCommandBuffer.SetBuffer.html#Unity_Entities_EntityCommandBuffer_SetBuffer__1_Unity_Entities_Entity_">SetBuffer</a> to wipe out the existing buffer (which must exist) and create a new, empty buffer in its place. Both functions return a <a class="xref" href="../api/Unity.Entities.DynamicBuffer-1.html">DynamicBuffer</a> instance that you can use to populate the new buffer. You can add elements to the buffer immediately, but they are not otherwise accessible until the buffer is added to the entity when the command buffer is executed.</p>
+<p>The following job creates a new entity using a command buffer and then adds a dynamic buffer component using <a class="xref" href="../api/Unity.Entities.EntityCommandBuffer.AddBuffer.html#Unity_Entities_EntityCommandBuffer_AddBuffer__1_Unity_Entities_Entity_">EntityCommandBuffer.AddBuffer</a>. The job also adds a number of elements to the dynamic buffer. </p>
 <pre><code class="lang-cs" name="declare">
-struct DataSpawnJob : IJobForEachWithEntity&lt;DataToSpawn&gt;
+using Unity.Entities;
+using Unity.Jobs;
+
+public class CreateEntitiesWithBuffers : SystemBase
 {
-    // A command buffer marshals structural changes to the data
-    public EntityCommandBuffer.Concurrent CommandBuffer;
+    // A command buffer system executes command buffers in its own OnUpdate
+    public EntityCommandBufferSystem CommandBufferSystem;
 
-    //The DataToSpawn component tells us how many entities with buffers to create
-    public void Execute(Entity spawnEntity, int index, [ReadOnly] ref DataToSpawn data)
+    protected override void OnCreate()
     {
-        for (int e = 0; e &lt; data.EntityCount; e++)
+        // Get the command buffer system
+        CommandBufferSystem
+            = World.DefaultGameObjectInjectionWorld.GetExistingSystem&lt;EndSimulationEntityCommandBufferSystem&gt;();
+    }
+
+    protected override void OnUpdate()
+    {
+        // The command buffer to record commands,
+        // which are executed by the command buffer system later in the frame
+        EntityCommandBuffer.ParallelWriter commandBuffer
+            = CommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
+        //The DataToSpawn component tells us how many entities with buffers to create
+        Entities.ForEach((Entity spawnEntity, int entityInQueryIndex, in DataToSpawn data) =&gt;
         {
-            //Create a new entity for the command buffer
-            Entity newEntity = CommandBuffer.CreateEntity(index);
-
-            //Create the dynamic buffer and add it to the new entity
-            DynamicBuffer&lt;MyBufferElement&gt; buffer =
-                CommandBuffer.AddBuffer&lt;MyBufferElement&gt;(index, newEntity);
-
-            //Reinterpret to plain int buffer
-            DynamicBuffer&lt;int&gt; intBuffer = buffer.Reinterpret&lt;int&gt;();
-
-            //Optionally, populate the dynamic buffer
-            for (int j = 0; j &lt; data.ElementCount; j++)
+            for (int e = 0; e &lt; data.EntityCount; e++)
             {
-                intBuffer.Add(j);
-            }
-        }
+                //Create a new entity for the command buffer
+                Entity newEntity = commandBuffer.CreateEntity(entityInQueryIndex);
 
-        //Destroy the DataToSpawn entity since it has done its job
-        CommandBuffer.DestroyEntity(index, spawnEntity);
+                //Create the dynamic buffer and add it to the new entity
+                DynamicBuffer&lt;MyBufferElement&gt; buffer =
+                    commandBuffer.AddBuffer&lt;MyBufferElement&gt;(entityInQueryIndex, newEntity);
+
+                //Reinterpret to plain int buffer
+                DynamicBuffer&lt;int&gt; intBuffer = buffer.Reinterpret&lt;int&gt;();
+
+                //Optionally, populate the dynamic buffer
+                for (int j = 0; j &lt; data.ElementCount; j++)
+                {
+                    intBuffer.Add(j);
+                }
+            }
+
+            //Destroy the DataToSpawn entity since it has done its job
+            commandBuffer.DestroyEntity(entityInQueryIndex, spawnEntity);
+        }).ScheduleParallel();
+
+        CommandBufferSystem.AddJobHandleForProducer(this.Dependency);
     }
 }
-
-</code></pre><p><strong>Note:</strong> You are not required to add data to the dynamic buffer immediately. However, you won&#39;t have access to the buffer again until after the entity command buffer you are using is executed.</p>
+</code></pre><div class="NOTE"><h5>Note</h5><p>You are not required to add data to the dynamic buffer immediately. However, you won&#39;t have access to the buffer again until after the entity command buffer you are using is executed.</p>
+</div>
 <h2 id="accessing-buffers">Accessing buffers</h2>
 <p>You can use <a class="xref" href="../api/Unity.Entities.EntityManager.html">EntityManager</a>, <a href="ecs_systems.html">systems</a>, and jobs to access the <a class="xref" href="../api/Unity.Entities.DynamicBuffer-1.html">DynamicBuffer</a> instance in much the same way as you access other component types of entities. </p>
 <h3 id="entitymanager">EntityManager</h3>
@@ -215,9 +236,9 @@ public class DynamicBufferSystem : SystemBase
 
         Entities.ForEach((DynamicBuffer&lt;MyBufferElement&gt; buffer) =&gt;
         {
-            foreach (var integer in buffer.Reinterpret&lt;int&gt;())
+            for(int i = 0; i &lt; buffer.Length; i++)
             {
-                sum += integer;
+                sum += buffer[i].Value;
             }
         }).Run();
 
@@ -243,29 +264,27 @@ public class DynamicBufferJobSystem : SystemBase
         query = GetEntityQuery(queryDescription);
     }
 
-    public struct BuffersInChunks : IJobChunk
+    public struct BuffersInChunks : IJobEntityBatch
     {
         //The data type and safety object
-        public ArchetypeChunkBufferType&lt;MyBufferElement&gt; BufferType;
+        public BufferTypeHandle&lt;MyBufferElement&gt; BufferTypeHandle;
 
         //An array to hold the output, intermediate sums
         public NativeArray&lt;int&gt; sums;
 
-        public void Execute(ArchetypeChunk chunk,
-            int chunkIndex,
-            int firstEntityIndex)
+        public void Execute(ArchetypeChunk batchInChunk, int batchIndex)
         {
             //A buffer accessor is a list of all the buffers in the chunk
             BufferAccessor&lt;MyBufferElement&gt; buffers
-                = chunk.GetBufferAccessor(BufferType);
+                = batchInChunk.GetBufferAccessor(BufferTypeHandle);
 
-            for (int c = 0; c &lt; chunk.Count; c++)
+            for (int c = 0; c &lt; batchInChunk.Count; c++)
             {
                 //An individual dynamic buffer for a specific entity
                 DynamicBuffer&lt;MyBufferElement&gt; buffer = buffers[c];
-                foreach (MyBufferElement element in buffer)
+                for(int i = 0; i &lt; buffer.Length; i++)
                 {
-                    sums[chunkIndex] += element.Value;
+                    sums[batchIndex] += buffer[i].Value;
                 }
             }
         }
@@ -278,9 +297,9 @@ public class DynamicBufferJobSystem : SystemBase
         public NativeArray&lt;int&gt; result;
         public void Execute()
         {
-            foreach (int integer in sums)
+            for(int i  = 0; i &lt; sums.Length; i++)
             {
-                result[0] += integer;
+                result[0] += sums[i];
             }
         }
     }
@@ -294,9 +313,9 @@ public class DynamicBufferJobSystem : SystemBase
 
         //Schedule the first job to add all the buffer elements
         BuffersInChunks bufferJob = new BuffersInChunks();
-        bufferJob.BufferType = GetArchetypeChunkBufferType&lt;MyBufferElement&gt;();
+        bufferJob.BufferTypeHandle = GetBufferTypeHandle&lt;MyBufferElement&gt;();
         bufferJob.sums = intermediateSums;
-        this.Dependency = bufferJob.ScheduleParallel(query, this.Dependency);
+        this.Dependency = bufferJob.ScheduleParallel(query, 1, this.Dependency);
 
         //Schedule the second job, which depends on the first
         SumResult finalSumJob = new SumResult();
@@ -314,7 +333,7 @@ public class DynamicBufferJobSystem : SystemBase
 </code></pre><h2 id="reinterpreting-buffers">Reinterpreting buffers</h2>
 <p>Buffers can be reinterpreted as a type of the same size. The intention is to
 allow controlled type-punning and to get rid of the wrapper element types when
-they get in the way. To reinterpret, call <a class="xref" href="../api/Unity.Entities.DynamicBuffer-1.html#Unity_Entities_DynamicBuffer_1_Reinterpret_">Reinterpret&lt;T&gt;</a>:</p>
+they get in the way. To reinterpret, call <a class="xref" href="../api/Unity.Entities.DynamicBuffer-1.Reinterpret.html">Reinterpret&lt;T&gt;</a>:</p>
 <pre><code class="lang-cs" name="declare">
 DynamicBuffer&lt;int&gt; intBuffer
     = EntityManager.GetBuffer&lt;MyBufferElement&gt;(entity).Reinterpret&lt;int&gt;();
@@ -346,9 +365,6 @@ buffer1.Add(17);
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Documentation~/dynamic_buffers.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -367,7 +383,7 @@ buffer1.Add(17);
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -378,5 +394,6 @@ buffer1.Add(17);
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

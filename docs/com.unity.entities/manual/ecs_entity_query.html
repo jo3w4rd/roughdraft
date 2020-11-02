@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,23 +12,24 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Using a EntityQuery to query data | Unity Entities Documentation | 0.7.0-preview.13 </title>
+    <title>Using an EntityQuery to query data | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Using a EntityQuery to query data | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="title" content="Using an EntityQuery to query data | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
-  <body data-spy="scroll" data-target="#affix" class="manual">
+  <body data-spy="scroll" data-target="#affix" class="">
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="wrapper">
       <header>
@@ -87,41 +88,47 @@
           <div class="col-md-10" id="main_content">
           <div id="breadcrumb_placeholder"></div>
             <article class="content wrap" id="_content" data-uid="ecs-entity-query">
-<h1 id="using-a-entityquery-to-query-data">Using a EntityQuery to query data</h1>
+<h1 id="using-an-entityquery-to-query-data">Using an EntityQuery to query data</h1>
 
 <p>To read or write data, you must first find the data you want to change. The data in ECS is stored in components, which ECS groups together in memory according to the archetype of the entity to which they belong. You can use an <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> to get a view of the ECS data that contains only the specific data you need for a given algorithm or process. </p>
-<p>You can use an EntityQuery to do the following: </p>
+<p>You can use an <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> to do the following: </p>
 <ul>
-<li>Run a job to process the entities and components selected for the view</li>
+<li>Run a job to process the entities and components selected</li>
 <li>Get a NativeArray that contains all of the selected entities</li>
 <li>Get NativeArrays of the selected components (by component type)</li>
 </ul>
-<p>The entity and component arrays an EntityQuery returns are guaranteed to be &quot;parallel&quot;, that is, the same index value always applies to the same entity in any array.</p>
-<p><strong>Note:</strong> The <code>SystemBase.Entities.ForEach</code> constructions create internal EntityQuery instances based on the component types and attributes you specify for these APIs. You cannot use a different EntityQuery object with <code>Entities.ForEach</code>, (though you can get the query object that an <code>Entities.ForEach</code> instance constructs and use it elsewhere).</p>
+<p>The entity and component arrays an <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> returns are guaranteed to be &quot;parallel&quot;, that is, the same index value always applies to the same entity in any array. </p>
+<div class="NOTE"><h5>Note</h5><p>The SystemBase <a class="xref" href="ecs_entities_foreach.html">Entities.ForEach</a> constructions create internal <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> instances based on the component types and attributes you specify for these APIs. You cannot use a different <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> object with <a class="xref" href="ecs_entities_foreach.html">Entities.ForEach</a>, (though you can get the query object that an <a class="xref" href="ecs_entities_foreach.html">Entities.ForEach</a> instance constructs and use it elsewhere).</p>
+</div>
 <h2 id="defining-a-query">Defining a query</h2>
-<p>An EntityQuery query defines the set of component types that an archetype must contain for ECS to include its chunks and entities in the view. You can also exclude archetypes that contain specific types of components.  </p>
-<p>For simple queries, you can create a EntityQuery based on an array of component types. The following example defines a EntityQuery that finds all entities with both RotationQuaternion and RotationSpeed components. </p>
-<pre><code class="lang-c#">EntityQuery m_Query = GetEntityQuery(typeof(RotationQuaternion), 
-    ComponentType.ReadOnly&lt;RotationSpeed&gt;());
-</code></pre><p>The query uses <code>ComponentType.ReadOnly&lt;T&gt;</code> instead of the simpler <code>typeof</code> expression to designate that the system does not write to RotationSpeed. Always specify read only when possible, because there are fewer constraints on read access to data, which can help the job scheduler execute the jobs more efficiently. </p>
+<p>An <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> query defines the set of component types that an archetype must contain for ECS to include its chunks and entities in the view. You can also exclude archetypes that contain specific types of components.  </p>
+<p>For simple queries, you can create an <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> based on an array of component types. The following example defines an <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> that finds all entities with both RotationQuaternion and RotationSpeed components. </p>
+<pre><code class="lang-cs" name="define-query">
+EntityQuery query
+    = GetEntityQuery(typeof(RotationQuaternion),
+                     ComponentType.ReadOnly&lt;RotationSpeed&gt;());
+</code></pre><p>The query uses <a class="xref" href="../api/Unity.Entities.ComponentType.ReadOnly.html">ComponentType.ReadOnly&lt;T&gt;</a> instead of the simpler <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/type-testing-and-cast#typeof-operator">typeof</a> expression to designate that the system does not write to RotationSpeed. Always specify read only when possible, because there are fewer constraints on read access to data, which can help the job scheduler execute the jobs more efficiently. </p>
 <h3 id="entityquerydesc">EntityQueryDesc</h3>
-<p>For more complex queries, you can use an EntityQueryDesc object to create the EntityQuery. An EntityQueryDesc provides a flexible query mechanism to specify which archetypes to select based on the following sets of components:</p>
+<p>For more complex queries, you can use an <a class="xref" href="../api/Unity.Entities.EntityQueryDesc.html">EntityQueryDesc</a> object to create the <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a>. An <a class="xref" href="../api/Unity.Entities.EntityQueryDesc.html">EntityQueryDesc</a> provides a flexible query mechanism to specify which archetypes to select based on the following sets of components:</p>
 <ul>
 <li><code>All</code>: All component types in this array must exist in the archetype</li>
 <li><code>Any</code>: At least one of the component types in this array must exist in the archetype</li>
 <li><code>None</code>: None of the component types in this array can exist in the archetype</li>
 </ul>
 <p>For example, the following query includes archetypes that contain the RotationQuaternion and RotationSpeed components, but excludes any archetypes that contain the Frozen component:</p>
-<pre><code class="lang-c#">var query = new EntityQueryDesc
+<pre><code class="lang-cs" name="query-desc">
+var queryDescription = new EntityQueryDesc
 {
-   None = new ComponentType[]{ typeof(Frozen) },
-   All = new ComponentType[]{ typeof(RotationQuaternion), 
-       ComponentType.ReadOnly&lt;RotationSpeed&gt;() }
-}
-EntityQuery m_Query = GetEntityQuery(query);
-</code></pre><p><strong>Note:</strong> Do not include optional components in the EntityQueryDesc. To handle optional components, use the <code>ArchetypeChunk.Has&lt;T&gt;()</code> method to determine whether a chunk contains the optional component or not. Because all entities within the same chunk have the same components, you only need to check whether an optional component exists once per chunk: not once per entity.</p>
+    None = new ComponentType[] { typeof(Frozen) },
+    All = new ComponentType[]{ typeof(RotationQuaternion),
+                           ComponentType.ReadOnly&lt;RotationSpeed&gt;() }
+};
+EntityQuery query = GetEntityQuery(queryDescription);
+</code></pre><div class="NOTE"><h5>Note</h5><p>Do not include optional components in the <a class="xref" href="../api/Unity.Entities.EntityQueryDesc.html">EntityQueryDesc</a>. To handle optional components, use the <a class="xref" href="../api/Unity.Entities.ArchetypeChunk.Has.html">ArchetypeChunk.Has<t></t></a> method to determine whether a chunk contains the optional component or not. Because all entities within the same chunk have the same components, you only need to check whether an optional component exists once per chunk: not once per entity.</p>
+</div>
+<p><a name="query-options"></a></p>
 <h3 id="query-options">Query options</h3>
-<p>When you create an EntityQueryDesc, you can set its <code>Options</code> variable. The options allow for specialized queries (normally you do not need to set them):</p>
+<p>When you create an <a class="xref" href="../api/Unity.Entities.EntityQueryDesc.html">EntityQueryDesc</a>, you can set its <code>Options</code> variable. The options allow for specialized queries (normally you do not need to set them):</p>
 <ul>
 <li>Default: No options set; the query behaves normally.</li>
 <li><code>IncludePrefab</code>: Includes archetypes that contain the special Prefab tag component.</li>
@@ -130,130 +137,170 @@ EntityQuery m_Query = GetEntityQuery(query);
 </ul>
 <p>When you set the <code>FilterWriteGroup</code> option, only entities with those components in a Write Group that are explicitly included in the query are included in the view. ECS excludes any entities that have any additional components from the same WriteGroup.</p>
 <p>In the following example, C2 and C3 are components in the same Write Group based on C1, and this query uses the FilterWriteGroup option that requires C1 and C3:</p>
-<pre><code class="lang-c#">public struct C1: IComponentData{}
+<pre><code class="lang-cs" name="query-writegroup">
+public struct C1 : IComponentData { }
 
-[WriteGroup(C1)]
-public struct C2: IComponentData{}
+[WriteGroup(typeof(C1))]
+public struct C2 : IComponentData { }
 
-[WriteGroup(C1)]
-public struct C3: IComponentData{}
+[WriteGroup(typeof(C1))]
+public struct C3 : IComponentData { }
 
-// ... In a system:
-var query = new EntityQueryDesc{
-    All = new ComponentType{typeof(C1), ComponentType.ReadOnly&lt;C3&gt;()},
-    Options = EntityQueryDescOptions.FilterWriteGroup
-};
-var m_Query = GetEntityQuery(query);
+public class ECSSystem : SystemBase
+{
+    protected override void OnCreate()
+    {
+        var queryDescription = new EntityQueryDesc
+        {
+            All = new ComponentType[] { ComponentType.ReadWrite&lt;C1&gt;(),
+                                        ComponentType.ReadOnly&lt;C3&gt;() },
+            Options = EntityQueryOptions.FilterWriteGroup
+        };
+        var query = GetEntityQuery(queryDescription);
+    }
+
+    protected override void OnUpdate()
+    {
+        throw new NotImplementedException();
+    }
+}
 </code></pre><p>This query excludes any entities with both C2 and C3 because C2 is not explicitly included in the query. While you can use <code>None</code> to design this into the query, doing it through a Write Group provides an important benefit: you don&#39;t need to change the queries other systems use (as long as these systems also use Write Groups). </p>
 <p>Write Groups are a mechanism that you can use to extend existing systems. For example, if C1 and C2 are defined in another system (perhaps part of a library that you don&#39;t control), you can put C3 into the same Write Group as C2 to change how C1 is updated. For any entities which you add to the C3 component, the system updates C1 and the original system does not. For other entities without C3, the original system updates C1 as before.</p>
 <p>For more information, see <a href="ecs_write_groups.html">Write Groups</a>.</p>
 <h3 id="combining-queries">Combining queries</h3>
-<p>To combine multiple queries, you can pass an array of EntityQueryDesc objects rather than a single instance. You must use a logical OR operation to combine each query. The following example selects any archetypes that contain a RotationQuaternion component or a RotationSpeed component (or both):</p>
-<pre><code class="lang-c#">var query0 = new EntityQueryDesc
+<p>To combine multiple queries, you can pass an array of <a class="xref" href="../api/Unity.Entities.EntityQueryDesc.html">EntityQueryDesc</a> objects rather than a single instance. You must use a logical OR operation to combine each query. The following example selects any archetypes that contain a RotationQuaternion component or a RotationSpeed component (or both):</p>
+<pre><code class="lang-cs" name="combine-query">
+var desc1 = new EntityQueryDesc
 {
-   All = new ComponentType[] {typeof(RotationQuaternion)}
+    All = new ComponentType[] { typeof(RotationQuaternion) }
 };
 
-var query1 = new EntityQueryDesc
+var desc2 = new EntityQueryDesc
 {
-   All = new ComponentType[] {typeof(RotationSpeed)}
+    All = new ComponentType[] { typeof(RotationSpeed) }
 };
 
-EntityQuery m_Query 
-    = GetEntityQuery(new EntityQueryDesc[] {query0, query1});
-</code></pre><h2 id="creating-a-entityquery">Creating a EntityQuery</h2>
-<p>Outside of a system class, you can create a EntityQuery with the <code>EntityManager.CreateEntityQuery()</code> function as follows:</p>
-<pre><code class="lang-c#">EntityQuery m_Query = CreateEntityQuery(typeof(RotationQuaternion), 
-    ComponentType.ReadOnly&lt;RotationSpeed&gt;());
-</code></pre><p>However, in a system class, you must use the <code>GetEntityQuery()</code> function for use with an IJobChunk job: </p>
-<pre><code class="lang-c#">public class RotationSpeedSystem : SystemBase
+EntityQuery query
+    = GetEntityQuery(new EntityQueryDesc[] { desc1, desc2 });
+
+</code></pre><h2 id="creating-an-entityquery">Creating an EntityQuery</h2>
+<p>Outside of a system class, you can create an <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> with the <a class="xref" href="../api/Unity.Entities.EntityManager.CreateEntityQuery.html">EntityManager.CreateEntityQuery</a> function as follows:</p>
+<pre><code class="lang-cs" name="create-query">
+EntityQuery query =
+    entityManager.CreateEntityQuery(typeof(RotationQuaternion),
+                        ComponentType.ReadOnly&lt;RotationSpeed&gt;());
+</code></pre><p>However, inside a system class, you get a query from the system rather than creating it from scratch. Systems cache any queries that your implementation creates and return the cached instance rather than creating a new one when possible. </p>
+<p>When your system uses <a class="xref" href="ecs_entities_foreach.html">Entities.ForEach</a>, use <a class="xref" href="../api/Unity.Entities.SystemBase.Entities.html#Unity_Entities_SystemBase_Entities">WithStoreEntityQueryInField</a> to get an instance of the query used by an <a class="xref" href="ecs_entities_foreach.html">Entities.ForEach</a> construction: </p>
+<pre><code class="lang-cs" name="get-query">
+public class RotationSpeedSys : SystemBase
 {
-   private EntityQuery m_Query;
-   protected override void OnCreate()
-   {
-       m_Query = GetEntityQuery(typeof(RotationQuaternion), 
-           ComponentType.ReadOnly&lt;RotationSpeed&gt;());
-   }
-   //…
+    private EntityQuery query;
+
+    protected override void OnUpdate()
+    {
+        float deltaTime = Time.DeltaTime;
+
+        Entities
+            .WithStoreEntityQueryInField(ref query)
+            .ForEach(
+            (ref RotationQuaternion rotation, in RotationSpeed speed) =&gt; {
+                rotation.Value
+                    = math.mul(
+                        math.normalize(rotation.Value),
+                            quaternion.AxisAngle(math.up(),
+                                speed.RadiansPerSecond * deltaTime)
+                     );
+            })
+            .Schedule();
+    }
 }
-</code></pre><p>If you plan to reuse the same view, cache the EntityQuery instance, instead of creating a new one for each use. For example, in a system, you can create the EntityQuery in the system’s <code>OnCreate()</code> function and store the result in an instance variable. The <code>m_Query</code> variable in the above example is used for this purpose.</p>
-<p>Note that queries created for a system are cached by the system. <code>GetEntityQuery()</code> returns the existing query if one already exists rather than creating a new one. However, filter settings are not considered when evaluating whether two queries are the same. In additon, if you set filters on a query, the same filters are set the next time you access that same query with <code>GetEntityQuery()</code>. Use <code>ResetFilter()</code> to clear the existing filters. </p>
+</code></pre><p>In other cases, such as when you need an instance of a query to schedule an IJobChunk job, use the <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.GetEntityQuery.html">GetEntityQuery</a> function: </p>
+<pre><code class="lang-cs" name="get-query-ijobchunk">
+public class RotationSystem : SystemBase
+{
+    private EntityQuery query;
+
+    protected override void OnCreate()
+    {
+        query = GetEntityQuery(typeof(RotationQuaternion),
+               ComponentType.ReadOnly&lt;RotationSpeed&gt;());
+    }
+
+    protected override void OnUpdate()
+    {
+        throw new NotImplementedException();
+    }
+}
+</code></pre><p>Note that filter settings are not considered when caching queries. In addition, if you set filters on a query, the same filters are set the next time you access that same query with <a class="xref" href="../api/Unity.Entities.ComponentSystemBase.GetEntityQuery.html">GetEntityQuery</a>. Use <a class="xref" href="../api/Unity.Entities.EntityQuery.ResetFilter.html#Unity_Entities_EntityQuery_ResetFilter">ResetFilter</a> to clear any existing filters.  </p>
 <h2 id="defining-filters">Defining filters</h2>
-<p>You can filter the view as well as defining which components must be included or excluded from the query. You can specify the following types of filters:</p>
+<p>Filters exclude entities that otherwise would be included among those returned by a query based on the following:</p>
 <ul>
 <li><strong>Shared component filter</strong>: Filter the set of entities based on specific values of a shared component.</li>
 <li><strong>Change filter</strong>: Filter the set of entities based on whether the value of a specific component type has changed.</li>
 </ul>
-<p>The filters you set remain in effect until you call <code>ResetFilter()</code> on the query object.</p>
+<p>The filters you set remain in effect until you call <a class="xref" href="../api/Unity.Entities.EntityQuery.ResetFilter.html#Unity_Entities_EntityQuery_ResetFilter">ResetFilter</a> on the query object.</p>
+<div class="NOTE"><h5>Note</h5><p>Write Groups use a different mechanism. See <a href="#query-options">Query options</a>.</p>
+</div>
 <h3 id="shared-component-filters">Shared component filters</h3>
-<p>To use a shared component filter, include the shared component in the EntityQuery (along with other needed components), and then call the <code>SetFilter()</code> function. Then pass in a struct of the same ISharedComponent type that contains the values to select. All values must match. You can add up to two different shared components to the filter.</p>
-<p>You can change the filter at any time, but if you change the filter, it does not change any existing arrays of entities or components that you received from the group <code>ToComponentDataArray()</code> or <code>ToEntityArray()</code> functions. You must recreate these arrays.</p>
+<p>To use a shared component filter, include the shared component in the <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a>  -- along with other needed components -- and call the <a class="xref" href="../api/Unity.Entities.EntityQuery.SetSharedComponentFilter.html">SetSharedComponentFilter</a> function. Then pass in a struct of the same ISharedComponent type that contains the values to select. All values must match. You can add up to two different shared components to the filter.</p>
+<p>You can change the filter at any time, but if you change the filter, it does not change any existing arrays of entities or components that you received from the group <a class="xref" href="../api/Unity.Entities.EntityQuery.ToComponentDataArray.html">ToComponentDataArray</a>&lt;T&gt; or <a class="xref" href="../api/Unity.Entities.EntityQuery.ToEntityArray.html">ToEntityArray</a> functions. You must recreate these arrays.</p>
 <p>The following example defines a shared component named SharedGrouping and a system that only processes entities that have the Group field set to <code>1</code>.</p>
-<pre><code class="lang-c#">struct SharedGrouping : ISharedComponentData
+<pre><code class="lang-cs" name="shared-component-filter">
+struct SharedGrouping : ISharedComponentData
 {
     public int Group;
 }
 
 class ImpulseSystem : SystemBase
 {
-    EntityQuery m_Query;
+    EntityQuery query;
 
-    protected override void OnCreate(int capacity)
+    protected override void OnCreate()
     {
-        m_Query = GetEntityQuery(typeof(Position), 
-            typeof(Displacement), 
+        query = GetEntityQuery(typeof(Position),
+            typeof(Displacement),
             typeof(SharedGrouping));
     }
 
     protected override void OnUpdate()
     {
         // Only iterate over entities that have the SharedGrouping data set to 1
-        m_Query.SetFilter(new SharedGrouping { Group = 1 });
+        query.SetSharedComponentFilter(new SharedGrouping { Group = 1 });
 
-        var positions = m_Query.ToComponentDataArray&lt;Position&gt;(Allocator.Temp);
-        var displacememnts = m_Query.ToComponentDataArray&lt;Displacement&gt;(Allocator.Temp);
+        var positions = query.ToComponentDataArray&lt;Position&gt;(Allocator.Temp);
+        var displacements = query.ToComponentDataArray&lt;Displacement&gt;(Allocator.Temp);
 
-        for (int i = 0; i != positions.Length; i++)
-            positions[i].Value = positions[i].Value + displacememnts[i].Value;
+        for (int i = 0; i &lt; positions.Length; i++)
+            positions[i] =
+                new Position
+                {
+                    Value = positions[i].Value + displacements[i].Value
+                };
     }
 }
+
 </code></pre><h3 id="change-filters">Change filters</h3>
-<p>If you only need to update entities when a component value has changed, you can add that component to the EntityQuery filter using the <code>SetFilterChanged()</code> function. For example, the following EntityQuery only includes entities from chunks that another system has already written to the Translation component: </p>
-<pre><code class="lang-c#">protected override void OnCreate(int capacity)
+<p>If you only need to update entities when a component value has changed, you can add that component to the <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> filter using the <a class="xref" href="../api/Unity.Entities.EntityQuery.SetChangedVersionFilter.html">SetChangedVersionFilter</a> function. For example, the following <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> only includes entities from chunks that another system has already written to the Translation component: </p>
+<pre><code class="lang-cs" name="change-filter">
+EntityQuery query;
+
+protected override void OnCreate()
 {
-    m_Query = GetEntityQuery(typeof(LocalToWorld), 
-        ComponentType.ReadOnly&lt;Translation&gt;());
-    m_Query.SetFilterChanged(typeof(Translation));
+    query = GetEntityQuery(typeof(LocalToWorld),
+            ComponentType.ReadOnly&lt;Translation&gt;());
+    query.SetChangedVersionFilter(typeof(Translation));
+
 }
-</code></pre><p><strong>Note:</strong> For efficiency, the change filter applies to whole chunks, not individual entities. The change filter also only checks whether a system has run that declared write access to the component, not whether it actually changed any data. In other words, if another job which had the ability to write to that type of component accesses the chunk, then the change filter includes all entities in that chunk. This is why you should always declare read only access to components that you do not need to modify.</p>
+</code></pre><div class="NOTE"><h5>Note</h5><p>For efficiency, the change filter applies to whole chunks, not individual entities. The change filter also only checks whether a system has run that declared write access to the component, not whether it actually changed any data. In other words, if another job which had the ability to write to that type of component accesses the chunk, then the change filter includes all entities in that chunk. This is why you should always declare read only access to components that you do not need to modify.</p>
+</div>
 <h2 id="executing-the-query">Executing the query</h2>
-<p>An EntityQuery executes its query when you use the EntityQuery in a job or you call one of the EntityQuery methods that returns arrays of entities, components, or chunks in the view:</p>
+<p>Typically, you &quot;execute&quot; a query when you schedule a job that uses it. 
+You can also call one of the <a class="xref" href="../api/Unity.Entities.EntityQuery.html">EntityQuery</a> methods that returns arrays of entities, components, or chunks:</p>
 <ul>
-<li><code>ToEntityArray()</code> returns an array of the selected entities.</li>
-<li><code>ToComponentDataArray&lt;T&gt;</code> returns an array of the components of type <code>T</code> for the selected entities.</li>
-<li><code>CreateArchetypeChunkArray()</code> returns all of the chunks that contain the selected entities. Because a query operates on archetypes, shared component values, and change filters, which are all identical for all the entities in a chunk, the set of entities stored win the returned set of chunks is exactly the same as the set of entities <code>ToEntityArray()</code> returns .</li>
+<li><a class="xref" href="../api/Unity.Entities.EntityQuery.ToEntityArray.html">ToEntityArray</a> returns an array of the selected entities.</li>
+<li><a class="xref" href="../api/Unity.Entities.EntityQuery.ToComponentDataArray.html">ToComponentDataArray</a> returns an array of the components of type <code>T</code> for the selected entities.</li>
+<li><a class="xref" href="../api/Unity.Entities.EntityQuery.CreateArchetypeChunkArray.html">CreateArchetypeChunkArray</a> returns all of the chunks that contain the selected entities. Because a query operates on archetypes, shared component values, and change filters, which are all identical for all the entities in a chunk, the set of entities stored win the returned set of chunks is exactly the same as the set of entities <a class="xref" href="../api/Unity.Entities.EntityQuery.ToEntityArray.html">ToEntityArray</a> returns .</li>
 </ul>
-<!-- TODO: Discuss using the Job versions of these functions. -->
-<h3 id="in-jobs">In jobs</h3>
-<p>In a system that schedules an IJobChunk job, pass the EntityQuery object to the job&#39;s <code>ScheduleParallel()</code> or <code>ScheduleSingle()</code> methods. In the following example, from the HelloCube IJobChunk sample, the <code>m_Query</code> argument is the EntityQuery object </p>
-<pre><code class="lang-c#">// OnUpdate runs on the main thread.
-protected override void OnUpdate()
-{
-    var rotationType 
-        = GetArchetypeChunkComponentType&lt;Rotation&gt;(false); 
-    var rotationSpeedType 
-        = GetArchetypeChunkComponentType&lt;RotationSpeed&gt;(true);
-
-    var job = new RotationSpeedJob()
-    {
-        RotationType = rotationType,
-        RotationSpeedType = rotationSpeedType,
-        DeltaTime = Time.deltaTime
-    };
-
-    return job.ScheduleParallel(m_Query, this.Dependency);
-}
-</code></pre><p>An EntityQuery uses jobs internally to create the required arrays. When you pass the group to one of the <code>Schedule()</code> methods, ECS schedules the EntityQuery jobs along with the system&#39;s own jobs and as such you can take advantage of parallel processing. </p>
 </article>
           </div>
           
@@ -261,9 +308,6 @@ protected override void OnUpdate()
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Documentation~/ecs_entity_query.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -282,7 +326,7 @@ protected override void OnUpdate()
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -293,5 +337,6 @@ protected override void OnUpdate()
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

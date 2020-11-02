@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,19 +12,20 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Change log | Unity Entities Documentation | 0.7.0-preview.13 </title>
+    <title>Change log | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Change log | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="title" content="Change log | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -92,23 +93,589 @@
 <h2 id="unreleased">[Unreleased]</h2>
 <h3 id="added">Added</h3>
 <ul>
-<li>Added <code>HasComponent</code>/<code>GetComponent</code>/<code>SetComponent</code> methods that streamline access to components through entities when using the <code>SystemBase</code> class.  These methods call through to <code>EntityManager</code> methods when in OnUpdate code and codegen access through <code>ComponentDataFromEntity</code> when inside of <code>Entities.ForEach</code>.</li>
+<li>ISystemBase interface for making struct based systems that allow Burst compiling main thread update</li>
+<li>New UnsafeBufferAccessor struct that permit to un-typed and unsafe access the dynamic buffers pointers.</li>
+<li>New ArchetypeChunk.GetUnsafeAccessor public API that allow to retrieve dynamic buffers unsafe accessors using DynamicTypeHandle.</li>
+<li>safety check in DynamicComponentDataArrayReinterpret<t> that throw an ArgumentException if used to access the component data for IBufferDataElement type</t></li>
+<li>ComponentSystemBase.TryGetSingleton</li>
+<li>ComponentSystemBase.TryGetSingletonEntity</li>
+<li>Tests for Tiny.UI transformations.</li>
+<li>Added documentation for incremental conversion and dependencies</li>
+<li>New scheduling API for <code>IJobEntityBatch</code> which limits the resulting batches to an input <code>NativeArray&lt;Entity&gt;</code></li>
+<li>BlobAssetStore. AddUniqueBlobAsset. A much simpler approach to managing blob assets during conversion. BlobAssetComputationContext continues to be the recommended approach for scalable blob asset generation.</li>
+<li>UnsafeUntypedBlobAsset gives a non-generic untyped blob that can be created and later casted to a specific BlobAssetType. This can be used for storing multiple types of blob assets in the same container.</li>
+<li>GameObjectConversionSystem.IsBuildingForEditor returns true when building data that will be loaded by the editor (As opposed to building data that will be loaded by the standalone player). This can be used to strip out editor only debug data.</li>
+<li>GameObjectConversionSystem.BuildConfigGUID returns the GUID of the build config that is used by this conversion context</li>
 </ul>
 <h3 id="changed">Changed</h3>
 <ul>
-<li>Bumped version of burst to fix a regression that could break usage of native plugins.</li>
+<li>Update burst to 1.3.7</li>
+<li>Improved the performance of ILPostProcessor type resolution.</li>
+<li>ProcessAfterLoadGroup is now public.  This group runs after a subscene is loaded.</li>
+<li><code>Unity.Transforms</code> systems now use <code>IJobEntityBatch</code> instead of <code>IJobChunk</code>. Expect modest performance gains due to the new job type&#39;s lower scheduling overhead, depending on the workload size.</li>
+<li>When <code>DOTS/Live Link Mode/Live Conversion in Edit Mode</code> is active in 2020.2 or later, conversion is now incremental</li>
+<li>Removed deprecated <code>Entities.ForEach.WithDeallocateOnJobCompletion</code>.  Please use <code>Entities.ForEach.WithDisposeOnCompletion</code> instead.</li>
+<li>Fixed livelink patching for <code>BlobAssetReference&lt;T&gt;</code> fields in managed components and shared components.</li>
+<li>Updated package <code>com.unity.platforms</code> to version <code>0.9.0-preview.12</code>.</li>
+<li><code>TypeManager.Equals</code> and <code>TypeManager.GetHashCode</code> performance has been improved when operating on blittable component types.</li>
+<li>BlobAsset and entity patching for managed IComponentData &amp; ISharedComponentData now use an early out if the class is known to not contain any blob assets or entity references</li>
+<li>Managed class IComponentData now supports patching of entity references in EntityCommandBuffer.AddComponent.</li>
+<li>Improved EntityManager.GetCreatedAndDestroyedEntities performance by introducing an internal entity creation / destruction version number that is used to early out when calling GetCreatedAndDestroyedEntities</li>
+<li>TypeManger.TypeInfo.Debug has been removed. TypeName has been moved directly into TypeInfo and renamed to DebugTypeName.</li>
+<li>Nested or variant prefabs used in a scene now correctly trigger reimports on subscenes when the parents parent prefab changes</li>
+</ul>
+<h3 id="deprecated">Deprecated</h3>
+<ul>
+<li>Forking of <code>GameObjectConversionSettings</code> is no longer supported</li>
+</ul>
+<h3 id="removed">Removed</h3>
+<ul>
+<li>Removed deprecated proxy component types</li>
+<li>Removed expired <code>EntityManager.IsCreated</code> API</li>
+<li>Removed expired API to compare <code>EntityManager</code> to <code>null</code> (<code>EntityManager</code> is a struct now)</li>
+<li>Removed deprecated types and methods: <code>NativeArraySharedValue&lt;S&gt;</code>, implicit <code>EntityQuery</code> conversion to <code>null</code>,  <code>ComponentDataFromEntity.Exists</code> and <code>BufferFromEntity.Exists</code>, <code>ArchetypeChunkArray.GetComponentVersion</code>, <code>IJobEntityBatch.ScheduleSingle</code>, <code>IJobEntityBatch.ScheduleParallelBatch</code>, <code>EntityManager.LockChunk</code>, <code>EntityManager.UnlockChunk</code>, <code>World.AllWorlds</code>, <code>World.CreateSystem</code>, all <code>GetArchetypeChunkX</code> methods, <code>EntityCommandBuffer.ToConcurrent</code> and <code>EntityManager.CreateChunk</code></li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Wrong query and check in ACS_DynamicComponentDataArrayReinterpret</li>
+<li>Fixed ICE (internal compiler error) thrown when storing into a field in reference type in bursted/scheduled lambda.</li>
+<li><code>EntityQuery.ToEntityArray</code> will work when temp memory is passed in an a parameter for allocator</li>
+<li><code>EntityQuery.ToComponentDataArrayAsync</code> and <code>EntityQuery.CopyFromComponentDataArrayAsync</code> will throw errors if user tries to use Temp memory containers.</li>
+<li>Hybrid Component Lights flickering when LiveLink edited.</li>
+<li>Fix crash when using singleton access methods with types with generic arguments.</li>
+<li>Code generation for indexers in structs with [BurstCompatible] attribute.</li>
+<li>Fixed potential <code>JobHandle</code> leak if an exception was thrown while scheduling an <code>IJobForEach</code>.</li>
+<li>Fixed that <code>DynamicBuffer.RemoveAtSwapBack</code> only copied the first byte of its element data</li>
+<li>Updating the shadow world via the EntityDiffer is now using Burst</li>
+<li>The &#39;New Sub Scene&#39; menu item is no longer missing in the &#39;Create&#39; drop down of the Hierarchy .</li>
+<li>Overwriting Sub Scene file when creating new Sub Scene no longer logs an error but instead overwrites the user selected file.</li>
+<li>Fixed livelink patching for <code>BlobAssetReference&lt;T&gt;</code> fields in managed components and shared components.</li>
+<li>Fixed entities getting lost during LiveLink when moving GameObjects between multiple subscenes</li>
+<li>Deprecated call to UnityWebRequest.isNetworkError in Unity.Scenes.FileUtilityHybrid</li>
+<li>Generic jobs now get reflection data generated in more cases</li>
+<li>Generic jobs will always work to schedule in editor (but may require attributes in Burst scheduling cases)</li>
+</ul>
+<h3 id="security">Security</h3>
+<h3 id="upgrade-guide">Upgrade guide</h3>
+<ul>
+<li>managed class IComponentData now supports patching of entity references in EntityCommandBuffer.AddComponent. This can result in a significant performance regression if there might be an entity on the managed component when playing the command buffer. If a managed component has a reference to another class that is not sealed it is unprovable that there may or may not be entity references on it. Thus we have to walk the whole class data to apply it. If there is in fact no entity reference on a class referenced from a managed component, then it is recommended to mark the referenced class as sealed, so that the type manager can prove that there is no entity references present on the managed component and thus completely skip all relatively slow entity patching code.</li>
+</ul>
+<h2 id="0160---2020-09-24">[0.16.0] - 2020-09-24</h2>
+<h3 id="added-1">Added</h3>
+<ul>
+<li>EntityManager method CreateEntity(EntityArchetype, int). Unlike existing overloads of CreateEntity, this new overload takes no Entity array and returns no Entity array, so it avoids waste and bother in cases where callers don&#39;t need the actual Entity values.</li>
+<li>Special handling for Cameras and Colliders in preparation for root scene conversion, though they are disabled by default still</li>
+<li><code>World.MaximumDeltaTime</code> now controls the maximum deltaTime that is reported to a World.</li>
+<li>Exception&#39;s stacktrace are recorded in conversion logs.</li>
+<li>Add <code>IFixedRateManager</code> interface for fixed-timestep implementations. See <code>FixedRateUtils.cs</code> for reference implementations.</li>
+<li>Add <code>ComponentSystemGroup.FixedRateManager</code> property, to store the current active <code>IFixedRateManager</code> implementation.</li>
+<li>Added <code>SceneSystem.IsSectionLoaded</code> to enable querying if a specific section of a scene is loaded.</li>
+<li><code>EntityQuery.SetOrderVersionFilter()</code> and <code>EntityQuery.AddOrderVersionFilter()</code> which can be used to filter the Order Version independently from the Changed Version of a chunk.</li>
+<li>DOTS naming standards to CONVENTIONS.md</li>
+<li>libcurl Stevedore artifact registration</li>
+<li>Mathematics tests are turned on in CI</li>
+</ul>
+<h3 id="changed-1">Changed</h3>
+<ul>
+<li>Improved performance of <code>EntityQuery.ToEntityArray()</code></li>
+<li>Platform packages updated to <code>0.9.0-preview.9</code></li>
+<li>Properties packages updated to <code>1.5.0-preview</code></li>
+<li>The job safety system has be moved to NativeJobs as C++ code</li>
+<li>The UnsafeUtility memory allocators have been moved to NativeJobs</li>
+<li>improved performance of EntityQuery.CopyFromComponentDataArray</li>
+<li>changed chunk size from 16128 bytes (16 KB - 256 bytes) to exactly 16384 bytes (16 KB).</li>
+<li><code>TypeManager.GetFieldInfo</code> now takes in a <code>Type</code> to return an <code>NativeArray&lt;FieldInfo&gt;</code>. The passed in type must be registered to have field information generated explicitly via the <code>[GenerateComponentFieldInfo]</code> assembly attribute.</li>
+<li><code>IJobEntityBatch</code> and <code>IJobEntityBatchWithIndex</code> now quietly skip batches whose size is zero. This can happen legitimately if the requested <code>batchesPerChunk</code> value is higher than the entity count for a particular chunk.
+*Removed deprecated <code>ArchetypeChunk.Locked()</code> method.
+*Deprecated <code>ArchetypeChunk.BatchEntityCount</code> property. The <code>.Count</code> property should be used instead.</li>
+<li>Removed usage of TempAssetCache for some livelink cases. Now these files are under SceneDependencyCache instead, so there is only one magic directory to deal with until we can remove it completely in future Unity versions.
+*Fixed Reduced overhead of <code>IJobEntityBatchWithIndex</code> prefiltering by up to 20% if <code>batchesPerChunk</code> is 1, or if <code>EntityQuery</code> filtering is disabled.</li>
+</ul>
+<h3 id="deprecated-1">Deprecated</h3>
+<ul>
+<li><code>FixedStepSimulationSystemGroup.MaximumDeltaTime</code> has been deprecated. The maximum delta time is now stored in <code>World.MaximumDeltaTime</code>. For better compatibility with UnityEngine, the new field applies to both the fixed-rate and variable-rate timesteps.</li>
+<li><code>ComponentSystemGroup.UpdateCallback</code> is deprecated. Instead, the group calls the <code>ShouldGroupUpdate()</code> method on its <code>FixedRateManager</code> property (if non-null) to accomplish the same effect.</li>
+<li><code>FixedRateUtils.EnableFixedRateCatchUp()</code>, <code>FixedRateUtils.EnableFixedRateSimple()</code>, and <code>FixedRateUtils.DisableFixedRate()</code>. These functions were used to set the deprecated <code>ComponentSystemGroup.UpdateCallback</code> field; instead, just set <code>ComponentSystemGroup.FixedRateManager</code> directly.</li>
+</ul>
+<h3 id="removed-1">Removed</h3>
+<ul>
+<li>Old &lt;2020.1 ifdef blocks in LiveLink scene culling code</li>
+<li>Deprecated legacy sort order code in ComponentSystemGroup was removed</li>
+</ul>
+<h3 id="fixed-1">Fixed</h3>
+<ul>
+<li>Removed GC-allocations in <code>SceneSystem</code> and <code>SceneSectionStreamingSystem</code> that were happening every frame</li>
+<li>Issue with invalid GUID in SubScene importer causing Player LiveLink to stall waiting for an asset it will never get</li>
+<li>Hybrid component transform syncing was not working when entity order changed</li>
+<li>Hybrid components being editable when in Preview Scenes (by selecting gizmos)</li>
+<li>Fixed an issue in 2020.2 which caused <code>NativeContainer</code> min-max ranges to be incorrectly patched when scheduling and <code>IJobChunk</code> or <code>IJobEntityBatch</code> with a &quot;Single&quot; or &quot;Run&quot; schedule call.</li>
+<li>Fields marked with <code>RestrictAuthoringInputTo</code> can now be set to <code>None</code> in the inspector</li>
+<li>The Entities package now uses a faster code path for <code>CreateArchetypeChunkArray()</code> more consistently.</li>
+<li>Retroactively added a changelog entry that notes a behavior change in <code>RemoveComponent(EntityQuery, ComponentTypes)</code>. See &#39;Change&#39; entry under 0.14.0.</li>
+<li>Generic job reflection data across assemblies would sometimes not work</li>
+<li>Fixed HLOD component throwing out of bounds exception when setup incorrectly against LODGroup.</li>
+<li>Scene section meta data now works in standalone builds again</li>
+<li>Native memory leak in EditorSubSceneLiveLinkSystem when failing to apply patches</li>
+<li>Generic job registration is more robust when generic parameters</li>
+<li>LiveLink will not generate errors on scenes that have not yet loaded scene sections</li>
+<li>Corrected inverted test in <code>IJobEntityBatchWithIndex</code> if EntityQuery filtering is enabled.</li>
+<li><code>EntityManger.AddComponent&lt;T&gt;(EntityQuery entityQuery)</code> and <code>EntityManger.AddComponentData&lt;T&gt;(EntityQuery entityQuery, NativeArray&lt;T&gt; componentArray)</code> is 2x faster.</li>
+<li>Reduced overhead of <code>IJobEntityBatch</code> execution by 5-10% if <code>batchesPerChunk</code> is 1.</li>
+</ul>
+<h3 id="security-1">Security</h3>
+<h2 id="0150---2020-08-26">[0.15.0] - 2020-08-26</h2>
+<h3 id="added-2">Added</h3>
+<ul>
+<li>More detailed profiling of individual EntitiesILPostProcessors to Editor log (look for lines with &quot;EILPP&quot; marker).</li>
+<li>Added <code>EntityQuery.IsEmpty</code> function which respects the <code>EntityQueryFilter</code>s</li>
+</ul>
+<h3 id="changed-2">Changed</h3>
+<ul>
+<li>DOTS Runtime now supports <code>Burst.CompileFunctionPointer</code> allowing for lambda job and <code>EntityCommandBuffer</code> playback to be Burst compiled.</li>
+<li><code>World.Time.ElapsedTime</code> is now initialized to zero when the World is created.</li>
+<li>Bumped Burst to 1.3.5.</li>
+<li>Updated package <code>com.unity.platforms</code> to version <code>0.9.0-preview.1</code>.</li>
+<li>Improved performance of <code>EntityQuery.CreateArchetypeChunkArray()</code></li>
+<li>Updated packages <code>com.unity.properties</code> and <code>com.unity.serialization</code> to version <code>1.4.3-preview</code>.</li>
+<li>improved performance of <code>EntityManager.AddComponent(NativeArray&lt;Entity&gt;,ComponentType)</code> and <code>EntityManager.RemoveComponent(NativeArray&lt;Entity&gt;,ComponentType)</code></li>
+<li><code>TypeCategory.Class</code> is deprecated in favour of <code>TypeCategory.UnityEngineObject</code></li>
+<li>A <code>ComponentTypes</code> value can no longer consist of duplicate types. (The collections safety checks look for duplicates and throw an exception.)</li>
+</ul>
+<h3 id="deprecated-2">Deprecated</h3>
+<ul>
+<li>Deprecated <code>RequiresEntityConversion</code> attribute since it is not used anymore</li>
+</ul>
+<h3 id="removed-2">Removed</h3>
+<ul>
+<li>Removed previously deprecated <code>LiveLinkBuildImporter.GetHash</code></li>
+</ul>
+<h3 id="fixed-2">Fixed</h3>
+<ul>
+<li>Limit of 128 million Entities per World instituted.</li>
+<li>Fixed <code>[GenerateAuthoringComponent]</code> on <code>IBufferElementData</code> throwing a NullReferenceException at initialization when Live Conversion is active.</li>
+<li>Fixed an issue which caused an exception to occur when <code>IJobEntityBatchWithIndex</code> is scheduled with <code>.Run()</code></li>
+<li>Fixed a few methods not correctly preserving shared component values: <code>EntityManager.RemoveComponent(EntityQuery, ComponentTypes)</code>, <code>EntityCommandBuffer.RemoveComponent(EntityQuery, ComponentTypes)</code>, <code>EntityCommandBuffer.AddComponent(EntityQuery, ComponentTypes)</code>.</li>
+<li>Fixed a bug with <code>BufferFromEntity&lt;T&gt;</code> which caused it to incorrectly update the version number of the buffer when marked <code>ReadOnly</code></li>
+<li><code>TypeManager.GetWriteGroupTypes()</code> no longer leaks <code>AtomicSafetyHandle</code> instances each time it is called.</li>
+<li>Fixed an issue where <code>GetEntityInfo()</code> can potentially crash the editor if the user passes in an invalid Entity</li>
+<li>Fixed buffer element authoring component not showing up in DOTS Compiler Inspector.</li>
+<li><code>TypeManager.Initialize</code> now uses the TypeCache in Editor, improving the time it takes to enter playmode when no script compilation occurs. (1800ms -&gt; 200ms)</li>
+<li>Fix <code>Entities.ForEach</code> <code>WithDisposeOnJob</code> method to work correctly with NativeArrays when scheduled with <code>.Run</code>.</li>
+<li>Fix IL2CPP build error with local methods used inside of Entities.ForEach lambdas.</li>
+</ul>
+<h2 id="0140---2020-08-04">[0.14.0] - 2020-08-04</h2>
+<h3 id="added-3">Added</h3>
+<ul>
+<li>Added <code>IsEmpty</code> property to <code>DynamicBuffer</code>.</li>
+<li>Added deduplication for asset bundles generated for subscenes.</li>
+<li>Added new <code>EntityManager</code> methods: <code>AddComponent(EntityQuery, ComponentTypes)</code>, which adds multiple components to all entities matching a query; and <code>RemoveComponent(Entity, ComponentTypes)</code>, which removes multiple components from a single entity. (<code>AddComponent(Entity, ComponentTypes)</code> and <code>RemoveComponent(EntityQuery, ComponentTypes)</code> already existed. This patch just fills in a few &#39;missing&#39; methods.)</li>
+<li>Added <code>EntityManagerDifferOptions.UseReferentialEquality</code> which instructs the Differ to compare entity fields by GUID and blob asset reference fields by hash instead of bitwise equality</li>
+</ul>
+<h3 id="changed-3">Changed</h3>
+<ul>
+<li><code>BlockAllocator</code> is now backed by memory retrieved from platform virtual memory APIs. Platforms which do not support virtual memory will fall back to malloc/free.</li>
+<li><code>IJobEntityBatch.ScheduleSingle</code> is being renamed to <code>IJobEntityBatch.Schedule</code> to match our naming guidelines for job scheduling.</li>
+<li>When <code>DefaultWorldInitialization.Initialize()</code> adds the default World&#39;s system groups to the Unity player loop, it now bases its modifications on the current player loop instead of the default player loop. This prevents the Entities package from accidentally erasing any previous player loop modifications made outside the package.</li>
+<li><code>DefaultWorldInitialization.DomainUnloadOrPlayModeChangeShutdown()</code> now removes all existing <code>World</code>s from the Unity player loop before destroying them. If a <code>World</code> that was added to the player loop is destroyed manually prior to domain unload, it must also be removed from the player loop manually using <code>ScriptBehaviourUpdateOrder.RemoveWorldFromPlayerLoop()</code>.</li>
+<li>Updated package <code>com.unity.platforms</code> to version <code>0.7.0-preview.8</code>.</li>
+<li><code>EntityManager.CreateEntity()</code>, <code>EntityManager.SetArchetype()</code>, and <code>EntityCommandBuffer.CreateEntity()</code> no longer accept the value returned by <code>new EntityArchetype()</code> because it&#39;s invalid. Same for <code>EntityCommandBuffer.CreateEntity()</code> and <code>EntityCommandBuffer.ParallelWriter.CreateEntity()</code>. Always use <code>EntityManager.CreateArchetype()</code> instead of <code>new EntityArchetype()</code> to create <code>EntityArchetype</code> values. (Ideally, the <code>EntityArchetype</code> constructor wouldn&#39;t be public, but C# doesn&#39;t allow that for a struct.)</li>
+<li>Subscene Inspector now uses a table format to allow easier management of multiple subscenes</li>
+<li>RemoveComponent(EntityQuery, ComponentTypes) now removes all provided components at once from all entities matching the query. Previously, the components were removed one at a time in a loop. This was less efficient and could affect which entities matched the query in subsequent loop iterations in unexpected ways.</li>
+</ul>
+<h3 id="deprecated-3">Deprecated</h3>
+<ul>
+<li><code>IJobEntityBatch.ScheduleParallelBatched</code> is being deprecated in favor of adding a batching parameter to <code>IJobEntityBatch.ScheduleParallel</code></li>
+<li><code>ScriptBehaviourUpdateOrder.UpdatePlayerLoop()</code> is being deprecated in favor of <code>ScriptBehaviourUpdateOrder.AddWorldToPlayerLoop()</code>. Due to slightly different semantics, a direct automated API update is not possible: the new function always takes a <code>PlayerLoopSystem</code> object to modify, does not call <code>UnityEngine.LowLevel.PlayerLoop.SetPlayerLoop()</code>, and does not create the top-level system groups if they don&#39;t exist.</li>
+<li><code>ScriptBehaviourUpdateOrder.IsWorldInPlayerLoop(World)</code> is being deprecated in favor of <code>ScriptBehaviourUpdateOrder.IsWorldInCurrentPlayerLoop(World)</code>.</li>
+</ul>
+<h3 id="removed-3">Removed</h3>
+<ul>
+<li>Removed obsolete <code>ScriptBehaviourUpdateOrder.CurrentPlayerLoop</code>. Use <code>UnityEngine.LowLevel.PlayerLoop.GetCurrentPlayerLoop()</code> instead.</li>
+<li>Removed obsolete <code>ScriptBehaviourUpdateOrder.SetPlayerLoop()</code>. Use <code>UnityEngine.LowLevel.PlayerLoop.SetPlayerLoop()</code> instead.</li>
+</ul>
+<h3 id="fixed-3">Fixed</h3>
+<ul>
+<li>Setting the Scene Asset on a Subscene would sometimes fail to trigger an import/conversion because the default ECS world was missing.</li>
+<li>Fixed crash when using Singleton access methods (GetSingleton, SetSingleton, etc.) with a generic parameter as argument.</li>
+<li>Fixed an issue which caused WebGL not to work, and could produce this error message on IL2CPP-based backends:
+<code>NotSupportedException: To marshal a managed method, please add an attribute named &#39;MonoPInvokeCallback&#39; to the method definition. The method we&#39;re attempting to marshal is: Unity.Entities.SystemBase::UnmanagedUpdate</code></li>
+</ul>
+<h2 id="0130---2020-07-10">[0.13.0] - 2020-07-10</h2>
+<h3 id="added-4">Added</h3>
+<ul>
+<li>Added new <code>EntityCommandBuffer</code> methods: <code>AddComponent(Entity, ComponentTypes)</code> and <code>AddComponent(EntityQuery, ComponentTypes)</code> for adding multiple components in one call. (<code>EntityManager</code> has an equivalent of the first already and will get an equivalent of the second later.)</li>
+<li>Added new <code>EntityCommandBuffer</code> methods: <code>RemoveComponent(Entity, ComponentTypes)</code> and <code>RemoveComponent(EntityQuery, ComponentTypes)</code> for removing multiple components in one call. (<code>EntityManager</code> will get equivalents in the future.)</li>
+<li>Added new <code>IJobEntityBatchWithIndex</code> job interface, a variant of <code>IJobEntityBatch</code> that provides an additional <code>indexOfFirstEntityInQuery</code> parameter, which provides a per-batch index that is the aggregate of all previous batch counts.</li>
+<li>Added <code>MaximumDeltaTime</code> property to <code>FixedStepSimulationSystemGroup</code>, used similarly to <code>UnityEngine.Time.maximumDeltaTime</code> to control how gradually the application should recover from large transient frame time spikes.</li>
+<li>Added new player loop management functions to the <code>ScriptBehaviourUpdateOrder</code> class:<ul>
+<li><code>AppendSystemToPlayerLoopList()</code>: adds a single ECS system to a specific point in the Unity player loop.</li>
+<li><code>AddWorldToPlayerLoop()</code>: adds the three standard top-level system groups to their standard player loop locations.</li>
+<li><code>IsWorldInPlayerLoop(World, PlayerLoopSystem)</code>: searches the provided player loop for any systems owned by the provided World.</li>
+<li><code>RemoveWorldFromPlayerLoop()</code>: removes all systems owned by a World from the provided player loop.</li>
+<li><code>AddWorldToCurrentPlayerLoop()</code>, <code>IsWorldInCurrentPlayerLoop()</code>, and <code>RemoveWorldFromCurrentPlayerLoop()</code>: wrappers around the above functions that operate directly on the currently active player loop.</li>
+</ul>
+</li>
+</ul>
+<h3 id="changed-4">Changed</h3>
+<ul>
+<li>Updated minimum Unity Editor version to 2020.1.0b15 (40d9420e7de8)</li>
+<li>Profiler markers for <code>EntityCommandBuffer.Playback</code> from <code>EntityCommandBufferSystem</code>s now include name of the system that recorded the <code>EntityCommandBuffer</code>.</li>
+<li>Bumped burst to 1.3.2 version.</li>
+<li>EntityQuery commands for <code>AddComponent</code>, <code>RemoveComponent</code>, and <code>DestroyEntity</code> in the EntityCommandBuffer now use Burst during Playback.</li>
+<li>IJobChunk and Entities.ForEach ScheduleParallel has been optimized in case there is no EntityQuery filtering necessary (Shared component or change filtering)</li>
+<li><code>TypeManager.GetSystems()</code> now returns an <code>IReadOnlyList&lt;Type&gt;</code> rather than a <code>List&lt;Type&gt;</code></li>
+<li>Updated package <code>com.unity.platforms</code> to version <code>0.6.0-preview.4</code>.</li>
+<li><code>EntityContainer</code> will now allow to write data back to the entity.</li>
+<li>Updated package <code>com.unity.properties</code> and <code>com.unity.serialization</code> to version <code>1.3.1-preview</code>.</li>
+</ul>
+<h3 id="fixed-4">Fixed</h3>
+<ul>
+<li>Fixed warning treated as error in the case that a warning is emitted for Entities.ForEach passing a component type as value.</li>
+<li>Fixed paths displayed in IL post-processing error messages to be more consistent with Unity error messages.</li>
+<li>Fixed exceptions being thrown when inspecting an entity with a GameObject added through <code>EntityManager.AddComponentObject</code>.</li>
+<li>Fixed <code>DCICE002</code> error thrown during IL post-processing when <code>Entities.ForEach</code> contains multiple Entities.ForEach in same scope capturing multiple variables.</li>
+<li><code>EntityManager</code>&#39;s <code>AddComponent()</code>, <code>RemoveComponent()</code>, and <code>CopyEntitiesFrom()</code> methods no longer throw an error if their input is a <code>NativeArray&lt;Entity&gt;</code> allocated with <code>Allocator.Temp</code> whose length is &gt;10 elements.</li>
+<li>Throw error when Entities.ForEach has an argument that is a generic DynamicBuffer.</li>
+<li>Re-adding a system to a <code>ComponentSystemGroup</code> immediately after removing it from the group now works correctly.</li>
+<li><code>ComponentSystemGroup.Remove()</code> is now ignored if the target system is already enqueued for removal, or if it isn&#39;t in the group&#39;s update list in the first place.</li>
+<li>Fixed IL post-processing warnings being emitted with &quot;error&quot; title.</li>
+<li>Fixed &quot;Invalid IL&quot; error when try/finally block occurs in <code>Entities.ForEach</code> lambda body or cloned method (usually occurs with <code>using</code> or <code>foreach</code> and <code>WithoutBurst</code>).</li>
+<li>Fixed <code>Unexpected error</code> when <code>Job.WithCode</code> is used with <code>WithStructuralChanges</code> (now throw an error).</li>
+<li>Fixed a bug where <code>Unity.Scenes.EntityScenesPaths.GetTempCachePath()</code> could return invalid strings</li>
+<li>Fixed freezing of editor due to accessing the <code>EntityManager</code> property within Rider&#39;s debugger</li>
+<li>Fixed a bug where calling <code>SetArchetype</code> on an entity containing a component with <code>ISystemStateComponentData</code> may sometimes incorrectly throw an <code>ArgumentException</code></li>
+</ul>
+<h3 id="known-issues">Known Issues</h3>
+<ul>
+<li>This version is not compatible with 2020.2.0a17. Please update to the forthcoming alpha.</li>
+</ul>
+<h2 id="0120---2020-05-27">[0.12.0] - 2020-05-27</h2>
+<h3 id="added-5">Added</h3>
+<ul>
+<li>Added <code>BufferFromEntity.DidChange()</code>, with the same semantics as the existing <code>ComponentDataFromEntity.DidChange()</code>.</li>
+<li>Added <code>BufferFromEntity.HasComponent()</code>, with the same meaning as the existing <code>.Exists()</code> call (which is now deprecated).</li>
+<li>Added <code>WorldSystemFilterFlags.All</code> flag to include allow calls to <code>TypeManager.GetSystems()</code> to return all systems available to the runtime including systems decorated with [DisableAutoCreation].</li>
+<li>Added <code>DynamicBuffer.RemoveAtSwapBack()</code> and <code>DynamicBuffer.RemoveRangeSwapBack()</code></li>
+<li>Added <code>Entities.WithDisposeOnCompletion</code> to correctly Dispose of types after running an <code>Entities.ForEach</code>.</li>
+<li>Added <code>SystemBase.GetBuffer/GetBufferFromEntity</code> that are patched so that they can be used inside of <code>Entities.ForEach</code>.</li>
+<li>Added BlobAllocator.SetPointer to allow having a blob pointer to an object which already exists in the blob. This can be used for example to reference a parent node in a tree.</li>
+<li>Added <code>GameObjectConversionSystem.CreateAdditionalEntity</code> overload that allows to create multiple new entities at once.</li>
+<li>Added a new <code>FixedStepSimulationSystemGroup</code>. Systems in this group update with a fixed timestep (60Hz by default), potentially running zero or several times per frame to &quot;catch up&quot; to the actual elapsed time. See the <code>FixedTimestepSystemUpdate</code> sample scene for an example of how to use this system group.</li>
+</ul>
+<h3 id="changed-5">Changed</h3>
+<ul>
+<li>Updated minimum Unity Editor version to 2020.1.0b9 (9c0aec301c8d)</li>
+<li><code>World.Dispose()</code> now destroys all the world&#39;s systems before removing the <code>World</code> from the &quot;all worlds&quot; list.</li>
+<li>Extended <code>TypeManager.GetSystems()</code> to support getting systems filtered by any and/or all <code>WorldSystemFilterFlags</code>.</li>
+<li>Updated package <code>com.unity.platforms</code> to version <code>0.4.0-preview.5</code>.</li>
+<li>Updated package <code>com.unity.burst</code> to version <code>1.3.0-preview.12</code>.</li>
+<li><code>Unity.Entities.DefaultWorldInitialization</code> has been moved from the <code>Unity.Entities.Hybrid</code> assembly into the <code>Unity.Entities</code> assembly.</li>
+<li><code>Unity.Entities.DefaultWorldInitialization.Initialize()</code> now returns the initialized <code>World.DefaultGameObjectInjectionWorld</code> object.</li>
+<li><code>ArchetypeChunkComponentType</code> has been renamed to <code>ComponentTypeHandle</code></li>
+<li><code>ArchetypeChunkComponentTypeDynamic</code> has been renamed to <code>DynamicComponentTypeHandle</code></li>
+<li><code>ArchetypeChunkBufferType</code> has been renamed to <code>BufferTypeHandle</code></li>
+<li><code>ArchetypeChunkSharedComponentType</code> has been renamed to <code>SharedComponentTypeHandle</code></li>
+<li><code>ArchetypeChunkEntityType</code> has been renamed to <code>EntityTypeHandle</code></li>
+<li><code>ArchetypeChunkComponentObjects</code> has been renamed to <code>ManagedComponentAccessor</code></li>
+<li><code>Unity.Entities.EditorRenderData</code> has been moved from the <code>Unity.Entities.Hybrid</code> assembly to the <code>Unity.Entities</code> assembly.</li>
+<li><code>Unity.Scenes.Hybrid</code> has been renamed to <code>Unity.Scenes</code>. Any asmdefs referring to the old assembly name must be updated. The ScriptUpgrader will take care of updating <code>using</code> namespace imports.</li>
+<li><code>Unity.Entities.SceneBoundingVolume</code> has moved from the <code>Unity.Entities.Hybrid</code> assembly to the <code>Unity.Scenes</code> assembly and <code>Unity.Scenes</code> namespace. Any asmdefs referring to the old assembly name must be updated. The ScriptUpgrader will take care of updating <code>using</code> namespace imports.</li>
+<li><code>EntityCommandBuffer.Concurrent</code> has been renamed to <code>EntityCommandBuffer.ParallelWriter</code>.</li>
+<li><code>EntityCommandBuffer.ToConcurrent()</code> has been renamed to <code>EntityCommandBuffer.AsParallelWriter()</code> and now returns <code>EntityCommandBuffer.ParallelWriter</code> (renamed from <code>Concurrent</code>).</li>
+<li>Duplicate query parameters (from <code>WithAll</code> and lambda parameters) are now allowed in <code>Entities.ForEach</code> (they are now sanitized for the user).</li>
+<li>If a change filter is used in <code>Entities.ForEach</code> with <code>WithChangeFilter</code>, the component type will automatically get added to the query.</li>
+<li>Add additional warnings around conflicting use of <code>WithNone</code>, <code>WithAll</code>, <code>WithAny</code> and lambda parameters in <code>Entities.ForEach</code>.</li>
+<li>Warn if a user passes a struct component parameter by value to their lambda in <code>Entities.ForEach</code> (since changes won&#39;t be reflected back to the underlying component).</li>
+<li>An exception is now thrown during serialization if a shared component containing entity references is encountered.</li>
+<li>EntityScene generation (Happening in a background process) is now integrated with the async progress bar to indicate when entity data is being generated. The code that tracks dependencies for entity scenes, determines when to regenerated them in the editor is significantly cheaper now.</li>
+<li>When safety checks are enabled <code>EntityManager.AddComponent(NativeArray&lt;Entity&gt;, ComponentType)</code> now throws <code>ArgumentException</code> instead of <code>InvalidOperationException</code> when any of the entities are invalid</li>
+<li><code>FixedRateUtils</code> timesteps outside the range 0.0001 to 10.0f are now clamped, for consistency with <code>UnityEngine.Time.fixedDeltaTime</code>.</li>
+<li>Added <code>[NoAlias]</code> attributes to the <code>DynamicBuffer</code> native container to explain its aliasing to Burst.</li>
+<li>Updated package <code>com.unity.properties</code> to version <code>1.3.0-preview</code>.</li>
+<li>Updated package <code>com.unity.serialization</code> to version <code>1.3.0-preview</code>.</li>
+</ul>
+<h3 id="deprecated-4">Deprecated</h3>
+<ul>
+<li>Deprecated <code>WithDeallocateOnJobCompletion</code> for <code>Entities.ForEach</code>; Use <code>WithDisposeOnCompletion</code> instead.</li>
+<li>Deprecated <code>ComponentDataFromEntity.Exists()</code>; Use <code>.HasComponent()</code> instead.</li>
+<li>Deprecated <code>BufferFromEntity.Exists()</code>; Use <code>.HasComponent()</code> instead.</li>
+</ul>
+<h3 id="fixed-5">Fixed</h3>
+<ul>
+<li>Fixed data corruption bug in Entities.WithStructuralChange().ForEach() when components on entities that are about to be processed get removed before we process the entity.</li>
+<li><code>EntityManager.SetName</code> now causes less GC memory allocations</li>
+<li><code>Entities.WithDeallocateOnJobCompletion()</code> now correctly deallocates data at the end instead of after the first chunk when used with <code>Run()</code> (Note that Entities.WithDeallocateOnJobCompletion() has been deprecated in favor of Entities.WithDisposeOnCompletion().)</li>
+<li><code>Entities.WithDeallocateOnJobCompletion()</code> now deallocates data when used with <code>WithStructuralChanges()</code> (Note that Entities.WithDeallocateOnJobCompletion() has been deprecated in favor of Entities.WithDisposeOnCompletion().)</li>
+<li>Creating section section meta data during conversion will no longer trigger an invalid warning about missing SceneSection components</li>
+<li>Fixed a crash that could happen when calling <code>EntityDataAccess.PlaybackManagedChanges</code> from bursted code after a domain reload</li>
+<li>Fixed compilation issue when compiling multiple <code>Entities.ForEach</code> in the same method that use captured variables from different scopes.</li>
+<li>Fix to unexpected error when using capturing Entities.ForEach inside a method with a generic argument (error now correctly indicates that it is not currently supported).</li>
+<li>UnloadAllAssets will no longer unload assets referenced by shared or managed components.</li>
+<li>Fixed load order of JobReflection static methods which were causing <code>InvalidOperationException: Reflection data was not set up by code generation</code> exceptions in player builds.</li>
+<li>Beginning an exclusive entity transaction while another one is in progress now doesn&#39;t fail silently anymore but throws an exception</li>
+<li>Fixed race condition in the Chunks component version</li>
+<li>Shared component version is now always based off a global version. Thus Destroying all usage of a specific shared component and recreating it will now result in a changed version number.</li>
+<li>The <code>Loading Entity Scene failed</code> message now contains more information for why the scene failed to load</li>
+<li><code>GameObjectEntityEditor</code> no longer throws exceptions when selecting a prefab</li>
+<li>Components on GameObjects with invalid MonoBehaviours no longer cause exceptions when used as hybrid components</li>
+<li>Deleting a GameObject with <code>ConvertToEntity</code> before converting it no longer throws an exception</li>
+<li>Errors happening during scene streaming now contain the callstack</li>
+<li>The <code>jobIndex</code> parameter passed to EntityCommandBuffer.ParallelWriter methods has been renamed to <code>sortKey</code> to better express its purpose. Its functionality is unchanged.</li>
+<li>Invalid uses of the new <code>OrderFirst</code> and <code>OrderLast</code> fields in the <code>[UpdateInGroup]</code> attribute are now detected and reported. Some previous spurious warnings regarding these fields are now suppressed.</li>
+<li>Greatly reduced the garbage generated by redrawing the chunk utilization histograms in the entity debugger</li>
+<li>Improved performance of <code>EntityManager.AddComponent(NativeArray&lt;Entity&gt;, ComponentType)</code> when safety checks are enabled</li>
+<li><code>EntityManager.RemoveComponent(NativeArray&lt;Entity&gt;, ComponentType)</code> now always checks that the component can be removed, not just for the case of few entities</li>
+<li>Fixed issues where <code>FixedRateUtils.FixedRateCatchUpManager</code> was occasionally not running its first update at elapsedTime = 0.0.</li>
+</ul>
+<h2 id="0110---2020-05-04">[0.11.0] - 2020-05-04</h2>
+<h3 id="added-6">Added</h3>
+<ul>
+<li>Added <code>ArchetypeChunkComponentObjects&lt;T&gt;.Length</code></li>
+</ul>
+<h3 id="changed-6">Changed</h3>
+<ul>
+<li>Updated package <code>com.unity.burst</code> to version <code>1.3.0-preview.11</code></li>
+<li>Improves <code>ComponentType.ToString</code> names in Dots Runtime to provide the full type name when available, and if not, defaults to the StableTypeHash.</li>
+<li><code>EntityManager.Version</code> and <code>EntityManager.GlobalSystemVersion</code> will throw if the manager is not valid instead of returning 0.</li>
+</ul>
+<h3 id="deprecated-5">Deprecated</h3>
+<ul>
+<li>Deprecate system sorting via virtual functions and direct modification of system list. There are now two new properties on the <code>UpdateInGroup</code> attribute: <code>OrderFirst</code> and <code>OrderLast</code>. Setting either of these properties to true will group the system together with others tagged in the same way, and those systems will sort in a subgroup by themselves. This change was needed to enable Burst compatible systems in the future.</li>
+<li>Deprecate <code>EntityManager.IsCreated</code> which cannot be efficiently implemented with EntityManager as a struct. For the (hopefully rare) cases where you need to determine if an entity manager is still valid, use <code>World.IsCreated</code> instead as the world and entity manager are always created and destroyed in tandem.</li>
+</ul>
+<h3 id="removed-4">Removed</h3>
+<ul>
+<li>Removed expired API <code>EntityQuery.CreateArchetypeChunkArray(Allocator, out JobHandle)</code>.</li>
+<li>Removed expired API <code>EntityQuery.ToEntityArray(Allocator, out JobHandle)</code>.</li>
+<li>Removed expired API <code>EntityQuery.ToComponentDataArray&lt;T&gt;(Allocator, out JobHandle)</code>.</li>
+<li>Removed expired API <code>EntityQuery.CopyFromComponentDataArray&lt;T&gt;(NativeArray&lt;T&gt;, out JobHandle)</code>.</li>
+</ul>
+<h3 id="fixed-6">Fixed</h3>
+<ul>
+<li>Improved JobsDebugger errors invvolving the <code>EntityManager</code>. requires Unity 2020.1.0b5 or later</li>
+<li>Fixed potential infinite loop in <code>FixedRateUtils.FixedRateCatchUpManager</code> if these callbacks were enabled on the first frame of execution.</li>
+<li>When <code>FixedRateUtils.FixedRateCatchUpManager</code> or <code>FixedRateUtils.FixedRateSimpleManager</code> are enabled, the first update is now guaranteed to take place at elapsedTime = 0.0.</li>
+<li>Asset dependencies registered via <code>GameObjectConversionSystem.DeclareAssetDependency</code> are now checked for validity, inbuilt assets are ignored</li>
+<li>Improved performance of the <code>EntityPatcher</code> when applying changes to large amounts of entities</li>
+<li>The script template for ECS systems now uses <code>SystemBase</code> instead of <code>JobComponentSystem</code></li>
+<li>Fixed instantiation of entities with multiple hybrid components causing corruption of the managed store.</li>
+<li>Removed remapping of entity fields in hybrid components during instantiation (this wasn&#39;t supposed to happen).</li>
+<li>Fix crash when trying to remap entity references within recursive types.</li>
+<li>Serialization and LiveLink now supports blob asset references in shared components.</li>
+<li>Serialization and LiveLink now supports blob asset references in managed components.</li>
+<li>Fix bug with <code>EntityQuery.CopyFromComponentDataArray</code> causing it to behave like <code>ToComponentDataArray</code></li>
+</ul>
+<h2 id="0100---2020-04-28">[0.10.0] - 2020-04-28</h2>
+<h3 id="added-7">Added</h3>
+<ul>
+<li>Added <code>GetOrderVersion()</code> to ArchetypeChunk. Order version bumped whenever structural change occurs on chunk.</li>
+<li>Added <code>GetComponentDataFromEntity</code> method that streamlines access to components through entities when using the <code>SystemBase</code> class.  These methods call through to the <code>ComponentSystemBase</code> method when in OnUpdate code and codegen access through a stored <code>ComponentDataFromEntity</code> when inside of <code>Entities.ForEach</code>.</li>
+<li>Added support for WorldSystemFilterFlags.ProcessAfterLoad which enable systems to run in the streaming world after a entity section is loaded.</li>
+<li>Added <code>DynamicBuffer.CopyFrom()</code> variant that copies from a <code>NativeSlice</code></li>
+<li>Added <code>DynamicBuffer.GetUnsafeReadOnlyPtr()</code>, for cases where only read-only access is required.</li>
+<li>Added PostLoadCommandBuffer component which can be added to scene or section entities to play back a command buffer in the streaming world after a entity section is loaded. Adding it to the scene entity will play back the command buffer on all sections in the scene.</li>
+<li>Added <code>WorldSystemFilterFlags.HybridGameObjectConversion</code> and <code>WorldSystemFilterFlags.DotsRuntimeGameObjectConversion</code>to annotate conversion systems to be used specifically for hybrid or dots runtime.</li>
+<li>Added missing profiler markers when running an <code>Entities.ForEach</code> directly with <code>.Run</code>.</li>
+<li>Added support for storing metadata components in the header of converted subscenes. Components can be added to the section entities requested with <code>GameObjectConversionSystem.GetSceneSectionEntity</code>. The added components are serialized into the entities header and will be added to the section entities at runtime when the scene is resolved.</li>
+<li>ResolvedSectionEntity buffer component is now public and can be used to access metadata components on a resolved scene entity.</li>
+<li>Added &#39;Clear Entities Cache&#39; window under the DOTS-&gt;Clear Entities Cache menu. By default, all caches are enabled for clearing. Clearing Live Link Player cache wipes the local player cache of a livelink build next time it connects to the editor. Clearing Entity Scene cache invalidates all Entity Scenes (SubScenes) causing them to reimport on next access. Clearing Live Link Assets cache, causing the next Live Link connection to reimport all on-demand live link assets.</li>
+</ul>
+<h3 id="changed-7">Changed</h3>
+<ul>
+<li>Bumped Burst version to improve compile time and fix multiple bugs.</li>
+<li>ChangeVersions behavior more consistent across various entry points.</li>
+<li>Updated package <code>com.unity.properties</code> to version <code>1.1.1-preview</code>.</li>
+<li>Updated package <code>com.unity.serialization</code> to version <code>1.1.1-preview</code>.</li>
+<li>Updated package <code>com.unity.platforms</code> to version <code>0.3.0-preview.4</code>.</li>
+<li><code>ConvertToEntity</code> no longer logs a warning if there are multiples of a given authoring component on the converted GameObject, so it is now compatible with conversion systems that can support multiples.</li>
+<li>Improved the StableTypeHash calculation used when serializing components to be more resilient. The hash will now properly invalidate serialized data should component data layout change as a result of <code>[StructLayout(LayoutKind.Explict)]</code>, as well as if a nested component field&#39;s data layout changes.</li>
+<li>Make it possible to use Entities.ForEach with &gt;8 parameters if you supply your own delegate type</li>
+</ul>
+<h3 id="deprecated-6">Deprecated</h3>
+<ul>
+<li>EntityManager.UnlockChunk deprecated</li>
+<li>Adding components to entities converted from GameObjects using proxy components has been deprecated, please use the new conversion workflows using <code>GameObjectConversionSystem</code> and <code>IConvertGameObjectToEntity</code></li>
+<li><code>ComponentDataProxyBaseEditor</code>, <code>DynamicBufferProxyBaseEditor</code> from <code>Unity.Entities.Editor</code> deprecated</li>
+<li><code>ComponentDataProxy&lt;T&gt;</code>, <code>ComponentDataProxyBase</code>, <code>DynamicBufferProxy&lt;T&gt;</code>, <code>SharedComponentDataProxy&lt;T&gt;</code>, <code>SceneSectionProxy</code> from <code>Unity.Entities.Hybrid</code>deprecated</li>
+<li><code>MockDataProxy</code>, <code>MockDynamicBufferDataProxy</code>, <code>MockSharedDataProxy</code>, <code>MockSharedDisallowMultipleProxy</code> from <code>Unity.Entities.Tests</code> deprecated</li>
+<li><code>CopyInitialTransformFromGameObjectProxy</code>, <code>CopyTransformFromGameObjectProxy</code>, <code>CopyTransformToGameObjectProxy</code>, <code>LocalToWorldProxy</code>, <code>NonUniformScaleProxy</code>, <code>RotationProxy</code>, <code>TranslationProxy</code> from <code>Unity.Transforms</code> deprecated</li>
+<li>Deprecated <code>ScriptBehaviourUpdateOrder.CurrentPlayerLoop</code>; Use <code>PlayerLoop.GetCurrentPlayerLoop()</code> instead</li>
+<li>Deprecated <code>ScriptBehaviourUpdateOrder.SetPlayerLoop</code>; Use <code>PlayerLoop.SetPlayerLoop()</code> instead</li>
+</ul>
+<h3 id="removed-5">Removed</h3>
+<ul>
+<li>Removed expired API <code>BlobAssetComputationContext.AssociateBlobAssetWithGameObject(Hash128, GameObject)</code></li>
+<li>Removed expired API <code>BlobAssetReference.Release()</code></li>
+<li>Removed expired API <code>BlobAssetStore.UpdateBlobAssetForGameObject&lt;T&gt;(int, NativeArray&lt;Hash128&gt;)</code></li>
+<li>Removed expired API <code>class TerminatesProgramAttribute</code></li>
+<li>Removed expired API <code>EntityManager.LockChunkOrder(ArchetypeChunk)</code></li>
+<li>Removed expired API <code>EntityManager.LockChunkOrder(EntityQuery)</code></li>
+<li>Removed expired API <code>EntityManager.LockChunkOrder(NativeArray&lt;ArchetypeChunk&gt;)</code></li>
+<li>Removed expired API <code>EntityManager.UnlockChunkOrder(ArchetypeChunk)</code></li>
+<li>Removed expired API <code>EntityManager.UnlockChunkOrder(EntityQuery)</code></li>
+<li>Removed expired API <code>GameObjectConversionSettings.BuildSettings</code></li>
+<li>Removed expired API <code>GameObjectConversionSystem.GetBuildSettingsComponent&lt;T&gt;()</code></li>
+<li>Removed expired API <code>GameObjectConversionSystem.TryGetBuildSettingsComponent&lt;T&gt;(out T)</code></li>
+<li>Removed expired API <code>LambdaJobDescriptionConstructionMethods.WithBurst(...)</code></li>
+<li>Removed expired API <code>LambdaJobDescriptionConstructionMethods.WithNativeDisableUnsafePtrRestrictionAttribute(...)</code></li>
+<li>Removed expired API <code>SceneSystem.BuildSettingsGUID</code></li>
+<li>Removed expired overload of <code>BlobBuilder.Allocate&lt;T&gt;(int, ref BlobArray&lt;T&gt;)</code></li>
+<li>Removed expired overload of <code>EntityQuery.CopyFromComponentDataArray&lt;T&gt;(...)</code></li>
+<li>Removed expired overload of <code>EntityQuery.CreateArchetypeChunkArray(...)</code></li>
+<li>Removed expired overload of <code>EntityQuery.ToComponentDataArray&lt;T&gt;(...)</code></li>
+<li>Removed expired overload of <code>EntityQuery.ToEntityArray(...)</code></li>
+</ul>
+<h3 id="fixed-7">Fixed</h3>
+<ul>
+<li>Fixed the synchronization of transforms for Hybrid Components to handle scale properly.</li>
+<li>Improved JobsDebugger error messages when accessing <code>ComponentDataFromEntity</code>, <code>ArchetypeChunkComponentType</code>, <code>ArchetypeChunkComponentTypeDynamic</code>, <code>ArchetypeChunkBufferType</code>, <code>ArchetypeChunkSharedComponentType</code>, <code>ArchetypeChunkEntityType</code>, and <code>BufferFromEntity</code> after a structural change. (requires Unity 2020.1.0b2 or later)</li>
+<li>Fixed scene camera culling masks not being reset in the case of using ConvertToEntity but not any scene conversion</li>
+<li>Fix to IL2CPP compilation errors occuring in IL2CPP builds with Entities.ForEach with nested captures.</li>
+<li>Fixed the entity inspector showing incorrect data for chunk components.</li>
+<li>Fixed entity scene load error caused by type hash mismatch when serializing hybrid components with conditionally compiled fields.</li>
+<li><code>LambdaJobTestFixture</code> and <code>AutoCreateComponentSystemTests_*</code> systems are no longer added to the simulation world by default.</li>
+<li><code>GameObjectConversionSystem.DependOnAsset</code> now correctly handles multiple sub-scenes</li>
+<li>Ensure that patched component access methods (<code>GetComponent/SetComponent/HasComponent</code>) don&#39;t break <code>Entities.ForEach</code> when there are a lot of them (due to short branch IL instructions).</li>
+<li>Fixed deactivation of Hybrid Components when the entity was disabled or turned into a prefab.</li>
+<li>Improved performance of singleton access methods (<code>SetSingleton</code>/<code>GetSingleton</code>).</li>
+<li>Fixed managed components not being serialized during player livelink.</li>
+<li>Fixed <code>CompanionLink</code> being incorrectly synced during player livelink.</li>
+<li>Fixed a false-positive in the EntityDiffer when a shared component in a changed chunk has its default value</li>
+<li>Fixed Entities.ForEach lambdas that call static methods as well as component access methods (<code>GetComponent/SetComponent/HasComponent</code>).</li>
+<li>Remapping no longer incorrectly visits UnityEngine.Object types (i.e. assets).</li>
+<li>Improved performance for managed object operations (Equality, Cloning and Remapping).</li>
+</ul>
+<h2 id="091---2020-04-15">[0.9.1] - 2020-04-15</h2>
+<h3 id="fixed-8">Fixed</h3>
+<ul>
+<li>Fixed NullReferenceException issue with Singleton access methods in SystemBase.</li>
+</ul>
+<h2 id="090---2020-04-09">[0.9.0] - 2020-04-09</h2>
+<h3 id="added-8">Added</h3>
+<ul>
+<li><code>public void GetCreatedAndDestroyedEntitiesAsync(NativeList&lt;int&gt; state, NativeList&lt;Entity&gt; createdEntities, NativeList&lt;Entity&gt; destroyedEntities)</code> detects which entities were created and destroyed since the last call to this method.</li>
+<li>Added the ability to reimport a SubScene via an inspector button, which forces reconversion.</li>
+<li>Added <code>GameObjectConversionSystem.DeclareAssetDependency</code> which expresses that the conversion result of a GameObject depends on an Asset</li>
+<li>Added <code>void EntityManager.Instantiate(NativeArray&lt;Entity&gt; srcEntities, NativeArray&lt;Entity&gt; dstEntities)</code>. It gives explicit control over the set of entities that are instantiated as a set. Entity references on components that are cloned to entities inside the set are remapped to the instantiated entities.</li>
+<li>Added <code>void EntityManager.CopyEntitiesFrom(EntityManager srcEntityManager, NativeArray&lt;Entity&gt; srcEntities, NativeArray&lt;Entity&gt; outputEntities = default)</code>. It lets you copy a specific set of entities from one World to another. Entity references on components that are cloned to entities inside the set are remapped to the instantiated entities.</li>
+<li>Added assembly for Mesh Deformation data structures.</li>
+</ul>
+<h3 id="changed-8">Changed</h3>
+<ul>
+<li>Systems are now constructed in two phases. First, ECS creates a new instance of all systems and invokes the constructor. Then, it invokes all <code>OnCreate</code> methods. This way, you can now use <code>World.GetExistingSystem&lt;OtherSystem&gt;()</code> from inside <code>OnCreate()</code>.</li>
+<li>Systems are now destroyed in three phases. First, ECS stops all running systems (i.e. OnStopRunning() is invoked). Then it invokes all <code>OnDestroy</code> methods. Finally, ECS destroys all systems. This means you can perform safe and predictable cleanup of systems with cross-references to other systems.</li>
+<li>EntityCommandBuffer Playback now Bursted through function pointers. When there&#39;s a mix of unmanaged and managed commands in a single buffer, unmanaged commands will be Bursted. When there are no managed commands, each chain&#39;s Playback is fully Bursted.</li>
+<li><code>Entities.ForEach</code> in a <code>GameObjectConversionSystem</code> no longer logs a warning if there are multiples of a queried authoring component on a matching GameObject. It now returns the first component instance of the desired type, so conversion systems can optionally call <code>GetComponents&lt;T&gt;()</code> in order to handle multiples if desired.</li>
+<li>Declaring a non-Prefab object as a referenced Prefab during conversion now emits a warning</li>
+<li>Improved performance of access to singletons through <code>SetSingleton</code> and <code>GetSingleton</code> in SystemBase (peformance is also improved through these methods on EntityQuery).</li>
+<li>Updated package <code>com.unity.properties</code> to version <code>1.1.0-preview</code>.</li>
+<li>Updated package <code>com.unity.serialization</code> to version <code>1.1.0-preview</code>.</li>
+<li>Updated package <code>com.unity.platforms</code> to version <code>0.2.2-preview.3</code>.</li>
+<li>Updated package <code>com.unity.platforms</code> to version <code>0.2.2-preview.7</code>.</li>
+</ul>
+<h3 id="deprecated-7">Deprecated</h3>
+<ul>
+<li>Deprecated <code>public T World.CreateSystem&lt;T&gt;(params object[] constructorArguments)</code>. Please use <code>World.AddSystem(new MySystem(myParams));</code> instead.</li>
+<li>Deprecated <code>LiveLinkBuildImport.GetHash/GetDependencies/GetBundlePath</code>.</li>
+</ul>
+<h3 id="removed-6">Removed</h3>
+<ul>
+<li>Removed expired API <code>TypeManager.CreateTypeIndexForComponent&lt;T&gt;()</code></li>
+<li>Removed expired API <code>TypeManager.CreateTypeIndexForSharedComponent&lt;T&gt;()</code></li>
+<li>Removed expired API <code>TypeManager.CreateTypeIndexForBufferElement&lt;T&gt;()</code></li>
+<li>Removed expired API <code>DynamicBuffer.Reserve(int)</code></li>
+<li>Removed expired API <code>World.Active</code></li>
+</ul>
+<h3 id="fixed-9">Fixed</h3>
+<ul>
+<li>Fix BlobAssetSafetyVerifier to generate a better error message when <code>readonly</code> is used with BlobAsset references.</li>
+<li>Fixed incorrect comparison in <code>EntityChunk.CompareTo()</code>.</li>
+<li><code>SceneManager.IsSceneLoaded</code> now works for converted entity Scenes and returns whether all sections of an entity Scene have loaded.</li>
+<li>Fixed Exception in conversion code when trying to delete entities that are part of a Prefab.</li>
+<li>Fixed Hybrid Component conversion failing when multiple components were added for the same GameObject.</li>
+<li>Fixed use of component access methods (GetComponent/SetComponent/HasComponent) inside Entities.ForEach with nested captures.</li>
+<li>Fix compilation issue when <code>ENABLE_SIMPLE_SYSTEM_DEPENDENCIES</code> is enabled.</li>
+</ul>
+<h3 id="known-issues-1">Known Issues</h3>
+<ul>
+<li>System groups do not currently apply to systems running as part of <code>EntitySceneOptimizations</code></li>
+</ul>
+<h3 id="known-issues-2">Known Issues</h3>
+<ul>
+<li>System groups do not currently apply to systems running as part of <code>EntitySceneOptimizations</code></li>
+</ul>
+<h2 id="080---2020-03-12">[0.8.0] - 2020-03-12</h2>
+<h3 id="added-9">Added</h3>
+<ul>
+<li>Added missing dynamic component version API: <code>ArchetypeChunk.GetComponentVersion(ArchetypeChunkComponentTypeDynamic)</code></li>
+<li>Added missing dynamic component has API: <code>ArchetypeChunk.Has(ArchetypeChunkComponentTypeDynamic)</code></li>
+<li><code>EntityArchetype</code> didn&#39;t expose whether it was Prefab or not. Added bool <code>EntityArchetype.Prefab</code>. This is needed for meta entity queries, because meta entity queries don&#39;t avoid Prefabs.</li>
+<li>Added Build Configurations and Build Pipelines for Linux</li>
+<li>LiveLink now gives an error if a LiveLink player attempts to connect to the wrong Editor, and advises the user on how to correct this.</li>
+</ul>
+<h3 id="changed-9">Changed</h3>
+<ul>
+<li>Renamed <code>GetComponentVersion()</code> to <code>GetChangedVersion()</code> when referring to version number changes on write access to components.</li>
+<li>Optimized <code>ArchetypeChunkComponentTypeDynamic</code> memory layout. 48-&gt;40 bytes.</li>
+<li>LiveLink: Editor no longer freezes when sending LiveLink assets to a LiveLinked player.</li>
+<li>LiveLink: No longer includes every Asset from builtin_extra to depend on a single Asset, and sends only what is used. This massively speeds up the first-time LiveLink to a Player.</li>
+<li>Upgraded Burst to fix multiple issues and introduced native debugging feature.</li>
+</ul>
+<h3 id="deprecated-8">Deprecated</h3>
+<h3 id="fixed-10">Fixed</h3>
+<ul>
+<li>Fixed LiveLinking with SubScene Sections indices that were not contiguous (0, 1, 2..). Now works with whatever index you use.</li>
+<li>Fixed warning when live converting disabled GameObjects.</li>
+<li>Allow usage of <code>Entities.WithReadOnly</code>, <code>Entities.WithDeallocateOnJobCompletion</code>, <code>Entities.WithNativeDisableContainerSafetyRestriction</code>, and <code>Entities.WithNativeDisableParallelForRestriction</code> on types that contain valid NativeContainers.</li>
+</ul>
+<h2 id="070---2020-03-03">[0.7.0] - 2020-03-03</h2>
+<h3 id="added-10">Added</h3>
+<ul>
+<li>Added <code>HasComponent</code>/<code>GetComponent</code>/<code>SetComponent</code> methods that streamline access to components through entities when using the <code>SystemBase</code> class.  These methods call through to <code>EntityManager</code> methods when in OnUpdate code and codegen access through <code>ComponentDataFromEntity</code> when inside of <code>Entities.ForEach</code>.</li>
+<li><code>SubScene</code> support for hybrid components, allowing Editor LiveLink (Player LiveLink is not supported yet).</li>
+<li>Added <code>GameObjectConversionSettings.Systems</code> to allow users to explicitly specify what systems should be included in the conversion</li>
+</ul>
+<h3 id="changed-10">Changed</h3>
+<ul>
 <li>Fixed an issue where shared component filtering could be broken until the shared component data is manually set/added when using a deserialized world.</li>
 <li>Users can control the update behaviour of a <code>ComponentSystemGroup</code> via an update callback.  See the documentation for <code>ComponentSystemGroup.UpdateCallback</code>, as well as examples in <code>FixedRateUtils</code>.</li>
 <li><code>IDisposable</code> and <code>ICloneable</code> are now supported on managed components.</li>
 <li><code>World</code> now exposes a <code>Flags</code> field allowing the editor to improve how it filters world to show in various tooling windows.</li>
 <li><code>World.Systems</code> is now a read only collection that does not allocate managed memory while being iterated over.</li>
+<li>Updated package <code>com.unity.platforms</code> to version <code>0.2.1-preview.4</code>.</li>
 </ul>
-<h3 id="deprecated">Deprecated</h3>
+<h3 id="deprecated-9">Deprecated</h3>
 <ul>
 <li>Property <code>World.AllWorlds</code> is now replaced by <code>World.All</code> which now returns a read only collection that does not allocate managed memory while being iterated over.</li>
 </ul>
-<h3 id="removed">Removed</h3>
-<h3 id="fixed">Fixed</h3>
+<h3 id="removed-7">Removed</h3>
+<ul>
+<li>Removed expired API <code>implicit operator GameObjectConversionSettings(World)</code></li>
+<li>Removed expired API <code>implicit operator GameObjectConversionSettings(Hash128)</code></li>
+<li>Removed expired API <code>implicit operator GameObjectConversionSettings(UnityEditor.GUID)</code></li>
+<li>Removed expired API <code>TimeData.deltaTime</code></li>
+<li>Removed expired API <code>TimeData.time</code></li>
+<li>Removed expired API <code>TimeData.timeSinceLevelLoad</code></li>
+<li>Removed expired API <code>TimeData.captureFramerate</code></li>
+<li>Removed expired API <code>TimeData.fixedTime</code></li>
+<li>Removed expired API <code>TimeData.frameCount</code></li>
+<li>Removed expired API <code>TimeData.timeScale</code></li>
+<li>Removed expired API <code>TimeData.unscaledTime</code></li>
+<li>Removed expired API <code>TimeData.captureDeltaTime</code></li>
+<li>Removed expired API <code>TimeData.fixedUnscaledTime</code></li>
+<li>Removed expired API <code>TimeData.maximumDeltaTime</code></li>
+<li>Removed expired API <code>TimeData.realtimeSinceStartup</code></li>
+<li>Removed expired API <code>TimeData.renderedFrameCount</code></li>
+<li>Removed expired API <code>TimeData.smoothDeltaTime</code></li>
+<li>Removed expired API <code>TimeData.unscaledDeltaTime</code></li>
+<li>Removed expired API <code>TimeData.fixedUnscaledDeltaTime</code></li>
+<li>Removed expired API <code>TimeData.maximumParticleDeltaTime</code></li>
+<li>Removed expired API <code>TimeData.inFixedTimeStep</code></li>
+<li>Removed expired API <code>ComponentSystemBase.OnCreateManager()</code></li>
+<li>Removed expired API <code>ComponentSystemBase.OnDestroyManager()</code></li>
+<li>Removed expired API <code>ConverterVersionAttribute(int)</code></li>
+</ul>
+<h3 id="fixed-11">Fixed</h3>
 <ul>
 <li>Non-moving children in transform hierarchies no longer trigger transform system updates.</li>
 <li>Fixed a bug where dynamic buffer components would sometimes leak during live link.</li>
@@ -116,10 +683,15 @@
 <li><code>Entities.ForEach</code> now throws a correct error message when it is used with a delegate stored in a variable, field or returned from a method.</li>
 <li>Fix IL2CPP compilation error with <code>Entities.ForEach</code> that uses a tag component and <code>WithStructuralChanges</code>.</li>
 <li><code>Entities.ForEach</code> now marshals lambda parameters for DOTS Runtime when the lambda is burst compiled and has collection checks enabled. Previously using <code>EntityCommandBuffer</code> or other types with a <code>DisposeSentinel</code> field as part of your lambda function (when using DOTS Runtime) may have resulted in memory access violation.</li>
+<li><code>.Run()</code> on <code>IJobChunk</code> may have dereferenced null or invalid chunk on filtered queries.</li>
+<li>BlobAssetSafetyVerifier would throw a <code>ThrowArgumentOutOfRangeException</code> if a blob asset was using in a struct with a method that yielded (instead of generating a valid error).</li>
 </ul>
-<h3 id="security">Security</h3>
+<h3 id="security-2">Security</h3>
+<ul>
+<li>Throw correct error message if accessing <code>ToComponentDataArrayAsync</code> <code>CopyFromComponentDataArray</code> or <code>CopyFromComponentDataArrayAsync</code> from an unrelated query.</li>
+</ul>
 <h2 id="060---2020-02-17">[0.6.0] - 2020-02-17</h2>
-<h3 id="added-1">Added</h3>
+<h3 id="added-11">Added</h3>
 <ul>
 <li>The <code>[GenerateAuthoringComponent]</code> attribute is now allowed on structs implementing <code>IBufferElementData</code>. An authoring component is automatically generated to support adding a <code>DynamicBuffer</code> of the type implementing <code>IBufferElementData</code> to an entity.</li>
 <li>Added new <code>SystemBase</code> base class for component systems.  This new way of defining component systems manages dependencies for the user (manual dependency management is still possible by accessing the <code>SystemBase.Dependency</code> field directly).</li>
@@ -129,8 +701,9 @@
 <li>The <code>SceneSystem</code> API now also loads <code>GameObject</code> scenes via <code>LoadSceneAsync</code> API.</li>
 <li>Added new build component for LiveLink settings in <code>Unity.Scenes.Editor</code> to control how initial scenes are handled (LiveLink all, embed all, embed first).</li>
 <li>Users can now inspect post-procssed IL code inside Unity Editor: <code>DOTS</code> -&gt; <code>DOTS Compiler</code> -&gt; <code>Open Inspector</code></li>
+<li><code>GetAssignableComponentTypes()</code> can now be called with or without a List&lt;Type&gt; argument to collect the data. When omitted, the list will be allocated, which is the same behavior as before.</li>
 </ul>
-<h3 id="changed-1">Changed</h3>
+<h3 id="changed-11">Changed</h3>
 <ul>
 <li>The package <code>com.unity.build</code> has been merged into the package <code>com.unity.platforms</code>. As such, removed the dependency on <code>com.unity.build@0.1.0-preview</code> and replaced it with <code>com.unity.platforms@0.2.1-preview.1</code>. Please read the changelog of <code>com.unity.platforms</code> for more details.<ul>
 <li>Managed components are now stored in a way that will generate less GC allocations when entities change archetype.</li>
@@ -151,21 +724,21 @@
 <li>Fix an issue with function pointers being corrupted after a domain reload that could lead to hard crashes.</li>
 <li>Fix potential deadlock between Burst and the AssetDatabase if burst is being used when building the database.</li>
 </ul>
-<h3 id="deprecated-1">Deprecated</h3>
+<h3 id="deprecated-10">Deprecated</h3>
 <ul>
 <li>Method <code>GetBuildSettingsComponent</code> on class <code>GameObjectConversionSystem</code> has been renamed to <code>GetBuildConfigurationComponent</code>.</li>
 <li>Method <code>TryGetBuildSettingsComponent</code> on class <code>GameObjectConversionSystem</code> has been renamed to <code>TryGetBuildConfigurationComponent</code>.</li>
 <li>Member <code>BuildSettings</code> on class <code>GameObjectConversionSettings</code> has been renamed to <code>BuildConfiguration</code>.</li>
 <li>Member <code>BuildSettingsGUID</code> on class <code>SceneSystem</code> has been renamed to <code>BuildConfigurationGUID</code>.</li>
 </ul>
-<h3 id="removed-1">Removed</h3>
+<h3 id="removed-8">Removed</h3>
 <ul>
 <li>Removed expired API <code>SceneSectionData.SharedComponentCount</code></li>
 <li>Removed expired API <code>struct SceneData</code></li>
 <li>Removed expired API <code>SubScene._SceneEntities</code></li>
 <li>Removed expired API <code>World.Active</code></li>
 </ul>
-<h3 id="fixed-1">Fixed</h3>
+<h3 id="fixed-12">Fixed</h3>
 <ul>
 <li>Ability to open and close SubScenes from the scene hierarchy window (Without having to move cursor to inspector window).</li>
 <li>Ability to create a new empty Sub Scene without first creating a game object.</li>
@@ -188,13 +761,13 @@
 <li>Fixed an issue with <code>ComponentSystemBase.GetEntityQuery</code> and <code>EntityManager.CreateEntityQuery</code> calls made with <code>EntityQueryDesc</code> not respecting read-only permissions.</li>
 </ul>
 <h2 id="051---2020-01-28">[0.5.1] - 2020-01-28</h2>
-<h3 id="changed-2">Changed</h3>
+<h3 id="changed-12">Changed</h3>
 <ul>
 <li>Constructor-related exceptions thrown during <code>World.CreateSystem</code> will now included the inner exception details.</li>
 <li><code>DefaultWorldInitialization.GetAllSystems</code> now returns <code>IReadOnlyList&lt;Type&gt;</code> instead of <code>List&lt;Type&gt;</code></li>
 <li><code>DefaultWorldInitialization.AddSystemsToRootLevelSystemGroups</code> now takes <code>IEnumerable&lt;Type&gt;</code> instead of <code>List&lt;Type&gt;</code></li>
 </ul>
-<h3 id="fixed-2">Fixed</h3>
+<h3 id="fixed-13">Fixed</h3>
 <ul>
 <li>Fixed an issue where <code>BlobAssetReference</code> types was not guaranteed to be 8-byte aligned on all platforms which could result in failing to read Blob data in components correctly on 32-bit platforms.</li>
 <li>Fixed issue in <code>MinMaxAABB.Equals()</code> comparing <code>Min</code> to itself rather than <code>other</code>.</li>
@@ -203,27 +776,27 @@
 <li>Fixed regression in <code>ComponentSystemBase.GetSingleton()</code> where a new query would be created every timee the function is called.</li>
 </ul>
 <h2 id="050---2020-01-16">[0.5.0] - 2020-01-16</h2>
-<h3 id="added-2">Added</h3>
+<h3 id="added-12">Added</h3>
 <ul>
 <li>Added AndroidHybrid.buildpipeline with RunStepAndroid</li>
 </ul>
-<h3 id="changed-3">Changed</h3>
+<h3 id="changed-13">Changed</h3>
 <ul>
 <li><code>Entities.WithReadOnly</code>, <code>Entities.WithNativeDisableParallelForRestriction</code>, <code>Entities.WithDeallocateOnJobCompletion</code>, <code>Entities.WithNativeDisableSafetyRestriction</code> and <code>Entities.WithNativeDisableUnsafePtrRestriction</code> now check their argument types for the proper attributes (<code>[NativeContainer]</code>, <code>[NativeContainerSupportsDeallocateOnJobCompletion]</code>) at compile time and throw an error when used on a field of a user defined type.</li>
 <li>Log entries emitted during subscene conversion without a context object are now displayed in the subscene inspector instead of discarded</li>
 </ul>
-<h3 id="deprecated-2">Deprecated</h3>
+<h3 id="deprecated-11">Deprecated</h3>
 <ul>
 <li>Adding removal dates to the API that have been deprecated but did not have the date set.</li>
 <li><code>BlobAssetReference&lt;T&gt;</code>: <code>Release()</code> was deprecated, use <code>Dispose()</code> instead.</li>
 </ul>
-<h3 id="removed-2">Removed</h3>
+<h3 id="removed-9">Removed</h3>
 <ul>
 <li>Adding removal dates to the API that have been deprecated but did not have the date set.</li>
 <li><code>BlobAssetReference&lt;T&gt;</code>: <code>Release()</code> was deprecated, use <code>Dispose()</code> instead.</li>
 <li><code>EntityQuery.cs</code>: Removed expired API <code>CalculateLength()</code>, <code>SetFilter()</code> and <code>SetFilterChanged()</code>.</li>
 </ul>
-<h3 id="fixed-3">Fixed</h3>
+<h3 id="fixed-14">Fixed</h3>
 <ul>
 <li>Fixed an issue where trying to perform EntityRemapping on Managed Components could throw if a component field was null.</li>
 <li><code>EntityManager.MoveEntitiesFrom</code> with query was not bumping shared component versions, order versions or dirty versions correctly. Now it does.</li>
@@ -347,7 +920,7 @@ by assigning the LiveLink build pipeline</li>
 <li>Entity Scenes can be loaded synchronously (during the next streaming system update) by using <code>SceneLoadFlags.BlockOnStreamIn</code> in <code>SceneSystem.LoadParameters</code>.</li>
 <li><code>EntityCommandBuffer</code> can now be played back on an <code>ExclusiveEntityTransaction</code> as well as an <code>EntityManager</code>. This allows ECB playback to   be invoked from a job (though exclusive access to the EntityManager data is still required for the duration of playback).</li>
 </ul>
-<h3 id="upgrade-guide">Upgrade guide</h3>
+<h3 id="upgrade-guide-1">Upgrade guide</h3>
 <ul>
 <li>If you are using SubScenes you must use the new BuildSettings assets to make a build &amp; run it. SubScenes are not supported from the File -&gt; BuildSettings... &amp; File -&gt; Build and Run workflows.</li>
 <li>Entities requires AssetDatabase V2 for certain new features, we do not provide support for AssetDatabase V1.</li>
@@ -374,9 +947,9 @@ by assigning the LiveLink build pipeline</li>
 <li>Moved <code>NativeString</code> code from Unity.Entities to Unity.Collections.</li>
 <li>Updated dependencies for this package.</li>
 <li>Significantly improved <code>Entity</code> instantiation performance when running in-Editor.</li>
-<li>Added support for managed <code>IComponentData</code> types such as <code>class MyComponent : IComponentData {}</code> which allows managed types such as GameObjects or List&lt;&gt;s to be stored in components. Users should use managed components sparingly in production code when possible as these components cannot be used by the Job System or archetype chunk storage and thus will be significantly slower to work with. Refer to the documentation for <a href="Documentation~/component_data.md">component data</a> for more details on managed component use, implications and prevention.</li>
+<li>Added support for managed <code>IComponentData</code> types such as <code>class MyComponent : IComponentData {}</code> which allows managed types such as GameObjects or List&lt;&gt;s to be stored in components. Users should use managed components sparingly in production code when possible as these components cannot be used by the Job System or archetype chunk storage and thus will be significantly slower to work with. Refer to the documentation for <a class="xref" href="../manual/component_data.html">component data</a> for more details on managed component use, implications and prevention.</li>
 <li>&#39;SubSceneStreamingSystem&#39; has been renamed to <code>SceneSectionStreamingSystem</code> and is now internal</li>
-<li>Deprecated <code>_SceneEntities</code> in <code>SubScene.cs</code>. Please use <code>SceneSystem.LoadAsync</code> / <code>Unload</code> with the respective SceneGUID instead. This API will be removed after 2019-11-22.</li>
+<li>Deprecated <code>_SceneEntities</code> in <code>SubScene.cs</code>. Please use <code>SceneSystem.LoadAsync</code> / <code>Unload</code> with the respective SceneGUID instead.</li>
 <li>Updated <code>com.unity.serialization</code> to <code>0.6.3-preview</code>.</li>
 <li>The deprecated <code>GetComponentGroup()</code> APIs are now <code>protected</code> and can only be called from inside a System like their <code>GetEntityQuery()</code> successors.</li>
 <li>All GameObjects with a ConvertToEntity set to &quot;Convert and Destroy&quot; will all be processed within the same conversion pass, this allows cross-referencing.</li>
@@ -419,7 +992,7 @@ by assigning the LiveLink build pipeline</li>
 <ul>
 <li>EntityManager.SetSharedComponentData(EntityQuery query, T componentData) has been added which lets you efficiently swap a shared component data for a whole query. (Without moving any component data)</li>
 </ul>
-<h3 id="upgrade-guide-1">Upgrade guide</h3>
+<h3 id="upgrade-guide-2">Upgrade guide</h3>
 <ul>
 <li>The deprecated <code>OnCreateManager</code> and <code>OnDestroyManager</code> are now compilation errors in the <code>NET_DOTS</code> profile as overrides can not be detected reliably (without reflection).
 To avoid the confusion of &quot;why is that not being called&quot;, especially when there is no warning issued, this will now be a compilation error. Use <code>OnCreate</code> and <code>OnDestroy</code> instead.</li>
@@ -451,7 +1024,7 @@ To avoid the confusion of &quot;why is that not being called&quot;, especially w
 <li>New <code>Entities.WithIncludeAll()</code> that will include in matching all components that are normally ignored by default (currently <code>Prefab</code> and <code>Disabled</code>)</li>
 <li>EntityManager.CopyAndReplaceEntitiesFrom has been added it can be used to store &amp; restore a backup of the world for the purposes of general purpose simulation rollback.</li>
 </ul>
-<h3 id="upgrade-guide-2">Upgrade guide</h3>
+<h3 id="upgrade-guide-3">Upgrade guide</h3>
 <ul>
 <li>WorldDiff has been removed. It has been replaced by EntityManagerDiff &amp; EntityManagerPatch.</li>
 <li>Renamed <code>EntityGroupManager</code> to <code>EntityQueryManager</code>.</li>
@@ -532,7 +1105,7 @@ To avoid the confusion of &quot;why is that not being called&quot;, especially w
 <li><code>DynamicBuffer</code> CopyFrom method now supports another DynamicBuffer as a parameter.</li>
 <li>Fixed cases that would not be handled correctly by the api updater.</li>
 </ul>
-<h3 id="upgrade-guide-3">Upgrade guide</h3>
+<h3 id="upgrade-guide-4">Upgrade guide</h3>
 <ul>
 <li><p>Usages of BlobAllocator will need to be changed to use BlobBuilder instead. The API is similar but Allocate now returns the data that can be populated:</p>
 <pre><code class="lang-csharp">ref var root = ref builder.ConstructRoot&lt;MyData&gt;();
@@ -556,7 +1129,7 @@ floatArray[0] = 0; // root.floatArray[0] can not be used and will throw on acces
 </ul>
 <h2 id="0012-preview31---2019-05-01">[0.0.12-preview.31] - 2019-05-01</h2>
 <h3 id="new-features-7">New Features</h3>
-<h3 id="upgrade-guide-4">Upgrade guide</h3>
+<h3 id="upgrade-guide-5">Upgrade guide</h3>
 <ul>
 <li>Serialized entities file format version has changed, Sub Scenes entity caches will require rebuilding.</li>
 </ul>
@@ -576,14 +1149,14 @@ floatArray[0] = 0; // root.floatArray[0] can not be used and will throw on acces
 <li>Fixed an issue where tag components were incorrectly shown as subtractive in EntityDebugger</li>
 <li>ComponentSystem.ShouldRunSystem() exception message now more accurately reports the most likely reason for the error when the system does not exist.</li>
 </ul>
-<h3 id="known-issues">Known Issues</h3>
+<h3 id="known-issues-3">Known Issues</h3>
 <ul>
 <li>It might happen that shared component data with managed references is not compared for equality correctly with certain profiles.</li>
 </ul>
 <h2 id="0012-preview30---2019-04-05">[0.0.12-preview.30] - 2019-04-05</h2>
 <h3 id="new-features-8">New Features</h3>
 <p>Script templates have been added to help you create new component types and systems, similar to Unity&#39;s built-in template for new MonoBehaviours. Use them via the Assets/Create/ECS menu.</p>
-<h3 id="upgrade-guide-5">Upgrade guide</h3>
+<h3 id="upgrade-guide-6">Upgrade guide</h3>
 <p>Some APIs have been deprecated in this release:</p>
 <p><a href="https://forum.unity.com/threads/api-deprecation-faq-0-0-23.636994/">API Deprecation FAQ</a></p>
 <p>** Removed obsolete ComponentSystem.ForEach
@@ -644,9 +1217,6 @@ All APIs that refer to ComponentGroup have been changed to refer to EntityQuery 
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities@0.7/changelog/CHANGELOG.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -665,7 +1235,7 @@ All APIs that refer to ComponentGroup have been changed to refer to EntityQuery 
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -676,5 +1246,6 @@ All APIs that refer to ComponentGroup have been changed to refer to EntityQuery 
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

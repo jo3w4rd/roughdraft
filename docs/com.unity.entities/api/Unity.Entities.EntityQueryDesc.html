@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -13,20 +13,21 @@
     <meta http-equiv="Expires" content="0">
   
     <title>Class EntityQueryDesc
-   | Unity Entities Documentation | 0.7.0-preview.13 </title>
+   | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class EntityQueryDesc
-   | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+   | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -93,10 +94,11 @@
   
   <h1 id="Unity_Entities_EntityQueryDesc" data-uid="Unity.Entities.EntityQueryDesc">Class EntityQueryDesc
   </h1>
-  <div class="markdown level0 summary"><p>Describes a query used to find archetypes with specific components.</p>
+  <div class="markdown level0 summary"><p>Describes a query to find archetypes in terms of required, optional, and excluded
+components.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
+  <div class="inheritance collapsible show-bottom">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><span class="xref">EntityQueryDesc</span></div>
@@ -108,7 +110,11 @@
     <pre><code class="lang-csharp hljs">public class EntityQueryDesc</code></pre>
   </div>
   <h5 id="Unity_Entities_EntityQueryDesc_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>A query description combines components in the All, Any, and None sets according to the
+  <div class="markdown level0 remarks"><p>Define an EntityQueryDesc object to describe complex queries. Inside a system,
+pass an EntityQueryDesc object to <a class="xref" href="Unity.Entities.ComponentSystemBase.GetEntityQuery.html#Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_EntityQueryDesc___">GetEntityQuery(EntityQueryDesc[])</a>
+to create the <a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a>. Outside a system, use
+<a class="xref" href="Unity.Entities.EntityManager.CreateEntityQuery.html#Unity_Entities_EntityManager_CreateEntityQuery_Unity_Entities_EntityQueryDesc___">CreateEntityQuery(EntityQueryDesc[])</a>.</p>
+<p>A query description combines the component types you specify in <code>All</code>, <code>Any</code>, and <code>None</code> sets according to the
 following rules:</p>
 <ul>
 <li>All - Includes archetypes that have every component in this set</li>
@@ -121,156 +127,80 @@ following rules:</p>
 <li>Enemy1 has components: Position, Rotation, Melee</li>
 <li>Enemy2 has components: Position, Rotation, Ranger</li>
 </ul>
-<p>The query description below gives you all of the archetypes that:
+<p>The query description below matches all of the archetypes that:
 have any of [Melee or Ranger], AND have none of [Player], AND have all of [Position and Rotation]</p>
-<pre><code>new EntityQueryDesc {
-    Any = new ComponentType[] {typeof(Melee), typeof(Ranger)},
-    None = new ComponentType[] {typeof(Player)},
-    All = new ComponentType[] {typeof(Position), typeof(Rotation)}
-}</code></pre>
+<example>
+<pre><code source="../../DocCodeSamples.Tests/EntityQueryExamples.cs" region="query-description">       EntityQueryDesc description = new EntityQueryDesc
+       {
+           Any = new ComponentType[] { typeof(Melee), typeof(Ranger) },
+           None = new ComponentType[] { typeof(Player) },
+           All = new ComponentType[] { typeof(Position), typeof(Rotation) }
+       };</code></pre>
+</example>
 
-<p>In other words, the query description selects the Enemy1 and Enemy2 entities, but not the Player entity.</p>
-<p>Use an EntityQueryDesc object to create an <a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a> object. In a system, call
-<a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_EntityQueryDesc___">GetEntityQuery(EntityQueryDesc[])</a>; otherwise, call
-<a class="xref" href="Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntityQuery_Unity_Entities_EntityQueryDesc___">CreateEntityQuery(EntityQueryDesc[])</a>.</p>
+<p>In other words, the query created from this description selects the Enemy1 and Enemy2 entities, but not the Player entity.</p>
 </div>
   <h3 id="fields">Fields
   </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/Iterators/EntityQuery.cs">Improve this Doc</a>
-  </span>
-  
-  <h4 id="Unity_Entities_EntityQueryDesc_All" data-uid="Unity.Entities.EntityQueryDesc.All">All</h4>
-  <div class="markdown level1 summary"><p>Include archetypes that contain all of the
-components in the <code>All</code> list.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ComponentType[] All</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
-        <th>Type</th>
+        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Unity.Entities.ComponentType.html">ComponentType</a>[]</td>
-        <td></td>
+        <td id="Unity_Entities_EntityQueryDesc_All" data-uid="Unity.Entities.EntityQueryDesc.All">
+          <a class="xref" href="Unity.Entities.EntityQueryDesc.All.html">All</a>
+        </td>
+        <td class="markdown level1 summary"><p>Include archetypes that contain all of the
+component types in the All list.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unity_Entities_EntityQueryDesc_Any" data-uid="Unity.Entities.EntityQueryDesc.Any">
+          <a class="xref" href="Unity.Entities.EntityQueryDesc.Any.html">Any</a>
+        </td>
+        <td class="markdown level1 summary"><p>Include archetypes that contain at least one (but possibly more) of the
+component types in the Any list.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unity_Entities_EntityQueryDesc_None" data-uid="Unity.Entities.EntityQueryDesc.None">
+          <a class="xref" href="Unity.Entities.EntityQueryDesc.None.html">None</a>
+        </td>
+        <td class="markdown level1 summary"><p>Exclude archetypes that contain any of the
+component types in the None list.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unity_Entities_EntityQueryDesc_Options" data-uid="Unity.Entities.EntityQueryDesc.Options">
+          <a class="xref" href="Unity.Entities.EntityQueryDesc.Options.html">Options</a>
+        </td>
+        <td class="markdown level1 summary"><p>Specialized query options.</p>
+</td>
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/Iterators/EntityQuery.cs">Improve this Doc</a>
-  </span>
-  
-  <h4 id="Unity_Entities_EntityQueryDesc_Any" data-uid="Unity.Entities.EntityQueryDesc.Any">Any</h4>
-  <div class="markdown level1 summary"><p>Include archetypes that contain at least one (but possibly more) of the
-components in the <code>Any</code> list.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ComponentType[] Any</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.ComponentType.html">ComponentType</a>[]</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/Iterators/EntityQuery.cs">Improve this Doc</a>
-  </span>
-  
-  <h4 id="Unity_Entities_EntityQueryDesc_None" data-uid="Unity.Entities.EntityQueryDesc.None">None</h4>
-  <div class="markdown level1 summary"><p>Exclude archetypes that contain any of the
-components in the <code>None</code> list.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ComponentType[] None</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.ComponentType.html">ComponentType</a>[]</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/Iterators/EntityQuery.cs">Improve this Doc</a>
-  </span>
-  
-  <h4 id="Unity_Entities_EntityQueryDesc_Options" data-uid="Unity.Entities.EntityQueryDesc.Options">Options</h4>
-  <div class="markdown level1 summary"><p>Specialized options for the query.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EntityQueryOptions Options</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.EntityQueryOptions.html">EntityQueryOptions</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_EntityQueryDesc_Options_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>You should not need to set these options for most queries.</p>
-<p>Options is a bit mask; use the bitwise OR operator to combine multiple options.</p>
-</div>
   <h3 id="methods">Methods
   </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/Iterators/EntityQuery.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_EntityQueryDesc_Validate_" data-uid="Unity.Entities.EntityQueryDesc.Validate*"></a>
-  <h4 id="Unity_Entities_EntityQueryDesc_Validate" data-uid="Unity.Entities.EntityQueryDesc.Validate">Validate()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[Conditional(&quot;ENABLE_UNITY_COLLECTIONS_CHECKS&quot;)]
-public void Validate()</code></pre>
-  </div>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="Unity_Entities_EntityQueryDesc_Validate" data-uid="Unity.Entities.EntityQueryDesc.Validate">
+          <a class="xref" href="Unity.Entities.EntityQueryDesc.Validate.html#Unity_Entities_EntityQueryDesc_Validate">Validate()</a>
+        </td>
+        <td class="markdown level1 summary"></td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
@@ -278,9 +208,6 @@ public void Validate()</code></pre>
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/Iterators/EntityQuery.cs" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -299,7 +226,7 @@ public void Validate()</code></pre>
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -310,5 +237,6 @@ public void Validate()</code></pre>
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

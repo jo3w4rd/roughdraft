@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -12,23 +12,24 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
   
-    <title>Using IJobChunk jobs | Unity Entities Documentation | 0.7.0-preview.13 </title>
+    <title>Using IJobChunk jobs | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Using IJobChunk jobs | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+    <meta name="title" content="Using IJobChunk jobs | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
-  <body data-spy="scroll" data-target="#affix" class="manual">
+  <body data-spy="scroll" data-target="#affix" class="">
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="wrapper">
       <header>
@@ -89,6 +90,8 @@
             <article class="content wrap" id="_content" data-uid="ecs-ijobchunk">
 <h1 id="using-ijobchunk-jobs">Using IJobChunk jobs</h1>
 
+<div class="NOTE"><h5>Note</h5><p>IJobChunk has been superseded by <a class="xref" href="ecs_ijobentitybatch.html">IJobEntityBatch</a>, which should be used for new code.</p>
+</div>
 <p>You can implement <a class="xref" href="../api/Unity.Entities.IJobChunk.html">IJobChunk</a> inside a system to iterate through your data by chunk. When you schedule an IJobChunk job in the <code>OnUpdate()</code> function of a system, the job invokes your <code>Execute()</code> function once for each chunk that matches the entity query passed to the job&#39;s <code>Schedule()</code> method. You can then iterate over the data inside each chunk, entity by entity.</p>
 <p>Iterating with IJobChunk requires more code setup than does Entities.ForEach, but is also more explicit and represents the most direct access to the data, as it is actually stored. </p>
 <p>Another benefit of iterating by chunks is that you can check whether an optional component is present in each chunk with <code>Archetype.Has&lt;T&gt;()</code>, and then process all of the entities in the chunk accordingly.</p>
@@ -101,19 +104,21 @@
 </ol>
 <p>For more information, the <a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples">ECS samples repository</a> contains a simple HelloCube example that demonstrates how to use <code>IJobChunk</code>.</p>
 <p><a name="query"></a></p>
-<h2 id="query-for-data-with-a-entityquery">Query for data with a EntityQuery</h2>
+<h2 id="query-for-data-with-an-entityquery">Query for data with an EntityQuery</h2>
 <p>An EntityQuery defines the set of component types that an archetype must contain for the system to process its associated chunks and entities. An archetype can have additional components, but it must have at least those that the EntityQuery defines. You can also exclude archetypes that contain specific types of components.  </p>
 <p>For simple queries, you can use the <code>SystemBase.GetEntityQuery()</code> function and pass in the component types as follows:</p>
-<pre><code class="lang-cs" name="system">public class RotationSpeedSystem : SystemBase
+<pre><code class="lang-cs" name="system">
+public class RotationSpeedSystem : SystemBase
 {
     private EntityQuery m_Query;
 
     protected override void OnCreate()
     {
         m_Query = GetEntityQuery(ComponentType.ReadOnly&lt;Rotation&gt;(),
-                                 ComponentType.ReadOnly&lt;RotationSpeed&gt;());
+            ComponentType.ReadOnly&lt;RotationSpeed&gt;());
         //...
     }
+
 </code></pre><p>For more complex situations, you can use an <code>EntityQueryDesc</code>. An <code>EntityQueryDesc</code> provides a flexible query mechanism to specify the component types:</p>
 <ul>
 <li><code>All</code>: All component types in this array must exist in the archetype</li>
@@ -121,7 +126,8 @@
 <li><code>None</code>: None of the component types in this array can exist in the archetype</li>
 </ul>
 <p>For example, the following query includes archetypes that contain the <code>RotationQuaternion</code> and <code>RotationSpeed</code> components, but excludes any archetypes that contain the <code>Frozen</code> component:</p>
-<pre><code class="lang-cs" name="oncreate2">protected override void OnCreate()
+<pre><code class="lang-cs" name="oncreate2">
+protected override void OnCreate()
 {
     var queryDescription = new EntityQueryDesc()
     {
@@ -137,6 +143,7 @@
     };
     m_Query = GetEntityQuery(queryDescription);
 }
+
 </code></pre><p>The query uses <code>ComponentType.ReadOnly&lt;T&gt;</code> instead of the simpler <code>typeof</code> expression to designate that the system does not write to <code>RotationSpeed</code>.</p>
 <p>You can also combine multiple queries. To do this, pass an array of <code>EntityQueryDesc</code> objects rather than a single instance. ECS uses a logical OR operation to combine each query. The following example selects any archetypes that contain a <code>RotationQuaternion</code> component or a <code>RotationSpeed</code> component (or both):</p>
 <pre><code class="lang-cs" name="oncreate3">
@@ -155,7 +162,8 @@ protected override void OnCreate()
     m_Query = GetEntityQuery(new EntityQueryDesc[] {queryDescription0, queryDescription1});
 }
 
-</code></pre><p><strong>Note:</strong> Do not include completely optional components in the <code>EntityQueryDesc</code>. To handle optional components, use the <code>chunk.Has&lt;T&gt;()</code> method inside <code>IJobChunk.Execute()</code> to determine whether the current ArchetypeChunk has the optional component or not. Because all entities in the same chunk have the same components, you only need to check whether an optional component exists once per chunk: not once per entity.</p>
+</code></pre><div class="NOTE"><h5>Note</h5><p>Do not include completely optional components in the <code>EntityQueryDesc</code>. To handle optional components, use the <code>chunk.Has&lt;T&gt;()</code> method inside <code>IJobChunk.Execute()</code> to determine whether the current ArchetypeChunk has the optional component or not. Because all entities in the same chunk have the same components, you only need to check whether an optional component exists once per chunk: not once per entity.</p>
+</div>
 <p>For efficiency and to avoid needless creation of garbage-collected reference types, you should create the <code>EntityQueries</code> for a system in the system’s <code>OnCreate()</code> function and store the result in an instance variable. (In the above examples, the <code>m_Query</code> variable is used for this purpose.)</p>
 <p><a name="define-job-struct"></a></p>
 <h2 id="define-the-ijobchunk-struct">Define the IJobChunk struct</h2>
@@ -167,8 +175,8 @@ protected override void OnCreate()
 struct RotationSpeedJob : IJobChunk
 {
     public float DeltaTime;
-    public ArchetypeChunkComponentType&lt;Rotation&gt; RotationType;
-    [ReadOnly] public ArchetypeChunkComponentType&lt;RotationSpeed&gt; RotationSpeedType;
+    public ComponentTypeHandle&lt;Rotation&gt; RotationTypeHandle;
+    [ReadOnly] public ComponentTypeHandle&lt;RotationSpeed&gt; RotationSpeedTypeHandle;
 
     public void Execute(ArchetypeChunk chunk, int chunkIndex, int firstEntityIndex)
     {
@@ -187,13 +195,13 @@ public void Execute(ArchetypeChunk chunk, int chunkIndex, int firstEntityIndex)
 </code></pre><p>The <code>chunk</code> parameter is a handle to the block of memory that contains the entities and components that this iteration of the job has to process. Because a chunk can only contain a single archetype, all of the entities in a chunk have the same set of components. </p>
 <p>Use the <code>chunk</code> parameter to get the NativeArray instances for components:</p>
 <pre><code class="lang-cs" name="getcomponents">
-var chunkRotations = chunk.GetNativeArray(RotationType);
-var chunkRotationSpeeds = chunk.GetNativeArray(RotationSpeedType);
+var chunkRotations = chunk.GetNativeArray(RotationTypeHandle);
+var chunkRotationSpeeds = chunk.GetNativeArray(RotationSpeedTypeHandle);
 
 </code></pre><p>These arrays are aligned so that an entity has the same index in all of them. You can then use a normal for loop to iterate through the component arrays. Use <code>chunk.Count</code> to get the number of entities stored in the current chunk:</p>
 <pre><code class="lang-cs" name="chunkiteration">
-var chunkRotations = chunk.GetNativeArray(RotationType);
-var chunkRotationSpeeds = chunk.GetNativeArray(RotationSpeedType);
+var chunkRotations = chunk.GetNativeArray(RotationTypeHandle);
+var chunkRotationSpeeds = chunk.GetNativeArray(RotationSpeedTypeHandle);
 for (var i = 0; i &lt; chunk.Count; i++)
 {
     var rotation = chunkRotations[i];
@@ -210,10 +218,11 @@ for (var i = 0; i &lt; chunk.Count; i++)
 </code></pre><p>If you have the <code>Any</code> filter in your EntityQueryDesc or have completely optional components that don’t appear in the query at all, you can use the <code>ArchetypeChunk.Has&lt;T&gt;()</code> function to test whether the current chunk contains one of those components before you use it:</p>
 <pre><code>if (chunk.Has&lt;OptionalComp&gt;(OptionalCompType))
 {//...}
-</code></pre><p><strong>Note:</strong> If you use a concurrent entity command buffer, pass the <code>chunkIndex</code> argument as the <code>jobIndex</code> parameter to the command buffer functions.</p>
+</code></pre><div class="NOTE"><h5>Note</h5><p>If you&#39;re recording an <code>EntityCommandBuffer.ParallelWriter</code> inside the <code>Execute()</code> function, pass the <code>chunkIndex</code> argument as the <code>sortKey</code> parameter to the command buffer functions.</p>
+</div>
 <p><a name="filtering"></a></p>
 <h2 id="skipping-chunks-with-unchanged-entities">Skipping chunks with unchanged entities</h2>
-<p>If you only need to update entities when a component value has changed, you can add that component type to the change filter of the EntityQuery that selects the entities and chunks for the job. For example, if you have a system that reads two components and only needs to update a third when one of the first two has changed, you can use a EntityQuery as follows:</p>
+<p>If you only need to update entities when a component value has changed, you can add that component type to the change filter of the EntityQuery that selects the entities and chunks for the job. For example, if you have a system that reads two components and only needs to update a third when one of the first two has changed, you can use an EntityQuery as follows:</p>
 <pre><code class="lang-cs" name="changefilter">
 private EntityQuery m_Query;
 
@@ -231,33 +240,33 @@ protected override void OnCreate()
         });
 }
 
-</code></pre><p>The EntityQuery change filter supports up to two components. If you want to check more or you aren&#39;t using a EntityQuery, you can make the check manually. To make this check, use the <code>ArchetypeChunk.DidChange()</code> function to compare the chunk’s change version for the component to the system&#39;s <code>LastSystemVersion</code>. If this function returns false, you can skip the current chunk altogether because none of the components of that type have changed since the last time the system ran. </p>
+</code></pre><p>The EntityQuery change filter supports up to two components. If you want to check more or you aren&#39;t using an EntityQuery, you can make the check manually. To make this check, use the <code>ArchetypeChunk.DidChange()</code> function to compare the chunk’s change version for the component to the system&#39;s <code>LastSystemVersion</code>. If this function returns false, you can skip the current chunk altogether because none of the components of that type have changed since the last time the system ran. </p>
 <p>You must use a struct field to pass the <code>LastSystemVersion</code> from the system into the job, as follows:</p>
 <pre><code class="lang-cs" name="changefilterjobstruct">
 [BurstCompile]
 struct UpdateJob : IJobChunk
 {
-    public ArchetypeChunkComponentType&lt;InputA&gt; InputAType;
-    public ArchetypeChunkComponentType&lt;InputB&gt; InputBType;
-    [ReadOnly] public ArchetypeChunkComponentType&lt;Output&gt; OutputType;
+    public ComponentTypeHandle&lt;InputA&gt; InputATypeHandle;
+    public ComponentTypeHandle&lt;InputB&gt; InputBTypeHandle;
+    [ReadOnly] public ComponentTypeHandle&lt;Output&gt; OutputTypeHandle;
     public uint LastSystemVersion;
 
     public void Execute(ArchetypeChunk chunk, int chunkIndex, int firstEntityIndex)
     {
-        var inputAChanged = chunk.DidChange(InputAType, LastSystemVersion);
-        var inputBChanged = chunk.DidChange(InputBType, LastSystemVersion);
+        var inputAChanged = chunk.DidChange(InputATypeHandle, LastSystemVersion);
+        var inputBChanged = chunk.DidChange(InputBTypeHandle, LastSystemVersion);
 
         // If neither component changed, skip the current chunk
         if (!(inputAChanged || inputBChanged))
             return;
 
-        var inputAs = chunk.GetNativeArray(InputAType);
-        var inputBs = chunk.GetNativeArray(InputBType);
-        var outputs = chunk.GetNativeArray(OutputType);
+        var inputAs = chunk.GetNativeArray(InputATypeHandle);
+        var inputBs = chunk.GetNativeArray(InputBTypeHandle);
+        var outputs = chunk.GetNativeArray(OutputTypeHandle);
 
         for (var i = 0; i &lt; outputs.Length; i++)
         {
-            outputs[i] = new Output{ Value = inputAs[i].Value + inputBs[i].Value };
+            outputs[i] = new Output { Value = inputAs[i].Value + inputBs[i].Value };
         }
     }
 }
@@ -270,14 +279,15 @@ protected override void OnUpdate()
 
     job.LastSystemVersion = this.LastSystemVersion;
 
-    job.InputAType = GetArchetypeChunkComponentType&lt;InputA&gt;(true);
-    job.InputBType = GetArchetypeChunkComponentType&lt;InputB&gt;(true);
-    job.OutputType = GetArchetypeChunkComponentType&lt;Output&gt;(false);
-    
+    job.InputATypeHandle = GetComponentTypeHandle&lt;InputA&gt;(true);
+    job.InputBTypeHandle = GetComponentTypeHandle&lt;InputB&gt;(true);
+    job.OutputTypeHandle = GetComponentTypeHandle&lt;Output&gt;(false);
+
     this.Dependency = job.ScheduleParallel(m_Query, this.Dependency);
 }
 
-</code></pre><p><strong>Note:</strong> For efficiency, the change version applies to whole chunks not individual entities. If another job which has the ability to write to that type of component accesses a chunk, then ECS increments the change version for that component and the <code>DidChange()</code> function returns true. ECS increments the change version even if the job that declares write access to a component does not actually change the component value. </p>
+</code></pre><div class="NOTE"><h5>Note</h5><p>For efficiency, the change version applies to whole chunks not individual entities. If another job which has the ability to write to that type of component accesses a chunk, then ECS increments the change version for that component and the <code>DidChange()</code> function returns true. ECS increments the change version even if the job that declares write access to a component does not actually change the component value. </p>
+</div>
 <p><a name="schedule"></a></p>
 <h2 id="instantiate-and-schedule-the-job">Instantiate and schedule the job</h2>
 <p>To run an IJobChunk job, you must create an instance of your job struct, setting the struct fields, and then schedule the job. When you do this in the <code>OnUpdate()</code> function of a SystemBase implementation, the system schedules the job to run every frame.</p>
@@ -286,8 +296,8 @@ protected override void OnUpdate()
 {
     var job = new RotationSpeedJob()
     {
-        RotationType = GetArchetypeChunkComponentType&lt;Rotation&gt;(false),
-        RotationSpeedType = GetArchetypeChunkComponentType&lt;RotationSpeed&gt;(true),
+        RotationTypeHandle = GetComponentTypeHandle&lt;Rotation&gt;(false),
+        RotationSpeedTypeHandle = GetComponentTypeHandle&lt;RotationSpeed&gt;(true),
         DeltaTime = Time.DeltaTime
     };
     this.Dependency =  job.ScheduleParallel(m_Query, this.Dependency);
@@ -302,9 +312,6 @@ protected override void OnUpdate()
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Documentation~/chunk_iteration_job.md/#L1" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -323,7 +330,7 @@ protected override void OnUpdate()
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -334,5 +341,6 @@ protected override void OnUpdate()
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

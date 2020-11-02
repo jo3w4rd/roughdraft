@@ -4,7 +4,7 @@
   
   <head>
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
-    <script type="text/javascript">thisPackageMetaData = { version: "0.7.0-preview.13", displayTitle:"Unity Entities Documentation 0.7.0-preview.13" };</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.entities", version: "0.17.0-preview.18", displayTitle:"Entities 0.17.0-preview.18", lang: "en" };</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   
@@ -13,20 +13,21 @@
     <meta http-equiv="Expires" content="0">
   
     <title>Class ComponentSystemBase
-   | Unity Entities Documentation | 0.7.0-preview.13 </title>
+   | Entities | 0.17.0-preview.18 </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class ComponentSystemBase
-   | Unity Entities Documentation | 0.7.0-preview.13 ">
-    <meta name="generator" content="docfx 2.40.12.0">
+   | Entities | 0.17.0-preview.18 ">
+    <meta name="generator" content="docfx 2.51.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../styles/docfx.css">
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
     <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
-    <meta property="unity:packageTitle" content="Unity Entities Documentation | 0.7.0-preview.13">
+    <meta property="unity:packageTitle" content="Entities | 0.17.0-preview.18">
     <meta property="docfx:rel" content="../">
     
   </head>
@@ -96,7 +97,7 @@
   <div class="markdown level0 summary"><p>A system provides behavior in an ECS architecture.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
+  <div class="inheritance collapsible show-bottom">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><span class="xref">ComponentSystemBase</span></div>
@@ -115,298 +116,73 @@
 </div>
   <h3 id="properties">Properties
   </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_Enabled_" data-uid="Unity.Entities.ComponentSystemBase.Enabled*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_Enabled" data-uid="Unity.Entities.ComponentSystemBase.Enabled">Enabled</h4>
-  <div class="markdown level1 summary"><p>Controls whether this system executes when its OnUpdate function is called.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Enabled { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
-        <th>Type</th>
+        <th>Name</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p>True, if the system is enabled.</p>
+        <td id="Unity_Entities_ComponentSystemBase_Enabled" data-uid="Unity.Entities.ComponentSystemBase.Enabled">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.Enabled.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a>
+        </td>
+        <td class="markdown level1 summary"><p>Controls whether this system executes when its OnUpdate function is called.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_Enabled_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>The Enabled property is intended for debugging so that you can easily turn on and off systems
-from the Entity Debugger window. A system with Enabled set to false will not update, even if its
-<a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_ShouldRunSystem">ShouldRunSystem()</a> function returns true.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_EntityManager_" data-uid="Unity.Entities.ComponentSystemBase.EntityManager*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_EntityManager" data-uid="Unity.Entities.ComponentSystemBase.EntityManager">EntityManager</h4>
-  <div class="markdown level1 summary"><p>The EntityManager object of the <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_World">World</a> in which this system exists.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EntityManager EntityManager { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.EntityManager.html">EntityManager</a></td>
-        <td><p>The EntityManager for this system.</p>
+        <td id="Unity_Entities_ComponentSystemBase_EntityManager" data-uid="Unity.Entities.ComponentSystemBase.EntityManager">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.EntityManager.html#Unity_Entities_ComponentSystemBase_EntityManager">EntityManager</a>
+        </td>
+        <td class="markdown level1 summary"><p>The EntityManager object of the <a class="xref" href="Unity.Entities.ComponentSystemBase.World.html#Unity_Entities_ComponentSystemBase_World">World</a> in which this system exists.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_EntityQueries_" data-uid="Unity.Entities.ComponentSystemBase.EntityQueries*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_EntityQueries" data-uid="Unity.Entities.ComponentSystemBase.EntityQueries">EntityQueries</h4>
-  <div class="markdown level1 summary"><p>The query objects cached by this system.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EntityQuery[] EntityQueries { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a>[]</td>
-        <td><p>A read-only array of the cached <a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a> objects.</p>
+        <td id="Unity_Entities_ComponentSystemBase_EntityQueries" data-uid="Unity.Entities.ComponentSystemBase.EntityQueries">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.EntityQueries.html#Unity_Entities_ComponentSystemBase_EntityQueries">EntityQueries</a>
+        </td>
+        <td class="markdown level1 summary"><p>The query objects cached by this system.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_EntityQueries_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>A system caches any queries it implicitly creates through the IJob interfaces or
-<a class="xref" href="Unity.Entities.EntityQueryBuilder.html">EntityQueryBuilder</a>, that you create explicitly by calling <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_ComponentType___">GetEntityQuery(ComponentType[])</a>, or
-that you add to the system as a required query with <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_RequireForUpdate_Unity_Entities_EntityQuery_">RequireForUpdate(EntityQuery)</a>.
-Implicit queries may be created lazily and not exist before a system has run for the first time.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GlobalSystemVersion_" data-uid="Unity.Entities.ComponentSystemBase.GlobalSystemVersion*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GlobalSystemVersion" data-uid="Unity.Entities.ComponentSystemBase.GlobalSystemVersion">GlobalSystemVersion</h4>
-  <div class="markdown level1 summary"><p>The current change version number in this <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_World">World</a>.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public uint GlobalSystemVersion { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td id="Unity_Entities_ComponentSystemBase_ExecutingSystemType" data-uid="Unity.Entities.ComponentSystemBase.ExecutingSystemType">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.ExecutingSystemType.html#Unity_Entities_ComponentSystemBase_ExecutingSystemType">ExecutingSystemType</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_GlobalSystemVersion_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>The system updates the component version numbers inside any <a class="xref" href="Unity.Entities.ArchetypeChunk.html">ArchetypeChunk</a> instances
-that this system accesses with write permissions to this value.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_LastSystemVersion_" data-uid="Unity.Entities.ComponentSystemBase.LastSystemVersion*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_LastSystemVersion" data-uid="Unity.Entities.ComponentSystemBase.LastSystemVersion">LastSystemVersion</h4>
-  <div class="markdown level1 summary"><p>The current version of this system.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public uint LastSystemVersion { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.uint32">UInt32</a></td>
-        <td><p>The <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GlobalSystemVersion">GlobalSystemVersion</a> the last time this system ran.</p>
+        <td id="Unity_Entities_ComponentSystemBase_GlobalSystemVersion" data-uid="Unity.Entities.ComponentSystemBase.GlobalSystemVersion">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GlobalSystemVersion.html#Unity_Entities_ComponentSystemBase_GlobalSystemVersion">GlobalSystemVersion</a>
+        </td>
+        <td class="markdown level1 summary"><p>The current change version number in this <a class="xref" href="Unity.Entities.ComponentSystemBase.World.html#Unity_Entities_ComponentSystemBase_World">World</a>.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_LastSystemVersion_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>LastSystemVersion is updated to match the <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_GlobalSystemVersion">GlobalSystemVersion</a> whenever a system runs.</p>
-<p>When you use <seealso cref="!:EntityQuery.SetFilterChanged"></seealso>
-or <a class="xref" href="Unity.Entities.ArchetypeChunk.html#Unity_Entities_ArchetypeChunk_DidChange__1_Unity_Entities_ArchetypeChunkComponentType___0__System_UInt32_">DidChange&lt;T&gt;(ArchetypeChunkComponentType&lt;T&gt;, UInt32)</a>, LastSystemVersion provides the basis for determining
-whether a component could have changed since the last time the system ran.</p>
-<p>When a system accesses a component and has write permission, it updates the change version of that component
-type to the current value of LastSystemVersion. The system updates the component type&apos;s version whether or not
-it actually modifies data in any instances of the component type -- this is one reason why you should
-specify read-only access to components whenever possible.</p>
-<p>For efficiency, ECS tracks the change version of component types by chunks, not by individual entities. If a system
-updates the component of a given type for any entity in a chunk, then ECS assumes that the components of all
-entities in that chunk could have been changed. Change filtering allows you to save processing time by
-skipping all entities in an unchanged chunk, but does not support skipping individual entities in a chunk
-that does contain changes.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_Time_" data-uid="Unity.Entities.ComponentSystemBase.Time*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_Time" data-uid="Unity.Entities.ComponentSystemBase.Time">Time</h4>
-  <div class="markdown level1 summary"><p>The current Time data for this system&apos;s world.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TimeData Time { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td id="Unity_Entities_ComponentSystemBase_LastSystemVersion" data-uid="Unity.Entities.ComponentSystemBase.LastSystemVersion">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.LastSystemVersion.html#Unity_Entities_ComponentSystemBase_LastSystemVersion">LastSystemVersion</a>
+        </td>
+        <td class="markdown level1 summary"><p>The current version of this system.</p>
+</td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><a class="xref" href="Unity.Core.TimeData.html">TimeData</a></td>
-        <td></td>
+        <td id="Unity_Entities_ComponentSystemBase_Time" data-uid="Unity.Entities.ComponentSystemBase.Time">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.Time.html#Unity_Entities_ComponentSystemBase_Time">Time</a>
+        </td>
+        <td class="markdown level1 summary"><p>The current Time data for this system&apos;s world.</p>
+</td>
       </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_World_" data-uid="Unity.Entities.ComponentSystemBase.World*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_World" data-uid="Unity.Entities.ComponentSystemBase.World">World</h4>
-  <div class="markdown level1 summary"><p>The World in which this system exists.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public World World { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.World.html">World</a></td>
-        <td><p>The World of this system.</p>
+        <td id="Unity_Entities_ComponentSystemBase_World" data-uid="Unity.Entities.ComponentSystemBase.World">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.World.html#Unity_Entities_ComponentSystemBase_World">World</a>
+        </td>
+        <td class="markdown level1 summary"><p>The World in which this system exists.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <h3 id="methods">Methods
   </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkBufferType_" data-uid="Unity.Entities.ComponentSystemBase.GetArchetypeChunkBufferType*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkBufferType__1_System_Boolean_" data-uid="Unity.Entities.ComponentSystemBase.GetArchetypeChunkBufferType``1(System.Boolean)">GetArchetypeChunkBufferType&lt;T&gt;(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Gets the run-time type information required to access an array of buffer components in a chunk.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ArchetypeChunkBufferType&lt;T&gt; GetArchetypeChunkBufferType&lt;T&gt;(bool isReadOnly = false)
-    where T : struct, IBufferElementData</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">isReadOnly</span></td>
-        <td><p>Whether the data is only read, not written. Access data as
-read-only whenever possible.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.ArchetypeChunkBufferType-1.html">ArchetypeChunkBufferType</a>&lt;T&gt;</td>
-        <td><p>An object representing the type information required to safely access buffer components stored in a
-chunk.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -416,970 +192,198 @@ chunk.</p>
     </thead>
     <tbody>
       <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>A struct that implements <a class="xref" href="Unity.Entities.IBufferElementData.html">IBufferElementData</a>.</p>
+        <td id="Unity_Entities_ComponentSystemBase_GetBufferFromEntity__1_System_Boolean_" data-uid="Unity.Entities.ComponentSystemBase.GetBufferFromEntity``1(System.Boolean)">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetBufferFromEntity.html#Unity_Entities_ComponentSystemBase_GetBufferFromEntity__1_System_Boolean_">GetBufferFromEntity&lt;T&gt;(Boolean)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets a BufferFromEntity&lt;T&gt; object that can access a <a class="xref" href="Unity.Entities.DynamicBuffer-1.html">DynamicBuffer&lt;T&gt;</a>.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkBufferType__1_System_Boolean__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Pass a GetArchetypeChunkBufferType instance to a job that has access to chunk data, such as an
-<a class="xref" href="Unity.Entities.IJobChunk.html">IJobChunk</a> job, to access that type of buffer component inside the job.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkComponentType_" data-uid="Unity.Entities.ComponentSystemBase.GetArchetypeChunkComponentType*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkComponentType__1_System_Boolean_" data-uid="Unity.Entities.ComponentSystemBase.GetArchetypeChunkComponentType``1(System.Boolean)">GetArchetypeChunkComponentType&lt;T&gt;(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Gets the run-time type information required to access an array of component data in a chunk.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ArchetypeChunkComponentType&lt;T&gt; GetArchetypeChunkComponentType&lt;T&gt;(bool isReadOnly = false)
-    where T : struct, IComponentData</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">isReadOnly</span></td>
-        <td><p>Whether the component data is only read, not written. Access components as
-read-only whenever possible.</p>
+        <td id="Unity_Entities_ComponentSystemBase_GetBufferTypeHandle__1_System_Boolean_" data-uid="Unity.Entities.ComponentSystemBase.GetBufferTypeHandle``1(System.Boolean)">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetBufferTypeHandle.html#Unity_Entities_ComponentSystemBase_GetBufferTypeHandle__1_System_Boolean_">GetBufferTypeHandle&lt;T&gt;(Boolean)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets the run-time type information required to access an array of buffer components in a chunk.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.ArchetypeChunkComponentType-1.html">ArchetypeChunkComponentType</a>&lt;T&gt;</td>
-        <td><p>An object representing the type information required to safely access component data stored in a
-chunk.</p>
+        <td id="Unity_Entities_ComponentSystemBase_GetComponentDataFromEntity__1_System_Boolean_" data-uid="Unity.Entities.ComponentSystemBase.GetComponentDataFromEntity``1(System.Boolean)">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetComponentDataFromEntity.html#Unity_Entities_ComponentSystemBase_GetComponentDataFromEntity__1_System_Boolean_">GetComponentDataFromEntity&lt;T&gt;(Boolean)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets an dictionary-like container containing all components of type T, keyed by Entity.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>A struct that implements <a class="xref" href="Unity.Entities.IComponentData.html">IComponentData</a>.</p>
+        <td id="Unity_Entities_ComponentSystemBase_GetComponentTypeHandle__1_System_Boolean_" data-uid="Unity.Entities.ComponentSystemBase.GetComponentTypeHandle``1(System.Boolean)">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetComponentTypeHandle.html#Unity_Entities_ComponentSystemBase_GetComponentTypeHandle__1_System_Boolean_">GetComponentTypeHandle&lt;T&gt;(Boolean)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets the run-time type information required to access an array of component data in a chunk.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkComponentType__1_System_Boolean__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Pass an <see cref="!:ArchetypeChunkComponentType"></see> instance to a job that has access to chunk data,
-such as an <a class="xref" href="Unity.Entities.IJobChunk.html">IJobChunk</a> job, to access that type of component inside the job.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkComponentTypeDynamic_" data-uid="Unity.Entities.ComponentSystemBase.GetArchetypeChunkComponentTypeDynamic*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkComponentTypeDynamic_Unity_Entities_ComponentType_" data-uid="Unity.Entities.ComponentSystemBase.GetArchetypeChunkComponentTypeDynamic(Unity.Entities.ComponentType)">GetArchetypeChunkComponentTypeDynamic(ComponentType)</h4>
-  <div class="markdown level1 summary"><p>Gets the run-time type information required to access an array of component data in a chunk.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ArchetypeChunkComponentTypeDynamic GetArchetypeChunkComponentTypeDynamic(ComponentType componentType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.ComponentType.html">ComponentType</a></td>
-        <td><span class="parametername">componentType</span></td>
-        <td><p>Type of the component</p>
+        <td id="Unity_Entities_ComponentSystemBase_GetDynamicComponentTypeHandle_Unity_Entities_ComponentType_" data-uid="Unity.Entities.ComponentSystemBase.GetDynamicComponentTypeHandle(Unity.Entities.ComponentType)">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetDynamicComponentTypeHandle.html#Unity_Entities_ComponentSystemBase_GetDynamicComponentTypeHandle_Unity_Entities_ComponentType_">GetDynamicComponentTypeHandle(ComponentType)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets the run-time type information required to access an array of component data in a chunk.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.ArchetypeChunkComponentTypeDynamic.html">ArchetypeChunkComponentTypeDynamic</a></td>
-        <td><p>An object representing the type information required to safely access component data stored in a
-chunk.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkComponentTypeDynamic_Unity_Entities_ComponentType__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Pass an ArchetypeChunkComponentTypeDynamic instance to a job that has access to chunk data, such as an
-<a class="xref" href="Unity.Entities.IJobChunk.html">IJobChunk</a> job, to access that type of component inside the job.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkEntityType_" data-uid="Unity.Entities.ComponentSystemBase.GetArchetypeChunkEntityType*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkEntityType" data-uid="Unity.Entities.ComponentSystemBase.GetArchetypeChunkEntityType">GetArchetypeChunkEntityType()</h4>
-  <div class="markdown level1 summary"><p>Gets the run-time type information required to access the array of <a class="xref" href="Unity.Entities.Entity.html">Entity</a> objects in a chunk.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ArchetypeChunkEntityType GetArchetypeChunkEntityType()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.ArchetypeChunkEntityType.html">ArchetypeChunkEntityType</a></td>
-        <td><p>An object representing the type information required to safely access Entity instances stored in a
-chunk.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkSharedComponentType_" data-uid="Unity.Entities.ComponentSystemBase.GetArchetypeChunkSharedComponentType*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetArchetypeChunkSharedComponentType__1" data-uid="Unity.Entities.ComponentSystemBase.GetArchetypeChunkSharedComponentType``1">GetArchetypeChunkSharedComponentType&lt;T&gt;()</h4>
-  <div class="markdown level1 summary"><p>Gets the run-time type information required to access a shared component data in a chunk.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ArchetypeChunkSharedComponentType&lt;T&gt; GetArchetypeChunkSharedComponentType&lt;T&gt;()
-    where T : struct, ISharedComponentData</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.ArchetypeChunkSharedComponentType-1.html">ArchetypeChunkSharedComponentType</a>&lt;T&gt;</td>
-        <td><p>An object representing the type information required to safely access shared component data stored in a
-chunk.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>A struct that implements <a class="xref" href="Unity.Entities.ISharedComponentData.html">ISharedComponentData</a>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetBufferFromEntity_" data-uid="Unity.Entities.ComponentSystemBase.GetBufferFromEntity*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetBufferFromEntity__1_System_Boolean_" data-uid="Unity.Entities.ComponentSystemBase.GetBufferFromEntity``1(System.Boolean)">GetBufferFromEntity&lt;T&gt;(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Gets a BufferFromEntity&lt;T&gt; object that can access a <a class="xref" href="Unity.Entities.DynamicBuffer-1.html">DynamicBuffer&lt;T&gt;</a>.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public BufferFromEntity&lt;T&gt; GetBufferFromEntity&lt;T&gt;(bool isReadOnly = false)
-    where T : struct, IBufferElementData</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">isReadOnly</span></td>
-        <td><p>Whether the buffer data is only read or is also written. Access data in
-a read-only fashion whenever possible.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.BufferFromEntity-1.html">BufferFromEntity</a>&lt;T&gt;</td>
-        <td><p>An array-like object that provides access to buffers, indexed by <a class="xref" href="Unity.Entities.Entity.html">Entity</a>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The type of <a class="xref" href="Unity.Entities.IBufferElementData.html">IBufferElementData</a> stored in the buffer.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_GetBufferFromEntity__1_System_Boolean__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Assign the returned object to a field of your Job struct so that you can access the
-contents of the buffer in a Job.</p>
-</div>
-  <h5 id="Unity_Entities_ComponentSystemBase_GetBufferFromEntity__1_System_Boolean__seealso">See Also</h5>
-  <div class="seealso">
-      <div><a class="xref" href="Unity.Entities.ComponentDataFromEntity-1.html">ComponentDataFromEntity</a>&lt;T&gt;</div>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetComponentDataFromEntity_" data-uid="Unity.Entities.ComponentSystemBase.GetComponentDataFromEntity*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetComponentDataFromEntity__1_System_Boolean_" data-uid="Unity.Entities.ComponentSystemBase.GetComponentDataFromEntity``1(System.Boolean)">GetComponentDataFromEntity&lt;T&gt;(Boolean)</h4>
-  <div class="markdown level1 summary"><p>Gets an array-like container containing all components of type T, indexed by Entity.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ComponentDataFromEntity&lt;T&gt; GetComponentDataFromEntity&lt;T&gt;(bool isReadOnly = false)
-    where T : struct, IComponentData</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">isReadOnly</span></td>
-        <td><p>Whether the data is only read, not written. Access data as
-read-only whenever possible.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.ComponentDataFromEntity-1.html">ComponentDataFromEntity</a>&lt;T&gt;</td>
-        <td><p>All component data of type T.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>A struct that implements <a class="xref" href="Unity.Entities.IComponentData.html">IComponentData</a>.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetEntityQuery_" data-uid="Unity.Entities.ComponentSystemBase.GetEntityQuery*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetEntityQuery_NativeArray_Unity_Entities_ComponentType__" data-uid="Unity.Entities.ComponentSystemBase.GetEntityQuery(NativeArray{Unity.Entities.ComponentType})">GetEntityQuery(NativeArray&lt;ComponentType&gt;)</h4>
-  <div class="markdown level1 summary"><p>Gets the cached query for the specified component types, if one exists; otherwise, creates a new query
+        <td id="Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Collections_NativeArray_Unity_Entities_ComponentType__" data-uid="Unity.Entities.ComponentSystemBase.GetEntityQuery(Unity.Collections.NativeArray{Unity.Entities.ComponentType})">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetEntityQuery.html#Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Collections_NativeArray_Unity_Entities_ComponentType__">GetEntityQuery(NativeArray&lt;ComponentType&gt;)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets the cached query for the specified component types, if one exists; otherwise, creates a new query
 instance and caches it.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected EntityQuery GetEntityQuery(NativeArray&lt;ComponentType&gt; componentTypes)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">NativeArray</span>&lt;<a class="xref" href="Unity.Entities.ComponentType.html">ComponentType</a>&gt;</td>
-        <td><span class="parametername">componentTypes</span></td>
-        <td><p>An array of component types.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a></td>
-        <td><p>The new or cached query.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetEntityQuery_" data-uid="Unity.Entities.ComponentSystemBase.GetEntityQuery*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_ComponentType___" data-uid="Unity.Entities.ComponentSystemBase.GetEntityQuery(Unity.Entities.ComponentType[])">GetEntityQuery(ComponentType[])</h4>
-  <div class="markdown level1 summary"><p>Gets the cached query for the specified component types, if one exists; otherwise, creates a new query
+        <td id="Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_ComponentType___" data-uid="Unity.Entities.ComponentSystemBase.GetEntityQuery(Unity.Entities.ComponentType[])">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetEntityQuery.html#Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_ComponentType___">GetEntityQuery(ComponentType[])</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets the cached query for the specified component types, if one exists; otherwise, creates a new query
 instance and caches it.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected EntityQuery GetEntityQuery(params ComponentType[] componentTypes)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.ComponentType.html">ComponentType</a>[]</td>
-        <td><span class="parametername">componentTypes</span></td>
-        <td><p>An array or comma-separated list of component types.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a></td>
-        <td><p>The new or cached query.</p>
+        <td id="Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_EntityQueryDesc___" data-uid="Unity.Entities.ComponentSystemBase.GetEntityQuery(Unity.Entities.EntityQueryDesc[])">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetEntityQuery.html#Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_EntityQueryDesc___">GetEntityQuery(EntityQueryDesc[])</a>
+        </td>
+        <td class="markdown level1 summary"><p>Combines an array of query description objects into a single query.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetEntityQuery_" data-uid="Unity.Entities.ComponentSystemBase.GetEntityQuery*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_EntityQueryDesc___" data-uid="Unity.Entities.ComponentSystemBase.GetEntityQuery(Unity.Entities.EntityQueryDesc[])">GetEntityQuery(EntityQueryDesc[])</h4>
-  <div class="markdown level1 summary"><p>Combines an array of query description objects into a single query.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected EntityQuery GetEntityQuery(params EntityQueryDesc[] queryDesc)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.EntityQueryDesc.html">EntityQueryDesc</a>[]</td>
-        <td><span class="parametername">queryDesc</span></td>
-        <td><p>An array of query description objects to be combined to define the query.</p>
+        <td id="Unity_Entities_ComponentSystemBase_GetEntityTypeHandle" data-uid="Unity.Entities.ComponentSystemBase.GetEntityTypeHandle">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetEntityTypeHandle.html#Unity_Entities_ComponentSystemBase_GetEntityTypeHandle">GetEntityTypeHandle()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets the run-time type information required to access the array of <a class="xref" href="Unity.Entities.Entity.html">Entity</a> objects in a chunk.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a></td>
-        <td><p>The new or cached query.</p>
+        <td id="Unity_Entities_ComponentSystemBase_GetSharedComponentTypeHandle__1" data-uid="Unity.Entities.ComponentSystemBase.GetSharedComponentTypeHandle``1">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetSharedComponentTypeHandle.html#Unity_Entities_ComponentSystemBase_GetSharedComponentTypeHandle__1">GetSharedComponentTypeHandle&lt;T&gt;()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets the run-time type information required to access a shared component data in a chunk.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_GetEntityQuery_Unity_Entities_EntityQueryDesc____remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>This function looks for a cached query matching the combined query descriptions, and returns it
-if one exists; otherwise, the function creates a new query instance and caches it.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetSingleton_" data-uid="Unity.Entities.ComponentSystemBase.GetSingleton*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetSingleton__1" data-uid="Unity.Entities.ComponentSystemBase.GetSingleton``1">GetSingleton&lt;T&gt;()</h4>
-  <div class="markdown level1 summary"><p>Gets the value of a singleton component.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T GetSingleton&lt;T&gt;()
-    where T : struct, IComponentData</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><p>The component.</p>
+        <td id="Unity_Entities_ComponentSystemBase_GetSingleton__1" data-uid="Unity.Entities.ComponentSystemBase.GetSingleton``1">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetSingleton.html#Unity_Entities_ComponentSystemBase_GetSingleton__1">GetSingleton&lt;T&gt;()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets the value of a singleton component.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The <a class="xref" href="Unity.Entities.IComponentData.html">IComponentData</a> subtype of the singleton component.</p>
+        <td id="Unity_Entities_ComponentSystemBase_GetSingletonEntity__1" data-uid="Unity.Entities.ComponentSystemBase.GetSingletonEntity``1">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.GetSingletonEntity.html#Unity_Entities_ComponentSystemBase_GetSingletonEntity__1">GetSingletonEntity&lt;T&gt;()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets the Entity instance for a singleton.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_GetSingleton__1_seealso">See Also</h5>
-  <div class="seealso">
-      <div><a class="xref" href="Unity.Entities.EntityQuery.html#Unity_Entities_EntityQuery_GetSingleton__1">GetSingleton&lt;T&gt;()</a></div>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_GetSingletonEntity_" data-uid="Unity.Entities.ComponentSystemBase.GetSingletonEntity*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_GetSingletonEntity__1" data-uid="Unity.Entities.ComponentSystemBase.GetSingletonEntity``1">GetSingletonEntity&lt;T&gt;()</h4>
-  <div class="markdown level1 summary"><p>Gets the Entity instance for a singleton.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Entity GetSingletonEntity&lt;T&gt;()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.Entity.html">Entity</a></td>
-        <td><p>The entity associated with the specified singleton component.</p>
+        <td id="Unity_Entities_ComponentSystemBase_HasSingleton__1" data-uid="Unity.Entities.ComponentSystemBase.HasSingleton``1">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.HasSingleton.html#Unity_Entities_ComponentSystemBase_HasSingleton__1">HasSingleton&lt;T&gt;()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Checks whether a singelton component of the specified type exists.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The Type of the singleton component.</p>
+        <td id="Unity_Entities_ComponentSystemBase_OnCreate" data-uid="Unity.Entities.ComponentSystemBase.OnCreate">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.OnCreate.html#Unity_Entities_ComponentSystemBase_OnCreate">OnCreate()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Called when this system is created.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_GetSingletonEntity__1_seealso">See Also</h5>
-  <div class="seealso">
-      <div><a class="xref" href="Unity.Entities.EntityQuery.html#Unity_Entities_EntityQuery_GetSingletonEntity">GetSingletonEntity()</a></div>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_HasSingleton_" data-uid="Unity.Entities.ComponentSystemBase.HasSingleton*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_HasSingleton__1" data-uid="Unity.Entities.ComponentSystemBase.HasSingleton``1">HasSingleton&lt;T&gt;()</h4>
-  <div class="markdown level1 summary"><p>Checks whether a singelton component of the specified type exists.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool HasSingleton&lt;T&gt;()
-    where T : struct, IComponentData</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Description</th>
+        <td id="Unity_Entities_ComponentSystemBase_OnCreateForCompiler" data-uid="Unity.Entities.ComponentSystemBase.OnCreateForCompiler">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.OnCreateForCompiler.html#Unity_Entities_ComponentSystemBase_OnCreateForCompiler">OnCreateForCompiler()</a>
+        </td>
+        <td class="markdown level1 summary"></td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p>True, if a singleton of the specified type exists in the current <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_World">World</a>.</p>
+        <td id="Unity_Entities_ComponentSystemBase_OnDestroy" data-uid="Unity.Entities.ComponentSystemBase.OnDestroy">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.OnDestroy.html#Unity_Entities_ComponentSystemBase_OnDestroy">OnDestroy()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Called when this system is destroyed.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The <a class="xref" href="Unity.Entities.IComponentData.html">IComponentData</a> subtype of the singleton component.</p>
+        <td id="Unity_Entities_ComponentSystemBase_OnStartRunning" data-uid="Unity.Entities.ComponentSystemBase.OnStartRunning">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.OnStartRunning.html#Unity_Entities_ComponentSystemBase_OnStartRunning">OnStartRunning()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Called before the first call to OnUpdate and when a system resumes updating after being stopped or disabled.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_OnCreate_" data-uid="Unity.Entities.ComponentSystemBase.OnCreate*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_OnCreate" data-uid="Unity.Entities.ComponentSystemBase.OnCreate">OnCreate()</h4>
-  <div class="markdown level1 summary"><p>Called when this system is created.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnCreate()</code></pre>
-  </div>
-  <h5 id="Unity_Entities_ComponentSystemBase_OnCreate_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Implement an OnCreate() function to set up system resources when it is created.</p>
-<p>OnCreate is invoked before the the first time <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnStartRunning">OnStartRunning()</a> and OnUpdate are invoked.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_OnCreateForCompiler_" data-uid="Unity.Entities.ComponentSystemBase.OnCreateForCompiler*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_OnCreateForCompiler" data-uid="Unity.Entities.ComponentSystemBase.OnCreateForCompiler">OnCreateForCompiler()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnCreateForCompiler()</code></pre>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_OnCreateManager_" data-uid="Unity.Entities.ComponentSystemBase.OnCreateManager*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_OnCreateManager" data-uid="Unity.Entities.ComponentSystemBase.OnCreateManager">OnCreateManager()</h4>
-  <div class="markdown level1 summary"><p>WARNING: OnCreateManager() is obsolete and should be renamed to OnCreate. OnCreateManager will not be called by Unity after 2020-01-22</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnCreateManager()</code></pre>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_OnDestroy_" data-uid="Unity.Entities.ComponentSystemBase.OnDestroy*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_OnDestroy" data-uid="Unity.Entities.ComponentSystemBase.OnDestroy">OnDestroy()</h4>
-  <div class="markdown level1 summary"><p>Called when this system is destroyed.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnDestroy()</code></pre>
-  </div>
-  <h5 id="Unity_Entities_ComponentSystemBase_OnDestroy_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Systems are destroyed when the application shuts down, the World is destroyed, or you
-call <a class="xref" href="Unity.Entities.World.html#Unity_Entities_World_DestroySystem_Unity_Entities_ComponentSystemBase_">DestroySystem(ComponentSystemBase)</a>. In the Unity Editor, system destruction occurs when you exit
-Play Mode and when scripts are reloaded.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_OnDestroyManager_" data-uid="Unity.Entities.ComponentSystemBase.OnDestroyManager*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_OnDestroyManager" data-uid="Unity.Entities.ComponentSystemBase.OnDestroyManager">OnDestroyManager()</h4>
-  <div class="markdown level1 summary"><p>WARNING: OnDestroyManager() is obsolete and should be renamed to OnDestroy. OnDestroyManager will not be called by Unity after 2020-01-22</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnDestroyManager()</code></pre>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_OnStartRunning_" data-uid="Unity.Entities.ComponentSystemBase.OnStartRunning*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_OnStartRunning" data-uid="Unity.Entities.ComponentSystemBase.OnStartRunning">OnStartRunning()</h4>
-  <div class="markdown level1 summary"><p>Called before the first call to OnUpdate and when a system resumes updating after being stopped or disabled.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnStartRunning()</code></pre>
-  </div>
-  <h5 id="Unity_Entities_ComponentSystemBase_OnStartRunning_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>If the <a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a> objects defined for a system do not match any existing entities
-then the system skips updates until a successful match is found. Likewise, if you set <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a>
-to false, then the system stops running. In both cases, <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnStopRunning">OnStopRunning()</a> is
-called when a running system stops updating; OnStartRunning is called when it starts updating again.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_OnStopRunning_" data-uid="Unity.Entities.ComponentSystemBase.OnStopRunning*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_OnStopRunning" data-uid="Unity.Entities.ComponentSystemBase.OnStopRunning">OnStopRunning()</h4>
-  <div class="markdown level1 summary"><p>Called when this system stops running because no entities match the system&apos;s <a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a>
-objects or because you change the system <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a> property to false.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnStopRunning()</code></pre>
-  </div>
-  <h5 id="Unity_Entities_ComponentSystemBase_OnStopRunning_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>If the <a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a> objects defined for a system do not match any existing entities
-then the system skips updating until a successful match is found. Likewise, if you set <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a>
-to false, then the system stops running. In both cases, <a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_OnStopRunning">OnStopRunning()</a> is
-called when a running system stops updating; OnStartRunning is called when it starts updating again.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_RequireForUpdate_" data-uid="Unity.Entities.ComponentSystemBase.RequireForUpdate*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_RequireForUpdate_Unity_Entities_EntityQuery_" data-uid="Unity.Entities.ComponentSystemBase.RequireForUpdate(Unity.Entities.EntityQuery)">RequireForUpdate(EntityQuery)</h4>
-  <div class="markdown level1 summary"><p>Adds a query that must return entities for the system to run. You can add multiple required queries to a
+      <tr>
+        <td id="Unity_Entities_ComponentSystemBase_OnStopRunning" data-uid="Unity.Entities.ComponentSystemBase.OnStopRunning">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.OnStopRunning.html#Unity_Entities_ComponentSystemBase_OnStopRunning">OnStopRunning()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Called when this system stops running because no entities match the system&apos;s <a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a>
+objects or because you change the system <a class="xref" href="Unity.Entities.ComponentSystemBase.Enabled.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a> property to false.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unity_Entities_ComponentSystemBase_RequireForUpdate_Unity_Entities_EntityQuery_" data-uid="Unity.Entities.ComponentSystemBase.RequireForUpdate(Unity.Entities.EntityQuery)">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.RequireForUpdate.html#Unity_Entities_ComponentSystemBase_RequireForUpdate_Unity_Entities_EntityQuery_">RequireForUpdate(EntityQuery)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Adds a query that must return entities for the system to run. You can add multiple required queries to a
 system; all of them must match at least one entity for the system to run.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void RequireForUpdate(EntityQuery query)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Unity.Entities.EntityQuery.html">EntityQuery</a></td>
-        <td><span class="parametername">query</span></td>
-        <td><p>A query that must match entities this frame in order for this system to run.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_RequireForUpdate_Unity_Entities_EntityQuery__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Any queries added through RequireforUpdate override all other queries cached by this system.
-In other words, if any required query does not find matching entities, the update is skipped even
-if another query created for the system (either explicitly or implicitly) does match entities and
-vice versa.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_RequireSingletonForUpdate_" data-uid="Unity.Entities.ComponentSystemBase.RequireSingletonForUpdate*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_RequireSingletonForUpdate__1" data-uid="Unity.Entities.ComponentSystemBase.RequireSingletonForUpdate``1">RequireSingletonForUpdate&lt;T&gt;()</h4>
-  <div class="markdown level1 summary"><p>Require that a specific singleton component exist for this system to run.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void RequireSingletonForUpdate&lt;T&gt;()</code></pre>
-  </div>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The <a class="xref" href="Unity.Entities.IComponentData.html">IComponentData</a> subtype of the singleton component.</p>
+        <td id="Unity_Entities_ComponentSystemBase_RequireSingletonForUpdate__1" data-uid="Unity.Entities.ComponentSystemBase.RequireSingletonForUpdate``1">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.RequireSingletonForUpdate.html#Unity_Entities_ComponentSystemBase_RequireSingletonForUpdate__1">RequireSingletonForUpdate&lt;T&gt;()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Require that a specific singleton component exist for this system to run.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_SetSingleton_" data-uid="Unity.Entities.ComponentSystemBase.SetSingleton*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_SetSingleton__1___0_" data-uid="Unity.Entities.ComponentSystemBase.SetSingleton``1(``0)">SetSingleton&lt;T&gt;(T)</h4>
-  <div class="markdown level1 summary"><p>Sets the value of a singleton component.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void SetSingleton&lt;T&gt;(T value)
-    where T : struct, IComponentData</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">T</span></td>
-        <td><span class="parametername">value</span></td>
-        <td><p>A component containing the value to assign to the singleton.</p>
+        <td id="Unity_Entities_ComponentSystemBase_SetSingleton__1___0_" data-uid="Unity.Entities.ComponentSystemBase.SetSingleton``1(``0)">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.SetSingleton.html#Unity_Entities_ComponentSystemBase_SetSingleton__1___0_">SetSingleton&lt;T&gt;(T)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Sets the value of a singleton component.</p>
 </td>
       </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The <a class="xref" href="Unity.Entities.IComponentData.html">IComponentData</a> subtype of the singleton component.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_SetSingleton__1___0__seealso">See Also</h5>
-  <div class="seealso">
-      <div><a class="xref" href="Unity.Entities.EntityQuery.html#Unity_Entities_EntityQuery_SetSingleton__1___0_">SetSingleton&lt;T&gt;(T)</a></div>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_ShouldRunSystem_" data-uid="Unity.Entities.ComponentSystemBase.ShouldRunSystem*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_ShouldRunSystem" data-uid="Unity.Entities.ComponentSystemBase.ShouldRunSystem">ShouldRunSystem()</h4>
-  <div class="markdown level1 summary"><p>Reports whether any of this system&apos;s entity queries currently match any chunks. This function is used
+        <td id="Unity_Entities_ComponentSystemBase_ShouldRunSystem" data-uid="Unity.Entities.ComponentSystemBase.ShouldRunSystem">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.ShouldRunSystem.html#Unity_Entities_ComponentSystemBase_ShouldRunSystem">ShouldRunSystem()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Reports whether any of this system&apos;s entity queries currently match any chunks. This function is used
 internally to determine whether the system&apos;s OnUpdate function can be skipped.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool ShouldRunSystem()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
+</td>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><p>True, if the queries in this system match existing entities or the system has the
-<a class="xref" href="Unity.Entities.AlwaysUpdateSystemAttribute.html">AlwaysUpdateSystemAttribute</a>.</p>
+        <td id="Unity_Entities_ComponentSystemBase_TryGetSingleton__1___0__" data-uid="Unity.Entities.ComponentSystemBase.TryGetSingleton``1(``0@)">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.TryGetSingleton.html#Unity_Entities_ComponentSystemBase_TryGetSingleton__1___0__">TryGetSingleton&lt;T&gt;(out T)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets the value of a singleton component, and returns whether or not a singleton component of the specified type exists in the <a class="xref" href="Unity.Entities.ComponentSystemBase.World.html#Unity_Entities_ComponentSystemBase_World">World</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unity_Entities_ComponentSystemBase_TryGetSingletonEntity__1_Unity_Entities_Entity__" data-uid="Unity.Entities.ComponentSystemBase.TryGetSingletonEntity``1(Unity.Entities.Entity@)">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.TryGetSingletonEntity.html#Unity_Entities_ComponentSystemBase_TryGetSingletonEntity__1_Unity_Entities_Entity__">TryGetSingletonEntity&lt;T&gt;(out Entity)</a>
+        </td>
+        <td class="markdown level1 summary"><p>Gets the singleton Entity, and returns whether or not a singleton <a class="xref" href="Unity.Entities.Entity.html">Entity</a> of the specified type exists in the <a class="xref" href="Unity.Entities.ComponentSystemBase.World.html#Unity_Entities_ComponentSystemBase_World">World</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td id="Unity_Entities_ComponentSystemBase_Update" data-uid="Unity.Entities.ComponentSystemBase.Update">
+          <a class="xref" href="Unity.Entities.ComponentSystemBase.Update.html#Unity_Entities_ComponentSystemBase_Update">Update()</a>
+        </td>
+        <td class="markdown level1 summary"><p>Executes the system immediately.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="Unity_Entities_ComponentSystemBase_ShouldRunSystem_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>A system without any queries also returns true. Note that even if this function returns true,
-other factors may prevent a system from updating. For example, a system will not be updated if its
-<a class="xref" href="Unity.Entities.ComponentSystemBase.html#Unity_Entities_ComponentSystemBase_Enabled">Enabled</a> property is false.</p>
-</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs">Improve this Doc</a>
-  </span>
-  
-  <a id="Unity_Entities_ComponentSystemBase_Update_" data-uid="Unity.Entities.ComponentSystemBase.Update*"></a>
-  <h4 id="Unity_Entities_ComponentSystemBase_Update" data-uid="Unity.Entities.ComponentSystemBase.Update">Update()</h4>
-  <div class="markdown level1 summary"><p>Executes the system immediately.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract void Update()</code></pre>
-  </div>
-  <h5 id="Unity_Entities_ComponentSystemBase_Update_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>The exact behavior is determined by this system&apos;s specific subclass.</p>
-</div>
-  <h5 id="Unity_Entities_ComponentSystemBase_Update_seealso">See Also</h5>
-  <div class="seealso">
-      <div><a class="xref" href="Unity.Entities.SystemBase.html">SystemBase</a></div>
-      <div><a class="xref" href="Unity.Entities.ComponentSystemGroup.html">ComponentSystemGroup</a></div>
-      <div><a class="xref" href="Unity.Entities.EntityCommandBufferSystem.html">EntityCommandBufferSystem</a></div>
-  </div>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
-      <a class="xref" href="Unity.Entities.ComponentSystemBaseManagedComponentExtensions.html#Unity_Entities_ComponentSystemBaseManagedComponentExtensions_HasSingleton__1_Unity_Entities_ComponentSystemBase_">ComponentSystemBaseManagedComponentExtensions.HasSingleton&lt;T&gt;(ComponentSystemBase)</a>
+      <a class="xref" href="Unity.Entities.ComponentSystemBaseManagedComponentExtensions.HasSingleton.html#Unity_Entities_ComponentSystemBaseManagedComponentExtensions_HasSingleton__1_Unity_Entities_ComponentSystemBase_">ComponentSystemBaseManagedComponentExtensions.HasSingleton&lt;T&gt;(ComponentSystemBase)</a>
   </div>
   <div>
-      <a class="xref" href="Unity.Entities.ComponentSystemBaseManagedComponentExtensions.html#Unity_Entities_ComponentSystemBaseManagedComponentExtensions_GetSingleton__1_Unity_Entities_ComponentSystemBase_">ComponentSystemBaseManagedComponentExtensions.GetSingleton&lt;T&gt;(ComponentSystemBase)</a>
+      <a class="xref" href="Unity.Entities.ComponentSystemBaseManagedComponentExtensions.GetSingleton.html#Unity_Entities_ComponentSystemBaseManagedComponentExtensions_GetSingleton__1_Unity_Entities_ComponentSystemBase_">ComponentSystemBaseManagedComponentExtensions.GetSingleton&lt;T&gt;(ComponentSystemBase)</a>
   </div>
   <div>
-      <a class="xref" href="Unity.Entities.ComponentSystemBaseManagedComponentExtensions.html#Unity_Entities_ComponentSystemBaseManagedComponentExtensions_SetSingleton__1_Unity_Entities_ComponentSystemBase___0_">ComponentSystemBaseManagedComponentExtensions.SetSingleton&lt;T&gt;(ComponentSystemBase, T)</a>
+      <a class="xref" href="Unity.Entities.ComponentSystemBaseManagedComponentExtensions.SetSingleton.html#Unity_Entities_ComponentSystemBaseManagedComponentExtensions_SetSingleton__1_Unity_Entities_ComponentSystemBase___0_">ComponentSystemBaseManagedComponentExtensions.SetSingleton&lt;T&gt;(ComponentSystemBase, T)</a>
   </div>
   <div>
-      <a class="xref" href="Unity.Entities.JobForEachExtensions.html#Unity_Entities_JobForEachExtensions_GetEntityQueryForIJobForEach_Unity_Entities_ComponentSystemBase_System_Type_">JobForEachExtensions.GetEntityQueryForIJobForEach(ComponentSystemBase, Type)</a>
+      <a class="xref" href="Unity.Entities.JobForEachExtensions.GetEntityQueryForIJobForEach.html#Unity_Entities_JobForEachExtensions_GetEntityQueryForIJobForEach_Unity_Entities_ComponentSystemBase_System_Type_">JobForEachExtensions.GetEntityQueryForIJobForEach(ComponentSystemBase, Type)</a>
   </div>
 </article>
           </div>
@@ -1388,9 +392,6 @@ other factors may prevent a system from updating. For example, a system will not
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
-                  <li>
-                    <a href="https://github.com/Unity-Technologies/dots/blob/docs-systembase-changes/Samples/Packages/com.unity.entities/Unity.Entities/ComponentSystemBase.cs" class="contribution-link">Improve this Doc</a>
-                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
@@ -1409,7 +410,7 @@ other factors may prevent a system from updating. For example, a system will not
               <a href="#top">Back to top</a>
             </span>
             
-            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span>
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Wednesday, October 28, 2020
           </div>
         </div>
       </footer>
@@ -1420,5 +421,6 @@ other factors may prevent a system from updating. For example, a system will not
     <script type="text/javascript" src="../styles/main.js"></script>
     <script type="text/javascript" src="../styles/metadata-collector.js"></script>
     <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
   </body>
 </html>

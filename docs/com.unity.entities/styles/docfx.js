@@ -1,4 +1,26 @@
 // Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+/**
+ * UI texts
+ */
+var UITexts = { 
+  _UI_NoResultsFound: 'No results found', 
+  _UI_InThisArticle: 'In This Article', 
+  _UI_SearchResultsFor: 'Search Results for "{0}"',
+}
+
+function format(str, keys) {
+  var result = str.slice(0);
+  for (k in keys) {
+    result = result.replace("{" + k + "}", keys[k])
+  }
+  return result;
+}
+
+function appendUITexts(key, value){
+  UITexts[key] = value;
+}
+
 $(function () {
   var active = 'active';
   var expanded = 'in';
@@ -19,7 +41,8 @@ $(function () {
   renderAffix();
   renderFooter();
   renderLogo();
-
+  collapsibleSections();
+  
   window.refresh = function (article) {
     // Update markup result
     if (typeof article == 'undefined' || typeof article.content == 'undefined')
@@ -30,6 +53,7 @@ $(function () {
     renderTables();
     renderAlerts();
     renderAffix();
+    collapsibleSections();
   }
 
   // Styling for tables in conceptual documents using Bootstrap.
@@ -64,7 +88,41 @@ $(function () {
       }).attr('target', '_blank');
     }
   }
+  //Enable collapsible sections: applies to divs that are children of a collapsible class element
+  function collapsibleSections(){
+      var collapsibles = document.getElementsByClassName("collapsible");
+      var i;
 
+      for (i = 0; i < collapsibles.length; i++) {
+        if(collapsibles[i].children.length > 6){
+            collapsibles[i].classList.toggle("closed");
+            console.log("Found show-bottom " + collapsibles[i].classList.contains("show-bottom"));
+            if(collapsibles[i].classList.contains("show-bottom")){
+                for(var j = collapsibles[i].children.length - 1; j > collapsibles[i].children.length - 4; j--){
+                    collapsibles[i].children[j].classList.add("initial");
+                }
+                collapsibles[i].children[1].classList.add("initial");
+            }
+            else
+            {
+                for(var j = 1; j < 6; j++){
+                    collapsibles[i].children[j].classList.add("initial");
+                }
+            }
+        }
+        collapsibles[i].addEventListener("click", function(evt) {
+          if(evt.target.tagName != 'A')
+          {
+            this.classList.toggle("closed");
+            for(var j = 1; j < this.children.length; j++){
+                this.children[j].classList.remove("initial");
+            }
+          }
+        });
+      }
+  }
+
+  
   // Enable highlight.js
   function highlight() {
     $('pre code').each(function (i, block) {
@@ -239,7 +297,7 @@ $(function () {
           } else {
             flipContents("hide");
             $("body").trigger("queryReady");
-            $('#search-results>.search-list').text('Search Results for "' + query + '"');
+            $('#search-results>.search-list').text(format(UITexts._UI_SearchResultsFor, [query]));
           }
         }).off("keydown");
       });
@@ -287,7 +345,7 @@ $(function () {
       $('#pagination').empty();
       $('#pagination').removeData("twbs-pagination");
       if (hits.length === 0) {
-        $('#search-results>.sr-items').html('<p>No results found</p>');
+        $('#search-results>.sr-items').html('<p>'+ UITexts._UI_NoResultsFound +'</p>');
       } else {
         $('#pagination').twbsPagination({
           totalPages: Math.ceil(hits.length / numPerPage),
@@ -552,7 +610,7 @@ $(function () {
   function renderAffix() {
     var hierarchy = getHierarchy();
     if (hierarchy.length > 0) {
-      var html = '<h5 class="title">In This Article</h5>'
+      var html = '<h5 class="title">' + UITexts._UI_InThisArticle +'</h5>'
       html += util.formList(hierarchy, ['nav', 'bs-docs-sidenav']);
       $("#affix").empty().append(html);
       if ($('footer').is(':visible')) {
@@ -801,3 +859,16 @@ $(function () {
     }
   }
 })
+appendUITexts('_UI_search', 'Search')
+appendUITexts('_UI_docs_url', 'http://docs.unity3d.com/')
+appendUITexts('_UI_back_to_top', 'Back to top')
+appendUITexts('_UI_show_hide_toc', 'Show / Hide Table of Contents')
+appendUITexts('_UI_Manual', 'Manual')
+appendUITexts('_UI_License', 'License')
+appendUITexts('_UI_Changelog', 'Changelog')
+appendUITexts('_UI_Scripting_API', 'Scripting API')
+appendUITexts('_UI_NoResultsFound', 'No results found')
+appendUITexts('_UI_InThisArticle', 'In This Article')
+appendUITexts('_UI_SearchResultsFor', 'Search Results for "{0}"')
+appendUITexts('_UI_enter_here_to_filter', 'Enter here to filter...')
+appendUITexts('_UI_lang', 'en')
