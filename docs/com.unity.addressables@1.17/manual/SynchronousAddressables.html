@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Synchronous Workflow | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Synchronous Workflow | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="synchronous-workflow">Synchronous Workflow</h2>
+
+<p>Synchronous Addressables APIs help to more closely mirror Unity asset loading workflows.  <code>AsyncOperationHandles</code> now have a method called <code>WaitForCompletion()</code> that force the async operation to complete and return the <code>Result</code> of the operation.</p>
+<h2 id="api">API</h2>
+<p><code>TObject WaitForCompletion()</code></p>
+<h2 id="result">Result</h2>
+<p>The result of <code>WaitForCompletion</code> is the <code>Result</code> of the async operation it is called on.  If the operation fails, this returns <code>default(TObject)</code>.</p>
+<p>It is possible to get a <code>default(TObject)</code> for a result when the operation doesn&#39;t fail.  Async operations that auto release their <code>AsyncOperationHandles</code> on completion are such cases.  <code>Addressables.InitializeAsync()</code> and any API with a <code>autoReleaseHandle</code> parameter set to true will return <code>default(TObject)</code> even though the operations themselves succeeded.</p>
+<h2 id="performance">Performance</h2>
+<p>It is worth noting that calling <code>WaitForCompletion</code> may have performance implications on your runtime when compared to <code>Resources.Load</code> or <code>Instantiate</code> calls directly.  If your <code>AssetBundle</code> is local or has been previously downloaded and cached, these performance hits are likely to be negligible.  However, this may not be the case for your individual project setup.</p>
+<p>All currently active Asset Load operations are completed when <code>WaitForCompletion</code> is called on any Asset Load operation, due to how Async operations are handled in the Engine. To avoid unexpected stalls, use <code>WaitForCompletion</code> when the current operation count is known, and the intention is for all active operations to complete synchronously.</p>
+<p>When using <code>WaitForCompletion</code>, there are performance implications. When using 2021.2.0 or newer, these are minimal. Using an older version can result in delays that scale with the number of Engine Asset load calls that are loading when <code>WaitForCompletion</code> is called.</p>
+<p>It is not recommended that you call <code>WaitForCompletion</code> on an operation that is going to fetch and download a remote <code>AssetBundle</code>.  Though, it is possible if that fits your specific situation. </p>
+<h2 id="code-sample">Code Sample</h2>
+<pre><code>void Start()
+{
+    //Basic use case of forcing a synchronous load of a GameObject
+    var op = Addressables.LoadAssetAsync&lt;GameObject&gt;(&quot;myGameObjectKey&quot;);
+    GameObject go = op.WaitForCompletion();
+
+    //Do work...
+
+    Addressables.Release(op);
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

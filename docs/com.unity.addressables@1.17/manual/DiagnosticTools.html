@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Diagnostic tools | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Diagnostic tools | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-diagnostic-tools">
+<h1 id="diagnostic-tools">Diagnostic tools</h1>
+
+<h2 id="build-layout-report">Build layout report</h2>
+<p>The build layout report provides detailed information and statistics about your Addressables builds, including:</p>
+<ul>
+<li>Description of AssetBundles</li>
+<li>Sizes of each Asset and AssetBundle</li>
+<li>Explanation of non-explicit Assets that were pulled into AssetBundles</li>
+<li>AssetBundle dependencies</li>
+</ul>
+<p>Because compiling the report increases build time, the build layout report is disabled by default. You can enable the report in the Addressables section of the <a href="https://docs.unity3d.com/Manual/Preferences.html">Preferences window</a>. Once enabled, the report is created whenever you build Addressables content. You can find the report in your project folder at <code>Library/com.unity.addressables/buildlayout.txt</code>.</p>
+<p>See <a href="AddressableAssetsGettingStarted.html#building-your-addressable-content">Building your Addressable content</a> for more information about building content.</p>
+<h2 id="build-profiling">Build Profiling</h2>
+<p>Running an Addressables build creates a .json log file that contains build performance information. You can find the log file in your project folder at <code>Library/com.unity.addressables/AddressablesBuildTEP.json</code>.</p>
+<p>View the log file by entering the <code>chrome://tracing</code> URL in Google Chrome.</p>
+<p><img src="images/AddressablesBuildTracing.png" alt="A sample log file being displayed in chrome://tracing"><br>
+<em>A sample log file being displayed in chrome://tracing</em></p>
+<p>See <a href="https://docs.unity3d.com/Packages/com.unity.scriptablebuildpipeline@latest">Unity Scriptable Build Pipeline</a> for more information about build performance logging.</p>
+<h2 id="the-addressables-analyze-tool">The Addressables Analyze tool</h2>
+<p>Analyze is a tool that gathers information on your Projects&#39; Addressables layout. In some cases, Analyze may take appropriate actions to clean up the state of your Project. In others, Analyze is purely an informational tool that allows you to make more informed decisions about your Addressables layout.</p>
+<h3 id="using-analyze">Using Analyze</h3>
+<p>In the Editor, open the <strong>Addressables Analyze</strong> window (<strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Analyze</strong>), or open it via the <strong>Addressables Groups</strong> window by clicking  the <strong>Tools</strong> &gt; <strong>Analyze</strong> button.</p>
+<p>The Analyze window displays a list of Analyze rules, along with the following operations: </p>
+<ul>
+<li>Analyze Selected Rules</li>
+<li>Clear Selected Rules</li>
+<li>Fix Selected Rules</li>
+</ul>
+<h4 id="the-analyze-operation">The analyze operation</h4>
+<p>The analyze operation is the information-gathering step of the rule. Running this action on a rule or set of rules gathers data about the build, dependency maps, and more. Each rule is responsible for gathering the desired data and reporting it back as a list of <a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AnalyzeRules.AnalyzeRule.AnalyzeResult.html"><code>AnalyzeResult</code></a> objects.</p>
+<p>No action should be taken to modify any data or the state of the Project during the analyze step. Based on the data gathered in this step, the <a href="#the-fix-operation">fix</a> operation may be the appropriate course of action. Some rules, however, only contain an analyze step, as no reasonably appropriate and universal action can be taken based on the information gathered. <a href="#check-scene-to-addressable-duplicate-dependencies">Check Scene to Addressable Duplicate Dependencies</a> and <a href="#check-resources-to-addressable-duplicate-dependencies">Check Resources to Addressable Duplicate Dependencies</a> are examples of such rules.</p>
+<p>Rules that are purely informational and contain no fix operation are categorized as <strong>Unfixable Rules</strong>. Those that do have a fix operation are categorized as <strong>Fixable Rules</strong>.</p>
+<h4 id="the-clear-step">The clear step</h4>
+<p>This operation will remove any data gathered by the analysis and update the <code>TreeView</code> accordingly.</p>
+<h4 id="the-fix-operation">The fix operation</h4>
+<p>For <strong>Fixable Rules</strong>, you may choose to run the fix operation. This uses data gathered during the analyze step to perform any necessary modifications and resolve the issues.</p>
+<p><a href="#check-duplicate-bundle-dependencies">Check Duplicate Bundle Dependencies</a> is an example of a fixable rule, because there is a reasonably appropriate action that can be taken to resolve the issues detected in the analysis.</p>
+<h3 id="provided-analyze-rules">Provided Analyze rules</h3>
+<h4 id="fixable-rules">Fixable rules</h4>
+<h5 id="check-duplicate-bundle-dependencies">Check Duplicate Bundle Dependencies</h5>
+<p>This rule checks for potentially duplicated assets, by scanning all groups with <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.GroupSchemas.BundledAssetGroupSchema.html"><code>BundledAssetGroupSchemas</code></a> and projecting the asset group layout. This essentially requires triggering a full build, so this check is time-consuming and performance-intensive.  </p>
+<p><strong>Issues</strong>: Duplicated assets result from assets in different groups sharing dependencies, for example two Prefabs that share a material existing in different Addressable groups. That material (and any of its dependencies) would be pulled into both groups containing the Prefabs. To prevent this, the material must be marked as Addressable, either with one of the Prefabs, or in its own space, thereby putting the material and its dependencies in a separate Addressable group.  </p>
+<p><strong>Resolution</strong>: If this check discovers any issues, running the fix operation on this rule creates a new Addressable group in which to move all dependent assets.</p>
+<p><strong>Exceptions</strong>: If you have an asset containing multiple objects, it is possible for different groups to only pull in portions of the asset, and not actually duplicate. An FBX with many meshes is an example of this. If one mesh is in &quot;GroupA&quot; and another is in &quot;GroupB&quot;, this rule will think that the FBX is shared, and extract it into its own group if you run the fix operation. In this edge case, running the fix operation is actually harmful, as neither group would have the full FBX asset.</p>
+<p>Also note that duplicate assets may not always be an issue. If assets will never be requested by the same set of users (for example, region-specific assets), then duplicate dependencies may be desired, or at least inconsequential. Each Project is unique, so fixing duplicate asset dependencies should be evaluated on a case by case basis.</p>
+<h4 id="unfixable-rules">Unfixable rules</h4>
+<h5 id="check-resources-to-addressable-duplicate-dependencies">Check Resources to Addressable Duplicate Dependencies</h5>
+<p>This rule detects if any assets or asset dependencies are duplicated between built Addressable data and assets residing in a <code>Resources</code> folder. </p>
+<p><strong>Issues</strong>: These duplications mean that data will be included in both the application build and the Addressables build.</p>
+<p><strong>Resolution</strong>: This rule is unfixable, because no appropriate action exists. It is purely informational, alerting you to the redundancy. You must decide how to proceed and what action to take, if any. One example of a possible manual fix is to move the offending asset(s) out of the <code>Resources</code> folder, and make them Addressable.</p>
+<h5 id="check-scene-to-addressable-duplicate-dependencies">Check Scene to Addressable Duplicate Dependencies</h5>
+<p>This rule detects any assets or asset dependencies that are shared between the Scenes in the Editor Scene list and Addressables. </p>
+<p><strong>Issues</strong>: These duplications mean that data will be included in both the application build and the Addressables build.</p>
+<p><strong>Resolution</strong>: It is purely informational, alerting you to the redundancy. You must decide how to proceed and what action to take, if any. One example of a possible manual fix is to pull the built-in Scene(s) with duplicated references out of Build Settings and make it an Addressable Scene.</p>
+<h5 id="build-bundle-layout">Build Bundle Layout</h5>
+<p>This rule will show how assets explicitly marked as Addressable will be laid out in the Addressable build.  Given these explicit assets, we also show what assets are implicitly referenced by, and therefore will be pulled into, the build.</p>
+<p>Data gathered by this rule does not indicate any particular issues.  It is purely informational. </p>
+<h3 id="extending-analyze">Extending Analyze</h3>
+<p>Each unique Project may require additional Analyze rules beyond what comes pre-packaged. The Addressable Assets System allows you to create your own custom rule classes. </p>
+<h4 id="analyzerule-objects">AnalyzeRule objects</h4>
+<p>Create a new child class of the <a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AnalyzeRules.AnalyzeRule.html"><code>AnalyzeRule</code></a> class, overriding the following properties: </p>
+<ul>
+<li><a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AnalyzeRules.AnalyzeRule.html#UnityEditor_AddressableAssets_Build_AnalyzeRules_AnalyzeRule_CanFix"><code>CanFix</code></a> tells Analyze if the rule is deemed fixable or not.</li>
+<li><a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AnalyzeRules.AnalyzeRule.html#UnityEditor_AddressableAssets_Build_AnalyzeRules_AnalyzeRule_ruleName"><code>ruleName</code></a> is the display name you&#39;ll see for this rule in the <strong>Analyze window</strong>.</li>
+</ul>
+<p>You&#39;ll also need to override the following methods, which are detailed below: </p>
+<ul>
+<li><a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AnalyzeRules.AnalyzeRule.html#UnityEditor_AddressableAssets_Build_AnalyzeRules_AnalyzeRule_RefreshAnalysis_UnityEditor_AddressableAssets_Settings_AddressableAssetSettings_"><code>List&lt;AnalyzeResult&gt; RefreshAnalysis(AddressableAssetSettings settings)</code></a></li>
+<li><a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AnalyzeRules.AnalyzeRule.html#UnityEditor_AddressableAssets_Build_AnalyzeRules_AnalyzeRule_FixIssues_UnityEditor_AddressableAssets_Settings_AddressableAssetSettings_"><code>void FixIssues(AddressableAssetSettings settings)</code></a></li>
+<li><a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AnalyzeRules.AnalyzeRule.html#UnityEditor_AddressableAssets_Build_AnalyzeRules_AnalyzeRule_ClearAnalysis"><code>void ClearAnalysis()</code></a></li>
+</ul>
+<p><strong>Note</strong>: If your rule is designated unfixable, you don&#39;t have to override the <code>FixIssues</code> method.</p>
+<h5 id="refreshanalysis">RefreshAnalysis</h5>
+<p>This is your analyze operation. In this method, perform any calculations you&#39;d like and cache any data you might need for a potential fix. The return value is a <code>List&lt;AnalyzeResult&gt;</code> list. After you&#39;d gathered your data, create a new <a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AnalyzeRules.AnalyzeRule.AnalyzeResult.html"><code>AnalyzeResult</code></a> for each entry in your analysis, containing the data as a string for the first parameter and a <a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AnalyzeRules.AnalyzeRule.AnalyzeResult.html#UnityEditor_AddressableAssets_Build_AnalyzeRules_AnalyzeRule_AnalyzeResult_severity"><code>MessageType</code></a> for the second (to optionally designate the message type as a warning or error). Return the list of objects you create.</p>
+<p>If you need to make child elements in the <code>TreeView</code> for a particular <a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AnalyzeRules.AnalyzeRule.AnalyzeResult.html"><code>AnalyzeResult</code></a> object, you can delineate the parent item and any children with <a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AnalyzeRules.AnalyzeRule.html#UnityEditor_AddressableAssets_Build_AnalyzeRules_AnalyzeRule_kDelimiter"><code>kDelimiter</code></a>. Include the delimiter between the parent and child items.</p>
+<h5 id="fixissues">FixIssues</h5>
+<p>This is your fix operation. If there is an appropriate action to take in response to the analyze step, execute it here.</p>
+<h5 id="clearanalysis">ClearAnalysis</h5>
+<p>This is your clear operation. Any data you cached in the analyze step can be cleaned or removed in this function. The <code>TreeView</code> will update to reflect the lack of data.</p>
+<h4 id="adding-custom-rules-to-the-gui">Adding custom rules to the GUI</h4>
+<p>A custom rule must register itself with the GUI class using <code>AnalyzeSystem.RegisterNewRule&lt;RuleType&gt;()</code>, in order to show up in the <strong>Analyze</strong> window. For example:</p>
+<pre><code>class MyRule : AnalyzeRule {}
+[InitializeOnLoad]
+class RegisterMyRule
+{
+    static RegisterMyRule()
+    {
+        AnalyzeSystem.RegisterNewRule&lt;MyRule&gt;();
+    }
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

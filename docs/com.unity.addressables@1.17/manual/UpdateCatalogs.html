@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Addressables.UpdateCatalogs | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Addressables.UpdateCatalogs | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-api-update-catalogs">
+<h1 id="addressablesupdatecatalogs">Addressables.UpdateCatalogs</h1>
+
+<h4 id="api">API</h4>
+<ul>
+<li><code>static AsyncOperationHandle&lt;List&lt;IResourceLocator&gt;&gt; UpdateCatalogs(IEnumerable&lt;string&gt; catalogs = null, bool autoReleaseHandle = true)</code></li>
+</ul>
+<h4 id="returns">Returns</h4>
+<p><code>AsyncOperationHandle&lt;List&lt;IResourceLocator&gt;&gt;</code>: A list of the <code>IResourceLocators</code> loaded from the updated catalogs.</p>
+<p>Like with the <a href="LoadContentCatalogAsync.html"><code>LoadContentCatalogAsync</code></a> API, no further action is needed to use the new content catalogs.  The handle can be safely released after completion.</p>
+<h4 id="description">Description</h4>
+<p><code>Addressables.UpdateCatalogs</code> is used to update the content catalog at runtime.  When <code>UpdateCatalogs</code> is called, all <code>Addressables</code> requests, such as asset loading and instantiation, are blocked until the <code>UpdateCatalogs</code> operation is complete.</p>
+<p>There is an option on the <code>AddressableAssetSettings</code> object called &quot;Unique Bundle IDs&quot; which forces unique <code>AssetBundle</code> IDs.  If enabled, this option may lead to more <code>AssetBundles</code> getting rebuilt during build time but makes updating content catalogs safer at runtime.  &quot;Unique Bundle IDs&quot; creates more complex internal IDs for the <code>AssetBundles</code>, which prevents internal ID collisions at load time.</p>
+<p>The option is located on the <code>AddressableAssetSettings</code> object (inside <code>Assets/AddressableAssetsData/</code> by default) under the General section.</p>
+<h5 id="related-api">Related API</h5>
+<p>The list of content catalogs with an available update can be aquired through <code>Addressables.CheckForCatalogUpdates</code>.  If no catalog list is passed in, <code>CheckForCatalogUpdates</code> is called automatically.</p>
+<p><code>CheckForCatalogUpdates</code> iterates through each <code>ResourceLocator</code> currently being used by <code>Addressables</code> and return a list of <code>strings</code> that correlate to the content catalog IDs that have an available update.</p>
+<p>In order for a Catalog to be discoverable as updated. The AsyncOperationHandle used to load the original Catalog must first be released.</p>
+<p>It is safe to release the <code>AsyncOperationHandle</code> from <code>Addressables.CheckForCatalogUpdates</code> after completion, or let it automatically relase with the <code>autoReleaseHandle</code> parameter.  If you intend to use the <code>Result</code> of <code>CheckForCatalogUpdates</code> then store it as part of the <code>Completed</code> operation (see Code Sample below).</p>
+<h4 id="code-sample">Code Sample</h4>
+<p>Check for catalog update prior to update operation:</p>
+<pre><code>IEnumerator UpdateCatalogs()
+{
+    List&lt;string&gt; catalogsToUpdate = new List&lt;string&gt;();
+    AsyncOperationHandle&lt;List&lt;string&gt;&gt; checkForUpdateHandle = Addressables.CheckForCatalogUpdates();
+    checkForUpdateHandle.Completed += op =&gt;
+    {
+        catalogsToUpdate.AddRange(op.Result);
+    };
+    yield return checkForUpdateHandle;
+    if (catalogsToUpdate.Count &gt; 0)
+    {
+        AsyncOperationHandle&lt;List&lt;IResourceLocator&gt;&gt; updateHandle = Addressables.UpdateCatalogs(catalogsToUpdate);
+        yield return updateHandle;
+    }
+}
+</code></pre><p>Allow <code>Addressables</code> to handle checking for catalog updates automatically:</p>
+<pre><code> IEnumerator UpdateCatalogs()
+{
+    AsyncOperationHandle&lt;List&lt;IResourceLocator&gt;&gt; updateHandle = Addressables.UpdateCatalogs();
+    yield return updateHandle;
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

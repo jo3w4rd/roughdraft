@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>AddressableAssetSettings.BuildPlayerContent | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="AddressableAssetSettings.BuildPlayerContent | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-api-build-player-content">
+<h1 id="addressableassetsettingsbuildplayercontent">AddressableAssetSettings.BuildPlayerContent</h1>
+
+<h4 id="api">API</h4>
+<ul>
+<li><code>static void BuildPlayerContent()</code></li>
+<li><code>static void BuildPlayerContent(out AddressablesPlayerBuildResult result)</code></li>
+</ul>
+<h4 id="description">Description</h4>
+<p><code>AddressableAssetSettings.BuildPlayerContent()</code> is used to build relevant <code>Addressables</code> data into <code>AssetBundles</code> and the corresponding <code>ContentCatalog</code>.  It can be used in custom scripts used to assist in continuous integration/deployment.</p>
+<p>To check for success, use <code>BuildPlayerContent(out AddressablesPlayerBuildResult result)</code>. <code>result.Error</code> will contain any error message returned if the Addressables build failed. If <code>string.IsNullOrEmpty(result.Error)</code> is true, the build was successful.</p>
+<p>There are a few pieces of information that <code>BuildPlayerContent</code> takes into consideration when performing the build: the <code>AddressablesDefaultSettingsObject</code>, <code>ActivePlayerDataBuilder</code>, and the <code>content_state.bin</code>.</p>
+<p>The <code>AddressablesDefaultSettingsObject</code> drives which groups get processed and which <code>Addressables</code> profile is used.  The profile dictates variables such as local and remote build paths as well as load paths.  A default <code>AddressablesDefaultSettingsObject</code> is provided but can be overwritten by setting <code>AddressablesDefaultSettingsObject.Settings</code> to your custom <code>AddressableAssetSettings</code>.</p>
+<p>Ensure the active profile is set to the desired profile ID before performing the build.  If, for example, you have a profile you want to use for a continuous integration pipeline called &quot;Custom CI Profile&quot;, you can set the active profile using this code snippet,</p>
+<pre><code>AddressableAssetProfileSettings profileSettings = AddressableAssetSettingsDefaultObject.Settings.profileSettings;
+string profileId = profileSettings.GetProfileId(&quot;Custom CI Profile&quot;);
+AddressableAssetSettingsDefaultObject.Settings.activeProfileId = profileId;
+</code></pre><p>The build is performed using the <code>ActivePlayerDataBuilder</code>, which is determined by a combination of the <code>ActivePlayerDataBuilderIndex</code> and the list of <code>DataBuilders</code>.  The list of <code>DataBuilders</code> is comprised of <code>ScriptableObjects</code>, which implement the <code>IDataBuilder</code> interface.  A basic example of adding and setting the <code>ActivePlayerDataBuilder</code> would look like this,</p>
+<pre><code>public void AddAndSetActiveDataBuilder(IDataBuilder dataBuilder)
+{
+    if (AddressableAssetSettingsDefaultObject.Settings.AddDataBuilder(dataBuilder))
+    {
+        AddressableAssetSettingsDefaultObject.Settings.ActivePlayerDataBuilderIndex =
+            AddressableAssetSettingsDefaultObject.Settings.DataBuilders.Count - 1;
+    }
+}
+</code></pre><p>This sample adds the <code>IDataBuilder</code> to the list of <code>DataBuilders</code> and then sets the <code>ActivePlayerDataBuilderIndex</code> to the last index of that list.  Other useful methods for manipulating the <code>DataBuilders</code> are <code>RemoveDataBuilder</code> and <code>SetDataBuilderAtIndex</code>.</p>
+<p>It may also be desirable to save content state between builds, typically for use with content build updates.  <code>Addressables</code> uses a <code>content_state.bin</code> to save the <code>AssetState</code> into a structure called a <code>CachedAssetState</code>.  Retrieval of the <code>.bin</code> file can be done as follows,</p>
+<pre><code>string contentStatePath = ContentUpdateScript.GetContentStateDataPath(false);
+AddressablesContentState contentState = ContentUpdateScript.LoadContentState(contentStatePath);
+//...
+</code></pre><p>and then saving the new content state can be done using <code>ContentUpdateScript.SaveContentState(...)</code>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

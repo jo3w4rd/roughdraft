@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Unity Addressable Asset system | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Unity Addressable Asset system | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-home">
+<h1 id="unity-addressable-asset-system">Unity Addressable Asset system</h1>
+
+<p>The Addressable Asset system provides an easy way to load assets by “address”. It handles asset management overhead by simplifying content pack creation and deployment.</p>
+<p>The Addressable Asset system uses asynchronous loading to support loading from any location with any collection of dependencies. Whether you use direct references, traditional <a href="https://docs.unity3d.com/Manual/AssetBundlesIntro.html" title="AssetBundles">AssetBundles</a>, or <code>Resource</code> folders for asset management, Addressable Assets provide a simpler way to make your game more dynamic.</p>
+<h2 id="what-is-an-asset">What is an asset?</h2>
+<p>An asset is content that you use to create your game or app. Common examples of assets include Prefabs, textures, materials, audio clips, and animations.</p>
+<h2 id="what-is-an-addressable-asset">What is an Addressable Asset?</h2>
+<p>Making an asset &quot;Addressable&quot; allows you to use that asset&#39;s unique address to call it from anywhere. Whether that asset resides in the local application or on a content delivery network, the Addressable Asset System locates and returns it. You can load a single Addressable Asset via its address, or load many Addressable Assets using a custom group label that you define.</p>
+<h2 id="why-use-addressable-assets">Why use Addressable Assets?</h2>
+<p>Traditional means of structuring game assets make it challenging to efficiently load content. Addressables shorten your iteration cycles, allowing you to devote more time to designing, coding, and testing your application. </p>
+<ul>
+<li><strong>Iteration time</strong>: Referring to content by its address is extremely efficient. Optimizations to the content no longer require changes to your code.</li>
+<li><strong>Dependency management</strong>: The system returns all dependencies of the requested content, so that all meshes, shaders, animations, and so forth load before returning the content to you.</li>
+<li><strong>Memory management</strong>: The system unloads assets as well as loading them, counting references automatically and providing a robust profiler to help you spot potential memory problems.</li>
+<li><strong>Content packing</strong>: Because the system maps and understands complex dependency chains, it allows for efficient packing of bundles, even when moving or renaming assets. You can easily prepare assets for both local and remote deployment, to support downloadable content and reduced application size.</li>
+<li><strong>Profiles</strong>: The system allows you to create a set of string variables that more easily enables you to change how your content is built into bundles without modifying settings in multiple places.</li>
+</ul>
+<h2 id="what-about-my-existing-game">What about my existing game?</h2>
+<p>The Addressable Asset System provides a <a href="AddressableAssetsMigrationGuide.html">migration path</a> for upgrading, whether you use direct references, <code>Resource</code> folders, or AssetBundles.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

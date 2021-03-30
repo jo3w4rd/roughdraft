@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Custom operations | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Custom operations | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-custom-operations">
+<h1 id="custom-operations">Custom operations</h1>
+
+<p>The <a class="xref" href="../api/UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider.html"><code>IResourceProvider</code></a> API allows you to extend the loading process by defining locations and dependencies in a data-driven manner. </p>
+<p>In some cases, you might want to create a custom operation. The <a class="xref" href="../api/UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider.html"><code>IResourceProvider</code></a> API is internally built on top of these custom operations.</p>
+<h3 id="creating-custom-operations">Creating custom operations</h3>
+<p>Create custom operations by deriving from the <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase-1.html"><code>AsyncOperationBase</code></a> class and overriding the desired virtual methods. You can pass the derived operation to the <a class="xref" href="../api/UnityEngine.ResourceManagement.ResourceManager.html#UnityEngine_ResourceManagement_ResourceManager_StartOperation__1_UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationBase___0__UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationHandle_"><code>ResourceManager.StartOperation</code></a> method to start the operation and receive an <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html"><code>AsyncOperationHandle</code></a> struct. Operations started this way are registered with the <a class="xref" href="../api/UnityEngine.ResourceManagement.ResourceManager.html"><code>ResourceManager</code></a>
+ and appear in the <a href="MemoryManagement.html#the-addressables-event-viewer">Addressables Event Viewer</a>.</p>
+<h4 id="executing-the-operation">Executing the operation</h4>
+<p>The <a class="xref" href="../api/UnityEngine.ResourceManagement.ResourceManager.html"><code>ResourceManager</code></a> invokes the <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase-1.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationBase_1_Execute"><code>AsyncOperationBase.Execute</code></a> method for your custom operation once the optional dependent operation completes.</p>
+<h4 id="completion-handling">Completion handling</h4>
+<p>When your custom operation completes, call <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase-1.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationBase_1_Complete__0_System_Boolean_System_String_"><code>AsyncOperationBase.Complete</code></a> on your custom operation object. You can call this within the <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase-1.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationBase_1_Execute"><code>Execute</code></a> method or defer it to outside the call. Calling <code>AsyncOperationBase.Complete</code> notifies the <a class="xref" href="../api/UnityEngine.ResourceManagement.ResourceManager.html"><code>ResourceManager</code></a> that the operation is complete and will invoke the associated <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationHandle_Completed"><code>AsyncOperationHandle.Completed</code></a> events.</p>
+<h4 id="terminating-the-operation">Terminating the operation</h4>
+<p>The <a class="xref" href="../api/UnityEngine.ResourceManagement.ResourceManager.html"><code>ResourceManager</code></a> invokes the <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase-1.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationBase_1_Destroy"><code>AsyncOperationBase.Destroy</code></a> method for your custom operation when you release the <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html"><code>AsyncOperationHandle</code></a> that references it. This is where you should release any memory or resources associated with your custom operation.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

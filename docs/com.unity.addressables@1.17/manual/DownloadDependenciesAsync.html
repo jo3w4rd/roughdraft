@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Addressables.DownloadDependenciesAsync | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Addressables.DownloadDependenciesAsync | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-api-download-dependencies-async">
+<h1 id="addressablesdownloaddependenciesasync">Addressables.DownloadDependenciesAsync</h1>
+
+<h4 id="api">API</h4>
+<ul>
+<li><code>static AsyncOperationHandle DownloadDependenciesAsync(object key, bool autoReleaseHandle = false)</code></li>
+<li><code>static AsyncOperationHandle DownloadDependenciesAsync(IList&lt;IResourceLocation&gt; locations, bool autoReleaseHandle = false)</code></li>
+<li><code>static AsyncOperationHandle DownloadDependenciesAsync(IEnumerable keys, MergeMode mode, bool autoReleaseHandle = false)</code></li>
+</ul>
+<h4 id="returns">Returns</h4>
+<p><code>AsyncOperationHandle</code>: an async operation handle that encompasses all the operations used to download the requested dependencies.  Once complete, this handle can be safely released.</p>
+<h4 id="description">Description</h4>
+<p><code>Addressables.DownloadDependenciesAsync</code> is primarily designed to be used to download and cache remote <code>AssetBundles</code> prior to their use at runtime.  Caching <code>AssetBundles</code> early leads to improved performance on any initial call, such as a <code>LoadAssetAsync</code>, that would have otherwise needed to download the bundles as part of their operation.  After reading the <code>Result</code> of this operation, it is best practice to release the handle manually; though the memory footprint is low, should you keep it in memory.</p>
+<p>This operation can be safely released once it is complete or you can pass <code>true</code> in the <code>autoReleaseHandle</code> parameter to ensure it is released on completion.  Of note, if the handle is released you won&#39;t be able to check the success of the operation handle through the <code>Status</code> property since the release invalidates the operation handle.</p>
+<p>Downloaded <code>AssetBundles</code> are stored in the engines <code>AssetBundle</code> cache.  <code>Addressables</code> provides a type of initialization object called a <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.CacheInitializationSettings.html"><code>CacheInitializationSettings</code></a> which can be used to control the <code>AssetBundle</code> cache settings.</p>
+<h5 id="related-api">Related API</h5>
+<p><a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationHandle_GetDownloadStatus"><code>AsyncOperationHandle.GetDownloadStatus()</code></a> will return information about how many bytes have been downloaded, and how many are needed. This is the API that should be used in place of <code>AsyncOperationHandle.PercentComplete</code> when working with any download operaion. See <a href="AddressableAssetsAsyncOperationHandle.html">AsyncOperationHandle</a>.</p>
+<p><code>GetDownloadSizeAsync</code> checks the total size of all <code>AssetBundles</code> that need to be downloaded.  Cached <code>AssetBundles</code> return a size of 0.  Unlike most operations that don&#39;t load anything, <code>GetDownloadSizeAsync</code> does not autorelease.  It does not autorelease because the <code>Result</code> is needed which could not be accessed from a released handle.  Once you have read the size out of the <code>Result</code>, you are responsible for releasing the operation handle; not doing so has little impact on the memory footprint.</p>
+<p><code>ClearDependencyCacheAsync</code> clears any cached <code>AssetBundles</code> for a given key or list of keys and its dependencies.  It is also possible to use the <a href="https://docs.unity3d.com/ScriptReference/Caching.html"><code>UnityEngine.Caching</code></a> APIs to manipulate the cache used by Addressables.  Of note, <code>ClearDependencyCacheAsync</code> works off the current content catalog.  This means if an <code>AssetBundle</code> is downloaded and cached, and the content catalog is updated to point to a new version of that <code>AssetBundle</code>, and it is possible for the previously cached bundle to remain in the cache until the cache says it&#39;s expired.</p>
+<h4 id="code-sample">Code Sample</h4>
+<pre><code>public IEnumerator Start()
+{
+    string key = &quot;assetKey&quot;;
+    //Clear all cached AssetBundles
+    Addressables.ClearDependencyCacheAsync(key);
+
+    //Check the download size
+    AsyncOperationHandle&lt;long&gt; getDownloadSize = Addressables.GetDownloadSizeAsync(key);
+    yield return getDownloadSize;
+
+    //If the download size is greater than 0, download all the dependencies.
+    if (getDownloadSize.Result &gt; 0)
+    {
+        AsyncOperationHandle downloadDependencies = Addressables.DownloadDependenciesAsync(key);
+        yield return downloadDependencies;
+    }
+
+    //...
+}
+</code></pre><h4 id="pitfalls">Pitfalls</h4>
+<p>Some platforms, such as PlayStation 4 and Nintendo Switch, do not support local <code>AssetBundle</code> caching.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

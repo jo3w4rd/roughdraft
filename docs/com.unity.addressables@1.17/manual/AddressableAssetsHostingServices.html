@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Asset Hosting Services | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Asset Hosting Services | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-asset-hosting-services">
+<h1 id="asset-hosting-services">Asset Hosting Services</h1>
+
+<h2 id="overview">Overview</h2>
+<p>Hosting Services provide an integrated facility for using Addressable Assets configuration data to serve packed content to local or network-connected application builds from within the Unity Editor. Hosting Services are designed to improve iteration velocity when testing packed content, and can also be used to serve content to connected clients on local and remote networks.</p>
+<h3 id="packed-mode-testing-and-iteration">Packed mode testing and iteration</h3>
+<p>Moving from Editor Play mode testing to platform application build testing introduces complexities and time costs to the development process. Hosting Services provide extensible Editor-embedded content delivery services that map directly to your Addressables group configuration. Using a custom Addressables profile, you can quickly configure your application to load all content from the Unity Editor itself. This includes builds deployed to mobile devices, or any other platform, that have network access to your development system.</p>
+<h3 id="turn-key-content-server">Turn-key content server</h3>
+<p>You can deploy Asset Hosting Services into a server environment by running in batch mode (headless) to host content for both intranet- and internet-facing Unity application clients.</p>
+<h2 id="setup">Setup</h2>
+<p>This article details the initial setup of Asset Hosting Services for your project. While the setup guide focuses on Editor workflows, you can use the API to configure Hosting Services by setting the <a class="xref" href="../api/UnityEditor.AddressableAssets.HostingServices.HostingServicesManager.html"><code>HostingServicesManager</code></a> property of the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.html"><code>AddressableAssetSettings</code></a> class.</p>
+<h3 id="configuring-a-new-hosting-service">Configuring a new Hosting Service</h3>
+<p>Use the <strong>Hosting window</strong> to add, configure, and enable new Hosting Services. In the Editor, select <strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Hosting</strong>, or click the <strong>Tools</strong> &gt; <strong>Hosting Services</strong> button from the <strong>Addressables Groups</strong> window menu to access the <strong>Addressables Hosting</strong> window.</p>
+<p><img src="images/HostingServicesWindow_1.png" alt="The Addressables Hosting window."><br>
+<em>The <strong>Addressables Hosting</strong> window.</em></p>
+<p>To add a new Local Hosting Service, click the <strong>Create</strong> &gt; <strong>Local Hosting</strong> button.</p>
+<p><img src="images/HostingServicesAddService_1.png" alt="Adding a new Hosting Service."><br>
+<em>Adding a new Hosting Service.</em></p>
+<p><strong>Note</strong>: For more information on implementing custom hosting service types, see the section on <a href="#custom-services">custom services</a>.</p>
+<p>The newly added service appears in the <strong>Hosting Services</strong> section of the <strong>Addressables Hosting</strong> window. Use the <strong>Service Name</strong> field enter a name for the service.</p>
+<p>The new service defaults to the disabled state. To initiate the service, select the <strong>Enable</strong> check box.</p>
+<p><img src="images/HostingServicesWindow_2.png" alt="The updated Addressables Hosting window after adding a service."><br>
+<em>The updated <strong>Addressables Hosting</strong> window after adding a service.</em></p>
+<p>The HTTP Hosting Service automatically assigns a port number when it starts. The port number is saved and reused between Unity sessions. To choose a different port, either assign a specific port number in the <strong>Port</strong> field, or use the <strong>Reset</strong> button to randomly assign a different port.</p>
+<p><strong>Note</strong>: If you reset the port number, you must execute a full application build to generate and embed the correct URL.</p>
+<p>The HTTP Hosting Service is now enabled and ready to serve content from the directory specified in the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.GroupSchemas.BundledAssetGroupSchema.html#UnityEditor_AddressableAssets_Settings_GroupSchemas_BundledAssetGroupSchema_BuildPath"><code>BuildPath</code></a> of each asset group.</p>
+<h3 id="hosting-service-profile-setup">Hosting Service profile setup</h3>
+<p>When working with Hosting Services during development, Unity recommends creating a profile that configures all asset groups to load content from the Hosting Service using a directory or directories created specifically for that purpose. For more about profiles, see <a href="AddressableAssetsProfiles.html">Addressable Assets Profiles</a>.</p>
+<p>Once in the <strong>Addressables Profiles</strong> window, create a new profile via <strong>Create</strong> &gt; <strong>Profile</strong>. In the following example, the new profile is called &quot;Editor Hosted&quot;.</p>
+<p><img src="images/HostingServicesProfiles_1.png" alt="Creating a service profile."><br>
+<em>Creating a service profile.</em></p>
+<p>Modify the loading path fields to instead load from the Hosting Service. <a class="xref" href="../api/UnityEditor.AddressableAssets.HostingServices.HttpHostingService.html"><code>HttpHostingService</code></a> is a URL that uses the local IP address and the port assigned to the service. From the <strong>Addressables Hosting</strong> window, you can use the profile variables named <code>PrivateIpAddress</code> and <code>HostingServicePort</code> to construct the URL (for example, <code>http://[PrivateIpAddress]:[HostingServicePort]</code>).</p>
+<p>Additionally, you should modify all build path variables to point to a common directory outside of the project&#39;s <code>Assets</code> folder.</p>
+<p><img src="images/HostingServicesProfiles_2.png" alt="Configuring the service&#39;s profile."><br>
+<em>Configuring the service&#39;s profile.</em></p>
+<p>Verify that each group is configured correctly. Ensure that the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.GroupSchemas.BundledAssetGroupSchema.html#UnityEditor_AddressableAssets_Settings_GroupSchemas_BundledAssetGroupSchema_BuildPath"><code>BuildPath</code></a> and <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.GroupSchemas.BundledAssetGroupSchema.html#UnityEditor_AddressableAssets_Settings_GroupSchemas_BundledAssetGroupSchema_LoadPath"><code>LoadPath</code></a> paths are set to their respective profile keys that are modified for use with Hosting Services. In this example, you can see how the profile variables in the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.GroupSchemas.BundledAssetGroupSchema.html#UnityEditor_AddressableAssets_Settings_GroupSchemas_BundledAssetGroupSchema_LoadPath"><code>LoadPath</code></a> are expanded to build a correct base URL for loading from Hosted Services.</p>
+<p><img src="images/HostingServicesGroups_1.png" alt="Inspecting the service&#39;s load paths."><br>
+<em>Inspecting the service&#39;s load paths.</em></p>
+<p>Finally, select the new profile from the <strong>Addressables Groups</strong> window, create a build, and deploy to the target device. The Unity Editor now serves all load requests from the application through the <a class="xref" href="../api/UnityEditor.AddressableAssets.HostingServices.HttpHostingService.html"><code>HttpHostingService</code></a> service. You can now make additions and changes to content without redeployment. Rebuild the Addressable content, and relaunch the already deployed application to refresh the content.</p>
+<p><img src="images/HostingServicesProfiles_3.png" alt="Selecting a Hosting Service profile."><br>
+<em>Selecting a Hosting Service profile.</em></p>
+<h3 id="batch-mode">Batch mode</h3>
+<p>You can also use Hosting Services to serve content from the Unity Editor running in batch mode. To do so, launch Unity from the command line with the following options:</p>
+<pre><code>-batchMode -executeMethod UnityEditor.AddressableAssets.HostingServicesManager.BatchMode
+</code></pre><p>This loads the Hosting Services configuration from the default <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.html"><code>AddressableAssetSettings</code></a> object, and starts all configured services.</p>
+<p>To use an alternative <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.html"><code>AddressableAssetSettings</code></a> configuration, create your own static method entry point, to call through the <a class="xref" href="../api/UnityEditor.AddressableAssets.HostingServices.HostingServicesManager.html#UnityEditor_AddressableAssets_HostingServices_HostingServicesManager_BatchMode_UnityEditor_AddressableAssets_Settings_AddressableAssetSettings_"><code>UnityEditor.AddressableAssets.HostingServicesManager.BatchMode(AddressableAssetSettings settings)</code></a> overload.</p>
+<p><a name="custom-services"></a></p>
+<h2 id="custom-services">Custom services</h2>
+<p>Hosting Services are designed to be extensible, allowing you to implement your own custom logic for serving content-loading requests from the Addressable Assets System. For example:</p>
+<ul>
+<li>Support a custom <a class="xref" href="../api/UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider.html"><code>IResourceProvider</code></a> that uses a non-HTTP protocol for downloading content.</li>
+<li>Manage an external process for serving content that matches your production CDN solution (such as an Apache HTTP server).</li>
+</ul>
+<h3 id="implementing-a-custom-service">Implementing a custom service</h3>
+<p>The <a class="xref" href="../api/UnityEditor.AddressableAssets.HostingServices.HostingServicesManager.html"><code>HostingServicesManager</code></a> can manage any class that implements an <a class="xref" href="../api/UnityEditor.AddressableAssets.HostingServices.IHostingService.html"><code>IHostingService</code></a> interface (for more details on method parameters and return values, see the <a class="xref" href="../api/UnityEditor.AddressableAssets.HostingServices.IHostingService.html">API documentation</a>.</p>
+<p>To create a new custom service:</p>
+<ol>
+<li>Follow the steps outlined in the <a href="#configuring-a-new-hosting-service">configuring a new Hosting Service</a> section above, but instead of selecting <strong>Create</strong> &gt; <strong>Local Hosting</strong> button, select <strong>Create</strong> &gt; <strong>Custom Service</strong> button instead. </li>
+<li>Drag and drop the applicable script into its field, or select it from the object picker. The dialog validates that the selected script implements the <a class="xref" href="../api/UnityEditor.AddressableAssets.HostingServices.IHostingService.html"><code>IHostingService</code></a> interface. </li>
+<li>To finish adding the service, click the <strong>Add</strong> button. </li>
+</ol>
+<p>Moving forward, your custom service will appear in the <strong>Service Type</strong> dropdown options.</p>
+<p><img src="images/HostingServicesAddService_2.png" alt="Adding a custom Asset Hosting Service."><br>
+<em>Adding a custom Asset Hosting Service.</em></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

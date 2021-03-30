@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Addressables FAQ | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Addressables FAQ | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-faq">
+<h1 id="addressables-faq">Addressables FAQ</h1>
+
+<h3 id="is-it-better-to-have-many-small-bundles-or-a-few-bigger-ones">Is it better to have many small bundles or a few bigger ones?</h3>
+<p>There are a few key factors that go into deciding how many bundles to generate.
+First, it&#39;s important to note that you control how many bundles you have both by how large your groups are, and by the groups&#39; build settings.  &quot;Pack Together&quot; for example, creates one bundle per group, while &quot;Pack Separately&quot; creates many.  See <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.GroupSchemas.BundledAssetGroupSchema.html#UnityEditor_AddressableAssets_Settings_GroupSchemas_BundledAssetGroupSchema_BundleMode">schema build settings for more information</a>.</p>
+<p>Once you know how to control bundle layout, the decision of how to set these up will be game specific.  Here are key pieces of data to help make that decision:</p>
+<p>Dangers of too many bundles:</p>
+<ul>
+<li>Each bundle has memory overhead.  Details are <a href="MemoryManagement.html#assetbundle-memory-overhead">on the memory management page</a>. This is tied to a number of factors, outlined on that page, but the short version is that this overhead can be significant.  If you anticipate 100&#39;s or even 1000&#39;s of bundles loaded in memory at once, this could mean a noticeable amount of memory eaten up.</li>
+<li>There are concurrency limits for downloading bundles.  If you have 1000&#39;s of bundles you need all at once, they cannot not all be downloaded at the same time.  Some number will be downloaded, and as they finish, more will trigger. In practice this is a fairly minor concern, so minor that you&#39;ll often be gated by the total size of your download, rather than how many bundles it&#39;s broken into.</li>
+<li>Bundle information can bloat the catalog.  To be able to download or load catalogs, we store string-based information about your bundles.  1000&#39;s of bundles worth of data can greatly increase the size of the catalog.</li>
+<li>Greater likelihood of duplicated assets. Say two materials are marked as Addressable and each depend on the same texture. If they are in the same bundle, then the texture is pulled in once, and referenced by both. If they are in separate bundles, and the texture is not itself Addressable, then it will be duplicated. You then either need to mark the texture as Addressable, accept the duplication, or put the materials in the same bundle. </li>
+</ul>
+<p>Dangers of too few bundles:</p>
+<ul>
+<li>The UnityWebRequest (which we use to download) does not resume failed downloads.  So if a large bundle is downloading and your user loses connection, the download is started over once they regain connection. </li>
+<li>Items can be loaded individually from bundles, but cannot be unloaded individually.  For example, if you have 10 materials in a bundle, load all 10, then tell Addressables to release 9 of them, all 10 will likely be in memory.  This is also covered <a href="MemoryManagement.html#when-is-memory-cleared">on the memory management page</a>.</li>
+</ul>
+<h3 id="what-compression-settings-are-best">What compression settings are best?</h3>
+<p>Addressables provides three different options for bundle compression: Uncompressed, LZ4, and LZMA.  Generally speaking, LZ4 should be used for local content, and LZMA for remote, but more details are outlined below as there can be exceptions to this.<br>You can set the compression option using the Advanced settings on each group. Compression does not affect in-memory size of your loaded content. </p>
+<ul>
+<li>Uncompressed - This option is largest on disk, and generally fasted to load.  If your game happens to have space to spare, this option should at least be considered for local content.  A key advantage of uncompressed bundles is how they handle being patched.  If you are developing for a platform where the platform itself provides patching (such as Steam or Switch), uncompressed bundles provide the most accurate (smallest) patching.  Either of the other compression options will cause at least some bloat of patches.</li>
+<li>LZ4 - If Uncompressed is not a viable option, then LZ4 should be used for all other local content.  This is a chunk-based compression which provides the ability to load parts of the file without needing to load it in its entirety. </li>
+<li>LZMA - LZMA should be used for all remote content, but not for any local content.  It provides the smallest bundle size, but is slow to load. If you were to store local bundles in LZMA you could create a smaller player, but load times would be significantly worse than uncompressed or LZ4. For downloaded bundles, we avoid the slow load time by recompressing the downloaded bundle when storing it in the asset bundle cache.  By default, bundles will be stored in the cache Uncompressed.  If you wish to compress the cache with LZ4, you can do so by creating a <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.CacheInitializationSettings.html"><code>CacheInitializationSettings</code></a>.  See <a href="AddressableAssetsDevelopmentCycle.html#initialization-objects">Initialization Objects</a> for more information about setting this up. </li>
+</ul>
+<p>Note that the hardware characteristics of a platform can mean that uncompressed bundles are not always the fastest to load.  The maximum speed of loading uncompressed bundles is gated by IO speed, while the speed of loading LZ4-compressed bundles can be gated by either IO speed or CPU, depending on hardware.  On most platforms, loading LZ4-compressed bundles is CPU bound, and loading uncompressed bundles will be faster. On platforms that have low IO speeds and high CPU speeds, LZ4 loading can be faster. It is always a good practice to run performance analysis to validate whether your game fits the common patterns, or needs some unique tweaking.</p>
+<p>More information on Unity&#39;s compression selection is available in the <a href="https://docs.unity3d.com/Manual/AssetBundles-Cache.html">Asset Bundle documentation</a>.  </p>
+<h3 id="are-there-ways-to-miminize-the-catalog-size">Are there ways to miminize the catalog size?</h3>
+<p>Currently there are two optimizations available.</p>
+<ol>
+<li>Compress the local catalog.  If your primary concern is how big the catalog is in your build, there is an option in the inspector for the top level settings of <strong>Compress Local Catalog</strong>. This option builds catalog that ships with your game into an asset bundle. Compressing the catalog makes the file itself smaller, but note that this does increase catalog load time.  </li>
+<li>Disable built-in scenes and Resources.  Addressables provides the ability to load content from Resources and from the built-in scenes list. By default this feature is on, which can bloat the catalog if you do not need this feature.  To disable it, select the &quot;Built In Data&quot; group within the Groups window (<strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Groups</strong>). From the settings for that group, you can uncheck &quot;Include Resources Folders&quot; and &quot;Include Build Settings Scenes&quot;. Unchecking these options only removes the references to those asset types from the Addressables catalog.  The content itself is still built into the player you create, and you can still load it via legacy API. </li>
+</ol>
+<h3 id="what-is-addressablescontentstate">What is addressables_content_state?</h3>
+<p>After every content build of Addressables, we produce an addressables_content_state.bin file, which is saved to the folder path defined in the Addressable Assets Settings value &quot;Content State build Path&quot; appended with /<platform>. If this value is empty, the default location will be the <code>Assets/AddressableAssetsData/&lt;Platform&gt;/</code> folder of your Unity project.
+This file is critical to our <a href="ContentUpdateWorkflow.html">content update workflow</a>. If you are not doing any content updates, you can completely ignore this file.
+If you are planning to do content updates, you will need the version of this file produced for the previous release. We recommend checking it into version control and creating a branch each time you release a player build.  More information is available on our <a href="ContentUpdateWorkflow.html">content update workflow page</a>.<p>
+<h3 id="what-are-possible-scale-implications">What are possible scale implications?</h3>
+<p>As your project grows larger, keep an eye on the following aspects of your assets and bundles:</p>
+<ul>
+<li>Total bundle size - Historically Unity has not supported files larger than 4GB.  This has been fixed in some recent editor versions, but there can still be issues. It is recommended to keep the content of a given bundle under this limit for best compatibility across all platforms.  </li>
+<li>Sub assets affecting UI performance - There is no hard limit here, but if you have many assets, and those assets have many sub-assets, it may be best to turn off sub-asset display. This option only affects how the data is displayed in the Groups window, and does not affect what you can and cannot load at runtime.  The option is available in the groups window under <strong>Tools</strong> &gt; <strong>Show Sprite and Subobject Addresses</strong>.  Disabling this will make the UI more responsive.</li>
+<li>Group hierarchy display - Another UI-only option to help with scale is <strong>Group Hierarchy with Dashes</strong>.  This is available within the inspector of the top level settings. With this enabled, groups that contain dashes &#39;-&#39; in their names will display as if the dashes represented folder hierarchy. This does not affect the actual group name, or the way things are built.  For example, two groups called &quot;x-y-z&quot; and &quot;x-y-w&quot; would display as if inside a folder called &quot;x&quot;, there was a folder called &quot;y&quot;.  Inside that folder were two groups, called &quot;x-y-z&quot; and &quot;x-y-w&quot;. This will not really affect UI responsiveness, but simply makes it easier to browse a large collection of groups. </li>
+<li>Bundle layout at scale - For more information about how best to set up your layout, see the earlier question: <a href="AddressablesFAQ.html#Is-it-better-t-have-many-small-bundles-or-a-few-bigger-ones"><em>Is it better to have many small bundles or a few bigger ones</em></a></li>
+</ul>
+<h3 id="is-it-possible-to-retrieve-the-address-of-an-asset-or-reference-at-runtime">Is it possible to retrieve the address of an asset or reference at runtime?</h3>
+<p>In the most general case, loaded assets no longer have a tie to their address or <code>IResourceLocation</code>. There are ways, however, to get the properly associated <code>IResourceLocation</code> and use that to read the field PrimaryKey. The PrimaryKey field will be set to the assets&#39;s address unless &quot;Include Address In Catalog&quot; is disabled for the group this object came from. In that case, the PrimaryKey will be the next item in the list of keys (probably a GUID, but possibly a Label or empty string). </p>
+<h4 id="examples">Examples</h4>
+<p>Retrieving an address of an AssetReference. This can be done by looking up the Location associated with that reference, and getting the PrimaryKey:</p>
+<pre><code>var op = Addressables.LoadResourceLocationsAsync(MyRef1);
+yield return op;
+if (op.Status == AsyncOperationStatus.Succeeded &amp;&amp;
+    op.Result != null &amp;&amp;
+    op.Result.Count &gt; 0)
+{
+    Debug.Log(&quot;address is: &quot; + op.Result[0].PrimaryKey);
+}
+</code></pre><p>Loading multiple assets by label, but associating each with their address. Here, again LoadResourceLocationsAsync is needed:</p>
+<pre><code>Dictionary&lt;string, GameObject&gt; _preloadedObjects = new Dictionary&lt;string, GameObject&gt;();
+private IEnumerator PreloadHazards()
+{
+    //find all the locations with label &quot;SpaceHazards&quot;
+    var loadResourceLocationsHandle = Addressables.LoadResourceLocationsAsync(&quot;SpaceHazards&quot;, typeof(GameObject));
+    if( !loadResourceLocationsHandle.IsDone )
+        yield return loadResourceLocationsHandle;
+
+    //start each location loading
+    List&lt;AsyncOperationHandle&gt; opList = new List&lt;AsyncOperationHandle&gt;();
+    foreach (IResourceLocation location in loadResourceLocationsHandle.Result)
+    {
+        AsyncOperationHandle&lt;GameObject&gt; loadAssetHandle = Addressables.LoadAssetAsync&lt;GameObject&gt;(location);
+        loadAssetHandle.Completed += obj =&gt; { _preloadedObjects.Add(location.PrimaryKey, obj.Result); };
+        opList.Add(loadAssetHandle);
+    }
+
+    //create a GroupOperation to wait on all the above loads at once. 
+    var groupOp = Addressables.ResourceManager.CreateGenericGroupOperation(opList);
+    if( !groupOp.IsDone )
+        yield return groupOp;
+
+    Addressables.Release(loadResourceLocationsHandle);
+
+    //take a gander at our results.
+    foreach (var item in _preloadedObjects)
+    {
+        Debug.Log(item.Key + &quot; - &quot; + item.Value.name);
+    }
+}
+</code></pre></platform></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

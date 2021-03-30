@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Addressables.LoadResourceLocationsAsync | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Addressables.LoadResourceLocationsAsync | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-api-load-resource-locations-async">
+<h1 id="addressablesloadresourcelocationsasync">Addressables.LoadResourceLocationsAsync</h1>
+
+<h4 id="api">API</h4>
+<ul>
+<li><code>static AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; LoadResourceLocationsAsync(object key, Type type = null)</code></li>
+<li><code>static AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; LoadResourceLocationsAsync(IEnumerable keys, MergeMode mode, Type type = null)</code></li>
+</ul>
+<h4 id="returns">Returns</h4>
+<p><code>AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt;</code>: A list of all <code>IResourceLocations</code> that match the given key and <code>Type</code> combination.  This handle needs to be released when it is no longer needed.</p>
+<h4 id="description">Description</h4>
+<p>Load a list of <code>IResourceLocations</code>.</p>
+<p><code>Addressables.LoadResourceLocationsAsync</code> is used to return either an empty list or a list of valid <code>IResourceLocations</code> that match the given key(s) and <code>Type</code> combination.  The <code>Result</code> can contain the <code>IResourceLocation</code> for varying <code>Types</code> if the given <code>Type</code> parameter is <code>null</code>.  </p>
+<p>To note, this operation cannot fail.  If no matching <code>IResourceLocations</code> can be found then the <code>Result</code> is an empty list.  This makes the API useful for verifying that a key exists without fear of an <code>InvalidKeyException</code> getting thrown.</p>
+<p>The <code>MergeMode</code> used in <code>LoadResourceLocationsAsync(IEnumerable keys, MergeMode mode, Type type = null)</code> helps to control what is returned in the <code>Result</code> of the operation.  <code>MergeMode.None</code> and <code>MergeMode.UseFirst</code> act identically.  Either of these options ensures the <code>Result</code> is only populated with the first <code>IResourceLocation</code> it could find that matches the given keys and <code>Type</code>.  <code>MergeMode.Union</code> collects every <code>IResourceLocation</code> that matches <em>any</em> of the keys and <code>Type</code> provided and retuns it in the <code>Result</code>.  <code>MergeMode.Intersection</code> returns only the <code>IResourceLocations</code> that match <em>every</em> key and <code>Type</code> provided in the <code>Result</code>.</p>
+<p>It may also be desireable to pre-load <code>IResourceLocations</code> for use later on.  When the &quot;Key&quot; version of an API</p>
+<pre><code>static AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; LoadResourceLocationsAsync(object key, Type type = null)
+</code></pre><p>is used (as opposed to passing the <code>IResourceLocation</code> directly), the <code>Addressable</code> system has to look up the <code>IResourceLocation</code> itself.  Pre-loading and then providing the location to an <code>Addressable</code> API can have performance benefits.</p>
+<h4 id="code-sample">Code Sample</h4>
+<pre><code>IEnumerator Start()
+{
+    //Returns any IResourceLocations that are mapped to the key &quot;AssetKey&quot;
+    AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; handle = Addressables.LoadResourceLocationsAsync(&quot;AssetKey&quot;);
+    yield return handle;
+
+    //...
+
+    Addressables.Release(handle);
+}
+</code></pre><pre><code>IEnumerator Start()
+{
+    //Returns any IResourceLocations that match the keys &quot;level2&quot; AND &quot;holiday&quot;
+    AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; handle = Addressables.LoadResourceLocationsAsync(new string[]
+    {
+        &quot;level2&quot;,
+        &quot;holiday&quot;
+    }, Addressables.MergeMode.Intersection);
+    yield return handle;
+
+    //...
+
+    Addressables.Release(handle);
+}
+</code></pre><pre><code>IEnumerator Start()
+{
+    //Returns any IResourceLocations that match the keys &quot;knight&quot; OR &quot;villager&quot;
+    AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; handle = Addressables.LoadResourceLocationsAsync(new string[]
+    {
+        &quot;knight&quot;,
+        &quot;villager&quot;
+    }, Addressables.MergeMode.Union);
+    yield return handle;
+
+    //...
+
+    Addressables.Release(handle);
+}
+</code></pre><h4 id="sub-objects">Sub-Objects</h4>
+<p>Sub-Objects are a special case.  Locations for Sub-Objects are generated at runtime to keep bloat out of the content catalogs and improve runtime performance, such as entering Play Mode while using the Use Asset Database Playmode script.  This has implications when calling <code>LoadResourceLocationsAsync</code> with a Sub-Object key.  If the system is not aware of the desired Type then IResourceLocations is generated for each <code>Type</code> of Sub-Object detected.  If an AssetReference with a Sub-Object selection is not set, the system generates IResourceLocations for each Type of detected Sub-Object with the Address of the main object.</p>
+<p>For the following examples lets assume we have an FBX asset marked as Addressable that has a Mesh Sub-Object.</p>
+<h5 id="when-passing-a-string-key">When passing a string Key:</h5>
+<pre><code>IEnumerator Start()
+{
+    AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; handle = Addressables.LoadResourceLocationsAsync(&quot;myFBXObject&quot;);
+    yield return handle;
+
+    //This result contains 3 IResourceLocations.  One with Type GameObject, one with Type Mesh, and one with Type Material.  Since the string Key has no Type information we generate all possible IResourceLocations to match the request.
+    IList&lt;IResourceLocation&gt; result = handle.Result;
+
+    //...
+
+    Addressables.Release(handle);
+}
+</code></pre><pre><code>IEnumerator Start()
+{
+    AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; handle = Addressables.LoadResourceLocationsAsync(&quot;myFBXObject[Mesh]&quot;);
+    yield return handle;
+
+    //This result contains 3 IResourceLocations.  One with Type GameObject, one with Type Mesh, and one with Type Material.  Since the string Key has no Type information we generate all possible IResourceLocations to match the request.
+    IList&lt;IResourceLocation&gt; result = handle.Result;
+
+    //...
+
+    Addressables.Release(handle);
+}
+</code></pre><pre><code>IEnumerator Start()
+{
+    AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; handle = Addressables.LoadResourceLocationsAsync(&quot;myFBXObject[Mesh]&quot;, typeof(Mesh));
+    yield return handle;
+
+    //This result contains 1 IResourceLocation.  Since the Type parameter has a value passed in we can create the IResourceLocation.
+    IList&lt;IResourceLocation&gt; result = handle.Result;
+
+    //...
+
+    Addressables.Release(handle);
+}
+</code></pre><h5 id="when-using-an-assetreference">When using an AssetReference:</h5>
+<pre><code>//An AssetReference set to point to the Mesh Sub-Object of a FBX asset
+public AssetReference myFBXMeshReference;
+
+IEnumerator Start()
+{
+    AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; handle = Addressables.LoadResourceLocationsAsync(myFBXMeshReference);
+    yield return handle;
+
+    //This result contains 1 IResourceLocation.  Since the AssetReference contains Type information about the Sub-Object, we can generate the appropriate IResourceLocation.
+    IList&lt;IResourceLocation&gt; result = handle.Result;
+
+    //...
+
+    Addressables.Release(handle);
+}
+</code></pre><pre><code>//An AssetReference that is not set to point at a Sub-Object
+public AssetReference myFBXReference;
+
+IEnumerator Start()
+{
+    AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; handle = Addressables.LoadResourceLocationsAsync(myFBXReference);
+    yield return handle;
+
+    //This result contains 3 IResourceLocation.  Since the AssetReference Sub-Object is not set we generate all possible IResourceLocations with the detected Sub-Object Types.
+    IList&lt;IResourceLocation&gt; result = handle.Result;
+
+    //...
+
+    Addressables.Release(handle);
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

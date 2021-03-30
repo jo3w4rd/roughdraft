@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Addressables.InitializeAsync | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Addressables.InitializeAsync | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-api-initialize-async">
+<h1 id="addressablesinitializeasync">Addressables.InitializeAsync</h1>
+
+<h4 id="api">API</h4>
+<ul>
+<li><code>AsyncOperationHandle&lt;IResourceLocator&gt; Addressables.InitializeAsync()</code></li>
+</ul>
+<h4 id="returns">Returns</h4>
+<p><code>AsyncOperationHandle&lt;IResourceLocator&gt;</code>: The AsyncOperationHandle for the <code>InitializationOperation</code>.  This handle is automatically released after it completes.  </p>
+<h4 id="description">Description</h4>
+<p>Initializing Addressables is a preliminary operation that has the responsibility of setting up the runtime data for Addressables.  Addressables.InitializeAsync creates and executes an InitializationOperation operation.  This operation does the following:</p>
+<ul>
+<li>Sets up the <code>ResourceManager</code> and the <code>ResourceLocators</code>.</li>
+<li>Loads the <code>RuntimeData</code> that Addressables built in the Editor.</li>
+<li>Executes <code>InitializationObjects</code> operations that were added to the Addressables build. </li>
+<li>Loads the <code>ContentCatalog</code>.  Optionally checks for updates to the <code>ContentCatalog</code>.  By default this check is turned on.</li>
+</ul>
+<p>You can manually initialize Addressables, though it is not required, by calling <code>Addressables.InitializeAsync()</code>. </p>
+<p>If Addressables is not manually initialized, by default Addressables checks that initialization has occurred.  If the initial call, such as a <code>LoadAsset</code> request, detects that initialization has not occured then an <code>InitilizationOperation</code> is kicked off automatically.  The LoadAsset operation is chained behind the initialization operation and executes automatically afterwards.</p>
+<p>By default Addressables sets up an <code>ExceptionHandler</code> in the <code>ResourceManager</code> for any exceptions that get logged.  An exception handler can be setup manually by assigning a custom handler to <code>UnityEngine.ResourceManagement.ResourceManager.ExceptionHandler</code>.  It is also possible to turn off runtime exception logging in the <code>ResourceManager</code> by unchecking the box <code>Log Runtime Exceptions</code> on the <code>AddressableAssetSettingsObject</code>.</p>
+<pre><code>//Manual initialization
+IEnumerator Start()
+{
+    AsyncOperationHandle&lt;IResourceLocator&gt; handle = Addressables.InitializeAsync();
+    yield return handle;
+
+    //...
+}
+</code></pre><p>Manual initialization can have performance benefits on your initial load.  If you know you will use Addressables and don&#39;t want to incur the cost of initialization on your first Addressables operation, calling this manually can be a potential solution.</p>
+<p>It may be preferable to manually initialize Addressables for debugging purposes.  Lazy-initialization through a chain operation can muddle errors and make the root of the problem unclear.  Manual initialization keeps that process separate which can help narrow down any issues.  </p>
+<p>The <code>Result</code> of this operation is an <code>IResourceLocator</code>.  This object contains a list of Addressable keys and a method that can be used to gather the <code>IResourceLocation(s)</code> for a given key and asset type.  </p>
+<p>Access to the <code>Result</code> or <code>Status</code> is only available in a <code>Completed</code> callback.  If a yield return is used instead, the Addressables will have auto-released the handle by the time access is attempted. </p>
+<p>Full API documentation can be found <a class="xref" href="../api/UnityEngine.AddressableAssets.Initialization.html">here</a>.</p>
+<h4 id="initializationobjects">InitializationObjects</h4>
+<p>These are <code>ScriptableObjects</code> that can be added to an Addressable build to bootstrap some operation as part of Addressables initialization.  For example, the <code>CacheInitializationObject</code> is provided by default.  If one of these objects is created and added to the AddressableAssetSettings object, under Initialization Objects, it can be used to automatically setup <code>Cache</code> settings at runtime.</p>
+<p><img src="images/InitializationObjects.png" alt="Initialization Objects"></p>
+<p>Custom Initialization objects can be implemented and created by creating a class and inheriting from <a href="https://docs.unity3d.com/Manual/class-ScriptableObject.html"><code>ScriptableObject</code></a> and implementing <code>IObjectInitializationDataProvider</code>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

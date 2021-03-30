@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Addressables.InstantiateAsync | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Addressables.InstantiateAsync | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-api-instantiate-async">
+<h1 id="addressablesinstantiateasync">Addressables.InstantiateAsync</h1>
+
+<h4 id="api">API</h4>
+<ul>
+<li><code>static AsyncOperationHandle&lt;GameObject&gt; InstantiateAsync(IResourceLocation location, Transform parent = null, bool instantiateInWorldSpace = false, bool trackHandle = true)</code></li>
+<li><code>static AsyncOperationHandle&lt;GameObject&gt; InstantiateAsync(IResourceLocation location, Vector3 position, Quaternion rotation, Transform parent = null, bool trackHandle = true)</code></li>
+<li><code>static AsyncOperationHandle&lt;GameObject&gt; InstantiateAsync(IResourceLocation location, InstantiationParameters instantiateParameters, bool trackHandle = true)</code></li>
+<li><code>static AsyncOperationHandle&lt;GameObject&gt; InstantiateAsync(object key, Transform parent = null, bool instantiateInWorldSpace = false, bool trackHandle = true)</code></li>
+<li><code>static AsyncOperationHandle&lt;GameObject&gt; InstantiateAsync(object key, Vector3 position, Quaternion rotation, Transform parent = null, bool trackHandle = true)</code></li>
+<li><code>static AsyncOperationHandle&lt;GameObject&gt; InstantiateAsync(object key, InstantiationParameters instantiateParameters, bool trackHandle = true)</code></li>
+</ul>
+<h4 id="returns">Returns</h4>
+<p><code>AsyncOperationHandle&lt;GameObject&gt;</code>: an async operation handle that contains the instantiated <code>GameObject</code> as the <code>Result</code>.</p>
+<h4 id="description">Description</h4>
+<p><code>Addressables.InstantiateAsync</code> is the <code>Addressables</code> mechanism used to instantiate <code>GameObjects</code> by either key or direct <code>IResourceLocation</code>.</p>
+<p>There are multiple ways <code>Addressables</code> can be used to instantiate a <code>GameObject</code>, each with their own set of pros and cons.  The main two ways are using the <code>Addressables.InstanitateAsync</code> API directly, or using the <code>Addressables.LoadAssetAsync&lt;GameObject&gt;</code> API and then manually instantiating the <code>GameObject</code> yourself.</p>
+<p>If you are instantiating a <code>GameObject</code> through the <code>InstanitateAsync</code> API, you have the convenience of allowing <code>Addressables</code> to do all the work of resolving the <code>IResourceLocation</code> if the key version of the API is used.  Regardless which version of the API is used, <code>Addressables</code> downloads all the required dependencies, and instantiates the object for you.  As a note, the instantation itself is synchronous.  The asynchronous aspect of this API comes from all the loading-related activity <code>Addressables</code> does prior to instantiation.  If the <code>GameObject</code> has been preloaded using <code>LoadAssetAsync</code> or <code>LoadAssetsAsync</code> the operation and instantiation becomes synchrounous.  For example:</p>
+<pre><code>IEnumerator Start()
+{
+    string key = &quot;myprefab&quot;;
+    AsyncOperationHandle&lt;GameObject&gt; loadOp = Addressables.LoadAssetAsync&lt;GameObject&gt;(key);
+    yield return loadOp;
+    if (loadOp.Status == AsyncOperationStatus.Succeeded)
+    {
+        var op = Addressables.InstantiateAsync(key);
+        if (op.IsDone) // &lt;--- this will always be true.  A preloaded asset will instantiate synchronously. 
+        {
+            //...
+        }
+        //...
+    }
+}
+</code></pre><p>The downside to using this API is that it incurs overhead that can be mitigated by handing instantiation manually.</p>
+<p>Should you decide to synchronously instantiate a <code>GameObject</code> manually, you&#39;ll need to use the <a href="LoadingAddressableAssets.html"><code>LoadAssetAsync</code></a> API to first load the required assets and dependencies.  With the loaded <code>GameObject</code>, you can manually instantiate the <code>Result</code> like so:</p>
+<pre><code>public IEnumerator Start()
+{
+    AsyncOperationHandle&lt;GameObject&gt; handle = Addressables.LoadAssetAsync&lt;GameObject&gt;(&quot;prefabKey&quot;);
+    yield return handle;
+    if(handle.Result != null)
+        Instantiate(handle.Result);
+
+    //,,.
+}
+</code></pre><p>This has the added benefit of being able to keep the load operation handle in memory and instantiating the <code>Result</code> as often as needed without incuring additional unwanted overhead.  One downside is it&#39;s be possible to release the load handle too early and unload all the data needed by any currently instantiated prefabs.</p>
+<p>If there are any issues during the excecution of these operations, an Exception is generated and returned in the operations <code>OperationException</code>. That exception is also logged as an error by default. If you would like to see the exceptions when they happen, process them, and choose how to handle them, see <a href="ExceptionHandler.html"><code>ResourceManager.ExceptionHandler</code></a>.</p>
+<p>Either use of instantiation can benefit from information found in the <a href="MemoryManagement.html">Memory Management</a> manual page.</p>
+<h4 id="code-sample">Code Sample</h4>
+<pre><code>public IEnumerator Start()
+{
+    AsyncOperationHandle&lt;GameObject&gt; handle = Addressables.InstantiateAsync(&quot;prefabKey&quot;);
+    //note that this may be done instantly, but if you yield return, it guarantees a miminum one frame delay.
+    // The same is true for the .Completed callback, even if done, it will not callback that frame. 
+    if(!handle.IsDone) 
+        yield return handle;
+
+    //...
+}
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

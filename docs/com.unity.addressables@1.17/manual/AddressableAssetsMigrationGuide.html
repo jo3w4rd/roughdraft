@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Upgrading to the Addressables system | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Upgrading to the Addressables system | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-migration">
+<h1 id="upgrading-to-the-addressables-system">Upgrading to the Addressables system</h1>
+
+<p>This article details how to modify your existing project to take advantage of Addressable Assets. There are three traditional methods for referencing assets:</p>
+<ul>
+<li><strong><a href="#the-direct-reference-method">Direct References</a></strong>: Add assets directly into components or Scenes, which the application loads automatically. </li>
+<li><strong><a href="#the-resource-folders-method">Resource Folders</a></strong>: Add assets to your <code>Resource</code> folder and load them by filename.</li>
+<li><strong><a href="#the-assetbundles-method">AssetBundles</a></strong>: Add assets to AssetBundles, then load them with their dependencies by file path.</li>
+</ul>
+<h3 id="the-direct-reference-method">The direct reference method</h3>
+<p>To migrate from this approach, follow these steps:</p>
+<ol>
+<li>Replace your direct references to objects with asset references (for example, <code>public GameObject directRefMember;</code> becomes <code>public AssetReference AssetRefMember;</code>).</li>
+<li>Drag assets onto the appropriate component’s Inspector, as you would for a direct reference.</li>
+<li>If you&#39;d like to load an asset based on an object rather than a string name, instantiate it directly from the <a class="xref" href="../api/UnityEngine.AddressableAssets.AssetReference.html"><code>AssetReference</code></a> object you created in your setup (for example, <code>AssetRefMember.LoadAssetAsync&lt;GameObject&gt;();</code> or <code>AssetRefMember.InstantiateAsync(pos, rot);</code>).</li>
+<li>When the Asset is not needed anymore, it must be unloaded with the <a class="xref" href="../api/UnityEngine.AddressableAssets.Addressables.html#UnityEngine_AddressableAssets_Addressables_Release__1___0_"><code>Addressables.Release</code></a> method. See <a href="MemoryManagement.html#mirroring-load-and-unload">Mirroring load and unload</a> for details.</li>
+</ol>
+<p><strong>Note</strong>: The Addressable Asset system loads assets asynchronously. When you update your direct references to asset references, you must also update your code to operate asynchronously.</p>
+<h3 id="the-resource-folders-method">The Resource folders method</h3>
+<p>When you mark an asset in a <code>Resources</code> folder as Addressable, the system automatically moves the asset from the <code>Resources</code> folder to a new folder in your project named <code>Resources_moved</code>. The default address for a moved asset is the old path, omitting the folder name. For example, your loading code might change from <code>Resources.LoadAsync&lt;GameObject&gt;(&quot;desert/tank.prefab&quot;);</code> to <a class="xref" href="../api/UnityEngine.AddressableAssets.Addressables.html#UnityEngine_AddressableAssets_Addressables_LoadAssetsAsync__1_System_Collections_Generic_IList_UnityEngine_ResourceManagement_ResourceLocations_IResourceLocation__System_Action___0__"><code>Addressables.LoadAssetAsync&lt;GameObject&gt;(&quot;desert/tank.prefab&quot;);</code></a>.</p>
+<p><strong>Note</strong>: Some functionality of the <a href="https://docs.unity3d.com/ScriptReference/Resources.html" title="Resources">Resources</a> class may not be supported directly after modifying your project to use Addressable Assets.</p>
+<p>For example, consider the <a href="https://docs.unity3d.com/ScriptReference/Resources.LoadAll.html" title="Resources.LoadAll">Resources.LoadAll</a> function. Previously, if you had assets in a folder <code>Resources/MyPrefabs/</code>, and ran <code>Resources.LoadAll&lt;SampleType&gt;(&quot;MyPrefabs&quot;);</code>, it would have loaded all the assets in <code>Resources/MyPrefabs/</code> matching type <code>SampleType</code>. Addressable Assets do not support this functionality.  You could achieve similar results using the Addressable Assets concept of <a href="AddressableAssetsOverview.html">labels</a>, but the two ideas are not directly analogous. </p>
+<h3 id="the-assetbundles-method">The AssetBundles method</h3>
+<p>When you open the <strong>Addressables Groups</strong> window, Unity offers to convert all AssetBundles into Addressable Asset groups. This is the easiest way to migrate your code.</p>
+<p>If you choose to convert your assets manually, click the <strong>Ignore</strong> button. Then, either use the direct reference or resource folder methods previously described.</p>
+<p>The default path for the address of an asset is its file path. If you use the path as the asset&#39;s address, you&#39;d load the asset in the same manner as you would load from a bundle. The Addressable Asset System handles the loading of the bundle and all its dependencies.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Addressables.LoadAsset(s)Async | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Addressables.LoadAsset(s)Async | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-api-load-asset-async">
+<h1 id="addressablesloadassetsasync">Addressables.LoadAsset(s)Async</h1>
+
+<h3 id="addressablesloadassetasync">Addressables.LoadAssetAsync</h3>
+<ul>
+<li><code>static AsyncOperationHandle&lt;TObject&gt; LoadAssetAsync&lt;TObject&gt;(object key)</code></li>
+<li><code>static AsyncOperationHandle&lt;TObject&gt; LoadAssetAsync&lt;TObject&gt;(IResourceLocation location)</code></li>
+</ul>
+<h4 id="returns">Returns</h4>
+<p><code>AsyncOperationHandle&lt;TObject&gt;</code> - The operation handle for a single requested asset.</p>
+<h4 id="description">Description</h4>
+<p>Loads a single Addressable Asset.</p>
+<p><code>Addressables.LoadAssetAsync</code> uses the key of an Addressable object or direct ResourceLocations to load an Addressable asset of a specified type.  The loaded asset can be accessed through the Result property of the <code>AsyncOperationHandle</code> returned by the function.
+This API does the following:</p>
+<ol>
+<li>Gathers all dependencies for the given key or resource location.  The key version of the API incurs an additional step to lookup the first IResourceLocation that matches the provided key.</li>
+<li>Downloads any remote AssetBundles that are required.</li>
+<li>Loads the AssetBundles into memory.</li>
+<li>Populates the <code>Result</code> property with the requested object.</li>
+</ol>
+<p>The internal operation of the <code>AsyncOperationHandle</code> returned will have a reference count of 1 by default.  This handle will need to be manually released in order to decrease the reference count and unload the AssetBundles in memory.</p>
+<p>If there are multiple request calls for the same asset, then the reference count for the underlying internal operation increases, and the cached load operation is not used. This means that all newly-created handles need to ensure they are properly released in order to unload the AssetBundles.</p>
+<p>Note that there is also the option to load an asset with the helper function <code>LoadAssetAsync</code> in the <a class="xref" href="../api/UnityEngine.AddressableAssets.AssetReference.html#UnityEngine_AddressableAssets_AssetReference_LoadAssetAsync_"><code>AssetReference</code></a> class (for example <code>AssetRefMember.LoadAssetAsync&lt;GameObject&gt;()</code>) but it has more restrictions to reference count. When called, it caches the handle in the <code>AssetReference</code> of the load if successful.  Due to the cached handle, this load cannot be called again to load or increase the reference count. If the second call was simply an attempt to access the result, you can use <code>myAssetReference.Asset</code>.  If the second call was an attempt to increase the reference count, you must call directly into addressables, with <code>Addressables.LoadAssetAsync(myAssetReference)</code></p>
+<p>If there are any issues during the excecution of these operations, an Exception is generated and returned in the operations <code>OperationException</code>. That exception is also logged as an error by default. If you would like to see the exceptions when they happen, process them, and choose how to handle them, see <a href="ExceptionHandler.html"><code>ResourceManager.ExceptionHandler</code></a>.</p>
+<h4 id="code-sample">Code Sample</h4>
+<pre><code>IEnumerator LoadGameObjectAndMaterial()
+{
+    //Load a GameObject
+    AsyncOperationHandle&lt;GameObject&gt; goHandle = Addressables.LoadAssetAsync&lt;GameObject&gt;(&quot;gameObjectKey&quot;);
+    yield return goHandle;
+    if(goHandle.Status == AsyncOperationStatus.Succeeded)
+    {
+        GameObject obj = goHandle.Result;
+        //etc...
+    }
+
+    //Load a Material
+    AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; locationHandle = Addressables.LoadResourceLocationsAsync(&quot;materialKey&quot;);
+    yield return locationHandle;
+    AsyncOperationHandle&lt;Material&gt; matHandle = Addressables.LoadAssetAsync&lt;Material&gt;(locationHandle.Result[0]);
+    yield return matHandle;
+    if (matHandle.Status == AsyncOperationStatus.Succeeded)
+    {
+        Material mat = matHandle.Result;
+        //etc...
+    }
+
+    //Use this only when the objects are no longer needed
+    Addressables.Release(goHandle);
+    Addressables.Release(matHandle);
+}
+</code></pre><p>You can use this pattern to load any number of supported runtime types with Addressables.
+The benefit loading and caching ResourceLocations is purely a performance consideration.  If you pass in a key, which is the most common use of this API, Addressables needs to iterate through its ResourceLocators to find the corresponding ResourceLocation.  If you directly pass in an <code>IResourceLocation</code>, this step is skipped.</p>
+<p>Additionally, the Addressables loading APIs benefit from information found in <a href="MemoryManagement.html">Memory management</a>.</p>
+<h4 id="pitfalls">Pitfalls</h4>
+<p>Loading a GameObject through Addressables and then instantiating it through the standard <code>Object.Instantiate(...)</code> method can have potentially disastrous results.  When loading the asset, only the load operation contains any knowledge of a reference count. If you release this operation handle prior to destroying your GameObject instance, all the data (materials, textures, etc.) is unloaded out from underneath the object when the AssetBundle is unloaded.</p>
+<h3 id="addressablesloadassetsasync-1">Addressables.LoadAssetsAsync</h3>
+<ul>
+<li><code>static AsyncOperationHandle&lt;IList&lt;TObject&gt;&gt; LoadAssetsAsync&lt;TObject&gt;(object key, Action&lt;TObject&gt; callback)</code></li>
+<li><code>static AsyncOperationHandle&lt;IList&lt;TObject&gt;&gt; LoadAssetsAsync&lt;TObject&gt;(object key, Action&lt;TObject&gt; callback, bool releaseDependenciesOnFailure)</code></li>
+<li><code>static AsyncOperationHandle&lt;IList&lt;TObject&gt;&gt; LoadAssetsAsync&lt;TObject&gt;(IEnumerable keys, Action&lt;TObject&gt; callback, MergeMode mode)</code></li>
+<li><code>static AsyncOperationHandle&lt;IList&lt;TObject&gt;&gt; LoadAssetsAsync&lt;TObject&gt;(IEnumerable keys, Action&lt;TObject&gt; callback, MergeMode mode, bool releaseDependenciesOnFailure)</code></li>
+<li><code>static AsyncOperationHandle&lt;IList&lt;TObject&gt;&gt; LoadAssetsAsync&lt;TObject&gt;((IList&lt;IResourceLocation&gt; locations, Action&lt;TObject&gt; callback))</code></li>
+<li><code>static AsyncOperationHandle&lt;IList&lt;TObject&gt;&gt; LoadAssetsAsync&lt;TObject&gt;((IList&lt;IResourceLocation&gt; locations, Action&lt;TObject&gt; callback, bool releaseDependenciesOnFailure))</code></li>
+</ul>
+<h4 id="returns-1">Returns</h4>
+<p><code>AsyncOperationHandle&lt;IList&lt;TObject&gt;&gt;</code> - The operation handle for a list of requested assets.</p>
+<h4 id="description-1">Description</h4>
+<p><code>Addressables.LoadAssetsAsync</code> uses the keys of multiple Addressable objects or direct ResourceLocations to load an Addressable asset of a specified type.  You can access the loaded asset through the Result property of the <code>AsyncOperationHandle</code> returned by the function.  This API does the following:
+1) Gathers all dependencies for the given key or resource location.  The key version of the API incurs an additional step to lookup the first IResourceLocation that matches the provided key.
+2) Downloads any remote AssetBundles that are required.
+3) Loads the AssetBundles into memory.
+4) Populates the <code>Result</code> property with the requested objects that successfully loaded or null.</p>
+<p>Just a quick note about step 4: Whether the <code>Result</code> is populated with successful objects or null is dependant on the use of the <code>bool releaseDependenciesOnFailure</code> parameter provided.  If you pass <code>true</code> into the parameter, the <code>Result</code> property is populated with null if any of the requested objects fail to load.  Passing <code>false</code> into this parameter populates the <code>Result</code> with any objects that were successfully loaded, even if some failed.  If this parameter is not specified then the default value <code>true</code> is used.</p>
+<p>Another useful parameter that can be used with <code>LoadAssetsAsync</code> is the <code>MergeMode</code> parameter.  The result of your load operation can change based on what&#39;s passed in.</p>
+<p><code>Addressables.LoadAssetsAsync</code> is also useful when used in conjunction with the Addressable label feature.  If a label is passed in as the key, <code>Addressables.LoadAssetsAsync</code> loads every asset marked with that label.</p>
+<p>Similar to the single load APIs, you must properly manage and release the <code>AsyncOperationHandle</code> that these calls return when they are no longer needed. This ensures that AssetBundles do not remain loaded in memory unnecessarily. Also, if there are multiple requests for the same assets, then the reference count for the underlying internal operation increases and the cached load operation is used. This means that all newly created handles need to ensure they are properly released in order to have the <code>AssetBundles</code> unload.</p>
+<p>The <code>callback</code> parameter is called individually for each asset loaded by the operation.  Given that the load operation are asynchronous the order of execution is not guaranteed.  Passing in a list of keys <code>&quot;key1&quot;, &quot;key2&quot;, &quot;key3&quot;</code> does not determine the order that the callback operates on each of these loaded assets.</p>
+<pre><code>MergeMode.None - Takes the results from the first key.
+MergeMode.UseFirst - Takes the results from the first key.
+MergeMode.Union - Takes results of each key and collects items that matched any key.
+MergeMode.Intersection - Takes results of each key, and collects items that matched every key.
+</code></pre><p>If there are any issues during the excecution of these operations, an Exception is generated and returned in the operations <code>OperationException</code>. That exception is also logged as an error by default. If you would like to see the exceptions when they happen, process them, and choose how to handle them, see <a href="ExceptionHandler.html"><code>ResourceManager.ExceptionHandler</code></a>.</p>
+<h4 id="code-sample-1">Code Sample</h4>
+<pre><code>IEnumerator LoadAllLocations(List&lt;IResourceLocation&gt; locations)
+{
+    //Will load all assets for the provided IResourceLocations
+    AsyncOperationHandle&lt;IList&lt;GameObject&gt;&gt; loadWithIResourceLocations =
+            Addressables.LoadAssetsAsync&lt;GameObject&gt;(locations,
+                obj =&gt;
+                {
+                    //Gets called for every loaded asset
+                    Debug.Log(obj.name);
+                });
+        yield return loadWithIResourceLocations;
+        IList&lt;GameObject&gt; loadWithLocationsResult = loadWithIResourceLocations.Result;
+
+        //Will load all assets for the provided IResourceLocations
+        //With false passed in as the last parameter the Result will be populated with
+        //objects that could be successfully loaded, even if others could not.
+        AsyncOperationHandle&lt;IList&lt;GameObject&gt;&gt; doNotReleaseOnFailWithIResourceLocations =
+            Addressables.LoadAssetsAsync&lt;GameObject&gt;(locations,
+                obj =&gt;
+                {
+                    //Gets called for every loaded asset
+                    Debug.Log(obj.name);
+                }, false);
+        yield return doNotReleaseOnFailWithIResourceLocations;
+        IList&lt;GameObject&gt; multipleKeyResult = doNotReleaseOnFailWithIResourceLocations.Result;
+
+        //Use this only when the objects are no longer needed
+        Addressables.Release(loadWithIResourceLocations);
+        Addressables.Release(doNotReleaseOnFailWithIResourceLocations);
+}
+
+IEnumerator LoadAllAssetsByKey()
+{
+    //Will load all objects that match the given key.
+    //If this key is an Addressable label, it will load all assets marked with that label
+    AsyncOperationHandle&lt;IList&lt;GameObject&gt;&gt; loadWithSingleKeyHandle = Addressables.LoadAssetsAsync&lt;GameObject&gt;(&quot;objectKey&quot;, obj =&gt;
+    {
+        //Gets called for every loaded asset
+        Debug.Log(obj.name);
+    });
+    yield return loadWithSingleKeyHandle;
+    IList&lt;GameObject&gt; singleKeyResult = loadWithSingleKeyHandle.Result;
+
+    //Loads all assets that match the list of keys.
+    //With no MergeMode parameter specified, the Result will be that of the first key.
+    AsyncOperationHandle&lt;IList&lt;GameObject&gt;&gt; loadWithMultipleKeys =
+        Addressables.LoadAssetsAsync&lt;GameObject&gt;(new string[] { &quot;key1&quot;, &quot;key2&quot; },
+            obj =&gt;
+            {
+                //Gets called for every loaded asset
+                Debug.Log(obj.name);
+            });
+    yield return loadWithMultipleKeys;
+    IList&lt;GameObject&gt; multipleKeyResult1 = loadWithMultipleKeys.Result;
+
+    //This will load the assets that match the given keys and populate the Result
+    //with only objects that match both of the provided keys
+    AsyncOperationHandle&lt;IList&lt;GameObject&gt;&gt; intersectionWithMultipleKeys =
+        Addressables.LoadAssetsAsync&lt;GameObject&gt;(new string[] { &quot;key1&quot;, &quot;key2&quot; },
+            obj =&gt;
+            {
+                //Gets called for every loaded asset
+                Debug.Log(obj.name);
+            }, Addressables.MergeMode.Intersection);
+    yield return intersectionWithMultipleKeys;
+    IList&lt;GameObject&gt; multipleKeyResult2 = intersectionWithMultipleKeys.Result;
+
+    //This will load all objects that match either of the provided keys since we passed in
+    //MergeMode.Union.  It will also populate any successfully loaded objects into the
+    //Result property even if others fail because of the final parameter being false.
+    AsyncOperationHandle&lt;IList&lt;GameObject&gt;&gt; unionWithMultipleKeysDoNotRelease =
+        Addressables.LoadAssetsAsync&lt;GameObject&gt;(new string[] { &quot;key1&quot;, &quot;key2&quot; },
+            obj =&gt;
+            {
+                //Gets called for every loaded asset
+                Debug.Log(obj.name);
+            }, Addressables.MergeMode.Union, false);
+    yield return unionWithMultipleKeysDoNotRelease;
+    IList&lt;GameObject&gt; multipleKeyResult3 = unionWithMultipleKeysDoNotRelease.Result;
+
+    //Use this only when the objects are no longer needed
+    Addressables.Release(loadWithSingleKeyHandle);
+    Addressables.Release(loadWithMultipleKeys);
+    Addressables.Release(intersectionWithMultipleKeys);
+    Addressables.Release(unionWithMultipleKeysDoNotRelease);
+}
+</code></pre><h4 id="pitfalls-1">Pitfalls</h4>
+<p>Loading a GameObject through Addressables and then instantiating it through the standard <code>Object.Instantiate(...)</code> method can have potentially disastrous results.  When loading the asset, only the load operation contains any knowledge of a reference count.  If you release this operation handle prior to destroying your GameObject instance, all the data (materials, textures, etc.) is unloaded out from underneath the object when the AssetBundle is unloaded.</p>
+<p>When loading with a list of keys, be sure to pass it in as an <code>IList&lt;object&gt;</code> even if all the keys are strings. Because of the method overloads and casting, passing in a list that isn&#39;t typed to object uses the static <code>AsyncOperationHandle&lt;IList&lt;TObject&gt;&gt; LoadAssetsAsync&lt;TObject&gt;(object key, Action&lt;TObject&gt; callback)</code> overload.</p>
+<p>Because of the asynchronous nature of loading, the order of objects in the Result is done in no certain order. Should you need to coordinate the key of an object and its result, you need to correlate those manually.</p>
+<h4 id="example">Example</h4>
+<pre><code>IEnumerator LoadAndStoreResult()
+    {
+        List&lt;GameObject&gt; associationDoesNotMatter = new List&lt;GameObject&gt;();
+
+        AsyncOperationHandle&lt;IList&lt;GameObject&gt;&gt; handle =
+            Addressables.LoadAssetsAsync&lt;GameObject&gt;(&quot;label&quot;, obj =&gt; associationDoesNotMatter.Add(obj));
+        yield return handle;
+    }
+
+    IEnumerator LoadAndAssociateResultWithKey()
+    {
+        AsyncOperationHandle&lt;IList&lt;IResourceLocation&gt;&gt; locations = Addressables.LoadResourceLocationsAsync(&quot;label&quot;);
+        yield return locations;
+
+        Dictionary&lt;string, GameObject&gt; associationDoesMatter = new Dictionary&lt;string, GameObject&gt;();
+
+        foreach (IResourceLocation location in locations.Result)
+        {
+            AsyncOperationHandle&lt;GameObject&gt; handle =
+                Addressables.LoadAssetAsync&lt;GameObject&gt;(location);
+            handle.Completed += obj =&gt; associationDoesMatter.Add(location.PrimaryKey, obj.Result);
+            yield return handle;
+        }
+    }
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

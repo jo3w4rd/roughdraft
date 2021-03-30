@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Addressable Assets development cycle | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Addressable Assets development cycle | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-assets-development-cycle">
+<h1 id="addressable-assets-development-cycle">Addressable Assets development cycle</h1>
+
+<p>One of the key benefits of Addressable Assets is decoupling how you arrange, build, and load your content. Traditionally, these facets of development are heavily tied together. </p>
+<h2 id="traditional-asset-management">Traditional asset management</h2>
+<p>If you arrange content in <code>Resources</code> directories, it gets built into the base application and you must load the content using the <a href="https://docs.unity3d.com/ScriptReference/Resources.Load.html"><code>Resources.Load</code></a> method, supplying the path to the resource. To access content stored elsewhere, you would use direct references or <a href="https://docs.unity3d.com/Manual/AssetBundlesIntro.html" title="AssetBundles">AssetBundles</a>. If you use AssetBundles, you would again load by path, tying your load and organization strategies together. If your AssetBundles are remote, or have dependencies on other bundles, you have to write code to manage downloading, loading, and unloading all of your bundles.</p>
+<h2 id="addressable-asset-management">Addressable Asset management</h2>
+<p>Giving an Asset an address allows you to load it using that address, no matter where it is in your Project or how you built the Asset.  You can change an Addressable Asset’s path or filename without issue. You can also move the Addressable Asset from the <code>Resources</code> folder, or from a local build destination, to some other build location (including remote ones), without ever changing your loading code.</p>
+<h3 id="asset-group-schemas">Asset group schemas</h3>
+<p>Schemas define a set of data. You can attach schemas to Asset groups in the Inspector. The set of schemas attached to a group defines how the build processes its contents. For example, when building in packed mode, groups with the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.GroupSchemas.BundledAssetGroupSchema.html"><code>BundledAssetGroupSchema</code></a> schema attached to them act as sources for asset bundles. You can combine sets of schemas into templates that you use to define new groups. You can add schema templates via the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.html"><code>AddressableAssetSettings</code></a> Inspector.</p>
+<h2 id="build-scripts">Build scripts</h2>
+<p>Build scripts are represented as <a href="https://docs.unity3d.com/Manual/class-ScriptableObject.html"><code>ScriptableObject</code></a> Assets in the Project that implement the <a class="xref" href="../api/UnityEditor.AddressableAssets.Build.IDataBuilder.html"><code>IDataBuilder</code></a> interface. Users can create their own build scripts and add them to the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.html"><code>AddressableAssetSettings</code></a> object through its Inspector. To apply a build script in the <strong>Addressables Groups</strong> window (<strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Groups</strong>), select <strong>Play Mode Script</strong>, and choose a dropdown option. Currently, there are three scripts implemented to support the full application build, and three Play mode scripts for iterating in the Editor.</p>
+<h3 id="play-mode-scripts">Play mode scripts</h3>
+<p>The Addressable Assets package has three build scripts that create Play mode data to help you accelerate app development.</p>
+<h4 id="use-asset-database-faster">Use Asset Database (faster)</h4>
+<p>Use Asset Database mode (<a class="xref" href="../api/UnityEditor.AddressableAssets.Build.DataBuilders.BuildScriptFastMode.html"><code>BuildScriptFastMode</code></a>) allows you to run the game quickly as you work through the flow of your game. It loads Assets directly through the Asset database for quick iteration with no analysis or AssetBundle creation.</p>
+<h4 id="simulate-groups-advanced">Simulate Groups (advanced)</h4>
+<p>Simulate Groups mode (<a class="xref" href="../api/UnityEditor.AddressableAssets.Build.DataBuilders.BuildScriptVirtualMode.html"><code>BuildScriptVirtualMode</code></a>) analyzes content for layout and dependencies without creating AssetBundles. Assets load from the Asset database though the <a class="xref" href="../api/UnityEngine.ResourceManagement.ResourceManager.html"><code>ResourceManager</code></a>, as if they were loaded through bundles. To see when bundles load or unload during game play, view the Asset usage in the <a href="MemoryManagement.html#the-addressables-event-viewer"><strong>Addressables Event Viewer</strong> window</a> (<strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Event Viewer</strong>).</p>
+<p>Simulate Groups mode helps you simulate load strategies and tweak your content groups to find the right balance for a production release.</p>
+<h4 id="use-existing-build-requires-built-groups">Use Existing Build (requires built groups)</h4>
+<p>Use Existing Build mode most closely matches a deployed application build, but it requires you to build the data as a separate step. If you aren&#39;t modifying Assets, this mode is the fastest since it does not process any data when entering Play mode. You must either build the content for this mode in the <strong>Addressables Groups</strong> window (<strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Groups</strong>) by selecting <strong>Build</strong> &gt; <strong>New Build</strong> &gt; <strong>Default Build Script</strong>, or using the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.html#UnityEditor_AddressableAssets_Settings_AddressableAssetSettings_BuildPlayerContent"><code>AddressableAssetSettings.BuildPlayerContent()</code></a> method in your game script.</p>
+<p>If under <strong>New Build</strong> there is an unclickable <strong>No Build Script Available</strong>, check <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.html"><code>AddressableAssetSettings</code></a> in the Inspector and see <strong>Build and Play Mode Scripts</strong> section. In order to show up under <strong>New Build</strong> in <strong>Addressables Groups</strong> window , there must be a build script <a href="https://docs.unity3d.com/Manual/class-ScriptableObject.html"><code>ScriptableObject</code></a> that is able to build type <a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AddressablesPlayerBuildResult.html"><code>AddressablesPlayerBuildResult</code></a> paired with an entry in the <strong>Build and Play Mode Scripts</strong> section of the Inspector window for <code>AddressableAssetSettings</code>.  </p>
+<p>To add a new Build or Play Mode script, click the <code>+</code> under the <strong>Build and Play Mode Scripts</strong> section and find your build mode asset. Once it is added, if the script is a Play Mode script it will show up under <strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Groups</strong> &gt; <strong>Play Mode Script</strong>.  If the script is able to build <a class="xref" href="../api/UnityEditor.AddressableAssets.Build.AddressablesPlayerBuildResult.html"><code>AddressablesPlayerBuildResult</code></a> it will show up under <strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Groups</strong> &gt; <strong>Build</strong> &gt; <strong>New Build</strong>. Build and Play Mode scripts provided by default, including <code>BuildSciptPackedMode</code>, are located under <code>Assets/AddressableAssetsData/DataBuilders</code>. See earlier section &quot;Build scripts&quot; for more information on custom build scripts.</p>
+<h2 id="analysis-and-debugging">Analysis and debugging</h2>
+<p>By default, Addressable Assets only logs warnings and errors. You can enable detailed logging by opening the <strong>Player</strong> settings window (<strong>Edit</strong> &gt; <strong>Project Settings...</strong> &gt; <strong>Player</strong>), navigating to the <strong>Other Settings</strong> &gt; <strong>Configuration</strong> section, and adding &quot;<code>ADDRESSABLES_LOG_ALL</code>&quot; to the <strong>Scripting Define Symbols</strong> field. </p>
+<p>You can also disable exceptions by unchecking the <strong>Log Runtime Exceptions</strong> option in the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.html"><code>AddressableAssetSettings</code></a> object Inspector. You can implement the <a class="xref" href="../api/UnityEngine.ResourceManagement.ResourceManager.html#UnityEngine_ResourceManagement_ResourceManager_ExceptionHandler"><code>ResourceManager.ExceptionHandler</code></a> property with your own exception handler if desired, but this should be done after Addressables finishes runtime initialization (see below).</p>
+<p>Enable the <a href="DiagnosticTools.html#build-layout-report">build layout report</a> to get information and statistics about your content builds. You can use this report to help verify that your builds are creating your bundles as you expect.</p>
+<h2 id="initialization-objects">Initialization objects</h2>
+<p>You can attach objects to the Addressable Assets settings and pass them to the initialization process at runtime. The <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.CacheInitializationSettings.html"><code>CacheInitializationSettings</code></a> object controls Unity&#39;s caching API at runtime. To create your own initialization object, create a ScriptableObject that implements the <a class="xref" href="../api/UnityEngine.ResourceManagement.Util.IObjectInitializationDataProvider.html"><code>IObjectInitializationDataProvider</code></a> interface. This is the Editor component of the system responsible for creating the <a class="xref" href="../api/UnityEngine.ResourceManagement.Util.ObjectInitializationData.html"><code>ObjectInitializationData</code></a> that is serialized with the runtime data.</p>
+<h2 id="customizing-url-evaluation">Customizing URL Evaluation</h2>
+<p>There are several scenarios where you will need to customize the path or URL of an Asset (an AssetBundle generally) at runtime.  The most common example is creating signed URLs.  Another might be dynamic host determination.  </p>
+<p>The code below is an example of appending a query string to all URLs:</p>
+<pre><code>//Implement a method to transform the internal ids of locations
+string MyCustomTransform(IResourceLocation location)
+{
+    if (location.ResourceType == typeof(IAssetBundleResource) &amp;&amp; location.InternalId.StartsWith(&quot;http&quot;))
+        return location.InternalId + &quot;?customQueryTag=customQueryValue&quot;;
+    return location.InternalId;
+}
+
+//Override the Addressables transform method with your custom method.  This can be set to null to revert to default behavior.
+[RuntimeInitializeOnLoadMethod]
+static void SetInternalIdTransform()
+{
+    Addressables.InternalIdTransformFunc = MyCustomTransform;
+}
+</code></pre><p>*<strong><em>Please Note</em></strong>*: When bundling video files into Addressables with the intent of loading them on the Android platform, you must create a <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.CacheInitializationSettings.html"><code>CacheInitializationSettings</code></a> object, disable <code>Compress Bundles</code> on that object, then add it to the list of Initialization Objects on the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.html"><code>AddressableAssetSettings</code></a> object if it has not been already.</p>
+<h2 id="content-update-workflow">Content update workflow</h2>
+<p>Update workflow moved to a new page: <a href="ContentUpdateWorkflow.html">Content Update Workflow</a></p>
+<h2 id="multiple-projects">Multiple Projects</h2>
+<p>Some users find it beneficial to split their project into multiple Unity projects, such as isolating the artwork from the code to lessen import times.</p>
+<p>In order to take advantage of this multiple project setup you&#39;ll need to utilize <a class="xref" href="LoadContentCatalogAsync.html"><code>Addressables.LoadContentCatalogAsync(...)</code></a> to load the content catalogs of your separate projects in your main project.</p>
+<p>A general multi-project workflow is as follows:</p>
+<ol>
+<li>Create your main project (Project A) and ancillary project(s) (Project(s) B, C, etc.).</li>
+<li>Add Addressables in each project and setup the desired Addressable Asset Entries.</li>
+<li>Build your Addressable Player Content for each project.</li>
+<li>In your main project, before attempting to load assets from the other projects, load the desired content catalogs from the other projects using <code>Addressables.LoadContentCatalogAsync(...)</code></li>
+<li>Use Addressables as normal.</li>
+</ol>
+<p>Note: Ensure that the content catalogs and Asset Bundles of the other projects are reachable by the main project.  Setup any required hosting services beforehand.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

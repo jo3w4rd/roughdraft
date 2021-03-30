@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Addressable Assets Profiles | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Addressable Assets Profiles | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-profiles">
+<h1 id="addressable-assets-profiles">Addressable Assets Profiles</h1>
+
+<p>The Addessable Assets Profile system allows you to create a set of string variables that more easily enables you to change how your content is built into bundles. These variables can be used to determine whether your content is local to device or on a remote server.</p>
+<p>For each profile, you specify values for each variable. This way, instead of manually changing the individual paths for each of your build scenarios, you can change profiles to swap them all at once.</p>
+<h2 id="profile-setup">Profile Setup</h2>
+<p>There are multiple ways to access the Profile setup window in the Editor.</p>
+<ul>
+<li>Select <strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Profiles</strong>.</li>
+<li>Select <strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Groups</strong>, then select <strong>Tools</strong> &gt; <strong>Profiles</strong>.</li>
+<li>Select <strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Groups</strong>, then select <strong>Profile</strong> &gt; <strong>Manage Profiles</strong>..</li>
+<li>You can also access these settings via the <code>AddressableAssetSettings</code> Inspector.</li>
+</ul>
+<p><img src="images/HostingServicesProfiles_1.png" alt="Creating a service profile."><br>
+<em>The <strong>Addressables Profiles</strong> window showing two profiles.</em></p>
+<p>There are five variables we provide by default:</p>
+<ul>
+<li>BuildTarget</li>
+<li>LocalBuildPath</li>
+<li>LocalLoadPath</li>
+<li>RemoteBuildPath</li>
+<li><p>RemoteLoadPath</p>
+<p>You can add or remove variables at any time.</p>
+</li>
+</ul>
+<h3 id="adding-a-new-profile">Adding a new profile</h3>
+<p>You can create new profile by selecting <strong>Create</strong> &gt; <strong>Profile</strong>. A new profile row appears in the table.</p>
+<p>Right-click the profile name to select whether to set this as the active profile, rename the profile, or delete it.</p>
+<p>Every profile must define a value for every variable. When you create a new profile, all values are copied from the currently selected profile.</p>
+<h3 id="adding-a-new-variable">Adding a new variable</h3>
+<p>You can create new variables to add to the default set by selecting <strong>Create</strong> &gt; <strong>Variable</strong>. In the resulting window, give the new variable a name and string value, then click <strong>Save</strong>. The new variable appends to the end of the variable table.</p>
+<p>Right-click the variable name to rename or delete the variable. You can likewise rename or delete the provided variables.</p>
+<h3 id="syntax">Syntax</h3>
+<p>All variables are of type &quot;string&quot;. In general, you can type in exactly the needed path or value, but there are two additional syntax designators allowed:</p>
+<ul>
+<li>Square brackets [ ]. Items surrounded by square brackets are evaluated at build time. The values inside can be other profile variables (such as [BuildTarget]) or code variables (such as [UnityEditor.EditorUserBuildSettings.activeBuildTarget]). During build time, as the groups are being processed, the items inside square brackets are evaluated and the resulting string is written into the catalog.</li>
+<li>Curly brackets { }. Items surrounded by curly brackets are evaluated at runtime. Generally values here will be code variables (such as {UnityEngine.AddressableAssets.Addressables.RuntimePath}).
+<br>For example, you have a load path of: <code>{MyNamespace.MyClass.MyURL}/content/[BuildTarget]}</code>
+set on a group that is creating an AssetBundle called &quot;trees.bundle&quot;. During the build, the catalog would register the load path for that bundle as <code>{MyNamespace.MyClass.MyURL}/content/Android/trees.bundle}</code>. Then, at startup, as the catalog is being processed, the profile system would evaluate MyNamespace.MyClass.MyURL to end up with the final load path of <code>http://myinternet.com/content/Android/trees.bundle</code>.</li>
+</ul>
+<h2 id="specifying-packing-and-loading-paths">Specifying packing and loading paths</h2>
+<p>Once you set up the necessary variables in your profile, you can select the build and load paths for an asset group based on those specified variables.</p>
+<p>To set your build and load paths:</p>
+<ol>
+<li>Select an Addressable Assets group from the <strong>Project</strong> window.</li>
+<li>In its related <strong>Inspector</strong> window, under <strong>Content Packing &amp; Loading</strong> &gt; <strong>Build and Load Paths</strong>, select the desired variables from the currently set profile in the drop-downs for <strong>Build Path</strong> and <strong>Load Path</strong>. <br>Notice that you do not enter the path directly, but rather select the variable representing the path defined in the <strong>Profiles</strong> window earlier. Once selected, the path displays under the drop-down but is not editable here. <br>Be careful to ensure the build and load paths are a matched pair. For example, if you are building to the local path, you cannot load from a server.</li>
+</ol>
+<h2 id="examples">Examples</h2>
+<p>Consider the following example, demonstrating the local development phase of your content. </p>
+<p><img src="images/ProfilesExample1.png" alt="Creating a service profile."><br>
+<em>Content with local and remote bundles stored locally for development.</em></p>
+<p>While in development, you would have both your local and remote bundles using local paths, as seen below.</p>
+<p><img src="images/ProfilesExample3.png" alt="Creating a service profile."><br>
+<em>Paths set for local development.</em></p>
+<p>In this instance, you can see that the local and remote paths are in fact local, which makes more sense for development, as setting up a remote server would be a pain. However, once the content is ready for production, you would move the remote bundles to a server, as the diagram below shows.</p>
+<p><img src="images/ProfilesExample2.png" alt="Creating a service profile."><br>
+<em>Content with remote bundle moved to a server for production.</em></p>
+<p>In this case, using profiles, you could change the remote load path for &quot;Production&quot; to that server. Without having to change your asset groups, you can change all of your remote bundles to actually become remote.</p>
+<p>It should be noted, variables are arbitrary key-value pairs to aid development.  Setting variables such as &quot;LocalBuildPath&quot; does not guarantee that data built to that location is copied to the StreamingAssets path of a Player build.  Data is only copied to the Player&#39;s StreamingAssets folder from <code>Addressables.BuildPath</code>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

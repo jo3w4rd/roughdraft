@@ -1,0 +1,495 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Content update workflow | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Content update workflow | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="content-update-workflow">Content update workflow</h1>
+
+<p>Addressables provides a content update workflow intended for games that will dynamically be downloading content from a CDN.  In this situation, a player (app, exe, apk, etc.) is built and deployed (such as through the Android app store).  While running, the app will contact a CDN to discover and download additional content.  </p>
+<p>This is not the same as games that use platform provided patching systems (such as Switch or Steam).  For these games the every build of the game should be a complete fresh content build, completely bypassing the update flow.  In this instance, the <em>addressables_content_state.bin</em> file that is generated after each build can be discarded or ignored. </p>
+<h2 id="project-structure">Project structure</h2>
+<p>Unity recommends structuring your game content into two categories: </p>
+<ul>
+<li><code>Cannot Change Post Release</code>: Static content that you never expect to update. </li>
+<li><code>Can Change Post Release</code>: Dynamic content that you expect to update. </li>
+</ul>
+<p>In this structure, content marked as <code>Cannot Change Post Release</code> ships with the application (or downloads soon after install), and resides in very few large bundles. Content marked as <code>Can Change Post Release</code> resides online, ideally in smaller bundles to minimize the amount of data needed for each update. One of the goals of the Addressable Assets System is to make this structure easy to work with and modify without having to change your scripts. </p>
+<p>However, the Addressable Assets System can also accommodate situations that require changes to the content marked as <code>Cannot Change Post Release</code>, when you don&#39;t want to publish a whole new application build.  Modified assets and their dependencies (and dependents) will be duplicated in new bundles that will be used instead of the shipped content.  This can result in a much smaller update than replacing the entire bundle or rebuilding the game.  Once a build has been made, it is important to NOT change the state of a group from &quot;Cannot Change Post Release&quot; to &quot;Can Change Post Release&quot; or vice versa until an entirely new build is made.  If the groups change after a full content build but before a content update, Addressables will not be able to generate the correct changes needed for the update.</p>
+<p>Note that in cases that do not allow remote updates (such as many of the current video-game consoles, or games without a server), you should make a complete and fresh build every time.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>Addressables uses a content catalog to map an address to each Asset, specifying where and how to load it. In order to provide your app with the ability to modify that mapping, your original app must be aware of an online copy of this catalog. To set that up, enable the <strong>Build Remote Catalog</strong> setting on the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.html"><code>AddressableAssetSettings</code></a> Inspector. This ensures that a copy of the catalog gets built to and loaded from the specified paths. This load path cannot change once your app has shipped. The content update process creates a new version of the catalog (with the same file name) to overwrite the file at the previously specified load path.</p>
+<p>Building an application generates a unique app content version string, which identifies what content catalog each app should load. A given server can contain catalogs of multiple versions of your app without conflict. We store the data we need in the <code>addressables_content_state.bin</code> file. This includes the version string, along with hash information for any Asset that is contained in a group marked as <code>Cannot Change Post Release</code>.  By default, this is located in the <code>Assets/AddressableAssetsData/\&lt;platform\&gt;</code> Project directory, where <code>\&lt;platform\&gt;</code> is your target platform.</p>
+<p>The <code>addressables_content_state.bin</code> file contains hash and dependency information for every <code>Cannot Change Post Release</code> Asset group in the Addressables system. All groups building to the <code>StreamingAssets</code> folder should be marked as <code>Cannot Change Post Release</code>, though large remote groups may also benefit from this designation. During the next step (preparing for content update, described below), this hash information determines if any <code>Cannot Change Post Release</code> groups contain changed Assets, and thus need those Assets moved elsewhere.</p>
+<h3 id="update-life-cycle">Update life cycle</h3>
+<p>The first step in the process of building content is always a fresh full build.  This can be triggered from within the <strong>Addressables Groups</strong> window in the Unity Editor (<strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Groups</strong>).  Once there, selecting your build script from <strong>Build</strong> &gt; <strong>New Build</strong>.  Unless you create a custom build, the only option will be <strong>Default Build Script</strong>.  </p>
+<p>Every time a full player build is created (such as through <strong>File</strong> &gt; <strong>Build and Run</strong>), this should be preceded by a full content build of Addressables.  After a player build is created, if you wish to update it&#39;s contents via a CDN, then it becomes time to do a content update build.</p>
+<h4 id="life-cycle-example">Life cycle example</h4>
+<p>This is a sample flow over the course of your game&#39;s existence.  More details of key steps are outlined later in this document.  </p>
+<ol>
+<li>Create and refine content until ready for initial release.</li>
+<li>Trigger initial addressables content build via the Groups window.</li>
+<li>Build a player, such as via Build and Run.  </li>
+<li>Continue to refine &amp; iterate on content.</li>
+</ol>
+<p>If you do not have a CDN, and are not dynamically downloading content, after step 4, return to step 2 to create a fresh content build and fresh player.</p>
+<p>If you do distribute content via CDN, continued iteration involves more steps.  I will refer to the player built in step 3 above as &quot;PlayerBuild1&quot;.  Steps continue as follows:</p>
+<ol>
+<li>Optionally trigger <strong>Check for Content Update Restrictions</strong> (see Identifying changed assets below).</li>
+<li>Trigger a content update build via <strong>Update a Previous Build</strong> (see Building for content updates below).</li>
+</ol>
+<p>At this point you can repeat steps 4-6 until you are ready to create a new player to submit to your platform of choice.</p>
+<ol>
+<li>Optionally save <em>addressables_content_state.bin</em> file and branch content.</li>
+<li>Optionally create a new build destination on your CDN. Especially if changing Unity version. </li>
+</ol>
+<p>When creating a new player, there are two scenarios to consider.  In the simplest case, you are never going to distribute new content for &quot;PlayerBuild1&quot;.  The content you have released so far for &quot;PlayerBuild1&quot; is all users will get until they update to future player builds.  In this scenario, you do not do step 7, and simply return from step 6 back to step 2, this time creating &quot;PlayerBuild2&quot;, and only making content updates for it.</p>
+<p>In the more complex scenario, you wish to build a &quot;PlayerBuild2&quot;, but make a new content available to both players.  Here, you must do step 7, saving your <em>addressables_content_state.bin</em>.  The simplest way to handle this is to completely branch your content.  This ensures properly named catalogs and content for each build.  There are ways around this, but they involve leaving the standard catalog creation and naming systems.  </p>
+<p>The purpose of step 8 is to ensure each player build has a clean space to download content.  Often this isn&#39;t needed, but is safer. One key example where it is an absolute must is when you have updated Unity version, but not some content.  If an AssetBundle is built with identical content, but two different Unity versions, the hash will be the same, but the CRC will be different.  This means, with any of our bundle naming schemes, the new bundle will have the same name as the old one (thus overwritting it).  As it also has a new CRC, the old player will not be able to download it successfully (we keep up with CRC&#39;s in our catalog for download safety).  </p>
+<h2 id="planning-for-content-updates">Planning for content updates</h2>
+<p>When planning for a content update, there are a few items to ensure are set up correctly during the initial build (step 2 above).  First is that the correct groups are tagged with &quot;Can&quot; or &quot;Cannot&quot; change as described above.  The next is that the <em>addressables_content_state.bin</em> file that is generated off of this build is saved.  By default this is built to <code>Assets/AddressableAssetsData/\&lt;platform\&gt;</code> Project directory, where <code>\&lt;platform\&gt;</code> is your target platform.  We recommend using version control to save the file at this point.  </p>
+<h3 id="when-a-full-rebuild-is-required">When a full rebuild is required</h3>
+<p>Addressables can only distribute content, not code.  As such, a code change generally necessitates a fresh player build, and often a fresh build of content. In some instances a new player can download old content from a CDN, but this requires a careful analysis of what type tree was created during the initial build.  This is advanced territory to explored carefully. </p>
+<p>Note that Addressables itself is code, so updating Addressables or Unity version likely requires creating a new player build and fresh content builds. </p>
+<h3 id="unique-bundle-ids">Unique Bundle IDs</h3>
+<p>Unique Bundle IDs is an advanced option that should only be enabled if you require the ability to load new versions of content while old versions are still in memory.  There is an extra cost associated with build and content refreshes if this option is on.</p>
+<p>When loading AssetBundles into memory, Unity enforces that two bundles cannot be loaded with the same internal names.  This can put some limitations on updating bundles at runtime.  As Addressables supports updating the catalog outside of initialization, it&#39;s possible to update content that you have already loaded.</p>
+<p>To make this work, one of two things must happen.  One option is to unload all your Addressables content prior to updating the catalog.  This ensures new bundles with old names will not cause conflicts in memory.  The second option is to ensure that your updated AssetBundles have unique internal identifiers.  This would allow you to load new bundles, while the old are still in memory.  We have an option to enable this second option.  Turn on &quot;Unique Bundle IDs&quot; within the <a class="xref" href="../api/UnityEditor.AddressableAssets.Settings.AddressableAssetSettings.html"><code>AddressableAssetSettings</code></a> Inspector.  The downside of this option is that it requires bundles to be rebuilt up the dependency chain.  Meaning if you changed a material in one group, by default only the material&#39;s bundle would be rebuilt.  With &quot;Unique Bundle IDs&quot; on, any Asset that references that material would also need rebuilding.</p>
+<h2 id="identifying-changed-assets">Identifying changed assets</h2>
+<p>If you have modified Assets in any <code>Cannot Change Post Release</code> groups, you&#39;ll need to run the <strong>Check for Content Update Restrictions</strong> command (step 5 above). This will take any modified Asset, its dependencies if their bundle name was modified, and all other Assets that depend on the modified Asset out of the <code>Cannot Change Post Release</code> groups and move them to a new group. To generate the new Asset groups:</p>
+<ol>
+<li>Open the <strong>Addressables Groups</strong> window in the Unity Editor (<strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Groups</strong>).</li>
+<li>In the <strong>Addressables Groups</strong> window, select <strong>Tools</strong> on the top menu bar, then <strong>Check for Content Update Restrictions</strong>.</li>
+<li>In the <strong>Build Data File</strong> dialog that opens, select the <em>addressables_content_state.bin</em> file (by default, this is located in the <code>Assets/AddressableAssetsData/\&lt;platform\&gt;</code> Project directory, where <code>\&lt;platform\&gt;</code> is your target platform).</li>
+</ol>
+<p>This data is used to determine which Assets or dependencies have been modified since the application was last built. The system moves these Assets, their dependencies if their bundle name was modified, and all other Assets that depend on the modified Assets to a new group in preparation for the content update build. </p>
+<p><strong>Note</strong>: This command will do nothing if all your changes are confined to <code>Can Change Post Release</code> groups.  </p>
+<p><strong>Important</strong>: Before running the prepare operation, Unity recommends branching your version control system. The prepare operation rearranges your Asset groups in a way suited for updating content. Branching ensures that next time you ship a new player, you can return to your preferred content arrangement.</p>
+<h2 id="building-for-content-updates">Building for content updates</h2>
+<p>To build for a content update:</p>
+<ol>
+<li>Open the <strong>Addressables Groups</strong> window in the Unity Editor (<strong>Window</strong> &gt; <strong>Asset Management</strong> &gt; <strong>Addressables</strong> &gt; <strong>Groups</strong>).</li>
+<li>In the <strong>Addressables Groups</strong> window, select <strong>Build</strong> on the top menu, then <strong>Update a Previous Build</strong>.</li>
+<li>In the <strong>Build Data File</strong> dialog that opens, select the build folder of an existing application build. The build folder must contain an <code>addressables_content_state.bin</code> file (by default, this is located in the <code>Assets/AddressableAssetsData/\&lt;platform\&gt;</code> Project directory, where <code>\&lt;platform\&gt;</code> is your target platform). </li>
+</ol>
+<p>The build generates a content catalog, a hash file, and the AssetBundles.</p>
+<p>The generated content catalog has the same name as the catalog in the selected application build, overwriting the old catalog and hash file. The application loads the hash file to determine if a new catalog is available. The system loads unmodified Assets from existing bundles that were shipped with the application or already downloaded.</p>
+<p>The system uses the content version string and location information from the <code>addressables_content_state.bin</code> file to create the AssetBundles. AssetBundles that do not contain updated content are written using the same file names as those in the build selected for the update. If an AssetBundle contains updated content, a new AssetBundle is generated that contains the updated content, with a new file name so that it can coexist with the original. Only AssetBundles with new file names must be copied to the location that hosts your content.  </p>
+<p>The system also builds AssetBundles for content that cannot change, but you do not need to upload them to the content hosting location, as no Addressables Asset entries reference them.</p>
+<p>Note that you should not change the build scripts between building a new player and making content updates (e.g., player code, addressables). This could cause unpredictable behavior in your application.</p>
+<p>Additionally if you delete the local content bundles created by your Addressables build from the Project Library folder, attempts to load Assets in those bundles fail when you run your game or application in the Editor and use the <strong>Use Existing Build (requires built groups)</strong> Play Mode script.</p>
+<h2 id="checking-for-content-updates-at-runtime">Checking for content updates at runtime</h2>
+<p>You can add a custom script to periodically check whether there are new Addressables content updates. Use the following function call to start the update:</p>
+<p><a class="xref" href="../api/UnityEngine.AddressableAssets.Addressables.html#UnityEngine_AddressableAssets_Addressables_CheckForCatalogUpdates_System_Boolean_"><code>public static AsyncOperationHandle&lt;List&lt;string&gt;&gt; CheckForCatalogUpdates(bool autoReleaseHandle = true)</code></a></p>
+<p>where <code>List&lt;string&gt;</code> contains the list of modified locator IDs.  You can filter this list to only update specific IDs, or pass it entirely into the UpdateCatalogs API.</p>
+<p>If there is new content, you can either present the user with a button to perform the update, or do it automatically. Note that it is up to the developer to make sure that stale Assets are released.</p>
+<p>The list of catalogs can be null and if so, the following script updates all catalogs that need an update:</p>
+<p><a class="xref" href="../api/UnityEngine.AddressableAssets.Addressables.html#UnityEngine_AddressableAssets_Addressables_UpdateCatalogs_System_Collections_Generic_IEnumerable_System_String__System_Boolean_"><code>public static AsyncOperationHandle&lt;List&lt;IResourceLocator&gt;&gt; UpdateCatalogs(IEnumerable&lt;string&gt; catalogs = null, bool autoReleaseHandle = true)</code></a></p>
+<p>The return value is the list of updated locators.</p>
+<h2 id="content-update-examples">Content update examples</h2>
+<p>In this example, a shipped application is aware of the following groups:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>Local_Static</code></strong></th>
+<th style="text-align:left"><strong><code>Remote_Static</code></strong></th>
+<th style="text-align:left"><strong><code>Remote_NonStatic</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>AssetA</code></td>
+<td style="text-align:left"><code>AssetL</code></td>
+<td style="text-align:left"><code>AssetX</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetB</code></td>
+<td style="text-align:left"><code>AssetM</code></td>
+<td style="text-align:left"><code>AssetY</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetC</code></td>
+<td style="text-align:left"><code>AssetN</code></td>
+<td style="text-align:left"><code>AssetZ</code></td>
+</tr>
+</tbody>
+</table>
+<p>Note that <code>Local_Static</code> and <code>Remote_Static</code> are part of the <code>Cannot Change Post Release</code> groups.</p>
+<p>As this version is live, there are players that have <code>Local_Static</code> on their devices, and potentially have either or both of the remote bundles cached locally. </p>
+<p>If you modify one Asset from each group (<code>AssetA</code>, <code>AssetL</code>, and <code>AssetX</code>), then run <strong>Check for Content Update Restrictions</strong>, the results in your local Addressable settings are now:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>Local_Static</code></strong></th>
+<th style="text-align:left"><strong><code>Remote_Static</code></strong></th>
+<th style="text-align:left"><strong><code>Remote_NonStatic</code></strong></th>
+<th style="text-align:left"><strong><code>content_update_group (non-static)</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>AssetX</code></td>
+<td style="text-align:left"><code>AssetA</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetB</code></td>
+<td style="text-align:left"><code>AssetM</code></td>
+<td style="text-align:left"><code>AssetY</code></td>
+<td style="text-align:left"><code>AssetL</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetC</code></td>
+<td style="text-align:left"><code>AssetN</code></td>
+<td style="text-align:left"><code>AssetZ</code></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>Note that the prepare operation actually edits the <code>Cannot Change Post Release</code> groups, which may seem counterintuitive. The key, however, is that the system builds the above layout, but discards the build results for any such groups. As such, you end up with the following from a player&#39;s perspective:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>Local_Static</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>AssetA</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetB</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetC</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>Local_Static</code> bundle is already on player devices, which you can&#39;t change. This old version of <code>AssetA</code> is no longer referenced. Instead, it is stuck on player devices as dead data.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>Remote_Static</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>AssetL</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetM</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetN</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>Remote_Static</code> bundle is unchanged. If it is not already cached on a player&#39;s device, it will download when <code>AssetM</code> or <code>AssetN</code> is requested. Like <code>AssetA</code>, this old version of <code>AssetL</code> is no longer referenced. </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>Remote_NonStatic</code></strong> (old)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>AssetX</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetY</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetZ</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>Remote_NonStatic</code> bundle is now old. You could delete it from the server, but either way it will not be downloaded from this point forward. If cached, it will eventually leave the cache. Like <code>AssetA</code> and <code>AssetL</code>, this old version of <code>AssetX</code> is no longer referenced.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>Remote_NonStatic</code></strong> (new)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>AssetX</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetY</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetZ</code></td>
+</tr>
+</tbody>
+</table>
+<p>The old <code>Remote_NonStatic</code> bundle is replaced with a new version, distinguished by its hash file. The modified version of <code>AssetX</code> is updated with this new bundle.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>content_update_group</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>AssetA</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetL</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>content_update_group</code> bundle consists of the modified Assets that will be referenced moving forward. </p>
+<p>Note that the example above has the following implications:</p>
+<ol>
+<li>Any changed local Assets remain unused on the user&#39;s device forever.  </li>
+<li>If the user already cached a non-static bundle, they will need to re-download the bundle, including the unchanged Assets (in this instance, for example, <code>AssetY</code> and <code>AssetZ</code>). Ideally, the user has not cached the bundle, in which case they simply need to download the new <code>Remote_NonStatic</code> bundle.</li>
+<li>If the user has already cached the <code>Static_Remote</code> bundle, they only need to download the updated asset (in this instance, <code>AssetL</code> via <code>content_update_group</code>). This is ideal in this case. If the user has not cached the bundle, they must download both the new <code>AssetL</code> via <code>content_update_group</code> and the now-defunct <code>AssetL</code> via the untouched <code>Remote_Static</code> bundle. Regardless of the initial cache state, at some point the user will have the defunct <code>AssetL</code> on their device, cached indefinitely despite never being accessed. </li>
+</ol>
+<p>The best setup for your remote content will depend on your specific use case.</p>
+<h2 id="how-content-update-handles-dependencies">How Content Update Handles Dependencies</h2>
+<p>Directly changing an asset is not the only way to have it flagged as needing to be rebuilt as part of a content update.  Changing an assets dependencies is a less obvious factor that gets taken into account when building an update.</p>
+<p>Lets take part of the example above:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>Local_Static</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>AssetA</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetB</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetC</code></td>
+</tr>
+</tbody>
+</table>
+<p>but now let us assume more information about a few of the assets.  Let&#39;s say we have a dependency chain that looks like this:
+<code>AssetA depends on Dependency1 which depends on Dependency2</code>
+<code>AssetB depends on Dependency2</code>
+<code>AssetC depends on Dependency3</code>
+Where all three dependencies are a mix of Addressable and non-Addressable assets.</p>
+<p>Now, if only <code>Dependency1</code> is changed and Check For Content Update Restriction is run, the resulting project structure looks like:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>Local_Static</code></strong></th>
+<th style="text-align:left"><strong><code>content_update_group</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>AssetA</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetB</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetC</code></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>If only <code>Dependency2</code> is changed:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>Local_Static</code></strong></th>
+<th style="text-align:left"><strong><code>content_update_group</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>AssetA</code></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>AssetB</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetC</code></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>Finally, if only <code>Dependency3</code> is changed:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>Local_Static</code></strong></th>
+<th style="text-align:left"><strong><code>content_update_group</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>AssetA</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetB</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>AssetC</code></td>
+</tr>
+</tbody>
+</table>
+<p>This is because when a dependency is changed the entire dependency tree needs to be rebuilt.<br>Let&#39;s take a look at one more example with the following dependency tree.
+<code>AssetA depends on AssetB which depends on Dependency2</code>
+<code>AssetB depends on Dependency2</code>
+<code>AssetC depends on Dependency3</code>
+Now, if <code>Dependency2</code> is changed, the project structure looks like:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong><code>Local_Static</code></strong></th>
+<th style="text-align:left"><strong><code>content_update_group</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>AssetA</code></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>AssetB</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AssetC</code></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>because <code>AssetA</code> relies on <code>AssetB</code> and <code>AssetB</code> relies on <code>Dependency2</code>.  Since the entire chain needs to be rebuilt both <code>AssetA</code> and <code>AssetB</code> will get put into the <strong><code>content_update_group</code></strong>.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>

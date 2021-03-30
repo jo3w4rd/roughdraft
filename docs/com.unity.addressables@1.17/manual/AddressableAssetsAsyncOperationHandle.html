@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);  })(window,document,'script','dataLayer','GTM-5V25JL6');</script>
+    <script type="text/javascript">thisPackageMetaData = { name: "com.unity.addressables", version: "1.17.6-preview", displayTitle:"Addressables 1.17.6-preview", lang: "en" };</script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+  
+    <title>Async operation handling | Addressables | 1.17.6-preview </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Async operation handling | Addressables | 1.17.6-preview ">
+    <meta name="generator" content="docfx 2.51.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/version-switcher.css">
+    <link rel="stylesheet" href="../styles/language-switcher.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    <meta property="unity:packageTitle" content="Addressables | 1.17.6-preview">
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" class="">
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V25JL6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+        
+        		<div class="back-to-unity-group">
+        			<a class="back-to-unity" href="http://docs.unity3d.com/">docs.unity3d.com</a>
+        		</div>
+        
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items"></div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10" id="main_content">
+          <div id="breadcrumb_placeholder"></div>
+            <article class="content wrap" id="_content" data-uid="addressables-async-operation-handling">
+<h1 id="async-operation-handling">Async operation handling</h1>
+
+<p>Several methods from the <a class="xref" href="../api/UnityEngine.AddressableAssets.Addressables.html"><code>Addressables</code></a> API return an <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html"><code>AsyncOperationHandle</code></a> struct. The main purpose of this handle is to allow access to the status and result of an operation. The result of the operation is valid until you call <a class="xref" href="../api/UnityEngine.AddressableAssets.Addressables.html#UnityEngine_AddressableAssets_Addressables_Release_UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationHandle_"><code>Addressables.Release</code></a> or <a class="xref" href="../api/UnityEngine.AddressableAssets.Addressables.html#UnityEngine_AddressableAssets_Addressables_ReleaseInstance_UnityEngine_GameObject_"><code>Addressables.ReleaseInstance</code></a> with the operation (for more information on releasing assets, see documentation on <a href="MemoryManagement.html">memory management</a>).</p>
+<p>When the operation completes, the <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html"><code>AsyncOperationHandle.Status</code></a> property is either <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.html"><code>AsyncOperationStatus.Succeeded</code></a> or <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.html"><code>AsyncOperationStatus.Failed</code></a>. If successful, you can access the result through the <code>AsyncOperationHandle.Result</code> property.</p>
+<p>You can either check the operation status periodically, or register for a completed callback using the <code>AsyncOperationHandle.Complete</code> event. When you no longer need the asset provided by a returned <code>AsyncOperationHandle</code> struct, you should <a href="MemoryManagement.html">release</a> it using the <a class="xref" href="../api/UnityEngine.AddressableAssets.Addressables.html#UnityEngine_AddressableAssets_Addressables_Release_UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationHandle_"><code>Addressables.Release</code></a> method.</p>
+<h3 id="type-vs-typeless-handles">Type vs. typeless handles</h3>
+<p>Most <a class="xref" href="../api/UnityEngine.AddressableAssets.Addressables.html"><code>Addressables</code></a> API methods return a generic <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle-1.html"><code>AsyncOperationHandle&lt;T&gt;</code></a> struct, allowing type safety for the <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationHandle_Completed"><code>AsyncOperationHandle.Completed</code></a> event, and for the <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationHandle_Result"><code>AsyncOperationHandle.Result</code></a> object. There is also a non-generic <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html"><code>AsyncOperationHandle</code></a> struct, and you can convert between the two handles as desired. </p>
+<p>Note that a runtime exception occurs if you attempt to cast a non-generic handle to a generic handle of an incorrect type. For example:</p>
+<pre><code>AsyncOperationHandle&lt;Texture2D&gt; textureHandle = Addressables.LoadAssetAsync&lt;Texture2D&gt;(&quot;mytexture&quot;);
+
+// Convert the AsyncOperationHandle&lt;Texture2D&gt; to an AsyncOperationHandle:
+AsyncOperationHandle nonGenericHandle = textureHandle;
+
+// Convert the AsyncOperationHandle to an AsyncOperationHandle&lt;Texture2D&gt;:
+AsyncOperationHandle&lt;Texture2D&gt; textureHandle2 = nonGenericHandle.Convert&lt;Texture2D&gt;();
+
+// This will throw and exception because Texture2D is required:
+AsyncOperationHandle&lt;Texture&gt; textureHandle3 = nonGenericHandle.Convert&lt;Texture&gt;();
+</code></pre><h3 id="percentcomplete-vs-getdownloadstatus">PercentComplete vs. GetDownloadStatus</h3>
+<p>AsyncOperationHandle has two methods that can reflect the progress of the operation.
+<a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationHandle_GetDownloadStatus"><code>GetDownloadStatus()</code></a> will return a <code>DownloadStatus</code> struct. This contains information about how many bytes have been downloaded, and how many are needed.  The DownloadStatus.Percent is a helper method that represents the percentage of bytes downloaded. 
+<a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationHandle_PercentComplete"><code>PercentComplete</code></a> on the other hand, will return an equally-weighted aggregate percentage of all sub-operations. This percent complete is useful to get a sense of progress, but it may not accurately reflect what you would expect depending on the makeup of your operations.</p>
+<p>One example would be a call to <code>Addressables.DownloadDependenciesAsync</code>, where 5 asset bundles needed downloading. Here <code>GetDownloadStatus()</code> would inform you of the progress towards to total number of bytes needed, while <code>PercentComplete</code> would have each of the 5 downloads representing 20% of the total, regardless of their size.</p>
+<p>In another example, <code>LoadAssetAsync()</code> is called, and one bundle needs downloading before an asset can be loaded from it. Here, the download could represent 50% of <code>PercentComplete</code>, and the actual load into memory could represent the other 50%. In this instance, <code>GetDownloadStatus()</code> would represent the download need, and would reach 100% before the operation finished, as the operation had more to do after downloading.</p>
+<h3 id="asyncoperationhandle-use-case-examples">AsyncOperationHandle use case examples</h3>
+<p>Register a listener for completion events using the <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationHandle_Completed"><code>AsyncOperationHandle.Completed</code></a> callback:</p>
+<pre><code>private void TextureHandle_Completed(AsyncOperationHandle&lt;Texture2D&gt; handle) {
+    if (handle.Status == AsyncOperationStatus.Succeeded) {
+        Texture2D result = handle.Result;
+        // The texture is ready for use.
+    }
+}
+
+void Start() {
+    AsyncOperationHandle&lt;Texture2D&gt; textureHandle = Addressables.LoadAsset&lt;Texture2D&gt;(&quot;mytexture&quot;);
+    textureHandle.Completed += TextureHandle_Completed;
+}
+</code></pre><p><a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle-1.html"><code>AsyncOperationHandle</code></a> implements <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.ienumerator"><code>IEnumerator</code></a> so it can be yielded in coroutines:</p>
+<pre><code>public IEnumerator Start() {
+    AsyncOperationHandle&lt;Texture2D&gt; handle = Addressables.LoadAssetAsync&lt;Texture2D&gt;(&quot;mytexture&quot;);
+
+    //if the handle is done, the yield return will still wait a frame, but we can skip that with an IsDone check
+    if(!handle.IsDone)
+        yield return handle;
+
+    if (handle.Status == AsyncOperationStatus.Succeeded) {
+        Texture2D texture = handle.Result;
+        // The texture is ready for use.
+        // ...
+    // Release the asset after its use:
+        Addressables.Release(handle);
+    }
+}
+</code></pre><p>Addressables also supports asynchronous <code>await</code> through the <a class="xref" href="../api/UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.html#UnityEngine_ResourceManagement_AsyncOperations_AsyncOperationHandle_Task"><code>AsyncOperationHandle.Task</code></a> property:</p>
+<pre><code>public async Start() {
+    AsyncOperationHandle&lt;Texture2D&gt; handle = Addressables.LoadAssetAsync&lt;Texture2D&gt;(&quot;mytexture&quot;);
+    await handle.Task;
+    // The task is complete. Be sure to check the Status is successful before storing the Result.
+}
+</code></pre><p>The <code>AsyncOperationHandle.Task</code> property is not available on <code>WebGL</code> as multi-threaded operations are not supported on that platform.</p>
+<p>Note that Loading scenes with <a href="https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.LoadSceneAsync.html"><code>SceneManager.LoadSceneAsync</code></a> with <code>allowSceneActivation</code> set to false or using <a class="xref" href="../api/UnityEngine.AddressableAssets.Addressables.html#UnityEngine_AddressableAssets_Addressables_LoadSceneAsync_System_Object_UnityEngine_SceneManagement_LoadSceneMode_System_Boolean_System_Int32_"><code>Addressables.LoadSceneAsync</code></a> and setting false for the <code>activateOnLoad</code> parameter can lead to subsequent async operations being blocked and unable to complete.  See the <a href="https://docs.unity3d.com/ScriptReference/AsyncOperation-allowSceneActivation.html"><code>allowSceneActivation</code> documentation</a>.</p>
+<h5 id="loading-addressable-scenes">Loading Addressable Scenes</h5>
+<p>When loading an Addressable Scene, all the dependencies for your GameObjects in the scene are accessed through AssetBundles loaded during the Scene load operation.  Assuming no other objects reference the associated AssetBundles, when the Scene is unloaded, all the AssetBundles, both for the Scene and any that were needed for dependencies, are unloaded.</p>
+<p>Note: If you mark a GameObject in an Addressable loaded scene as <code>DontDestroyOnLoad</code> or move it to another loaded Scene and then unload your original Scene, all dependencies for your GameObject are still unloaded.</p>
+<p>If you find yourself in that scenario there are a couple options at your disposal:</p>
+<ul>
+<li>Make the GameObject you want to be <code>DontDestroyOnLoad</code> a single Addressable prefab.  Instantiate the prefab when you need it and then mark it as <code>DontDestroyOnLoad</code>.</li>
+<li>Before unloading the Scene that contained the GameObject you mark as <code>DontDestroyOnLoad</code>, call <code>Addressables.ResourceManager.Acquire(AsyncOperationHandle)</code> and pass in the Scene load handle.  This increases the reference count on the Scene, and keeps it and its dependencies loaded until <code>Release</code> is called on the acquired handle.</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2020 Unity Technologies<br>Generated by <strong>DocFX</strong></span> on Tuesday, March 30, 2021
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+    <script type="text/javascript" src="../styles/metadata-collector.js"></script>
+    <script type="text/javascript" src="../styles/version-switcher.js"></script>
+    <script type="text/javascript" src="../styles/language-switcher.js"></script>
+  </body>
+</html>
