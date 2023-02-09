@@ -1,23 +1,4 @@
-      <div class="container body-content">
-        
-        <div id="search-results">
-          <div class="search-list"></div>
-          <div class="sr-items"></div>
-          <ul id="pagination"></ul>
-        </div>
-      </div>
-      <div role="main" class="container body-content hide-when-search">
-        
-        <div class="sidenav hide-when-search">
-          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-          <div class="sidetoggle collapse" id="sidetoggle">
-            <div id="sidetoc"></div>
-          </div>
-        </div>
-        <div class="article row grid-right">
-          <div class="col-md-10" id="main_content">
-          <div id="breadcrumb_placeholder"></div>
-            <article class="content wrap" id="_content" data-uid="Global Namespace.AddressablesPlayerBuildProcessor">
+ <article class="content wrap" id="_content" data-uid="Global Namespace.AddressablesPlayerBuildProcessor">
   
   
   <h1 id="Global_Namespace_AddressablesPlayerBuildProcessor" data-uid="Global Namespace.AddressablesPlayerBuildProcessor">Class AddressablesPlayerBuildProcessor
