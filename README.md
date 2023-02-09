@@ -154,18 +154,4 @@
       <div><a class="xref" href="https://docs.unity3d.com/2019.4/Documentation/ScriptReference/Build.IPreprocessBuildWithReport.OnPreprocessBuild.html">IPreprocessBuildWithReport.OnPreprocessBuild(BuildReport)</a></div>
 </article>
           </div>
-          
-          <div class="hidden-sm col-md-2" role="complementary">
-            <div class="sideaffix">
-              <div class="contribution">
-                <ul class="nav">
-                </ul>
-              </div>
-              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
-              </nav>
-            </div>
-          </div>
-        </div>
-      </div>
-      
+
